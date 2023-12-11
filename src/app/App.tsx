@@ -6,6 +6,7 @@ import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from '@/widgets/Loader';
 
 const App = memo(() => {
   const { theme } = useTheme();
@@ -16,7 +17,7 @@ const App = memo(() => {
       feature="isAppRedesigned"
       off={
         <div id="app" className={classNames('app', {}, [theme])}>
-          <Suspense fallback="">
+          <Suspense fallback={<Loader />}>
             <div className="content-page">
               <AppRouter />
             </div>
@@ -25,7 +26,7 @@ const App = memo(() => {
       }
       on={
         <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-          <Suspense fallback="">
+          <Suspense fallback={<Loader />}>
             <MainLayout content={<AppRouter />} />
           </Suspense>
         </div>
