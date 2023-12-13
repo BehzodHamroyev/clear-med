@@ -9,11 +9,13 @@ import {
   getRouteForbidden,
   getRouteNotFound,
   getRouteLogin,
+  getRouteAdmin,
 } from '@/shared/const/router';
 
 import { AppRoutesProps } from '@/shared/types/router';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { Login } from '@/features/Auth';
+import { AdminPanelPage } from '@/pages/AdminPanelPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -35,5 +37,9 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.LOGIN]: {
     path: getRouteLogin(),
     element: <Login />,
+  },
+  [AppRoutes.ADMIN]: {
+    path: getRouteAdmin(),
+    element: <AdminPanelPage />,
   },
 };

@@ -1,37 +1,24 @@
 import React, { memo, Suspense } from 'react';
+
+import { Navbar } from '@/widgets/Nabar';
+import { Loader } from '@/widgets/Loader';
 import { AppRouter } from './providers/router';
-import { ToggleFeatures } from '@/shared/lib/features';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Loader } from '@/widgets/Loader';
 
 const App = memo(() => {
   const { theme } = useTheme();
   const dispatch = useAppDispatch();
 
   return (
-    <ToggleFeatures
-      feature="isAppRedesigned"
-      off={
-        <div id="app" className={classNames('app', {}, [theme])}>
-          <Suspense fallback={<Loader />}>
-            <div className="content-page">
-              <AppRouter />
-            </div>
-          </Suspense>
-        </div>
-      }
-      on={
-        <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-          <Suspense fallback={<Loader />}>
-            <MainLayout content={<AppRouter />} />
-          </Suspense>
-        </div>
-      }
-    />
+    <div id="app" className={classNames('app_redesigned', {}, [theme])}>
+      <Suspense fallback={<Loader />}>
+        <MainLayout header={<Navbar />} content={<AppRouter />} />
+      </Suspense>
+    </div>
   );
 });
 

@@ -1,9 +1,20 @@
 import React, { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+
+import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
+import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
+
+import cls from './Login.module.scss';
 
 const Login: FC = () => {
-  const { t } = useTranslation();
-  return <div>{t('Login')}</div>;
+  return (
+    <div className={cls.LoginPageWrapper}>
+      <div className={cls.LoginForm}>
+        <LoginFormLeft />
+
+        <LoginFormRight />
+      </div>
+    </div>
+  );
 };
 
 export default Login;

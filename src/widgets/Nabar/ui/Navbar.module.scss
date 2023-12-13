@@ -1,0 +1,20 @@
+.NabarWrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--bg-widget, #fff);
+
+  // height: var(--navbar-height);
+  height: 50px;
+  border-bottom: 0.1px solid grey;
+  padding: 5px 10px;
+  z-index: 1000;
+  color: var(--color-text);
+
+  /* display */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+}
