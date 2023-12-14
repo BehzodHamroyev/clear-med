@@ -1,0 +1,20 @@
+.LogoutChildWrapper {
+  cursor: pointer;
+  user-select: none;
+
+  .LogoutIcon {
+    width: 31.641px;
+    height: 27px;
+    flex-shrink: 0;
+    stroke: 1.5px;
+    color: #828282;
+  }
+
+  .LogoutIcon:hover {
+    color: red;
+  }
+
+  .LogoutIcon:active {
+    transform: scale(0.98);
+  }
+}
