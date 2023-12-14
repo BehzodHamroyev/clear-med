@@ -1,3 +1,24 @@
+.listOfPageWrapper {
+  display: flex;
+  position: relative;
+  user-select: none;
+}
+
+.listOfPage {
+  padding-left: 20px;
+}
+
+.selectionMenu {
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  left: -50;
+  top: 20px;
+  height: 30px;
+  width: 4px;
+  border-radius: 0 3px 3px 0;
+  background-color: #0000ac;
+}
+
 .wrapper {
   width: 100%;
   cursor: pointer;
@@ -40,6 +61,7 @@
   padding: 12px 0;
   align-items: center;
   letter-spacing: 0.042px;
+  user-select: none;
 }
 
 .li:hover {
