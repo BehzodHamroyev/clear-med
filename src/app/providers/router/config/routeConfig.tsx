@@ -6,16 +6,24 @@ import {
   AppRoutes,
   getRouteMain,
   getRouteAbout,
-  getRouteForbidden,
-  getRouteNotFound,
   getRouteLogin,
   getRouteAdmin,
+  getRouteNotFound,
+  getRouteForbidden,
+  getRouteDepartment,
+  getRouteAddRoomPage,
+  getRouteAddDoctor,
+  getRouteReportsPage,
 } from '@/shared/const/router';
 
-import { AppRoutesProps } from '@/shared/types/router';
-import { NotFoundPage } from '@/pages/NotFoundPage';
 import { Login } from '@/features/Auth';
+import { AddRoomPage } from '@/pages/AddRoomPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import { AppRoutesProps } from '@/shared/types/router';
 import { AdminPanelPage } from '@/pages/AdminPanelPage';
+import { DepartmentPage } from '@/pages/DepartmentPage';
+import { AddDoctorPage } from '@/pages/AddDoctorPage';
+import { ReportsPage } from '@/pages/ReportsPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -41,5 +49,21 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.ADMIN]: {
     path: getRouteAdmin(),
     element: <AdminPanelPage />,
+  },
+  [AppRoutes.DEPARTMENT]: {
+    path: getRouteDepartment(),
+    element: <DepartmentPage />,
+  },
+  [AppRoutes.ADDROOMPAGE]: {
+    path: getRouteAddRoomPage(),
+    element: <AddRoomPage />,
+  },
+  [AppRoutes.ADD_DOCTOR]: {
+    path: getRouteAddDoctor(),
+    element: <AddDoctorPage />,
+  },
+  [AppRoutes.REPORTS]: {
+    path: getRouteReportsPage(),
+    element: <ReportsPage />,
   },
 };
