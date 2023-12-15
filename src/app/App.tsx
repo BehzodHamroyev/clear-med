@@ -9,6 +9,8 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
+import 'react-calendar/dist/Calendar.css';
+
 const App = memo(() => {
   const { theme } = useTheme();
   const dispatch = useAppDispatch();

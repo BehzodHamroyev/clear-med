@@ -1,0 +1,82 @@
+/* stylelint-disable color-function-notation */
+.CalendarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  user-select: none;
+
+  p {
+    color: #828282;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 118.002%; /* 21.24px */
+    letter-spacing: 0.027px;
+  }
+
+  .Calendar {
+    display: inline-flex;
+    padding: 7.523px 19.728px 7.719px 20.929px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6.3px;
+    cursor: pointer;
+  }
+}
+
+.CalendarValueWrapper {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(130, 130, 130, 70%);
+  z-index: 1000;
+
+  .CalendarVal {
+    transform: scale(1.5);
+  }
+}
+
+.calendarDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.CloseBtn {
+  z-index: 2000;
+  margin-top: 100px;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #fff;
+  background-color: #06c;
+  padding: 10px 30px;
+  border: 2px solid #06c;
+  box-shadow: none;
+  border-radius: 50px;
+  transition: 1000ms;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:hover {
+    transition: 1000ms;
+    padding: 10px 50px;
+    transform: translateY(-0);
+    background-color: #fff;
+    color: #06c;
+    border: solid 2px #06c;
+  }
+}
