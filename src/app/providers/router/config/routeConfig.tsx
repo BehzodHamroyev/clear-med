@@ -14,6 +14,8 @@ import {
   getRouteAddRoomPage,
   getRouteAddDoctor,
   getRouteReportsPage,
+  getRouteQueuesPage,
+  getRouteSettingsPage,
 } from '@/shared/const/router';
 
 import { Login } from '@/features/Auth';
@@ -24,6 +26,8 @@ import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { ReportsPage } from '@/pages/ReportsPage';
+import { QueuesPage } from '@/pages/QueuesPage';
+import { SettingsPage } from '@/pages/SettingsPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -65,5 +69,13 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.REPORTS]: {
     path: getRouteReportsPage(),
     element: <ReportsPage />,
+  },
+  [AppRoutes.QUEUES]: {
+    path: getRouteQueuesPage(),
+    element: <QueuesPage />,
+  },
+  [AppRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
   },
 };

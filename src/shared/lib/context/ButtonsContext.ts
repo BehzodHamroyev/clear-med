@@ -6,6 +6,9 @@ export interface ButtonsClickedProps {
 
   isCloseCalendar2: boolean;
   setIsCloseCalendar2: (prop: boolean) => void;
+
+  isOpenThemeOrLanguage: boolean;
+  setIsOpenThemeOrLanguage: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -13,4 +16,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   setIsCloseCalendar: () => {},
   isCloseCalendar2: false,
   setIsCloseCalendar2: () => {},
+
+  isOpenThemeOrLanguage: true,
+  setIsOpenThemeOrLanguage: () => {},
 });

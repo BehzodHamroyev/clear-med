@@ -1,0 +1,43 @@
+.QueuesPageWrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .QueuesPageImg {
+    max-width: 940px;
+    width: 100%;
+    height: 540px;
+    float: left;
+    margin-bottom: 15px;
+  }
+
+  .QueuesPageFlex {
+    display: flex;
+    gap: 10px;
+  }
+
+  .QueuesPageFlexColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .lastChildList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 38px;
+  }
+
+  .Marquee {
+    font-size: 20px;
+    margin: 25px;
+    margin-left: 0;
+    user-select: none;
+    font-family: sans-serif;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.1px;
+  }
+}

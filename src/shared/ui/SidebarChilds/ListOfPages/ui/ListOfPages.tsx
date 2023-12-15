@@ -51,7 +51,7 @@ export const ListOfPages = memo(() => {
       title: t('Hisobotlar'),
       icon: <Xisobotlar />,
     },
-    { id: 5, path: '/navbatlar', title: t('Navbatlar'), icon: <Navbatlar /> },
+    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
   ];
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const ListOfPages = memo(() => {
       divRef.current.style.top = '106px';
     } else if (divRef.current && location.pathname === '/reports') {
       divRef.current.style.top = '149px';
-    } else if (divRef.current && location.pathname === '/navbatlar') {
+    } else if (divRef.current && location.pathname === '/queues') {
       divRef.current.style.top = '192px';
     } else if (divRef.current && location.pathname === '/settings') {
       divRef.current.style.top = '300px';

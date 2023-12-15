@@ -13,18 +13,24 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
 
+  const [isOpenThemeOrLanguage, setIsOpenThemeOrLanguage] = useState(true);
+
   const defaultProps = useMemo(
     () => ({
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,
       setIsCloseCalendar2,
+      isOpenThemeOrLanguage,
+      setIsOpenThemeOrLanguage,
     }),
     [
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,
       setIsCloseCalendar2,
+      isOpenThemeOrLanguage,
+      setIsOpenThemeOrLanguage,
     ],
   );
 

@@ -1,0 +1,13 @@
+.SettingsPageWrapper {
+  width: 100%;
+
+  .SettingsList {
+    display: grid;
+    grid-template-columns: 0.7fr 1.5fr;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 20px 0;
+    font-family: sans-serif;
+    gap: 20px;
+  }
+}
