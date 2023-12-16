@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import cls from './DepartmentPage.module.scss';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { DepartmentAdd } from '@/entities/DepartmentAdd';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { DepartmentEdit } from '@/entities/DepartmentEdit';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -88,11 +91,18 @@ const tableBody = [
 ];
 
 const DepartmentPage = () => {
+  const { isOpenDepartmentAddCard, isOpenDepartmentEditCard } =
+    useContext(ButtonsContext);
   return (
-    <div className={cls.DepartmentPageWrapper}>
-      <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={tableBody.length} />
+    <div>
+      <div className={cls.DepartmentPageWrapper}>
+        <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={tableBody.length} />
 
-      <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+      </div>
+
+      {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+      {isOpenDepartmentEditCard ? <DepartmentEdit /> : ''}
     </div>
   );
 };

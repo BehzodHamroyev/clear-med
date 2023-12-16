@@ -9,6 +9,12 @@ export interface ButtonsClickedProps {
 
   isOpenThemeOrLanguage: boolean;
   setIsOpenThemeOrLanguage: (prop: boolean) => void;
+
+  isOpenDepartmentAddCard: boolean;
+  setIsOpenDepartmentAddCard: (prop: boolean) => void;
+
+  isOpenDepartmentEditCard: boolean;
+  setIsOpenDepartmentEditCard: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -19,4 +25,10 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenThemeOrLanguage: true,
   setIsOpenThemeOrLanguage: () => {},
+
+  isOpenDepartmentAddCard: false,
+  setIsOpenDepartmentAddCard: () => {},
+
+  isOpenDepartmentEditCard: false,
+  setIsOpenDepartmentEditCard: () => {},
 });

@@ -15,6 +15,11 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenThemeOrLanguage, setIsOpenThemeOrLanguage] = useState(true);
 
+  const [isOpenDepartmentAddCard, setIsOpenDepartmentAddCard] = useState(false);
+
+  const [isOpenDepartmentEditCard, setIsOpenDepartmentEditCard] =
+    useState(false);
+
   const defaultProps = useMemo(
     () => ({
       isCloseCalendar,
@@ -23,6 +28,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsCloseCalendar2,
       isOpenThemeOrLanguage,
       setIsOpenThemeOrLanguage,
+      isOpenDepartmentAddCard,
+      setIsOpenDepartmentAddCard,
+      isOpenDepartmentEditCard,
+      setIsOpenDepartmentEditCard,
     }),
     [
       isCloseCalendar,
@@ -31,6 +40,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsCloseCalendar2,
       isOpenThemeOrLanguage,
       setIsOpenThemeOrLanguage,
+      isOpenDepartmentAddCard,
+      setIsOpenDepartmentAddCard,
+      isOpenDepartmentEditCard,
+      setIsOpenDepartmentEditCard,
     ],
   );
 

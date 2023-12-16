@@ -31,7 +31,40 @@
     justify-content: space-between;
     gap: 20px;
 
-    .ButtonNavbarIconsChild {
+    .ButtonNavParent {
+      display: flex;
+      border: 1.1px solid #e0e0e0;
+      border-radius: 5.2px;
+
+      .ButtonNavbarIconsChild {
+        width: 35px;
+        height: 35px;
+        flex-shrink: 0;
+        display: flex;
+        padding: 7px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .ButtonNavbarInputSearch {
+        height: 35px;
+        color: #828282;
+        font-family: sans-serif;
+        font-size: 16.875px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 0.042px;
+        border-radius: 5.2px;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+      }
+    }
+
+    .ButtonNavbarIconsChild2 {
       width: 35px;
       height: 35px;
       flex-shrink: 0;
@@ -39,13 +72,14 @@
       padding: 7px;
       align-items: center;
       justify-content: center;
-      border-radius: 5.2px;
-      border: 1.1px solid #e0e0e0;
       cursor: pointer;
       user-select: none;
+      border: 1.1px solid #e0e0e0;
+      border-radius: 5.2px;
     }
 
-    .ButtonNavbarIconsChild:active {
+    .ButtonNavbarIconsChild:active,
+    .ButtonNavbarIconsChild2:active {
       transform: scale(0.97);
     }
   }
