@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import cls from './AddRoomPage.module.scss';
+import { RoomAdd } from '@/entities/RoomAdd';
+import { RoomEdit } from '@/entities/RoomEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
+import cls from './AddRoomPage.module.scss';
 
 const tableTitle = ['Xona raqami', 'Bo‘limlar', 'Shifokorlar soni'];
 
@@ -70,11 +74,18 @@ const tableBody = [
 ];
 
 const AddRoomPage = () => {
-  return (
-    <div className={cls.AddRoomPageWrapper}>
-      <ButtonNavbar TableTitle="Xonalar" ItemsLength={tableBody.length} />
+  const { isOpenRoomEditCard, isOpenRoomAddCard } = useContext(ButtonsContext);
 
-      <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+  return (
+    <div>
+      <div className={cls.AddRoomPageWrapper}>
+        <ButtonNavbar TableTitle="Xonalar" ItemsLength={tableBody.length} />
+
+        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+      </div>
+
+      {isOpenRoomAddCard ? <RoomAdd /> : ''}
+      {isOpenRoomEditCard ? <RoomEdit /> : ''}
     </div>
   );
 };

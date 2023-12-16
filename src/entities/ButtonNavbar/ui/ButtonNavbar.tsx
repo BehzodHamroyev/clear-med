@@ -13,12 +13,14 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const { isOpenDepartmentAddCard, setIsOpenDepartmentAddCard } =
+  const { setIsOpenDepartmentAddCard, setIsOpenRoomAddCard } =
     useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
     if (location.pathname === '/department') {
       setIsOpenDepartmentAddCard(true);
+    } else if (location.pathname === '/add_room_age') {
+      setIsOpenRoomAddCard(true);
     }
   };
 

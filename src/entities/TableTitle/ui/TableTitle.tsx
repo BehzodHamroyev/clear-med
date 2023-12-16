@@ -10,11 +10,14 @@ const TableTitle = (props: TableInfo) => {
 
   const location = useLocation();
 
-  const { setIsOpenDepartmentEditCard } = useContext(ButtonsContext);
+  const { setIsOpenDepartmentEditCard, setIsOpenRoomEditCard } =
+    useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
     if (location.pathname === '/department') {
       setIsOpenDepartmentEditCard(true);
+    } else if (location.pathname === '/add_room_age') {
+      setIsOpenRoomEditCard(true);
     }
   };
 
