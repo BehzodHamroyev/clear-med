@@ -17,6 +17,7 @@ import {
   getRouteSettingsPage,
   getRouteReportsPageId,
   getRouteReportDoctor,
+  getRouteReportControlDoctor,
 } from '@/shared/const/router';
 
 import { AddRoomPage } from '@/pages/AddRoomPage';
@@ -30,6 +31,7 @@ import { QueuesPage } from '@/pages/QueuesPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
+import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -86,5 +88,9 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.REPORTS_DOCTOR]: {
     path: getRouteReportDoctor(),
     element: <TableReportsDoctorPage />,
+  },
+  [AppRoutes.QUEUES_CONTROL_DOCTOR]: {
+    path: getRouteReportControlDoctor(),
+    element: <QueuesControlDoctor />,
   },
 };

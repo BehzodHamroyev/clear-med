@@ -27,8 +27,8 @@ export const ListOfPages = memo(() => {
   const divRef = useRef<HTMLDivElement>(null);
 
   // const [profile] = useState('qabulxona');
-  const [profile] = useState('doktor');
-  // const [profile] = useState('admin');
+  // const [profile] = useState('doktor');
+  const [profile] = useState('admin');
 
   const listOfPageAdmin: ListOfPageTypes[] = [
     {
@@ -81,7 +81,12 @@ export const ListOfPages = memo(() => {
       title: t('Hisobotlar'),
       icon: <Xisobotlar />,
     },
-    { id: 2, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
+    {
+      id: 2,
+      path: '/queues_control_doctor',
+      title: t('Navbatlar'),
+      icon: <Navbatlar />,
+    },
   ];
 
   useEffect(() => {

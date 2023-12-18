@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import cls from './TableReportsDoctorPage.module.scss';
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
 const tableTitle = [
   'ID',
@@ -48,6 +49,12 @@ const TableReportsDoctorPage = () => {
 
   return (
     <table className={cls.TableTitleWrapper}>
+      <ButtonNavbar
+        TableTitle="Shifokorlar"
+        ItemsLength={KorilganBemorlar.length}
+        Calendar
+      />
+
       <h3 className={cls.KorilganBemorlar}>
         {t("Jami Ko'rilgan Bemorlar : ")}
         {KorilganBemorlar.length}
