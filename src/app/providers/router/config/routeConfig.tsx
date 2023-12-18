@@ -6,7 +6,6 @@ import {
   AppRoutes,
   getRouteMain,
   getRouteAbout,
-  getRouteLogin,
   getRouteAdmin,
   getRouteNotFound,
   getRouteForbidden,
@@ -17,9 +16,9 @@ import {
   getRouteQueuesPage,
   getRouteSettingsPage,
   getRouteReportsPageId,
+  getRouteReportDoctor,
 } from '@/shared/const/router';
 
-import { Login } from '@/features/Auth';
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { AppRoutesProps } from '@/shared/types/router';
@@ -30,6 +29,7 @@ import { ReportsPage } from '@/pages/ReportsPage';
 import { QueuesPage } from '@/pages/QueuesPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
+import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -48,10 +48,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
-  [AppRoutes.LOGIN]: {
-    path: getRouteLogin(),
-    element: <Login />,
-  },
+
   [AppRoutes.ADMIN]: {
     path: getRouteAdmin(),
     element: <AdminPanelPage />,
@@ -83,5 +80,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
+  },
+
+  // Doctors
+  [AppRoutes.REPORTS_DOCTOR]: {
+    path: getRouteReportDoctor(),
+    element: <TableReportsDoctorPage />,
   },
 };

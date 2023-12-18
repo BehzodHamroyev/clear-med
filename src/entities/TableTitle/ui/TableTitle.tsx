@@ -10,8 +10,6 @@ const TableTitle = (props: TableInfo) => {
 
   const location = useLocation();
 
-  console.log(Tabletbody);
-
   const {
     setIsOpenRoomEditCard,
     setIsOpenDoctorEditCard,
