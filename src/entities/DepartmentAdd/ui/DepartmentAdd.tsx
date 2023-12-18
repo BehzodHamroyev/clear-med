@@ -31,19 +31,19 @@ const DepartmentAdd = () => {
             placeholder={t('Bo‘lim qo‘shish')}
           />
 
-          <input
+          {/* <input
             type="text"
             maxLength={20}
             className={cls.InputBulim}
             placeholder={t('Biriktirilgan shifokor')}
-          />
+          /> */}
 
-          <input
+          {/* <input
             type="text"
             maxLength={20}
             className={cls.InputBulim}
             placeholder={t('Xona')}
-          />
+          /> */}
 
           <div className={cls.BtnParnet}>
             <button

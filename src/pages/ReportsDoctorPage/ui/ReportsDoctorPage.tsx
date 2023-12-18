@@ -1,10 +1,18 @@
 import React from 'react';
 
-import cls from './ReportsPage.module.scss';
+import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { TableTitleReports } from '@/entities/TableTitleReports';
 
-const tableTitle = ['Bo‘lim', 'Shifokor ro‘yxati', 'Xona', 'Bemorlar soni'];
+import cls from './ReportsDoctorPage.module.scss';
+import { TableTitlePatients } from '@/entities/TableTitlePatients';
+
+const tableTitle = [
+  'Id',
+  'Shifokor',
+  'Xona',
+  'Qabul boshlanishi',
+  'Qabul tugashi',
+];
 
 const TableBody = [
   {
@@ -97,22 +105,24 @@ const TableBody = [
   },
 ];
 
-const ReportsPage = () => {
+const ReportsDoctorPage = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className={cls.ReportsPageWrapper}>
+    <div className={cls.ReportsDoctorPageWrapper}>
       <ButtonNavbar
         Calendar
-        TableTitle="Hisobotlar"
+        TableTitle="Qabullar"
         ItemsLength={TableBody.length}
       />
 
-      <TableTitleReports
+      <TableTitlePatients
         cursor
         Tablethead={tableTitle}
-        Tabletbody={TableBody}
+        TableBody={TableBody}
       />
     </div>
   );
 };
 
-export default ReportsPage;
+export default ReportsDoctorPage;

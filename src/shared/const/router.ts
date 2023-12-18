@@ -11,6 +11,7 @@ export enum AppRoutes {
   ADD_DOCTOR = 'add_doctor',
   ADDROOMPAGE = 'add_room_page',
   SETTINGSPAGE = 'setting_page',
+  REPORTS_PATIENT = 'reports_patient',
 }
 
 // AddRoomPage
@@ -22,6 +23,7 @@ export const getRouteAdmin = () => '/admin';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteForbidden = () => '/forbidden';
 export const getRouteReportsPage = () => '/reports';
+export const getRouteReportsPageId = () => '/reports/:id';
 export const getRouteAddDoctor = () => '/add_doctor';
 export const getRouteDepartment = () => '/department';
 export const getRouteAddRoomPage = () => '/add_room_age';
@@ -40,4 +42,5 @@ export const AppRouteByPathPattern: Record<string, AppRoutes> = {
   [getRouteDepartment()]: AppRoutes.DEPARTMENT,
   [getRouteAddRoomPage()]: AppRoutes.ADDROOMPAGE,
   [getRouteSettingsPage()]: AppRoutes.SETTINGSPAGE,
+  [getRouteReportsPage()]: AppRoutes.REPORTS_PATIENT,
 };

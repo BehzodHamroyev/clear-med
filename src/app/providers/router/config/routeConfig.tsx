@@ -16,6 +16,7 @@ import {
   getRouteReportsPage,
   getRouteQueuesPage,
   getRouteSettingsPage,
+  getRouteReportsPageId,
 } from '@/shared/const/router';
 
 import { Login } from '@/features/Auth';
@@ -28,6 +29,7 @@ import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { QueuesPage } from '@/pages/QueuesPage';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -69,6 +71,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.REPORTS]: {
     path: getRouteReportsPage(),
     element: <ReportsPage />,
+  },
+  [AppRoutes.REPORTS_PATIENT]: {
+    path: getRouteReportsPageId(),
+    element: <ReportsDoctorPage />,
   },
   [AppRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
