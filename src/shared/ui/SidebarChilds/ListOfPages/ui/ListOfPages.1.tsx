@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-
 import {
   Xona,
   Bolimlar,
@@ -11,15 +9,8 @@ import {
   Xisobotlar,
   Settings,
 } from '@/shared/assets/widgets/Sidebar';
-
 import cls from './ListOfPages.module.scss';
-
-interface ListOfPageTypes {
-  id: number;
-  path: string;
-  title: string;
-  icon: any;
-}
+import { ListOfPageTypes } from './ListOfPages';
 
 export const ListOfPages = memo(() => {
   const location = useLocation();
@@ -29,7 +20,6 @@ export const ListOfPages = memo(() => {
   // const [profile] = useState('qabulxona');
   const [profile] = useState('doktor');
   // const [profile] = useState('admin');
-
   const listOfPageAdmin: ListOfPageTypes[] = [
     {
       id: 1,

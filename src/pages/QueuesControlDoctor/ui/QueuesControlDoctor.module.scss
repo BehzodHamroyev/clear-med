@@ -1,3 +1,16 @@
 .QueuesControlDoctorWrapper {
   width: 100%;
+
+  .TableDoctor {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .TableTitle {
+    text-align: center;
+    font-weight: 500;
+    font-family: sans-serif;
+  }
 }

@@ -9,29 +9,29 @@ import {
   getRouteAdmin,
   getRouteNotFound,
   getRouteForbidden,
-  getRouteDepartment,
-  getRouteAddRoomPage,
   getRouteAddDoctor,
-  getRouteReportsPage,
+  getRouteDepartment,
   getRouteQueuesPage,
+  getRouteAddRoomPage,
+  getRouteReportsPage,
   getRouteSettingsPage,
-  getRouteReportsPageId,
   getRouteReportDoctor,
+  getRouteReportsPageId,
   getRouteReportControlDoctor,
 } from '@/shared/const/router';
 
+import { QueuesPage } from '@/pages/QueuesPage';
 import { AddRoomPage } from '@/pages/AddRoomPage';
+import { ReportsPage } from '@/pages/ReportsPage';
+import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
-import { AddDoctorPage } from '@/pages/AddDoctorPage';
-import { ReportsPage } from '@/pages/ReportsPage';
-import { QueuesPage } from '@/pages/QueuesPage';
-import { SettingsPage } from '@/pages/SettingsPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
-import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
+import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -50,7 +50,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
-
   [AppRoutes.ADMIN]: {
     path: getRouteAdmin(),
     element: <AdminPanelPage />,
@@ -79,10 +78,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     path: getRouteQueuesPage(),
     element: <QueuesPage />,
   },
-  [AppRoutes.SETTINGSPAGE]: {
-    path: getRouteSettingsPage(),
-    element: <SettingsPage />,
-  },
 
   // Doctors
   [AppRoutes.REPORTS_DOCTOR]: {
@@ -92,5 +87,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.QUEUES_CONTROL_DOCTOR]: {
     path: getRouteReportControlDoctor(),
     element: <QueuesControlDoctor />,
+  },
+
+  // setting
+  [AppRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
   },
 };

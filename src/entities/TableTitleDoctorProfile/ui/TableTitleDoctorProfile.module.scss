@@ -1,0 +1,98 @@
+.TableTitleWrapper {
+  user-select: none;
+  font-family: sans-serif;
+  margin: 10px 0;
+  padding: 20px 0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: scroll;
+  width: 100%;
+
+  .Tablethead,
+  .Tabletbody {
+    width: 100%;
+    text-align: center;
+
+    .tr {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background-color: #fff;
+      padding: 20px;
+      margin: 3px auto;
+    }
+  }
+
+  .Tabletbody {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+
+  .Tabletbody::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .Tabletbody::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .Tabletbody::-webkit-scrollbar-thumb {
+    border: 3px solid #e0e0e0;
+    border-radius: 9.492px;
+    background: #e0e0e0;
+  }
+}
+
+.th,
+.td {
+  max-width: 200px;
+  min-width: 180px;
+  width: 100%;
+}
+
+.Img {
+  max-width: 15px;
+  max-height: 15px;
+  transform: scale(1.2);
+  object-position: center;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.lastChild {
+  max-width: 200px;
+  min-width: 180px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pre {
+    max-width: 170px;
+    min-width: 170px;
+  }
+
+  svg {
+    color: #828282;
+    cursor: pointer;
+  }
+
+  svg:active {
+    transform: scale(1.01);
+  }
+}
+
+.clicked {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.clicked:hover {
+  transform: scale(1.01);
+}

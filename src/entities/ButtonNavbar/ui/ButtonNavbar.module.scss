@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-self: center;
   padding: 20px;
+  text-align: center;
 
   p {
     color: #1d1d1d;
@@ -83,4 +84,10 @@
       transform: scale(0.97);
     }
   }
+}
+
+.BulimTuri {
+  margin-left: -50px;
+  text-align: center;
+  font-weight: 400;
 }

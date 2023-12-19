@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import { CalendarSection } from '@/entities/Calendar';
 import { ButtonNavbarProps } from '../model/types/ButtonNavbarTypes';
 import { CarbonAdd, Search } from '@/shared/assets/entities/ButtonNavbar';
@@ -9,9 +10,10 @@ import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const ButtonNavbar = (props: ButtonNavbarProps) => {
-  const { TableTitle, ItemsLength, Calendar } = props;
+  const { TableTitle, ItemsLength, Calendar, dontCreate } = props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
+  const { t } = useTranslation();
 
   const {
     setIsOpenDepartmentAddCard,
@@ -36,6 +38,11 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       </p>
 
       {Calendar ? <CalendarSection /> : ''}
+      {dontCreate ? (
+        <h3 className={cls.BulimTuri}>{t('12-Xona, Dermatolog')}</h3>
+      ) : (
+        ''
+      )}
 
       {location.pathname !== '/settings' ? (
         <div className={cls.ButtonNavbarIcons}>
@@ -56,7 +63,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
             />
           </div>
 
-          {Calendar === true ? (
+          {Calendar === true || dontCreate === true ? (
             ''
           ) : (
             <CarbonAdd

@@ -1,0 +1,64 @@
+/* stylelint-disable string-quotes */
+
+.QueueUserControlWrapper {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .Buttons {
+    .ButtonsTitle {
+      color: #828282;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 0.04px;
+      font-family: sans-serif;
+      user-select: none;
+    }
+
+    .BtnClient {
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+      cursor: pointer !important;
+      border-radius: 4px;
+      border: 0.709px solid #e0e0e0;
+      margin: 0 auto;
+      margin-top: 10px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      font-family: sans-serif;
+    }
+
+    .colorRed {
+      color: red;
+    }
+
+    .BtnClient:active {
+      transform: scale(1.01);
+    }
+
+    .BtnClientIcon {
+      width: 40px;
+      position: absolute;
+    }
+
+    .BtnClientIcon2 {
+      opacity: 0.5;
+    }
+
+    .BtnClientIconActive {
+      opacity: 1 !important;
+    }
+
+    .BtnClient:hover .BtnClientIcon2 {
+      opacity: 1;
+    }
+  }
+}
