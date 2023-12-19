@@ -179,6 +179,9 @@ const QueuesControlDoctor = () => {
         ItemsLength={KorilganBemorlar.length}
         dontCreate
       />
+
+      <ControlPanelDocktor />
+
       <div className={cls.TableDoctor}>
         <div>
           <TableTitleDoctorProfile
@@ -195,8 +198,6 @@ const QueuesControlDoctor = () => {
       </div>
 
       {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-
-      <ControlPanelDocktor />
     </div>
   );
 };

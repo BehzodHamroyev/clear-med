@@ -1,4 +1,31 @@
 .QueueUserNextWrapper {
   width: 100%;
+  display: flex;
   max-width: 350px;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+
+  .QueueUserNextBtn {
+    gap: 10px;
+    display: flex;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 10px 30px;
+    font-family: sans-serif;
+    align-items: flex-start;
+    background-color: #0000ac;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  button:active {
+    transform: scale(1.02);
+  }
 }
