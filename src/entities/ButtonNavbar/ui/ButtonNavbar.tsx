@@ -20,6 +20,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
   } = useContext(ButtonsContext);
+  
 
   const handleCardAddCard = () => {
     if (location.pathname === '/department') {

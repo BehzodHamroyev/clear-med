@@ -167,13 +167,7 @@ const QueuingTv = () => {
         ''
       )}
 
-      {isOpenQueuingTvCardPopapSecond ? (
-        <QueuingTvCardPopap getObjectFind={getObjectFind} />
-      ) : (
-        ''
-      )}
-
-      <QueuingTvCardPopapSecond />
+      {isOpenQueuingTvCardPopapSecond ? <QueuingTvCardPopapSecond /> : ''}
     </div>
   );
 };

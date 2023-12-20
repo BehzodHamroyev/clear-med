@@ -10,6 +10,7 @@ const QueuingTvCardPopap = (prop: any) => {
     setIsOpenQueuingTvCardPopapSecond,
   } = useContext(ButtonsContext);
 
+  console.log(isOpenQueuingTvCardPopapSecond, 'set');
   return (
     <div
       onClick={(e) => {
@@ -21,6 +22,7 @@ const QueuingTvCardPopap = (prop: any) => {
       <div
         onClick={(e) => {
           e.stopPropagation();
+          setIsOpenQueuingCardClicked(false);
           setIsOpenQueuingTvCardPopapSecond(true);
         }}
         className={cls.QueuingTvCard}
