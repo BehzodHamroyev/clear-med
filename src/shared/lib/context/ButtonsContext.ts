@@ -27,6 +27,15 @@ export interface ButtonsClickedProps {
 
   isOpenDoctorEditCard: boolean;
   setIsOpenDoctorEditCard: (prop: boolean) => void;
+
+  isOpenQueuingCardClicked: boolean;
+  setIsOpenQueuingCardClicked: (prop: boolean) => void;
+
+  isQueuingCardClickedGetId: number;
+  setIsQueuingCardClickedGetId: (prop: number) => void;
+
+  isOpenQueuingTvCardPopapSecond: boolean;
+  setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -55,4 +64,13 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDoctorEditCard: false,
   setIsOpenDoctorEditCard: () => {},
+
+  isOpenQueuingCardClicked: false,
+  setIsOpenQueuingCardClicked: () => {},
+
+  isQueuingCardClickedGetId: 1,
+  setIsQueuingCardClickedGetId: () => {},
+
+  isOpenQueuingTvCardPopapSecond: false,
+  setIsOpenQueuingTvCardPopapSecond: () => {},
 });

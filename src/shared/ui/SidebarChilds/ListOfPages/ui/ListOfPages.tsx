@@ -26,8 +26,8 @@ export const ListOfPages = memo(() => {
   const { t, i18n } = useTranslation();
   const divRef = useRef<HTMLDivElement>(null);
 
-  // const [profile] = useState('qabulxona');
-  const [profile] = useState('doktor');
+  const [profile] = useState('qabulxona');
+  // const [profile] = useState('doktor');
   // const [profile] = useState('admin');
 
   const listOfPageAdmin: ListOfPageTypes[] = [
@@ -61,7 +61,7 @@ export const ListOfPages = memo(() => {
   const listOfPageQabulXona: ListOfPageTypes[] = [
     {
       id: 1,
-      path: '/takeTurns',
+      path: '/queuing_tv',
       title: t('Navbat berish'),
       icon: <Bolimlar />,
     },

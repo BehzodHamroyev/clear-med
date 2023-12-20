@@ -18,6 +18,7 @@ import {
   getRouteReportDoctor,
   getRouteReportsPageId,
   getRouteReportControlDoctor,
+  getRouteReportQueuingTv,
 } from '@/shared/const/router';
 
 import { QueuesPage } from '@/pages/QueuesPage';
@@ -32,6 +33,7 @@ import { DepartmentPage } from '@/pages/DepartmentPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
+import { QueuingTv } from '@/pages/QueuingTV';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -77,6 +79,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
     element: <QueuesPage />,
+  },
+
+  // QueuingTv
+  [AppRoutes.QUEUING_TV]: {
+    path: getRouteReportQueuingTv(),
+    element: <QueuingTv />,
   },
 
   // Doctors
