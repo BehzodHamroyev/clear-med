@@ -20,7 +20,6 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
   } = useContext(ButtonsContext);
-  
 
   const handleCardAddCard = () => {
     if (location.pathname === '/department') {
@@ -64,7 +63,9 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
             />
           </div>
 
-          {Calendar === true || dontCreate === true ? (
+          {Calendar === true ||
+          dontCreate === true ||
+          location.pathname !== 'queuing_tv' ? (
             ''
           ) : (
             <CarbonAdd

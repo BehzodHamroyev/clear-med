@@ -26,9 +26,9 @@ export const ListOfPages = memo(() => {
   const { t, i18n } = useTranslation();
   const divRef = useRef<HTMLDivElement>(null);
 
-  const [profile] = useState('qabulxona');
+  // const [profile] = useState('qabulxona');
   // const [profile] = useState('doktor');
-  // const [profile] = useState('admin');
+  const [profile] = useState('admin');
 
   const listOfPageAdmin: ListOfPageTypes[] = [
     {
@@ -71,7 +71,8 @@ export const ListOfPages = memo(() => {
       title: t('Hisobotlar'),
       icon: <Xisobotlar />,
     },
-    { id: 5, path: '/resption', title: t('Navbatlar'), icon: <Navbatlar /> },
+    // { id: 5, path: '/resption', title: t('Navbatlar'), icon: <Navbatlar /> },
+    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
   ];
 
   const listOfPageDoktor: ListOfPageTypes[] = [
@@ -90,18 +91,41 @@ export const ListOfPages = memo(() => {
   ];
 
   useEffect(() => {
-    if (divRef.current && location.pathname === '/department') {
-      divRef.current.style.top = '20px';
-    } else if (divRef.current && location.pathname === '/add_room_age') {
-      divRef.current.style.top = '63px';
-    } else if (divRef.current && location.pathname === '/add_doctor') {
-      divRef.current.style.top = '106px';
-    } else if (divRef.current && location.pathname === '/reports') {
-      divRef.current.style.top = '149px';
-    } else if (divRef.current && location.pathname === '/queues') {
-      divRef.current.style.top = '192px';
-    } else if (divRef.current && location.pathname === '/settings') {
-      divRef.current.style.top = '300px';
+    if (profile === 'admin') {
+      if (divRef.current && location.pathname === '/department') {
+        divRef.current.style.top = '20px';
+      } else if (divRef.current && location.pathname === '/add_room_age') {
+        divRef.current.style.top = '63px';
+      } else if (divRef.current && location.pathname === '/add_doctor') {
+        divRef.current.style.top = '106px';
+      } else if (divRef.current && location.pathname === '/reports') {
+        divRef.current.style.top = '149px';
+      } else if (divRef.current && location.pathname === '/queues') {
+        divRef.current.style.top = '192px';
+      } else if (divRef.current && location.pathname === '/settings') {
+        divRef.current.style.top = '300px';
+      }
+    } else if (profile === 'doktor') {
+      if (divRef.current && location.pathname === '/reports_doctor') {
+        divRef.current.style.top = '20px';
+      } else if (
+        divRef.current &&
+        location.pathname === '/queues_control_doctor'
+      ) {
+        divRef.current.style.top = '63px';
+      } else if (divRef.current && location.pathname === '/settings') {
+        divRef.current.style.top = '172px';
+      }
+    } else if (profile === 'qabulxona') {
+      if (divRef.current && location.pathname === '/queuing_tv') {
+        divRef.current.style.top = '20px';
+      } else if (divRef.current && location.pathname === '/reports') {
+        divRef.current.style.top = '63px';
+      } else if (divRef.current && location.pathname === '/queues') {
+        divRef.current.style.top = '106px';
+      } else if (divRef.current && location.pathname === '/settings') {
+        divRef.current.style.top = '216px';
+      }
     }
   }, [location]);
 
