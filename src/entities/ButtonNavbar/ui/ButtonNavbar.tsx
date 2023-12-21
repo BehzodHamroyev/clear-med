@@ -63,9 +63,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
             />
           </div>
 
-          {Calendar === true ||
-          dontCreate === true ||
-          location.pathname !== 'queuing_tv' ? (
+          {Calendar === true || dontCreate === true ? (
             ''
           ) : (
             <CarbonAdd

@@ -20,7 +20,7 @@ export const parameters = {
         list: [
             { name: 'light', class: Theme.LIGHT, color: '#ffffff' },
             { name: 'dark', class: Theme.DARK, color: '#000000' },
-            { name: 'orange', class: Theme.ORANGE, color: '#ffb005' },
+            { name: 'auto', class: Theme.AUTO, color: '#ffb005' },
         ],
     },
 };

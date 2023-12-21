@@ -8,7 +8,7 @@ const NavbarCalendar = () => {
   const day = date.getDate();
   const year = date.getFullYear();
   const month = date.toLocaleString('default', { month: 'long' }).slice(0, 3);
-  console.log(date, 'vjdvnskd');
+  // console.log(date, 'vjdvnskd');
 
   return (
     <div className={cls.NavbarCalendarWrapper}>
