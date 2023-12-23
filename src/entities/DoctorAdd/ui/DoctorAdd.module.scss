@@ -1,0 +1,121 @@
+/* stylelint-disable color-function-notation */
+.DepartmentAddWrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  background-color: rgba(53, 53, 53, 60%);
+
+  .DepartmentAddCard {
+    width: 750px;
+    background-color: #fff;
+    border-radius: 8px;
+    user-select: none;
+
+    .AddDoctorCard {
+      width: 100%;
+      display: flex;
+    }
+
+    .AddCardImg {
+      max-width: 300px;
+      width: 300px;
+      height: 300px;
+      margin: 20px;
+      position: relative;
+    }
+
+    .AddCardImgValue {
+      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      min-width: 250px;
+      min-height: 250px;
+      object-position: top;
+      object-fit: cover;
+      border: 5px solid #2e0569;
+    }
+
+    .AddCardImgValuebtn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 1px solid #2e0569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      position: absolute;
+      right: 20px;
+      bottom: 50px;
+      cursor: pointer;
+    }
+
+    .CardTitle {
+      width: 100%;
+      border-bottom: 1px solid #e3e3e3;
+      padding: 20px;
+      margin-bottom: 10px;
+      color: #1d1d1d;
+      font-family: sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0.036px;
+    }
+
+    .CardBody {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .InputBulim {
+      width: 100%;
+      color: #4f4f51;
+      font-family: sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16.678px; /* 104.24% */
+      letter-spacing: 0.417px;
+      padding: 10px 2px;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid #000;
+      margin-bottom: 20px;
+    }
+
+    .BtnParnet {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .Btn {
+      width: 100%;
+      padding: 10px;
+      font-family: sans-serif;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .Btn2 {
+      background-color: #0000ac;
+      color: #fff;
+      border: none;
+    }
+
+    .Btn1 {
+      background-color: transparent;
+      color: #828282;
+      border: 1px solid #828282;
+    }
+  }
+}

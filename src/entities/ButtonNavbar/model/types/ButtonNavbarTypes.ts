@@ -1,5 +1,6 @@
 export interface ButtonNavbarProps {
   TableTitle: string;
-  ItemsLength: number;
+  ItemsLength?: number;
   Calendar?: boolean;
+  dontCreate?: boolean;
 }

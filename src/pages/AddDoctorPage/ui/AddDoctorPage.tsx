@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
 import cls from './AddDoctorPage.module.scss';
 import { Doda } from '@/shared/assets/Pages/AddDoctorPage';
+import { DoctorAdd } from '@/entities/DoctorAdd';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { DoctorEdit } from '@/entities/DoctorEdit';
 
 const tableTitle = [
   'Surat',
@@ -172,11 +175,18 @@ const tableBody = [
 ];
 
 const AddDoctorPage = () => {
+  const { isOpenDoctorAddCard, isOpenDoctorEditCard } =
+    useContext(ButtonsContext);
   return (
-    <div className={cls.AddDoctorPageWrapper}>
-      <ButtonNavbar TableTitle="Shifokorlar" ItemsLength={tableBody.length} />
+    <div>
+      <div className={cls.AddDoctorPageWrapper}>
+        <ButtonNavbar TableTitle="Shifokorlar" ItemsLength={tableBody.length} />
 
-      <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+      </div>
+
+      {isOpenDoctorAddCard ? <DoctorAdd /> : ''}
+      {isOpenDoctorEditCard ? <DoctorEdit /> : ''}
     </div>
   );
 };

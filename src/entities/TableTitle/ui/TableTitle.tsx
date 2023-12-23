@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import cls from './TableTitle.module.scss';
 import { PenTools } from '@/shared/assets/entities/TableTitle';
 import { TableInfo } from '../model/types/TableInfo';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const TableTitle = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
+
+  const location = useLocation();
+
+  const {
+    setIsOpenRoomEditCard,
+    setIsOpenDoctorEditCard,
+    setIsOpenDepartmentEditCard,
+  } = useContext(ButtonsContext);
+
+  const handleCardAddCard = () => {
+    if (location.pathname === '/department') {
+      setIsOpenDepartmentEditCard(true);
+    } else if (location.pathname === '/add_room_age') {
+      setIsOpenRoomEditCard(true);
+    } else if (location.pathname === '/add_doctor') {
+      setIsOpenDoctorEditCard(true);
+    }
+  };
 
   return (
     <table className={cls.TableTitleWrapper}>
@@ -38,7 +58,8 @@ const TableTitle = (props: TableInfo) => {
             {item.item8 ? <td className={cls.td}>{item.item8}</td> : ''}
             {item.lastChild ? (
               <td className={`${cls.lastChild}`}>
-                <pre>{item.lastChild}</pre> <PenTools />
+                <pre>{item.lastChild}</pre>{' '}
+                <PenTools onClick={handleCardAddCard} />
               </td>
             ) : (
               ''

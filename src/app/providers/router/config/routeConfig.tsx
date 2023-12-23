@@ -6,24 +6,34 @@ import {
   AppRoutes,
   getRouteMain,
   getRouteAbout,
-  getRouteLogin,
   getRouteAdmin,
   getRouteNotFound,
   getRouteForbidden,
-  getRouteDepartment,
-  getRouteAddRoomPage,
   getRouteAddDoctor,
+  getRouteDepartment,
+  getRouteQueuesPage,
+  getRouteAddRoomPage,
   getRouteReportsPage,
+  getRouteSettingsPage,
+  getRouteReportDoctor,
+  getRouteReportsPageId,
+  getRouteReportControlDoctor,
+  getRouteReportQueuingTv,
 } from '@/shared/const/router';
 
-import { Login } from '@/features/Auth';
+import { QueuesPage } from '@/pages/QueuesPage';
 import { AddRoomPage } from '@/pages/AddRoomPage';
+import { ReportsPage } from '@/pages/ReportsPage';
+import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
-import { AddDoctorPage } from '@/pages/AddDoctorPage';
-import { ReportsPage } from '@/pages/ReportsPage';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
+import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
+import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
+import { QueuingTv } from '@/pages/QueuingTV';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
@@ -41,10 +51,6 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.NOT_FOUND]: {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
-  },
-  [AppRoutes.LOGIN]: {
-    path: getRouteLogin(),
-    element: <Login />,
   },
   [AppRoutes.ADMIN]: {
     path: getRouteAdmin(),
@@ -65,5 +71,35 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.REPORTS]: {
     path: getRouteReportsPage(),
     element: <ReportsPage />,
+  },
+  [AppRoutes.REPORTS_PATIENT]: {
+    path: getRouteReportsPageId(),
+    element: <ReportsDoctorPage />,
+  },
+  [AppRoutes.QUEUES]: {
+    path: getRouteQueuesPage(),
+    element: <QueuesPage />,
+  },
+
+  // QueuingTv
+  [AppRoutes.QUEUING_TV]: {
+    path: getRouteReportQueuingTv(),
+    element: <QueuingTv />,
+  },
+
+  // Doctors
+  [AppRoutes.REPORTS_DOCTOR]: {
+    path: getRouteReportDoctor(),
+    element: <TableReportsDoctorPage />,
+  },
+  [AppRoutes.QUEUES_CONTROL_DOCTOR]: {
+    path: getRouteReportControlDoctor(),
+    element: <QueuesControlDoctor />,
+  },
+
+  // setting
+  [AppRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
   },
 };
