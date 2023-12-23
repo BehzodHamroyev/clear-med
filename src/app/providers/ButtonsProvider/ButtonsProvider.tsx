@@ -36,6 +36,14 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenQueuingTvCardPopapSecond, setIsOpenQueuingTvCardPopapSecond] =
     useState(false);
 
+  const [isOpenDepartmentAddCardIcon, setIsOpenDepartmentAddCardIcon] =
+    useState(false);
+
+  const [
+    isOpenDepartmentAddCardIconIndex,
+    setIsOpenDepartmentAddCardIconIndex,
+  ] = useState(1);
+
   const defaultProps = useMemo(
     () => ({
       isCloseCalendar,
@@ -62,6 +70,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsQueuingCardClickedGetId,
       isOpenQueuingTvCardPopapSecond,
       setIsOpenQueuingTvCardPopapSecond,
+      isOpenDepartmentAddCardIcon,
+      setIsOpenDepartmentAddCardIcon,
+      isOpenDepartmentAddCardIconIndex,
+      setIsOpenDepartmentAddCardIconIndex,
     }),
     [
       isCloseCalendar,
@@ -88,6 +100,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsQueuingCardClickedGetId,
       isOpenQueuingTvCardPopapSecond,
       setIsOpenQueuingTvCardPopapSecond,
+      isOpenDepartmentAddCardIcon,
+      setIsOpenDepartmentAddCardIcon,
+      isOpenDepartmentAddCardIconIndex,
+      setIsOpenDepartmentAddCardIconIndex,
     ],
   );
 

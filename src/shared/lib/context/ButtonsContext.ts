@@ -36,6 +36,12 @@ export interface ButtonsClickedProps {
 
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
+
+  isOpenDepartmentAddCardIcon: boolean;
+  setIsOpenDepartmentAddCardIcon: (prop: boolean) => void;
+
+  isOpenDepartmentAddCardIconIndex: number;
+  setIsOpenDepartmentAddCardIconIndex: (prop: number) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -73,4 +79,10 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenQueuingTvCardPopapSecond: false,
   setIsOpenQueuingTvCardPopapSecond: () => {},
+
+  isOpenDepartmentAddCardIcon: false,
+  setIsOpenDepartmentAddCardIcon: () => {},
+
+  isOpenDepartmentAddCardIconIndex: 1,
+  setIsOpenDepartmentAddCardIconIndex: () => {},
 });
