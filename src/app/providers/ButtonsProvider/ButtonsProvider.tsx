@@ -39,6 +39,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDepartmentAddCardIcon, setIsOpenDepartmentAddCardIcon] =
     useState(false);
 
+  const [isOpenBurgerNavbar, setIsOpenBurgerNavbar] = useState(true);
+
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
@@ -74,6 +76,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIcon,
       isOpenDepartmentAddCardIconIndex,
       setIsOpenDepartmentAddCardIconIndex,
+      isOpenBurgerNavbar,
+      setIsOpenBurgerNavbar,
     }),
     [
       isCloseCalendar,
@@ -104,6 +108,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIcon,
       isOpenDepartmentAddCardIconIndex,
       setIsOpenDepartmentAddCardIconIndex,
+      isOpenBurgerNavbar,
+      setIsOpenBurgerNavbar,
     ],
   );
 

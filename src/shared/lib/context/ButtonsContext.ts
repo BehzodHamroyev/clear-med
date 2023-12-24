@@ -42,6 +42,9 @@ export interface ButtonsClickedProps {
 
   isOpenDepartmentAddCardIconIndex: number;
   setIsOpenDepartmentAddCardIconIndex: (prop: number) => void;
+
+  isOpenBurgerNavbar: boolean;
+  setIsOpenBurgerNavbar: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -85,4 +88,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDepartmentAddCardIconIndex: 1,
   setIsOpenDepartmentAddCardIconIndex: () => {},
+
+  isOpenBurgerNavbar: true,
+  setIsOpenBurgerNavbar: () => {},
 });

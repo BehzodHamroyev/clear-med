@@ -25,7 +25,7 @@ const QueuesPage = () => {
         type="button"
         onClick={handleClicked}
       >
-        {t("Fullscreen")}
+        {t('Fullscreen')}
       </button>
 
       <FullScreen className={cls.MyComponentScreen} handle={handle}>
@@ -35,6 +35,7 @@ const QueuesPage = () => {
           <div className={cls.QueuesPageWrapper}>
             <div className={cls.QueuesPageFlex}>
               <img src={Spetalete} alt="#" className={cls.QueuesPageImg} />
+
               <div className={cls.RightCardRendering}>
                 <div className={cls.BorderCardOchered}>
                   <QueuesList />
@@ -62,6 +63,26 @@ const QueuesPage = () => {
                 <QueuesList />
               </div>
               <div className={cls.BorderCardOchered}>
+                <QueuesList />
+              </div>
+              <div
+                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
+              >
+                <QueuesList />
+              </div>
+              <div
+                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
+              >
+                <QueuesList />
+              </div>
+              <div
+                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
+              >
+                <QueuesList />
+              </div>
+              <div
+                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
+              >
                 <QueuesList />
               </div>
             </div>

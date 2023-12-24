@@ -46,16 +46,22 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
 
       {location.pathname !== '/settings' ? (
         <div className={cls.ButtonNavbarIcons}>
-          <div className={cls.ButtonNavParent}>
-            {searchOpen ? (
-              <input
-                maxLength={30}
-                type="text"
-                className={cls.ButtonNavbarInputSearch}
-              />
-            ) : (
+          <div
+            className={`${cls.ButtonNavParent} ${
+              searchOpen === true ? cls.OpenWidth : ''
+            }`}
+          >
+            {/* {searchOpen ? ( */}
+            <input
+              maxLength={30}
+              type="text"
+              className={`${cls.ButtonNavbarInputSearch} ${
+                searchOpen === false ? cls.CloseInput : ''
+              }`}
+            />
+            {/* ) : (
               ''
-            )}
+            )} */}
 
             <Search
               onClick={() => setSearchOpen(!searchOpen)}
