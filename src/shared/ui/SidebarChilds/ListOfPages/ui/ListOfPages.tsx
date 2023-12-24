@@ -26,9 +26,9 @@ export const ListOfPages = memo(() => {
   const { t, i18n } = useTranslation();
   const divRef = useRef<HTMLDivElement>(null);
 
-  // const [profile] = useState('qabulxona');
+  const [profile] = useState('qabulxona');
   // const [profile] = useState('doktor');
-  const [profile] = useState('admin');
+  // const [profile] = useState('admin');
 
   const listOfPageAdmin: ListOfPageTypes[] = [
     {
