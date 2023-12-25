@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  isProfileWho: string;
+  setIsProfileWho: (prop: string) => void;
+
   isCloseCalendar: boolean;
   setIsCloseCalendar: (prop: boolean) => void;
 
@@ -48,8 +51,12 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  isProfileWho: '',
+  setIsProfileWho: () => {},
+
   isCloseCalendar: false,
   setIsCloseCalendar: () => {},
+
   isCloseCalendar2: false,
   setIsCloseCalendar2: () => {},
 

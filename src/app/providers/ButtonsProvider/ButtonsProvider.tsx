@@ -9,6 +9,8 @@ interface ButtonsProviderProps {
 const ButtonsProvider = (props: ButtonsProviderProps) => {
   const { initialButton, children } = props;
 
+  const [isProfileWho, setIsProfileWho] = useState('');
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -48,6 +50,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      isProfileWho,
+      setIsProfileWho,
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,
@@ -80,6 +84,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenBurgerNavbar,
     }),
     [
+      isProfileWho,
+      setIsProfileWho,
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,

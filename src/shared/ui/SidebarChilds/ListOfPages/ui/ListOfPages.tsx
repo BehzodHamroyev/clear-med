@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import {
 } from '@/shared/assets/widgets/Sidebar';
 
 import cls from './ListOfPages.module.scss';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface ListOfPageTypes {
   id: number;
@@ -26,7 +27,9 @@ export const ListOfPages = memo(() => {
   const { t, i18n } = useTranslation();
   const divRef = useRef<HTMLDivElement>(null);
 
-  const [profile] = useState('qabulxona');
+  const { isProfileWho } = useContext(ButtonsContext);
+
+  // const [profile] = useState('qabulxona');
   // const [profile] = useState('doktor');
   // const [profile] = useState('admin');
 
@@ -91,7 +94,7 @@ export const ListOfPages = memo(() => {
   ];
 
   useEffect(() => {
-    if (profile === 'admin') {
+    if (isProfileWho === 'admin') {
       if (divRef.current && location.pathname === '/department') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/add_room_age') {
@@ -105,7 +108,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '300px';
       }
-    } else if (profile === 'doktor') {
+    } else if (isProfileWho === 'doktor') {
       if (divRef.current && location.pathname === '/reports_doctor') {
         divRef.current.style.top = '20px';
       } else if (
@@ -116,7 +119,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '172px';
       }
-    } else if (profile === 'qabulxona') {
+    } else if (isProfileWho === 'qabulxona') {
       if (divRef.current && location.pathname === '/queuing_tv') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
@@ -132,11 +135,11 @@ export const ListOfPages = memo(() => {
   const itemListOfPage = useMemo(() => {
     let listToUse: any[] = [];
 
-    if (profile === 'admin') {
+    if (isProfileWho === 'admin') {
       listToUse = listOfPageAdmin;
-    } else if (profile === 'doktor') {
+    } else if (isProfileWho === 'doktor') {
       listToUse = listOfPageDoktor;
-    } else if (profile === 'qabulxona') {
+    } else if (isProfileWho === 'qabulxona') {
       listToUse = listOfPageQabulXona;
     }
 
@@ -151,7 +154,7 @@ export const ListOfPages = memo(() => {
       </Link>
     ));
   }, [
-    profile,
+    isProfileWho,
     listOfPageAdmin,
     listOfPageDoktor,
     listOfPageQabulXona,

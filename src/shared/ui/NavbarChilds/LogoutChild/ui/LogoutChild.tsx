@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { Link } from 'react-router-dom';
+import { Logout } from '@/shared/assets/widgets/Navbar';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './LogoutChild.module.scss';
-import { Logout } from '@/shared/assets/widgets/Navbar';
 
 const LogoutChild = () => {
+  const { setIsProfileWho } = useContext(ButtonsContext);
   return (
-    <div className={cls.LogoutChildWrapper}>
-      <Logout className={cls.LogoutIcon}/>
-    </div>
+    <Link to="/" className={cls.LogoutChildWrapper}>
+      <Logout onClick={() => setIsProfileWho('')} className={cls.LogoutIcon} />
+    </Link>
   );
 };
 

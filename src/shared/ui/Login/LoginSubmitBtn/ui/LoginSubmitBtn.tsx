@@ -8,7 +8,7 @@ const LoginSubmitBtn = () => {
 
   return (
     <div className={cls.LoginSubmitBtnWrapper}>
-      <button type="button">{t('Kirish')}</button>
+      <button type="submit">{t('Kirish')}</button>
     </div>
   );
 };

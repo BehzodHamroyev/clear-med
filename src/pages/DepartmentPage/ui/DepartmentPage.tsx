@@ -96,7 +96,11 @@ const DepartmentPage = () => {
   return (
     <div>
       <div className={cls.DepartmentPageWrapper}>
-        <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={tableBody.length} />
+        <ButtonNavbar
+          dontCreate
+          TableTitle="Bo‘limlar"
+          ItemsLength={tableBody.length}
+        />
 
         <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>

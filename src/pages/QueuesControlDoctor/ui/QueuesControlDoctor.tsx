@@ -177,7 +177,6 @@ const QueuesControlDoctor = () => {
       <ButtonNavbar
         TableTitle="Qabullar"
         ItemsLength={KorilganBemorlar.length}
-        dontCreate
       />
 
       <ControlPanelDocktor />

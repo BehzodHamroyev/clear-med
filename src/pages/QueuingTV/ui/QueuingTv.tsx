@@ -146,11 +146,7 @@ const QueuingTv = () => {
 
   return (
     <div className={cls.QueuingTvWrapper}>
-      <ButtonNavbar
-        dontCreate
-        TableTitle="Bo‘limlar"
-        ItemsLength={CardBody.length}
-      />
+      <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={CardBody.length} />
 
       <div className={cls.RenderSectionCard}>
         {CardBody.map((item) => (

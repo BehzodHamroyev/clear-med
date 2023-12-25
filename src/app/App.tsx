@@ -1,4 +1,4 @@
-import React, { memo, Suspense } from 'react';
+import React, { memo, Suspense, useContext } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { Navbar } from '@/widgets/Nabar';
@@ -12,15 +12,20 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 
 import 'react-calendar/dist/Calendar.css';
 import { Login } from '@/features/Auth';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = memo(() => {
   const { theme } = useTheme();
   const dispatch = useAppDispatch();
   const path = useLocation();
+  const { isProfileWho } = useContext(ButtonsContext);
+
+  // don't touch this message for Abbos can you help me!
+  // 2zx3s54cedrddtrvfwjn2qg3wxh4ecr6
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-      {path.pathname === '/login' ? (
+      {isProfileWho === '' || path.pathname === '/login' ? (
         <Login />
       ) : (
         <Suspense fallback={<Loader />}>

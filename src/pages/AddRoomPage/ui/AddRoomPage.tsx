@@ -79,7 +79,11 @@ const AddRoomPage = () => {
   return (
     <div>
       <div className={cls.AddRoomPageWrapper}>
-        <ButtonNavbar TableTitle="Xonalar" ItemsLength={tableBody.length} />
+        <ButtonNavbar
+          dontCreate
+          TableTitle="Xonalar"
+          ItemsLength={tableBody.length}
+        />
 
         <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>

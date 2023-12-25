@@ -38,6 +38,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       </p>
 
       {Calendar ? <CalendarSection /> : ''}
+
       {dontCreate ? (
         <h3 className={cls.BulimTuri}>{t('12-Xona, Dermatolog')}</h3>
       ) : (
@@ -69,13 +70,13 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
             />
           </div>
 
-          {Calendar === true || dontCreate === true ? (
-            ''
-          ) : (
+          {dontCreate === true ? (
             <CarbonAdd
               onClick={handleCardAddCard}
               className={cls.ButtonNavbarIconsChild2}
             />
+          ) : (
+            ''
           )}
         </div>
       ) : (
