@@ -30,8 +30,8 @@ const LoginFormLeft = () => {
     ) {
       setIsProfileWho('admin');
     } else if (
-      formData.PhoneNumber === '+998901234567' &&
-      formData.UserPassword === 'behzodbek'
+      formData.PhoneNumber === '' &&
+      formData.UserPassword === ''
     ) {
       setIsProfileWho('doktor');
     } else if (

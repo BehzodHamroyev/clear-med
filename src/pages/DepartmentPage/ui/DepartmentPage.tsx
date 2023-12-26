@@ -97,7 +97,7 @@ const DepartmentPage = () => {
     <div>
       <div className={cls.DepartmentPageWrapper}>
         <ButtonNavbar
-          dontCreate
+          CreateCarbonAdd
           TableTitle="Bo‘limlar"
           ItemsLength={tableBody.length}
         />

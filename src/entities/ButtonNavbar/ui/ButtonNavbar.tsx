@@ -10,7 +10,7 @@ import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const ButtonNavbar = (props: ButtonNavbarProps) => {
-  const { TableTitle, ItemsLength, Calendar, dontCreate } = props;
+  const { TableTitle, ItemsLength, Calendar, dontCreate, CreateCarbonAdd } = props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
@@ -70,7 +70,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
             />
           </div>
 
-          {dontCreate === true ? (
+          {CreateCarbonAdd === true ? (
             <CarbonAdd
               onClick={handleCardAddCard}
               className={cls.ButtonNavbarIconsChild2}

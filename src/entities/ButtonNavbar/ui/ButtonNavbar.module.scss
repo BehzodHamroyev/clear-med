@@ -102,4 +102,8 @@
   margin-left: -50px;
   text-align: center;
   font-weight: 400;
+
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
 }

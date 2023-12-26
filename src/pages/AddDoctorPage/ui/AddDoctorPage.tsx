@@ -181,7 +181,7 @@ const AddDoctorPage = () => {
     <div>
       <div className={cls.AddDoctorPageWrapper}>
         <ButtonNavbar
-          dontCreate
+          CreateCarbonAdd
           TableTitle="Shifokorlar"
           ItemsLength={tableBody.length}
         />
