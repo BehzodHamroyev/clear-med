@@ -7,4 +7,9 @@
   align-items: center;
   background-color: #fff;
   justify-content: space-between;
+
+  @media only screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
