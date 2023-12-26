@@ -1,0 +1,42 @@
+.ListOfSettingsWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  user-select: none;
+
+  .Language,
+  .Theme {
+    padding: 20px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .span {
+      width: 20px;
+      font-size: 24px;
+    }
+
+    .LanguageLeft,
+    .ThemeLeft {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      svg {
+        width: 35px;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.IsOpen {
+  background-color: #deeafb !important;
+}

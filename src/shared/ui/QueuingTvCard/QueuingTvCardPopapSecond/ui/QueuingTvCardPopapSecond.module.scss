@@ -1,0 +1,67 @@
+/* stylelint-disable color-function-notation */
+.QueuingTvCardPopapSecondWrapper {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .QueuingTvCardPopapSecond {
+    width: 450px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+
+    .QueuingTvCardPopapSecondTitle {
+      color: var(--black-2, #1d1d1d);
+      font-family: sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 0.036px;
+      margin: 20px auto;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .BtnParnet {
+      width: 80%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px auto;
+    }
+
+    .Btn {
+      width: 100%;
+      padding: 10px;
+      font-family: sans-serif;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .Btn2 {
+      background-color: #0000ac;
+      color: #fff;
+      border: none;
+    }
+
+    .Btn1 {
+      background-color: transparent;
+      color: #828282;
+      border: 1px solid #828282;
+    }
+
+    .Btn1:hover {
+      color: red;
+      border-color: red;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+.ButtonNavbarWrapper {
+  max-width: 1300px;
+  width: 100%;
+  max-height: 60px;
+  font-family: sans-serif;
+  border-radius: 5.273px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+  padding: 20px;
+  text-align: center;
+
+  p {
+    color: #1d1d1d;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.036px;
+    user-select: none;
+
+    span {
+      color: #828282;
+    }
+  }
+
+  .ButtonNavbarIcons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    .ButtonNavParent {
+      width: 30px;
+      overflow: hidden;
+      display: flex;
+      border: 1.1px solid #e0e0e0;
+      border-radius: 5.2px;
+      transition: all 0.5s ease-in-out !important;
+
+      .ButtonNavbarIconsChild {
+        width: 35px;
+        height: 35px;
+        flex-shrink: 0;
+        display: flex;
+        padding: 5px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        padding-right: 10px;
+      }
+
+      .ButtonNavbarInputSearch {
+        height: 35px;
+        color: #828282;
+        font-family: sans-serif;
+        font-size: 16.875px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 0.042px;
+        border-radius: 5.2px;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+      }
+
+      .CloseInput {
+        display: none !important;
+      }
+    }
+
+    .OpenWidth {
+      width: fit-content !important;
+    }
+
+    .ButtonNavbarIconsChild2 {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      display: flex;
+      padding: 7px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      border: 1.1px solid #e0e0e0;
+      border-radius: 5.2px;
+    }
+
+    .ButtonNavbarIconsChild:active,
+    .ButtonNavbarIconsChild2:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.BulimTuri {
+  margin-left: -50px;
+  text-align: center;
+  font-weight: 400;
+}

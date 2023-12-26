@@ -1,0 +1,47 @@
+.NavbarSearchWrapper {
+  max-width: 500px;
+  width: 100%;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 6.328px;
+  border: 1.055px solid #e0e0e0;
+  cursor: text;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  .NavbarSearchInput {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 7px 15px;
+    border-radius: 6.328px;
+    font-family: sans-serif;
+
+    /* text */
+
+    font-size: 16.875px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.042px;
+  }
+
+  .NavbarSearchInput::placeholder {
+    color: #828282;
+  }
+
+  .NavbarSearchIcon {
+    stroke-width: 1.5px;
+    stroke: #828282;
+    color: #828282;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    cursor: default;
+    font-weight: 500;
+  }
+}

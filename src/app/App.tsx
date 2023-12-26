@@ -1,43 +1,39 @@
-import React, { memo, Suspense } from 'react';
+import React, { memo, Suspense, useContext } from 'react';
+
+import { useLocation } from 'react-router-dom';
+import { Navbar } from '@/widgets/Nabar';
+import { Loader } from '@/widgets/Loader';
 import { AppRouter } from './providers/router';
-import { ToggleFeatures } from '@/shared/lib/features';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
+import 'react-calendar/dist/Calendar.css';
+import { Login } from '@/features/Auth';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
 const App = memo(() => {
-    const { theme } = useTheme();
-    const dispatch = useAppDispatch();
+  const { theme } = useTheme();
+  const dispatch = useAppDispatch();
+  const path = useLocation();
+  const { isProfileWho } = useContext(ButtonsContext);
 
+  // don't touch this message for Abbos can you help me!
+  // 2zx3s54cedrddtrvfwjn2qg3wxh4ecr6
 
-    return (
-        <ToggleFeatures
-            feature="isAppRedesigned"
-            off={
-                <div id="app" className={classNames('app', {}, [theme])}>
-                    <Suspense fallback="">
-                        <div className="content-page">
-                            <AppRouter />
-                        </div>
-                    </Suspense>
-                </div>
-            }
-            on={
-                <div
-                    id="app"
-                    className={classNames('app_redesigned', {}, [theme])}
-                >
-                    <Suspense fallback="">
-                        <MainLayout
-                            content={<AppRouter />}
-                        />
-                    </Suspense>
-                </div>
-            }
-        />
-    );
+  return (
+    <div id="app" className={classNames('app_redesigned', {}, [theme])}>
+      {isProfileWho === '' || path.pathname === '/login' ? (
+        <Login />
+      ) : (
+        <Suspense fallback={<Loader />}>
+          <MainLayout header={<Navbar />} content={<AppRouter />} />
+        </Suspense>
+      )}
+    </div>
+  );
 });
 
 export default withTheme(App);

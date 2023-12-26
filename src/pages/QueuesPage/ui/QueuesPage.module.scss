@@ -1,0 +1,90 @@
+.FullScreenBtn {
+  padding: 10px 20px;
+  position: absolute;
+  color: #fff;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-family: sans-serif;
+  margin: 10px;
+  background-color: transparent;
+}
+
+.QueuesPageWrapper {
+  width: 100%;
+
+  .QueuesPageImg {
+    max-width: 950px;
+    width: 100%;
+    height: 570px;
+    float: left;
+
+    @media only screen and (max-width: 1270px) {
+      width: 630px;
+      height: 370px;
+    }
+  }
+
+  .RightCardRendering {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-left: -5px;
+
+    @media only screen and (max-width: 1580px) {
+      display: none;
+    }
+  }
+
+  .RightCardRendering2 {
+    width: 500px;
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+
+    @media only screen and (max-width: 1580px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media only screen and (max-width: 1270px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .responsiveVisable {
+      display: none;
+
+      @media only screen and (max-width: 1580px) {
+        display: grid;
+      }
+    }
+  }
+
+  .QueuesPageFlex {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+  }
+
+  .BorderCardOchered {
+    border: 1px solid #e0e0e0;
+  }
+
+  .Marquee {
+    font-size: 20px;
+    margin: 25px;
+    margin-left: 0;
+    user-select: none;
+    font-family: sans-serif;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.1px;
+
+    @media only screen and (max-width: 1580px) {
+      max-width: 95px;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+.listOfPageWrapper {
+  display: flex;
+  position: relative;
+  user-select: none;
+}
+
+.listOfPage {
+  padding-left: 20px;
+}
+
+.selectionMenu {
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  left: -50;
+  top: 20px;
+  height: 30px;
+  width: 4px;
+  border-radius: 0 3px 3px 0;
+  background-color: #0000ac;
+}
+
+.wrapper {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  transition: all 0.2s linear;
+  margin-top: 15px;
+}
+
+.li {
+  width: 100%;
+  text-align: left;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  gap: 16px;
+  line-height: normal;
+  color: #828282;
+  display: flex;
+  padding: 12px 0;
+  align-items: center;
+  letter-spacing: 0.042px;
+}
+
+.liActive {
+  color: #0000ac;
+  width: 100%;
+  text-align: left;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  gap: 16px;
+  line-height: normal;
+  display: flex;
+  padding: 12px 0;
+  align-items: center;
+  letter-spacing: 0.042px;
+  user-select: none;
+}
+
+.li:hover {
+  color: #0000ac;
+}
+
+.icon {
+  color: var(--color-text);
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 8px;
+}
+
+.hr {
+  max-width: 181.406px;
+  width: 100%;
+  height: 1.055px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+
+.SidebarTitle {
+  color: #828282;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.055px;
+  margin-bottom: 10px;
+}

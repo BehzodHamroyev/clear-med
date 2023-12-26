@@ -47,6 +47,13 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         ],
     };
 
+    
+    const cssLoader2 = {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      }
+      
+
     return [
         fileLoader,
         svgLoader,
@@ -54,5 +61,6 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         tsxCodeBabelLoader,
         // typescriptLoader,
         cssLoader,
+        cssLoader2,
     ];
 }
