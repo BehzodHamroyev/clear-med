@@ -24,20 +24,11 @@ const LoginFormLeft = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (
-      formData.PhoneNumber === '+998977773767' &&
-      formData.UserPassword === 'jafarbek'
-    ) {
+    if (formData.PhoneNumber === '+1' && formData.UserPassword === '') {
       setIsProfileWho('admin');
-    } else if (
-      formData.PhoneNumber === '' &&
-      formData.UserPassword === ''
-    ) {
+    } else if (formData.PhoneNumber === '+2' && formData.UserPassword === '') {
       setIsProfileWho('doktor');
-    } else if (
-      formData.PhoneNumber === '+998912345678' &&
-      formData.UserPassword === 'abbosbek'
-    ) {
+    } else if (formData.PhoneNumber === '+3' && formData.UserPassword === '') {
       setIsProfileWho('qabulxona');
     }
   };

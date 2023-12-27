@@ -4,94 +4,21 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
-  Xona,
-  Bolimlar,
-  Shifokor,
-  Navbatlar,
-  Xisobotlar,
-  Settings,
-} from '@/shared/assets/widgets/Sidebar';
-
-import cls from './ListOfPages.module.scss';
+  listOfPageAdmin,
+  listOfPageDoktor,
+  listOfPageQabulXona,
+} from '../model/data/listOfData';
+import { Settings } from '@/shared/assets/widgets/Sidebar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
-interface ListOfPageTypes {
-  id: number;
-  path: string;
-  title: string;
-  icon: any;
-}
+import cls from './ListOfPages.module.scss';
 
 export const ListOfPages = memo(() => {
   const location = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const divRef = useRef<HTMLDivElement>(null);
 
   const { isProfileWho } = useContext(ButtonsContext);
-
-  // const [profile] = useState('qabulxona');
-  // const [profile] = useState('doktor');
-  // const [profile] = useState('admin');
-
-  const listOfPageAdmin: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/department',
-      title: t('Bo‘lim qo‘shish'),
-      icon: <Bolimlar />,
-    },
-    {
-      id: 2,
-      path: '/add_room_age',
-      title: t('Xona qo‘shish'),
-      icon: <Xona />,
-    },
-    {
-      id: 3,
-      path: '/add_doctor',
-      title: t('Shifokor qo‘shish'),
-      icon: <Shifokor />,
-    },
-    {
-      id: 4,
-      path: '/reports',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
-  ];
-
-  const listOfPageQabulXona: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/queuing_tv',
-      title: t('Navbat berish'),
-      icon: <Bolimlar />,
-    },
-    {
-      id: 4,
-      path: '/reports',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    // { id: 5, path: '/resption', title: t('Navbatlar'), icon: <Navbatlar /> },
-    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
-  ];
-
-  const listOfPageDoktor: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/reports_doctor',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    {
-      id: 2,
-      path: '/queues_control_doctor',
-      title: t('Navbatlar'),
-      icon: <Navbatlar />,
-    },
-  ];
 
   useEffect(() => {
     if (isProfileWho === 'admin') {
