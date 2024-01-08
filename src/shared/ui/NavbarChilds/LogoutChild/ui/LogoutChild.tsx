@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { getUserData } from '@/features/Auth';
+import { Logout } from '@/shared/assets/widgets/Navbar';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './LogoutChild.module.scss';
-import { Logout } from '@/shared/assets/widgets/Navbar';
 
 const LogoutChild = () => {
+  const { setIsProfileWho } = useContext(ButtonsContext);
+
+  const loginData = useSelector(getUserData);
+
   return (
-    <div className={cls.LogoutChildWrapper}>
-      <Logout className={cls.LogoutIcon}/>
-    </div>
+    <Link
+      onClick={() => {
+        setIsProfileWho('');
+        localStorage.removeItem('token');
+      }}
+      to="/"
+      className={cls.LogoutChildWrapper}
+    >
+      <Logout className={cls.LogoutIcon} />
+    </Link>
   );
 };
 

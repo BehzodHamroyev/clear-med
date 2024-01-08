@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import cls from './DepartmentPage.module.scss';
 import { TableTitle } from '@/entities/TableTitle';
@@ -6,6 +6,8 @@ import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { DepartmentAdd } from '@/entities/DepartmentAdd';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
+import { fetchDepartmentGetAll } from '../model/service/getAllDepartmentRequest';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -91,12 +93,23 @@ const tableBody = [
 ];
 
 const DepartmentPage = () => {
+  const dispatch = useAppDispatch();
+
   const { isOpenDepartmentAddCard, isOpenDepartmentEditCard } =
     useContext(ButtonsContext);
+
+  useEffect(() => {
+    dispatch(fetchDepartmentGetAll({}));
+  }, [dispatch]);
+
   return (
     <div>
       <div className={cls.DepartmentPageWrapper}>
-        <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={tableBody.length} />
+        <ButtonNavbar
+          CreateCarbonAdd
+          TableTitle="Bo‘limlar"
+          ItemsLength={tableBody.length}
+        />
 
         <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>

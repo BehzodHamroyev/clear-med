@@ -7,4 +7,19 @@
   align-items: center;
   background-color: #fff;
   justify-content: space-between;
+
+  @media only screen and (max-width: 1395px) {
+    flex-direction: column;
+    width: fit-content;
+    gap: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 20px auto;
+  }
+}
+
+.ControlPanelDocktorWrapper:last-child {
+  @media only screen and (max-width: 1395px) {
+    grid-column: auto / span 2;
+  }
 }

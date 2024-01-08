@@ -12,5 +12,13 @@
     margin: 20px auto;
     padding: 20px 0;
     flex-wrap: wrap;
+
+    @media only screen and (max-width: 1447px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media only screen and (max-width: 1050px) {
+      grid-template-columns: 1fr;
+    }
   }
 }

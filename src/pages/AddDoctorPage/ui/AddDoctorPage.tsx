@@ -180,7 +180,11 @@ const AddDoctorPage = () => {
   return (
     <div>
       <div className={cls.AddDoctorPageWrapper}>
-        <ButtonNavbar TableTitle="Shifokorlar" ItemsLength={tableBody.length} />
+        <ButtonNavbar
+          CreateCarbonAdd
+          TableTitle="Shifokorlar"
+          ItemsLength={tableBody.length}
+        />
 
         <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>

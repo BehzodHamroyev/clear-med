@@ -9,6 +9,8 @@ interface ButtonsProviderProps {
 const ButtonsProvider = (props: ButtonsProviderProps) => {
   const { initialButton, children } = props;
 
+  const [isProfileWho, setIsProfileWho] = useState('');
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -39,6 +41,15 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDepartmentAddCardIcon, setIsOpenDepartmentAddCardIcon] =
     useState(false);
 
+  const [isOpenBurgerNavbar, setIsOpenBurgerNavbar] = useState(true);
+
+  const [isSubmitLoginForm, setIsSubmitLoginForm] = useState<boolean>(false);
+
+  const [formData, setFormData] = useState({
+    PhoneNumber: '',
+    UserPassword: '',
+  });
+
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
@@ -46,6 +57,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      formData,
+      setFormData,
+      isProfileWho,
+      setIsProfileWho,
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,
@@ -74,8 +89,16 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIcon,
       isOpenDepartmentAddCardIconIndex,
       setIsOpenDepartmentAddCardIconIndex,
+      isOpenBurgerNavbar,
+      setIsOpenBurgerNavbar,
+      isSubmitLoginForm,
+      setIsSubmitLoginForm,
     }),
     [
+      formData,
+      setFormData,
+      isProfileWho,
+      setIsProfileWho,
       isCloseCalendar,
       setIsCloseCalendar,
       isCloseCalendar2,
@@ -104,6 +127,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIcon,
       isOpenDepartmentAddCardIconIndex,
       setIsOpenDepartmentAddCardIconIndex,
+      isOpenBurgerNavbar,
+      setIsOpenBurgerNavbar,
+      isSubmitLoginForm,
+      setIsSubmitLoginForm,
     ],
   );
 

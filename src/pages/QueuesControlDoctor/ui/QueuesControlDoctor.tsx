@@ -175,21 +175,21 @@ const QueuesControlDoctor = () => {
   return (
     <div className={cls.QueuesControlDoctorWrapper}>
       <ButtonNavbar
+        dontCreate
         TableTitle="Qabullar"
         ItemsLength={KorilganBemorlar.length}
-        dontCreate
       />
 
       <ControlPanelDocktor />
 
       <div className={cls.TableDoctor}>
-        <div>
+        <div className={cls.TableDoctorChild}>
           <TableTitleDoctorProfile
             Tablethead={['Id', 'Qabul boshlanishi', 'Qabul tugashi', 'Xolati']}
             Tabletbody={TableBodyCretedPatient}
           />
         </div>
-        <div>
+        <div className={cls.TableDoctorChild}>
           <TableTitleDoctorProfile
             Tablethead={['Id', 'Bilet berilgan vaqti']}
             Tabletbody={TableBodyQueuesPatients}

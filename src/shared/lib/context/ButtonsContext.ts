@@ -1,6 +1,12 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  isSubmitLoginForm: boolean;
+  setIsSubmitLoginForm: (prop: boolean) => void;
+
+  isProfileWho: string;
+  setIsProfileWho: (prop: string) => void;
+
   isCloseCalendar: boolean;
   setIsCloseCalendar: (prop: boolean) => void;
 
@@ -42,11 +48,24 @@ export interface ButtonsClickedProps {
 
   isOpenDepartmentAddCardIconIndex: number;
   setIsOpenDepartmentAddCardIconIndex: (prop: number) => void;
+
+  isOpenBurgerNavbar: boolean;
+  setIsOpenBurgerNavbar: (prop: boolean) => void;
+
+  formData: { PhoneNumber: string; UserPassword: string };
+  setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  isSubmitLoginForm: false,
+  setIsSubmitLoginForm: () => {},
+
+  isProfileWho: '',
+  setIsProfileWho: () => {},
+
   isCloseCalendar: false,
   setIsCloseCalendar: () => {},
+
   isCloseCalendar2: false,
   setIsCloseCalendar2: () => {},
 
@@ -85,4 +104,10 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDepartmentAddCardIconIndex: 1,
   setIsOpenDepartmentAddCardIconIndex: () => {},
+
+  isOpenBurgerNavbar: true,
+  setIsOpenBurgerNavbar: () => {},
+
+  formData: { PhoneNumber: '', UserPassword: '' },
+  setFormData: () => {},
 });

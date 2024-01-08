@@ -3,9 +3,11 @@
 .QueueUserControlWrapper {
   width: 100%;
   max-width: 350px;
+  min-width: 340px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 30px;
 
   .Buttons {
     .ButtonsTitle {

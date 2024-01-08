@@ -1,9 +1,11 @@
 /* eslint-disable no-constant-condition */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import cls from './TableReportsDoctorPage.module.scss';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { fetchTableReports } from '../model/service/TableReportService';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const tableTitle = [
   'ID',
@@ -46,6 +48,11 @@ const KorilganBemorlar = [
 
 const TableReportsDoctorPage = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTableReports({ id: '658287fdff48c5727ec7b1d6' }));
+  }, [dispatch]);
 
   return (
     <table className={cls.TableTitleWrapper}>

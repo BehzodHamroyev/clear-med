@@ -7,7 +7,7 @@
     "start": "webpack serve --env port=3000",
     "start:vite": "vite",
     "build:prod": "webpack  --env mode=production",
-    "build:dev": "webpack  --env mode=development",
+    "build:dev": "webpack  --env mode=development apiUrl=http://magicsoft.uz/med/api/v1",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
@@ -141,7 +141,7 @@
     "react-i18next": "^11.18.3",
     "react-phone-number-input": "^3.3.7",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.21.1"
   },
   "loki": {
     "configurations": {

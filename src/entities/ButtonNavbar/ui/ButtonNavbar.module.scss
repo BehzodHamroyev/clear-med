@@ -33,20 +33,24 @@
     gap: 20px;
 
     .ButtonNavParent {
+      width: 30px;
+      overflow: hidden;
       display: flex;
       border: 1.1px solid #e0e0e0;
       border-radius: 5.2px;
+      transition: all 0.5s ease-in-out !important;
 
       .ButtonNavbarIconsChild {
         width: 35px;
         height: 35px;
         flex-shrink: 0;
         display: flex;
-        padding: 7px;
+        padding: 5px;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         user-select: none;
+        padding-right: 10px;
       }
 
       .ButtonNavbarInputSearch {
@@ -63,6 +67,14 @@
         outline: none;
         padding: 0 10px;
       }
+
+      .CloseInput {
+        display: none !important;
+      }
+    }
+
+    .OpenWidth {
+      width: fit-content !important;
     }
 
     .ButtonNavbarIconsChild2 {
@@ -90,4 +102,8 @@
   margin-left: -50px;
   text-align: center;
   font-weight: 400;
+
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
 }
