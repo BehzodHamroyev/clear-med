@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ListOfSettings } from '@/entities/ListOfSettings';
 import { ListOfSettingsLangs } from '@/entities/ListOfSettingsLangs';
@@ -9,12 +10,14 @@ import cls from './SettingsPage.module.scss';
 import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
 
 const SettingsPage = () => {
+  const { t } = useTranslation();
+
   const { isOpenThemeOrLanguage, setIsOpenThemeOrLanguage } =
     useContext(ButtonsContext);
 
   return (
     <div className={cls.SettingsPageWrapper}>
-      <ButtonNavbar TableTitle="Sozlamalar" />
+      <ButtonNavbar TableTitle={t('Sozlamalar')} />
 
       <div className={cls.SettingsList}>
         <ListOfSettings />

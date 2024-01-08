@@ -1,3 +1,37 @@
 {
-  "MENU": "MENU"
+  "MENU": "MENU",
+
+  "Bo‘lim qo‘shish": "Add section",
+  "Xona qo‘shish": "Add room",
+  "Shifokor qo‘shish": "Add a doctor",
+  "Hisobotlar": "Reports",
+  "Navbatlar": "Queues",
+  "Navbat berish": "Queuing",
+  "Sozlamalar": "Settings",
+  "Umumiy": "General",
+
+  "Tilni o‘zgartirish": "Change language",
+  "Mavzuni o‘zgartirish": "Change theme",
+
+  "Avto": "Auto",
+  "Yorqin": "Light",
+  "Qorong‘i": "Dark",
+
+  "Fullscreen": "Fullscreen",
+
+  "Bilet raqami": "Ticket number",
+  "Xona raqami": "Room number",
+
+  "January": "January",
+  "February": "February",
+  "March": "March",
+  "April": "April",
+  "May": "May",
+  "June": "June",
+  "July": "July",
+  "August": "August",
+  "September": "September",
+  "October": "October",
+  "November": "November",
+  "December": "December"
 }

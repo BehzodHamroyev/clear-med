@@ -1,0 +1,37 @@
+{
+  "MENU": "МEНУ",
+
+  "Bo‘lim qo‘shish": "Добавить раздел",
+  "Xona qo‘shish": "Добавить комнату",
+  "Shifokor qo‘shish": "Добавить врача",
+  "Hisobotlar": "Отчеты",
+  "Navbatlar": "Очереди",
+  "Navbat berish": "Очередь",
+  "Sozlamalar": "Настройки",
+  "Umumiy": "Общий",
+
+  "Tilni o‘zgartirish": "Изменить язык",
+  "Mavzuni o‘zgartirish": "Изменить тему",
+
+  "Avto": "Авто",
+  "Yorqin": "Яркий",
+  "Qorong‘i": "Темный",
+
+  "Fullscreen": "Полноэкранный",
+
+  "Bilet raqami": "Номер билета",
+  "Xona raqami": "Номер комнаты",
+
+  "January": "Январь",
+  "February": "Февраль",
+  "March": "Март",
+  "April": "Апрель",
+  "May": "Май",
+  "June": "Июнь",
+  "July": "Июль",
+  "August": "Август",
+  "September": "Сентябрь",
+  "October": "Октябрь",
+  "November": "Ноябрь",
+  "December": "Декабрь"
+}
