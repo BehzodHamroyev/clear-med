@@ -132,15 +132,19 @@ export const ListOfPages = memo(() => {
     }
   }, [isProfileWho, location]);
 
+  // useEffect(() => {
+  //   if (loginData?.role === 'admin') {
+  //     setListToUse(listOfPageAdmin);
+  //   } else if (loginData?.role === 'doktor') {
+  //     setListToUse(listOfPageDoktor);
+  //   } else if (loginData?.role === 'qabulxona') {
+  //     setListToUse(listOfPageQabulXona);
+  //   }
+  // }, [loginData?.role]);
+
   useEffect(() => {
-    if (loginData?.role === 'admin') {
-      setListToUse(listOfPageAdmin);
-    } else if (loginData?.role === 'doktor') {
-      setListToUse(listOfPageDoktor);
-    } else if (loginData?.role === 'qabulxona') {
-      setListToUse(listOfPageQabulXona);
-    }
-  }, [loginData?.role]);
+    setListToUse(listOfPageAdmin);
+  }, []);
 
   const itemListOfPage = listToUse.map((item) => (
     <Link
