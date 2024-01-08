@@ -1,21 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { getUserData } from '@/features/Auth';
 
 import cls from './NavbarProfile.module.scss';
 
 const NavbarProfile = () => {
-  const { isProfileWho } = useContext(ButtonsContext);
+  const loginData = useSelector(getUserData);
 
   const { t } = useTranslation();
 
   const profile =
-    isProfileWho === 'admin'
+    loginData?.role === 'admin'
       ? 'Admin'
-      : isProfileWho === 'doktor'
+      : loginData?.role === 'doktor'
       ? 'Doktor'
-      : isProfileWho === 'qabulxona'
+      : loginData?.role === 'qabulxona'
       ? 'Qabulxona'
       : '';
   return (

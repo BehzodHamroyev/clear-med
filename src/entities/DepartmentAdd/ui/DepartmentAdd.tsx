@@ -1,13 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import cls from './DepartmentAdd.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+import { fetchDepartmentAdd } from '../model/service/departmentAddResponse';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const DepartmentAdd = () => {
   const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+
   const {
     setIsOpenDepartmentAddCard,
     isOpenDepartmentAddCardIcon,
@@ -28,6 +33,17 @@ const DepartmentAdd = () => {
 
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+
+  useEffect(() => {
+    dispatch(
+      fetchDepartmentAdd({
+        departmentName: 'Ankologiya',
+        departmentTime: '20minut',
+        departmentIcon: 'departmentIcon',
+      }),
+    );
+    
+  }, [dispatch]);
 
   return (
     <div

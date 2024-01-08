@@ -1,14 +1,22 @@
-export interface AuthLogin {
-  // success: boolean;
-  // user: {
-  //   _id: string;
-  //   name: string;
-  password: string;
-  // role: string;
+export interface DataUser {
+  id: string;
   login: number;
-  //   photo: string;
-  //   __v: number | string;
-  //   id: string;
-  // };
-  // token: string;
+  name: string;
+  password: string;
+  photo: string;
+  role: string;
+  __v: number;
+  _id: string;
+}
+
+export interface AuthLogin {
+  success: boolean;
+  user: DataUser;
+  token: string;
+}
+
+export interface AuthReduxType {
+  isLoading: boolean;
+  data?: DataUser;
+  error?: string;
 }

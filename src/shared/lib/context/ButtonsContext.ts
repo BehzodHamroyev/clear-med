@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  isSubmitLoginForm: boolean;
+  setIsSubmitLoginForm: (prop: boolean) => void;
+
   isProfileWho: string;
   setIsProfileWho: (prop: string) => void;
 
@@ -48,9 +51,15 @@ export interface ButtonsClickedProps {
 
   isOpenBurgerNavbar: boolean;
   setIsOpenBurgerNavbar: (prop: boolean) => void;
+
+  formData: { PhoneNumber: string; UserPassword: string };
+  setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  isSubmitLoginForm: false,
+  setIsSubmitLoginForm: () => {},
+
   isProfileWho: '',
   setIsProfileWho: () => {},
 
@@ -98,4 +107,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenBurgerNavbar: true,
   setIsOpenBurgerNavbar: () => {},
+
+  formData: { PhoneNumber: '', UserPassword: '' },
+  setFormData: () => {},
 });

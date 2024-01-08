@@ -11,7 +11,7 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import 'react-calendar/dist/Calendar.css';
-import { Login } from '@/features/Auth';
+// import { Login } from '@/features/Auth';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = memo(() => {
@@ -20,18 +20,19 @@ const App = memo(() => {
   const path = useLocation();
   const { isProfileWho } = useContext(ButtonsContext);
 
-  // don't touch this message for Abbos can you help me!
-  // 2zx3s54cedrddtrvfwjn2qg3wxh4ecr6
+  const token = localStorage.getItem('token');
+
+  // isProfileWho === '' ||
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-      {isProfileWho === '' || path.pathname === '/login' ? (
+      {/* {!token || path.pathname === '/login' ? (
         <Login />
-      ) : (
+      ) : ( */}
         <Suspense fallback={<Loader />}>
           <MainLayout header={<Navbar />} content={<AppRouter />} />
         </Suspense>
-      )}
+      {/* // )} */}
     </div>
   );
 });
