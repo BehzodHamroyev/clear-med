@@ -1,8 +1,14 @@
 .LoginFormRightWrapper {
+  order: 1;
   margin: 5px;
 
   .LoginFormRightImg {
     max-width: 600px;
     width: 100%;
+
+    @media only screen and (max-width: 1130px) {
+      max-width: 400px;
+      order: 1;
+    }
   }
 }

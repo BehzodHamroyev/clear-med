@@ -7,9 +7,11 @@ import {
 import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
 import { rtkApi } from '@/shared/api/rtkApi';
+import { AuthReduxType } from '@/features/Auth';
 
 export interface StateSchema {
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
+    login:AuthReduxType
 }
 
 export type StateSchemaKey = keyof StateSchema;
@@ -29,6 +31,7 @@ export interface ReducerManager {
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager;
+    
 }
 
 export interface ThunkExtraArg {

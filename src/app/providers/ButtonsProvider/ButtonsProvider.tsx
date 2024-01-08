@@ -43,6 +43,13 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenBurgerNavbar, setIsOpenBurgerNavbar] = useState(true);
 
+  const [isSubmitLoginForm, setIsSubmitLoginForm] = useState<boolean>(false);
+
+  const [formData, setFormData] = useState({
+    PhoneNumber: '',
+    UserPassword: '',
+  });
+
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
@@ -50,6 +57,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      formData,
+      setFormData,
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
@@ -82,8 +91,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIconIndex,
       isOpenBurgerNavbar,
       setIsOpenBurgerNavbar,
+      isSubmitLoginForm,
+      setIsSubmitLoginForm,
     }),
     [
+      formData,
+      setFormData,
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
@@ -116,6 +129,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIconIndex,
       isOpenBurgerNavbar,
       setIsOpenBurgerNavbar,
+      isSubmitLoginForm,
+      setIsSubmitLoginForm,
     ],
   );
 

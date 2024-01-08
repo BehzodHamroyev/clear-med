@@ -80,7 +80,7 @@ const AddRoomPage = () => {
     <div>
       <div className={cls.AddRoomPageWrapper}>
         <ButtonNavbar
-          dontCreate
+          CreateCarbonAdd
           TableTitle="Xonalar"
           ItemsLength={tableBody.length}
         />

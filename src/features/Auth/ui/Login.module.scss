@@ -7,7 +7,11 @@
   justify-content: center;
   font-family: sans-serif;
   background-color: #fff;
-  
+
+  @media only screen and (max-width: 400px) {
+    padding: 10px;
+  }
+
   .LoginForm {
     max-width: 1200px;
     width: 100%;
@@ -16,5 +20,12 @@
     align-items: center;
     justify-content: space-around;
     background-color: transparent;
+
+    @media only screen and (max-width: 1130px) {
+      max-width: 100%;
+      margin: 0 auto;
+      gap: 20px;
+      flex-direction: column;
+    }
   }
 }

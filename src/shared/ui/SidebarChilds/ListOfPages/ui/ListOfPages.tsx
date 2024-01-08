@@ -1,97 +1,97 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useContext, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
-  Xona,
   Bolimlar,
-  Shifokor,
   Navbatlar,
-  Xisobotlar,
   Settings,
+  Shifokor,
+  Xisobotlar,
+  Xona,
 } from '@/shared/assets/widgets/Sidebar';
-
-import cls from './ListOfPages.module.scss';
+import { getUserData } from '@/features/Auth';
+import { ListOfPageTypes } from '../model/types/listOfPages';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
-interface ListOfPageTypes {
-  id: number;
-  path: string;
-  title: string;
-  icon: any;
-}
+import cls from './ListOfPages.module.scss';
+
+const listOfPageAdmin: ListOfPageTypes[] = [
+  {
+    id: 1,
+    path: '/department',
+    title: 'Bo‘lim qo‘shish',
+    icon: <Bolimlar />,
+  },
+  {
+    id: 2,
+    path: '/add_room_age',
+    title: 'Xona qo‘shish',
+    icon: <Xona />,
+  },
+  {
+    id: 3,
+    path: '/add_doctor',
+    title: 'Shifokor qo‘shish',
+    icon: <Shifokor />,
+  },
+  {
+    id: 4,
+    path: '/reports',
+    title: 'Hisobotlar',
+    icon: <Xisobotlar />,
+  },
+  { id: 5, path: '/queues', title: 'Navbatlar', icon: <Navbatlar /> },
+];
+
+const listOfPageQabulXona: ListOfPageTypes[] = [
+  {
+    id: 1,
+    path: '/queuing_tv',
+    title: 'Navbat berish',
+    icon: <Bolimlar />,
+  },
+  {
+    id: 4,
+    path: '/reports',
+    title: 'Hisobotlar',
+    icon: <Xisobotlar />,
+  },
+
+  { id: 5, path: '/queues', title: 'Navbatlar', icon: <Navbatlar /> },
+];
+
+const listOfPageDoktor: ListOfPageTypes[] = [
+  {
+    id: 1,
+    path: '/reports_doctor',
+    title: 'Hisobotlar',
+    icon: <Xisobotlar />,
+  },
+  {
+    id: 2,
+    path: '/queues_control_doctor',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
+  },
+];
 
 export const ListOfPages = memo(() => {
   const location = useLocation();
-  const { t, i18n } = useTranslation();
+
+  const { t } = useTranslation();
+
   const divRef = useRef<HTMLDivElement>(null);
+
+  const loginData = useSelector(getUserData);
 
   const { isProfileWho } = useContext(ButtonsContext);
 
-  // const [profile] = useState('qabulxona');
-  // const [profile] = useState('doktor');
-  // const [profile] = useState('admin');
+  const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
 
-  const listOfPageAdmin: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/department',
-      title: t('Bo‘lim qo‘shish'),
-      icon: <Bolimlar />,
-    },
-    {
-      id: 2,
-      path: '/add_room_age',
-      title: t('Xona qo‘shish'),
-      icon: <Xona />,
-    },
-    {
-      id: 3,
-      path: '/add_doctor',
-      title: t('Shifokor qo‘shish'),
-      icon: <Shifokor />,
-    },
-    {
-      id: 4,
-      path: '/reports',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
-  ];
-
-  const listOfPageQabulXona: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/queuing_tv',
-      title: t('Navbat berish'),
-      icon: <Bolimlar />,
-    },
-    {
-      id: 4,
-      path: '/reports',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    // { id: 5, path: '/resption', title: t('Navbatlar'), icon: <Navbatlar /> },
-    { id: 5, path: '/queues', title: t('Navbatlar'), icon: <Navbatlar /> },
-  ];
-
-  const listOfPageDoktor: ListOfPageTypes[] = [
-    {
-      id: 1,
-      path: '/reports_doctor',
-      title: t('Hisobotlar'),
-      icon: <Xisobotlar />,
-    },
-    {
-      id: 2,
-      path: '/queues_control_doctor',
-      title: t('Navbatlar'),
-      icon: <Navbatlar />,
-    },
-  ];
+  const [listItemMenuClicked, setListItemMenuClicked] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (isProfileWho === 'admin') {
@@ -130,42 +130,41 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '216px';
       }
     }
-  }, [location]);
+  }, [isProfileWho, location]);
 
-  const itemListOfPage = useMemo(() => {
-    let listToUse: any[] = [];
+  // useEffect(() => {
+  //   if (loginData?.role === 'admin') {
+  //     setListToUse(listOfPageAdmin);
+  //   } else if (loginData?.role === 'doktor') {
+  //     setListToUse(listOfPageDoktor);
+  //   } else if (loginData?.role === 'qabulxona') {
+  //     setListToUse(listOfPageQabulXona);
+  //   }
+  // }, [loginData?.role]);
 
-    if (isProfileWho === 'admin') {
-      listToUse = listOfPageAdmin;
-    } else if (isProfileWho === 'doktor') {
-      listToUse = listOfPageDoktor;
-    } else if (isProfileWho === 'qabulxona') {
-      listToUse = listOfPageQabulXona;
-    }
+  useEffect(() => {
+    setListToUse(listOfPageAdmin);
+  }, []);
 
-    return listToUse.map((item) => (
-      <Link
-        className={location.pathname === item.path ? cls.liActive : cls.li}
-        key={item.title}
-        to={item.path}
-      >
-        {item.icon}
-        {item.title}
-      </Link>
-    ));
-  }, [
-    isProfileWho,
-    listOfPageAdmin,
-    listOfPageDoktor,
-    listOfPageQabulXona,
-    location.pathname,
-    cls.liActive,
-    cls.li,
-  ]);
+  const itemListOfPage = listToUse.map((item) => (
+    <Link
+      className={location.pathname === item.path ? cls.liActive : cls.li}
+      key={item.title}
+      to={item.path}
+      onClick={() => setListItemMenuClicked(true)}
+    >
+      {item.icon}
+      {t(item.title)}
+    </Link>
+  ));
 
   return (
     <div className={cls.listOfPageWrapper}>
-      <div className={cls.selectionMenu} ref={divRef} />
+      {listItemMenuClicked ? (
+        <div className={cls.selectionMenu} ref={divRef} />
+      ) : (
+        ''
+      )}
 
       <div className={cls.listOfPage}>
         <div className={cls.wrapper}>{itemListOfPage}</div>
@@ -177,6 +176,7 @@ export const ListOfPages = memo(() => {
         <Link
           className={location.pathname === '/settings' ? cls.liActive : cls.li}
           to="/settings"
+          onClick={() => setListItemMenuClicked(true)}
         >
           <Settings />
           {t('Sozlamalar')}
