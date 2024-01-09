@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import cls from './DepartmentAdd.module.scss';
@@ -34,7 +34,7 @@ const DepartmentAdd = () => {
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
-  useEffect(() => {
+  const handleButtonClick = () => {
     dispatch(
       fetchDepartmentAdd({
         departmentName: 'Ankologiya',
@@ -42,8 +42,7 @@ const DepartmentAdd = () => {
         departmentIcon: 'departmentIcon',
       }),
     );
-    
-  }, [dispatch]);
+  };
 
   return (
     <div
@@ -110,7 +109,11 @@ const DepartmentAdd = () => {
             >
               {t('Bekor qilish')}
             </button>
-            <button type="button" className={`${cls.Btn} ${cls.Btn2}`}>
+            <button
+              onClick={handleButtonClick}
+              type="button"
+              className={`${cls.Btn} ${cls.Btn2}`}
+            >
               {t('Saqlash')}
             </button>
           </div>

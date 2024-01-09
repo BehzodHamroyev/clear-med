@@ -41,7 +41,7 @@ const Login: FC = () => {
       dispatch(
         fetchAuthLogin({
           password: '12345678',
-          login: 1,
+          login: 906518141,
         }),
       );
 
