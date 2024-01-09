@@ -1,6 +1,6 @@
 export interface DataUser {
   id: string;
-  login: number;
+  login: number | string;
   name: string;
   password: string;
   photo: string;
