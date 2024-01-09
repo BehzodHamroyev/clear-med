@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -13,6 +14,11 @@ import {
 import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import {
+  getQueuesControlDoctorData,
+  getQueuesControlDoctorError,
+  getQueuesControlDoctorIsLoading,
+} from '../model/selectors/queuesControlDoctorSelector';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -181,6 +187,11 @@ const TableBodyQueuesPatients = [
 
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
+  const queuesList = useSelector(getQueuesControlDoctorData);
+  const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
+  const queuesListError = useSelector(getQueuesControlDoctorError);
+
+  console.log(queuesList?.queues);
 
   useEffect(() => {
     dispatch(
