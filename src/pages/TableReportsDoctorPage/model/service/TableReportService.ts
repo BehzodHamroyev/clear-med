@@ -11,7 +11,7 @@ export const fetchTableReports = createAsyncThunk<
 
   try {
     const response = await extra.api.get<TableInfoPatients>(
-      `/users/doctor/ill/procces${id}`,
+      `/users/doctor/ill/procces/${id}`,
     );
 
     console.log(response, 'response');
