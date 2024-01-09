@@ -1,5 +1,4 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
@@ -7,6 +6,17 @@ import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
 import cls from './QueuesControlDoctor.module.scss';
+import {
+  DynamicModuleLoader,
+  ReducersList,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
+import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
+const reducers: ReducersList = {
+  queuesControlDoctor: queuesControlDoctorReducer,
+};
 
 const KorilganBemorlar = [
   {
@@ -170,35 +180,51 @@ const TableBodyQueuesPatients = [
 ];
 
 const QueuesControlDoctor = () => {
-  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      fetchQueuesControlDoctor({
+        doctorId: 'doctorId',
+        status: 'pending',
+      }),
+    );
+  }, [dispatch]);
 
   return (
-    <div className={cls.QueuesControlDoctorWrapper}>
-      <ButtonNavbar
-        dontCreate
-        TableTitle="Qabullar"
-        ItemsLength={KorilganBemorlar.length}
-      />
+    <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+      <div className={cls.QueuesControlDoctorWrapper}>
+        <ButtonNavbar
+          dontCreate
+          TableTitle="Qabullar"
+          ItemsLength={KorilganBemorlar.length}
+        />
 
-      <ControlPanelDocktor />
+        <ControlPanelDocktor />
 
-      <div className={cls.TableDoctor}>
-        <div className={cls.TableDoctorChild}>
-          <TableTitleDoctorProfile
-            Tablethead={['Id', 'Qabul boshlanishi', 'Qabul tugashi', 'Xolati']}
-            Tabletbody={TableBodyCretedPatient}
-          />
+        <div className={cls.TableDoctor}>
+          <div className={cls.TableDoctorChild}>
+            <TableTitleDoctorProfile
+              Tablethead={[
+                'Id',
+                'Qabul boshlanishi',
+                'Qabul tugashi',
+                'Xolati',
+              ]}
+              Tabletbody={TableBodyCretedPatient}
+            />
+          </div>
+          <div className={cls.TableDoctorChild}>
+            <TableTitleDoctorProfile
+              Tablethead={['Id', 'Bilet berilgan vaqti']}
+              Tabletbody={TableBodyQueuesPatients}
+            />
+          </div>
         </div>
-        <div className={cls.TableDoctorChild}>
-          <TableTitleDoctorProfile
-            Tablethead={['Id', 'Bilet berilgan vaqti']}
-            Tabletbody={TableBodyQueuesPatients}
-          />
-        </div>
+
+        {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
       </div>
-
-      {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-    </div>
+    </DynamicModuleLoader>
   );
 };
 

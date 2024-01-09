@@ -12,8 +12,9 @@ export function createReduxStore(
 ) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
-    [rtkApi.reducerPath]: rtkApi.reducer,
     login: AuthSliceReducer,
+
+    [rtkApi.reducerPath]: rtkApi.reducer,
   };
 
   const reducerManager = createReducerManager(rootReducers);

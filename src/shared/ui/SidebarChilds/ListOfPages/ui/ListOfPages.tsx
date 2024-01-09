@@ -143,7 +143,7 @@ export const ListOfPages = memo(() => {
   // }, [loginData?.role]);
 
   useEffect(() => {
-    setListToUse(listOfPageAdmin);
+    setListToUse(listOfPageDoktor);
   }, []);
 
   const itemListOfPage = listToUse.map((item) => (

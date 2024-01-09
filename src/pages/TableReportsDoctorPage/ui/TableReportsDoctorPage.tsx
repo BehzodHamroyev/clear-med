@@ -51,7 +51,7 @@ const TableReportsDoctorPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchTableReports({ id: '658287fdff48c5727ec7b1d6' }));
+    dispatch(fetchTableReports({ id: '65828772ff48c5727ec7b1c0' }));
   }, [dispatch]);
 
   return (
