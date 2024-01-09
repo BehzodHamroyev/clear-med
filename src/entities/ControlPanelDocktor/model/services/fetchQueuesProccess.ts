@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { QueueApiResponseControlDoctorTypes } from '../..';
+import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
 
-export const fetchQueuesControlDoctor = createAsyncThunk<
-  QueueApiResponseControlDoctorTypes,
+export const fetchQueuesProccess = createAsyncThunk<
+  ProccesApiResponseControlPanelDoctorTypes,
   { status: string },
   ThunkConfig<string>
->('fetchQueuesControlDoctor', async ({ status }, thunkApi) => {
+>('fetchQueuesProccess', async ({ status }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
   const token = localStorage.getItem('token');
 
@@ -16,7 +16,7 @@ export const fetchQueuesControlDoctor = createAsyncThunk<
   }
 
   try {
-    const response = await axios.get<QueueApiResponseControlDoctorTypes>(
+    const response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
       `https://magicsoft.uz/med/api/v1/doctor/type?status=${status}`,
 
       {

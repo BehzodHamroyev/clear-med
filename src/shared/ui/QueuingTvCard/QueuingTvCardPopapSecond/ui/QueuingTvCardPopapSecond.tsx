@@ -33,7 +33,7 @@ const QueuingTvCardPopapSecond = () => {
         </h3>
 
         <div ref={printableDivRef}>
-          <QueueUserDoctor />
+          <QueueUserDoctor ticketNumber="aa" roomNumber={0} />
         </div>
 
         <div className={cls.BtnParnet}>

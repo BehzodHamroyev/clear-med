@@ -13,15 +13,14 @@ interface TableInfo {
 const TableTitleDoctorProfile = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
-  console.log('2024-01-09T04:25:36.099Z');
-  console.log('2024-01-09T04:25:36.099Z'.split('T0')[1].split('.')[0]);
-
   return (
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
           {Tablethead.map((title: string) => (
-            <th className={cls.th}>{title}</th>
+            <th key={title} className={cls.th}>
+              {title}
+            </th>
           ))}
         </tr>
       </thead>
@@ -31,8 +30,8 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
           <tr key={queue.id} className={cls.tr}>
             <td className={cls.td}>{queue.queues_name}</td>
             <td className={cls.td}>
-              {queue.accepted_date.split('T0')[1].split('.')[0]}
-              {' | '} {queue.accepted_date.split('T0')[0]}
+              {queue.accepted_date.split('T')[1].split('.')[0]}
+              {' | '} {queue.accepted_date.split('T')[0]}
             </td>
           </tr>
         ))}

@@ -170,33 +170,15 @@ const TableBodyCretedPatient = [
   },
 ];
 
-const TableBodyQueuesPatients = [
-  { id: 1, item1: 'AKU18', item2: '15:34:25' },
-  { id: 2, item1: 'AKU19', item2: '15:35:25' },
-  { id: 3, item1: 'AKU20', item2: '15:36:25' },
-  { id: 4, item1: 'AKU21', item2: '15:37:25' },
-  { id: 5, item1: 'AKU22', item2: '15:38:25' },
-  { id: 6, item1: 'AKU23', item2: '15:39:25' },
-  { id: 7, item1: 'AKU24', item2: '15:30:25' },
-  { id: 8, item1: 'AKU25', item2: '15:31:25' },
-  { id: 9, item1: 'AKU26', item2: '15:32:25' },
-  { id: 10, item1: 'AKU27', item2: '15:34:25' },
-  { id: 11, item1: 'AKU28', item2: '15:44:25' },
-  { id: 12, item1: 'AKU29', item2: '15:34:25' },
-];
-
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
-  console.log(queuesList?.queues);
-
   useEffect(() => {
     dispatch(
       fetchQueuesControlDoctor({
-        doctorId: 'doctorId',
         status: 'pending',
       }),
     );
