@@ -7,45 +7,46 @@ const baseUrl = 'https://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
-  { departmentName: string; departmentTime: string; departmentIcon: any },
+  { name: string; image: string; duration: any },
   ThunkConfig<string>
->(
-  'DepartmentAdd',
-  async ({ departmentName, departmentTime, departmentIcon }, thunkApi) => {
-    const { extra, rejectWithValue } = thunkApi;
-    const token = localStorage.getItem('token');
-    const allCookiesString = document.cookie;
+>('DepartmentAdd', async ({ name, image, duration }, thunkApi) => {
+  const { extra, rejectWithValue } = thunkApi;
+  const token = localStorage.getItem('token');
+  const allCookiesString = document.cookie;
 
-    console.log(`Department:`, allCookiesString);
+  console.log(`Department:`, allCookiesString);
 
-    try {
-      const response = await axios.post<DepartmentType>(
-        `${baseUrl}department/create`,
-        {
-          departmentName,
-          departmentTime,
-          departmentIcon,
+  try {
+    const response = await axios.post<DepartmentType>(
+      `${baseUrl}department/create`,
+      {
+        name,
+        image,
+        duration,
+      },
+      {
+        maxBodyLength: Infinity,
+        headers: {
+          'Content-Type': 'application',
+          authorization: `Bearer ${token}`,
         },
-        {
-          headers: { 'Content-Type': 'application', token: `Bearer ${token}` },
-        },
-      );
+      },
+    );
 
-      console.log(response, 'department');
+    console.log(response, 'department');
 
-      if (!response.data) {
-        throw new Error();
-      }
-      // @ts-ignore
-      if (response.data.token) {
-        // @ts-ignore
-        localStorage.setItem('token', response.data.token);
-      }
-
-      return response.data;
-    } catch (e) {
-      console.log(e, 'department');
-      return rejectWithValue('error');
+    if (!response.data) {
+      throw new Error();
     }
-  },
-);
+    // @ts-ignore
+    if (response.data.token) {
+      // @ts-ignore
+      localStorage.setItem('token', response.data.token);
+    }
+
+    return response.data;
+  } catch (e) {
+    console.log(e, 'department');
+    return rejectWithValue('error');
+  }
+});
