@@ -44,7 +44,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
       profileValue === 'admin' ? (
         <DepartmentPage />
       ) : profileValue === 'doctor' ? (
-        <AboutPage />
+        <TableReportsDoctorPage />
       ) : profileValue === 'reception' ? (
         <ForbiddenPage />
       ) : (

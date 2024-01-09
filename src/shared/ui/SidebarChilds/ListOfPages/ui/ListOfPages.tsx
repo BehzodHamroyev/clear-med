@@ -130,7 +130,7 @@ export const ListOfPages = memo(() => {
   useEffect(() => {
     if (profileValue === 'admin') {
       setListToUse(listOfPageAdmin);
-    } else if (profileValue === 'doktor') {
+    } else if (profileValue === 'doctor') {
       setListToUse(listOfPageDoktor);
     } else if (profileValue === 'qabulxona') {
       setListToUse(listOfPageQabulXona);

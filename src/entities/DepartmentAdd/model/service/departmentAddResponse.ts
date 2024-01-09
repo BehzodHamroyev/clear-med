@@ -3,6 +3,8 @@ import axios from 'axios';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { DepartmentType } from '../types/departmentType';
 
+const baseUrl = 'https://magicsoft.uz/med/api/v1/';
+
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
   { departmentName: string; departmentTime: string; departmentIcon: any },
@@ -18,14 +20,14 @@ export const fetchDepartmentAdd = createAsyncThunk<
 
     try {
       const response = await axios.post<DepartmentType>(
-        `http://magicsoft.uz/med/api/v1/department/create/`,
+        `${baseUrl}department/create`,
         {
           departmentName,
           departmentTime,
           departmentIcon,
         },
         {
-          headers: { 'Content-Type': 'application', token: ` Bearer ${token}` },
+          headers: { 'Content-Type': 'application', token: `Bearer ${token}` },
         },
       );
 

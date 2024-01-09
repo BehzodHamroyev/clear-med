@@ -30,8 +30,10 @@ const TableTitle = (props: TableInfo) => {
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
-          {Tablethead.map((title: string) => (
-            <th className={cls.th}>{title}</th>
+          {Tablethead.map((title: string, index) => (
+            <th key={index} className={cls.th}>
+              {title}
+            </th>
           ))}
         </tr>
       </thead>

@@ -36,6 +36,7 @@ export const fetchAuthLogin = createAsyncThunk<
     if (response.data.user.role) {
       localStorage.setItem('profile', response.data.user.role);
     }
+    console.log(response.data.user.role, 'vjvjvjvvjj');
 
     return response.data;
   } catch (error) {
