@@ -1,3 +1,37 @@
 {
-  "MENU": "МEНУ"
+  "MENU": "МEНУ",
+
+  "Bo‘lim qo‘shish": "Бўлим қўшиш",
+  "Xona qo‘shish": "Хона қўшиш",
+  "Shifokor qo‘shish": "Шифокор қўшиш",
+  "Hisobotlar": "Ҳисоботлар",
+  "Navbatlar": "Навбатлар",
+  "Navbat berish": "Навбат бериш",
+  "Sozlamalar": "Созламалар",
+  "Umumiy": "Умумий",
+
+  "Tilni o‘zgartirish": "Тилни ўзгартириш",
+  "Mavzuni o‘zgartirish": "Мавзуни ўзгартириш",
+
+  "Avto": "Авто",
+  "Yorqin": "Ёрқин",
+  "Qorong‘i": "Қоронғи",
+
+  "Fullscreen": "Тўлиқ экран",
+
+  "Bilet raqami": "Билет рақами",
+  "Xona raqami": "Хона рақами",
+
+  "January": "Январь",
+  "February": "Февраль",
+  "March": "Март",
+  "April": "Апрель",
+  "May": "Май",
+  "June": "Июнь",
+  "July": "Июль",
+  "August": "Август",
+  "September": "Сентябрь",
+  "October": "Октябрь",
+  "November": "Ноябрь",
+  "December": "Декабрь"
 }

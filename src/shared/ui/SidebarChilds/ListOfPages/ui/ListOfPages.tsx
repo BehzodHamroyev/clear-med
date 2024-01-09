@@ -1,19 +1,17 @@
-import React, { memo, useContext, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
 import {
-  Bolimlar,
-  Navbatlar,
-  Settings,
-  Shifokor,
-  Xisobotlar,
   Xona,
+  Settings,
+  Bolimlar,
+  Shifokor,
+  Navbatlar,
+  Xisobotlar,
 } from '@/shared/assets/widgets/Sidebar';
-import { getUserData } from '@/features/Auth';
+
 import { ListOfPageTypes } from '../model/types/listOfPages';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './ListOfPages.module.scss';
 
@@ -84,17 +82,14 @@ export const ListOfPages = memo(() => {
 
   const divRef = useRef<HTMLDivElement>(null);
 
-  const loginData = useSelector(getUserData);
-
-  const { isProfileWho } = useContext(ButtonsContext);
+  const [LinkIndex, setLinkIndex] = useState<number>(1);
 
   const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
 
-  const [listItemMenuClicked, setListItemMenuClicked] =
-    useState<boolean>(false);
+  const profileValue = localStorage.getItem('profile');
 
   useEffect(() => {
-    if (isProfileWho === 'admin') {
+    if (profileValue === 'admin') {
       if (divRef.current && location.pathname === '/department') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/add_room_age') {
@@ -108,7 +103,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '300px';
       }
-    } else if (isProfileWho === 'doktor') {
+    } else if (profileValue === 'doktor') {
       if (divRef.current && location.pathname === '/reports_doctor') {
         divRef.current.style.top = '20px';
       } else if (
@@ -119,7 +114,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '172px';
       }
-    } else if (isProfileWho === 'qabulxona') {
+    } else if (profileValue === 'qabulxona') {
       if (divRef.current && location.pathname === '/queuing_tv') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
@@ -130,41 +125,40 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '216px';
       }
     }
-  }, [isProfileWho, location]);
-
-  // useEffect(() => {
-  //   if (loginData?.role === 'admin') {
-  //     setListToUse(listOfPageAdmin);
-  //   } else if (loginData?.role === 'doktor') {
-  //     setListToUse(listOfPageDoktor);
-  //   } else if (loginData?.role === 'qabulxona') {
-  //     setListToUse(listOfPageQabulXona);
-  //   }
-  // }, [loginData?.role]);
+  }, [profileValue, location]);
 
   useEffect(() => {
-    setListToUse(listOfPageDoktor);
-  }, []);
+    if (profileValue === 'admin') {
+      setListToUse(listOfPageAdmin);
+    } else if (profileValue === 'doktor') {
+      setListToUse(listOfPageDoktor);
+    } else if (profileValue === 'qabulxona') {
+      setListToUse(listOfPageQabulXona);
+    }
+  }, [profileValue]);
 
-  const itemListOfPage = listToUse.map((item) => (
-    <Link
-      className={location.pathname === item.path ? cls.liActive : cls.li}
-      key={item.title}
-      to={item.path}
-      onClick={() => setListItemMenuClicked(true)}
-    >
-      {item.icon}
-      {t(item.title)}
-    </Link>
-  ));
+  const itemListOfPage = listToUse.map((item, index) => {
+    const classNamesOne =
+      location.pathname === item.path ? cls.liActive : cls.li;
+
+    const classNamesTwo = LinkIndex === 1 ? cls.liActiveFirst : '';
+
+    return (
+      <Link
+        className={`${classNamesOne} ${classNamesTwo}`}
+        key={item.title}
+        to={item.path}
+        onClick={() => setLinkIndex(index + 1)}
+      >
+        {item.icon}
+        {t(item.title)}
+      </Link>
+    );
+  });
 
   return (
     <div className={cls.listOfPageWrapper}>
-      {listItemMenuClicked ? (
-        <div className={cls.selectionMenu} ref={divRef} />
-      ) : (
-        ''
-      )}
+      <div className={cls.selectionMenu} ref={divRef} />
 
       <div className={cls.listOfPage}>
         <div className={cls.wrapper}>{itemListOfPage}</div>
@@ -176,7 +170,7 @@ export const ListOfPages = memo(() => {
         <Link
           className={location.pathname === '/settings' ? cls.liActive : cls.li}
           to="/settings"
-          onClick={() => setListItemMenuClicked(true)}
+          onClick={() => setLinkIndex(10)}
         >
           <Settings />
           {t('Sozlamalar')}

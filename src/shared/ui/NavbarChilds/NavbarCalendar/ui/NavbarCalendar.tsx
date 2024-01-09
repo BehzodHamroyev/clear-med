@@ -7,13 +7,13 @@ const NavbarCalendar = () => {
   const date = new Date();
   const day = date.getDate();
   const year = date.getFullYear();
-  const month = date.toLocaleString('default', { month: 'long' }).slice(0, 3);
-  // console.log(date, 'vjdvnskd');
+  const monthName = new Intl.DateTimeFormat('default', { month: 'long' });
+  const tarjimaQilinganOyNomlari = monthName.format(date);
 
   return (
     <div className={cls.NavbarCalendarWrapper}>
       <p>
-        {day}-{t(month)}-{year}
+        {day}-{t(tarjimaQilinganOyNomlari)}-{year}
       </p>
     </div>
   );

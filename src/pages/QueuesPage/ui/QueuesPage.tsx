@@ -88,8 +88,7 @@ const QueuesPage = () => {
             </div>
 
             <Marquee className={cls.Marquee}>
-              I can be a React component, multiple React components, or just
-              some text.
+              {/* {t('Text for medic , Text medic uchun va h.k')} */}
             </Marquee>
           </div>
         )}
