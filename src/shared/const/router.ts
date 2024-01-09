@@ -16,6 +16,8 @@ export enum AppRoutes {
   QUEUING_TV = 'queuing_tv',
 }
 
+const profileValue = localStorage.getItem('profile');
+
 // AddRoomPage
 export const getRouteMain = () => '/';
 export const getRouteNotFound = () => '/*';

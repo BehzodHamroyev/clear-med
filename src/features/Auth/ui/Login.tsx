@@ -28,8 +28,6 @@ const Login: FC = () => {
 
   const loginData = useSelector(getUserData);
 
-  console.log(loginData, 'ckjsdnvkjdcndksjcnsdk');
-
   useEffect(() => {
     if (loginData) {
       setIsProfileWho(`${loginData.role}`);
@@ -42,8 +40,8 @@ const Login: FC = () => {
     if (isSubmitLoginForm) {
       dispatch(
         fetchAuthLogin({
-          password: formData.UserPassword,
-          login: formData.PhoneNumber,
+          password: '12345678',
+          login: 1,
         }),
       );
 

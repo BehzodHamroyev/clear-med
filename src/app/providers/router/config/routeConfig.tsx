@@ -35,10 +35,21 @@ import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { QueuingTv } from '@/pages/QueuingTV';
 
+const profileValue = localStorage.getItem('profile');
+
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
     path: getRouteMain(),
-    element: <MainPage />,
+    element:
+      profileValue === 'admin' ? (
+        <DepartmentPage />
+      ) : profileValue === 'doctor' ? (
+        <AboutPage />
+      ) : profileValue === 'reception' ? (
+        <ForbiddenPage />
+      ) : (
+        <MainPage />
+      ),
   },
   [AppRoutes.ABOUT]: {
     path: getRouteAbout(),
