@@ -215,7 +215,7 @@ const QueuesControlDoctor = () => {
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
-            <TableTitleDoctorProfile
+            {/* <TableTitleDoctorProfile
               Tablethead={[
                 'Id',
                 'Qabul boshlanishi',
@@ -223,13 +223,15 @@ const QueuesControlDoctor = () => {
                 'Xolati',
               ]}
               Tabletbody={TableBodyCretedPatient}
-            />
+            /> */}
           </div>
           <div className={cls.TableDoctorChild}>
-            <TableTitleDoctorProfile
-              Tablethead={['Id', 'Bilet berilgan vaqti']}
-              Tabletbody={TableBodyQueuesPatients}
-            />
+            {queuesList && (
+              <TableTitleDoctorProfile
+                Tablethead={['Id', 'Bilet berilgan vaqti']}
+                Tabletbody={queuesList?.queues}
+              />
+            )}
           </div>
         </div>
 

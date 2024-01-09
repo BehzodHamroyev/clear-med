@@ -12,7 +12,7 @@ interface Doctor {
   name: string;
 }
 
-interface Queue {
+export interface Queue {
   _id: string;
   department_id: Department;
   room_id: Room;

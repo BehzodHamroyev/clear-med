@@ -1,11 +1,20 @@
 import React from 'react';
 
-import { TableInfo } from '../model/types/TableInfo';
-
 import cls from './TableTitleDoctorProfile.module.scss';
+
+import { Queue } from '@/pages/QueuesControlDoctor';
+
+interface TableInfo {
+  cursor?: boolean;
+  Tablethead: string[];
+  Tabletbody: Queue[];
+}
 
 const TableTitleDoctorProfile = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
+
+  console.log('2024-01-09T04:25:36.099Z');
+  console.log('2024-01-09T04:25:36.099Z'.split('T0')[1].split('.')[0]);
 
   return (
     <table className={cls.TableTitleWrapper}>
@@ -18,18 +27,13 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
       </thead>
 
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => (
-          <tr key={item.id} className={cls.tr}>
-            {item.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
-            {item.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
-            {item.item3 ? <td className={cls.td}>{item.item3}</td> : ''}
-            {item.img ? (
-              <td className={cls.td}>
-                <img className={cls.Img} src={item?.img} alt="#" />
-              </td>
-            ) : (
-              ''
-            )}
+        {Tabletbody.map((queue) => (
+          <tr key={queue.id} className={cls.tr}>
+            <td className={cls.td}>{queue.queues_name}</td>
+            <td className={cls.td}>
+              {queue.accepted_date.split('T0')[1].split('.')[0]}
+              {' | '} {queue.accepted_date.split('T0')[0]}
+            </td>
           </tr>
         ))}
       </tbody>
