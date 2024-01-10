@@ -6,10 +6,11 @@ import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanel
 
 export const fetchQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
-  { status: string },
+  { method: string; path: string; status: string },
   ThunkConfig<string>
->('fetchQueuesProccess', async ({ status }, thunkApi) => {
-  const { extra, rejectWithValue } = thunkApi;
+>('fetchQueuesProccess', async ({ method, path, status }, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
+
   const getTokenCookie = Cookies.get('token');
 
   if (!status) {
@@ -17,17 +18,32 @@ export const fetchQueuesProccess = createAsyncThunk<
   }
 
   try {
-    const response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
-      `https://magicsoft.uz/med/api/v1/doctor/type?status=${status}`,
+    let response;
 
-      {
-        headers: {
-          authorization: `Bearer ${getTokenCookie}`,
+    if (method === 'get') {
+      response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
+        `https://magicsoft.uz/med/api/v1/doctor/${path}${status}`,
+
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
         },
-      },
-    );
+      );
+    } else if (method === 'post') {
+      response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+        `https://magicsoft.uz/med/api/v1/doctor/${path}${status}`,
 
-    if (!response.data) {
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
+    }
+
+    if (!response) {
       throw new Error();
     }
 

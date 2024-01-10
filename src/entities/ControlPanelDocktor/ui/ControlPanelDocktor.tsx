@@ -22,7 +22,9 @@ const ControlPanelDocktor = () => {
   useEffect(() => {
     dispatch(
       fetchQueuesProccess({
+        method: 'get',
         status: 'proccessed',
+        path: 'type?status=',
       }),
     );
   }, [dispatch]);
@@ -32,11 +34,11 @@ const ControlPanelDocktor = () => {
       {proccessedList && (
         <>
           <QueueUserDoctor
-            ticketNumber={proccessedList?.queues[0]?.queues_name[0]}
-            roomNumber={proccessedList?.queues[0]?.room_id?.name}
+            ticketNumber={proccessedList?.data[0]?.queues_name}
+            roomNumber={proccessedList?.data[0]?.room_id?.name}
           />
 
-          <QueueUserControl proccessedStep={proccessedList?.queues[0]?.step} />
+          <QueueUserControl proccessedStep={proccessedList?.data[0]?.step} />
         </>
       )}
       <QueueUserNext />

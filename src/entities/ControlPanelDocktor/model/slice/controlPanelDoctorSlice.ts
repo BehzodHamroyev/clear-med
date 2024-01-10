@@ -26,7 +26,16 @@ export const controlPanelDoctorSlice = createSlice({
           action: PayloadAction<ProccesApiResponseControlPanelDoctorTypes>,
         ) => {
           state.isLoading = false;
-          state.data = action.payload;
+
+          if (action.payload.data[0]?.status === 'proccessed') {
+            state.data = action.payload;
+          } else {
+            state.data = {
+              result: 0,
+              status: '',
+              data: [],
+            };
+          }
         },
       )
       .addCase(fetchQueuesProccess.rejected, (state, action) => {

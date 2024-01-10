@@ -17,7 +17,7 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
-          {Tablethead.map((title: string) => (
+          {Tablethead?.map((title: string) => (
             <th key={title} className={cls.th}>
               {title}
             </th>
@@ -26,7 +26,7 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
       </thead>
 
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((queue) => (
+        {Tabletbody?.map((queue) => (
           <tr key={queue.id} className={cls.tr}>
             <td className={cls.td}>{queue.queues_name}</td>
             <td className={cls.td}>

@@ -28,7 +28,7 @@ export interface Queue {
 }
 
 export interface QueueApiResponseControlDoctorTypes {
-  length: number;
-  message: string;
-  queues: Queue[];
+  status: string;
+  result: number;
+  data: Queue[];
 }

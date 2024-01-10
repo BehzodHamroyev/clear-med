@@ -203,7 +203,6 @@ const QueuesControlDoctor = () => {
   if (proccessError) {
     console.log(proccessError);
   }
-
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
@@ -231,7 +230,7 @@ const QueuesControlDoctor = () => {
             {queuesList && (
               <TableTitleDoctorProfile
                 Tablethead={['Id', 'Bilet berilgan vaqti']}
-                Tabletbody={queuesList?.queues}
+                Tabletbody={queuesList}
               />
             )}
           </div>
