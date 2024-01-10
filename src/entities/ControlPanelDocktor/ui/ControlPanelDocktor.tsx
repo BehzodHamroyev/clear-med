@@ -27,10 +27,6 @@ const ControlPanelDocktor = () => {
     );
   }, [dispatch]);
 
-  if (proccessedList) {
-    console.log(proccessedList.queues[0]);
-  }
-
   return (
     <div className={cls.ControlPanelDocktorWrapper}>
       {proccessedList && (

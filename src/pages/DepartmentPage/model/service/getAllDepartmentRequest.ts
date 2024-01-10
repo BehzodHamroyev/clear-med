@@ -16,15 +16,12 @@ export const fetchDepartmentGetAll = createAsyncThunk<
       {},
     );
 
-    console.log(response, 'department');
-
     if (!response.data) {
       throw new Error();
     }
 
     return response.data;
   } catch (e) {
-    console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

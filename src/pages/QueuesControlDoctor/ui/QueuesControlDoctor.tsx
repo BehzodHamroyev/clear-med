@@ -19,6 +19,14 @@ import {
   getQueuesControlDoctorError,
   getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import {
+  getControlPanelDocktorData,
+  getControlPanelDocktorError,
+  // eslint-disable-next-line unused-imports/no-unused-imports
+  getControlPanelDocktorIsLoading,
+} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
+import { Loader } from '@/widgets/Loader';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -176,6 +184,10 @@ const QueuesControlDoctor = () => {
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
+  const proccessData = useSelector(getControlPanelDocktorData);
+  const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
+  const proccessError = useSelector(getControlPanelDocktorError);
+
   useEffect(() => {
     dispatch(
       fetchQueuesControlDoctor({
@@ -218,6 +230,7 @@ const QueuesControlDoctor = () => {
         </div>
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
+        {proccessIsLoading && <Loader />}
       </div>
     </DynamicModuleLoader>
   );

@@ -12,6 +12,8 @@ import { ProccesApiResponseControlPanelDoctorTypes } from '@/entities/ControlPan
 import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/services/fetchQueuesProccess';
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
+// eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
+import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
 
 const QueueUserNext = () => {
   const { t } = useTranslation();
@@ -38,6 +40,11 @@ const QueueUserNext = () => {
         dispatch(
           fetchQueuesProccess({
             status: 'proccessed',
+          }),
+        );
+        dispatch(
+          fetchQueuesControlDoctor({
+            status: 'pending',
           }),
         );
       }

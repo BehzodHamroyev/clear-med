@@ -16,8 +16,6 @@ export const fetchDepartmentAdd = createAsyncThunk<
     const token = localStorage.getItem('token');
     const allCookiesString = document.cookie;
 
-    console.log(`Department:`, allCookiesString);
-
     try {
       const response = await axios.post<DepartmentType>(
         `${baseUrl}department/create`,
@@ -31,8 +29,6 @@ export const fetchDepartmentAdd = createAsyncThunk<
         },
       );
 
-      console.log(response, 'department');
-
       if (!response.data) {
         throw new Error();
       }
@@ -44,7 +40,6 @@ export const fetchDepartmentAdd = createAsyncThunk<
 
       return response.data;
     } catch (e) {
-      console.log(e, 'department');
       return rejectWithValue('error');
     }
   },
