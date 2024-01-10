@@ -196,6 +196,14 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
+  if (queuesListError) {
+    console.log(queuesListError);
+  }
+
+  if (proccessError) {
+    console.log(proccessError);
+  }
+
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
