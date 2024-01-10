@@ -34,12 +34,15 @@ const ControlPanelDocktor = () => {
   return (
     <div className={cls.ControlPanelDocktorWrapper}>
       {proccessedList && (
-        <QueueUserDoctor
-          ticketNumber={proccessedList.queues[0].queues_name[0]}
-          roomNumber={proccessedList.queues[0].room_id.name}
-        />
+        <>
+          <QueueUserDoctor
+            ticketNumber={proccessedList?.queues[0]?.queues_name[0]}
+            roomNumber={proccessedList?.queues[0]?.room_id?.name}
+          />
+
+          <QueueUserControl proccessedStep={proccessedList?.queues[0]?.step} />
+        </>
       )}
-      <QueueUserControl />
       <QueueUserNext />
     </div>
   );

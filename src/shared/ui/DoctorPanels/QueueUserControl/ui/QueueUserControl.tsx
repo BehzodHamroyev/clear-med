@@ -1,33 +1,134 @@
 /* eslint-disable no-alert */
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import cls from './QueueUserControl.module.scss';
 import { CheckedIcon, ErrorIcon, Refresh } from '@/shared/assets/Pages/Doctor';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/services/fetchQueuesProccess';
+import { ProccesApiResponseControlPanelDoctorTypes } from '@/entities/ControlPanelDocktor';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 
-const QueueUserControl = () => {
+interface QueueUserControlProps {
+  proccessedStep: number;
+}
+
+const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const proccessedList = useSelector(getControlPanelDocktorData);
 
-  const [countClinet, setCountClient] = useState<number>(0);
-  const [DoctorClinet, setDoctorClient] = useState<boolean>(false);
-  const [DoctorClinet2, setDoctorClient2] = useState<boolean>(false);
+  // eslint-disable-next-line consistent-return
+  const handleClickProccessRecall = async () => {
+    if (proccessedStep < 3) {
+      const getTokenCookie = Cookies.get('token');
 
-  const increment = () => {
-    if (countClinet < 3) {
-      setCountClient(countClinet + 1);
-    } else if (countClinet === 3) {
-      alert('Qayta chaqirish imkoniyati tugadi!');
+      try {
+        const response = axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+          `https://magicsoft.uz/med/api/v1/doctor/proccessed`,
+
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${getTokenCookie}`,
+            },
+          },
+        );
+
+        if ((await response).data) {
+          dispatch(
+            fetchQueuesProccess({
+              status: 'proccessed',
+            }),
+          );
+        }
+
+        if (!(await response).data) {
+          throw new Error();
+        }
+
+        return (await response).data;
+      } catch (e) {
+        return console.error('error');
+      }
     }
-    return countClinet;
   };
 
-  const handleClickBtn = () => {
-    setDoctorClient(true);
-    setDoctorClient2(false);
+  // eslint-disable-next-line consistent-return
+  const handleClickProccessCansel = async () => {
+    if (proccessedStep === 3) {
+      const getTokenCookie = Cookies.get('token');
+
+      try {
+        const response = axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+          `https://magicsoft.uz/med/api/v1/doctor/rejected`,
+
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${getTokenCookie}`,
+            },
+          },
+        );
+
+        if ((await response).data) {
+          dispatch(
+            fetchQueuesProccess({
+              status: 'proccessed',
+            }),
+          );
+        }
+
+        if (!(await response).data) {
+          throw new Error();
+        }
+
+        return (await response).data;
+      } catch (e) {
+        return console.error('error');
+      }
+    }
   };
-  const handleClickBtn2 = () => {
-    setDoctorClient(false);
-    setDoctorClient2(true);
+
+  // eslint-disable-next-line consistent-return
+  const handleClickProccessConfirm = async () => {
+    if (proccessedStep) {
+      const getTokenCookie = Cookies.get('token');
+
+      try {
+        const response = axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+          `https://magicsoft.uz/med/api/v1/doctor/completed`,
+
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${getTokenCookie}`,
+            },
+          },
+        );
+
+        if ((await response).data) {
+          dispatch(
+            fetchQueuesProccess({
+              status: 'proccessed',
+            }),
+          );
+        }
+
+        if (!(await response).data) {
+          throw new Error();
+        }
+
+        return (await response).data;
+      } catch (e) {
+        return console.error('error');
+      }
+    }
   };
 
   return (
@@ -35,26 +136,37 @@ const QueueUserControl = () => {
       <div className={cls.Buttons}>
         <p className={cls.ButtonsTitle}>{t('Qayta chaqirish')}</p>
         <button
-          onClick={increment}
-          className={`${cls.BtnClient} ${countClinet > 0 ? cls.colorRed : ''}`}
+          onClick={handleClickProccessRecall}
+          className={`${cls.BtnClient} ${
+            proccessedStep === 3 ? cls.colorRed : ''
+          } ${(proccessedStep === 3 || !proccessedStep) && cls.BtnClientIcon2}`}
           type="button"
+          style={{
+            cursor:
+              proccessedStep === 3 || !proccessedStep ? 'no-drop' : 'pointer',
+          }}
         >
           <img className={cls.BtnClientIcon} src={Refresh} alt="#" />
-          {countClinet}
+          {proccessedStep}
         </button>
       </div>
 
       <div className={cls.Buttons}>
         <p className={cls.ButtonsTitle}>{t('Bekor qilish')}</p>
         <button
-          onClick={handleClickBtn}
+          onClick={handleClickProccessCansel}
           className={cls.BtnClient}
           type="button"
+          disabled={proccessedStep < 3}
+          style={{
+            cursor:
+              proccessedStep < 3 || !proccessedStep ? 'no-drop' : 'pointer',
+          }}
         >
           <img
-            className={`${cls.BtnClientIcon2} ${
-              DoctorClinet === true ? cls.BtnClientIconActive : ''
-            }`}
+            className={`${
+              (proccessedStep < 3 || !proccessedStep) && cls.BtnClientIcon2
+            } ${proccessedStep === 3 && cls.BtnClientIconActive}`}
             src={ErrorIcon}
             alt="#"
           />
@@ -64,14 +176,16 @@ const QueueUserControl = () => {
       <div className={cls.Buttons}>
         <p className={cls.ButtonsTitle}>{t('Tasdiqlash')}</p>
         <button
-          onClick={handleClickBtn2}
+          onClick={handleClickProccessConfirm}
           className={cls.BtnClient}
           type="button"
+          style={{
+            cursor: !proccessedStep ? 'no-drop' : 'pointer',
+            opacity: !proccessedStep ? '0.5' : '1',
+          }}
         >
           <img
-            className={`${cls.BtnClientIcon2} ${
-              DoctorClinet2 === true ? cls.BtnClientIconActive : ''
-            }`}
+            className={`${cls.BtnClientIconActive}`}
             src={CheckedIcon}
             alt="#"
           />

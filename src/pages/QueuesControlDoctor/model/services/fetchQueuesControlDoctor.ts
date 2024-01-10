@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { QueueApiResponseControlDoctorTypes } from '../..';
@@ -8,8 +9,9 @@ export const fetchQueuesControlDoctor = createAsyncThunk<
   { status: string },
   ThunkConfig<string>
 >('fetchQueuesControlDoctor', async ({ status }, thunkApi) => {
-  const { extra, rejectWithValue } = thunkApi;
-  const token = localStorage.getItem('token');
+  const { rejectWithValue } = thunkApi;
+
+  const getTokenCookie = Cookies.get('token');
 
   if (!status) {
     throw new Error('');
@@ -21,7 +23,7 @@ export const fetchQueuesControlDoctor = createAsyncThunk<
 
       {
         headers: {
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${getTokenCookie}`,
         },
       },
     );

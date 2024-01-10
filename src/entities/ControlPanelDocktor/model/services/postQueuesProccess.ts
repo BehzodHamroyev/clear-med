@@ -4,33 +4,33 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
 
-export const fetchQueuesProccess = createAsyncThunk<
+export const postQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
-  { status: string },
+  { status?: string },
   ThunkConfig<string>
->('fetchQueuesProccess', async ({ status }, thunkApi) => {
+>('postQueuesProccess', async ({ status }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
+  const token = localStorage.getItem('token');
   const getTokenCookie = Cookies.get('token');
 
-  if (!status) {
-    throw new Error('');
-  }
-
   try {
-    const response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
-      `https://magicsoft.uz/med/api/v1/doctor/type?status=${status}`,
+    const response =
+      await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+        `https://magicsoft.uz/med/api/v1/doctor/proccessed`,
 
-      {
-        headers: {
-          authorization: `Bearer ${getTokenCookie}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
         },
-      },
-    );
+      );
 
     if (!response.data) {
       throw new Error();
     }
 
+    console.log(response);
     return response.data;
   } catch (e) {
     return rejectWithValue('error');
