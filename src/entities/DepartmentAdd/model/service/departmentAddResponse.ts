@@ -1,20 +1,18 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { DepartmentType } from '../types/departmentType';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 const baseUrl = 'https://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
-  { name: string; image: string; duration: any },
+  { name: string; image: string; duration: number },
   ThunkConfig<string>
 >('DepartmentAdd', async ({ name, image, duration }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
-  const token = localStorage.getItem('token');
-  const allCookiesString = document.cookie;
 
-  console.log(`Department:`, allCookiesString);
+  const token = localStorage.getItem('token');
 
   try {
     const response = await axios.post<DepartmentType>(
@@ -27,22 +25,13 @@ export const fetchDepartmentAdd = createAsyncThunk<
       {
         maxBodyLength: Infinity,
         headers: {
-          'Content-Type': 'application',
+          'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
         },
       },
     );
 
     console.log(response, 'department');
-
-    if (!response.data) {
-      throw new Error();
-    }
-    // @ts-ignore
-    if (response.data.token) {
-      // @ts-ignore
-      localStorage.setItem('token', response.data.token);
-    }
 
     return response.data;
   } catch (e) {

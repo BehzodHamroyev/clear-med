@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
+import { useSelector } from 'react-redux';
 import cls from './DepartmentPage.module.scss';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
@@ -8,6 +9,12 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
 import { fetchDepartmentGetAll } from '../model/service/getAllDepartmentRequest';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getListOfDepartmens } from '../model/selectors/departmentList';
+import {
+  DynamicModuleLoader,
+  ReducersList,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -92,6 +99,10 @@ const tableBody = [
   },
 ];
 
+const reducer: ReducersList = {
+  departmentPage: DepartmentListSliceReducer,
+};
+
 const DepartmentPage = () => {
   const dispatch = useAppDispatch();
 
@@ -100,23 +111,31 @@ const DepartmentPage = () => {
 
   useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
+    console.log('uss');
   }, [dispatch]);
 
+  const listOfSurah = useSelector(getListOfDepartmens);
+
+  console.log(listOfSurah, 'vjrvjrvjrjvrjvrjvrjvjr');
+
   return (
-    <div>
-      <div className={cls.DepartmentPageWrapper}>
-        <ButtonNavbar
-          CreateCarbonAdd
-          TableTitle="Bo‘limlar"
-          ItemsLength={tableBody.length}
-        />
+    <DynamicModuleLoader reducers={reducer}>
+      {' '}
+      <div>
+        <div className={cls.DepartmentPageWrapper}>
+          <ButtonNavbar
+            CreateCarbonAdd
+            TableTitle="Bo‘limlar"
+            ItemsLength={tableBody.length}
+          />
 
-        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+          <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+        </div>
+
+        {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+        {isOpenDepartmentEditCard ? <DepartmentEdit /> : ''}
       </div>
-
-      {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
-      {isOpenDepartmentEditCard ? <DepartmentEdit /> : ''}
-    </div>
+    </DynamicModuleLoader>
   );
 };
 

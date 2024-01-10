@@ -30,6 +30,7 @@ const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
           name="PhoneNumber"
           placeholder={t('Raqamingizni kiriting...')}
           value={value}
+          rules={{ required: true }}
           autoComplete="off"
           onChange={(e) => handleInputChange(e, 'PhoneNumber')}
           className={cls.PhoneNumberInput}

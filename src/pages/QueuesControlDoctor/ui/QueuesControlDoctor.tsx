@@ -191,7 +191,7 @@ const QueuesControlDoctor = () => {
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
-  console.log(queuesList?.queues);
+  console.log(queuesList?.queues, 'qoweqweqwe');
 
   useEffect(() => {
     dispatch(

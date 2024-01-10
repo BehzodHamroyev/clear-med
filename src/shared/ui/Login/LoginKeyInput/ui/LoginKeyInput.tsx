@@ -31,6 +31,7 @@ const LoginKeyInput = (props: LoginKeyInputProps) => {
           autoComplete="off"
           maxLength={14}
           minLength={8}
+          required
           onChange={(e) => handleInputChange(e.target.value, 'UserPassword')}
         />
         {hideEye ? (

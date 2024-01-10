@@ -35,13 +35,13 @@ const DepartmentAdd = () => {
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
   const handleButtonClick = () => {
-    const obj = {
-      name: 'Ankologiya',
-      image: '20minut',
-      duration: 'departmentIcon',
-    };
-    // @ts-ignore
-    dispatch(fetchDepartmentAdd(obj));
+    dispatch(
+      fetchDepartmentAdd({
+        name: 'Ankologiya',
+        image: 'departmentIcon',
+        duration: 20,
+      }),
+    );
   };
 
   return (

@@ -40,8 +40,10 @@ const Login: FC = () => {
     if (isSubmitLoginForm) {
       dispatch(
         fetchAuthLogin({
-          password: '12345678' /* admin */,
-          login: 1 /* admin */,
+          password: formData.UserPassword,
+          login: Number(formData.PhoneNumber),
+          // password: '12345678' /* admin */,
+          // login: 1 /* admin */,
           // password: '12345678',/* doctor */
           // login: 906518141,/* doctor */
         }),
