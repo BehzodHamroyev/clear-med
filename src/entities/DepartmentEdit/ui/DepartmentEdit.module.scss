@@ -87,6 +87,11 @@
       font-family: sans-serif;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.2s linear;
+    }
+
+    .Btn:active {
+      transform: scale(0.97);
     }
 
     .Btn2 {

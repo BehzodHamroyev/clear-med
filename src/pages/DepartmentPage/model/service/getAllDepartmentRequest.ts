@@ -12,8 +12,6 @@ export const fetchDepartmentGetAll = createAsyncThunk<
   try {
     const response = await extra.api.get<GetAllDepartment>('department/all');
 
-    console.log(response, '_______________response_______________');
-
     if (!response.data) {
       throw new Error();
     }

@@ -45,6 +45,11 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isSubmitLoginForm, setIsSubmitLoginForm] = useState<boolean>(false);
 
+  const [departmentListChanged, setDepartmentListChanged] =
+    useState<string>('');
+
+  const [departmentGetId, setDepartmentGetId] = useState<string>('');
+
   const [formData, setFormData] = useState({
     PhoneNumber: '',
     UserPassword: '',
@@ -62,6 +67,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
+      departmentListChanged,
+      setDepartmentListChanged,
       setIsCloseCalendar,
       isCloseCalendar2,
       setIsCloseCalendar2,
@@ -93,6 +100,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenBurgerNavbar,
       isSubmitLoginForm,
       setIsSubmitLoginForm,
+      departmentGetId,
+      setDepartmentGetId,
     }),
     [
       formData,
@@ -101,6 +110,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsProfileWho,
       isCloseCalendar,
       setIsCloseCalendar,
+      departmentListChanged,
+      setDepartmentListChanged,
       isCloseCalendar2,
       setIsCloseCalendar2,
       isOpenThemeOrLanguage,
@@ -131,6 +142,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenBurgerNavbar,
       isSubmitLoginForm,
       setIsSubmitLoginForm,
+      departmentGetId,
+      setDepartmentGetId,
     ],
   );
 

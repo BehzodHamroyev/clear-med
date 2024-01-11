@@ -1,6 +1,17 @@
+export interface GetAllDepartmentData {
+  disabled: boolean;
+  duration: number;
+  id: string;
+  image: string;
+  name: string;
+  __v: number;
+  _id: string;
+}
+
 export interface GetAllDepartment {
+  department: any;
   config: {};
-  data: {};
+  data: GetAllDepartmentData;
   headers: {};
   request: {};
   status: {};
@@ -9,7 +20,7 @@ export interface GetAllDepartment {
 export interface DepartmentListSchema {
   isLoading: boolean;
   error?: string;
-  data?: GetAllDepartment[];
+  data?: GetAllDepartmentData[];
 }
 
 export interface ResponseOfBacend {

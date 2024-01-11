@@ -18,16 +18,17 @@ const DepartmentAdd = () => {
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentAddCardIcon,
     isOpenDepartmentAddCardIconIndex,
-    setIsOpenDepartmentAddCardIconIndex,
+    setDepartmentListChanged,
   } = useContext(ButtonsContext);
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<Number>();
+  const [departmentName, setDepartmentName] = useState('');
 
   const handleInputChange = (e: { target: { value: string } }) => {
     const newValue = e.target.value.replace(/\D/g, '');
 
     if (newValue.length <= 2) {
-      setInputValue(newValue);
+      setInputValue(Number(newValue));
     }
   };
 
@@ -37,11 +38,13 @@ const DepartmentAdd = () => {
   const handleButtonClick = () => {
     dispatch(
       fetchDepartmentAdd({
-        name: 'Ankologiya',
-        image: 'departmentIcon',
-        duration: 20,
+        name: departmentName,
+        image: 'NervopotologIcon',
+        duration: Number(inputValue),
       }),
     );
+
+    setDepartmentListChanged(departmentName);
   };
 
   return (
@@ -64,10 +67,14 @@ const DepartmentAdd = () => {
           <ResultIconSrc />
         </div>
 
-        <div className={cls.CardBody}>
+        <form action="#" className={cls.CardBody}>
           <input
             type="text"
             maxLength={20}
+            minLength={3}
+            min={3}
+            required
+            onChange={(e) => setDepartmentName(e.target.value)}
             className={cls.InputBulim}
             placeholder={t('Bo‘lim qo‘shish')}
           />
@@ -77,9 +84,10 @@ const DepartmentAdd = () => {
             <input
               id="1"
               type="number"
-              value={inputValue}
+              value={Number(inputValue)}
               onChange={handleInputChange}
               maxLength={2}
+              required
               min={1}
               max={60}
               placeholder={t('minut')}
@@ -117,7 +125,7 @@ const DepartmentAdd = () => {
               {t('Saqlash')}
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

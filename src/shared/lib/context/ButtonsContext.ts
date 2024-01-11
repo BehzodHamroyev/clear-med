@@ -1,8 +1,14 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  departmentGetId: string;
+  setDepartmentGetId: (prop: string) => void;
+
   isSubmitLoginForm: boolean;
   setIsSubmitLoginForm: (prop: boolean) => void;
+
+  departmentListChanged: string;
+  setDepartmentListChanged: (prop: string) => void;
 
   isProfileWho: string;
   setIsProfileWho: (prop: string) => void;
@@ -57,6 +63,9 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  departmentGetId: '',
+  setDepartmentGetId: () => {},
+
   isSubmitLoginForm: false,
   setIsSubmitLoginForm: () => {},
 
@@ -68,6 +77,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isCloseCalendar2: false,
   setIsCloseCalendar2: () => {},
+
+  departmentListChanged: '',
+  setDepartmentListChanged: () => {},
 
   isOpenThemeOrLanguage: true,
   setIsOpenThemeOrLanguage: () => {},

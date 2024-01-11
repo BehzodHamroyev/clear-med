@@ -1,7 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { fetchDepartmentGetAll } from '../service/getAllDepartmentRequest';
-import { DepartmentListSchema } from '../types/departmentTypes';
+import {
+  DepartmentListSchema,
+  GetAllDepartment,
+} from '../types/departmentTypes';
 
 const initialState: DepartmentListSchema = {
   isLoading: false,
@@ -21,11 +24,9 @@ export const DepartmentListSlice = createSlice({
       })
       .addCase(
         fetchDepartmentGetAll.fulfilled,
-        (state, action: PayloadAction<any>) => {
+        (state, action: PayloadAction<GetAllDepartment>) => {
           state.isLoading = false;
-          console.log(action.payload, 'slixcce');
 
-          // @ts-ignore
           state.data = action.payload.department;
         },
       )

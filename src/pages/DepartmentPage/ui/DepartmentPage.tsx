@@ -1,140 +1,82 @@
-import React, { useContext, useEffect } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import cls from './DepartmentPage.module.scss';
+
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { DepartmentAdd } from '@/entities/DepartmentAdd';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { getListOfDepartmens } from '../model/selectors/departmentList';
+import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
 import { fetchDepartmentGetAll } from '../model/service/getAllDepartmentRequest';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getListOfDepartmens } from '../model/selectors/departmentList';
+
 import {
-  DynamicModuleLoader,
   ReducersList,
+  DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
+
+import cls from './DepartmentPage.module.scss';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
-
-const tableBody = [
-  {
-    id: 1,
-    item1: 'Ginekologiya',
-    item2: 3,
-    lastChild: 17,
-  },
-  {
-    id: 2,
-    item1: 'Pediatriya',
-    item2: 4,
-    lastChild: 4,
-  },
-  {
-    id: 3,
-    item1: 'Ankologia',
-    item2: 1,
-    lastChild: 6,
-  },
-  {
-    id: 4,
-    item1: 'Artopediya',
-    item2: 2,
-    lastChild: 9,
-  },
-  {
-    id: 5,
-    item1: 'Ginekologiya',
-    item2: 5,
-    lastChild: 23,
-  },
-  {
-    id: 6,
-    item1: 'Ginekologiya',
-    item2: 2,
-    lastChild: 17,
-  },
-  {
-    id: 7,
-    item1: 'Pediatriya',
-    item2: 2,
-    lastChild: 4,
-  },
-  {
-    id: 8,
-    item1: 'Ankologia',
-    item2: 3,
-    lastChild: 6,
-  },
-  {
-    id: 9,
-    item1: 'Artopediya',
-    item2: 4,
-    lastChild: 9,
-  },
-  {
-    id: 10,
-    item1: 'Ginekologiya',
-    item2: 5,
-    lastChild: 23,
-  },
-  {
-    id: 11,
-    item1: 'Ginekologiya',
-    item2: 2,
-    lastChild: 14,
-  },
-  {
-    id: 12,
-    item1: 'Ginekologiya',
-    item2: 5,
-    lastChild: 34,
-  },
-  {
-    id: 13,
-    item1: 'artoped',
-    item2: 5,
-    lastChild: 20,
-  },
-];
 
 const reducer: ReducersList = {
   departmentPage: DepartmentListSliceReducer,
 };
 
 const DepartmentPage = () => {
+  const [tableBody, setTableBody] = useState<any>([]);
+
   const dispatch = useAppDispatch();
 
-  const { isOpenDepartmentAddCard, isOpenDepartmentEditCard } =
-    useContext(ButtonsContext);
+  const getListOfDepartment = useSelector(getListOfDepartmens);
+
+  useEffect(() => {
+    if (getListOfDepartment) {
+      const tableBodys = getListOfDepartment?.map((item) => {
+        return {
+          id: item?.id,
+          item1: item?.name,
+          item2: '',
+          lastChild: ' ',
+          duration: item.duration,
+          imgName: item.image,
+        };
+      });
+      setTableBody(() => [...tableBodys]);
+    }
+  }, [getListOfDepartment]);
+
+  const {
+    departmentListChanged,
+    isOpenDepartmentAddCard,
+    isOpenDepartmentEditCard,
+  } = useContext(ButtonsContext);
 
   useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
-    console.log('uss');
   }, [dispatch]);
 
-  const listOfSurah = useSelector(getListOfDepartmens);
-
-  console.log(listOfSurah, 'vjrvjrvjrjvrjvrjvrjvjr');
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(fetchDepartmentGetAll({}));
+    }, 500);
+  }, [departmentListChanged, dispatch]);
 
   return (
     <DynamicModuleLoader reducers={reducer}>
-      {' '}
-      <div>
-        <div className={cls.DepartmentPageWrapper}>
-          <ButtonNavbar
-            CreateCarbonAdd
-            TableTitle="Bo‘limlar"
-            ItemsLength={tableBody.length}
-          />
+      <div className={cls.DepartmentPageWrapper}>
+        <ButtonNavbar
+          CreateCarbonAdd
+          TableTitle="Bo‘limlar"
+          ItemsLength={tableBody.length}
+        />
 
-          <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
-        </div>
-
-        {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
-        {isOpenDepartmentEditCard ? <DepartmentEdit /> : ''}
+        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>
+
+      {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+      {isOpenDepartmentEditCard ? <DepartmentEdit tableBody={tableBody} /> : ''}
     </DynamicModuleLoader>
   );
 };

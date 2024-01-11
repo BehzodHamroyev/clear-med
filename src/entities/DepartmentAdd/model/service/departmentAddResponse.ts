@@ -31,8 +31,6 @@ export const fetchDepartmentAdd = createAsyncThunk<
       },
     );
 
-    console.log(response, 'department');
-
     return response.data;
   } catch (e) {
     console.log(e, 'department');
