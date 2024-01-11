@@ -57,7 +57,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
 
       {location.pathname !== '/settings' ? (
         <div className={cls.ButtonNavbarIcons}>
-          <div
+          {/* <div
             className={`${cls.ButtonNavParent} ${
               searchOpen === true ? cls.OpenWidth : ''
             }`}
@@ -70,6 +70,12 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
               }`}
             />
           </div>
+
+            <Search
+              onClick={() => setSearchOpen(!searchOpen)}
+              className={cls.ButtonNavbarIconsChild}
+            />
+          </div> */}
 
           {CreateCarbonAdd === true ? (
             <CarbonAdd

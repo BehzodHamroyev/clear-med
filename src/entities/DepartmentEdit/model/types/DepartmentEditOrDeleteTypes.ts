@@ -1,6 +1,7 @@
 type TableBody = {
-  id: number;
+  id: number | string;
   img?: string;
+  imgName?: string;
   item1?: number | string;
   item2?: string | number;
   item3?: number | string;
@@ -10,11 +11,9 @@ type TableBody = {
   item7?: string | number;
   item8?: string | number;
   lastChild?: string | number;
-  imgName?: string;
+  duration?: number;
 };
 
-export interface TableInfo {
-  cursor?: boolean;
-  Tablethead: string[];
-  Tabletbody: TableBody[];
+export interface DepartmentEditOrDelete {
+  tableBody: TableBody[];
 }

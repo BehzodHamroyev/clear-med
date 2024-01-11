@@ -24,6 +24,11 @@
       background-color: #fff;
       padding: 20px;
       margin: 3px auto;
+      transition: all 0.3s linear;
+    }
+
+    .tr:hover {
+      transform: scale(1.01);
     }
   }
 
