@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
+// import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
@@ -32,152 +32,6 @@ const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
 };
 
-const KorilganBemorlar = [
-  {
-    id: 1,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '9:30:24',
-    qabultugashi: '9:50:12',
-  },
-  {
-    id: 2,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '10:00:24',
-    qabultugashi: '10:34:53',
-  },
-  {
-    id: 3,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '11:40:04',
-    qabultugashi: '12:10:22',
-  },
-  {
-    id: 4,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '12:20:02',
-    qabultugashi: '12:50:12',
-  },
-];
-
-const TableBodyCretedPatient = [
-  {
-    id: 1,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 2,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 3,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 4,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 5,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 6,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 7,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 8,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 9,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 10,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 11,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 12,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 13,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 14,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 15,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 16,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-];
-
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
   const queuesList = useSelector(getQueuesControlDoctorData);
@@ -203,13 +57,16 @@ const QueuesControlDoctor = () => {
   if (proccessError) {
     console.log(proccessError);
   }
+
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <ButtonNavbar
           dontCreate
           TableTitle="Qabullar"
-          ItemsLength={KorilganBemorlar.length}
+          ItemsLength={queuesList?.length}
+          roomNumber={proccessData?.data[0]?.room_id?.name}
+          departmentName={proccessData?.data[0]?.department_id?.name}
         />
 
         <ControlPanelDocktor />
@@ -237,7 +94,7 @@ const QueuesControlDoctor = () => {
         </div>
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-        {proccessIsLoading && <Loader />}
+        {(proccessIsLoading || queuesListIsLoading) && <Loader />}
       </div>
     </DynamicModuleLoader>
   );

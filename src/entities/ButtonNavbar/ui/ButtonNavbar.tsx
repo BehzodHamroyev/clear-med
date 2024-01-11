@@ -10,7 +10,15 @@ import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const ButtonNavbar = (props: ButtonNavbarProps) => {
-  const { TableTitle, ItemsLength, Calendar, dontCreate, CreateCarbonAdd } = props;
+  const {
+    TableTitle,
+    ItemsLength,
+    Calendar,
+    dontCreate,
+    CreateCarbonAdd,
+    roomNumber,
+    departmentName,
+  } = props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
@@ -39,8 +47,10 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
 
       {Calendar ? <CalendarSection /> : ''}
 
-      {dontCreate ? (
-        <h3 className={cls.BulimTuri}>{t('12-Xona, Dermatolog')}</h3>
+      {dontCreate && roomNumber && departmentName ? (
+        <h3 className={cls.BulimTuri}>
+          {roomNumber}-{t('Xona')}, {departmentName}
+        </h3>
       ) : (
         ''
       )}
