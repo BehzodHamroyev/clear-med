@@ -1,6 +1,7 @@
 import React from 'react';
 
-import cls from './TableTitleDoctorProfile.module.scss';
+import cls from './DoneQueueTableTitleDoctorProfile.module.scss';
+import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 
 import { Queue } from '@/pages/QueuesControlDoctor';
 
@@ -10,7 +11,7 @@ interface TableInfo {
   Tabletbody?: Queue[];
 }
 
-const TableTitleDoctorProfile = (props: TableInfo) => {
+const DoneQueueTableTitleDoctorProfile = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   return (
@@ -29,9 +30,18 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
         {Tabletbody?.map((queue) => (
           <tr key={queue.id} className={cls.tr}>
             <td className={cls.td}>{queue.queues_name}</td>
+            <td className={cls.td}>{queue.completed_date?.split('T')[0]}</td>
             <td className={cls.td}>
-              {queue?.created_time.split('T')[1].split('.')[0]}
-              {/* {' | '} {queue.created_time.split('T')[0]} */}
+              {queue.accepted_date?.split('T')[1].split('.')[0]}
+            </td>
+            <td className={cls.td}>
+              {queue.completed_date?.split('T')[1].split('.')[0]}
+            </td>
+            <td className={cls.td}>
+              <img
+                src={queue.status === 'completed' ? CheckedIcon : ErrorIcon}
+                alt="rejected"
+              />
             </td>
           </tr>
         ))}
@@ -40,4 +50,4 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
   );
 };
 
-export default TableTitleDoctorProfile;
+export default DoneQueueTableTitleDoctorProfile;

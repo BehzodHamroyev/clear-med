@@ -10,12 +10,16 @@ import { rtkApi } from '@/shared/api/rtkApi';
 import { AuthReduxType } from '@/features/Auth';
 import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
+import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 
 export interface StateSchema {
   login: AuthReduxType;
   departmentPage: DepartmentListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
+  doneQueuesControlDoctor: QueuesControlDoctorSchema;
+  reportControlDoctor: ReportDoctorSchema;
+
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
   // Asynchronous reducers

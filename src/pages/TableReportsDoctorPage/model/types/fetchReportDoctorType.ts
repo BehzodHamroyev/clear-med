@@ -28,7 +28,7 @@ export interface Queue {
   id: string;
 }
 
-export interface QueueApiResponseControlDoctorTypes {
+export interface ReportDoctorTypes {
   status: string;
   result: number;
   data: Queue[];

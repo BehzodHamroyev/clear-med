@@ -9,6 +9,9 @@ interface ButtonsProviderProps {
 const ButtonsProvider = (props: ButtonsProviderProps) => {
   const { initialButton, children } = props;
 
+  const [calendarBeginValue, setCalendarBeginValue] = useState('');
+  const [calendarEndValue, setCalendarEndValue] = useState('');
+
   const [isProfileWho, setIsProfileWho] = useState('');
 
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
@@ -100,6 +103,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenBurgerNavbar,
       isSubmitLoginForm,
       setIsSubmitLoginForm,
+      calendarBeginValue,
+      setCalendarBeginValue,
+      calendarEndValue,
+      setCalendarEndValue,
       departmentGetId,
       setDepartmentGetId,
     }),
@@ -142,6 +149,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenBurgerNavbar,
       isSubmitLoginForm,
       setIsSubmitLoginForm,
+      calendarBeginValue,
+      setCalendarBeginValue,
+      calendarEndValue,
+      setCalendarEndValue,
       departmentGetId,
       setDepartmentGetId,
     ],

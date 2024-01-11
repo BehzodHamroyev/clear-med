@@ -1,6 +1,11 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  calendarBeginValue: string;
+  setCalendarBeginValue: (props: string) => void;
+
+  calendarEndValue: string;
+  setCalendarEndValue: (props: string) => void;
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
 
@@ -63,6 +68,10 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  calendarBeginValue: '',
+  setCalendarBeginValue: () => {},
+  calendarEndValue: '',
+  setCalendarEndValue: () => {},
   departmentGetId: '',
   setDepartmentGetId: () => {},
 

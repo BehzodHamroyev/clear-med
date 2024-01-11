@@ -27,41 +27,18 @@ import {
   getControlPanelDocktorIsLoading,
 } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { Loader } from '@/widgets/Loader';
+import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
+
+import {
+  getDoneQueuesControlDoctorData,
+  getDoneQueuesControlDoctorIsLoading,
+  getDoneQueuesControlDoctorError,
+} from '../model/selectors/doneQueuesControlDoctorSelector';
+import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
 };
-
-const KorilganBemorlar = [
-  {
-    id: 1,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '9:30:24',
-    qabultugashi: '9:50:12',
-  },
-  {
-    id: 2,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '10:00:24',
-    qabultugashi: '10:34:53',
-  },
-  {
-    id: 3,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '11:40:04',
-    qabultugashi: '12:10:22',
-  },
-  {
-    id: 4,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '12:20:02',
-    qabultugashi: '12:50:12',
-  },
-];
 
 const TableBodyCretedPatient = [
   {
@@ -180,9 +157,16 @@ const TableBodyCretedPatient = [
 
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
+
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
+
+  const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
+  const doneQueuesListIsLoading = useSelector(
+    getDoneQueuesControlDoctorIsLoading,
+  );
+  const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
 
   const proccessData = useSelector(getControlPanelDocktorData);
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
@@ -196,6 +180,14 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(
+      fetchDoneQueuesControlDoctor({
+        limit: 100,
+      }),
+    );
+  }, [dispatch]);
+
   if (queuesListError) {
     console.log(queuesListError);
   }
@@ -203,41 +195,64 @@ const QueuesControlDoctor = () => {
   if (proccessError) {
     console.log(proccessError);
   }
+
+  if (doneQueuesListError) {
+    console.log(queuesListError);
+  }
+
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <ButtonNavbar
           dontCreate
-          TableTitle="Qabullar"
-          ItemsLength={KorilganBemorlar.length}
+          TableTitle="Amaldagi navbat"
+          // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
+          roomNumber={proccessData?.data[0]?.room_id?.name}
+          departmentName={proccessData?.data[0]?.department_id?.name}
         />
 
         <ControlPanelDocktor />
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
-            {/* <TableTitleDoctorProfile
+            <ButtonNavbar
+              dontCreate
+              TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+              ItemsLength={doneQueuesList?.length}
+            />
+            <DoneQueueTableTitleDoctorProfile
               Tablethead={[
                 'Id',
+                'Qabul kuni',
                 'Qabul boshlanishi',
                 'Qabul tugashi',
                 'Xolati',
               ]}
-              Tabletbody={TableBodyCretedPatient}
-            /> */}
+              Tabletbody={doneQueuesList}
+            />
           </div>
+
           <div className={cls.TableDoctorChild}>
             {queuesList && (
-              <TableTitleDoctorProfile
-                Tablethead={['Id', 'Bilet berilgan vaqti']}
-                Tabletbody={queuesList}
-              />
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Navbatdagi bemorlar"
+                  ItemsLength={queuesList?.length}
+                />
+                <TableTitleDoctorProfile
+                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tabletbody={queuesList}
+                />
+              </>
             )}
           </div>
         </div>
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-        {proccessIsLoading && <Loader />}
+        {(proccessIsLoading ||
+          queuesListIsLoading ||
+          doneQueuesListIsLoading) && <Loader />}
       </div>
     </DynamicModuleLoader>
   );
