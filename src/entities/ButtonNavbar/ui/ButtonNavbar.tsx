@@ -12,6 +12,8 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 const ButtonNavbar = (props: ButtonNavbarProps) => {
   const { TableTitle, ItemsLength, Calendar, dontCreate, CreateCarbonAdd } =
     props;
+  // const { TableTitle, ItemsLength, Calendar, dontCreate, CreateCarbonAdd } =
+  //   props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();

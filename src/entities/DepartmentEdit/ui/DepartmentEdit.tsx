@@ -1,50 +1,48 @@
-import React, { useContext, useEffect, useState } from 'react';
-
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import cls from './DepartmentEdit.module.scss';
+
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+import { fetchDepartmentEdit } from '../model/service/departmentEdit';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchDepartmentDelete } from '../model/service/departmentDelete';
-import { DepartmentEditOrDelete } from '../model/types/DepartmentEditOrDeleteTypes';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+
+import {
+  UseStateType,
+  DepartmentEditOrDelete,
+} from '../model/types/departmentDelete';
+
+import cls from './DepartmentEdit.module.scss';
 
 const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
   const { tableBody } = prop;
 
   const { t } = useTranslation();
 
-  const [inputValue, setInputValue] = useState('');
-
   const dispatch = useAppDispatch();
+
+  const [inputValue, setInputValue] = React.useState<UseStateType>({
+    id: '',
+    iconName: null,
+    durationTime: '',
+    departmentName: '',
+  });
 
   const {
     departmentGetId,
     setDepartmentListChanged,
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentEditCard,
-    isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIcon,
-  } = useContext(ButtonsContext);
-
-  const newDataDepartmendCard = tableBody.filter((item) => {
-    return item.id === departmentGetId
-      ? {
-          id: item.id,
-          departmentName: item.duration,
-          image: item.img,
-        }
-      : '';
-  });
-
-  const ResultIconSrc =
-    iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+    isOpenDepartmentAddCardIconIndex,
+  } = React.useContext(ButtonsContext);
 
   const handleInputChange = (e: { target: { value: string } }) => {
     const newValue = e.target.value.replace(/\D/g, '');
 
     if (newValue.length <= 2) {
-      setInputValue(newValue);
+      setInputValue({ ...inputValue, durationTime: newValue });
     }
   };
 
@@ -55,12 +53,38 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     setDepartmentListChanged(' ');
   };
 
-  useEffect(() => {
-    if (newDataDepartmendCard) {
-      // @ts-ignore
-      setInputValue(newDataDepartmendCard?.[0]?.item1);
+  const DepartmentAddCardEditItem = () => {
+    dispatch(
+      fetchDepartmentEdit({
+        idCard: inputValue.id,
+        image: `${isOpenDepartmentAddCardIconIndex}`,
+        name: inputValue.departmentName,
+        duration: Number(inputValue.durationTime),
+      }),
+    );
+
+    setDepartmentListChanged('Edit');
+  };
+
+  const matchingItem = tableBody.find((item) => item.id === departmentGetId);
+
+  const ResultIcon = iconsCardDepartments[Number(matchingItem?.imgName)].icon;
+
+  const ResultIconSrc =
+    iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+
+  React.useEffect(() => {
+    if (matchingItem) {
+      setInputValue({
+        id: `${matchingItem.id}`,
+        departmentName: `${matchingItem.item1}`,
+        durationTime: `${matchingItem.duration}`,
+        iconName: <ResultIcon />,
+      });
+    } else {
+      console.log('No matching item found');
     }
-  }, [newDataDepartmendCard]);
+  }, [ResultIcon, matchingItem]);
 
   return (
     <div
@@ -79,58 +103,70 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
         <div className={cls.TitleFlex}>
           <h3 className={cls.CardTitle}>{t('Bo‘limni tahrirlash')}</h3>
 
-          <ResultIconSrc />
+          {inputValue.iconName ? inputValue.iconName : <div />}
+
+          {/* <ResultIconSrc /> */}
         </div>
 
-        {newDataDepartmendCard.map((item) => (
-          <div className={cls.CardBody}>
+        <div className={cls.CardBody}>
+          <input
+            type="text"
+            maxLength={20}
+            name="editSection"
+            className={cls.InputBulim}
+            value={inputValue.departmentName}
+            onChange={(e) =>
+              setInputValue({ ...inputValue, departmentName: e.target.value })
+            }
+            placeholder={t('Bo‘limni o‘zgartirish')}
+          />
+
+          <label className={cls.labelInput} htmlFor="1">
+            {t('Bemorni qabul qilishga ketadigan taxminiy vaqt!')}
             <input
-              type="text"
-              maxLength={20}
+              id="1"
+              min={1}
+              max={60}
+              maxLength={2}
+              type="number"
+              name="minutes"
+              placeholder={t('minut')}
               className={cls.InputBulim}
-              placeholder={t('Bo‘limni o‘zgartirish')}
+              onChange={handleInputChange}
+              value={inputValue.durationTime}
             />
-            {/*  */}
-            <label className={cls.labelInput} htmlFor="1">
-              {t('Bemorni qabul qilishga ketadigan taxminiy vaqt!')}
-              <input
-                id="1"
-                type="number"
-                onChange={handleInputChange}
-                maxLength={2}
-                min={1}
-                max={60}
-                placeholder={t('minut')}
-                className={cls.InputBulim}
-              />
-            </label>
+          </label>
+
+          <button
+            className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
+            onClick={() => {
+              setIsOpenDepartmentAddCardIcon(true);
+            }}
+            type="button"
+          >
+            {t("Bo'limga rasm qo'shish")}
+          </button>
+
+          {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
+
+          <div className={cls.BtnParnet}>
             <button
-              className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
-              onClick={() => {
-                setIsOpenDepartmentAddCardIcon(true);
-              }}
+              onClick={DepartmentCardDeleteItem}
               type="button"
+              className={`${cls.Btn} ${cls.Btn1}`}
             >
-              {t("Bo'limga rasm qo'shish")}
+              {t('O‘chirib yuborish')}
             </button>
 
-            {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
-
-            {/*  */}
-            <div className={cls.BtnParnet}>
-              <button
-                onClick={DepartmentCardDeleteItem}
-                type="button"
-                className={`${cls.Btn} ${cls.Btn1}`}
-              >
-                {t('O‘chirib yuborish')}
-              </button>
-              <button type="button" className={`${cls.Btn} ${cls.Btn2}`}>
-                {t('Saqlash')}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={DepartmentAddCardEditItem}
+              className={`${cls.Btn} ${cls.Btn2}`}
+            >
+              {t('Saqlash')}
+            </button>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
