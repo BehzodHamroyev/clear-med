@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
+import { DoctorAdd } from '@/entities/DoctorAdd';
+import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { Doda } from '@/shared/assets/Pages/AddDoctorPage';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './AddDoctorPage.module.scss';
-import { Doda } from '@/shared/assets/Pages/AddDoctorPage';
-import { DoctorAdd } from '@/entities/DoctorAdd';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { DoctorEdit } from '@/entities/DoctorEdit';
 
 const tableTitle = [
   'Surat',
@@ -176,7 +176,7 @@ const tableBody = [
 
 const AddDoctorPage = () => {
   const { isOpenDoctorAddCard, isOpenDoctorEditCard } =
-    useContext(ButtonsContext);
+    React.useContext(ButtonsContext);
   return (
     <div>
       <div className={cls.AddDoctorPageWrapper}>

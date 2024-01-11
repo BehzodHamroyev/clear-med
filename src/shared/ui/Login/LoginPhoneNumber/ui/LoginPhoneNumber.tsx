@@ -27,13 +27,13 @@ const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
       <p className={cls.PhoneNumberStyle}>{t('Telefon raqami')}</p>
       <div className={cls.PhoneNumberInputWrapper}>
         <Input
-          name="PhoneNumber"
-          placeholder={t('Raqamingizni kiriting...')}
           value={value}
-          rules={{ required: true }}
           autoComplete="off"
-          onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+          name="PhoneNumber"
+          rules={{ required: true }}
           className={cls.PhoneNumberInput}
+          placeholder={t('Raqamingizni kiriting...')}
+          onChange={(e) => handleInputChange(e, 'PhoneNumber')}
         />
         <FixIcon onClick={handleInputFix} className={cls.FixValueBnt} />
       </div>
