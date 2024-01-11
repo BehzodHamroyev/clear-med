@@ -1,6 +1,12 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  calendarBeginValue: string;
+  setCalendarBeginValue: (props: string) => void;
+
+  calendarEndValue: string;
+  setCalendarEndValue: (props: string) => void;
+
   isSubmitLoginForm: boolean;
   setIsSubmitLoginForm: (prop: boolean) => void;
 
@@ -57,6 +63,11 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  calendarBeginValue: '',
+  setCalendarBeginValue: () => {},
+  calendarEndValue: '',
+  setCalendarEndValue: () => {},
+
   isSubmitLoginForm: false,
   setIsSubmitLoginForm: () => {},
 

@@ -7,6 +7,7 @@ import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { AuthSliceReducer } from '@/features/Auth';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
+import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -17,6 +18,7 @@ export function createReduxStore(
     login: AuthSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
+    reportControlDoctor: reportControlDoctorReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

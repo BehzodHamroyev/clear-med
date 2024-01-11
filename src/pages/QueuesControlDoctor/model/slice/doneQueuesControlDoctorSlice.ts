@@ -12,7 +12,7 @@ const initialState: QueuesControlDoctorSchema = {
 };
 
 export const doneQueuesControlDoctorSlice = createSlice({
-  name: 'Queues Control Doctor ',
+  name: 'Done Queues Control Doctor ',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

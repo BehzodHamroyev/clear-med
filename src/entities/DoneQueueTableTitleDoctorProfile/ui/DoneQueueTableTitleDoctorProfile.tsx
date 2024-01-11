@@ -30,9 +30,13 @@ const DoneQueueTableTitleDoctorProfile = (props: TableInfo) => {
         {Tabletbody?.map((queue) => (
           <tr key={queue.id} className={cls.tr}>
             <td className={cls.td}>{queue.queues_name}</td>
-            <td className={cls.td}>{queue.queues_name}</td>
-            <td className={cls.td}>{queue.queues_name}</td>
-            <td className={cls.td}>{queue.queues_name}</td>
+            <td className={cls.td}>{queue.completed_date?.split('T')[0]}</td>
+            <td className={cls.td}>
+              {queue.accepted_date?.split('T')[1].split('.')[0]}
+            </td>
+            <td className={cls.td}>
+              {queue.completed_date?.split('T')[1].split('.')[0]}
+            </td>
             <td className={cls.td}>
               <img
                 src={queue.status === 'completed' ? CheckedIcon : ErrorIcon}

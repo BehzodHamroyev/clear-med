@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 
 import cls from './TableReportsDoctorPage.module.scss';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { fetchTableReports } from '../model/service/TableReportService';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchReportControlDoctor } from '../model/service/fetchReportDoctor';
+import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
 const tableTitle = [
   'ID',
-  'Shifokor',
-  'Xona',
+  'Qabul kuni',
   'Qabul boshlanishi',
   'Qabul tugashi',
+  'Xolati',
 ];
 
 const KorilganBemorlar = [
@@ -51,7 +52,7 @@ const TableReportsDoctorPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchTableReports({ id: '65828772ff48c5727ec7b1c0' }));
+    dispatch(fetchReportControlDoctor({ limit: 10 }));
   }, [dispatch]);
 
   return (
@@ -61,6 +62,8 @@ const TableReportsDoctorPage = () => {
         ItemsLength={KorilganBemorlar.length}
         Calendar
       />
+
+      <BestCalendar />
 
       <h3 className={cls.KorilganBemorlar}>
         {t("Jami Ko'rilgan Bemorlar : ")}
