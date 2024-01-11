@@ -39,7 +39,7 @@ const DepartmentAdd = () => {
     dispatch(
       fetchDepartmentAdd({
         name: departmentName,
-        image: 'NervopotologIcon',
+        image: `${isOpenDepartmentAddCardIconIndex}`,
         duration: Number(inputValue),
       }),
     );

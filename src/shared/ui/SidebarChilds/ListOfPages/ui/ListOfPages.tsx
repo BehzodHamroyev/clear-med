@@ -132,7 +132,7 @@ export const ListOfPages = memo(() => {
       setListToUse(listOfPageAdmin);
     } else if (profileValue === 'doctor') {
       setListToUse(listOfPageDoktor);
-    } else if (profileValue === 'qabulxona') {
+    } else if (profileValue === 'reception') {
       setListToUse(listOfPageQabulXona);
     }
   }, [profileValue]);

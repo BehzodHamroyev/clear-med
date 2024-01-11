@@ -17,3 +17,10 @@ type TableBody = {
 export interface DepartmentEditOrDelete {
   tableBody: TableBody[];
 }
+
+export interface UseStateType {
+  id: string;
+  departmentName: string;
+  durationTime: string;
+  iconName: any;
+}

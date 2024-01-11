@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
@@ -11,7 +12,7 @@ export const fetchDepartmentDelete = createAsyncThunk<
 >('DepartmentAdd', async ({ idCard }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
 
   try {
     const response = await axios.delete<any>(`${baseUrl}department/${idCard}`, {
