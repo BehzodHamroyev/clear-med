@@ -14,6 +14,7 @@ import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor
 export interface StateSchema {
   login: AuthReduxType;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
+  doneQueuesControlDoctor: QueuesControlDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
