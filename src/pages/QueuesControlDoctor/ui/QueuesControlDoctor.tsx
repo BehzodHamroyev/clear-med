@@ -200,17 +200,13 @@ const QueuesControlDoctor = () => {
     console.log(queuesListError);
   }
 
-  if (doneQueuesList) {
-    console.log(doneQueuesList);
-  }
-
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <ButtonNavbar
           dontCreate
-          TableTitle="Qabullar"
-          ItemsLength={queuesList?.length}
+          TableTitle="Amaldagi navbat"
+          // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
           roomNumber={proccessData?.data[0]?.room_id?.name}
           departmentName={proccessData?.data[0]?.department_id?.name}
         />
@@ -219,6 +215,11 @@ const QueuesControlDoctor = () => {
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
+            <ButtonNavbar
+              dontCreate
+              TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+              ItemsLength={doneQueuesList?.length}
+            />
             <DoneQueueTableTitleDoctorProfile
               Tablethead={[
                 'Id',
@@ -230,18 +231,28 @@ const QueuesControlDoctor = () => {
               Tabletbody={doneQueuesList}
             />
           </div>
+
           <div className={cls.TableDoctorChild}>
             {queuesList && (
-              <TableTitleDoctorProfile
-                Tablethead={['Id', 'Bilet berilgan vaqti']}
-                Tabletbody={queuesList}
-              />
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Navbatdagi bemorlar"
+                  ItemsLength={queuesList?.length}
+                />
+                <TableTitleDoctorProfile
+                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tabletbody={queuesList}
+                />
+              </>
             )}
           </div>
         </div>
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-        {(proccessIsLoading || queuesListIsLoading) && <Loader />}
+        {(proccessIsLoading ||
+          queuesListIsLoading ||
+          doneQueuesListIsLoading) && <Loader />}
       </div>
     </DynamicModuleLoader>
   );

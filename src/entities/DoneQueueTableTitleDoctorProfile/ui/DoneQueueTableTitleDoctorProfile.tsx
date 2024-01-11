@@ -14,8 +14,6 @@ interface TableInfo {
 const DoneQueueTableTitleDoctorProfile = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
-  console.log(Tabletbody, 'report');
-
   return (
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>

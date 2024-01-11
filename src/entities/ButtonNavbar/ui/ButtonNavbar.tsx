@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CalendarSection } from '@/entities/Calendar';
 import { ButtonNavbarProps } from '../model/types/ButtonNavbarTypes';
-import { CarbonAdd, Search } from '@/shared/assets/entities/ButtonNavbar';
+import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -62,21 +62,12 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
               searchOpen === true ? cls.OpenWidth : ''
             }`}
           >
-            {/* {searchOpen ? ( */}
             <input
               maxLength={30}
               type="text"
               className={`${cls.ButtonNavbarInputSearch} ${
                 searchOpen === false ? cls.CloseInput : ''
               }`}
-            />
-            {/* ) : (
-              ''
-            )} */}
-
-            <Search
-              onClick={() => setSearchOpen(!searchOpen)}
-              className={cls.ButtonNavbarIconsChild}
             />
           </div>
 
