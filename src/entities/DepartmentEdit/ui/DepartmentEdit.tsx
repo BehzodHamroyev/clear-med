@@ -57,7 +57,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     dispatch(
       fetchDepartmentEdit({
         idCard: inputValue.id,
-        image: `${isOpenDepartmentAddCardIconIndex}`,
+        image: `${isOpenDepartmentAddCardIconIndex || 1}`,
         name: inputValue.departmentName,
         duration: Number(inputValue.durationTime),
       }),
@@ -66,20 +66,17 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     setDepartmentListChanged('Edit');
   };
 
-  const matchingItem = tableBody.find((item) => item.id === departmentGetId);
+  const matchingItem = tableBody?.find((item) => item?.id === departmentGetId);
 
-  const ResultIcon = iconsCardDepartments[Number(matchingItem?.imgName)].icon;
-
-  const ResultIconSrc =
-    iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+  const ResultIcon = iconsCardDepartments[Number(matchingItem?.imgName)]?.icon;
 
   React.useEffect(() => {
     if (matchingItem) {
       setInputValue({
-        id: `${matchingItem.id}`,
-        departmentName: `${matchingItem.item1}`,
-        durationTime: `${matchingItem.duration}`,
-        iconName: <ResultIcon />,
+        id: `${matchingItem?.id || 1}`,
+        departmentName: `${matchingItem?.item1 || 'Bulim yuq'}`,
+        durationTime: `${matchingItem?.duration}`,
+        iconName: ResultIcon ? <ResultIcon /> : '',
       });
     } else {
       console.log('No matching item found');
@@ -104,8 +101,6 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
           <h3 className={cls.CardTitle}>{t('Bo‘limni tahrirlash')}</h3>
 
           {inputValue.iconName ? inputValue.iconName : <div />}
-
-          {/* <ResultIconSrc /> */}
         </div>
 
         <div className={cls.CardBody}>
