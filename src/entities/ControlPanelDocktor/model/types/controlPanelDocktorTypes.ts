@@ -17,7 +17,7 @@ export interface Queue {
   department_id: Department;
   room_id: Room;
   doctor_id: Doctor;
-  queues_name: string[];
+  queues_name: string;
   step: number;
   created_date: string;
   status: string;
@@ -27,8 +27,8 @@ export interface Queue {
   id: string;
 }
 
-export interface QueueApiResponseControlDoctorTypes {
-  status: string;
+export interface ProccesApiResponseControlPanelDoctorTypes {
   result: number;
+  status: string;
   data: Queue[];
 }

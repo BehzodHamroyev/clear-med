@@ -71,14 +71,16 @@ const TableReportsDoctorPage = () => {
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
           {tableTitle.map((title: string) => (
-            <th className={cls.th}>{title}</th>
+            <th key={title} className={cls.th}>
+              {title}
+            </th>
           ))}
         </tr>
       </thead>
 
       <tbody className={cls.Tabletbody}>
         {KorilganBemorlar.map((item, index) => (
-          <tr key={index} className={cls.tr}>
+          <tr key={item.id} className={cls.tr}>
             <td className={cls.td}>{item.id}</td>
             <td className={cls.td}>{item.shifokor}</td>
             <td className={cls.td}>{item.xona}</td>

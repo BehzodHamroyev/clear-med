@@ -19,6 +19,14 @@ import {
   getQueuesControlDoctorError,
   getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import {
+  getControlPanelDocktorData,
+  getControlPanelDocktorError,
+  // eslint-disable-next-line unused-imports/no-unused-imports
+  getControlPanelDocktorIsLoading,
+} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
+import { Loader } from '@/widgets/Loader';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -170,38 +178,31 @@ const TableBodyCretedPatient = [
   },
 ];
 
-const TableBodyQueuesPatients = [
-  { id: 1, item1: 'AKU18', item2: '15:34:25' },
-  { id: 2, item1: 'AKU19', item2: '15:35:25' },
-  { id: 3, item1: 'AKU20', item2: '15:36:25' },
-  { id: 4, item1: 'AKU21', item2: '15:37:25' },
-  { id: 5, item1: 'AKU22', item2: '15:38:25' },
-  { id: 6, item1: 'AKU23', item2: '15:39:25' },
-  { id: 7, item1: 'AKU24', item2: '15:30:25' },
-  { id: 8, item1: 'AKU25', item2: '15:31:25' },
-  { id: 9, item1: 'AKU26', item2: '15:32:25' },
-  { id: 10, item1: 'AKU27', item2: '15:34:25' },
-  { id: 11, item1: 'AKU28', item2: '15:44:25' },
-  { id: 12, item1: 'AKU29', item2: '15:34:25' },
-];
-
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
-  console.log(queuesList?.queues, 'qoweqweqwe');
+  const proccessData = useSelector(getControlPanelDocktorData);
+  const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
+  const proccessError = useSelector(getControlPanelDocktorError);
 
   useEffect(() => {
     dispatch(
       fetchQueuesControlDoctor({
-        doctorId: 'doctorId',
         status: 'pending',
       }),
     );
   }, [dispatch]);
 
+  if (queuesListError) {
+    console.log(queuesListError);
+  }
+
+  if (proccessError) {
+    console.log(proccessError);
+  }
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
@@ -215,7 +216,7 @@ const QueuesControlDoctor = () => {
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
-            <TableTitleDoctorProfile
+            {/* <TableTitleDoctorProfile
               Tablethead={[
                 'Id',
                 'Qabul boshlanishi',
@@ -223,17 +224,20 @@ const QueuesControlDoctor = () => {
                 'Xolati',
               ]}
               Tabletbody={TableBodyCretedPatient}
-            />
+            /> */}
           </div>
           <div className={cls.TableDoctorChild}>
-            <TableTitleDoctorProfile
-              Tablethead={['Id', 'Bilet berilgan vaqti']}
-              Tabletbody={TableBodyQueuesPatients}
-            />
+            {queuesList && (
+              <TableTitleDoctorProfile
+                Tablethead={['Id', 'Bilet berilgan vaqti']}
+                Tabletbody={queuesList}
+              />
+            )}
           </div>
         </div>
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
+        {proccessIsLoading && <Loader />}
       </div>
     </DynamicModuleLoader>
   );

@@ -1,16 +1,19 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { QueueApiResponseControlDoctorTypes } from '../..';
 
 export const fetchQueuesControlDoctor = createAsyncThunk<
   QueueApiResponseControlDoctorTypes,
-  { doctorId: string; status: string },
+  { status: string },
   ThunkConfig<string>
->('readingArabic', async ({ doctorId, status = 'pending' }, thunkApi) => {
-  const { extra, rejectWithValue } = thunkApi;
+>('fetchQueuesControlDoctor', async ({ status }, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
 
-  if (!doctorId) {
+  const getTokenCookie = Cookies.get('token');
+
+  if (!status) {
     throw new Error('');
   }
 
@@ -20,9 +23,7 @@ export const fetchQueuesControlDoctor = createAsyncThunk<
 
       {
         headers: {
-          authorization:
-            // eslint-disable-next-line max-len
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YmFkZTU1YjBmMTZjZGRjM2RjZCIsImlhdCI6MTcwNDc2NzcwMiwiZXhwIjoxNzA0ODAzNzAyfQ.y1nEvZwU5N4X_7GezUVgn3HUtCYeats-cgOIjwT4FVQ',
+          authorization: `Bearer ${getTokenCookie}`,
         },
       },
     );

@@ -15,8 +15,6 @@ const ListOfSettingsTheme = () => {
 
   const { toggleTheme, theme } = useTheme();
 
-  // console.log(themeLocalstorage, 'vjvjvjv', theme);
-
   return (
     <div className={cls.ListOfSettingsThemeWrapper}>
       <div

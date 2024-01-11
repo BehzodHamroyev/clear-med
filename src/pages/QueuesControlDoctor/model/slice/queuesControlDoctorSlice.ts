@@ -25,7 +25,8 @@ export const queuesControlDoctorSlice = createSlice({
         fetchQueuesControlDoctor.fulfilled,
         (state, action: PayloadAction<QueueApiResponseControlDoctorTypes>) => {
           state.isLoading = false;
-          state.data = action.payload;
+
+          state.data = action.payload.data;
         },
       )
       .addCase(fetchQueuesControlDoctor.rejected, (state, action) => {

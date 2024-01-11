@@ -20,7 +20,7 @@ const DoctorAdd = () => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
-      // console.log(selectedFile);
+
       setIsImageUser(selectedFile);
     }
   };

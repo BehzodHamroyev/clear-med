@@ -1,8 +1,14 @@
 import React from 'react';
 
-import { TableInfo } from '../model/types/TableInfo';
-
 import cls from './TableTitleDoctorProfile.module.scss';
+
+import { Queue } from '@/pages/QueuesControlDoctor';
+
+interface TableInfo {
+  cursor?: boolean;
+  Tablethead: string[];
+  Tabletbody: Queue[];
+}
 
 const TableTitleDoctorProfile = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
@@ -11,25 +17,22 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
-          {Tablethead.map((title: string) => (
-            <th className={cls.th}>{title}</th>
+          {Tablethead?.map((title: string) => (
+            <th key={title} className={cls.th}>
+              {title}
+            </th>
           ))}
         </tr>
       </thead>
 
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => (
-          <tr key={item.id} className={cls.tr}>
-            {item.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
-            {item.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
-            {item.item3 ? <td className={cls.td}>{item.item3}</td> : ''}
-            {item.img ? (
-              <td className={cls.td}>
-                <img className={cls.Img} src={item?.img} alt="#" />
-              </td>
-            ) : (
-              ''
-            )}
+        {Tabletbody?.map((queue) => (
+          <tr key={queue.id} className={cls.tr}>
+            <td className={cls.td}>{queue.queues_name}</td>
+            <td className={cls.td}>
+              {queue.accepted_date.split('T')[1].split('.')[0]}
+              {' | '} {queue.accepted_date.split('T')[0]}
+            </td>
           </tr>
         ))}
       </tbody>

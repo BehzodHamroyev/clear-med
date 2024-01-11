@@ -9,11 +9,13 @@ import { AxiosInstance } from 'axios';
 import { rtkApi } from '@/shared/api/rtkApi';
 import { AuthReduxType } from '@/features/Auth';
 import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
+import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 
 export interface StateSchema {
   login: AuthReduxType;
-  departmentPage:DepartmentListSchema
+  departmentPage: DepartmentListSchema;
+  controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
   // Asynchronous reducers

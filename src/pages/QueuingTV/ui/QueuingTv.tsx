@@ -142,8 +142,6 @@ const QueuingTv = () => {
     (item) => item.id === isQueuingCardClickedGetId,
   );
 
-  // console.log(getObjectFind);
-
   return (
     <div className={cls.QueuingTvWrapper}>
       <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={CardBody.length} />

@@ -1,7 +1,7 @@
-import { QueueApiResponseControlDoctorTypes } from './queuesControlDoctorTypes';
+import { Queue } from './queuesControlDoctorTypes';
 
 export interface QueuesControlDoctorSchema {
   isLoading: boolean;
   error?: string;
-  data?: QueueApiResponseControlDoctorTypes;
+  data?: Queue[];
 }

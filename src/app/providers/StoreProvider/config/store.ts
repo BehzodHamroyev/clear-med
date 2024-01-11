@@ -6,6 +6,7 @@ import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { AuthSliceReducer } from '@/features/Auth';
 import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
+import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -15,6 +16,8 @@ export function createReduxStore(
     ...asyncReducers,
     login: AuthSliceReducer,
     departmentPage: DepartmentListSliceReducer,
+    controlPanelDoctorProccess: controlPanelDoctorReducer,
+
     [rtkApi.reducerPath]: rtkApi.reducer,
   };
 
