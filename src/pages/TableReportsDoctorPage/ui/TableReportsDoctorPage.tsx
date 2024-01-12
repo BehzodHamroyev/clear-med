@@ -15,6 +15,7 @@ import {
 } from '../model/selector/reportControlDoctorSelector';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { Loader } from '@/widgets/Loader';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 const tableTitle = [
   'ID',
@@ -64,6 +65,10 @@ const TableReportsDoctorPage = () => {
       );
     }
   }, [calendarBeginValue, calendarEndValue, dispatch]);
+
+  if (reportError) {
+    console.log(reportError);
+  }
 
   return (
     <>
@@ -126,6 +131,8 @@ const TableReportsDoctorPage = () => {
       </table>
 
       {reportIsLoading && <Loader />}
+
+      {reportError && <ErrorDialog isErrorProps={!false} />}
     </>
   );
 };

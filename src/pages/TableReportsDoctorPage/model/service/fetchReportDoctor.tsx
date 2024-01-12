@@ -24,7 +24,7 @@ export const fetchReportControlDoctor = createAsyncThunk<
         startDate && endDate
           ? // eslint-disable-next-line max-len
             `https://magicsoft.uz/med/api/v1/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=${limit}&page=${page}`
-          : `https://magicsoft.uz/med/api/v1/doctor/report?limit=${limit}&page=${page}`,
+          : `https://magicsoft.uz/med/api/v1/doctor/report?limit=${limit}&page=${page}aa`,
         {
           headers: {
             authorization: `Bearer ${getTokenCookie}`,
