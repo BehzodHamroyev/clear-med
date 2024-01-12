@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -13,15 +14,23 @@ const LogoutChild = () => {
 
   const loginData = useSelector(getUserData);
 
+  const handleClickLogOut = () => {
+    setIsProfileWho('');
+    localStorage.removeItem('token');
+    Cookies.remove('token');
+
+    // Token borligini tekshirish
+    const isTokenExists = Cookies.get('token');
+
+    if (isTokenExists === undefined) {
+      console.log('Token removed successfully, LogOut');
+    } else {
+      console.log('Error removing token');
+    }
+  };
+
   return (
-    <Link
-      onClick={() => {
-        setIsProfileWho('');
-        localStorage.removeItem('token');
-      }}
-      to="/"
-      className={cls.LogoutChildWrapper}
-    >
+    <Link onClick={handleClickLogOut} to="/" className={cls.LogoutChildWrapper}>
       <Logout className={cls.LogoutIcon} />
     </Link>
   );

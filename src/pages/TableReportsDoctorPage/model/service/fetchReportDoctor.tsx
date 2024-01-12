@@ -6,34 +6,39 @@ import { ReportDoctorTypes } from '../..';
 
 export const fetchReportControlDoctor = createAsyncThunk<
   ReportDoctorTypes,
-  { limit: number },
+  { startDate: string; endDate: string; limit: number; page: number },
   ThunkConfig<string>
->('fetchReportControlDoctor', async ({ limit }, thunkApi) => {
-  const { rejectWithValue } = thunkApi;
+>(
+  'fetchReportControlDoctor',
+  async ({ startDate, endDate, limit, page }, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
 
-  const getTokenCookie = Cookies.get('token');
+    const getTokenCookie = Cookies.get('token');
 
-  if (!limit) {
-    throw new Error('');
-  }
-
-  try {
-    const response = await axios.get<ReportDoctorTypes>(
-      `https://magicsoft.uz/med/api/v1/doctor/report?limit=${limit}`,
-
-      {
-        headers: {
-          authorization: `Bearer ${getTokenCookie}`,
-        },
-      },
-    );
-
-    if (!response.data) {
-      throw new Error();
+    if (!limit) {
+      throw new Error('');
     }
 
-    return response.data;
-  } catch (e) {
-    return rejectWithValue('error');
-  }
-});
+    try {
+      const response = await axios.get<ReportDoctorTypes>(
+        startDate && endDate
+          ? // eslint-disable-next-line max-len
+            `https://magicsoft.uz/med/api/v1/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=${limit}&page=${page}`
+          : `https://magicsoft.uz/med/api/v1/doctor/report?limit=${limit}&page=${page}`,
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
+
+      if (!response.data) {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (e) {
+      return rejectWithValue('error');
+    }
+  },
+);

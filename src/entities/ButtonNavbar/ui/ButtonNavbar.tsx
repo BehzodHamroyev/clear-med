@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import { CalendarSection } from '@/entities/Calendar';
+// import { CalendarSection } from '@/entities/Calendar';
 import { ButtonNavbarProps } from '../model/types/ButtonNavbarTypes';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
 const ButtonNavbar = (props: ButtonNavbarProps) => {
   const {
@@ -45,7 +46,14 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
         {TableTitle} {ItemsLength ? <span>({ItemsLength})</span> : ''}
       </p>
 
-      {Calendar ? <CalendarSection /> : ''}
+      {/* {Calendar ? <CalendarSection /> : ''} */}
+      {Calendar ? (
+        <div style={{ marginTop: '-23px' }}>
+          <BestCalendar />
+        </div>
+      ) : (
+        ''
+      )}
 
       {dontCreate && roomNumber && departmentName ? (
         <h3 className={cls.BulimTuri}>
