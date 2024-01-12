@@ -13,7 +13,7 @@ const initialState: DepartmentListSchema = {
 };
 
 export const DepartmentListSlice = createSlice({
-  name: 'SurahListSlice',
+  name: 'DepartmentListSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

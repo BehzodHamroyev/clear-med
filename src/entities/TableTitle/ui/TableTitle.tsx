@@ -55,6 +55,7 @@ const TableTitle = (props: TableInfo) => {
               ) : (
                 ''
               )}
+
               {item?.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
               {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
               {item?.item3 ? <td className={cls.td}>{item.item3}</td> : ''}

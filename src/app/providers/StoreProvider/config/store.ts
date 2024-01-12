@@ -9,6 +9,7 @@ import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
+import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -17,6 +18,8 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     login: AuthSliceReducer,
+
+    getDoctorPageReducer: DoctorListSliceReducer,
     departmentPage: DepartmentListSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,

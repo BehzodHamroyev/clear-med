@@ -17,23 +17,23 @@ import {
   getRouteSettingsPage,
   getRouteReportDoctor,
   getRouteReportsPageId,
-  getRouteReportControlDoctor,
   getRouteReportQueuingTv,
+  getRouteReportControlDoctor,
 } from '@/shared/const/router';
 
+import { QueuingTv } from '@/pages/QueuingTV';
 import { QueuesPage } from '@/pages/QueuesPage';
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
+import { DoctorsListPage } from '@/pages/DoctorsListPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
-import { QueuingTv } from '@/pages/QueuingTV';
 
 const profileValue = localStorage.getItem('profile');
 
@@ -77,7 +77,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.ADD_DOCTOR]: {
     path: getRouteAddDoctor(),
-    element: <AddDoctorPage />,
+    element: <DoctorsListPage />,
   },
   [AppRoutes.REPORTS]: {
     path: getRouteReportsPage(),
