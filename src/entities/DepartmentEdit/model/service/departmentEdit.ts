@@ -2,10 +2,9 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import Cookies from 'js-cookie';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { DepartmentEditType } from '../types/departmentEdit';
-
-const baseUrl = 'https://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentEdit = createAsyncThunk<
   DepartmentEditType,
@@ -18,7 +17,7 @@ export const fetchDepartmentEdit = createAsyncThunk<
 
   try {
     const response = await axios.patch<DepartmentEditType>(
-      `${baseUrl}department/${idCard}`,
+      `${baseUrl}/department/${idCard}`,
       {
         name,
         image,

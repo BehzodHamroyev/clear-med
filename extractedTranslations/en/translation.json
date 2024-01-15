@@ -94,6 +94,8 @@
   "Dermotolo": "",
   "Dermotolog": "",
   "English": "",
+  "Eski arolni kiriting": "",
+  "Eski parolni kiriting": "",
   "F": {
     "I": {
       "Sh": ""
@@ -142,6 +144,11 @@
   "Par": "",
   "Paro": "",
   "Parol": "",
+  "Parol o'zgartilmadi": {
+    " Tizimda xatolik aniqlandi": ""
+  },
+  "Parol o'zgartirildi": "",
+  "Parol o'zgartirilfi": "",
   "Paroli": "",
   "Paroln": "",
   "Parolni ": "",
@@ -150,6 +157,8 @@
   "Parolni kirit": "",
   "Parolni kiritin": "",
   "Parolni kiriting": "",
+  "Parolni o'zgartirish": "",
+  "Parolni o‘zgartirish": "",
   "Qayta chaqirish": "",
   "Qidirish": "",
   "Qorong‘i": "",
@@ -207,10 +216,13 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Xatolik sodir bo'ldi": "",
   "Xona": "",
   "Xona qo‘shish": "",
   "Xona raqami": "",
   "Xonani tahrirlash": "",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "",
+  "Yangi parolni kiriting": "",
   "Yorqin": "",
   "kIRISH": "",
   "menu": "",

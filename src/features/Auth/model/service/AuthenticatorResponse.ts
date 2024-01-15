@@ -1,6 +1,8 @@
 // import { useCookies } from 'react-cookie';
-import Cookies from 'js-cookie';
+
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AuthLogin } from '../types/AuthentificationTypes';
 
@@ -12,8 +14,8 @@ export const fetchAuthLogin = createAsyncThunk<
   const { extra, rejectWithValue } = thunkApi;
 
   try {
-    const response = await extra.api.post(
-      `users/signin`,
+    const response = await axios.post(
+      `${baseUrl}users/signin`,
       {
         password,
         login,
@@ -26,26 +28,26 @@ export const fetchAuthLogin = createAsyncThunk<
       },
     );
 
-    if (response.data.token) {
-      const { token } = response.data;
+    // if (response.data.token) {
+    //   const { token } = response.data;
 
-      Cookies.set('token', token, {
-        secure: true,
-        // httpOnly: true,
-        // sameSite: 'Lax',
-      });
+    //   Cookies.set('token', token, {
+    //     // secure: true,
+    //     // httpOnly: true,
+    //     // sameSite: 'Lax',
+    //   });
 
-      const getTokenCookie = Cookies.get('token');
+    //   const getTokenCookie = Cookies.get('token');
 
-      // consoleda token ko'rinsa demak token cookiega saqlangan
-      // console.log(getTokenCookie);
+    //   // consoleda token ko'rinsa demak token cookiega saqlangan
+    //   // console.log(getTokenCookie);
 
-      localStorage.setItem('token', response.data.token);
-    }
-    if (response.data.user.role) {
-      localStorage.setItem('profile', response.data.user.role);
-    }
-
+    //   localStorage.setItem('token', response.data.token);
+    // }
+    // if (response.data.user.role) {
+    //   localStorage.setItem('profile', response.data.user.role);
+    // }
+    console.log(response.data);
     return response.data;
   } catch (error) {
     return rejectWithValue('error');

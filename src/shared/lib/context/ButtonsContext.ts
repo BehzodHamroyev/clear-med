@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 
 export interface ButtonsClickedProps {
+  isOpenSettingsChangePassword: boolean;
+  setIsOpenSettingsChangePassword: (prop: boolean) => void;
+
   calendarBeginValue: string;
   setCalendarBeginValue: (props: string) => void;
 
@@ -65,9 +68,22 @@ export interface ButtonsClickedProps {
 
   formData: { PhoneNumber: string; UserPassword: string };
   setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
+
+  settingsFormData: { password: string; newPassword: string };
+  setSettingsFormData: (prop: {
+    password: string;
+    newPassword: string;
+  }) => void;
+
+  hasOpenToast: boolean;
+  setHasOpenToast: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  hasOpenToast: false,
+  setHasOpenToast: () => {},
+  isOpenSettingsChangePassword: false,
+  setIsOpenSettingsChangePassword: () => {},
   calendarBeginValue: '',
   setCalendarBeginValue: () => {},
   calendarEndValue: '',
@@ -131,4 +147,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   formData: { PhoneNumber: '', UserPassword: '' },
   setFormData: () => {},
+
+  settingsFormData: { password: '', newPassword: '' },
+  setSettingsFormData: () => {},
 });

@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+// import { io } from 'socket.io-client';
 import {
   ReducersList,
   DynamicModuleLoader,
@@ -58,6 +59,19 @@ const Login: FC = () => {
     setIsSubmitLoginForm,
     formData.UserPassword,
   ]);
+
+  // const socket = io('http://magicsoft.uz', {
+  //   path: '/mysocket',
+  // });
+
+  // // @ts-ignore
+  // socket.emit('create_queue', '659dea386b440c9b275fe237', (response) => {
+  //   console.log(response);
+  //   console.log('response');
+  // });
+  // socket.on('message', (data) => {
+  //   console.log('Received message:', data);
+  // });
 
   return (
     <DynamicModuleLoader reducers={reducer}>

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../../../../baseurl';
+
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ReportDoctorTypes } from '../..';
 
@@ -23,8 +25,8 @@ export const fetchReportControlDoctor = createAsyncThunk<
       const response = await axios.get<ReportDoctorTypes>(
         startDate && endDate
           ? // eslint-disable-next-line max-len
-            `https://magicsoft.uz/med/api/v1/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=${limit}&page=${page}`
-          : `https://magicsoft.uz/med/api/v1/doctor/report?limit=${limit}&page=${page}aa`,
+            `${baseUrl}/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=${limit}&page=${page}`
+          : `${baseUrl}/doctor/report?limit=${limit}&page=${page}aa`,
         {
           headers: {
             authorization: `Bearer ${getTokenCookie}`,

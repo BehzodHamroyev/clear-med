@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../../../../baseurl';
 import { DepartmentType } from '../types/departmentType';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-
-const baseUrl = 'https://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
@@ -16,7 +15,7 @@ export const fetchDepartmentAdd = createAsyncThunk<
 
   try {
     const response = await axios.post<DepartmentType>(
-      `${baseUrl}department/create`,
+      `${baseUrl}/department/create`,
       {
         name,
         image,
