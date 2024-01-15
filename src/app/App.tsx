@@ -11,8 +11,8 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import 'react-calendar/dist/Calendar.css';
-import { Login } from '@/features/Auth';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { Login } from '@/features/Auth';
 
 const App = memo(() => {
   const { theme } = useTheme();
@@ -21,8 +21,6 @@ const App = memo(() => {
   const { isProfileWho } = useContext(ButtonsContext);
 
   const token = localStorage.getItem('token');
-
-  // isProfileWho === '' ||
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>

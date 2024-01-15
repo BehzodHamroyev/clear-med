@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { DepartmentEditType } from '../types/departmentEdit';
 
-const baseUrl = 'https://magicsoft.uz/med/api/v1/';
+const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentEdit = createAsyncThunk<
   DepartmentEditType,

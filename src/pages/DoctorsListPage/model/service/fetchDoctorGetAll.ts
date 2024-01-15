@@ -1,8 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+/* eslint-disable max-len */
 import Cookies from 'js-cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { DoctorListPage } from '../types/doctorListTypes';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+
+const token = Cookies.get('token');
+const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDoctorGetAll = createAsyncThunk<
   DoctorListPage,
@@ -11,27 +15,20 @@ export const fetchDoctorGetAll = createAsyncThunk<
 >('getAllDoctor', async (prop, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
-  const token = Cookies.get('token');
-
-  const baseUrl = 'https://magicsoft.uz/med/api/v1/';
-
   try {
     const response = await axios.get<DoctorListPage>(
       `${baseUrl}users?role=doctor`,
       {
-        maxBodyLength: Infinity,
         headers: {
-          authorization: `Bearer ${token}`,
+          authorization:
+            `Bearer ` +
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YjY1ZTU1YjBmMTZjZGRjM2RjMiIsImlhdCI6MTcwNTMxODI4OCwiZXhwIjoxNzA1Njc4Mjg4fQ.zZVoCvBN8A3LScTNKeqL1H6ceJHhkIBARBNwbLRigR8',
           'Content-Type': 'application/json',
         },
       },
     );
 
-    console.log(response.data);
-
-    if (!response.data) {
-      throw new Error();
-    }
+    console.log(response);
 
     return response.data;
   } catch (e) {

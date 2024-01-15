@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Input from 'react-phone-number-input/input';
+
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
+import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './DoctorAdd.module.scss';
-import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 
 const DoctorAdd = () => {
   const { t } = useTranslation();
@@ -118,28 +118,28 @@ const DoctorAdd = () => {
 
             <div className={cls.PhoneNumberInputWrapper}>
               <input
-                name="UserPassword"
-                placeholder="Parolni kiriting..."
-                // className={cls.PhoneNumberInput}
-                className={cls.InputBulim}
-                type={hideEye ? 'text' : 'password'}
-                autoComplete="off"
-                maxLength={14}
-                minLength={8}
                 required
+                minLength={8}
+                maxLength={14}
+                autoComplete="off"
+                name="UserPassword"
+                className={cls.InputBulim}
+                placeholder="Parolni kiriting..."
+                type={hideEye ? 'text' : 'password'}
                 onChange={(e) =>
                   handleInputChange(e.target.value, 'UserPassword')
                 }
               />
+
               {hideEye ? (
                 <EyeIcon
-                  onClick={() => setHideEye(false)}
                   className={cls.FixValueBnt}
+                  onClick={() => setHideEye(false)}
                 />
               ) : (
                 <HideIcon
-                  onClick={() => setHideEye(true)}
                   className={cls.FixValueBnt}
+                  onClick={() => setHideEye(true)}
                 />
               )}
             </div>

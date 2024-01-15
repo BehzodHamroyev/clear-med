@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
-const baseUrl = 'https://magicsoft.uz/med/api/v1/';
+const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDepartmentDelete = createAsyncThunk<
   any,

@@ -30,7 +30,8 @@ const Login: FC = () => {
 
   useEffect(() => {
     if (loginData) {
-      setIsProfileWho(`${loginData.role}`);
+      // setIsProfileWho(`${loginData.role}`);
+      setIsProfileWho(`admin`);
     } else {
       setIsProfileWho('');
     }

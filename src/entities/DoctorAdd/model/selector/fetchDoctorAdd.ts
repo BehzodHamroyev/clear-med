@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { DoctorAddTypes } from '../types/doctorAddTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
-const baseUrl = 'https://magicsoft.uz/med/api/v1/';
+const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDoctorAdd = createAsyncThunk<
   DoctorAddTypes,
