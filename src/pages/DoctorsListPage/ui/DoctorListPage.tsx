@@ -9,7 +9,6 @@ import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { Doda } from '@/shared/assets/Pages/AddDoctorPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DoctorListSliceReducer } from '../model/slice/getDoctorSlice';
-import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
@@ -24,6 +23,7 @@ import {
 } from '../model/selector/doctorListSelector';
 
 import cls from './AddDoctorPage.module.scss';
+import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 
 const tableTitle = [
   'Surat',

@@ -2,25 +2,48 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 
+import { FormDataInState } from '../model/types/doctorAddTypes';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
+import { fetchDoctorAdd } from '../model/service/fetchDoctorAdd';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './DoctorAdd.module.scss';
 
 const DoctorAdd = () => {
+  /* translate */
   const { t } = useTranslation();
 
+  /* dispatch */
+  const dispatch = useAppDispatch();
+
+  /* context */
   const { setIsOpenDoctorAddCard } = React.useContext(ButtonsContext);
 
+  /* useState */
   const [isImageUser, setIsImageUser] = React.useState<any>();
 
   const [isYearDoctor, setIsYearDoctor] = React.useState({
     years: '',
   });
 
+  const [value, setValue] = React.useState('');
+
+  const [hideEye, setHideEye] = React.useState(false);
+
+  const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
+    name: '',
+    file: null,
+    login: null,
+    password: '',
+    exprience: null,
+  });
+
+  /* useRef */
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
+  /* halper functions */
   const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
@@ -32,24 +55,43 @@ const DoctorAdd = () => {
       const selectedFile = event.target.files[0];
 
       setIsImageUser(selectedFile);
+      setIsAllFormData({ ...isAllFormData, file: selectedFile });
     }
   };
 
-  const [value, setValue] = React.useState('');
-
-  const [hideEye, setHideEye] = React.useState(false);
-
   function handleInputChange(event: any, name: string) {
     setValue(event);
+
+    setIsAllFormData({ ...isAllFormData, login: event });
   }
 
+  function handleInputChangePassword(event: any, name: string) {
+    setValue(event);
+
+    setIsAllFormData({ ...isAllFormData, password: event });
+  }
+
+  /* fetch data */
+  const handleSubmitAllFormData = () => {
+    dispatch(
+      fetchDoctorAdd({
+        name: isAllFormData?.name,
+        file: `${isAllFormData.file}`,
+        login: `${isAllFormData?.login}`,
+        password: `${isAllFormData?.password}`,
+        exprience: `${isAllFormData.exprience}`,
+      }),
+    );
+  };
+
+  /* UI */
   return (
     <div
-      className={cls.DepartmentAddWrapper}
       onClick={(e) => {
         e.stopPropagation();
         setIsOpenDoctorAddCard(false);
       }}
+      className={cls.DepartmentAddWrapper}
     >
       <div
         onClick={(e) => {
@@ -77,8 +119,8 @@ const DoctorAdd = () => {
             </button>
 
             <input
-              type="file"
               id="input"
+              type="file"
               ref={inputRef}
               style={{ display: 'none' }}
               onChange={handleFileChange}
@@ -91,15 +133,22 @@ const DoctorAdd = () => {
               maxLength={30}
               className={cls.InputBulim}
               placeholder={t('F.I.Sh')}
+              onChange={(e) =>
+                setIsAllFormData({ ...isAllFormData, name: e.target.value })
+              }
             />
 
             <input
               type="number"
               maxLength={2}
               required
-              onChange={(e) =>
-                setIsYearDoctor({ ...isYearDoctor, years: e.target.value })
-              }
+              onChange={(e) => {
+                setIsAllFormData({
+                  ...isAllFormData,
+                  exprience: e.target.value,
+                });
+                setIsYearDoctor({ ...isYearDoctor, years: e.target.value });
+              }}
               value={isYearDoctor.years}
               className={cls.InputBulim}
               placeholder={t('tajribasi')}
@@ -127,7 +176,7 @@ const DoctorAdd = () => {
                 placeholder="Parolni kiriting..."
                 type={hideEye ? 'text' : 'password'}
                 onChange={(e) =>
-                  handleInputChange(e.target.value, 'UserPassword')
+                  handleInputChangePassword(e.target.value, 'UserPassword')
                 }
               />
 
@@ -156,7 +205,11 @@ const DoctorAdd = () => {
                 {t('Bekor qilish')}
               </button>
 
-              <button type="button" className={`${cls.Btn} ${cls.Btn2}`}>
+              <button
+                type="button"
+                className={`${cls.Btn} ${cls.Btn2}`}
+                onClick={handleSubmitAllFormData}
+              >
                 {t('Saqlash')}
               </button>
             </div>

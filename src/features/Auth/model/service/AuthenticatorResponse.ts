@@ -6,7 +6,7 @@ import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AuthLogin } from '../types/AuthentificationTypes';
 
 const tokenValue =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YjY1ZTU1YjBmMTZjZGRjM2RjMiIsImlhdCI6MTcwNTMxODI4OCwiZXhwIjoxNzA1Njc4Mjg4fQ.zZVoCvBN8A3LScTNKeqL1H6ceJHhkIBARBNwbLRigR8';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YjY1ZTU1YjBmMTZjZGRjM2RjMiIsImlhdCI6MTcwNTM3OTY5NiwiZXhwIjoxNzA1NzM5Njk2fQ.Zv_xgjnJnYMWmhrUIwzVYb4wKjCHIdxdeLs4RPHHoOU';
 
 export const fetchAuthLogin = createAsyncThunk<
   AuthLogin,

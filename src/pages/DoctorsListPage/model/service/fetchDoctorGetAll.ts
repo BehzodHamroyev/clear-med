@@ -28,8 +28,6 @@ export const fetchDoctorGetAll = createAsyncThunk<
       },
     );
 
-    console.log(response);
-
     return response.data;
   } catch (e: any) {
     return rejectWithValue(e.message);

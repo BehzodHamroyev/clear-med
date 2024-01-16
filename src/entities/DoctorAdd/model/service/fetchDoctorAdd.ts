@@ -1,27 +1,36 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ThunkConfig } from '@/app/providers/StoreProvider';
+import Cookies from 'js-cookie';
 import { DoctorAddTypes } from '../types/doctorAddTypes';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
-export const fetchDepartmentAdd = createAsyncThunk<
+export const fetchDoctorAdd = createAsyncThunk<
   DoctorAddTypes,
-  { name: string; image: string; duration: number },
+  {
+    name: string;
+    login: string | number;
+    password: string;
+    exprience: number | string;
+    file: HTMLImageElement | string;
+  },
   ThunkConfig<string>
->('DepartmentAdd', async ({ name, image, duration }, thunkApi) => {
+>('DoctorAdd', async ({ name, login, password, exprience, file }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
 
   try {
     const response = await axios.post<DoctorAddTypes>(
-      `${baseUrl}department/create`,
+      `${baseUrl}users`,
       {
         name,
-        image,
-        duration,
+        file,
+        login,
+        password,
+        exprience,
       },
       {
         maxBodyLength: Infinity,
@@ -31,6 +40,8 @@ export const fetchDepartmentAdd = createAsyncThunk<
         },
       },
     );
+
+    console.log(response, 'doctor response add');
 
     return response.data;
   } catch (e) {
