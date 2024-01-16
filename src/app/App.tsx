@@ -15,13 +15,14 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import 'react-calendar/dist/Calendar.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { store } from '@/shared/lib/context/LoginContext';
 import { Login } from '@/features/Auth';
+import { store } from '@/shared/lib/context/LoginContext';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = memo(() => {
   const { theme } = useTheme();
   const navigate = useNavigate();
+
   const { isSubmitLoginForm, setIsSubmitLoginForm, formData } =
     useContext(ButtonsContext);
 
@@ -32,13 +33,6 @@ const App = memo(() => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitLoginForm]);
-
-  // useEffect(() => {
-  //   if (Cookies.get('token')) {
-  //     store.checkAuth();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     if (!store.isAuth) {
