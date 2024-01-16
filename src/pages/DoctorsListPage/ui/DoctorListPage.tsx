@@ -2,13 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Loader } from '@/widgets/Loader';
+import { ErrorReload } from '@/widgets/Error';
 import { DoctorAdd } from '@/entities/DoctorAdd';
 import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { Doda } from '@/shared/assets/Pages/AddDoctorPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DoctorListSliceReducer } from '../model/slice/getDoctorSlice';
+import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
@@ -23,7 +24,6 @@ import {
 } from '../model/selector/doctorListSelector';
 
 import cls from './AddDoctorPage.module.scss';
-import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 
 const tableTitle = [
   'Surat',
@@ -32,162 +32,6 @@ const tableTitle = [
   'Bo’lim',
   'Tajribasi',
   'Telefon raqami',
-];
-
-const tableBody = [
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
-  {
-    id: 1,
-    img: Doda,
-    item1: 'Tojiboyev Abdulaziz',
-    item2: 2,
-    item3: 'Mazgitolog',
-    item4: '22-yil',
-    lastChild: '+998 97 777 64 54',
-  },
 ];
 
 const reducer: ReducersList = {
@@ -231,25 +75,12 @@ const DoctorListPage = () => {
     }
   }, [getDoctorData]);
 
-  function refreshPage() {
-    window.location.reload();
-  }
-
   return (
     <DynamicModuleLoader reducers={reducer}>
       {getDoctorLoading === true ? (
         <Loader />
       ) : getDoctorError ? (
-        <div className={cls.errorMessageWrap}>
-          <p className={cls.errorMessage}>{getDoctorError}</p>
-          <button
-            className={cls.errorMessageBtn}
-            type="button"
-            onClick={refreshPage}
-          >
-            Refresh
-          </button>
-        </div>
+        <ErrorReload message={getDoctorError} />
       ) : (
         <div>
           <div className={cls.AddDoctorPageWrapper}>

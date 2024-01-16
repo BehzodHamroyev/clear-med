@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { Loader } from '@/widgets/Loader';
+import { ErrorReload } from '@/widgets/Error';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { DepartmentAdd } from '@/entities/DepartmentAdd';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { getListOfDepartmens } from '../model/selectors/departmentList';
 import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
 import { fetchDepartmentGetAll } from '../model/service/getAllDepartmentRequest';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import {
+  getError,
+  getIsLoading,
+  getListOfDepartmens,
+} from '../model/selectors/departmentList';
 
 import {
   ReducersList,
@@ -25,20 +31,28 @@ const reducer: ReducersList = {
 };
 
 const DepartmentPage = () => {
-  const [tableBody, setTableBody] = useState<any>([]);
+  /* useState */
+  const [tableBody, setTableBody] = React.useState<any>([]);
 
+  /* dispatch */
   const dispatch = useAppDispatch();
 
+  /* useSelector */
   const getListOfDepartment = useSelector(getListOfDepartmens);
 
-  useEffect(() => {
+  const getDepartmentLoading = useSelector(getIsLoading);
+
+  const getDepartmentError = useSelector(getError);
+
+  /* useEffect */
+  React.useEffect(() => {
     if (getListOfDepartment) {
       const tableBodys = getListOfDepartment?.map((item) => {
         return {
           id: item?.id,
           item1: item?.name,
-          item2: '',
-          lastChild: ' ',
+          item2: '0',
+          lastChild: '0',
           duration: item.duration,
           imgName: item.image,
         };
@@ -51,32 +65,45 @@ const DepartmentPage = () => {
     departmentListChanged,
     isOpenDepartmentAddCard,
     isOpenDepartmentEditCard,
-  } = useContext(ButtonsContext);
+  } = React.useContext(ButtonsContext);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
   }, [dispatch]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setTimeout(() => {
       dispatch(fetchDepartmentGetAll({}));
     }, 500);
   }, [departmentListChanged, dispatch]);
 
+  /* UI */
   return (
     <DynamicModuleLoader reducers={reducer}>
-      <div className={cls.DepartmentPageWrapper}>
-        <ButtonNavbar
-          CreateCarbonAdd
-          TableTitle="Bo‘limlar"
-          ItemsLength={tableBody.length}
-        />
+      {getDepartmentLoading === true ? (
+        <Loader />
+      ) : getDepartmentError ? (
+        <ErrorReload message={getDepartmentError} />
+      ) : (
+        <div>
+          <div className={cls.DepartmentPageWrapper}>
+            <ButtonNavbar
+              CreateCarbonAdd
+              TableTitle="Bo‘limlar"
+              ItemsLength={tableBody.length}
+            />
 
-        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
-      </div>
+            <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+          </div>
 
-      {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
-      {isOpenDepartmentEditCard ? <DepartmentEdit tableBody={tableBody} /> : ''}
+          {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+          {isOpenDepartmentEditCard ? (
+            <DepartmentEdit tableBody={tableBody} />
+          ) : (
+            ''
+          )}
+        </div>
+      )}
     </DynamicModuleLoader>
   );
 };

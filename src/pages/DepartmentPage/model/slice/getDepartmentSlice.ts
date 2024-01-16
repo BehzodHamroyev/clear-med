@@ -31,7 +31,7 @@ export const DepartmentListSlice = createSlice({
         },
       )
       .addCase(fetchDepartmentGetAll.rejected, (state, action) => {
-        state.error = undefined;
+        state.error = `Serverda qandaydir xatolik bor. Sahifani qayta yuklang!`;
         state.isLoading = false;
       });
   },
