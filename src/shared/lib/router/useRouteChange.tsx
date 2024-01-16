@@ -1,18 +1,26 @@
 import { matchPath, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { AppRouteByPathPattern, AppRoutes } from '@/shared/const/router';
+import {
+  AppRouteByPathPattern,
+  CommonRoutes,
+  AdminRoutes,
+  DoctorRoutes,
+  ReceptionRoutes,
+} from '@/shared/const/router';
 
 export function useRouteChange() {
-    const location = useLocation();
-    const [appRoute, setAppRoute] = useState<AppRoutes>(AppRoutes.MAIN);
+  const location = useLocation();
+  const [appRoute, setAppRoute] = useState<
+    CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
+  >(CommonRoutes.MAIN);
 
-    useEffect(() => {
-        Object.entries(AppRouteByPathPattern).forEach(([pattern, route]) => {
-            if (matchPath(pattern, location.pathname)) {
-                setAppRoute(route);
-            }
-        });
-    }, [location.pathname]);
+  useEffect(() => {
+    Object.entries(AppRouteByPathPattern).forEach(([pattern, route]) => {
+      if (matchPath(pattern, location.pathname)) {
+        setAppRoute(route);
+      }
+    });
+  }, [location.pathname]);
 
-    return appRoute;
+  return appRoute;
 }

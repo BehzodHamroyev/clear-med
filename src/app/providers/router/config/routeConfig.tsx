@@ -1,12 +1,12 @@
 import { MainPage } from '@/pages/MainPage';
-import { AboutPage } from '@/pages/AboutPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 
 import {
-  AppRoutes,
+  CommonRoutes,
+  AdminRoutes,
+  DoctorRoutes,
+  ReceptionRoutes,
   getRouteMain,
-  getRouteAbout,
-  getRouteAdmin,
   getRouteNotFound,
   getRouteForbidden,
   getRouteAddDoctor,
@@ -28,88 +28,131 @@ import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { AppRoutesProps } from '@/shared/types/router';
-import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { DepartmentPage } from '@/pages/DepartmentPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { QueuingTv } from '@/pages/QueuingTV';
 
-const profileValue = localStorage.getItem('profile');
-
-export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
-  [AppRoutes.MAIN]: {
+export const routeConfigForAdmin: Record<
+  AdminRoutes | CommonRoutes,
+  AppRoutesProps
+> = {
+  [CommonRoutes.MAIN]: {
     path: getRouteMain(),
-    element:
-      profileValue === 'admin' ? (
-        <DepartmentPage />
-      ) : profileValue === 'doctor' ? (
-        <TableReportsDoctorPage />
-      ) : profileValue === 'reception' ? (
-        <ForbiddenPage />
-      ) : (
-        <MainPage />
-      ),
+    element: <MainPage />,
   },
-  [AppRoutes.ABOUT]: {
-    path: getRouteAbout(),
-    element: <AboutPage />,
-  },
-  [AppRoutes.FORBIDDEN]: {
+  [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
   },
-  [AppRoutes.NOT_FOUND]: {
+  [CommonRoutes.NOT_FOUND]: {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
-  [AppRoutes.ADMIN]: {
-    path: getRouteAdmin(),
-    element: <AdminPanelPage />,
-  },
-  [AppRoutes.DEPARTMENT]: {
+  [AdminRoutes.DEPARTMENT]: {
     path: getRouteDepartment(),
     element: <DepartmentPage />,
   },
-  [AppRoutes.ADDROOMPAGE]: {
+  [AdminRoutes.ADDROOMPAGE]: {
     path: getRouteAddRoomPage(),
     element: <AddRoomPage />,
   },
-  [AppRoutes.ADD_DOCTOR]: {
+  [AdminRoutes.ADD_DOCTOR]: {
     path: getRouteAddDoctor(),
     element: <AddDoctorPage />,
   },
-  [AppRoutes.REPORTS]: {
-    path: getRouteReportsPage(),
-    element: <ReportsPage />,
-  },
-  [AppRoutes.REPORTS_PATIENT]: {
-    path: getRouteReportsPageId(),
-    element: <ReportsDoctorPage />,
-  },
-  [AppRoutes.QUEUES]: {
+
+  [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
     element: <QueuesPage />,
   },
 
-  // QueuingTv
-  [AppRoutes.QUEUING_TV]: {
-    path: getRouteReportQueuingTv(),
-    element: <QueuingTv />,
+  // setting
+  [CommonRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
+  },
+
+  [AdminRoutes.REPORTS_PATIENT]: {
+    path: getRouteReportsPageId(),
+    element: <ReportsDoctorPage />,
+  },
+};
+
+export const routeConfigForDoctor: Record<
+  DoctorRoutes | CommonRoutes,
+  AppRoutesProps
+> = {
+  [CommonRoutes.MAIN]: {
+    path: getRouteMain(),
+    element: <MainPage />,
+  },
+  [CommonRoutes.FORBIDDEN]: {
+    path: getRouteForbidden(),
+    element: <ForbiddenPage />,
+  },
+  [CommonRoutes.NOT_FOUND]: {
+    path: getRouteNotFound(),
+    element: <NotFoundPage />,
+  },
+  [CommonRoutes.QUEUES]: {
+    path: getRouteQueuesPage(),
+    element: <QueuesPage />,
   },
 
   // Doctors
-  [AppRoutes.REPORTS_DOCTOR]: {
+  [DoctorRoutes.REPORTS_DOCTOR]: {
     path: getRouteReportDoctor(),
     element: <TableReportsDoctorPage />,
   },
-  [AppRoutes.QUEUES_CONTROL_DOCTOR]: {
+  [DoctorRoutes.QUEUES_CONTROL_DOCTOR]: {
     path: getRouteReportControlDoctor(),
     element: <QueuesControlDoctor />,
   },
 
   // setting
-  [AppRoutes.SETTINGSPAGE]: {
+  [CommonRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
+  },
+};
+
+export const routeConfigForReception: Record<
+  ReceptionRoutes | CommonRoutes,
+  AppRoutesProps
+> = {
+  [CommonRoutes.MAIN]: {
+    path: getRouteMain(),
+    element: <MainPage />,
+  },
+  [CommonRoutes.FORBIDDEN]: {
+    path: getRouteForbidden(),
+    element: <ForbiddenPage />,
+  },
+  [CommonRoutes.NOT_FOUND]: {
+    path: getRouteNotFound(),
+    element: <NotFoundPage />,
+  },
+
+  [ReceptionRoutes.REPORTS]: {
+    path: getRouteReportsPage(),
+    element: <ReportsPage />,
+  },
+
+  [CommonRoutes.QUEUES]: {
+    path: getRouteQueuesPage(),
+    element: <QueuesPage />,
+  },
+
+  // QueuingTv
+  [ReceptionRoutes.QUEUING_TV]: {
+    path: getRouteReportQueuingTv(),
+    element: <QueuingTv />,
+  },
+
+  // setting
+  [CommonRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
   },

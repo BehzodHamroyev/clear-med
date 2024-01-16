@@ -1,25 +1,35 @@
-export enum AppRoutes {
+// Umumiy saytlar uchun
+export enum CommonRoutes {
   MAIN = 'main',
-  ABOUT = 'about',
-  ADMIN = 'admin',
   QUEUES = 'queues',
-  REPORTS = 'reports',
   FORBIDDEN = 'forbidden',
   NOT_FOUND = 'not_found',
+  SETTINGSPAGE = 'setting_page',
+}
+
+// Admin saytlari uchun
+export enum AdminRoutes {
   DEPARTMENT = 'department',
   ADD_DOCTOR = 'add_doctor',
   ADDROOMPAGE = 'add_room_page',
-  SETTINGSPAGE = 'setting_page',
-  REPORTS_DOCTOR = 'reports_doctor',
   REPORTS_PATIENT = 'reports_patient',
+}
+
+// Doctor saytlari uchun
+export enum DoctorRoutes {
+  REPORTS_DOCTOR = 'reports_doctor',
   QUEUES_CONTROL_DOCTOR = 'queues_control_doctor',
+}
+
+// Reception saytlari uchun
+export enum ReceptionRoutes {
+  REPORTS = 'reports',
   QUEUING_TV = 'queuing_tv',
 }
 
-const profileValue = localStorage.getItem('profile');
-
 // AddRoomPage
 export const getRouteMain = () => '/';
+export const getRoute = () => '/login';
 export const getRouteNotFound = () => '/*';
 export const getRouteAbout = () => '/about';
 export const getRouteAdmin = () => '/admin';
@@ -35,22 +45,24 @@ export const getRouteReportQueuingTv = () => '/queuing_tv';
 export const getRouteReportDoctor = () => '/reports_doctor';
 export const getRouteReportControlDoctor = () => '/queues_control_doctor';
 
-export const AppRouteByPathPattern: Record<string, AppRoutes> = {
-  [getRouteMain()]: AppRoutes.MAIN,
-  [getRouteAbout()]: AppRoutes.ABOUT,
-  [getRouteAdmin()]: AppRoutes.ADMIN,
-  [getRouteQueuesPage()]: AppRoutes.REPORTS,
-  [getRouteNotFound()]: AppRoutes.NOT_FOUND,
-  [getRouteReportsPage()]: AppRoutes.REPORTS,
-  [getRouteForbidden()]: AppRoutes.FORBIDDEN,
-  [getRouteAddDoctor()]: AppRoutes.ADDROOMPAGE,
-  [getRouteDepartment()]: AppRoutes.DEPARTMENT,
-  [getRouteAddRoomPage()]: AppRoutes.ADDROOMPAGE,
-  [getRouteSettingsPage()]: AppRoutes.SETTINGSPAGE,
-  [getRouteReportsPage()]: AppRoutes.REPORTS_PATIENT,
+export const AppRouteByPathPattern: Record<
+  string,
+  CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
+> = {
+  [getRouteMain()]: CommonRoutes.MAIN,
+  [getRouteNotFound()]: CommonRoutes.NOT_FOUND,
+  [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
+  [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteReportDoctor()]: AppRoutes.REPORTS_DOCTOR,
-  [getRouteReportControlDoctor()]: AppRoutes.QUEUES_CONTROL_DOCTOR,
+  [getRouteAddDoctor()]: AdminRoutes.ADDROOMPAGE,
+  [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
+  [getRouteAddRoomPage()]: AdminRoutes.ADDROOMPAGE,
+  [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
 
-  [getRouteReportQueuingTv()]: AppRoutes.QUEUING_TV,
+  [getRouteReportDoctor()]: DoctorRoutes.REPORTS_DOCTOR,
+  [getRouteReportControlDoctor()]: DoctorRoutes.QUEUES_CONTROL_DOCTOR,
+
+  [getRouteQueuesPage()]: ReceptionRoutes.REPORTS,
+  [getRouteReportsPage()]: ReceptionRoutes.REPORTS,
+  [getRouteReportQueuingTv()]: ReceptionRoutes.QUEUING_TV,
 };

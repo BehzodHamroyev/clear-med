@@ -18,6 +18,7 @@ const LoginFormLeft = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     setIsSubmitLoginForm(true);
   };
 

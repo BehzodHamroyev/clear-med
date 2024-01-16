@@ -14,6 +14,7 @@ import {
 import { ListOfPageTypes } from '../model/types/listOfPages';
 
 import cls from './ListOfPages.module.scss';
+import { store } from '@/shared/lib/context/LoginContext';
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
@@ -86,7 +87,12 @@ export const ListOfPages = memo(() => {
 
   const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
 
-  const profileValue = localStorage.getItem('profile');
+  const [profileValue, setProfileValue] = useState<string>('');
+
+  useEffect(() => {
+    setProfileValue(store.user.role);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.user.role]);
 
   useEffect(() => {
     if (profileValue === 'admin') {
