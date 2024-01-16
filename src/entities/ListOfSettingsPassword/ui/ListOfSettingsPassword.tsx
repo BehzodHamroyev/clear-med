@@ -64,11 +64,6 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
         });
 
         setHasOpenToast(true);
-
-        setSettingsFormData({
-          password: '',
-          newPassword: '',
-        });
       } else if (String(response.status) === 'error') {
         setSettingLoad(false);
 

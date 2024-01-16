@@ -12,7 +12,7 @@ export function useRouteChange() {
   const location = useLocation();
   const [appRoute, setAppRoute] = useState<
     CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
-  >(CommonRoutes.MAIN);
+  >();
 
   useEffect(() => {
     Object.entries(AppRouteByPathPattern).forEach(([pattern, route]) => {

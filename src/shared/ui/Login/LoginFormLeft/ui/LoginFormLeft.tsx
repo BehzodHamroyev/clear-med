@@ -8,11 +8,12 @@ import { LoginPhoneNumber } from '../../LoginPhoneNumber';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './LoginFormLeft.module.scss';
+import { store } from '@/shared/lib/context/LoginContext';
 
 const LoginFormLeft = () => {
   const { t } = useTranslation();
 
-  const { setIsSubmitLoginForm, formData, setFormData } =
+  const { setIsSubmitLoginForm, isSubmitLoginForm, formData, setFormData } =
     useContext(ButtonsContext);
 
   const handleChange = (nameInput: string, e: any) => {
@@ -22,7 +23,9 @@ const LoginFormLeft = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    setIsSubmitLoginForm(true);
+    store.login(`${Number(formData.PhoneNumber)}`, formData.UserPassword);
+
+    setIsSubmitLoginForm(!isSubmitLoginForm);
   };
 
   return (

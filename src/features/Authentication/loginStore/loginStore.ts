@@ -34,7 +34,6 @@ export default class LoginStore {
   async login(login: string, password: string) {
     try {
       const response = await AuthService.login(login, password);
-      console.log(response);
 
       Cookies.set('token', response.data.token);
 

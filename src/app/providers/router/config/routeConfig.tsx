@@ -1,12 +1,8 @@
-import { MainPage } from '@/pages/MainPage';
-import { ForbiddenPage } from '@/pages/ForbiddenPage';
-
 import {
   CommonRoutes,
   AdminRoutes,
   DoctorRoutes,
   ReceptionRoutes,
-  getRouteMain,
   getRouteNotFound,
   getRouteForbidden,
   getRouteAddDoctor,
@@ -27,6 +23,7 @@ import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
+import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
 import { DepartmentPage } from '@/pages/DepartmentPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
@@ -38,10 +35,6 @@ export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
   AppRoutesProps
 > = {
-  [CommonRoutes.MAIN]: {
-    path: getRouteMain(),
-    element: <MainPage />,
-  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
@@ -84,10 +77,6 @@ export const routeConfigForDoctor: Record<
   DoctorRoutes | CommonRoutes,
   AppRoutesProps
 > = {
-  [CommonRoutes.MAIN]: {
-    path: getRouteMain(),
-    element: <MainPage />,
-  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
@@ -122,10 +111,6 @@ export const routeConfigForReception: Record<
   ReceptionRoutes | CommonRoutes,
   AppRoutesProps
 > = {
-  [CommonRoutes.MAIN]: {
-    path: getRouteMain(),
-    element: <MainPage />,
-  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,

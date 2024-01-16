@@ -64,15 +64,15 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
 const listOfPageDoktor: ListOfPageTypes[] = [
   {
     id: 1,
-    path: '/reports_doctor',
-    title: 'Hisobotlar',
-    icon: <Xisobotlar />,
+    path: '/',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
   },
   {
     id: 2,
-    path: '/queues_control_doctor',
-    title: 'Navbatlar',
-    icon: <Navbatlar />,
+    path: '/reports',
+    title: 'Hisobotlar',
+    icon: <Xisobotlar />,
   },
 ];
 
@@ -110,12 +110,9 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '300px';
       }
     } else if (profileValue === 'doktor') {
-      if (divRef.current && location.pathname === '/reports_doctor') {
+      if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '20px';
-      } else if (
-        divRef.current &&
-        location.pathname === '/queues_control_doctor'
-      ) {
+      } else if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '63px';
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '172px';

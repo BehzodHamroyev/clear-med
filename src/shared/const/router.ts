@@ -1,6 +1,5 @@
 // Umumiy saytlar uchun
 export enum CommonRoutes {
-  MAIN = 'main',
   QUEUES = 'queues',
   FORBIDDEN = 'forbidden',
   NOT_FOUND = 'not_found',
@@ -27,29 +26,30 @@ export enum ReceptionRoutes {
   QUEUING_TV = 'queuing_tv',
 }
 
-// AddRoomPage
-export const getRouteMain = () => '/';
+// ----- Common -----
 export const getRoute = () => '/login';
 export const getRouteNotFound = () => '/*';
 export const getRouteAbout = () => '/about';
+export const getRouteForbidden = () => '/forbidden';
+export const getRouteSettingsPage = () => '/settings';
+
+// ----- Doctor -----
+export const getRouteReportDoctor = () => '/reports';
+export const getRouteReportControlDoctor = () => '/';
+
 export const getRouteAdmin = () => '/admin';
 export const getRouteQueuesPage = () => '/queues';
-export const getRouteForbidden = () => '/forbidden';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddDoctor = () => '/add_doctor';
 export const getRouteDepartment = () => '/department';
-export const getRouteSettingsPage = () => '/settings';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
 export const getRouteReportQueuingTv = () => '/queuing_tv';
-export const getRouteReportDoctor = () => '/reports_doctor';
-export const getRouteReportControlDoctor = () => '/queues_control_doctor';
 
 export const AppRouteByPathPattern: Record<
   string,
   CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
 > = {
-  [getRouteMain()]: CommonRoutes.MAIN,
   [getRouteNotFound()]: CommonRoutes.NOT_FOUND,
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,

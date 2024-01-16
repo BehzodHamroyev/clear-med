@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useEffect, useContext } from 'react';
+import React, { memo, Suspense, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
@@ -23,34 +23,30 @@ const App = memo(() => {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
-  const { isSubmitLoginForm, setIsSubmitLoginForm, formData } =
-    useContext(ButtonsContext);
+  const { isSubmitLoginForm } = useContext(ButtonsContext);
+
+  const [hasIsAuth, setHasIsAuth] = useState(store.isAuth);
+
+  // useEffect(() => {
+  //   console.log(hasIsAuth);
+
+  //   setHasIsAuth(store.isAuth);
+
+  //   if (!hasIsAuth) {
+  //     navigate('/');
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [store.isAuth]);
 
   useEffect(() => {
-    if (isSubmitLoginForm) {
-      store.login(`${Number(formData.PhoneNumber)}`, formData.UserPassword);
-      setIsSubmitLoginForm(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setHasIsAuth(store.isAuth);
   }, [isSubmitLoginForm]);
-
-  useEffect(() => {
-    if (!store.isAuth) {
-      navigate('/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.isAuth]);
-
-  useEffect(() => {
-    console.log(store.isAuth);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.isAuth]);
 
   if (store.isLoading) {
     return <Loader />;
   }
 
-  // if (!store.isAuth) {
+  // if (!hasIsAuth) {
   //   return (
   //     <div>
   //       <Login />
