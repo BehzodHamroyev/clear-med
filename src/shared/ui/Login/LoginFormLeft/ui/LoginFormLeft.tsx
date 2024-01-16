@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { LoginTitle } from '../../LoginTitle';
 import { LoginKeyInput } from '../../LoginKeyInput';
@@ -9,6 +10,8 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import cls from './LoginFormLeft.module.scss';
 
 const LoginFormLeft = () => {
+  const { t } = useTranslation();
+
   const { setIsSubmitLoginForm, formData, setFormData } =
     useContext(ButtonsContext);
 
@@ -31,7 +34,7 @@ const LoginFormLeft = () => {
 
         <LoginKeyInput handleChange={handleChange} />
 
-        <LoginSubmitBtn />
+        <LoginSubmitBtn content={t('Kirish')} />
       </form>
     </div>
   );

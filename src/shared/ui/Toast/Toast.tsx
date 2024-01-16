@@ -45,7 +45,7 @@ const Toast = ({ severity, message }: ToastProps) => {
               : severity === 'info'
               ? 'info'
               : severity === 'error'
-              ? 'info'
+              ? 'error'
               : 'success'
           }
           sx={{ width: '100%' }}

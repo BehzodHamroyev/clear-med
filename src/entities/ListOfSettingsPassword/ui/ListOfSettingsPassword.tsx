@@ -10,6 +10,7 @@ import { baseUrl } from '../../../../baseurl';
 import { LoginSubmitBtn } from '@/shared/ui/Login/LoginSubmitBtn';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import Toast from '@/shared/ui/Toast/Toast';
+import { Loader } from '@/widgets/Loader';
 
 interface ListOfSettingsPasswordProps {
   className?: string;
@@ -18,35 +19,45 @@ interface ListOfSettingsPasswordProps {
 const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
   const { t } = useTranslation();
 
-  const { settingsFormData, setSettingsFormData, setHasOpenToast } =
-    useContext(ButtonsContext);
+  const {
+    settingsFormData,
+    setSettingsFormData,
+    setHasOpenToast,
+    hasOpenToast,
+  } = useContext(ButtonsContext);
 
   const [toastProps, setToastProps] = useState({
     message: '',
     severity: '',
   });
 
+  const [settingLoad, setSettingLoad] = useState(false);
+
   const fetchChangePassword = async () => {
+    setSettingLoad(true);
+
     const getTokenCookie = Cookies.get('token');
 
     try {
       const response = await axios.post(
         `${baseUrl}/users/updatePassword`,
-
+        {
+          password: settingsFormData.password,
+          newPassword: settingsFormData.newPassword,
+        },
         {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Bearer ${getTokenCookie}`,
           },
-
-          data: JSON.stringify({
-            password: settingsFormData.password,
-            newPassword: settingsFormData.newPassword,
-          }),
         },
       );
 
-      if (String(response.status) === 'success') {
+      if (String(response.data.status) === 'success') {
+        setSettingLoad(false);
+
+        Cookies.set('token', response.data.token);
+
         setToastProps({
           message: t("Parol o'zgartirildi"),
           severity: 'success',
@@ -54,24 +65,29 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
 
         setHasOpenToast(true);
 
-        console.log(response);
+        setSettingsFormData({
+          password: '',
+          newPassword: '',
+        });
       } else if (String(response.status) === 'error') {
+        setSettingLoad(false);
+
         setToastProps({
           message: t("Xatolik sodir bo'ldi"),
-          severity: 'success',
+          severity: 'error',
         });
 
         setHasOpenToast(true);
       }
     } catch (error) {
+      setSettingLoad(false);
+
       setToastProps({
         message: t("Xatolik sodir bo'ldi"),
-        severity: 'success',
+        severity: 'error',
       });
 
       setHasOpenToast(true);
-
-      console.error(error);
     }
   };
 
@@ -83,7 +99,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
     } else {
       setToastProps({
         message: t("Yangi parol eskisi bilan bir xil bo'lmasligi kerak"),
-        severity: 'error',
+        severity: 'warning',
       });
       setHasOpenToast(true);
     }
@@ -140,9 +156,11 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
           </div>
         </div>
 
-        <LoginSubmitBtn />
+        <LoginSubmitBtn content={t("O'zgartirish")} />
       </form>
       <Toast severity={toastProps.severity} message={toastProps.message} />
+
+      {settingLoad && <Loader />}
     </div>
   );
 };

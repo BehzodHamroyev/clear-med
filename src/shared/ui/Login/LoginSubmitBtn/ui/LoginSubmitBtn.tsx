@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 import cls from './LoginSubmitBtn.module.scss';
 
-const LoginSubmitBtn = () => {
+interface LoginSubmitBtnProps {
+  content: string;
+}
+
+const LoginSubmitBtn = ({ content }: LoginSubmitBtnProps) => {
   const { t } = useTranslation();
 
   return (
     <div className={cls.LoginSubmitBtnWrapper}>
-      <button type="submit">{t('Kirish')}</button>
+      <button type="submit">{content}</button>
     </div>
   );
 };
