@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Loader.module.scss';
+
+import cls from './loader.module.scss';
 
 interface LoaderProps {
   className?: string;
@@ -8,8 +10,11 @@ interface LoaderProps {
 
 const Loader = ({ className }: LoaderProps) => {
   return (
-    <div className={classNames(cls.Loader, {}, [className])}>
-      <div className={cls.Loader__box} />
+    // <div className={classNames(cls.Loader, {}, [className])}>
+    //   <div className={cls.Loader__box} />
+    // </div>
+    <div className={classNames(cls.LoaderWrapper, {}, [className])}>
+      <div className={cls.loader} />
     </div>
   );
 };

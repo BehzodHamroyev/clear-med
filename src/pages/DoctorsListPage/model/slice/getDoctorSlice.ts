@@ -27,7 +27,7 @@ export const DoctorListSlice = createSlice({
         },
       )
       .addCase(fetchDoctorGetAll.rejected, (state, action) => {
-        state.error = undefined;
+        state.error = `Serverda qandaydir xatolik bor. Sahifani qayta yuklang!`;
         state.isLoading = false;
       });
   },

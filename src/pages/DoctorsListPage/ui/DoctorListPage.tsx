@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { Loader } from '@/widgets/Loader';
 import { DoctorAdd } from '@/entities/DoctorAdd';
 import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
@@ -230,20 +231,41 @@ const DoctorListPage = () => {
     }
   }, [getDoctorData]);
 
+  function refreshPage() {
+    window.location.reload();
+  }
+
   return (
     <DynamicModuleLoader reducers={reducer}>
-      <div className={cls.AddDoctorPageWrapper}>
-        <ButtonNavbar
-          CreateCarbonAdd
-          TableTitle="Shifokorlar"
-          ItemsLength={tableBody.length}
-        />
+      {getDoctorLoading === true ? (
+        <Loader />
+      ) : getDoctorError ? (
+        <div className={cls.errorMessageWrap}>
+          <p className={cls.errorMessage}>{getDoctorError}</p>
+          <button
+            className={cls.errorMessageBtn}
+            type="button"
+            onClick={refreshPage}
+          >
+            Refresh
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div className={cls.AddDoctorPageWrapper}>
+            <ButtonNavbar
+              CreateCarbonAdd
+              TableTitle="Shifokorlar"
+              ItemsLength={tableBody.length}
+            />
 
-        <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
-      </div>
+            <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+          </div>
 
-      {isOpenDoctorAddCard ? <DoctorAdd /> : ''}
-      {isOpenDoctorEditCard ? <DoctorEdit /> : ''}
+          {isOpenDoctorAddCard ? <DoctorAdd /> : ''}
+          {isOpenDoctorEditCard ? <DoctorEdit /> : ''}
+        </div>
+      )}
     </DynamicModuleLoader>
   );
 };
