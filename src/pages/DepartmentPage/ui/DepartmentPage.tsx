@@ -79,32 +79,34 @@ const DepartmentPage = () => {
 
   /* UI */
   return (
-    <DynamicModuleLoader reducers={reducer}>
-      {getDepartmentLoading === true ? (
-        <Loader />
-      ) : getDepartmentError ? (
-        <ErrorReload message={getDepartmentError} />
-      ) : (
-        <div>
-          <div className={cls.DepartmentPageWrapper}>
-            <ButtonNavbar
-              CreateCarbonAdd
-              TableTitle="Bo‘limlar"
-              ItemsLength={tableBody.length}
-            />
+    <div className={cls.DepartmentPageWrapper}>
+      <DynamicModuleLoader reducers={reducer}>
+        {getDepartmentLoading === true ? (
+          <Loader />
+        ) : getDepartmentError ? (
+          <ErrorReload message={getDepartmentError} />
+        ) : (
+          <div>
+            <div>
+              <ButtonNavbar
+                CreateCarbonAdd
+                TableTitle="Bo‘limlar"
+                ItemsLength={tableBody.length}
+              />
 
-            <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+              <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+            </div>
+
+            {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+            {isOpenDepartmentEditCard ? (
+              <DepartmentEdit tableBody={tableBody} />
+            ) : (
+              ''
+            )}
           </div>
-
-          {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
-          {isOpenDepartmentEditCard ? (
-            <DepartmentEdit tableBody={tableBody} />
-          ) : (
-            ''
-          )}
-        </div>
-      )}
-    </DynamicModuleLoader>
+        )}
+      </DynamicModuleLoader>
+    </div>
   );
 };
 
