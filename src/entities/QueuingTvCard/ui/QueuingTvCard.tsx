@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const QueuingTvCard = (props: QueuingTvCardProps) => {
+  const { t } = useTranslation();
+
   const { id, CardLeftTitle, CardLeftRoomNumber, CardLeftDoctorName, Icon } =
     props;
 
@@ -23,8 +26,12 @@ const QueuingTvCard = (props: QueuingTvCardProps) => {
     >
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
-        <p className={cls.CardLeftRoomNumber}>{CardLeftRoomNumber}</p>
-        <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
+        <p className={cls.CardLeftRoomNumber}>
+          {t('Xona raqami')}: {CardLeftRoomNumber}
+        </p>
+        <p className={cls.CardLeftDoctorName}>
+          {t('Shifokor')}: {CardLeftDoctorName}
+        </p>
       </div>
       <div className={cls.CardRight}>
         <Icon />
