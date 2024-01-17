@@ -4,8 +4,8 @@ import cls from './QueueUserDoctor.module.scss';
 import { Vektor } from '@/shared/assets/Pages/Queues';
 
 interface QueueUserDoctorProps {
-  ticketNumber: string;
-  roomNumber: number;
+  ticketNumber: string | number;
+  roomNumber: string | number;
 }
 
 const QueueUserDoctor = ({

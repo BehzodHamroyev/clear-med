@@ -1,27 +1,47 @@
 import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
+
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchCurrentQueue } from '@/pages/QueuingTV/model/services/fetchCurrentQueue';
 
-const QueuingTvCard = (props: QueuingTvCardProps) => {
+const QueuingTvCard = ({
+  Icon,
+  CardLeftTitle,
+  DepartmentId,
+  RoomId,
+  CardLeftRoomNumber,
+  CardLeftDoctorName,
+}: QueuingTvCardProps) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
-  const { id, CardLeftTitle, CardLeftRoomNumber, CardLeftDoctorName, Icon } =
-    props;
+  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
-  const { setIsQueuingCardClickedGetId, setIsOpenQueuingTvCardPopapSecond } =
-    useContext(ButtonsContext);
+  const hendleClickQuingTvCard = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+
+    dispatch(
+      fetchCurrentQueue({
+        departmentId: DepartmentId,
+        roomId: RoomId,
+      }),
+    ).then(
+      // @ts-ignore
+      setIsOpenQueuingTvCardPopapSecond(true),
+    );
+  };
 
   return (
     <div
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpenQueuingTvCardPopapSecond(true);
-        setIsQueuingCardClickedGetId(id);
-      }}
+      onClick={(e) => hendleClickQuingTvCard(e)}
       className={cls.QueuingTvCardWrapper}
     >
       <div className={cls.CardLeft}>

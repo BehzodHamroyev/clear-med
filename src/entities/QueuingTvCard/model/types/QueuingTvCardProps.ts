@@ -1,5 +1,6 @@
 export interface QueuingTvCardProps {
-  id: string;
+  DepartmentId: string;
+  RoomId: string;
   CardLeftTitle: string;
   CardLeftRoomNumber: number | string;
   CardLeftDoctorName: string;

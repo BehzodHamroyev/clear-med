@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { CurrentQueueDataType } from '@/pages/QueuingTV';
 
 export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
@@ -51,8 +52,47 @@ export interface ButtonsClickedProps {
   isOpenQueuingCardClicked: boolean;
   setIsOpenQueuingCardClicked: (prop: boolean) => void;
 
-  isQueuingCardClickedGetId: string;
-  setIsQueuingCardClickedGetId: (prop: string) => void;
+  isQueuingCardClickedGetId: { roomId: string; departmentId: string };
+  setIsQueuingCardClickedGetId: (prop: {
+    roomId: string;
+    departmentId: string;
+  }) => void;
+
+  currentQueueData: CurrentQueueDataType;
+  setCurrentQueueData: (prop: {
+    kutish_vaqti?: string;
+    message?: boolean;
+    navbat?: {
+      created_date?: string;
+      created_time?: string;
+      department_id?: string;
+      doctor_id?: string;
+      id?: string;
+      queues_name?: string;
+      room_id?: string;
+      status?: string;
+      step?: number;
+      __v?: number;
+      _id?: string;
+    };
+    sizdan_oldingi_bemorlar_soni?: number;
+    room: {
+      _id: string;
+      name: number;
+      department_id: {
+        _id: string;
+        name: string;
+        duration: number;
+        image: string;
+        disabled: boolean;
+        __v: number;
+        id: string;
+      };
+      disabled: boolean;
+      __v: number;
+      id: string;
+    };
+  }) => void;
 
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
@@ -130,7 +170,10 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenQueuingCardClicked: false,
   setIsOpenQueuingCardClicked: () => {},
 
-  isQueuingCardClickedGetId: '',
+  isQueuingCardClickedGetId: {
+    roomId: '',
+    departmentId: '',
+  },
   setIsQueuingCardClickedGetId: () => {},
 
   isOpenQueuingTvCardPopapSecond: false,
@@ -150,4 +193,40 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   settingsFormData: { password: '', newPassword: '' },
   setSettingsFormData: () => {},
+
+  currentQueueData: {
+    kutish_vaqti: '',
+    message: false,
+    navbat: {
+      created_date: '',
+      created_time: '',
+      department_id: '',
+      doctor_id: '',
+      id: '',
+      queues_name: '',
+      room_id: '',
+      status: '',
+      step: 1,
+      __v: 1,
+      _id: '',
+    },
+    room: {
+      _id: '',
+      name: 0,
+      department_id: {
+        _id: '',
+        name: '',
+        duration: 0,
+        image: '',
+        disabled: false,
+        __v: 0,
+        id: '',
+      },
+      disabled: false,
+      __v: 0,
+      id: '',
+    },
+    sizdan_oldingi_bemorlar_soni: 1,
+  },
+  setCurrentQueueData: () => {},
 });

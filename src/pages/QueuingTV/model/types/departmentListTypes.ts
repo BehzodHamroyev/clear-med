@@ -29,8 +29,54 @@ export interface Room {
   id: string;
 }
 
+interface navbat {
+  created_date?: string;
+  created_time?: string;
+  department_id?: string;
+  doctor_id?: string;
+  id?: string;
+  queues_name?: string;
+  room_id?: string;
+  status?: string;
+  step?: number;
+  __v?: number;
+  _id?: string;
+}
+
+interface roomCurrentQueue {
+  _id: string;
+  name: number;
+  department_id: {
+    _id: string;
+    name: string;
+    duration: number;
+    image: string;
+    disabled: boolean;
+    __v: number;
+    id: string;
+  };
+  disabled: boolean;
+  __v: number;
+  id: string;
+}
 export interface DepartmentListApiResponceTypes {
   status: string;
   Allrooms: number;
   room: Room[];
+}
+
+export interface CurrentQueueDataType {
+  kutish_vaqti?: string;
+  message?: boolean;
+  navbat?: navbat;
+  room: roomCurrentQueue;
+  sizdan_oldingi_bemorlar_soni?: number;
+}
+
+export interface CurrentQueueDataApiRespoceType {
+  kutish_vaqti?: string;
+  message?: boolean;
+  navbat?: navbat;
+  room: roomCurrentQueue;
+  sizdan_oldingi_bemorlar_soni?: number;
 }
