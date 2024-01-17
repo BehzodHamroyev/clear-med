@@ -44,7 +44,9 @@ export const getRouteAddDoctor = () => '/add_doctor';
 export const getRouteDepartment = () => '/department';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
-export const getRouteReportQueuingTv = () => '/queuing_tv';
+
+// ----- Reception -----
+export const getRouteReportQueuingTv = () => '/';
 
 export const AppRouteByPathPattern: Record<
   string,

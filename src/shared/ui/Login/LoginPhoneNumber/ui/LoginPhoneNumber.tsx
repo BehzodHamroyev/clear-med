@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 
@@ -10,6 +10,8 @@ interface LoginPhoneNumberProps {
 }
 
 const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
+  const phoneInput = useRef<HTMLInputElement | null>(null);
+
   const { handleChange } = props;
   const { t } = useTranslation();
   const [value, setValue] = useState('');
@@ -21,6 +23,14 @@ const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
   const handleInputFix = () => {
     setValue('');
   };
+
+  useEffect(() => {
+    if (phoneInput.current) {
+      phoneInput.current.focus();
+    }
+
+    console.log(phoneInput.current);
+  }, []);
 
   return (
     <div className={cls.LoginPhoneNumberWrapper}>

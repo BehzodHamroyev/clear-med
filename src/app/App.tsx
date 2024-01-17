@@ -1,5 +1,4 @@
-import React, { memo, Suspense, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { memo, Suspense, useEffect } from 'react';
 
 import Cookies from 'js-cookie';
 import { observer } from 'mobx-react-lite';
@@ -17,25 +16,30 @@ import 'react-calendar/dist/Calendar.css';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { Login } from '@/features/Auth';
 import { store } from '@/shared/lib/context/LoginContext';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = memo(() => {
   const { theme } = useTheme();
-  const navigate = useNavigate();
 
-  const { isSubmitLoginForm } = useContext(ButtonsContext);
-
-  const [hasIsAuth, setHasIsAuth] = useState(store.isAuth);
+  // useEffect(() => {
+  //   if (Cookies.get('token')) {
+  //     store.checkAuth();
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (Cookies.get('token')) {
-      store.checkAuth();
-    }
+    return store.setUser({
+      role: 'reception',
+      exprience: 0,
+      id: '',
+      login: 0,
+      name: '',
+      password: '',
+      passwordChangedDate: null,
+      photo: '',
+      _id: '',
+      __v: 0,
+    });
   }, []);
-
-  useEffect(() => {
-    setHasIsAuth(store.isAuth);
-  }, [isSubmitLoginForm]);
 
   if (store.isLoading) {
     return <Loader />;

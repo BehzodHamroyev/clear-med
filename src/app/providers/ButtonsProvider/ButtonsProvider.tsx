@@ -39,7 +39,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenQueuingCardClicked, setIsOpenQueuingCardClicked] =
     useState(false);
 
-  const [isQueuingCardClickedGetId, setIsQueuingCardClickedGetId] = useState(1);
+  const [isQueuingCardClickedGetId, setIsQueuingCardClickedGetId] =
+    useState<string>('1');
 
   const [isOpenQueuingTvCardPopapSecond, setIsOpenQueuingTvCardPopapSecond] =
     useState(false);

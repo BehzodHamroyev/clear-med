@@ -51,8 +51,8 @@ export interface ButtonsClickedProps {
   isOpenQueuingCardClicked: boolean;
   setIsOpenQueuingCardClicked: (prop: boolean) => void;
 
-  isQueuingCardClickedGetId: number;
-  setIsQueuingCardClickedGetId: (prop: number) => void;
+  isQueuingCardClickedGetId: string;
+  setIsQueuingCardClickedGetId: (prop: string) => void;
 
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
@@ -130,7 +130,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenQueuingCardClicked: false,
   setIsOpenQueuingCardClicked: () => {},
 
-  isQueuingCardClickedGetId: 1,
+  isQueuingCardClickedGetId: '',
   setIsQueuingCardClickedGetId: () => {},
 
   isOpenQueuingTvCardPopapSecond: false,

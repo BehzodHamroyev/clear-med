@@ -13,6 +13,7 @@ import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor
 import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 import { DoctorListSchema } from '@/pages/DoctorsListPage';
+import { DepartmentListSchemaForReception } from '@/pages/QueuingTV';
 
 export interface StateSchema {
   login: AuthReduxType;
@@ -21,6 +22,7 @@ export interface StateSchema {
   doneQueuesControlDoctor: QueuesControlDoctorSchema;
   reportControlDoctor: ReportDoctorSchema;
   getDoctorPageReducer: DoctorListSchema;
+  deparmentList: DepartmentListSchemaForReception;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
