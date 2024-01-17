@@ -27,16 +27,11 @@ const App = memo(() => {
 
   const [hasIsAuth, setHasIsAuth] = useState(store.isAuth);
 
-  // useEffect(() => {
-  //   console.log(hasIsAuth);
-
-  //   setHasIsAuth(store.isAuth);
-
-  //   if (!hasIsAuth) {
-  //     navigate('/');
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [store.isAuth]);
+  useEffect(() => {
+    if (Cookies.get('token')) {
+      store.checkAuth();
+    }
+  }, []);
 
   useEffect(() => {
     setHasIsAuth(store.isAuth);

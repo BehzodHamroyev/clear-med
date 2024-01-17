@@ -66,9 +66,12 @@ export default class LoginStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      const response = await axios.get<AuthResponse>(`${baseUrl}/refresh`, {
-        withCredentials: true,
-      });
+      const response = await axios.get<AuthResponse>(
+        `${baseUrl}/users/refresh`,
+        {
+          withCredentials: true,
+        },
+      );
       console.log(response);
 
       Cookies.set('token', response.data.token);
