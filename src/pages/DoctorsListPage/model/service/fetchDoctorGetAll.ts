@@ -1,12 +1,12 @@
-/* eslint-disable max-len */
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+
+import { baseUrl } from '../../../../../baseurl';
 import { DoctorListPage } from '../types/doctorListTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 const token = Cookies.get('token');
-const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDoctorGetAll = createAsyncThunk<
   DoctorListPage,
@@ -17,12 +17,10 @@ export const fetchDoctorGetAll = createAsyncThunk<
 
   try {
     const response = await axios.get<DoctorListPage>(
-      `${baseUrl}users?role=doctor`,
+      `${baseUrl}/users?role=doctor`,
       {
         headers: {
-          authorization:
-            `Bearer ` +
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YjY1ZTU1YjBmMTZjZGRjM2RjMiIsImlhdCI6MTcwNTMxODI4OCwiZXhwIjoxNzA1Njc4Mjg4fQ.zZVoCvBN8A3LScTNKeqL1H6ceJHhkIBARBNwbLRigR8',
+          authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       },

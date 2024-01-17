@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Loader } from '@/widgets/Loader';
 import { ErrorReload } from '@/widgets/Error';
 import { DoctorAdd } from '@/entities/DoctorAdd';
 import { DoctorEdit } from '@/entities/DoctorEdit';
@@ -24,6 +23,7 @@ import {
 } from '../model/selector/doctorListSelector';
 
 import cls from './AddDoctorPage.module.scss';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 
 const tableTitle = [
   'Surat',
@@ -78,7 +78,7 @@ const DoctorListPage = () => {
   return (
     <DynamicModuleLoader reducers={reducer}>
       {getDoctorLoading === true ? (
-        <Loader />
+        <LoaderAdmin />
       ) : getDoctorError ? (
         <ErrorReload message={getDoctorError} />
       ) : (

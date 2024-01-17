@@ -23,7 +23,7 @@ import { AddRoomPage } from '@/pages/AddRoomPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import { AddDoctorPage } from '@/pages/AddDoctorPage';
+// import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
 import { DepartmentPage } from '@/pages/DepartmentPage';

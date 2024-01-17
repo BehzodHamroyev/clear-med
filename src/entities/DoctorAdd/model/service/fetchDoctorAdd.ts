@@ -1,18 +1,17 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import Cookies from 'js-cookie';
+import { baseUrl } from '../../../../../baseurl';
 import { DoctorAddTypes } from '../types/doctorAddTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-
-const baseUrl = 'http://magicsoft.uz/med/api/v1/';
 
 export const fetchDoctorAdd = createAsyncThunk<
   DoctorAddTypes,
   {
     name: string;
-    login: string | number;
     password: string;
+    login: string | number;
     exprience: number | string;
     file: HTMLImageElement | string;
   },
@@ -24,13 +23,14 @@ export const fetchDoctorAdd = createAsyncThunk<
 
   try {
     const response = await axios.post<DoctorAddTypes>(
-      `${baseUrl}users`,
+      `${baseUrl}/users`,
       {
         name,
         file,
         login,
         password,
         exprience,
+        role: 'doctor',
       },
       {
         maxBodyLength: Infinity,

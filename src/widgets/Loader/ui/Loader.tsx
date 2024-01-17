@@ -17,10 +17,6 @@ const Loader = ({ className }: LoaderProps) => {
     };
   }, []);
 
-  /* <div className={cls.LoaderWrapper}>
-      <div className={cls.loader} />
-    </div> */
-
   return (
     <div className={classNames(cls.Loader, {}, [className])}>
       <div className={cls.Loader__box} />

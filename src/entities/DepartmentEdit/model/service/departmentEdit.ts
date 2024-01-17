@@ -17,7 +17,7 @@ export const fetchDepartmentEdit = createAsyncThunk<
 
   try {
     const response = await axios.patch<DepartmentEditType>(
-      `/${baseUrl}/department/${idCard}`,
+      `${baseUrl}/department/${idCard}`,
       {
         name,
         image,

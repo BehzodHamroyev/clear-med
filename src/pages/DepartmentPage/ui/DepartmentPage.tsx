@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Loader } from '@/widgets/Loader';
 import { ErrorReload } from '@/widgets/Error';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
@@ -23,6 +22,7 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import cls from './DepartmentPage.module.scss';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -82,7 +82,7 @@ const DepartmentPage = () => {
     <div className={cls.DepartmentPageWrapper}>
       <DynamicModuleLoader reducers={reducer}>
         {getDepartmentLoading === true ? (
-          <Loader />
+          <LoaderAdmin />
         ) : getDepartmentError ? (
           <ErrorReload message={getDepartmentError} />
         ) : (
