@@ -9,14 +9,14 @@ const QueuingTvCard = (props: QueuingTvCardProps) => {
   const { id, CardLeftTitle, CardLeftRoomNumber, CardLeftDoctorName, icon } =
     props;
 
-  const { setIsOpenQueuingCardClicked, setIsQueuingCardClickedGetId } =
+  const { setIsQueuingCardClickedGetId, setIsOpenQueuingTvCardPopapSecond } =
     useContext(ButtonsContext);
 
   return (
     <div
       onClick={(e) => {
         e.stopPropagation();
-        setIsOpenQueuingCardClicked(true);
+        setIsOpenQueuingTvCardPopapSecond(true);
         setIsQueuingCardClickedGetId(id);
       }}
       className={cls.QueuingTvCardWrapper}

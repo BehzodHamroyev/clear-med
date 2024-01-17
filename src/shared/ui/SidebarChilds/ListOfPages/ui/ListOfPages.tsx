@@ -47,7 +47,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
 const listOfPageQabulXona: ListOfPageTypes[] = [
   {
     id: 1,
-    path: '/queuing_tv',
+    path: '/',
     title: 'Navbat berish',
     icon: <Bolimlar />,
   },
@@ -118,7 +118,7 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '172px';
       }
     } else if (profileValue === 'qabulxona') {
-      if (divRef.current && location.pathname === '/queuing_tv') {
+      if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '63px';

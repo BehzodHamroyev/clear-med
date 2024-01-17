@@ -12,7 +12,6 @@ import {
 } from '@/shared/assets/entities/QueuingTvCard';
 
 import cls from './QueuingTv.module.scss';
-import { QueuingTvCardPopap } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopap';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
 
@@ -132,15 +131,8 @@ const CardBody = [
 ];
 
 const QueuingTv = () => {
-  const {
-    isOpenQueuingCardClicked,
-    isQueuingCardClickedGetId,
-    isOpenQueuingTvCardPopapSecond,
-  } = useContext(ButtonsContext);
-
-  const getObjectFind = CardBody.find(
-    (item) => item.id === isQueuingCardClickedGetId,
-  );
+  const { isQueuingCardClickedGetId, isOpenQueuingTvCardPopapSecond } =
+    useContext(ButtonsContext);
 
   return (
     <div className={cls.QueuingTvWrapper}>
@@ -158,12 +150,6 @@ const QueuingTv = () => {
           />
         ))}
       </div>
-
-      {isOpenQueuingCardClicked ? (
-        <QueuingTvCardPopap getObjectFind={getObjectFind} />
-      ) : (
-        ''
-      )}
 
       {isOpenQueuingTvCardPopapSecond ? <QueuingTvCardPopapSecond /> : ''}
     </div>
