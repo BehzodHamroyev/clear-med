@@ -44,7 +44,7 @@ $api.interceptors.response.use(
 
         return $api.request(originalRequest);
       } catch (e) {
-        console.log('НЕ АВТОРИЗОВАН');
+        console.log('NOT AUTHORIZED');
       }
     }
     throw error;

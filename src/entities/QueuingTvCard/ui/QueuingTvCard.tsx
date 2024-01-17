@@ -6,7 +6,7 @@ import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const QueuingTvCard = (props: QueuingTvCardProps) => {
-  const { id, CardLeftTitle, CardLeftRoomNumber, CardLeftDoctorName, icon } =
+  const { id, CardLeftTitle, CardLeftRoomNumber, CardLeftDoctorName, Icon } =
     props;
 
   const { setIsQueuingCardClickedGetId, setIsOpenQueuingTvCardPopapSecond } =
@@ -26,7 +26,9 @@ const QueuingTvCard = (props: QueuingTvCardProps) => {
         <p className={cls.CardLeftRoomNumber}>{CardLeftRoomNumber}</p>
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
       </div>
-      <div className={cls.CardRight}>{icon}</div>
+      <div className={cls.CardRight}>
+        <Icon />
+      </div>
     </div>
   );
 };

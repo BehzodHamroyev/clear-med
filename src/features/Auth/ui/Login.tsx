@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 import {
   ReducersList,
   DynamicModuleLoader,
@@ -20,8 +20,7 @@ const reducer: ReducersList = {
 };
 
 const Login: FC = () => {
-  const { isSubmitLoginForm, setIsSubmitLoginForm, setIsProfileWho, formData } =
-    useContext(ButtonsContext);
+  const { setIsProfileWho } = useContext(ButtonsContext);
 
   const loginData = useSelector(getUserData);
 
