@@ -94,6 +94,8 @@
   "Dermotolo": "",
   "Dermotolog": "",
   "English": "",
+  "Eski arolni kiriting": "",
+  "Eski parolni kiriting": "",
   "F": {
     "I": {
       "Sh": ""
@@ -136,12 +138,18 @@
   "O'zbek (Loti)": "",
   "O'zbek (Lotin)": "",
   "O'zbek {": "",
+  "O'zgartirish": "",
   "O‘chirib yuborish": "",
   "P": "",
   "Pa": "",
   "Par": "",
   "Paro": "",
   "Parol": "",
+  "Parol o'zgartilmadi": {
+    " Tizimda xatolik aniqlandi": ""
+  },
+  "Parol o'zgartirildi": "",
+  "Parol o'zgartirilfi": "",
   "Paroli": "",
   "Paroln": "",
   "Parolni ": "",
@@ -152,6 +160,8 @@
   "Parolni kiriting": "",
   "Pass": "",
   "Password": "",
+  "Parolni o'zgartirish": "",
+  "Parolni o‘zgartirish": "",
   "Qayta chaqirish": "",
   "Qidirish": "",
   "Qorong‘i": "",
@@ -204,15 +214,19 @@
   "Text for medic , t": "",
   "Text for medic , te": "",
   "Tilni o‘zgartirish": "",
+  "Tizimda xatolik sodir bo'ldi": "",
   "Tizimga kirish uchun maʼlumotlaringizni kiriting": {
     "": ""
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Xatolik sodir bo'ldi": "",
   "Xona": "",
   "Xona qo‘shish": "",
   "Xona raqami": "",
   "Xonani tahrirlash": "",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "",
+  "Yangi parolni kiriting": "",
   "Yorqin": "",
   "kIRISH": "",
   "menu": "",

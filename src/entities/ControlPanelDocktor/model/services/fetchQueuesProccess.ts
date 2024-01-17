@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
 
@@ -22,7 +23,7 @@ export const fetchQueuesProccess = createAsyncThunk<
 
     if (method === 'get') {
       response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
-        `https://magicsoft.uz/med/api/v1/doctor/${path}${status}`,
+        `${baseUrl}/doctor/${path}${status}`,
 
         {
           headers: {
@@ -32,7 +33,7 @@ export const fetchQueuesProccess = createAsyncThunk<
       );
     } else if (method === 'post') {
       response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
-        `https://magicsoft.uz/med/api/v1/doctor/${path}${status}`,
+        `${baseUrl}/doctor/${path}${status}`,
 
         {},
         {

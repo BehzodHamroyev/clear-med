@@ -14,6 +14,7 @@ import {
 import { ListOfPageTypes } from '../model/types/listOfPages';
 
 import cls from './ListOfPages.module.scss';
+import { store } from '@/shared/lib/context/LoginContext';
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
@@ -63,15 +64,15 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
 const listOfPageDoktor: ListOfPageTypes[] = [
   {
     id: 1,
-    path: '/reports_doctor',
-    title: 'Hisobotlar',
-    icon: <Xisobotlar />,
+    path: '/',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
   },
   {
     id: 2,
-    path: '/queues_control_doctor',
-    title: 'Navbatlar',
-    icon: <Navbatlar />,
+    path: '/reports',
+    title: 'Hisobotlar',
+    icon: <Xisobotlar />,
   },
 ];
 
@@ -86,7 +87,12 @@ export const ListOfPages = memo(() => {
 
   const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
 
-  const profileValue = localStorage.getItem('profile');
+  const [profileValue, setProfileValue] = useState<string>('');
+
+  useEffect(() => {
+    setProfileValue(store.user.role);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.user.role]);
 
   useEffect(() => {
     if (profileValue === 'admin') {
@@ -104,12 +110,9 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '300px';
       }
     } else if (profileValue === 'doktor') {
-      if (divRef.current && location.pathname === '/reports_doctor') {
+      if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '20px';
-      } else if (
-        divRef.current &&
-        location.pathname === '/queues_control_doctor'
-      ) {
+      } else if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '63px';
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '172px';

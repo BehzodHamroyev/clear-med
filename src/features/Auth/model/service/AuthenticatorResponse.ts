@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
-// import { useCookies } from 'react-cookie';
-import Cookies from 'js-cookie';
+
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AuthLogin } from '../types/AuthentificationTypes';
 
@@ -16,8 +18,8 @@ export const fetchAuthLogin = createAsyncThunk<
   const { extra, rejectWithValue } = thunkApi;
 
   try {
-    const response = await extra.api.post(
-      `users/signin`,
+    const response = await axios.post(
+      `${baseUrl}users/signin`,
       {
         password,
         login,

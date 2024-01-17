@@ -1,64 +1,42 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip';
-import Stack from '@mui/material/Stack';
+import React, { useContext } from 'react';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import 'dayjs/locale/de';
 
 import cls from './BestCalendar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface BestCalendarProps {
   className?: string;
 }
 
-const ProSpan = styled('span')({
-  display: 'inline-block',
-  height: '1em',
-  width: '1em',
-  verticalAlign: 'middle',
-  marginLeft: '0.3em',
-  marginBottom: '0.08em',
-  backgroundSize: 'contain',
-  backgroundRepeat: 'no-repeat',
-  backgroundImage: 'url(https://mui.com/static/x/pro.svg)',
-});
-
-function Label({
-  componentName,
-  valueType,
-  isProOnly,
-}: {
-  componentName: string;
-  valueType: string;
-  isProOnly?: boolean;
-}) {
-  const content = (
-    <span>
-      <strong>{componentName}</strong> for {valueType} editing
-    </span>
-  );
-
-  if (isProOnly) {
-    return (
-      <Stack direction="row" spacing={0.5} component="span">
-        <Tooltip title="Included on Pro package">
-          <ProSpan />
-        </Tooltip>
-        {content}
-      </Stack>
-    );
-  }
-
-  return content;
-}
-
 const BestCalendar = ({ className }: BestCalendarProps) => {
+  const { setCalendarBeginValue, setCalendarEndValue } =
+    useContext(ButtonsContext);
+
+  // ----- gtmTime convert to Est time -----
+  const convertToEst = (gmtTime: any) => {
+    return new Date(
+      new Date(gmtTime).toLocaleString('uz-UZ'),
+    ).toLocaleDateString('uz-UZ');
+  };
+
+  // ----- changed or selected Calendar -----
+  const handleDateChange = (newDateRange: any) => {
+    if (newDateRange[0]?.$d) {
+      setCalendarBeginValue(convertToEst(newDateRange[0]?.$d));
+    }
+    if (newDateRange[1]?.$d) {
+      setCalendarEndValue(convertToEst(newDateRange[1]?.$d));
+    }
+  };
+
   return (
     <div className={classNames(cls.BestCalendar, {}, [className])}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en">
         <DemoContainer components={['DateRangePicker']}>
           <DemoItem component="DateRangePicker">
             <DateRangePicker
@@ -75,6 +53,8 @@ const BestCalendar = ({ className }: BestCalendarProps) => {
                 start: 'Dan',
                 end: 'Gacha',
               }}
+              onChange={handleDateChange}
+              format="DD/MM/YYYY"
             />
           </DemoItem>
         </DemoContainer>

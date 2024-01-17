@@ -9,6 +9,9 @@ interface ButtonsProviderProps {
 const ButtonsProvider = (props: ButtonsProviderProps) => {
   const { initialButton, children } = props;
 
+  const [isOpenSettingsChangePassword, setIsOpenSettingsChangePassword] =
+    useState(false);
+
   const [calendarBeginValue, setCalendarBeginValue] = useState('');
   const [calendarEndValue, setCalendarEndValue] = useState('');
 
@@ -58,15 +61,26 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     UserPassword: '',
   });
 
+  const [settingsFormData, setSettingsFormData] = useState({
+    password: '',
+    newPassword: '',
+  });
+
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
   ] = useState(1);
 
+  const [hasOpenToast, setHasOpenToast] = useState(false);
+
   const defaultProps = useMemo(
     () => ({
+      isOpenSettingsChangePassword,
+      setIsOpenSettingsChangePassword,
       formData,
       setFormData,
+      settingsFormData,
+      setSettingsFormData,
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
@@ -109,10 +123,16 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setCalendarEndValue,
       departmentGetId,
       setDepartmentGetId,
+      hasOpenToast,
+      setHasOpenToast,
     }),
     [
+      isOpenSettingsChangePassword,
+      setIsOpenSettingsChangePassword,
       formData,
       setFormData,
+      settingsFormData,
+      setSettingsFormData,
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
@@ -155,6 +175,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setCalendarEndValue,
       departmentGetId,
       setDepartmentGetId,
+      hasOpenToast,
+      setHasOpenToast,
     ],
   );
 

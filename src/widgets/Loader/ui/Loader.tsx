@@ -1,19 +1,29 @@
-import React from 'react';
-
-import cls from './loader.module.scss';
+import React, { useEffect } from 'react';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import cls from './Loader.module.scss';
 
 interface LoaderProps {
   className?: string;
 }
 
 const Loader = ({ className }: LoaderProps) => {
-  return (
-    // <div className={classNames(cls.Loader, {}, [className])}>
-    //   <div className={cls.Loader__box} />
-    // </div>
-    // <div className={classNames(cls.LoaderWrapper, {}, [className])}>
-    <div className={cls.LoaderWrapper}>
+  useEffect(() => {
+    // body tegiga overflow: hidden stilini qo'shish
+    document.body.style.overflow = 'hidden';
+
+    // useEffect ichidagi funksiya olib tashlanishida body tegiga qo'shilgan stilni olib tashlash
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  /* <div className={cls.LoaderWrapper}>
       <div className={cls.loader} />
+    </div> */
+
+  return (
+    <div className={classNames(cls.Loader, {}, [className])}>
+      <div className={cls.Loader__box} />
     </div>
   );
 };

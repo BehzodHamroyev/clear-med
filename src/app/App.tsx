@@ -1,6 +1,9 @@
-import React, { memo, Suspense, useContext } from 'react';
+import React, { memo, Suspense, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { observer } from 'mobx-react-lite';
+
 import { Navbar } from '@/widgets/Nabar';
 import { Loader } from '@/widgets/Loader';
 import { AppRouter } from './providers/router';
@@ -8,31 +11,59 @@ import { MainLayout } from '@/shared/layouts/MainLayout';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import 'react-calendar/dist/Calendar.css';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { Login } from '@/features/Auth';
+import { store } from '@/shared/lib/context/LoginContext';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = memo(() => {
   const { theme } = useTheme();
-  const dispatch = useAppDispatch();
-  const path = useLocation();
-  const { isProfileWho } = useContext(ButtonsContext);
+  const navigate = useNavigate();
 
-  const token = localStorage.getItem('token');
+  const { isSubmitLoginForm } = useContext(ButtonsContext);
+
+  const [hasIsAuth, setHasIsAuth] = useState(store.isAuth);
+
+  useEffect(() => {
+    if (Cookies.get('token')) {
+      store.checkAuth();
+    }
+  }, []);
+
+  useEffect(() => {
+    setHasIsAuth(store.isAuth);
+  }, [isSubmitLoginForm]);
+
+  if (store.isLoading) {
+    return <Loader />;
+  }
+
+  // if (!hasIsAuth) {
+  //   return (
+  //     <div>
+  //       <Login />
+  //     </div>
+  //   );
+  // }
+
+  if (!Cookies.get('token')) {
+    return (
+      <div>
+        <Login />
+      </div>
+    );
+  }
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-      {!token || path.pathname === '/login' ? (
-        <Login />
-      ) : (
-        <Suspense fallback={<Loader />}>
-          <MainLayout header={<Navbar />} content={<AppRouter />} />
-        </Suspense>
-      )}
+      <Suspense fallback={<Loader />}>
+        <MainLayout header={<Navbar />} content={<AppRouter />} />
+      </Suspense>
     </div>
   );
 });
 
-export default withTheme(App);
+export default observer(withTheme(App));

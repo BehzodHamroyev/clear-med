@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { QueueApiResponseControlDoctorTypes } from '../..';
 
@@ -19,7 +20,7 @@ export const fetchQueuesControlDoctor = createAsyncThunk<
 
   try {
     const response = await axios.get<QueueApiResponseControlDoctorTypes>(
-      `https://magicsoft.uz/med/api/v1/doctor/type?status=${status}`,
+      `${baseUrl}/doctor/type?status=${status}`,
 
       {
         headers: {
