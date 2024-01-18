@@ -7,3 +7,5 @@ export { DoctorListSlice } from './model/slice/getDoctorSlice';
 export { DoctorListSliceReducer } from './model/slice/getDoctorSlice';
 
 export { fetchDoctorGetAll } from './model/service/fetchDoctorGetAll';
+
+export { getListOfDoctor } from './model/selector/doctorListSelector';

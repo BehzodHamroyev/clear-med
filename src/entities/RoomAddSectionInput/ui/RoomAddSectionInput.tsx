@@ -12,28 +12,45 @@ import {
 } from '@mui/material';
 
 import {
-  fetchDepartmentGetAll,
   getListOfDepartmens,
+  fetchDepartmentGetAll,
 } from '@/pages/DepartmentPage';
+
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const RoomAddSectionInput = () => {
+  /* useTranslation */
   const { t } = useTranslation();
 
+  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
+  /* useSelector */
   const getListOfDepartments = useSelector(getListOfDepartmens);
 
+  /* useState */
   const [sectionValue, setSectionValue] = React.useState('');
 
+  /* useContext */
+  const { isDataFormAddRoom, setIsDataFormAddRoom } =
+    React.useContext(ButtonsContext);
+
+  /* halper function */
   const handleChange = (event: SelectChangeEvent) => {
     setSectionValue(event.target.value as string);
+    setIsDataFormAddRoom({
+      ...isDataFormAddRoom,
+      SectionName: event.target.value as string,
+    });
   };
 
+  /* useEffect */
   React.useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
   }, [dispatch]);
 
+  /* UI */
   return (
     <div>
       <Box sx={{ minWidth: 120, marginTop: '20px', marginBottom: '20px' }}>
@@ -50,11 +67,13 @@ const RoomAddSectionInput = () => {
           >
             {getListOfDepartments
               ? getListOfDepartments?.map((e, index) => {
-                  return <MenuItem value={`${index}0`}>{e?.name}</MenuItem>;
+                  return (
+                    <MenuItem key={index + 1} value={`${e.id}`}>
+                      {e?.name}
+                    </MenuItem>
+                  );
                 })
               : ''}
-            <MenuItem value={20}>Ankologiya</MenuItem>
-            <MenuItem value={30}>Akusher</MenuItem>
           </Select>
         </FormControl>
       </Box>

@@ -10,7 +10,7 @@ export enum CommonRoutes {
 export enum AdminRoutes {
   DEPARTMENT = 'department',
   ADD_DOCTOR = 'add_doctor',
-  ADDROOMPAGE = 'add_room_page',
+  ROOMPAGE = 'room_page',
   REPORTS_PATIENT = 'reports_patient',
 }
 
@@ -55,9 +55,9 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAddDoctor()]: AdminRoutes.ADDROOMPAGE,
+  [getRouteAddDoctor()]: AdminRoutes.ROOMPAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
-  [getRouteAddRoomPage()]: AdminRoutes.ADDROOMPAGE,
+  [getRouteAddRoomPage()]: AdminRoutes.ROOMPAGE,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
 
   [getRouteReportDoctor()]: DoctorRoutes.REPORTS_DOCTOR,

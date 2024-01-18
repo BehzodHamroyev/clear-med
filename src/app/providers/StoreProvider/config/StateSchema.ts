@@ -17,6 +17,7 @@ import {
   DepartmentListSchemaForReception,
   CurrentQueueSchemaForReception,
 } from '@/pages/QueuingTV';
+import {  RoomListSchema } from '@/pages/RoomPage';
 
 export interface StateSchema {
   login: AuthReduxType;
@@ -27,6 +28,7 @@ export interface StateSchema {
   getDoctorPageReducer: DoctorListSchema;
   deparmentList: DepartmentListSchemaForReception;
   currentQueue: CurrentQueueSchemaForReception;
+  RoomGetAll: RoomListSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

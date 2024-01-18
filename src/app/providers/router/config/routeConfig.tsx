@@ -17,9 +17,9 @@ import {
   getRouteReportControlDoctor,
 } from '@/shared/const/router';
 
+import { RoomPage } from '@/pages/RoomPage';
 import { QueuingTv } from '@/pages/QueuingTV';
 import { QueuesPage } from '@/pages/QueuesPage';
-import { AddRoomPage } from '@/pages/AddRoomPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -47,9 +47,9 @@ export const routeConfigForAdmin: Record<
     path: getRouteDepartment(),
     element: <DepartmentPage />,
   },
-  [AdminRoutes.ADDROOMPAGE]: {
+  [AdminRoutes.ROOMPAGE]: {
     path: getRouteAddRoomPage(),
-    element: <AddRoomPage />,
+    element: <RoomPage />,
   },
   [AdminRoutes.ADD_DOCTOR]: {
     path: getRouteAddDoctor(),

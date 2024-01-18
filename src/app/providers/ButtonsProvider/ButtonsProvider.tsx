@@ -89,6 +89,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenBurgerNavbar, setIsOpenBurgerNavbar] = useState(true);
 
+  const [isDataFormAddRoom, setIsDataFormAddRoom] = useState({
+    RoomNumber: '',
+    SectionName: '',
+    DoctorName: '',
+  });
+
   const [isSubmitLoginForm, setIsSubmitLoginForm] = useState<boolean>(false);
 
   const [departmentListChanged, setDepartmentListChanged] =
@@ -167,6 +173,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setDepartmentGetId,
       hasOpenToast,
       setHasOpenToast,
+      isDataFormAddRoom,
+      setIsDataFormAddRoom,
     }),
     [
       currentQueueData,
@@ -221,6 +229,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setDepartmentGetId,
       hasOpenToast,
       setHasOpenToast,
+      isDataFormAddRoom,
+      setIsDataFormAddRoom,
     ],
   );
 

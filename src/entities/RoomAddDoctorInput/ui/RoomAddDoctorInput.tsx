@@ -10,14 +10,41 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
+import { useSelector } from 'react-redux';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { fetchDoctorGetAll, getListOfDoctor } from '@/pages/DoctorsListPage';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
 const RoomAddDoctorInput = () => {
+  /* useTranslation */
   const { t } = useTranslation();
 
+  /* useAppDispatch */
+  const dispatch = useAppDispatch();
+
+  /* useContext */
+  const { isDataFormAddRoom, setIsDataFormAddRoom } =
+    React.useContext(ButtonsContext);
+
+  /* useState */
   const [doctorValue, setDoctorValue] = React.useState('');
 
+  /* useSelector */
+  const getListOfDoctors = useSelector(getListOfDoctor);
+
+  /* halper function */
   const handleChange = (event: SelectChangeEvent) => {
     setDoctorValue(event.target.value as string);
+    setIsDataFormAddRoom({
+      ...isDataFormAddRoom,
+      DoctorName: event.target.value as string,
+    });
   };
+
+  /* useEffect */
+  React.useEffect(() => {
+    dispatch(fetchDoctorGetAll({}));
+  }, [dispatch]);
 
   return (
     <div>
@@ -26,16 +53,23 @@ const RoomAddDoctorInput = () => {
           <InputLabel id="demo-simple-select-label">
             {t("Shifokor ro'yihati")}
           </InputLabel>
+
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={doctorValue}
-            label="Shifokor ro'yihati"
             onChange={handleChange}
+            id="demo-simple-select"
+            label="Shifokor ro'yihati"
+            labelId="demo-simple-select-label"
           >
-            <MenuItem value={10}>{t("Abbos G'ulomov")}</MenuItem>
-            <MenuItem value={20}>{t('Behzod Hamroyev')}</MenuItem>
-            <MenuItem value={30}>{t('Mironshoh Asadov')}</MenuItem>
+            {getListOfDoctors
+              ? getListOfDoctors?.map((e, index) => {
+                  return (
+                    <MenuItem key={index + 1} value={`${e._id}`}>
+                      {e?.name}
+                    </MenuItem>
+                  );
+                })
+              : ''}
           </Select>
         </FormControl>
       </Box>

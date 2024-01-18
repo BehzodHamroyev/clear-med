@@ -52,6 +52,17 @@ export interface ButtonsClickedProps {
   isOpenQueuingCardClicked: boolean;
   setIsOpenQueuingCardClicked: (prop: boolean) => void;
 
+  isDataFormAddRoom: {
+    RoomNumber: string;
+    SectionName: string;
+    DoctorName: string;
+  };
+  setIsDataFormAddRoom: (prop: {
+    RoomNumber: string;
+    SectionName: string;
+    DoctorName: string;
+  }) => void;
+
   isQueuingCardClickedGetId: { roomId: string; departmentId: string };
   setIsQueuingCardClickedGetId: (prop: {
     roomId: string;
@@ -190,6 +201,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   formData: { PhoneNumber: '', UserPassword: '' },
   setFormData: () => {},
+
+  isDataFormAddRoom: { RoomNumber: '', SectionName: '', DoctorName: '' },
+  setIsDataFormAddRoom: () => {},
 
   settingsFormData: { password: '', newPassword: '' },
   setSettingsFormData: () => {},
