@@ -21,7 +21,7 @@ const QueueUserDoctor = ({
       <div className={cls.QueuesNumber}>
         <p>{ticketNumber}</p>
         <img src={Vektor} alt="#" />
-        <p>{roomNumber}</p>
+        <p style={{ textAlign: 'center' }}>{roomNumber}</p>
       </div>
     </div>
   );

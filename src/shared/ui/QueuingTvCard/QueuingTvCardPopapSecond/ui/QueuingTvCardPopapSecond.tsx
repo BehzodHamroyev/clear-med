@@ -2,6 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+import { io } from 'socket.io-client';
 
 import cls from './QueuingTvCardPopapSecond.module.scss';
 import cls2 from './PrintQueuePage.module.scss';
@@ -34,6 +35,8 @@ const QueuingTvCardPopapSecond = ({
 }: QueuingTvCardPopapSecondProps) => {
   const { t } = useTranslation();
 
+  const socket = io('ws://magicsoft.uz:8900');
+
   const printableDivRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
@@ -63,9 +66,21 @@ const QueuingTvCardPopapSecond = ({
         }),
       ).then(() => {
         if (!currentQueueError && !currentQueueLoading) printCom();
+
+        if (currentQueueData) {
+          socket.emit('create_queue', currentQueueData, (response: any) => {
+            console.log(response);
+          });
+        }
+
+        // socket.on('message', (data) => {
+        // console.log('Received message:', data);
+        // });
       });
     }
   };
+
+  // socket.on('');
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
@@ -92,10 +107,18 @@ const QueuingTvCardPopapSecond = ({
               </p>
             </div>
 
-            <p className={cls2.PrintQueuePage__dateGetQueue}>
-              {lastQueue?.data.created_time.split('T')[1].split('.')[0]} |{' '}
-              {lastQueue?.data.created_date}
-            </p>
+            <div className={cls2.PrintQueuePage__medicName}>
+              <p>Berilgan vaqt:</p>
+              <p className={cls2.PrintQueuePage__dateGetQueue}>
+                {lastQueue?.data.created_time
+                  .split('T')[1]
+                  .split('.')[0]
+                  .split(':')
+                  .slice(0, 2)
+                  .join(':')}{' '}
+                | {lastQueue?.data.created_date}
+              </p>
+            </div>
 
             <p className={cls2.PrintQueuePage__message}>Katta rahmat</p>
           </div>

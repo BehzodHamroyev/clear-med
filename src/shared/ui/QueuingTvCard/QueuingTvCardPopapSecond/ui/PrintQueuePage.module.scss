@@ -16,8 +16,9 @@
   }
 
   &__medicName {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
     gap: 10px;
     margin: 20px auto;
 
@@ -27,9 +28,7 @@
   }
 
   &__dateGetQueue {
-    width: 100%;
-    margin: 20px auto;
-    text-align: center;
+    text-align: right;
   }
 
   &__message {
