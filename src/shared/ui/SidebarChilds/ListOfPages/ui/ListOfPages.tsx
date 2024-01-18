@@ -110,14 +110,14 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '300px';
       }
     } else if (profileValue === 'doktor') {
-      if (divRef.current && location.pathname === '/reports') {
+      if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
-      } else if (divRef.current && location.pathname === '/') {
+      } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '63px';
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '172px';
       }
-    } else if (profileValue === 'qabulxona') {
+    } else if (profileValue === 'reception') {
       if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
