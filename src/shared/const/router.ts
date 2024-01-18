@@ -37,11 +37,10 @@ export const getRouteSettingsPage = () => '/settings';
 export const getRouteReportDoctor = () => '/reports';
 export const getRouteReportControlDoctor = () => '/';
 
-export const getRouteAdmin = () => '/admin';
+export const getRouteDepartment = () => '/';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddDoctor = () => '/add_doctor';
-export const getRouteDepartment = () => '/department';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
 

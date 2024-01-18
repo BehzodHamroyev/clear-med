@@ -19,8 +19,9 @@ const TableTitle = (props: TableInfo) => {
 
   const handleCardAddCard = (id: string) => {
     setDepartmentGetId(id);
+    /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
 
-    if (location.pathname === '/department') {
+    if (location.pathname === '/') {
       setIsOpenDepartmentEditCard(true);
     } else if (location.pathname === '/add_room_age') {
       setIsOpenRoomEditCard(true);
@@ -34,7 +35,7 @@ const TableTitle = (props: TableInfo) => {
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
           {Tablethead.map((title: string, index) => (
-            <th key={index} className={cls.th}>
+            <th key={index + 1} className={cls.th}>
               {title}
             </th>
           ))}

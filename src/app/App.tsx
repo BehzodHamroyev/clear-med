@@ -28,7 +28,7 @@ const App = memo(() => {
 
   useEffect(() => {
     return store.setUser({
-      role: 'reception',
+      role: 'admin',
       exprience: 0,
       id: '',
       login: 0,

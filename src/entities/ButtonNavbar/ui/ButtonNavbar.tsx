@@ -31,7 +31,8 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   } = useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
-    if (location.pathname === '/department') {
+    /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
+    if (location.pathname === '/') {
       setIsOpenDepartmentAddCard(true);
     } else if (location.pathname === '/add_room_age') {
       setIsOpenRoomAddCard(true);

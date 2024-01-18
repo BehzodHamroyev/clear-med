@@ -19,7 +19,7 @@ import { store } from '@/shared/lib/context/LoginContext';
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 1,
-    path: '/department',
+    path: '/',
     title: 'Bo‘lim qo‘shish',
     icon: <Bolimlar />,
   },
@@ -96,7 +96,7 @@ export const ListOfPages = memo(() => {
 
   useEffect(() => {
     if (profileValue === 'admin') {
-      if (divRef.current && location.pathname === '/department') {
+      if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/add_room_age') {
         divRef.current.style.top = '63px';
