@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 
@@ -36,6 +36,7 @@ import {
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { store } from '@/shared/lib/context/LoginContext';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -59,6 +60,20 @@ const QueuesControlDoctor = () => {
   const proccessData = useSelector(getControlPanelDocktorData);
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
+
+  const [ipAddress, setIPAddress] = useState('');
+
+  useEffect(() => {
+    fetch('https://api.ipify.org?format=json')
+      .then((response) => response.json())
+      .then((data) => setIPAddress(data.ip))
+      .catch((error) => console.log(error));
+  }, []);
+
+  //  socket.emit('addUser', {userId, ip_address})
+
+  console.log(store.user._id);
+  console.log(ipAddress);
 
   useEffect(() => {
     dispatch(
