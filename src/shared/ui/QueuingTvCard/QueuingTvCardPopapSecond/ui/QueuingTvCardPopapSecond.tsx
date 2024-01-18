@@ -68,9 +68,13 @@ const QueuingTvCardPopapSecond = ({
         if (!currentQueueError && !currentQueueLoading) printCom();
 
         if (currentQueueData) {
-          socket.emit('create_queue', currentQueueData, (response: any) => {
-            console.log(response);
-          });
+          socket.emit(
+            'create_queue',
+            { queue_data: currentQueueData },
+            (responce: { status: string }) => {
+              console.log(responce);
+            },
+          );
         }
 
         // socket.on('message', (data) => {
@@ -101,14 +105,14 @@ const QueuingTvCardPopapSecond = ({
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
-              <p>Shifokor:</p>
+              <p>{t('Shifokor')}:</p>
               <p className={cls2.medicNameFullName}>
                 {lastQueue?.data.doctor_id.name}
               </p>
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
-              <p>Berilgan vaqt:</p>
+              <p>{t('Berilgan vaqt')}:</p>
               <p className={cls2.PrintQueuePage__dateGetQueue}>
                 {lastQueue?.data.created_time
                   .split('T')[1]
@@ -120,7 +124,7 @@ const QueuingTvCardPopapSecond = ({
               </p>
             </div>
 
-            <p className={cls2.PrintQueuePage__message}>Katta rahmat</p>
+            <p className={cls2.PrintQueuePage__message}>{t('Katta rahmat')}</p>
           </div>
         </div>
 
