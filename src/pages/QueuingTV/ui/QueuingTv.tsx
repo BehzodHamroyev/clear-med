@@ -16,6 +16,12 @@ import {
   getCurrentQueueIsLoading,
 } from '../model/selectors/currentQueueSelector';
 
+import {
+  getLastQueueData,
+  getLastQueueError,
+  getLastQueueIsLoading,
+} from '../model/selectors/lastQueueSelector';
+
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { QueuingTvCard } from '@/entities/QueuingTvCard';
 import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
@@ -40,10 +46,18 @@ const QueuingTv = () => {
   const currentQueueIsLoading = useSelector(getCurrentQueueIsLoading);
   const currentQueueError = useSelector(getCurrentQueueError);
 
+  const lastQueue = useSelector(getLastQueueData);
+  const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
+  const lastQueueError = useSelector(getLastQueueError);
+
   useEffect(() => {
     dispatch(fetchDepartmentList({ limit: 'all' }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (lastQueue) {
+    console.log();
+  }
 
   return (
     <div className={cls.QueuingTvWrapper}>
@@ -53,8 +67,7 @@ const QueuingTv = () => {
         {deparmentList?.map((item) => (
           <QueuingTvCard
             key={item.id}
-            RoomId={item._id}
-            DepartmentId={item.department_id._id}
+            DoctorId={item.doctor_id._id}
             CardLeftTitle={item.department_id.name}
             CardLeftRoomNumber={item.name}
             CardLeftDoctorName={item.doctor_id.name}
@@ -65,17 +78,17 @@ const QueuingTv = () => {
       </div>
 
       {isOpenQueuingTvCardPopapSecond &&
-        currentQueue?.room.name &&
-        currentQueue?.navbat?.queues_name && (
+        !lastQueueIsLoading &&
+        lastQueue?.pagination && (
           <QueuingTvCardPopapSecond
-            roomNumber={currentQueue.room.name}
-            ticketNumber={currentQueue.navbat.queues_name}
+            roomNumber={lastQueue?.pagination?.split('-')?.slice()[0]?.at(-1)}
+            ticketNumber={lastQueue?.pagination}
           />
         )}
 
-      {(deparmentListIsLoading || currentQueueIsLoading) && <Loader />}
+      {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
 
-      {(deparmentListError || currentQueueError) && (
+      {(deparmentListError || currentQueueError || lastQueueError) && (
         <ErrorDialog isErrorProps={!false} />
       )}
     </div>

@@ -9,7 +9,11 @@ import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
-import { departmentListReducer, currentQueueuReducer } from '@/pages/QueuingTV';
+import {
+  lastQueueReducer,
+  currentQueueuReducer,
+  departmentListReducer,
+} from '@/pages/QueuingTV';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -24,6 +28,7 @@ export function createReduxStore(
     reportControlDoctor: reportControlDoctorReducer,
     deparmentList: departmentListReducer,
     currentQueue: currentQueueuReducer,
+    lastQueue: lastQueueReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

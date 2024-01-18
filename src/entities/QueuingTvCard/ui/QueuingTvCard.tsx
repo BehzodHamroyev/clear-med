@@ -8,13 +8,12 @@ import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchCurrentQueue } from '@/pages/QueuingTV/model/services/fetchCurrentQueue';
+import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
 
 const QueuingTvCard = ({
   Icon,
+  DoctorId,
   CardLeftTitle,
-  DepartmentId,
-  RoomId,
   CardLeftRoomNumber,
   CardLeftDoctorName,
 }: QueuingTvCardProps) => {
@@ -29,14 +28,12 @@ const QueuingTvCard = ({
     e.stopPropagation();
 
     dispatch(
-      fetchCurrentQueue({
-        departmentId: DepartmentId,
-        roomId: RoomId,
+      fetchLastQueue({
+        doctorId: DoctorId,
       }),
-    ).then(
-      // @ts-ignore
-      setIsOpenQueuingTvCardPopapSecond(true),
     );
+
+    setIsOpenQueuingTvCardPopapSecond(true);
   };
 
   return (

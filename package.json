@@ -152,6 +152,8 @@
     "react-phone-number-input": "^3.3.7",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.21.2",
+    "react-thermal-printer": "^0.18.1",
+    "react-to-print": "^2.14.15",
     "socket.io-client": "^4.7.3"
   },
   "loki": {

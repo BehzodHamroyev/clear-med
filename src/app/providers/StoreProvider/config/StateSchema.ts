@@ -13,6 +13,7 @@ import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor
 import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 import {
+  LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
@@ -25,6 +26,7 @@ export interface StateSchema {
   reportControlDoctor: ReportDoctorSchema;
   deparmentList: DepartmentListSchemaForReception;
   currentQueue: CurrentQueueSchemaForReception;
+  lastQueue: LastQueueDataSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

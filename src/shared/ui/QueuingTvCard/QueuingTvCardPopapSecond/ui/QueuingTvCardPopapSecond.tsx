@@ -1,12 +1,30 @@
 import React, { useContext, useRef } from 'react';
-
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useReactToPrint } from 'react-to-print';
+
 import cls from './QueuingTvCardPopapSecond.module.scss';
+import cls2 from './PrintQueuePage.module.scss';
+
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchCurrentQueue } from '@/pages/QueuingTV/model/services/fetchCurrentQueue';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
+
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import {
+  getCurrentQueueData,
+  getCurrentQueueError,
+  getCurrentQueueIsLoading,
+} from '@/pages/QueuingTV/model/selectors/currentQueueSelector';
+import { Loader } from '@/widgets/Loader';
+// import PrintQueuePage from './PrintQueuePage';
 
 interface QueuingTvCardPopapSecondProps {
-  roomNumber: number;
+  roomNumber: string | undefined;
   ticketNumber: string;
 }
 
@@ -15,23 +33,38 @@ const QueuingTvCardPopapSecond = ({
   ticketNumber,
 }: QueuingTvCardPopapSecondProps) => {
   const { t } = useTranslation();
-  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
   const printableDivRef = useRef<HTMLDivElement>(null);
 
-  const printContent = () => {
-    if (printableDivRef.current) {
-      const printableContent = printableDivRef.current.innerHTML;
-      const originalContent = document.body.innerHTML;
+  const dispatch = useAppDispatch();
 
-      document.body.innerHTML = printableContent;
+  const lastQueue = useSelector(getLastQueueData);
 
-      window.print();
+  const currentQueueData = useSelector(getCurrentQueueData);
+  const currentQueueLoading = useSelector(getCurrentQueueIsLoading);
+  const currentQueueError = useSelector(getCurrentQueueError);
 
-      document.body.innerHTML = originalContent;
+  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
+
+  const printCom = useReactToPrint({
+    content: () => printableDivRef.current,
+    documentTitle: 'queue-data',
+    onAfterPrint: () => setIsOpenQueuingTvCardPopapSecond(false),
+  });
+
+  const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+
+    if (lastQueue && printableDivRef.current) {
+      dispatch(
+        fetchCurrentQueue({
+          departmentId: lastQueue?.data.department_id,
+          roomId: lastQueue?.data.room_id,
+        }),
+      ).then(() => {
+        if (!currentQueueError && !currentQueueLoading) printCom();
+      });
     }
-
-    setIsOpenQueuingTvCardPopapSecond(false);
   };
 
   return (
@@ -41,11 +74,31 @@ const QueuingTvCardPopapSecond = ({
           {t('Navbatni tasdiqlang')}
         </h3>
 
-        <div ref={printableDivRef}>
-          <QueueUserDoctor
-            ticketNumber={ticketNumber}
-            roomNumber={roomNumber}
-          />
+        <div ref={printableDivRef} className={cls.QueuingTvPrintCard}>
+          <div className={cls2.PrintQueuePage}>
+            <p className={cls2.PrintQueuePage__medName}>Medical Center</p>
+
+            <div className={cls2.PrintQueuePage__queueBox}>
+              <QueueUserDoctor
+                ticketNumber={ticketNumber}
+                roomNumber={roomNumber}
+              />
+            </div>
+
+            <div className={cls2.PrintQueuePage__medicName}>
+              <p>Shifokor:</p>
+              <p className={cls2.medicNameFullName}>
+                {lastQueue?.data.doctor_id.name}
+              </p>
+            </div>
+
+            <p className={cls2.PrintQueuePage__dateGetQueue}>
+              {lastQueue?.data.created_time.split('T')[1].split('.')[0]} |{' '}
+              {lastQueue?.data.created_date}
+            </p>
+
+            <p className={cls2.PrintQueuePage__message}>Katta rahmat</p>
+          </div>
         </div>
 
         <div className={cls.BtnParnet}>
@@ -57,7 +110,7 @@ const QueuingTvCardPopapSecond = ({
             {t('Bekor qilish')}
           </button>
           <button
-            onClick={printContent}
+            onClick={(e) => handlePrint(e)}
             type="button"
             className={`${cls.Btn} ${cls.Btn2}`}
           >
@@ -65,6 +118,7 @@ const QueuingTvCardPopapSecond = ({
           </button>
         </div>
       </div>
+      {currentQueueLoading && <Loader />}
     </div>
   );
 };

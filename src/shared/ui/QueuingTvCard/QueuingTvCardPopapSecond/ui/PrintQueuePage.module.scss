@@ -1,0 +1,41 @@
+.PrintQueuePage {
+  width: 300px;
+  font-family: sans-serif;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__medName {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  &__queueBox {
+    margin: 10px auto;
+  }
+
+  &__medicName {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px auto;
+
+    .medicNameFullName {
+      text-align: right;
+    }
+  }
+
+  &__dateGetQueue {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  &__message {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 20px;
+  }
+}
