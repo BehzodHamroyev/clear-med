@@ -57,8 +57,6 @@ const QueuingTv = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(deparmentList);
-
   return (
     <div className={cls.QueuingTvWrapper}>
       <ButtonNavbar TableTitle="Xonalar" ItemsLength={deparmentList?.length} />

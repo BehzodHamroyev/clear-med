@@ -15,6 +15,7 @@ interface Department {
   duration: number;
   image: string;
   disabled: boolean;
+  photo: string;
   __v: number;
   id: string;
 }
@@ -25,6 +26,7 @@ export interface Room {
   department_id: Department;
   doctor_id: Doctor;
   disabled: boolean;
+  photo: string;
   __v: number;
   id: string;
 }

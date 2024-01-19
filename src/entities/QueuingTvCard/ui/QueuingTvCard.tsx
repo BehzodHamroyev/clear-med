@@ -37,8 +37,6 @@ const QueuingTvCard = ({
     setIsOpenQueuingTvCardPopapSecond(true);
   };
 
-  // console.log(Icon);
-
   return (
     <div
       onClick={(e) => hendleClickQuingTvCard(e)}

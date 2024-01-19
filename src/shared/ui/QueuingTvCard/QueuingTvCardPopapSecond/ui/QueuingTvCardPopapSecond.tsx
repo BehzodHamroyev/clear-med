@@ -22,7 +22,6 @@ import {
   getCurrentQueueIsLoading,
 } from '@/pages/QueuingTV/model/selectors/currentQueueSelector';
 import { Loader } from '@/widgets/Loader';
-// import PrintQueuePage from './PrintQueuePage';
 
 interface QueuingTvCardPopapSecondProps {
   roomNumber: string | undefined;
@@ -76,15 +75,9 @@ const QueuingTvCardPopapSecond = ({
             },
           );
         }
-
-        // socket.on('message', (data) => {
-        // console.log('Received message:', data);
-        // });
       });
     }
   };
-
-  // socket.on('');
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
