@@ -10,8 +10,12 @@ import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
-import { departmentListReducer, currentQueueuReducer } from '@/pages/QueuingTV';
 import { RoomListSliceReducer } from '@/pages/RoomPage';
+import {
+  lastQueueReducer,
+  currentQueueuReducer,
+  departmentListReducer,
+} from '@/pages/QueuingTV';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -29,6 +33,7 @@ export function createReduxStore(
     deparmentList: departmentListReducer,
     currentQueue: currentQueueuReducer,
     RoomGetAll: RoomListSliceReducer,
+    lastQueue: lastQueueReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

@@ -4,8 +4,8 @@ import cls from './QueueUserDoctor.module.scss';
 import { Vektor } from '@/shared/assets/Pages/Queues';
 
 interface QueueUserDoctorProps {
-  ticketNumber: string | number;
-  roomNumber: string | number;
+  ticketNumber: string | undefined;
+  roomNumber: string | number | undefined;
 }
 
 const QueueUserDoctor = ({
@@ -21,7 +21,7 @@ const QueueUserDoctor = ({
       <div className={cls.QueuesNumber}>
         <p>{ticketNumber}</p>
         <img src={Vektor} alt="#" />
-        <p>{roomNumber}</p>
+        <p style={{ textAlign: 'center' }}>{roomNumber}</p>
       </div>
     </div>
   );

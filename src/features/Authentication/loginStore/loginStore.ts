@@ -39,7 +39,7 @@ export default class LoginStore {
 
       this.setAuth(true);
 
-      this.setUser(response.data.user);
+      this.setUser(JSON.parse(response.data.user));
 
       console.log(this.user.role);
     } catch (e) {

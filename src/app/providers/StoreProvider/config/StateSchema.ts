@@ -14,6 +14,7 @@ import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 import { DoctorListSchema } from '@/pages/DoctorsListPage';
 import {
+  LastQueueDataSchema,
   DepartmentListSchemaForReception,
   CurrentQueueSchemaForReception,
 } from '@/pages/QueuingTV';
@@ -29,6 +30,7 @@ export interface StateSchema {
   deparmentList: DepartmentListSchemaForReception;
   currentQueue: CurrentQueueSchemaForReception;
   RoomGetAll: RoomListSchema;
+  lastQueue: LastQueueDataSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

@@ -80,3 +80,33 @@ export interface CurrentQueueDataApiRespoceType {
   room: roomCurrentQueue;
   sizdan_oldingi_bemorlar_soni?: number;
 }
+
+export interface LastQueueData {
+  _id: string;
+  department_id: string;
+  room_id: string;
+  doctor_id: {
+    exprience: number;
+    id: string;
+    login: string;
+    name: string;
+    passwordChangedDate: string;
+    photo: string;
+    role: string;
+    __v: number;
+    _id: string;
+  };
+  queues_name: string;
+  step: number;
+  status: string;
+  created_date: string;
+  created_time: string;
+  __v: number;
+  id: string;
+}
+
+export interface LastQueueDataApiResponce {
+  status: string;
+  data: LastQueueData;
+  pagination: string;
+}

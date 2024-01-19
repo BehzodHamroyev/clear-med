@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
+
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
@@ -35,128 +35,17 @@ import {
   getDoneQueuesControlDoctorError,
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { store } from '@/shared/lib/context/LoginContext';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
 };
 
-const TableBodyCretedPatient = [
-  {
-    id: 1,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 2,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 3,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 4,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 5,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 6,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 7,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 8,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 9,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 10,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 11,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 12,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 13,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 14,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 15,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 16,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-];
-
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
+
+  const socket = io('ws://magicsoft.uz:8900');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -171,6 +60,20 @@ const QueuesControlDoctor = () => {
   const proccessData = useSelector(getControlPanelDocktorData);
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
+
+  const [ipAddress, setIPAddress] = useState('');
+
+  useEffect(() => {
+    fetch('https://api.ipify.org?format=json')
+      .then((response) => response.json())
+      .then((data) => setIPAddress(data.ip))
+      .catch((error) => console.log(error));
+  }, []);
+
+  //  socket.emit('addUser', {userId, ip_address})
+
+  console.log(store.user._id);
+  console.log(ipAddress);
 
   useEffect(() => {
     dispatch(
@@ -199,6 +102,10 @@ const QueuesControlDoctor = () => {
   if (doneQueuesListError) {
     console.log(queuesListError);
   }
+
+  socket.on('getNewQueue', (data) => {
+    console.log('Socket Queue data:', data);
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -253,6 +160,10 @@ const QueuesControlDoctor = () => {
         {(proccessIsLoading ||
           queuesListIsLoading ||
           doneQueuesListIsLoading) && <Loader />}
+
+        {(queuesListError || proccessError || doneQueuesListError) && (
+          <ErrorDialog isErrorProps={!false} />
+        )}
       </div>
     </DynamicModuleLoader>
   );
