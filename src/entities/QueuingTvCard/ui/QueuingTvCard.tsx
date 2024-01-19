@@ -27,14 +27,17 @@ const QueuingTvCard = ({
   ) => {
     e.stopPropagation();
 
-    dispatch(
-      fetchLastQueue({
-        doctorId: DoctorId,
-      }),
-    );
-
+    if (DoctorId) {
+      dispatch(
+        fetchLastQueue({
+          doctorId: DoctorId,
+        }),
+      );
+    }
     setIsOpenQueuingTvCardPopapSecond(true);
   };
+
+  // console.log(Icon);
 
   return (
     <div
@@ -50,9 +53,7 @@ const QueuingTvCard = ({
           {t('Shifokor')}: {CardLeftDoctorName}
         </p>
       </div>
-      <div className={cls.CardRight}>
-        <Icon />
-      </div>
+      <div className={cls.CardRight}>{/* <Icon /> */}</div>
     </div>
   );
 };

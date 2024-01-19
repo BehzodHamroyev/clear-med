@@ -1,27 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import cls from './Login.module.scss';
 
 import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
 import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
-import { getAuthUserIsLoading } from '../model/selector/authUserSelector';
+import {
+  getAuthUserData,
+  getAuthUserIsLoading,
+} from '../model/selector/authUserSelector';
 import { Loader } from '@/widgets/Loader';
 
 const Login: FC = () => {
-  // const { setIsProfileWho } = useContext(ButtonsContext);
+  const authUserData = useSelector(getAuthUserData);
+
+  const navigate = useNavigate();
 
   const authUserIsLoading = useSelector(getAuthUserIsLoading);
 
-  // useEffect(() => {
-  //   if (loginData) {
-  //     setIsProfileWho(`${loginData.role}`);
-  //   } else {
-  //     setIsProfileWho('');
-  //   }
-  // }, [loginData, setIsProfileWho]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (authUserData?.role && Cookies.get('token')) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUserData]);
 
   return (
     <>

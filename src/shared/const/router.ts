@@ -4,6 +4,7 @@ export enum CommonRoutes {
   FORBIDDEN = 'forbidden',
   NOT_FOUND = 'not_found',
   SETTINGSPAGE = 'setting_page',
+  LOGIN = 'login',
 }
 
 // Admin saytlari uchun
@@ -27,6 +28,7 @@ export enum ReceptionRoutes {
 }
 
 // ----- Common -----
+
 export const getRoute = () => '/login';
 export const getRouteNotFound = () => '/*';
 export const getRouteAbout = () => '/about';
@@ -52,6 +54,7 @@ export const AppRouteByPathPattern: Record<
   string,
   CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
 > = {
+  [getRouteNotFound()]: CommonRoutes.LOGIN,
   [getRouteNotFound()]: CommonRoutes.NOT_FOUND,
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,

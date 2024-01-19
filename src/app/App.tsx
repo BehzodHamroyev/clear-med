@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
@@ -15,7 +14,7 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import 'react-calendar/dist/Calendar.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { Login, fetchAuthUser, getAuthUserData } from '@/features/Auth';
+import { fetchAuthUser } from '@/features/Auth';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const App = () => {
@@ -24,8 +23,6 @@ const App = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-
-  const authUserData = useSelector(getAuthUserData);
 
   useEffect(() => {
     if (Cookies.get('token')) {
@@ -39,21 +36,17 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (authUserData?.role && Cookies.get('token')) {
-      navigate('/');
+    if (!Cookies.get('token')) {
+      navigate('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUserData]);
+  }, []);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-      {!Cookies.get('token') ? (
-        <Login />
-      ) : (
-        <Suspense fallback={<Loader />}>
-          <MainLayout header={<Navbar />} content={<AppRouter />} />
-        </Suspense>
-      )}
+      <Suspense fallback={<Loader />}>
+        <MainLayout header={<Navbar />} content={<AppRouter />} />
+      </Suspense>
     </div>
   );
 };

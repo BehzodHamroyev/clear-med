@@ -18,7 +18,7 @@ const LogoutChild = () => {
   };
 
   return (
-    <Link onClick={handleLogOut} to="/" className={cls.LogoutChildWrapper}>
+    <Link onClick={handleLogOut} to="/login" className={cls.LogoutChildWrapper}>
       <Logout className={cls.LogoutIcon} />
     </Link>
   );

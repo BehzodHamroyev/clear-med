@@ -30,11 +30,16 @@ import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { QueuingTv } from '@/pages/QueuingTV';
+import { Login } from '@/features/Auth';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
   AppRoutesProps
 > = {
+  [CommonRoutes.LOGIN]: {
+    path: getRouteForbidden(),
+    element: <Login />,
+  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
@@ -77,6 +82,10 @@ export const routeConfigForDoctor: Record<
   DoctorRoutes | CommonRoutes,
   AppRoutesProps
 > = {
+  [CommonRoutes.LOGIN]: {
+    path: getRouteForbidden(),
+    element: <Login />,
+  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
@@ -111,6 +120,10 @@ export const routeConfigForReception: Record<
   ReceptionRoutes | CommonRoutes,
   AppRoutesProps
 > = {
+  [CommonRoutes.LOGIN]: {
+    path: getRouteForbidden(),
+    element: <Login />,
+  },
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
