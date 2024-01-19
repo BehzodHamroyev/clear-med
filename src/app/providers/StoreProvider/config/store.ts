@@ -4,7 +4,7 @@ import { $api } from '@/shared/api/api';
 import { rtkApi } from '@/shared/api/rtkApi';
 import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
-import { AuthSliceReducer } from '@/features/Auth';
+import { AuthUserSliceReducer } from '@/features/Auth';
 import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
@@ -21,7 +21,7 @@ export function createReduxStore(
 ) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
-    login: AuthSliceReducer,
+    authUser: AuthUserSliceReducer,
     departmentPage: DepartmentListSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,

@@ -1,38 +1,30 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
-import { AuthSliceReducer } from '../model/slice/AuthSlice';
-import { getUserData } from '../model/selector/getUserData';
-import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
-import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './Login.module.scss';
 
-const reducer: ReducersList = {
-  login: AuthSliceReducer,
-};
+import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
+import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
+import { getAuthUserIsLoading } from '../model/selector/authUserSelector';
+import { Loader } from '@/widgets/Loader';
 
 const Login: FC = () => {
-  const { setIsProfileWho } = useContext(ButtonsContext);
+  // const { setIsProfileWho } = useContext(ButtonsContext);
 
-  const loginData = useSelector(getUserData);
+  const authUserIsLoading = useSelector(getAuthUserIsLoading);
 
-  useEffect(() => {
-    if (loginData) {
-      setIsProfileWho(`${loginData.role}`);
-    } else {
-      setIsProfileWho('');
-    }
-  }, [loginData, setIsProfileWho]);
+  // useEffect(() => {
+  //   if (loginData) {
+  //     setIsProfileWho(`${loginData.role}`);
+  //   } else {
+  //     setIsProfileWho('');
+  //   }
+  // }, [loginData, setIsProfileWho]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
-    <DynamicModuleLoader reducers={reducer}>
+    <>
       <div className={cls.LoginPageWrapper}>
         <div className={cls.LoginForm}>
           <LoginFormLeft />
@@ -40,7 +32,9 @@ const Login: FC = () => {
           <LoginFormRight />
         </div>
       </div>
-    </DynamicModuleLoader>
+
+      {authUserIsLoading && <Loader />}
+    </>
   );
 };
 

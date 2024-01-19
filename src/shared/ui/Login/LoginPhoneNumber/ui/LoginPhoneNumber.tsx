@@ -5,21 +5,16 @@ import Input from 'react-phone-number-input/input';
 import cls from './LoginPhoneNumber.module.scss';
 import { FixIcon } from '@/shared/assets/Pages/LoginPage';
 
-interface LoginPhoneNumberProps {
-  handleChange: any;
-}
-
-const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
+const LoginPhoneNumber = () => {
   const phoneInput = useRef<HTMLInputElement | null>(null);
 
-  const { handleChange } = props;
   const { t } = useTranslation();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('+998');
 
   function handleInputChange(event: any, name: string) {
     setValue(event);
-    handleChange(name, event);
   }
+
   const handleInputFix = () => {
     setValue('');
   };
@@ -28,8 +23,6 @@ const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
     if (phoneInput.current) {
       phoneInput.current.focus();
     }
-
-    console.log(phoneInput.current);
   }, []);
 
   return (
@@ -38,13 +31,15 @@ const LoginPhoneNumber = (props: LoginPhoneNumberProps) => {
       <div className={cls.PhoneNumberInputWrapper}>
         <Input
           inputRef={phoneInput}
+          className={cls.PhoneNumberInput}
           name="PhoneNumber"
           placeholder={t('Raqamingizni kiriting...')}
-          value={value}
           rules={{ required: true }}
+          value={value}
+          minLength={8}
           autoComplete="off"
+          autoFocus
           onChange={(e) => handleInputChange(e, 'PhoneNumber')}
-          className={cls.PhoneNumberInput}
         />
         <FixIcon onClick={handleInputFix} className={cls.FixValueBnt} />
       </div>

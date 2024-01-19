@@ -1,7 +1,8 @@
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
-import { observer } from 'mobx-react-lite';
 
 import { Navbar } from '@/widgets/Nabar';
 import { Loader } from '@/widgets/Loader';
@@ -14,60 +15,47 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import 'react-calendar/dist/Calendar.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { Login } from '@/features/Auth';
-import { store } from '@/shared/lib/context/LoginContext';
+import { Login, fetchAuthUser, getAuthUserData } from '@/features/Auth';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-const App = memo(() => {
+const App = () => {
   const { theme } = useTheme();
 
-  // useEffect(() => {
-  //   if (Cookies.get('token')) {
-  //     store.checkAuth();
-  //   }
-  // }, []);
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+  const authUserData = useSelector(getAuthUserData);
 
   useEffect(() => {
-    return store.setUser({
-      role: 'doctor',
-      exprience: 0,
-      id: '',
-      login: 0,
-      name: '',
-      password: '',
-      passwordChangedDate: null,
-      photo: '',
-      _id: '',
-      __v: 0,
-    });
+    if (Cookies.get('token')) {
+      dispatch(
+        fetchAuthUser({
+          refresh: true,
+        }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (store.isLoading) {
-    return <Loader />;
-  }
-
-  // if (!hasIsAuth) {
-  //   return (
-  //     <div>
-  //       <Login />
-  //     </div>
-  //   );
-  // }
-
-  if (!Cookies.get('token')) {
-    return (
-      <div>
-        <Login />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (authUserData?.role && Cookies.get('token')) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUserData]);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
-      <Suspense fallback={<Loader />}>
-        <MainLayout header={<Navbar />} content={<AppRouter />} />
-      </Suspense>
+      {!Cookies.get('token') ? (
+        <Login />
+      ) : (
+        <Suspense fallback={<Loader />}>
+          <MainLayout header={<Navbar />} content={<AppRouter />} />
+        </Suspense>
+      )}
     </div>
   );
-});
+};
 
-export default observer(withTheme(App));
+export default withTheme(App);

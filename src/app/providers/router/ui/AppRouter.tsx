@@ -1,4 +1,5 @@
 import React, { memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import {
   routeConfigForAdmin,
@@ -6,16 +7,19 @@ import {
   routeConfigForReception,
 } from '../config/routeConfig';
 import { AppRoutesProps } from '@/shared/types/router';
-
-import { store } from '@/shared/lib/context/LoginContext';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
 
 const AppRouter = () => {
   const [currentRole, setCurrentRole] = useState<string>('');
 
+  const authUserData = useSelector(getAuthUserData);
+
   useEffect(() => {
-    setCurrentRole(store?.user?.role);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store?.user?.role]);
+    if (authUserData) {
+      setCurrentRole(authUserData.role);
+    }
+  }, [authUserData]);
 
   const renderWithWrapper = useCallback((route: AppRoutesProps) => {
     const element = (

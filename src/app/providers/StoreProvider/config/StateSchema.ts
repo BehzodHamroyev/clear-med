@@ -19,7 +19,7 @@ import {
 } from '@/pages/QueuingTV';
 
 export interface StateSchema {
-  login: AuthReduxType;
+  authUser: AuthReduxType;
   departmentPage: DepartmentListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
   doneQueuesControlDoctor: QueuesControlDoctorSchema;

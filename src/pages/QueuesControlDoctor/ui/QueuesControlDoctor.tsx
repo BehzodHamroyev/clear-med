@@ -36,7 +36,8 @@ import {
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { store } from '@/shared/lib/context/LoginContext';
+
+import { getAuthUserData } from '@/features/Auth';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -61,6 +62,8 @@ const QueuesControlDoctor = () => {
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
 
+  const authUserData = useSelector(getAuthUserData);
+
   const [ipAddress, setIPAddress] = useState('');
 
   useEffect(() => {
@@ -70,10 +73,9 @@ const QueuesControlDoctor = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  //  socket.emit('addUser', {userId, ip_address})
-
-  console.log(store.user._id);
-  console.log(ipAddress);
+  if (authUserData) {
+    // socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
+  }
 
   useEffect(() => {
     dispatch(
@@ -103,9 +105,9 @@ const QueuesControlDoctor = () => {
     console.log(queuesListError);
   }
 
-  socket.on('getNewQueue', (data) => {
-    console.log('Socket Queue data:', data);
-  });
+  // socket.on('getNewQueue', (data) => {
+  //   console.log('Socket Queue data:', data);
+  // });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

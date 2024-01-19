@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { fetchAuthLogin } from '../service/AuthenticatorResponse';
+
 import { AuthLogin, AuthReduxType } from '../types/AuthentificationTypes';
+import { fetchAuthUser } from '../service/fetchAuthUser';
 
 const initialState: AuthReduxType = {
   isLoading: false,
@@ -8,32 +9,34 @@ const initialState: AuthReduxType = {
   data: undefined,
 };
 
-export const AuthSlice = createSlice({
-  name: 'AuthSlice',
+export const AuthUserSlice = createSlice({
+  name: 'AuthUserSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAuthLogin.pending, (state) => {
+      .addCase(fetchAuthUser.pending, (state) => {
         state.error = undefined;
         state.isLoading = true;
       })
       .addCase(
-        fetchAuthLogin.fulfilled,
+        fetchAuthUser.fulfilled,
         (state, action: PayloadAction<AuthLogin>) => {
           state.isLoading = false;
+          state.data = action.payload?.user;
 
-          if (action.payload.user) {
-            state.data = action.payload.user;
-          }
+          // console.log(action.payload);
         },
       )
-      .addCase(fetchAuthLogin.rejected, (state, action) => {
-        state.error = 'Reduxda ma';
+      .addCase(fetchAuthUser.rejected, (state, action) => {
         state.isLoading = false;
+
+        // console.log(action.error);
+
+        state.error = action.payload;
       });
   },
 });
 
-export const { actions: AuthSliceActions } = AuthSlice;
-export const { reducer: AuthSliceReducer } = AuthSlice;
+export const { actions: AuthUserSliceActions } = AuthUserSlice;
+export const { reducer: AuthUserSliceReducer } = AuthUserSlice;
