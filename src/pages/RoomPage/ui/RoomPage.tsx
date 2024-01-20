@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
+import Toast from '@/shared/ui/Toast/Toast';
 import { RoomAdd } from '@/entities/RoomAdd';
 import { ErrorReload } from '@/widgets/Error';
 import { RoomEdit } from '@/entities/RoomEdit';
@@ -85,10 +86,12 @@ const RoomPage = () => {
             />
 
             <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
+
+            <Toast severity="success" message="Xona qo'shildi" />
           </div>
 
           {isOpenRoomAddCard ? <RoomAdd /> : ''}
-          {isOpenRoomEditCard ? <RoomEdit tableBody={tableBody}/> : ''}
+          {isOpenRoomEditCard ? <RoomEdit tableBody={tableBody} /> : ''}
         </div>
       )}
     </DynamicModuleLoader>

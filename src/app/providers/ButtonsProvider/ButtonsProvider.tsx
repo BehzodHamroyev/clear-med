@@ -50,6 +50,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     useState(false);
 
   const [calendarBeginValue, setCalendarBeginValue] = useState('');
+
   const [calendarEndValue, setCalendarEndValue] = useState('');
 
   const [isProfileWho, setIsProfileWho] = useState('');
@@ -72,6 +73,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
 
   const [isOpenDoctorEditCard, setIsOpenDoctorEditCard] = useState(false);
+
+  const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
   const [isOpenQueuingCardClicked, setIsOpenQueuingCardClicked] =
     useState(false);
@@ -161,6 +164,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentAddCardIcon,
       isOpenDepartmentAddCardIconIndex,
       setIsOpenDepartmentAddCardIconIndex,
+      responseAddRoomStatusCode,
+      setResponseAddRoomStatusCode,
       isOpenBurgerNavbar,
       setIsOpenBurgerNavbar,
       isSubmitLoginForm,
@@ -231,6 +236,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setHasOpenToast,
       isDataFormAddRoom,
       setIsDataFormAddRoom,
+      responseAddRoomStatusCode,
+      setResponseAddRoomStatusCode,
     ],
   );
 

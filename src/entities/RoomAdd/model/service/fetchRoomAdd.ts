@@ -3,9 +3,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { useContext, useEffect } from 'react';
 import { baseUrl } from '../../../../../baseurl';
 import { RoomAddTypes } from '../types/roomAddTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 export const fetchDoctorAdd = createAsyncThunk<
   RoomAddTypes,
@@ -20,6 +22,8 @@ export const fetchDoctorAdd = createAsyncThunk<
 
   const token = Cookies.get('token');
 
+  const { setResponseAddRoomStatusCode } = useContext(ButtonsContext);
+
   try {
     const response = await axios.post<RoomAddTypes>(
       `${baseUrl}/room/create`,
@@ -33,7 +37,11 @@ export const fetchDoctorAdd = createAsyncThunk<
       },
     );
 
-    console.log(response, 'room response add');
+    useEffect(() => {
+      setResponseAddRoomStatusCode(response.status);
+    }, [response.status, setResponseAddRoomStatusCode]);
+
+    console.log(response.status, 'room response add');
 
     return response.data;
   } catch (e) {

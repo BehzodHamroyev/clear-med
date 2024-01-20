@@ -18,8 +18,13 @@ const RoomAdd = () => {
   const dispatch = useAppDispatch();
 
   /* useContext */
-  const { isDataFormAddRoom, setIsDataFormAddRoom, setIsOpenRoomAddCard } =
-    React.useContext(ButtonsContext);
+  const {
+    setHasOpenToast,
+    isDataFormAddRoom,
+    setIsDataFormAddRoom,
+    setIsOpenRoomAddCard,
+    responseAddRoomStatusCode,
+  } = React.useContext(ButtonsContext);
 
   /* console */
   console.log(isDataFormAddRoom, 'isDataFormAddRoom');
@@ -39,6 +44,11 @@ const RoomAdd = () => {
           : '',
       }),
     );
+
+    if (responseAddRoomStatusCode === 200) {
+      setHasOpenToast(true);
+      setIsOpenRoomAddCard(false);
+    }
   };
 
   /* UI */

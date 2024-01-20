@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
+  responseAddRoomStatusCode: number;
+  setResponseAddRoomStatusCode: (prop: number) => void;
+
   calendarBeginValue: string;
   setCalendarBeginValue: (props: string) => void;
 
@@ -133,12 +136,19 @@ export interface ButtonsClickedProps {
 export const ButtonsContext = createContext<ButtonsClickedProps>({
   hasOpenToast: false,
   setHasOpenToast: () => {},
+
+  responseAddRoomStatusCode: 0,
+  setResponseAddRoomStatusCode: () => {},
+
   isOpenSettingsChangePassword: false,
   setIsOpenSettingsChangePassword: () => {},
+
   calendarBeginValue: '',
   setCalendarBeginValue: () => {},
+
   calendarEndValue: '',
   setCalendarEndValue: () => {},
+
   departmentGetId: '',
   setDepartmentGetId: () => {},
 
