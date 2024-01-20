@@ -46,7 +46,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     }
   };
 
-  const DepartmentCardDeleteItem = (e: { stopPropagation: () => void }) => {
+  const departmentCardDeleteItem = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     setIsOpenDepartmentEditCard(false);
     dispatch(fetchDepartmentDelete({ idCard: departmentGetId }));
@@ -146,7 +146,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
 
           <div className={cls.BtnParnet}>
             <button
-              onClick={DepartmentCardDeleteItem}
+              onClick={departmentCardDeleteItem}
               type="button"
               className={`${cls.Btn} ${cls.Btn1}`}
             >

@@ -68,7 +68,7 @@ const DoctorListPage = () => {
           item3: `${item?.rooms?.[0]?.department_id?.name}`,
           item4: item?.exprience,
           lastChild: item?.login,
-          img: `http://magicsoft.uz/med/uploads/${item.photo}`,
+          img: `http://medapi.magicsoft.uz/${item.photo}`,
         };
       });
       setTableBody(() => [...tableBodys]);

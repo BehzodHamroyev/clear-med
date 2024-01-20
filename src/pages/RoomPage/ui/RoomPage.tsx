@@ -2,9 +2,12 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 import { RoomAdd } from '@/entities/RoomAdd';
+import { ErrorReload } from '@/widgets/Error';
 import { RoomEdit } from '@/entities/RoomEdit';
 import { TableTitle } from '@/entities/TableTitle';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { RoomListSliceReducer } from '../model/slice/getRoomSlice';
 import { fetchRoomGetAll } from '../model/service/getAllRoomRequest';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -15,79 +18,14 @@ import {
   getListOfRoom,
 } from '../model/selectors/RoomList';
 
-import cls from './RoomPage.module.scss';
-import { RoomListSliceReducer } from '../model/slice/getRoomSlice';
 import {
-  DynamicModuleLoader,
   ReducersList,
+  DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
-import { ErrorReload } from '@/widgets/Error';
+
+import cls from './RoomPage.module.scss';
 
 const tableTitle = ['Xona raqami', 'Bo‘limlar', 'Biriktirilgan shifokorlar'];
-
-// const tableBody = [
-//   {
-//     id: 1,
-//     item1: 1,
-//     item2: 'Ginekologiya',
-//     lastChild: 4,
-//   },
-//   {
-//     id: 1,
-//     item1: 2,
-//     item2: 'Pediatriya',
-//     lastChild: 3,
-//   },
-//   {
-//     id: 1,
-//     item1: 6,
-//     item2: 'Ankologia',
-//     lastChild: 2,
-//   },
-//   {
-//     id: 1,
-//     item1: 2,
-//     item2: 'Artopediya',
-//     lastChild: 1,
-//   },
-//   {
-//     id: 1,
-//     item1: 23,
-//     item2: 'Ginekologiya',
-//     lastChild: 2,
-//   },
-//   {
-//     id: 1,
-//     item1: 17,
-//     item2: 'Ginekologiya',
-//     lastChild: 3,
-//   },
-//   {
-//     id: 1,
-//     item1: 4,
-//     item2: 'Pediatriya',
-//     lastChild: 2,
-//   },
-//   {
-//     id: 1,
-//     item1: 6,
-//     item2: 'Ankologia',
-//     lastChild: 4,
-//   },
-//   {
-//     id: 1,
-//     item1: 22,
-//     item2: 'Artopediya',
-//     lastChild: 1,
-//   },
-//   {
-//     id: 1,
-//     item1: 23,
-//     item2: 'Ginekologiya',
-//     lastChild: 2,
-//   },
-// ];
 
 const RoomPage = () => {
   /* useAppDispatch */
@@ -150,7 +88,7 @@ const RoomPage = () => {
           </div>
 
           {isOpenRoomAddCard ? <RoomAdd /> : ''}
-          {isOpenRoomEditCard ? <RoomEdit /> : ''}
+          {isOpenRoomEditCard ? <RoomEdit tableBody={tableBody}/> : ''}
         </div>
       )}
     </DynamicModuleLoader>

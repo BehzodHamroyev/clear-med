@@ -15,7 +15,7 @@ function getApiUrl(mode: BuildMode, apiUrl?: string) {
   // return 'http://localhost:8000';
 
   // ---------- Real server ----------
-  return 'http://magicsoft.uz/med/api/v1';
+  return 'http://medapi.magicsoft.uz/api/v1';
 }
 
 export default (env: BuildEnv) => {
