@@ -9,6 +9,7 @@ const LoginPhoneNumber = () => {
   const phoneInput = useRef<HTMLInputElement | null>(null);
 
   const { t } = useTranslation();
+
   const [value, setValue] = useState('+998');
 
   function handleInputChange(event: any, name: string) {

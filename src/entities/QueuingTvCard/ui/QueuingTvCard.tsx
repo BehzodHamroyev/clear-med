@@ -18,6 +18,7 @@ const QueuingTvCard = ({
   CardLeftDoctorName,
 }: QueuingTvCardProps) => {
   const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
