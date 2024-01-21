@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
+// import { io } from 'socket.io-client';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -46,7 +47,9 @@ const reducers: ReducersList = {
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
 
-  const socket = io('ws://magicsoft.uz:8900');
+  const { t } = useTranslation();
+
+  // const socket = io('ws://magicsoft.uz:8900');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -124,25 +127,33 @@ const QueuesControlDoctor = () => {
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
-            <ButtonNavbar
-              dontCreate
-              TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
-              ItemsLength={doneQueuesList?.length}
-            />
-            <DoneQueueTableTitleDoctorProfile
-              Tablethead={[
-                'Id',
-                'Qabul kuni',
-                'Qabul boshlanishi',
-                'Qabul tugashi',
-                'Xolati',
-              ]}
-              Tabletbody={doneQueuesList}
-            />
+            {doneQueuesList && doneQueuesList.length > 0 ? (
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+                  ItemsLength={doneQueuesList?.length}
+                />
+                <DoneQueueTableTitleDoctorProfile
+                  Tablethead={[
+                    'Id',
+                    'Qabul kuni',
+                    'Qabul boshlanishi',
+                    'Qabul tugashi',
+                    'Xolati',
+                  ]}
+                  Tabletbody={doneQueuesList}
+                />
+              </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t("Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!")}
+              </h2>
+            )}
           </div>
 
           <div className={cls.TableDoctorChild}>
-            {queuesList && (
+            {queuesList && queuesList.length > 0 ? (
               <>
                 <ButtonNavbar
                   dontCreate
@@ -154,6 +165,10 @@ const QueuesControlDoctor = () => {
                   Tabletbody={queuesList}
                 />
               </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
+              </h2>
             )}
           </div>
         </div>

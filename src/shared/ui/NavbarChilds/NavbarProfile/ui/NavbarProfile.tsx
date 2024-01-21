@@ -11,6 +11,8 @@ const NavbarProfile = () => {
 
   const { t } = useTranslation();
 
+  console.log(loginData?.role);
+
   const profile =
     loginData?.role === 'admin'
       ? 'Admin'
@@ -22,7 +24,8 @@ const NavbarProfile = () => {
 
   return (
     <div className={cls.NavbarProfileWrapper}>
-      <h3>{t(profile)}</h3>
+      <h3>{t(`${loginData?.role}`)}</h3>
+      {loginData?.role === 'doctor' && <h3> : {loginData?.name}</h3>}
     </div>
   );
 };

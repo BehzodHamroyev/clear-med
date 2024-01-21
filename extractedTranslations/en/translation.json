@@ -84,6 +84,13 @@
   "Bo‘lim turi": "",
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas": "",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas ": "",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas !": "",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "",
+  "Bugun navbatga yozilgan bemorlar mavjud emas": "",
+  "Bugun navbatga yozilgan bemorlar mavjud emas!": "",
+  "Bugun navbatga yozilgna bemorlar mavjud emas": "",
   "Chiqarish": "",
   "D": "",
   "Der": "",
@@ -232,6 +239,9 @@
   "Yangi parolni kiriting": "",
   "Yorqin": "",
   "kIRISH": "",
+  "loginData?": {
+    "role": ""
+  },
   "menu": "",
   "mi": "",
   "minu": "",

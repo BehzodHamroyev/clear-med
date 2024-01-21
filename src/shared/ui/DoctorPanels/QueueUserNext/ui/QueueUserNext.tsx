@@ -54,7 +54,7 @@ const QueueUserNext = () => {
 
   return (
     <div className={cls.QueueUserNextWrapper}>
-      {!proccessedList?.data[0] && (
+      {!proccessedList?.data[0] && queuesList && queuesList?.length > 0 && (
         <button
           className={cls.QueueUserNextBtn}
           type="button"

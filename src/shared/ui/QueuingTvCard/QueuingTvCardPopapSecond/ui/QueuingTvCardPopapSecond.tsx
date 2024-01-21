@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 import cls from './QueuingTvCardPopapSecond.module.scss';
 import cls2 from './PrintQueuePage.module.scss';
@@ -34,7 +34,7 @@ const QueuingTvCardPopapSecond = ({
 }: QueuingTvCardPopapSecondProps) => {
   const { t } = useTranslation();
 
-  const socket = io('ws://magicsoft.uz:8900');
+  // const socket = io('ws://magicsoft.uz:8900');
 
   const printableDivRef = useRef<HTMLDivElement>(null);
 
@@ -66,15 +66,15 @@ const QueuingTvCardPopapSecond = ({
       ).then(() => {
         if (!currentQueueError && !currentQueueLoading) printCom();
 
-        if (currentQueueData) {
-          socket.emit(
-            'create_queue',
-            { queue_data: currentQueueData },
-            (responce: { status: string }) => {
-              console.log(responce);
-            },
-          );
-        }
+        // if (currentQueueData) {
+        //   socket.emit(
+        //     'create_queue',
+        //     { queue_data: currentQueueData },
+        //     (responce: { status: string }) => {
+        //       console.log(responce);
+        //     },
+        //   );
+        // }
       });
     }
   };
