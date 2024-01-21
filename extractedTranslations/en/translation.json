@@ -17,6 +17,7 @@
   "Bekor qilish": "",
   "Bemor": "",
   "Bemorg": "",
+  "Bemorlar hisoboti bo'sh": "",
   "Bemorni": "",
   "Bemorni ": "",
   "Bemorni qa": "",
@@ -84,6 +85,9 @@
   "Bo‘lim turi": "",
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
+  "Bu muddatdagi bemorlar hisoboti bo'sh": {
+    " Muddatni o'zgartirib ko'ring!": ""
+  },
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas": "",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas ": "",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas !": "",
@@ -111,6 +115,7 @@
   },
   "Fullscreen": "",
   "Hisobotlar": "",
+  "Hisobotlar mavjud emas": "",
   "I can be a React component, multiple React components, or just some text": {
     "": ""
   },
