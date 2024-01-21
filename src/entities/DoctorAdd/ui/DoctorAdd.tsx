@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 
@@ -19,10 +19,11 @@ const DoctorAdd = () => {
   const dispatch = useAppDispatch();
 
   /* context */
-  const { setIsOpenDoctorAddCard } = React.useContext(ButtonsContext);
+  const { setIsOpenDoctorAddCard, responseAddDoctorStatusCode } =
+    React.useContext(ButtonsContext);
 
   /* useState */
-  const [isImageUser, setIsImageUser] = React.useState<any>();
+  const [selectedFile, setSelectedFile] = React.useState<any>(null);
 
   const [isYearDoctor, setIsYearDoctor] = React.useState({
     years: '',
@@ -34,9 +35,9 @@ const DoctorAdd = () => {
 
   const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
     name: '',
-    file: null,
     login: null,
     password: '',
+    file: undefined,
     exprience: null,
   });
 
@@ -50,13 +51,9 @@ const DoctorAdd = () => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const selectedFile = event.target.files[0];
-
-      setIsImageUser(selectedFile);
-      setIsAllFormData({ ...isAllFormData, file: selectedFile });
-    }
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file);
   };
 
   function handleInputChange(event: any, name: string) {
@@ -72,16 +69,19 @@ const DoctorAdd = () => {
   }
 
   /* fetch data */
-  const handleSubmitAllFormData = () => {
-    dispatch(
-      fetchDoctorAdd({
-        name: isAllFormData?.name,
-        file: `${isAllFormData.file}`,
-        login: `${isAllFormData?.login}`,
-        password: `${isAllFormData?.password}`,
-        exprience: `${isAllFormData.exprience}`,
-      }),
-    );
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    const data = new FormData();
+
+    data.append('file', selectedFile);
+    data.append('name', `${isAllFormData!.name}`);
+    data.append('login', `${isAllFormData!.login}`);
+    data.append('password', `${isAllFormData!.password}`);
+    data.append('exprience', `${isAllFormData!.exprience}`);
+    data.append('role', `doctor`);
+
+    dispatch(fetchDoctorAdd({ data }));
   };
 
   /* UI */
@@ -105,7 +105,7 @@ const DoctorAdd = () => {
           <div className={cls.AddCardImg}>
             <img
               className={cls.AddCardImgValue}
-              src={isImageUser ? URL.createObjectURL(isImageUser) : Doctor}
+              src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
               alt="#"
             />
 
@@ -123,7 +123,8 @@ const DoctorAdd = () => {
               type="file"
               ref={inputRef}
               style={{ display: 'none' }}
-              onChange={handleFileChange}
+              accept=".jpg, .jpeg, .png, .svg"
+              onChange={(e) => handleFileChange(e)}
             />
           </div>
 
@@ -156,9 +157,9 @@ const DoctorAdd = () => {
 
             <Input
               value={value}
+              maxLength={20}
               autoComplete="off"
               name="PhoneNumber"
-              maxLength={20}
               rules={{ required: true }}
               className={cls.InputBulim}
               placeholder={t('Telefon raqami')}
@@ -208,7 +209,7 @@ const DoctorAdd = () => {
               <button
                 type="button"
                 className={`${cls.Btn} ${cls.Btn2}`}
-                onClick={handleSubmitAllFormData}
+                onClick={handleSubmit}
               >
                 {t('Saqlash')}
               </button>

@@ -19,7 +19,7 @@ export interface DoctorAddTypes {
 
 export interface FormDataInState {
   name: string;
-  file: File | null;
+  file: any;
   login: null | string | number;
   password: string | number;
   exprience: null | string | number;

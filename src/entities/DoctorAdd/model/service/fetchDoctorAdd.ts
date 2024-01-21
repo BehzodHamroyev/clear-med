@@ -2,21 +2,19 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { useContext } from 'react';
 import { baseUrl } from '../../../../../baseurl';
 import { DoctorAddTypes } from '../types/doctorAddTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 export const fetchDoctorAdd = createAsyncThunk<
   DoctorAddTypes,
   {
-    name: string;
-    password: string;
-    login: string | number;
-    exprience: number | string;
-    file: HTMLImageElement | string;
+    data: any;
   },
   ThunkConfig<string>
->('DoctorAdd', async ({ name, login, password, exprience, file }, thunkApi) => {
+>('DoctorAdd', async ({ data }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
   const token = Cookies.get('token');
@@ -24,14 +22,7 @@ export const fetchDoctorAdd = createAsyncThunk<
   try {
     const response = await axios.post<DoctorAddTypes>(
       `${baseUrl}/users`,
-      {
-        name,
-        file,
-        login,
-        password,
-        exprience,
-        role: 'doctor',
-      },
+      data,
       {
         maxBodyLength: Infinity,
         headers: {
@@ -41,7 +32,17 @@ export const fetchDoctorAdd = createAsyncThunk<
       },
     );
 
-    console.log(response, 'doctor response add');
+    const {
+      setHasOpenToast,
+      setResponseAddDoctorStatusCode,
+      setIsOpenDoctorAddCard,
+    } = useContext(ButtonsContext);
+
+    setHasOpenToast(true);
+    setResponseAddDoctorStatusCode(response.status);
+    setIsOpenDoctorAddCard(false);
+
+    console.log(response.status);
 
     return response.data;
   } catch (e) {

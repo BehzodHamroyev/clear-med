@@ -1,4 +1,3 @@
-/* eslint-disable no-constant-condition */
 import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';

@@ -76,6 +76,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
+  const [responseAddDoctorStatusCode, setResponseAddDoctorStatusCode] =
+    useState(0);
+
   const [isOpenQueuingCardClicked, setIsOpenQueuingCardClicked] =
     useState(false);
 
@@ -180,6 +183,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setHasOpenToast,
       isDataFormAddRoom,
       setIsDataFormAddRoom,
+      responseAddDoctorStatusCode,
+      setResponseAddDoctorStatusCode,
     }),
     [
       currentQueueData,
@@ -238,6 +243,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsDataFormAddRoom,
       responseAddRoomStatusCode,
       setResponseAddRoomStatusCode,
+      responseAddDoctorStatusCode,
+      setResponseAddDoctorStatusCode,
     ],
   );
 

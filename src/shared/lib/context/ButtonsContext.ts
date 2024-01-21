@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
+  responseAddDoctorStatusCode: number;
+  setResponseAddDoctorStatusCode: (prop: number) => void;
+
   responseAddRoomStatusCode: number;
   setResponseAddRoomStatusCode: (prop: number) => void;
 
@@ -136,6 +139,9 @@ export interface ButtonsClickedProps {
 export const ButtonsContext = createContext<ButtonsClickedProps>({
   hasOpenToast: false,
   setHasOpenToast: () => {},
+
+  responseAddDoctorStatusCode: 0,
+  setResponseAddDoctorStatusCode: () => {},
 
   responseAddRoomStatusCode: 0,
   setResponseAddRoomStatusCode: () => {},
