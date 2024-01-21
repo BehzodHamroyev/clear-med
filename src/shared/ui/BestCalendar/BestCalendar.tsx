@@ -50,8 +50,8 @@ const BestCalendar = ({ className }: BestCalendarProps) => {
                 },
               }}
               localeText={{
-                start: 'Dan',
-                end: 'Gacha',
+                start: 'dan',
+                end: 'gacha',
               }}
               onChange={handleDateChange}
               format="DD/MM/YYYY"

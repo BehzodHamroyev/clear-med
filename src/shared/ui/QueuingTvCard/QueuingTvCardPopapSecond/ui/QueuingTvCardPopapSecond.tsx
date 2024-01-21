@@ -49,7 +49,7 @@ const QueuingTvCardPopapSecond = ({
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
   const printCom = useReactToPrint({
-    content: () => printableDivRef.current,
+    content: () => printableDivRef?.current,
     documentTitle: 'queue-data',
     onAfterPrint: () => setIsOpenQueuingTvCardPopapSecond(false),
   });
@@ -57,11 +57,11 @@ const QueuingTvCardPopapSecond = ({
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
-    if (lastQueue && printableDivRef.current) {
+    if (lastQueue && printableDivRef?.current) {
       dispatch(
         fetchCurrentQueue({
-          departmentId: lastQueue?.data.department_id,
-          roomId: lastQueue?.data.room_id,
+          departmentId: lastQueue?.data?.department_id,
+          roomId: lastQueue?.data?.room_id,
         }),
       ).then(() => {
         if (!currentQueueError && !currentQueueLoading) printCom();
@@ -78,6 +78,8 @@ const QueuingTvCardPopapSecond = ({
       });
     }
   };
+
+  console.log(lastQueue);
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
@@ -100,20 +102,20 @@ const QueuingTvCardPopapSecond = ({
             <div className={cls2.PrintQueuePage__medicName}>
               <p>{t('Shifokor')}:</p>
               <p className={cls2.medicNameFullName}>
-                {lastQueue?.data.doctor_id.name}
+                {lastQueue?.data?.doctor_id?.name}
               </p>
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
               <p>{t('Berilgan vaqt')}:</p>
               <p className={cls2.PrintQueuePage__dateGetQueue}>
-                {lastQueue?.data.created_time
+                {lastQueue?.data?.created_time
                   .split('T')[1]
                   .split('.')[0]
                   .split(':')
                   .slice(0, 2)
                   .join(':')}{' '}
-                | {lastQueue?.data.created_date}
+                | {lastQueue?.data?.created_date}
               </p>
             </div>
 
