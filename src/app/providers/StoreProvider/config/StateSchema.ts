@@ -19,6 +19,7 @@ import {
   CurrentQueueSchemaForReception,
 } from '@/pages/QueuingTV';
 import { RoomListSchema } from '@/pages/RoomPage';
+import { DoctorListScheam } from '@/pages/ReportsPage';
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -31,6 +32,7 @@ export interface StateSchema {
   currentQueue: CurrentQueueSchemaForReception;
   RoomGetAll: RoomListSchema;
   lastQueue: LastQueueDataSchema;
+  doctorList: DoctorListScheam;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

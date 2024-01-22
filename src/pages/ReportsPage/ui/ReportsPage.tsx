@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import cls from './ReportsPage.module.scss';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { TableTitleReports } from '@/entities/TableTitleReports';
 
-import cls from './ReportsPage.module.scss';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchDoctorList } from '../model/services/fetchDoctorList';
+import { getDoctorListData } from '../model/selectors/doctorListSelector';
 
-const tableTitle = ['Bo‘lim', 'Shifokor ro‘yxati', 'Xona', 'Bemorlar soni'];
+const tableTitle = ['Bo‘lim', 'Xona', 'Shifokor ro‘yxati', 'Shifokor'];
 
 const TableBody = [
   {
@@ -99,19 +104,30 @@ const TableBody = [
 ];
 
 const ReportsPage = () => {
+  const dispatch = useAppDispatch();
+
+  const doctorList = useSelector(getDoctorListData);
+
+  useEffect(() => {
+    dispatch(fetchDoctorList({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (doctorList) {
+    console.log(doctorList);
+  }
+
   return (
     <div className={cls.ReportsPageWrapper}>
-      <ButtonNavbar
-        Calendar
-        TableTitle="Hisobotlar"
-        ItemsLength={TableBody.length}
-      />
+      <ButtonNavbar TableTitle="Shifokorlar" ItemsLength={doctorList?.length} />
 
-      <TableTitleReports
-        cursor
-        Tablethead={tableTitle}
-        Tabletbody={TableBody}
-      />
+      {doctorList && (
+        <TableTitleReports
+          cursor
+          Tablethead={tableTitle}
+          Tabletbody={doctorList}
+        />
+      )}
     </div>
   );
 };
