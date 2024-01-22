@@ -23,7 +23,10 @@ const ListOfSettings = () => {
     <div className={cls.ListOfSettingsWrapper}>
       <div
         className={`${cls.Language} ${isOpenThemeOrLanguage ? cls.IsOpen : ''}`}
-        onClick={() => setIsOpenThemeOrLanguage(true)}
+        onClick={() => {
+          setIsOpenThemeOrLanguage(true);
+          setIsOpenSettingsChangePassword(false);
+        }}
       >
         <div className={cls.LanguageLeft}>
           <LanguageIcon />
