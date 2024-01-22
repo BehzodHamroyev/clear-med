@@ -55,6 +55,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isProfileWho, setIsProfileWho] = useState('');
 
+  const [getResponseData, setResponseData] = useState('');
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -152,6 +154,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenRoomEditCard,
       setIsOpenRoomEditCard,
       isOpenRoomAddCard,
+      getResponseData,
+      setResponseData,
       setIsOpenRoomAddCard,
       isOpenDoctorAddCard,
       setIsOpenDoctorAddCard,
@@ -198,6 +202,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
+      getResponseData,
+      setResponseData,
       setIsCloseCalendar,
       departmentListChanged,
       setDepartmentListChanged,

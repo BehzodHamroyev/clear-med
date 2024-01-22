@@ -74,6 +74,9 @@ const RoomEdit = (prop: RoomEditType) => {
         },
       );
 
+      setResponseAddDoctorStatusCode(200);
+      setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+
       return response.data;
     } catch (e) {
       return setResponseAddDoctorStatusCode('404');
@@ -97,6 +100,7 @@ const RoomEdit = (prop: RoomEditType) => {
         },
       );
       setResponseAddDoctorStatusCode(200);
+
       setDepartmentListChanged(`${Math.random() * 100 + 1}`);
 
       return response.data;

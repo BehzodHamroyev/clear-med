@@ -14,6 +14,9 @@ export interface ButtonsClickedProps {
   calendarBeginValue: string;
   setCalendarBeginValue: (props: string) => void;
 
+  getResponseData: string;
+  setResponseData: (props: string) => void;
+
   calendarEndValue: string;
   setCalendarEndValue: (props: string) => void;
   departmentGetId: string;
@@ -154,6 +157,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   calendarEndValue: '',
   setCalendarEndValue: () => {},
+
+  getResponseData: '',
+  setResponseData: () => {},
 
   departmentGetId: '',
   setDepartmentGetId: () => {},
