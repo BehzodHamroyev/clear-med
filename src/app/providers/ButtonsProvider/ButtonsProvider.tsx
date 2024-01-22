@@ -77,7 +77,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
   const [responseAddDoctorStatusCode, setResponseAddDoctorStatusCode] =
-    useState(0);
+    useState<string | number>(0);
 
   const [isOpenQueuingCardClicked, setIsOpenQueuingCardClicked] =
     useState(false);

@@ -1,8 +1,10 @@
 import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { baseUrl } from '../../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchDepartmentEdit } from '../model/service/departmentEdit';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { fetchDepartmentDelete } from '../model/service/departmentDelete';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -14,8 +16,11 @@ import {
 } from '../model/types/departmentDelete';
 
 import cls from './DepartmentEdit.module.scss';
+import { DepartmentEditType } from '../model/types/departmentEdit';
 
 const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
+  const token = Cookies.get('token');
+
   const { tableBody } = prop;
 
   const { t } = useTranslation();
@@ -35,6 +40,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentEditCard,
     setIsOpenDepartmentAddCardIcon,
+    setResponseAddDoctorStatusCode,
     isOpenDepartmentAddCardIconIndex,
   } = React.useContext(ButtonsContext);
 
@@ -53,17 +59,35 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     setDepartmentListChanged(' ');
   };
 
-  const DepartmentAddCardEditItem = () => {
-    dispatch(
-      fetchDepartmentEdit({
-        idCard: inputValue.id,
-        image: `${isOpenDepartmentAddCardIconIndex || 1}`,
-        name: inputValue.departmentName,
-        duration: Number(inputValue.durationTime),
-      }),
-    );
-
+  /* fetch edit */
+  const DepartmentAddCardEditItem = async () => {
     setDepartmentListChanged('Edit');
+
+    try {
+      const response = await axios.patch<DepartmentEditType>(
+        `${baseUrl}/department/${inputValue.id}`,
+        {
+          name: inputValue.departmentName,
+          image: `${isOpenDepartmentAddCardIconIndex || 1}`,
+          duration: Number(inputValue.durationTime),
+        },
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setResponseAddDoctorStatusCode(200);
+      setIsOpenDepartmentEditCard(false);
+
+      return response.data;
+    } catch (e) {
+      setResponseAddDoctorStatusCode('404');
+      return console.log('error');
+    }
   };
 
   const matchingItem = tableBody?.find((item) => item?.id === departmentGetId);
@@ -83,6 +107,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     }
   }, [ResultIcon, matchingItem]);
 
+  /* UI */
   return (
     <div
       className={cls.DepartmentAddWrapper}

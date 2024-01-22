@@ -5,8 +5,8 @@ export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
-  responseAddDoctorStatusCode: number;
-  setResponseAddDoctorStatusCode: (prop: number) => void;
+  responseAddDoctorStatusCode: number | string;
+  setResponseAddDoctorStatusCode: (prop: number | string) => void;
 
   responseAddRoomStatusCode: number;
   setResponseAddRoomStatusCode: (prop: number) => void;
