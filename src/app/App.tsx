@@ -1,7 +1,7 @@
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Cookies from 'js-cookie';
-import { observer } from 'mobx-react-lite';
 
 import { Navbar } from '@/widgets/Nabar';
 import { Loader } from '@/widgets/Loader';
@@ -14,52 +14,33 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import 'react-calendar/dist/Calendar.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { Login } from '@/features/Auth';
-import { store } from '@/shared/lib/context/LoginContext';
+import { fetchAuthUser } from '@/features/Auth';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-const App = memo(() => {
+const App = () => {
   const { theme } = useTheme();
 
-  // useEffect(() => {
-  //   if (Cookies.get('token')) {
-  //     store.checkAuth();
-  //   }
-  // }, []);
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return store.setUser({
-      role: 'admin',
-      exprience: 0,
-      id: '',
-      login: 0,
-      name: '',
-      password: '',
-      passwordChangedDate: null,
-      photo: '',
-      _id: '',
-      __v: 0,
-    });
+    if (Cookies.get('token')) {
+      dispatch(
+        fetchAuthUser({
+          refresh: true,
+        }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (store.isLoading) {
-    return <Loader />;
-  }
-
-  // if (!hasIsAuth) {
-  //   return (
-  //     <div>
-  //       <Login />
-  //     </div>
-  //   );
-  // }
-
-  if (!Cookies.get('token')) {
-    return (
-      <div>
-        <Login />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!Cookies.get('token')) {
+      navigate('/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
@@ -68,6 +49,6 @@ const App = memo(() => {
       </Suspense>
     </div>
   );
-});
+};
 
-export default observer(withTheme(App));
+export default withTheme(App);

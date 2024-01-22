@@ -12,6 +12,7 @@ export enum AdminRoutes {
   ADD_DOCTOR = 'add_doctor',
   ROOMPAGE = 'room_page',
   REPORTS_PATIENT = 'reports_patient',
+  REPORTS = 'reports',
 }
 
 // Doctor saytlari uchun

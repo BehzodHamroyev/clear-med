@@ -23,7 +23,7 @@ import {
 } from '../model/selectors/lastQueueSelector';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { QueuingTvCard } from '@/entities/QueuingTvCard';
+
 import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -32,6 +32,8 @@ import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 
 const QueuingTv = () => {
   const dispatch = useAppDispatch();
@@ -55,26 +57,23 @@ const QueuingTv = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (lastQueue) {
-    console.log();
-  }
-
   return (
     <div className={cls.QueuingTvWrapper}>
       <ButtonNavbar TableTitle="Xonalar" ItemsLength={deparmentList?.length} />
 
       <div className={cls.RenderSectionCard}>
-        {deparmentList?.map((item) => (
-          <QueuingTvCard
-            key={item.id}
-            DoctorId={item.doctor_id._id}
-            CardLeftTitle={item.department_id.name}
-            CardLeftRoomNumber={item.name}
-            CardLeftDoctorName={item.doctor_id.name}
-            // @ts-ignore
-            Icon={iconsCardDepartments[item.department_id.image].icon}
-          />
-        ))}
+        {deparmentList &&
+          deparmentList.map((item) => (
+            <QueuingTvCard
+              key={item?.id}
+              DoctorId={item?.doctor_id?.id}
+              CardLeftTitle={item?.department_id?.name}
+              CardLeftRoomNumber={item?.name}
+              CardLeftDoctorName={item?.doctor_id?.name}
+              // @ts-ignore
+              Icon={iconsCardDepartments[item?.department_id?.image]?.icon}
+            />
+          ))}
       </div>
 
       {isOpenQueuingTvCardPopapSecond &&

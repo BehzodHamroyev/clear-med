@@ -18,10 +18,10 @@ import {
   DepartmentListSchemaForReception,
   CurrentQueueSchemaForReception,
 } from '@/pages/QueuingTV';
-import {  RoomListSchema } from '@/pages/RoomPage';
+import { RoomListSchema } from '@/pages/RoomPage';
 
 export interface StateSchema {
-  login: AuthReduxType;
+  authUser: AuthReduxType;
   departmentPage: DepartmentListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
   doneQueuesControlDoctor: QueuesControlDoctorSchema;

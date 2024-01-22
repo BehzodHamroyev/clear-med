@@ -94,6 +94,11 @@
   "Bo‘lim turi": "",
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
+  "Bu muddatdagi bemorlar hisoboti bo'sh": {
+    " Muddatni o'zgartirib ko'ring!": ""
+  },
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "",
+  "Bugun navbatga yozilgan bemorlar mavjud emas!": "",
   "Chiqarish": "",
   "D": "",
   "Der": "",
@@ -126,6 +131,7 @@
   "Keyingisi": "",
   "Kirish": "",
   "Login": "",
+  "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
   "Ma'lumotlar qo'shilmadi": "",

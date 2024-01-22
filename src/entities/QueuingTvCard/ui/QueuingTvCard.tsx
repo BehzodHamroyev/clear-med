@@ -18,6 +18,7 @@ const QueuingTvCard = ({
   CardLeftDoctorName,
 }: QueuingTvCardProps) => {
   const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
@@ -27,12 +28,13 @@ const QueuingTvCard = ({
   ) => {
     e.stopPropagation();
 
-    dispatch(
-      fetchLastQueue({
-        doctorId: DoctorId,
-      }),
-    );
-
+    if (DoctorId) {
+      dispatch(
+        fetchLastQueue({
+          doctorId: DoctorId,
+        }),
+      );
+    }
     setIsOpenQueuingTvCardPopapSecond(true);
   };
 
@@ -50,9 +52,7 @@ const QueuingTvCard = ({
           {t('Shifokor')}: {CardLeftDoctorName}
         </p>
       </div>
-      <div className={cls.CardRight}>
-        <Icon />
-      </div>
+      <div className={cls.CardRight}>{/* <Icon /> */}</div>
     </div>
   );
 };

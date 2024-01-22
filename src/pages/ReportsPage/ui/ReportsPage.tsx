@@ -1,8 +1,9 @@
 import React from 'react';
 
-import cls from './ReportsPage.module.scss';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { TableTitleReports } from '@/entities/TableTitleReports';
+
+import cls from './ReportsPage.module.scss';
 
 const tableTitle = ['Bo‘lim', 'Shifokor ro‘yxati', 'Xona', 'Bemorlar soni'];
 

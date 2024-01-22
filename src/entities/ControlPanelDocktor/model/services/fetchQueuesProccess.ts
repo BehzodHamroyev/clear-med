@@ -34,7 +34,6 @@ export const fetchQueuesProccess = createAsyncThunk<
     } else if (method === 'post') {
       response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
         `${baseUrl}/doctor/${path}${status}`,
-
         {},
         {
           headers: {

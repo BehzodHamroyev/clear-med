@@ -73,60 +73,78 @@ const TableReportsDoctorPage = () => {
     <>
       <table className={cls.TableTitleWrapper}>
         <ButtonNavbar TableTitle="Hisobot" Calendar />
-        <div className={cls.TableTitleWrapper__title}>
-          <h3 className={cls.KorilganBemorlar}>
-            {t("Jami Ko'rilgan Bemorlar : ")}
-            {reportList ? reportList.length : 0}
-            {t(' ta')}
-          </h3>
 
-          <h3 className={cls.KorilganBemorlar}>
-            {t('Tasdiqlangan Bemorlar : ')}
-            {reportList
-              ? reportList.filter((item) => item.status === 'completed').length
-              : 0}
-            {t(' ta')}
-          </h3>
+        {reportList && reportList.length > 0 ? (
+          <>
+            <div className={cls.TableTitleWrapper__title}>
+              <h3 className={cls.KorilganBemorlar}>
+                {t("Jami Ko'rilgan Bemorlar : ")}
+                {reportList ? reportList.length : 0}
+                {t(' ta')}
+              </h3>
 
-          <h3 className={cls.KorilganBemorlar}>
-            {t('Bekor qilingan Bemorlar : ')}
-            {reportList
-              ? reportList.filter((item) => item.status === 'rejected').length
-              : 0}
-            {t(' ta')}
-          </h3>
-        </div>
-        <thead className={cls.Tablethead}>
-          <tr className={cls.tr}>
-            {tableTitle.map((title: string) => (
-              <th key={title} className={cls.th}>
-                {title}
-              </th>
-            ))}
-          </tr>
-        </thead>
+              <h3 className={cls.KorilganBemorlar}>
+                {t('Tasdiqlangan Bemorlar : ')}
+                {reportList
+                  ? reportList.filter((item) => item.status === 'completed')
+                      .length
+                  : 0}
+                {t(' ta')}
+              </h3>
 
-        <tbody className={cls.Tabletbody}>
-          {reportList &&
-            reportList.map((item, index) => (
-              <tr key={item.id} className={cls.tr}>
-                <td className={cls.td}>{item.queues_name}</td>
-                <td className={cls.td}>{item.completed_date?.split('T')[0]}</td>
-                <td className={cls.td}>
-                  {item.accepted_date?.split('T')[1].split('.')[0]}
-                </td>
-                <td className={cls.td}>
-                  {item.completed_date?.split('T')[1].split('.')[0]}
-                </td>
-                <td className={cls.td}>
-                  <img
-                    src={item.status === 'completed' ? CheckedIcon : ErrorIcon}
-                    alt="rejected"
-                  />
-                </td>
+              <h3 className={cls.KorilganBemorlar}>
+                {t('Bekor qilingan Bemorlar : ')}
+                {reportList
+                  ? reportList.filter((item) => item.status === 'rejected')
+                      .length
+                  : 0}
+                {t(' ta')}
+              </h3>
+            </div>
+            <thead className={cls.Tablethead}>
+              <tr className={cls.tr}>
+                {tableTitle.map((title: string) => (
+                  <th key={title} className={cls.th}>
+                    {title}
+                  </th>
+                ))}
               </tr>
-            ))}
-        </tbody>
+            </thead>
+
+            <tbody className={cls.Tabletbody}>
+              {reportList &&
+                reportList.length > 0 &&
+                reportList.map((item, index) => (
+                  <tr key={item.id} className={cls.tr}>
+                    <td className={cls.td}>{item.queues_name}</td>
+                    <td className={cls.td}>
+                      {item.completed_date?.split('T')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      {item.accepted_date?.split('T')[1].split('.')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      {item.completed_date?.split('T')[1].split('.')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      <img
+                        src={
+                          item.status === 'completed' ? CheckedIcon : ErrorIcon
+                        }
+                        alt="rejected"
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </>
+        ) : (
+          <h2 className={cls.reportEmpty}>
+            {t(
+              "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
+            )}
+          </h2>
+        )}
       </table>
 
       {reportIsLoading && <Loader />}

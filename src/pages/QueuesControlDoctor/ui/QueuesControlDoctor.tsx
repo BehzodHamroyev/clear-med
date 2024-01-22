@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
+import { useTranslation } from 'react-i18next';
+// import { io } from 'socket.io-client';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -36,7 +37,8 @@ import {
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { store } from '@/shared/lib/context/LoginContext';
+
+import { getAuthUserData } from '@/features/Auth';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -45,7 +47,9 @@ const reducers: ReducersList = {
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
 
-  const socket = io('ws://magicsoft.uz:8900');
+  const { t } = useTranslation();
+
+  // const socket = io('ws://magicsoft.uz:8900');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -61,6 +65,8 @@ const QueuesControlDoctor = () => {
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
 
+  const authUserData = useSelector(getAuthUserData);
+
   const [ipAddress, setIPAddress] = useState('');
 
   useEffect(() => {
@@ -70,10 +76,9 @@ const QueuesControlDoctor = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  //  socket.emit('addUser', {userId, ip_address})
-
-  console.log(store.user._id);
-  console.log(ipAddress);
+  if (authUserData) {
+    // socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
+  }
 
   useEffect(() => {
     dispatch(
@@ -103,9 +108,9 @@ const QueuesControlDoctor = () => {
     console.log(queuesListError);
   }
 
-  socket.on('getNewQueue', (data) => {
-    console.log('Socket Queue data:', data);
-  });
+  // socket.on('getNewQueue', (data) => {
+  //   console.log('Socket Queue data:', data);
+  // });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -122,25 +127,33 @@ const QueuesControlDoctor = () => {
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
-            <ButtonNavbar
-              dontCreate
-              TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
-              ItemsLength={doneQueuesList?.length}
-            />
-            <DoneQueueTableTitleDoctorProfile
-              Tablethead={[
-                'Id',
-                'Qabul kuni',
-                'Qabul boshlanishi',
-                'Qabul tugashi',
-                'Xolati',
-              ]}
-              Tabletbody={doneQueuesList}
-            />
+            {doneQueuesList && doneQueuesList.length > 0 ? (
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+                  ItemsLength={doneQueuesList?.length}
+                />
+                <DoneQueueTableTitleDoctorProfile
+                  Tablethead={[
+                    'Id',
+                    'Qabul kuni',
+                    'Qabul boshlanishi',
+                    'Qabul tugashi',
+                    'Xolati',
+                  ]}
+                  Tabletbody={doneQueuesList}
+                />
+              </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t("Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!")}
+              </h2>
+            )}
           </div>
 
           <div className={cls.TableDoctorChild}>
-            {queuesList && (
+            {queuesList && queuesList.length > 0 ? (
               <>
                 <ButtonNavbar
                   dontCreate
@@ -152,6 +165,10 @@ const QueuesControlDoctor = () => {
                   Tabletbody={queuesList}
                 />
               </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
+              </h2>
             )}
           </div>
         </div>

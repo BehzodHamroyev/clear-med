@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import {
   Xona,
@@ -14,7 +15,9 @@ import {
 import { ListOfPageTypes } from '../model/types/listOfPages';
 
 import cls from './ListOfPages.module.scss';
-import { store } from '@/shared/lib/context/LoginContext';
+
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
@@ -83,6 +86,8 @@ export const ListOfPages = memo(() => {
 
   const divRef = useRef<HTMLDivElement>(null);
 
+  const authUserData = useSelector(getAuthUserData);
+
   const [LinkIndex, setLinkIndex] = useState<number>(1);
 
   const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
@@ -90,9 +95,11 @@ export const ListOfPages = memo(() => {
   const [profileValue, setProfileValue] = useState<string>('');
 
   useEffect(() => {
-    setProfileValue(store.user.role);
+    if (authUserData) {
+      setProfileValue(authUserData?.role);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.user.role]);
+  }, [authUserData]);
 
   useEffect(() => {
     if (profileValue === 'admin') {

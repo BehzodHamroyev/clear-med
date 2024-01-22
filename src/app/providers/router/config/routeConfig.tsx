@@ -71,6 +71,10 @@ export const routeConfigForAdmin: Record<
     path: getRouteReportsPageId(),
     element: <ReportsDoctorPage />,
   },
+  [ReceptionRoutes.REPORTS]: {
+    path: getRouteReportsPage(),
+    element: <ReportsPage />,
+  },
 };
 
 export const routeConfigForDoctor: Record<

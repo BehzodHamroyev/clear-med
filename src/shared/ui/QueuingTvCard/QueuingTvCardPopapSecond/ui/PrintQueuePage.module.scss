@@ -1,10 +1,11 @@
 .PrintQueuePage {
   width: 300px;
   font-family: sans-serif;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   &__medName {
     font-size: 26px;
