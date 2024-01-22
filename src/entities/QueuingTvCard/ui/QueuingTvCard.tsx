@@ -11,7 +11,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
 
 const QueuingTvCard = ({
-  Icon,
+  icon,
   DoctorId,
   CardLeftTitle,
   CardLeftRoomNumber,
@@ -54,7 +54,11 @@ const QueuingTvCard = ({
           {t('Shifokor')}: {CardLeftDoctorName}
         </p>
       </div>
-      <div className={cls.CardRight}>{/* <Icon /> */}</div>
+      <div className={cls.CardRight}>
+        {icon.length > 0 && (
+          <img src={`http://medapi.magicsoft.uz${icon}`} alt="icon" />
+        )}
+      </div>
     </div>
   );
 };
