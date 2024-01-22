@@ -107,8 +107,35 @@ export interface LastQueueData {
   id: string;
 }
 
+export interface LastQueueRoom {
+  _id: string;
+  name: number;
+  department_id: {
+    photo: string;
+    _id: string;
+    name: string;
+    duration: number;
+    image: string;
+    disabled: boolean;
+    __v: number;
+    id: string;
+  };
+  doctor_id: {
+    _id: string;
+    name: string;
+    login: number;
+    role: string;
+    passwordChangedDate: null;
+    __v: number;
+    exprience: number;
+    photo: string;
+    id: string;
+  };
+}
+
 export interface LastQueueDataApiResponce {
   status: string;
   data: LastQueueData;
+  room: LastQueueRoom;
   pagination: string;
 }

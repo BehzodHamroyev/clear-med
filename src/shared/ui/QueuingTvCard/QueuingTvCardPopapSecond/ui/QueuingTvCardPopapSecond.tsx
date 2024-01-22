@@ -46,7 +46,8 @@ const QueuingTvCardPopapSecond = ({
   const currentQueueLoading = useSelector(getCurrentQueueIsLoading);
   const currentQueueError = useSelector(getCurrentQueueError);
 
-  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
+  const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
+    useContext(ButtonsContext);
 
   const printCom = useReactToPrint({
     content: () => printableDivRef?.current,
@@ -57,7 +58,7 @@ const QueuingTvCardPopapSecond = ({
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
-    if (lastQueue && printableDivRef?.current) {
+    if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
       dispatch(
         fetchCurrentQueue({
           departmentId: lastQueue?.data?.department_id,
@@ -77,9 +78,28 @@ const QueuingTvCardPopapSecond = ({
         // }
       });
     }
-  };
 
-  console.log(lastQueue);
+    if (lastQueue && lastQueue.room.department_id && printableDivRef?.current) {
+      dispatch(
+        fetchCurrentQueue({
+          departmentId: String(lastQueue?.room?.department_id._id),
+          roomId: lastQueue?.room?._id,
+        }),
+      ).then(() => {
+        if (!currentQueueError && !currentQueueLoading) printCom();
+
+        // if (currentQueueData) {
+        //   socket.emit(
+        //     'create_queue',
+        //     { queue_data: currentQueueData },
+        //     (responce: { status: string }) => {
+        //       console.log(responce);
+        //     },
+        //   );
+        // }
+      });
+    }
+  };
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
@@ -102,20 +122,21 @@ const QueuingTvCardPopapSecond = ({
             <div className={cls2.PrintQueuePage__medicName}>
               <p>{t('Shifokor')}:</p>
               <p className={cls2.medicNameFullName}>
-                {lastQueue?.data?.doctor_id?.name}
+                {lastQueue?.data?.doctor_id
+                  ? lastQueue?.data?.doctor_id?.name
+                  : lastQueue?.room?.doctor_id?.name}
               </p>
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
               <p>{t('Berilgan vaqt')}:</p>
               <p className={cls2.PrintQueuePage__dateGetQueue}>
-                {lastQueue?.data?.created_time
-                  .split('T')[1]
-                  .split('.')[0]
-                  .split(':')
-                  .slice(0, 2)
-                  .join(':')}{' '}
-                | {lastQueue?.data?.created_date}
+                {new Date().getDate()}/
+                {new Date().getMonth() < 10
+                  ? `0${new Date().getMonth() + 1}`
+                  : new Date().getMonth() + 1}
+                /{new Date().getFullYear()} |{new Date().getHours()}:
+                {new Date().getMinutes()}
               </p>
             </div>
 

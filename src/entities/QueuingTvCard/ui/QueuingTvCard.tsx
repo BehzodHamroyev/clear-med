@@ -21,12 +21,14 @@ const QueuingTvCard = ({
 
   const dispatch = useAppDispatch();
 
-  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
+  const { setIsOpenQueuingTvCardPopapSecond, setClickedDoctorId } =
+    useContext(ButtonsContext);
 
   const hendleClickQuingTvCard = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+    if (DoctorId) setClickedDoctorId(DoctorId);
 
     if (DoctorId) {
       dispatch(

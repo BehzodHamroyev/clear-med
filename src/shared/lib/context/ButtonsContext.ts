@@ -2,6 +2,9 @@ import { createContext } from 'react';
 import { CurrentQueueDataType } from '@/pages/QueuingTV';
 
 export interface ButtonsClickedProps {
+  clickedDoctorId: string;
+  setClickedDoctorId: (prop: string) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -137,6 +140,9 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  clickedDoctorId: '',
+  setClickedDoctorId: () => {},
+
   hasOpenToast: false,
   setHasOpenToast: () => {},
 
