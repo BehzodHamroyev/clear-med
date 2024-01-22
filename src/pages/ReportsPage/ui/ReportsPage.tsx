@@ -8,7 +8,13 @@ import { TableTitleReports } from '@/entities/TableTitleReports';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchDoctorList } from '../model/services/fetchDoctorList';
-import { getDoctorListData } from '../model/selectors/doctorListSelector';
+import {
+  getDoctorListData,
+  getDoctorListError,
+  getDoctorListIsLoading,
+} from '../model/selectors/doctorListSelector';
+import { Loader } from '@/widgets/Loader';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 const tableTitle = ['Bo‘lim', 'Xona', 'Shifokor ro‘yxati', 'Shifokor'];
 
@@ -107,15 +113,13 @@ const ReportsPage = () => {
   const dispatch = useAppDispatch();
 
   const doctorList = useSelector(getDoctorListData);
+  const doctorListIsLoading = useSelector(getDoctorListIsLoading);
+  const doctorListIsError = useSelector(getDoctorListError);
 
   useEffect(() => {
     dispatch(fetchDoctorList({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (doctorList) {
-    console.log(doctorList);
-  }
 
   return (
     <div className={cls.ReportsPageWrapper}>
@@ -128,6 +132,10 @@ const ReportsPage = () => {
           Tabletbody={doctorList}
         />
       )}
+
+      {doctorListIsLoading && <Loader />}
+
+      {doctorListIsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );
 };
