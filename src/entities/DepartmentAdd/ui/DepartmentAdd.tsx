@@ -7,18 +7,13 @@ import { baseUrl } from '../../../../baseurl';
 import { DepartmentType } from '../model/types/departmentType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
 import cls from './DepartmentAdd.module.scss';
 
-/* Parent Components */
 const DepartmentAdd = () => {
   /* useTranslation */
   const { t } = useTranslation();
-
-  /* useAppDispatch */
-  const dispatch = useAppDispatch();
 
   /* useContext */
   const {
@@ -35,6 +30,7 @@ const DepartmentAdd = () => {
 
   const [departmentName, setDepartmentName] = React.useState('');
 
+  /* Cookies */
   const token = Cookies.get('token');
 
   /* handle change functions */
@@ -46,10 +42,11 @@ const DepartmentAdd = () => {
     }
   };
 
+  /* get img card */
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
-  /* fetch */
+  /* fetch add */
   const handleButtonSubmit = async () => {
     setDepartmentListChanged(departmentName);
 

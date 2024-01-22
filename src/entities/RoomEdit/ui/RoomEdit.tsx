@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { baseUrl } from '../../../../baseurl';
 import { RoomEditType } from '../model/types/roomEdit';
-import { fetchRoomEdit } from '../model/service/roomEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { RoomEditNumberInput } from '@/entities/RoomEditNumberInput';
 import { RoomEditDoctorInput } from '@/entities/RoomEditDoctorInput ';
@@ -10,11 +12,13 @@ import { RoomEditSectionInput } from '@/entities/RoomEditSectionInput';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './RoomEdit.module.scss';
-import { fetchRoomDelete } from '../model/service/roomDelete';
 
 const RoomEdit = (prop: RoomEditType) => {
   /* props */
   const { tableBody } = prop;
+
+  /* Cookies */
+  const token = Cookies.get('token');
 
   /* useAppDispatch */
   const dispatch = useAppDispatch();
@@ -28,7 +32,9 @@ const RoomEdit = (prop: RoomEditType) => {
     isDataFormAddRoom,
     setIsDataFormAddRoom,
     setIsOpenRoomEditCard,
-  } = useContext(ButtonsContext);
+    setDepartmentListChanged,
+    setResponseAddDoctorStatusCode,
+  } = React.useContext(ButtonsContext);
 
   /* hapler function */
   const matchingItems = tableBody?.find((item) => item?.id === departmentGetId);
@@ -47,23 +53,56 @@ const RoomEdit = (prop: RoomEditType) => {
   }, [matchingItems, setIsDataFormAddRoom]);
 
   /* fetch data */
-  const roomAddCardEditItem = () => {
-    dispatch(
-      fetchRoomEdit({
-        doctor_id: isDataFormAddRoom.DoctorName,
-        name: Number(isDataFormAddRoom.RoomNumber),
-        department_id: isDataFormAddRoom.SectionName,
-        idCard: `${matchingItems?.id}`,
-      }),
-    );
+  const roomAddCardEditItem = async () => {
     setIsOpenRoomEditCard(false);
+    setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+
+    try {
+      const response = await axios.patch<RoomEditType>(
+        `${baseUrl}/room/${matchingItems?.id}`,
+        {
+          doctor_id: isDataFormAddRoom.DoctorName,
+          name: Number(isDataFormAddRoom.RoomNumber),
+          department_id: isDataFormAddRoom.SectionName,
+        },
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
   };
 
   /* room Delete Fetch */
-  const roomCardDeleteItem = (e: { stopPropagation: () => void }) => {
+  const roomCardDeleteItem = async (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     setIsOpenRoomEditCard(false);
-    dispatch(fetchRoomDelete({ idCard: departmentGetId }));
+
+    try {
+      const response = await axios.delete<any>(
+        `${baseUrl}/room/${departmentGetId}`,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      setResponseAddDoctorStatusCode(200);
+      setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
   };
 
   /* UI */

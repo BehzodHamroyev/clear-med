@@ -28,7 +28,7 @@ const ToastHalper = (props: any) => {
           severity: 'success',
         });
         setHasOpenToast(true);
-      } else if (statusCode === '404') {
+      } else if (statusCode === '404' || statusCode === 'Fail') {
         setToastProps({
           message: t("Ma'lumotlarni qayta tekshiring!"),
           severity: 'warning',
