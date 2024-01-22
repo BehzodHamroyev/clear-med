@@ -1,3 +1,36 @@
 .ReportsDoctorPageWrapper {
   width: 100%;
+
+  &__backbtn {
+    width: fit-content;
+    padding: 15px 8px 15px 22px;
+    background-color: #5c5b5b;
+    color: white;
+    margin: 25px 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    clip-path: polygon(
+      40% 0%,
+      40% 20%,
+      100% 20%,
+      100% 80%,
+      40% 80%,
+      40% 100%,
+      0% 50%
+    );
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  .reportEmpty {
+    text-align: center;
+    font-family: sans-serif;
+    margin: 50px auto;
+    color: #970407;
+    padding: 10px;
+    border: 1px solid #970407;
+  }
 }

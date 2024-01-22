@@ -6,4 +6,5 @@ export interface ButtonNavbarProps {
   CreateCarbonAdd?: boolean;
   roomNumber?: number;
   departmentName?: string;
+  doctorName?: string;
 }
