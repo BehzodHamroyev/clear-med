@@ -1,3 +1,6 @@
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { Doctor } from '@/pages/ReportsPage/model/types/doctorListTypes';
+
 type KorilganBemor = {
   id: number;
   shifokor: string;
@@ -18,11 +21,11 @@ type TableBody = {
   item7?: string | number;
   item8?: string | number;
   lastChild?: string | number;
-    KorilganBemorlar?: KorilganBemor[];
+  KorilganBemorlar?: KorilganBemor[];
 };
 
 export interface TableInfo {
   cursor?: boolean;
   Tablethead: string[];
-  Tabletbody: TableBody[];
+  Tabletbody: Doctor[];
 }

@@ -31,7 +31,6 @@ import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
 
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 
@@ -71,7 +70,7 @@ const QueuingTv = () => {
               CardLeftRoomNumber={item?.name}
               CardLeftDoctorName={item?.doctor_id?.name}
               // @ts-ignore
-              Icon={iconsCardDepartments[item?.department_id?.image]?.icon}
+              icon={item?.department_id?.photo}
             />
           ))}
       </div>

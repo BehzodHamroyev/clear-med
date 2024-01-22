@@ -10,6 +10,44 @@
   overflow-x: scroll;
   width: 100%;
 
+  &__head {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    align-items: center;
+    justify-content: start;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    gap: 20px;
+  }
+
+  &__backbtn {
+    padding: 15px 8px 15px 22px;
+    background-color: #5c5b5b;
+    color: white;
+    margin-bottom: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    clip-path: polygon(
+      40% 0%,
+      40% 20%,
+      100% 20%,
+      100% 80%,
+      40% 80%,
+      40% 100%,
+      0% 50%
+    );
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
   .Tablethead,
   .Tabletbody {
     width: 100%;

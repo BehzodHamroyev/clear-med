@@ -19,6 +19,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
     CreateCarbonAdd,
     roomNumber,
     departmentName,
+    doctorName,
   } = props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -44,7 +45,8 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   return (
     <div className={cls.ButtonNavbarWrapper}>
       <p>
-        {TableTitle} {ItemsLength ? <span>({ItemsLength})</span> : ''}
+        {doctorName} {doctorName && ' | '} {TableTitle}
+        {ItemsLength ? <span>({ItemsLength})</span> : ''}{' '}
       </p>
 
       {/* {Calendar ? <CalendarSection /> : ''} */}

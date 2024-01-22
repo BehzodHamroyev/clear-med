@@ -128,7 +128,10 @@ export const routeConfigForReception: Record<
     path: getRouteReportsPage(),
     element: <ReportsPage />,
   },
-
+  [AdminRoutes.REPORTS_PATIENT]: {
+    path: getRouteReportsPageId(),
+    element: <ReportsDoctorPage />,
+  },
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
     element: <QueuesPage />,

@@ -25,6 +25,7 @@ export enum DoctorRoutes {
 export enum ReceptionRoutes {
   REPORTS = 'reports',
   QUEUING_TV = 'queuing_tv',
+  REPORTS_PATIENT = 'reports_patient',
 }
 
 // ----- Common -----
@@ -67,4 +68,5 @@ export const AppRouteByPathPattern: Record<
   [getRouteQueuesPage()]: ReceptionRoutes.REPORTS,
   [getRouteReportsPage()]: ReceptionRoutes.REPORTS,
   [getRouteReportQueuingTv()]: ReceptionRoutes.QUEUING_TV,
+  [getRouteReportsPageId()]: ReceptionRoutes.REPORTS_PATIENT,
 };

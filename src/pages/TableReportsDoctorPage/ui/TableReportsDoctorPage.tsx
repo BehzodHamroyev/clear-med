@@ -139,11 +139,11 @@ const TableReportsDoctorPage = () => {
             </tbody>
           </>
         ) : (
-          <h2 className={cls.reportEmpty}>
+          <h3 className={cls.reportEmpty}>
             {t(
               "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
             )}
-          </h2>
+          </h3>
         )}
       </table>
 

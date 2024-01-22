@@ -46,6 +46,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       sizdan_oldingi_bemorlar_soni: 1,
     });
 
+  const [clickedDoctorId, setClickedDoctorId] = useState('');
+
   const [isOpenSettingsChangePassword, setIsOpenSettingsChangePassword] =
     useState(false);
 
@@ -189,6 +191,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsDataFormAddRoom,
       responseAddDoctorStatusCode,
       setResponseAddDoctorStatusCode,
+      clickedDoctorId,
+      setClickedDoctorId,
     }),
     [
       currentQueueData,
@@ -251,6 +255,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setResponseAddRoomStatusCode,
       responseAddDoctorStatusCode,
       setResponseAddDoctorStatusCode,
+      clickedDoctorId,
+      setClickedDoctorId,
     ],
   );
 
