@@ -3,8 +3,9 @@ import { useFullScreenHandle } from 'react-full-screen';
 
 import { QueuesList } from '@/entities/QueuesChilds';
 
-import cls from './QueuesPageFullScreen.module.scss';
 import { Spetalete } from '@/shared/assets/Pages/Queues';
+
+import cls from './QueuesPageFullScreen.module.scss';
 
 const QueuesPageFullScreen = () => {
   const handle = useFullScreenHandle();
@@ -49,6 +50,7 @@ const QueuesPageFullScreen = () => {
           <QueuesList />
         </div>
       </div>
+
       <div className={cls.BottomCardRendering}>
         <div className={cls.BorderCardOchered}>
           <QueuesList />
