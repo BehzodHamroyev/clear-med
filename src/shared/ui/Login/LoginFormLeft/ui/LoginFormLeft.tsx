@@ -74,6 +74,8 @@ const LoginFormLeft = () => {
               refresh: false,
             }),
           );
+        } else {
+          setHasOpenToast(true);
         }
       }
     }

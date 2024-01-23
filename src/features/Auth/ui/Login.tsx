@@ -13,30 +13,10 @@ import {
 } from '../model/selector/authUserSelector';
 import { Loader } from '@/widgets/Loader';
 
-// ------------------------------------
-// {
-//        role":"reception"
-//        "login":"906770957",
-//        "password": "12345678"
-// }
-// {
-//        "role":"doctor"
-//        "login":"906518141",
-//        "password": "12345678"
-
-// }
-// {
-//        "role":"admin"
-//        "login":"977773768",
-//        "password": "12345678"
-// }
-// ------------------------------------
-
 const Login: FC = () => {
-  const authUserData = useSelector(getAuthUserData);
-
   const navigate = useNavigate();
 
+  const authUserData = useSelector(getAuthUserData);
   const authUserIsLoading = useSelector(getAuthUserIsLoading);
 
   useEffect(() => {
