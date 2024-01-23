@@ -95,8 +95,11 @@ const DoctorListPage = () => {
           item2: `${
             item?.rooms?.[0]?.name !== undefined ? item?.rooms?.[0]?.name : ' '
           }`,
-          item3: `${item?.rooms?.[0]?.department_id?.name}`,
-          item4: item?.exprience,
+          item3:
+            item?.rooms !== undefined
+              ? `${item?.rooms?.[0]?.department_id?.name}`
+              : '',
+          item4: item?.exprience !== undefined ? item?.exprience : '',
           lastChild: `+998 ${item?.login}`,
           img:
             item.photo !== '/uploads/default.png'

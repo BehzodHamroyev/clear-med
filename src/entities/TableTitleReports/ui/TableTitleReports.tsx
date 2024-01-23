@@ -30,7 +30,7 @@ const TableTitleReports = (props: TableInfo) => {
               key={item.id}
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
-              {item.rooms.length > 0 && item.rooms[0]?.department_id.name ? (
+              {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
                 <td className={cls.td}>{item.rooms[0]?.department_id?.name}</td>
               ) : (
                 <td className={cls.td}>----------------------</td>
