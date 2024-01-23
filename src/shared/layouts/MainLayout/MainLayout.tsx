@@ -1,4 +1,4 @@
-import { memo, ReactElement, useContext, useEffect } from 'react';
+import { memo, ReactElement, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -29,14 +29,29 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const { setHasOpenToast } = useContext(ButtonsContext);
 
+  const [hasToaster, setHasToaster] = useState(false);
+
   const location = useLocation();
 
   useEffect(() => {
     if (authUserData) {
       setHasOpenToast(true);
+
+      setHasToaster(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUserData]);
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (hasToaster) {
+      const timeoutId = setTimeout(() => {
+        setHasToaster(false);
+      }, 3000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [hasToaster]);
 
   return (
     <div>
@@ -55,10 +70,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
             <div className={cls.toolbar}>{toolbar}</div>
           </div>
 
-          <Toast
-            severity="success"
-            message={t('Timizga muvaffaqqiyatli kirdingiz')}
-          />
+          {hasToaster && (
+            <Toast
+              severity="success"
+              message={t('Timizga muvaffaqqiyatli kirdingiz')}
+            />
+          )}
         </div>
       )}
     </div>

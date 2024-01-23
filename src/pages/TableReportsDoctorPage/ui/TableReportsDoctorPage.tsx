@@ -78,13 +78,13 @@ const TableReportsDoctorPage = () => {
           <>
             <div className={cls.TableTitleWrapper__title}>
               <h3 className={cls.KorilganBemorlar}>
-                {t("Jami Ko'rilgan Bemorlar : ")}
+                {t("Jami ko'rilgan bemorlar : ")}
                 {reportList ? reportList.length : 0}
                 {t(' ta')}
               </h3>
 
-              <h3 className={cls.KorilganBemorlar}>
-                {t('Tasdiqlangan Bemorlar : ')}
+              <h3 className={cls.KorilganBemorlar} style={{ color: '#0c8541' }}>
+                {t('Tasdiqlangan bemorlar : ')}
                 {reportList
                   ? reportList.filter((item) => item.status === 'completed')
                       .length
@@ -92,8 +92,11 @@ const TableReportsDoctorPage = () => {
                 {t(' ta')}
               </h3>
 
-              <h3 className={cls.KorilganBemorlar}>
-                {t('Bekor qilingan Bemorlar : ')}
+              <h3
+                className={cls.KorilganBemorlar}
+                style={{ color: '#ff0000f4' }}
+              >
+                {t('Bekor qilingan bemorlar : ')}
                 {reportList
                   ? reportList.filter((item) => item.status === 'rejected')
                       .length

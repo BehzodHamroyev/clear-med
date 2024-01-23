@@ -96,18 +96,6 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
-  if (queuesListError) {
-    console.log(queuesListError);
-  }
-
-  if (proccessError) {
-    console.log(proccessError);
-  }
-
-  if (doneQueuesListError) {
-    console.log(queuesListError);
-  }
-
   // socket.on('getNewQueue', (data) => {
   //   console.log('Socket Queue data:', data);
   // });
@@ -157,7 +145,7 @@ const QueuesControlDoctor = () => {
               <>
                 <ButtonNavbar
                   dontCreate
-                  TableTitle="Navbatdagi bemorlar"
+                  TableTitle={t('Kutayotgan bemorlar')}
                   ItemsLength={queuesList?.length}
                 />
                 <TableTitleDoctorProfile
