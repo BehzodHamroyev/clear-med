@@ -57,6 +57,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isProfileWho, setIsProfileWho] = useState('');
 
+  const [getResponseData, setResponseData] = useState('');
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -79,7 +81,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
   const [responseAddDoctorStatusCode, setResponseAddDoctorStatusCode] =
-    useState(0);
+    useState<string | number>(0);
 
   const [isOpenQueuingCardClicked, setIsOpenQueuingCardClicked] =
     useState(false);
@@ -154,6 +156,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenRoomEditCard,
       setIsOpenRoomEditCard,
       isOpenRoomAddCard,
+      getResponseData,
+      setResponseData,
       setIsOpenRoomAddCard,
       isOpenDoctorAddCard,
       setIsOpenDoctorAddCard,
@@ -202,6 +206,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isProfileWho,
       setIsProfileWho,
       isCloseCalendar,
+      getResponseData,
+      setResponseData,
       setIsCloseCalendar,
       departmentListChanged,
       setDepartmentListChanged,

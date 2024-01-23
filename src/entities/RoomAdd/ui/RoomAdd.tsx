@@ -1,7 +1,10 @@
 import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
-import { fetchDoctorAdd } from '../model/service/fetchRoomAdd';
+import { baseUrl } from '../../../../baseurl';
+import { RoomAddTypes } from '../model/types/roomAddTypes';
 import { RoomAddNumberInput } from '@/entities/RoomAddNumberInput';
 import { RoomAddDoctorInput } from '@/entities/RoomAddDoctorInput';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -14,6 +17,9 @@ const RoomAdd = () => {
   /* translation */
   const { t } = useTranslation();
 
+  /* Cookies */
+  const token = Cookies.get('token');
+
   /* useAppDispatch */
   const dispatch = useAppDispatch();
 
@@ -21,33 +27,44 @@ const RoomAdd = () => {
   const {
     setHasOpenToast,
     isDataFormAddRoom,
-    setIsDataFormAddRoom,
     setIsOpenRoomAddCard,
+    setDepartmentListChanged,
     responseAddRoomStatusCode,
+    setResponseAddDoctorStatusCode,
   } = React.useContext(ButtonsContext);
 
-  /* console */
-  console.log(isDataFormAddRoom, 'isDataFormAddRoom');
-
   /* fetch data */
-  const handleSubmitAllFormData = () => {
-    dispatch(
-      fetchDoctorAdd({
-        doctor_id: isDataFormAddRoom?.DoctorName
-          ? isDataFormAddRoom?.DoctorName
-          : '',
-        name: Number(
-          isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '0',
-        ),
-        department_id: isDataFormAddRoom?.SectionName
-          ? isDataFormAddRoom?.SectionName
-          : '',
-      }),
-    );
+  const handleSubmitAllFormData = async () => {
+    setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+    try {
+      const response = await axios.post<RoomAddTypes>(
+        `${baseUrl}/room/create`,
+        {
+          department_id: isDataFormAddRoom?.SectionName
+            ? isDataFormAddRoom?.SectionName
+            : '',
+          doctor_id: isDataFormAddRoom?.DoctorName
+            ? isDataFormAddRoom?.DoctorName
+            : '',
+          name: Number(
+            isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '0',
+          ),
+        },
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    if (responseAddRoomStatusCode === 200) {
-      setHasOpenToast(true);
       setIsOpenRoomAddCard(false);
+      setResponseAddDoctorStatusCode(200);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
     }
   };
 

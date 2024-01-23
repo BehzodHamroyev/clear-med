@@ -1,10 +1,12 @@
 import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { baseUrl } from '../../../../baseurl';
+import { DepartmentEditType } from '../model/types/departmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchDepartmentEdit } from '../model/service/departmentEdit';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
-import { fetchDepartmentDelete } from '../model/service/departmentDelete';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
@@ -16,12 +18,19 @@ import {
 import cls from './DepartmentEdit.module.scss';
 
 const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
+  /* Cookies */
+  const token = Cookies.get('token');
+
+  /* props */
   const { tableBody } = prop;
 
+  /* useTranslation */
   const { t } = useTranslation();
 
+  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
+  /* useState */
   const [inputValue, setInputValue] = React.useState<UseStateType>({
     id: '',
     iconName: null,
@@ -29,15 +38,18 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     departmentName: '',
   });
 
+  /* useContext */
   const {
     departmentGetId,
     setDepartmentListChanged,
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentEditCard,
     setIsOpenDepartmentAddCardIcon,
+    setResponseAddDoctorStatusCode,
     isOpenDepartmentAddCardIconIndex,
   } = React.useContext(ButtonsContext);
 
+  /* handle change */
   const handleInputChange = (e: { target: { value: string } }) => {
     const newValue = e.target.value.replace(/\D/g, '');
 
@@ -46,30 +58,72 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     }
   };
 
-  const departmentCardDeleteItem = (e: { stopPropagation: () => void }) => {
+  /* fetch delete  */
+  const departmentCardDeleteItem = async (e: {
+    stopPropagation: () => void;
+  }) => {
     e.stopPropagation();
-    setIsOpenDepartmentEditCard(false);
-    dispatch(fetchDepartmentDelete({ idCard: departmentGetId }));
     setDepartmentListChanged(' ');
+    setIsOpenDepartmentEditCard(false);
+
+    try {
+      const response = await axios.delete<any>(
+        `${baseUrl}/department/${departmentGetId}`,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setResponseAddDoctorStatusCode(200);
+      setIsOpenDepartmentEditCard(false);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
   };
 
-  const DepartmentAddCardEditItem = () => {
-    dispatch(
-      fetchDepartmentEdit({
-        idCard: inputValue.id,
-        image: `${isOpenDepartmentAddCardIconIndex || 1}`,
-        name: inputValue.departmentName,
-        duration: Number(inputValue.durationTime),
-      }),
-    );
+  /* fetch edit */
+  const DepartmentAddCardEditItem = async () => {
+    setDepartmentListChanged(`${Math.random() * 10 + 1}`);
 
-    setDepartmentListChanged('Edit');
+    try {
+      const response = await axios.patch<DepartmentEditType>(
+        `${baseUrl}/department/${inputValue.id}`,
+        {
+          name: inputValue.departmentName,
+          image: `${isOpenDepartmentAddCardIconIndex || 1}`,
+          duration: Number(inputValue.durationTime),
+        },
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setResponseAddDoctorStatusCode(200);
+      setIsOpenDepartmentEditCard(false);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
   };
 
+  /* filter array data */
   const matchingItem = tableBody?.find((item) => item?.id === departmentGetId);
 
+  /* get img url */
   const ResultIcon = iconsCardDepartments[Number(matchingItem?.imgName)]?.icon;
 
+  /* useEffect */
   React.useEffect(() => {
     if (matchingItem) {
       setInputValue({
@@ -83,6 +137,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
     }
   }, [ResultIcon, matchingItem]);
 
+  /* UI */
   return (
     <div
       className={cls.DepartmentAddWrapper}

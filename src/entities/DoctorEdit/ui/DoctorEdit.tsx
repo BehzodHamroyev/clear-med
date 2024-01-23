@@ -1,11 +1,12 @@
 import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { baseUrl } from '../../../../baseurl';
 import { DoctorEditType } from '../model/types/doctorEdit';
-import { fetchDoctorEdit } from '../model/service/doctorEdit';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './DoctorEdit.module.scss';
 
@@ -13,15 +14,19 @@ import cls from './DoctorEdit.module.scss';
 const DoctorEdit = (prop: DoctorEditType) => {
   const { tableBody } = prop;
 
+  /* Cookies */
+  const token = Cookies.get('token');
+
   /* useTranslation */
   const { t } = useTranslation();
 
-  /* useAppDispatch */
-  const dispatch = useAppDispatch();
-
   /* useContext */
-  const { setIsOpenDoctorEditCard, departmentGetId } =
-    React.useContext(ButtonsContext);
+  const {
+    departmentGetId,
+    setResponseData,
+    setIsOpenDoctorEditCard,
+    setResponseAddDoctorStatusCode,
+  } = React.useContext(ButtonsContext);
 
   /* useState */
 
@@ -41,6 +46,11 @@ const DoctorEdit = (prop: DoctorEditType) => {
   /* hapler function */
   const matchingItems = tableBody?.find((item) => item?.id === departmentGetId);
 
+  const getPhoneSliceValue =
+    getAllFormData.phoneNumber.length > 9
+      ? getAllFormData.phoneNumber.slice(-9)
+      : getAllFormData.phoneNumber;
+
   /* useEffect */
   React.useEffect(() => {
     if (matchingItems) {
@@ -50,7 +60,7 @@ const DoctorEdit = (prop: DoctorEditType) => {
         fullName: `${matchingItems.item1}`,
         experiance: `${matchingItems.item4}`,
         passwordValue: `${matchingItems.lastChild}`,
-        phoneNumber: `+998 ${matchingItems.lastChild}`,
+        phoneNumber: `${matchingItems.lastChild}`,
       });
     } else {
       console.log('No matching item found');
@@ -64,13 +74,6 @@ const DoctorEdit = (prop: DoctorEditType) => {
     }
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files.length > 0) {
-  //     const selectedFile = event.target.files[0];
-  //     setAllFormData({ ...getAllFormData, fileUrl: selectedFile });
-  //   }
-  // };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setImg(file);
@@ -78,24 +81,62 @@ const DoctorEdit = (prop: DoctorEditType) => {
   };
 
   /* handle submit functions */
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const data = new FormData();
 
-    data.append('idCard', getAllFormData.idCard);
-    data.append('fileUrl', getAllFormData.fileUrl);
-    data.append('fullName', getAllFormData.fullName);
-    data.append('experiance', getAllFormData.experiance);
-    data.append('phoneNumber', getAllFormData.phoneNumber);
-    data.append('passwordValeu', getAllFormData.passwordValue);
+    data.append('file', getAllFormData.fileUrl);
+    data.append('name', getAllFormData.fullName);
+    data.append('login', getPhoneSliceValue);
+    data.append('exprience', getAllFormData.experiance);
 
-    dispatch(
-      fetchDoctorEdit({
+    try {
+      const response = await axios.patch<DoctorEditType>(
+        `${baseUrl}/users/${getAllFormData.idCard}`,
         data,
-      }),
-    );
-    console.log(1);
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setIsOpenDoctorEditCard(false);
+      setResponseAddDoctorStatusCode(200);
+      setResponseData(`${Math.random() * 100 + 1}`);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
+  };
+
+  const handleDeleteItem = async (e: any) => {
+    e.stopPropagation();
+
+    try {
+      const response = await axios.delete<any>(
+        `${baseUrl}/users/${getAllFormData.idCard}`,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setIsOpenDoctorEditCard(false);
+      setResponseAddDoctorStatusCode(200);
+      setResponseData(`${Math.random() * 100 + 1}`);
+
+      return response.data;
+    } catch (e) {
+      return setResponseAddDoctorStatusCode('404');
+    }
   };
 
   /* UI */
@@ -206,7 +247,7 @@ const DoctorEdit = (prop: DoctorEditType) => {
               />
             </label>
 
-            <label className={cls.LabelInput} htmlFor="parol" id="parol">
+            {/* <label className={cls.LabelInput} htmlFor="parol" id="parol">
               {t('Parol')}
               <input
                 id="parol"
@@ -221,14 +262,11 @@ const DoctorEdit = (prop: DoctorEditType) => {
                 }
                 value={getAllFormData.passwordValue}
               />
-            </label>
+            </label> */}
 
             <div className={cls.BtnParnet}>
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpenDoctorEditCard(false);
-                }}
+                onClick={handleDeleteItem}
                 type="button"
                 className={`${cls.Btn} ${cls.Btn1}`}
               >

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import Toast from '@/shared/ui/Toast/Toast';
 import { RoomAdd } from '@/entities/RoomAdd';
 import { ErrorReload } from '@/widgets/Error';
 import { RoomEdit } from '@/entities/RoomEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
+import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { RoomListSliceReducer } from '../model/slice/getRoomSlice';
 import { fetchRoomGetAll } from '../model/service/getAllRoomRequest';
@@ -36,7 +36,7 @@ const RoomPage = () => {
   const [tableBody, setTableBody] = React.useState<any>([]);
 
   /* useContext  */
-  const { isOpenRoomEditCard, isOpenRoomAddCard } =
+  const { isOpenRoomEditCard, isOpenRoomAddCard, departmentListChanged } =
     React.useContext(ButtonsContext);
 
   /* selectors */
@@ -65,6 +65,12 @@ const RoomPage = () => {
     dispatch(fetchRoomGetAll({}));
   }, [dispatch]);
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      dispatch(fetchRoomGetAll({}));
+    }, 1000);
+  }, [dispatch, departmentListChanged]);
+
   const reducer: ReducersList = {
     RoomGetAll: RoomListSliceReducer,
   };
@@ -87,7 +93,7 @@ const RoomPage = () => {
 
             <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
 
-            <Toast severity="success" message="Xona qo'shildi" />
+            <ToastHalper />
           </div>
 
           {isOpenRoomAddCard ? <RoomAdd /> : ''}

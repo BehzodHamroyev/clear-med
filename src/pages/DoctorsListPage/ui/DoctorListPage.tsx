@@ -26,7 +26,7 @@ import {
 } from '../model/selector/doctorListSelector';
 
 import cls from './AddDoctorPage.module.scss';
-import Toast from '@/shared/ui/Toast/Toast';
+import { ToastHalper } from '@/shared/ui/ToastHalper';
 
 /* halper array */
 const tableTitle = [
@@ -58,7 +58,7 @@ const DoctorListPage = () => {
 
   /* useContext */
   const {
-    hasOpenToast,
+    getResponseData,
     setHasOpenToast,
     isOpenDoctorAddCard,
     isOpenDoctorEditCard,
@@ -80,28 +80,11 @@ const DoctorListPage = () => {
     dispatch(fetchDoctorGetAll({}));
   }, [dispatch]);
 
-  if (responseAddDoctorStatusCode) {
-    if (responseAddDoctorStatusCode === 200) {
-      setToastProps({
-        message: t("Ma'lumotlar saqlandi!"),
-        severity: 'success',
-      });
-    } else if (responseAddDoctorStatusCode === 404) {
-      setToastProps({
-        message: t("Ma'lumotlarni qayta tekshiring!"),
-        severity: 'warning',
-      });
-    } else {
-      setToastProps({
-        message: t("Ma'lumotlar qo'shilmadi"),
-        severity: 'error',
-      });
-    }
-
-    setHasOpenToast(true);
-  } else {
-    setHasOpenToast(false);
-  }
+  React.useEffect(() => {
+    setTimeout(() => {
+      dispatch(fetchDoctorGetAll({}));
+    }, 1000);
+  }, [dispatch, getResponseData]);
 
   React.useEffect(() => {
     if (getDoctorData) {
@@ -112,9 +95,12 @@ const DoctorListPage = () => {
           item2: `${
             item?.rooms?.[0]?.name !== undefined ? item?.rooms?.[0]?.name : ' '
           }`,
-          item3: `${item?.rooms?.[0]?.department_id?.name}`,
-          item4: item?.exprience,
-          lastChild: item?.login,
+          item3:
+            item?.rooms !== undefined
+              ? `${item?.rooms?.[0]?.department_id?.name}`
+              : '',
+          item4: item?.exprience !== undefined ? item?.exprience : '',
+          lastChild: `+998 ${item?.login}`,
           img:
             item.photo !== '/uploads/default.png'
               ? `http://medapi.magicsoft.uz/${item.photo}`
@@ -144,7 +130,7 @@ const DoctorListPage = () => {
             <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
           </div>
 
-          <Toast severity={toastProps.severity} message={toastProps.message} />
+          <ToastHalper />
 
           {isOpenDoctorAddCard ? <DoctorAdd /> : ''}
           {isOpenDoctorEditCard ? <DoctorEdit tableBody={tableBody} /> : ''}
