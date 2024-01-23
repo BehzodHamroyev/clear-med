@@ -14,16 +14,22 @@
     p {
       color: #828282;
       font-family: sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       letter-spacing: 0.06px;
-      padding: 10px 20px;
+      padding: 10px 0;
+      text-align: center;
     }
 
     .QueuesListTitleChild1 {
+      width: 50%;
       border-right: 1px solid #e0e0e0;
+    }
+
+    .QueuesListTitleChild2 {
+      width: 50%;
     }
   }
 
@@ -43,6 +49,7 @@
       font-weight: 700;
       line-height: normal;
       letter-spacing: 0.085px;
+      text-align: center;
     }
 
     img {

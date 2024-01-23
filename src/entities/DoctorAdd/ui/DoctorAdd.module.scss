@@ -88,7 +88,7 @@
       padding: 10px 2px;
       border: none;
       outline: none;
-      border-bottom: 2px solid #000;
+      border-bottom: 1px solid #000;
       margin-bottom: 20px;
     }
 
@@ -104,6 +104,11 @@
       font-family: sans-serif;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.3 ease-in;
+    }
+
+    .Btn:active {
+      transform: scale(0.95);
     }
 
     .Btn2 {
@@ -117,5 +122,26 @@
       color: #828282;
       border: 1px solid #828282;
     }
+  }
+}
+
+.PhoneNumberInputWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .FixValueBnt {
+    font-size: 24px;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    cursor: pointer;
+    color: #828282;
+    user-select: none;
+  }
+
+  .FixValueBnt:active {
+    transform: scale(1.03);
   }
 }

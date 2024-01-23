@@ -4,20 +4,10 @@ import { useTranslation } from 'react-i18next';
 import cls from './LoginKeyInput.module.scss';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 
-interface LoginKeyInputProps {
-  handleChange: any;
-}
-
-const LoginKeyInput = (props: LoginKeyInputProps) => {
-  const { handleChange } = props;
-
+const LoginKeyInput = () => {
   const [hideEye, setHideEye] = useState(false);
 
   const { t } = useTranslation();
-
-  function handleInputChange(event: any, name: string) {
-    handleChange(name, event);
-  }
 
   return (
     <div className={cls.LoginPhoneNumberWrapper}>
@@ -31,7 +21,7 @@ const LoginKeyInput = (props: LoginKeyInputProps) => {
           autoComplete="off"
           maxLength={14}
           minLength={8}
-          onChange={(e) => handleInputChange(e.target.value, 'UserPassword')}
+          required
         />
         {hideEye ? (
           <EyeIcon

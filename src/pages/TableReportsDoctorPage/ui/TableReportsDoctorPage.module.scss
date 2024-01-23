@@ -10,6 +10,10 @@
   overflow-x: scroll;
   width: 100%;
 
+  &__title {
+    display: flex;
+  }
+
   .Tablethead,
   .Tabletbody {
     width: 100%;
@@ -83,4 +87,13 @@
 
 .KorilganBemorlar {
   margin: 25px;
+}
+
+.reportEmpty {
+  text-align: center;
+  font-family: sans-serif;
+  margin: 50px auto;
+  color: #970407;
+  padding: 10px;
+  border: 1px solid #970407;
 }

@@ -1,24 +1,49 @@
-import React, { memo, Suspense, useCallback } from 'react';
+import React, { memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { routeConfig } from '../config/routeConfig';
+import {
+  routeConfigForAdmin,
+  routeConfigForDoctor,
+  routeConfigForReception,
+} from '../config/routeConfig';
 import { AppRoutesProps } from '@/shared/types/router';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
 
 const AppRouter = () => {
-    const renderWithWrapper = useCallback((route: AppRoutesProps) => {
-        const element = (
-            <Suspense fallback={<div>...</div>}>{route.element}</Suspense>
-        );
+  const [currentRole, setCurrentRole] = useState<string>('');
 
-        return (
-            <Route
-                key={route.path}
-                path={route.path}
-                element={element}
-            />
-        );
-    }, []);
+  const authUserData = useSelector(getAuthUserData);
 
-    return <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>;
+  useEffect(() => {
+    if (authUserData) {
+      setCurrentRole(authUserData.role);
+    }
+  }, [authUserData]);
+
+  const renderWithWrapper = useCallback((route: AppRoutesProps) => {
+    const element = (
+      <Suspense fallback={<div>...</div>}>{route.element}</Suspense>
+    );
+
+    return <Route key={route.path} path={route.path} element={element} />;
+  }, []);
+
+  return (
+    <Routes>
+      {Object.values(
+        currentRole === 'admin'
+          ? routeConfigForAdmin
+          : currentRole === 'doctor'
+          ? routeConfigForDoctor
+          : currentRole === 'reception'
+          ? routeConfigForReception
+          : '',
+      ).map(renderWithWrapper)}
+
+      {/* {Object.values(routeConfigForDoctor).map(renderWithWrapper)} */}
+    </Routes>
+  );
 };
 
 export default memo(AppRouter);

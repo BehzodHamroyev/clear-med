@@ -1,49 +1,40 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ThunkConfig } from '@/app/providers/StoreProvider';
+import Cookies from 'js-cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { baseUrl } from '../../../../../baseurl';
 import { DepartmentType } from '../types/departmentType';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
-  { departmentName: string; departmentTime: string; departmentIcon: any },
+  { name: string; image: string; duration: number },
   ThunkConfig<string>
->(
-  'DepartmentAdd',
-  async ({ departmentName, departmentTime, departmentIcon }, thunkApi) => {
-    const { extra, rejectWithValue } = thunkApi;
-    const token = localStorage.getItem('token');
-    const allCookiesString = document.cookie;
+>('DepartmentAdd', async ({ name, image, duration }, thunkApi) => {
+  const { extra, rejectWithValue } = thunkApi;
 
-    console.log(`Department:`, allCookiesString);
+  const token = Cookies.get('token');
 
-    try {
-      const response = await axios.post<DepartmentType>(
-        `http://magicsoft.uz/med/api/v1/department/create/`,
-        {
-          departmentName,
-          departmentTime,
-          departmentIcon,
+  try {
+    const response = await axios.post<DepartmentType>(
+      `${baseUrl}/department/create`,
+      {
+        name,
+        image,
+        duration,
+      },
+      {
+        maxBodyLength: Infinity,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
         },
-        {
-          headers: { 'Content-Type': 'application', token: ` Bearer ${token}` },
-        },
-      );
+      },
+    );
 
-      console.log(response, 'department');
-
-      if (!response.data) {
-        throw new Error();
-      }
-      // @ts-ignore
-      if (response.data.token) {
-        // @ts-ignore
-        localStorage.setItem('token', response.data.token);
-      }
-
-      return response.data;
-    } catch (e) {
-      console.log(e, 'department');
-      return rejectWithValue('error');
-    }
-  },
-);
+    return response.data;
+  } catch (e: any) {
+    // console.log(e, 'department');
+    return rejectWithValue('error');
+  }
+});

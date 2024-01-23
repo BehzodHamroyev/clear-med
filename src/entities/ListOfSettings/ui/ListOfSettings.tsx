@@ -3,22 +3,30 @@ import { useTranslation } from 'react-i18next';
 
 import cls from './ListOfSettings.module.scss';
 import {
-  LanguageIcon,
   RightIcon,
   ThemeIcon,
+  LanguageIcon,
+  PassWordIcon,
 } from '@/shared/assets/Pages/Settings';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const ListOfSettings = () => {
   const { t } = useTranslation();
-  const { isOpenThemeOrLanguage, setIsOpenThemeOrLanguage } =
-    useContext(ButtonsContext);
+  const {
+    isOpenThemeOrLanguage,
+    setIsOpenThemeOrLanguage,
+    isOpenSettingsChangePassword,
+    setIsOpenSettingsChangePassword,
+  } = useContext(ButtonsContext);
 
   return (
     <div className={cls.ListOfSettingsWrapper}>
       <div
         className={`${cls.Language} ${isOpenThemeOrLanguage ? cls.IsOpen : ''}`}
-        onClick={() => setIsOpenThemeOrLanguage(true)}
+        onClick={() => {
+          setIsOpenThemeOrLanguage(true);
+          setIsOpenSettingsChangePassword(false);
+        }}
       >
         <div className={cls.LanguageLeft}>
           <LanguageIcon />
@@ -28,12 +36,35 @@ const ListOfSettings = () => {
       </div>
 
       <div
-        onClick={() => setIsOpenThemeOrLanguage(false)}
-        className={`${cls.Theme} ${!isOpenThemeOrLanguage ? cls.IsOpen : ''}`}
+        onClick={() => {
+          setIsOpenThemeOrLanguage(false);
+          setIsOpenSettingsChangePassword(false);
+        }}
+        className={`${cls.Theme} ${
+          !isOpenThemeOrLanguage && !isOpenSettingsChangePassword
+            ? cls.IsOpen
+            : ''
+        }`}
       >
         <div className={cls.ThemeLeft}>
           <ThemeIcon />
           <p>{t('Mavzuni o‘zgartirish')}</p>
+        </div>
+        <RightIcon className={cls.span} />
+      </div>
+
+      <div
+        onClick={() => {
+          setIsOpenThemeOrLanguage(false);
+          setIsOpenSettingsChangePassword(true);
+        }}
+        className={`${cls.Theme} ${
+          isOpenSettingsChangePassword ? cls.IsOpen : ''
+        }`}
+      >
+        <div className={cls.ThemeLeft}>
+          <PassWordIcon />
+          <p>{t('Parolni o‘zgartirish')}</p>
         </div>
         <RightIcon className={cls.span} />
       </div>

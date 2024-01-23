@@ -1,64 +1,53 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
-import { AuthSliceReducer } from '../model/slice/AuthSlice';
-import { getUserData } from '../model/selector/getUserData';
-import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
-import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchAuthLogin } from '../model/service/AuthenticatorResponse';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import cls from './Login.module.scss';
 
-const reducer: ReducersList = {
-  login: AuthSliceReducer,
-};
+import { LoginFormLeft } from '@/shared/ui/Login/LoginFormLeft';
+import { LoginFormRight } from '@/shared/ui/Login/LoginFormRight';
+import {
+  getAuthUserData,
+  getAuthUserIsLoading,
+} from '../model/selector/authUserSelector';
+import { Loader } from '@/widgets/Loader';
+
+// ------------------------------------
+// {
+//        role":"reception"
+//        "login":"906770957",
+//        "password": "12345678"
+// }
+// {
+//        "role":"doctor"
+//        "login":"906518141",
+//        "password": "12345678"
+
+// }
+// {
+//        "role":"admin"
+//        "login":"977773768",
+//        "password": "12345678"
+// }
+// ------------------------------------
 
 const Login: FC = () => {
-  const { isSubmitLoginForm, setIsSubmitLoginForm, setIsProfileWho, formData } =
-    useContext(ButtonsContext);
+  const authUserData = useSelector(getAuthUserData);
 
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const loginData = useSelector(getUserData);
-
-  console.log(loginData, 'ckjsdnvkjdcndksjcnsdk');
+  const authUserIsLoading = useSelector(getAuthUserIsLoading);
 
   useEffect(() => {
-    if (loginData) {
-      setIsProfileWho(`${loginData.role}`);
-    } else {
-      setIsProfileWho('');
+    if (authUserData?.role && Cookies.get('token')) {
+      navigate('/');
     }
-  }, [loginData, setIsProfileWho]);
-
-  useEffect(() => {
-    if (isSubmitLoginForm) {
-      dispatch(
-        fetchAuthLogin({
-          password: formData.UserPassword,
-          login: formData.PhoneNumber,
-        }),
-      );
-
-      setIsSubmitLoginForm(false);
-    }
-  }, [
-    dispatch,
-    isSubmitLoginForm,
-    formData.PhoneNumber,
-    setIsSubmitLoginForm,
-    formData.UserPassword,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUserData]);
 
   return (
-    <DynamicModuleLoader reducers={reducer}>
+    <>
       <div className={cls.LoginPageWrapper}>
         <div className={cls.LoginForm}>
           <LoginFormLeft />
@@ -66,7 +55,9 @@ const Login: FC = () => {
           <LoginFormRight />
         </div>
       </div>
-    </DynamicModuleLoader>
+
+      {authUserIsLoading && <Loader />}
+    </>
   );
 };
 

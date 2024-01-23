@@ -1,204 +1,188 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+// import { io } from 'socket.io-client';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
 import cls from './QueuesControlDoctor.module.scss';
+import {
+  DynamicModuleLoader,
+  ReducersList,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
+import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import {
+  getQueuesControlDoctorData,
+  getQueuesControlDoctorError,
+  getQueuesControlDoctorIsLoading,
+} from '../model/selectors/queuesControlDoctorSelector';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import {
+  getControlPanelDocktorData,
+  getControlPanelDocktorError,
+  // eslint-disable-next-line unused-imports/no-unused-imports
+  getControlPanelDocktorIsLoading,
+} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
+import { Loader } from '@/widgets/Loader';
+import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
 
-const KorilganBemorlar = [
-  {
-    id: 1,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '9:30:24',
-    qabultugashi: '9:50:12',
-  },
-  {
-    id: 2,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '10:00:24',
-    qabultugashi: '10:34:53',
-  },
-  {
-    id: 3,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '11:40:04',
-    qabultugashi: '12:10:22',
-  },
-  {
-    id: 4,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '12:20:02',
-    qabultugashi: '12:50:12',
-  },
-];
+import {
+  getDoneQueuesControlDoctorData,
+  getDoneQueuesControlDoctorIsLoading,
+  getDoneQueuesControlDoctorError,
+} from '../model/selectors/doneQueuesControlDoctorSelector';
+import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-const TableBodyCretedPatient = [
-  {
-    id: 1,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 2,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 3,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 4,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 5,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 6,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 7,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 8,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 9,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 10,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 11,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 12,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 13,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 14,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 15,
-    img: ErrorIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-  {
-    id: 16,
-    img: CheckedIcon,
-    item1: 'AKU18',
-    item2: '15:34:25',
-    item3: '15:47:28',
-  },
-];
+import { getAuthUserData } from '@/features/Auth';
 
-const TableBodyQueuesPatients = [
-  { id: 1, item1: 'AKU18', item2: '15:34:25' },
-  { id: 2, item1: 'AKU19', item2: '15:35:25' },
-  { id: 3, item1: 'AKU20', item2: '15:36:25' },
-  { id: 4, item1: 'AKU21', item2: '15:37:25' },
-  { id: 5, item1: 'AKU22', item2: '15:38:25' },
-  { id: 6, item1: 'AKU23', item2: '15:39:25' },
-  { id: 7, item1: 'AKU24', item2: '15:30:25' },
-  { id: 8, item1: 'AKU25', item2: '15:31:25' },
-  { id: 9, item1: 'AKU26', item2: '15:32:25' },
-  { id: 10, item1: 'AKU27', item2: '15:34:25' },
-  { id: 11, item1: 'AKU28', item2: '15:44:25' },
-  { id: 12, item1: 'AKU29', item2: '15:34:25' },
-];
+const reducers: ReducersList = {
+  queuesControlDoctor: queuesControlDoctorReducer,
+};
 
 const QueuesControlDoctor = () => {
+  const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
 
+  // const socket = io('ws://magicsoft.uz:8900');
+
+  const queuesList = useSelector(getQueuesControlDoctorData);
+  const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
+  const queuesListError = useSelector(getQueuesControlDoctorError);
+
+  const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
+  const doneQueuesListIsLoading = useSelector(
+    getDoneQueuesControlDoctorIsLoading,
+  );
+  const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
+
+  const proccessData = useSelector(getControlPanelDocktorData);
+  const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
+  const proccessError = useSelector(getControlPanelDocktorError);
+
+  const authUserData = useSelector(getAuthUserData);
+
+  const [ipAddress, setIPAddress] = useState('');
+
+  useEffect(() => {
+    fetch('https://api.ipify.org?format=json')
+      .then((response) => response.json())
+      .then((data) => setIPAddress(data.ip))
+      .catch((error) => console.log(error));
+  }, []);
+
+  if (authUserData) {
+    // socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
+  }
+
+  useEffect(() => {
+    dispatch(
+      fetchQueuesControlDoctor({
+        status: 'pending',
+      }),
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      fetchDoneQueuesControlDoctor({
+        limit: 100,
+      }),
+    );
+  }, [dispatch]);
+
+  if (queuesListError) {
+    console.log(queuesListError);
+  }
+
+  if (proccessError) {
+    console.log(proccessError);
+  }
+
+  if (doneQueuesListError) {
+    console.log(queuesListError);
+  }
+
+  // socket.on('getNewQueue', (data) => {
+  //   console.log('Socket Queue data:', data);
+  // });
+
   return (
-    <div className={cls.QueuesControlDoctorWrapper}>
-      <ButtonNavbar
-        dontCreate
-        TableTitle="Qabullar"
-        ItemsLength={KorilganBemorlar.length}
-      />
+    <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+      <div className={cls.QueuesControlDoctorWrapper}>
+        <ButtonNavbar
+          dontCreate
+          TableTitle="Amaldagi navbat"
+          // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
+          roomNumber={proccessData?.data[0]?.room_id?.name}
+          departmentName={proccessData?.data[0]?.department_id?.name}
+        />
 
-      <ControlPanelDocktor />
+        <ControlPanelDocktor />
 
-      <div className={cls.TableDoctor}>
-        <div className={cls.TableDoctorChild}>
-          <TableTitleDoctorProfile
-            Tablethead={['Id', 'Qabul boshlanishi', 'Qabul tugashi', 'Xolati']}
-            Tabletbody={TableBodyCretedPatient}
-          />
+        <div className={cls.TableDoctor}>
+          <div className={cls.TableDoctorChild}>
+            {doneQueuesList && doneQueuesList.length > 0 ? (
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+                  ItemsLength={doneQueuesList?.length}
+                />
+                <DoneQueueTableTitleDoctorProfile
+                  Tablethead={[
+                    'Id',
+                    'Qabul kuni',
+                    'Qabul boshlanishi',
+                    'Qabul tugashi',
+                    'Xolati',
+                  ]}
+                  Tabletbody={doneQueuesList}
+                />
+              </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t("Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!")}
+              </h2>
+            )}
+          </div>
+
+          <div className={cls.TableDoctorChild}>
+            {queuesList && queuesList.length > 0 ? (
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle="Navbatdagi bemorlar"
+                  ItemsLength={queuesList?.length}
+                />
+                <TableTitleDoctorProfile
+                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tabletbody={queuesList}
+                />
+              </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
+              </h2>
+            )}
+          </div>
         </div>
-        <div className={cls.TableDoctorChild}>
-          <TableTitleDoctorProfile
-            Tablethead={['Id', 'Bilet berilgan vaqti']}
-            Tabletbody={TableBodyQueuesPatients}
-          />
-        </div>
+
+        {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
+        {(proccessIsLoading ||
+          queuesListIsLoading ||
+          doneQueuesListIsLoading) && <Loader />}
+
+        {(queuesListError || proccessError || doneQueuesListError) && (
+          <ErrorDialog isErrorProps={!false} />
+        )}
       </div>
-
-      {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-    </div>
+    </DynamicModuleLoader>
   );
 };
 

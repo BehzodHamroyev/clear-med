@@ -9,11 +9,9 @@ export default defineConfig({
   },
   define: {
     __IS_DEV__: JSON.stringify(true),
-    // ---------- Local server ----------
-    // __API__: JSON.stringify('http://localhost:8000'),
 
-    // ---------- Real server ----------
-    __API__: JSON.stringify('http://magicsoft.uz/med/api/v1/'),
+    // ----------  Server ----------
+    __API__: JSON.stringify('http://medapi.magicsoft.uz/api/v1/'),
     __PROJECT__: JSON.stringify('frontend'),
   },
 });

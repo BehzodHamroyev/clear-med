@@ -1,27 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
-import { getUserData } from '@/features/Auth';
-import { Logout } from '@/shared/assets/widgets/Navbar';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-
+import { Logout } from '@mui/icons-material';
 import cls from './LogoutChild.module.scss';
 
 const LogoutChild = () => {
-  const { setIsProfileWho } = useContext(ButtonsContext);
+  const handleLogOut = () => {
+    Cookies.remove('token');
 
-  const loginData = useSelector(getUserData);
+    if (!Cookies.get('token')) {
+      window.location.reload();
+    }
+  };
 
   return (
-    <Link
-      onClick={() => {
-        setIsProfileWho('');
-        localStorage.removeItem('token');
-      }}
-      to="/"
-      className={cls.LogoutChildWrapper}
-    >
+    <Link onClick={handleLogOut} to="/login" className={cls.LogoutChildWrapper}>
       <Logout className={cls.LogoutIcon} />
     </Link>
   );

@@ -24,9 +24,10 @@ const GetIconForDepartment = () => {
       >
         {iconsCardDepartments.map((item, index) => (
           <item.icon
-            onClick={(e) => {
+            onClick={() => {
               setIsOpenDepartmentAddCardIconIndex(index);
               setIsOpenDepartmentAddCardIcon(false);
+              
             }}
           />
         ))}

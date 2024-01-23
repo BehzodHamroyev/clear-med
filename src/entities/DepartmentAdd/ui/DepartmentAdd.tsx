@@ -1,57 +1,89 @@
-import React, { useContext, useEffect, useState } from 'react';
-
+import React from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
-import cls from './DepartmentAdd.module.scss';
+
+import { baseUrl } from '../../../../baseurl';
+import { DepartmentType } from '../model/types/departmentType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
-import { fetchDepartmentAdd } from '../model/service/departmentAddResponse';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
+import cls from './DepartmentAdd.module.scss';
 
 const DepartmentAdd = () => {
+  /* useTranslation */
   const { t } = useTranslation();
 
-  const dispatch = useAppDispatch();
-
+  /* useContext */
   const {
+    setDepartmentListChanged,
     setIsOpenDepartmentAddCard,
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentAddCardIcon,
+    setResponseAddDoctorStatusCode,
     isOpenDepartmentAddCardIconIndex,
-    setIsOpenDepartmentAddCardIconIndex,
-  } = useContext(ButtonsContext);
+  } = React.useContext(ButtonsContext);
 
-  const [inputValue, setInputValue] = useState('');
+  /* useState */
+  const [inputValue, setInputValue] = React.useState<Number>();
 
+  const [departmentName, setDepartmentName] = React.useState('');
+
+  /* Cookies */
+  const token = Cookies.get('token');
+
+  /* handle change functions */
   const handleInputChange = (e: { target: { value: string } }) => {
     const newValue = e.target.value.replace(/\D/g, '');
 
     if (newValue.length <= 2) {
-      setInputValue(newValue);
+      setInputValue(Number(newValue));
     }
   };
 
+  /* get img card */
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
-  useEffect(() => {
-    dispatch(
-      fetchDepartmentAdd({
-        departmentName: 'Ankologiya',
-        departmentTime: '20minut',
-        departmentIcon: 'departmentIcon',
-      }),
-    );
-    
-  }, [dispatch]);
+  /* fetch add */
+  const handleButtonSubmit = async () => {
+    setDepartmentListChanged(departmentName);
 
+    try {
+      const response = await axios.post<DepartmentType>(
+        `${baseUrl}/department/create`,
+        {
+          name: departmentName,
+          duration: Number(inputValue),
+          image: `${isOpenDepartmentAddCardIconIndex}`,
+        },
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      setResponseAddDoctorStatusCode(200);
+      setIsOpenDepartmentAddCard(false);
+
+      return response.data;
+    } catch (e: any) {
+      setResponseAddDoctorStatusCode('404');
+      return console.log(e, 'error');
+    }
+  };
+
+  /* UI */
   return (
     <div
-      className={cls.DepartmentAddWrapper}
       onClick={(e) => {
         e.stopPropagation();
         setIsOpenDepartmentAddCard(false);
       }}
+      className={cls.DepartmentAddWrapper}
     >
       <div
         onClick={(e) => {
@@ -65,28 +97,31 @@ const DepartmentAdd = () => {
           <ResultIconSrc />
         </div>
 
-        <div className={cls.CardBody}>
+        <form action="#" className={cls.CardBody}>
           <input
             type="text"
             maxLength={20}
+            minLength={3}
+            min={3}
+            required
+            onChange={(e) => setDepartmentName(e.target.value)}
             className={cls.InputBulim}
             placeholder={t('Bo‘lim qo‘shish')}
           />
 
-          <label className={cls.labelInput} htmlFor="1">
-            {t('Bemorni qabul qilishga ketadigan taxminiy vaqt!')}
-            <input
-              id="1"
-              type="number"
-              value={inputValue}
-              onChange={handleInputChange}
-              maxLength={2}
-              min={1}
-              max={60}
-              placeholder={t('minut')}
-              className={cls.InputBulim}
-            />
-          </label>
+          <input
+            id="1"
+            min={1}
+            max={60}
+            required
+            type="number"
+            maxLength={2}
+            value={Number(inputValue)}
+            className={cls.InputBulim}
+            onChange={handleInputChange}
+            placeholder={t("Bemorni ko'rishga ketadigan taxminiy vaqt")}
+          />
+
           <button
             className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
             onClick={() => {
@@ -95,6 +130,14 @@ const DepartmentAdd = () => {
             type="button"
           >
             {t("Bo'limga rasm qo'shish")}
+          </button>
+
+          <button
+            className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
+            onClick={() => {}}
+            type="button"
+          >
+            {t("Bo'limga rasm yuklash")}
           </button>
 
           {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
@@ -110,11 +153,16 @@ const DepartmentAdd = () => {
             >
               {t('Bekor qilish')}
             </button>
-            <button type="button" className={`${cls.Btn} ${cls.Btn2}`}>
+
+            <button
+              onClick={handleButtonSubmit}
+              type="button"
+              className={`${cls.Btn} ${cls.Btn2}`}
+            >
               {t('Saqlash')}
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

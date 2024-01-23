@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ListOfSettings } from '@/entities/ListOfSettings';
 import { ListOfSettingsLangs } from '@/entities/ListOfSettingsLangs';
@@ -7,22 +8,29 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './SettingsPage.module.scss';
 import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
+import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
 
 const SettingsPage = () => {
-  const { isOpenThemeOrLanguage, setIsOpenThemeOrLanguage } =
+  const { t } = useTranslation();
+
+  const { isOpenThemeOrLanguage, isOpenSettingsChangePassword } =
     useContext(ButtonsContext);
 
   return (
     <div className={cls.SettingsPageWrapper}>
-      <ButtonNavbar TableTitle="Sozlamalar" />
+      <ButtonNavbar TableTitle={t('Sozlamalar')} />
 
       <div className={cls.SettingsList}>
         <ListOfSettings />
 
-        {isOpenThemeOrLanguage ? (
+        {isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
           <ListOfSettingsLangs />
-        ) : (
+        ) : !isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
           <ListOfSettingsTheme />
+        ) : isOpenSettingsChangePassword ? (
+          <ListOfSettingsPassword />
+        ) : (
+          ''
         )}
       </div>
     </div>

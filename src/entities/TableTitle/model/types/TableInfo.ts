@@ -1,6 +1,6 @@
 type TableBody = {
   id: number;
-  img?: any;
+  img?: string;
   item1?: number | string;
   item2?: string | number;
   item3?: number | string;
@@ -10,6 +10,7 @@ type TableBody = {
   item7?: string | number;
   item8?: string | number;
   lastChild?: string | number;
+  imgName?: string;
 };
 
 export interface TableInfo {

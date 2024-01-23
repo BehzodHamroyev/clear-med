@@ -1,45 +1,66 @@
+/* eslint-disable max-len */
+
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AuthLogin } from '../types/AuthentificationTypes';
 
+const tokenValue =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OWI4YjY1ZTU1YjBmMTZjZGRjM2RjMiIsImlhdCI6MTcwNTM3OTY5NiwiZXhwIjoxNzA1NzM5Njk2fQ.Zv_xgjnJnYMWmhrUIwzVYb4wKjCHIdxdeLs4RPHHoOU';
+
 export const fetchAuthLogin = createAsyncThunk<
   AuthLogin,
-  { password: string; login: string },
+  { password: string; login: number },
   ThunkConfig<string>
 >('Authorization', async ({ password, login }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
   try {
-    console.log('response');
-    const response = await extra.api.post<AuthLogin>(
-      `/users/login`,
+    const response = await axios.post(
+      `${baseUrl}users/signin`,
       {
         password,
         login,
       },
       {
-        withCredentials: true,
+        // withCredentials: true,
         headers: {
-          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
         },
       },
     );
 
-    // console.log(response, 'response');
-
-    if (!response.data) {
-      throw new Error();
-    }
-    // @ts-ignore
     if (response.data.token) {
-      // @ts-ignore
-      localStorage.setItem('token', response.data.token);
-      // setCookie('token', response.data.token);
+      const { token } = response.data;
+
+      Cookies.set('token', tokenValue, {
+        // secure: true,
+        // httpOnly: true,
+        // sameSite: 'Lax',
+      });
+
+      // Cookies.set('token', token, {
+      //   secure: true,
+      //   // httpOnly: true,
+      //   // sameSite: 'Lax',
+      // });
+
+      const getTokenCookie = Cookies.get('token');
+
+      // consoleda token ko'rinsa demak token cookiega saqlangan
+      // console.log(getTokenCookie);
+
+      // localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', tokenValue);
+    }
+    if (response.data.user.role) {
+      localStorage.setItem('profile', response.data.user.role);
     }
 
     return response.data;
-  } catch (e) {
+  } catch (error) {
     return rejectWithValue('error');
   }
 });

@@ -1,6 +1,9 @@
 .NavbarProfileWrapper {
   margin: 0 10px;
   user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   h3 {
     color: #000;

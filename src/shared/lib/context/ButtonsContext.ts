@@ -1,8 +1,35 @@
 import { createContext } from 'react';
+import { CurrentQueueDataType } from '@/pages/QueuingTV';
 
 export interface ButtonsClickedProps {
+  clickedDoctorId: string;
+  setClickedDoctorId: (prop: string) => void;
+
+  isOpenSettingsChangePassword: boolean;
+  setIsOpenSettingsChangePassword: (prop: boolean) => void;
+
+  responseAddDoctorStatusCode: number | string;
+  setResponseAddDoctorStatusCode: (prop: number | string) => void;
+
+  responseAddRoomStatusCode: number;
+  setResponseAddRoomStatusCode: (prop: number) => void;
+
+  calendarBeginValue: string;
+  setCalendarBeginValue: (props: string) => void;
+
+  getResponseData: string;
+  setResponseData: (props: string) => void;
+
+  calendarEndValue: string;
+  setCalendarEndValue: (props: string) => void;
+  departmentGetId: string;
+  setDepartmentGetId: (prop: string) => void;
+
   isSubmitLoginForm: boolean;
   setIsSubmitLoginForm: (prop: boolean) => void;
+
+  departmentListChanged: string;
+  setDepartmentListChanged: (prop: string) => void;
 
   isProfileWho: string;
   setIsProfileWho: (prop: string) => void;
@@ -37,8 +64,58 @@ export interface ButtonsClickedProps {
   isOpenQueuingCardClicked: boolean;
   setIsOpenQueuingCardClicked: (prop: boolean) => void;
 
-  isQueuingCardClickedGetId: number;
-  setIsQueuingCardClickedGetId: (prop: number) => void;
+  isDataFormAddRoom: {
+    RoomNumber: string;
+    SectionName: string;
+    DoctorName: string;
+  };
+  setIsDataFormAddRoom: (prop: {
+    RoomNumber: string;
+    SectionName: string;
+    DoctorName: string;
+  }) => void;
+
+  isQueuingCardClickedGetId: { roomId: string; departmentId: string };
+  setIsQueuingCardClickedGetId: (prop: {
+    roomId: string;
+    departmentId: string;
+  }) => void;
+
+  currentQueueData: CurrentQueueDataType;
+  setCurrentQueueData: (prop: {
+    kutish_vaqti?: string;
+    message?: boolean;
+    navbat?: {
+      created_date?: string;
+      created_time?: string;
+      department_id?: string;
+      doctor_id?: string;
+      id?: string;
+      queues_name?: string;
+      room_id?: string;
+      status?: string;
+      step?: number;
+      __v?: number;
+      _id?: string;
+    };
+    sizdan_oldingi_bemorlar_soni?: number;
+    room: {
+      _id: string;
+      name: number;
+      department_id: {
+        _id: string;
+        name: string;
+        duration: number;
+        image: string;
+        disabled: boolean;
+        __v: number;
+        id: string;
+      };
+      disabled: boolean;
+      __v: number;
+      id: string;
+    };
+  }) => void;
 
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
@@ -54,9 +131,45 @@ export interface ButtonsClickedProps {
 
   formData: { PhoneNumber: string; UserPassword: string };
   setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
+
+  settingsFormData: { password: string; newPassword: string };
+  setSettingsFormData: (prop: {
+    password: string;
+    newPassword: string;
+  }) => void;
+
+  hasOpenToast: boolean;
+  setHasOpenToast: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  clickedDoctorId: '',
+  setClickedDoctorId: () => {},
+
+  hasOpenToast: false,
+  setHasOpenToast: () => {},
+
+  responseAddDoctorStatusCode: 0,
+  setResponseAddDoctorStatusCode: () => {},
+
+  responseAddRoomStatusCode: 0,
+  setResponseAddRoomStatusCode: () => {},
+
+  isOpenSettingsChangePassword: false,
+  setIsOpenSettingsChangePassword: () => {},
+
+  calendarBeginValue: '',
+  setCalendarBeginValue: () => {},
+
+  calendarEndValue: '',
+  setCalendarEndValue: () => {},
+
+  getResponseData: '',
+  setResponseData: () => {},
+
+  departmentGetId: '',
+  setDepartmentGetId: () => {},
+
   isSubmitLoginForm: false,
   setIsSubmitLoginForm: () => {},
 
@@ -68,6 +181,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isCloseCalendar2: false,
   setIsCloseCalendar2: () => {},
+
+  departmentListChanged: '',
+  setDepartmentListChanged: () => {},
 
   isOpenThemeOrLanguage: true,
   setIsOpenThemeOrLanguage: () => {},
@@ -93,7 +209,10 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenQueuingCardClicked: false,
   setIsOpenQueuingCardClicked: () => {},
 
-  isQueuingCardClickedGetId: 1,
+  isQueuingCardClickedGetId: {
+    roomId: '',
+    departmentId: '',
+  },
   setIsQueuingCardClickedGetId: () => {},
 
   isOpenQueuingTvCardPopapSecond: false,
@@ -110,4 +229,46 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   formData: { PhoneNumber: '', UserPassword: '' },
   setFormData: () => {},
+
+  isDataFormAddRoom: { RoomNumber: '', SectionName: '', DoctorName: '' },
+  setIsDataFormAddRoom: () => {},
+
+  settingsFormData: { password: '', newPassword: '' },
+  setSettingsFormData: () => {},
+
+  currentQueueData: {
+    kutish_vaqti: '',
+    message: false,
+    navbat: {
+      created_date: '',
+      created_time: '',
+      department_id: '',
+      doctor_id: '',
+      id: '',
+      queues_name: '',
+      room_id: '',
+      status: '',
+      step: 1,
+      __v: 1,
+      _id: '',
+    },
+    room: {
+      _id: '',
+      name: 0,
+      department_id: {
+        _id: '',
+        name: '',
+        duration: 0,
+        image: '',
+        disabled: false,
+        __v: 0,
+        id: '',
+      },
+      disabled: false,
+      __v: 0,
+      id: '',
+    },
+    sizdan_oldingi_bemorlar_soni: 1,
+  },
+  setCurrentQueueData: () => {},
 });

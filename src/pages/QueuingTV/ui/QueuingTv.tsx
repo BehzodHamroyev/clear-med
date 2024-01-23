@@ -1,173 +1,94 @@
-import React, { useContext } from 'react';
-
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { QueuingTvCard } from '@/entities/QueuingTvCard';
-import {
-  Ankle,
-  Brain,
-  Cell,
-  Intestine,
-  Temperature,
-  Tooth,
-} from '@/shared/assets/entities/QueuingTvCard';
+import React, { useContext, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import cls from './QueuingTv.module.scss';
-import { QueuingTvCardPopap } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopap';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
+import {
+  getDeparmentListData,
+  getDeparmentListError,
+  getDeparmentListIsLoading,
+} from '../model/selectors/departmentListSelector';
+
+import {
+  getCurrentQueueData,
+  getCurrentQueueError,
+  getCurrentQueueIsLoading,
+} from '../model/selectors/currentQueueSelector';
+
+import {
+  getLastQueueData,
+  getLastQueueError,
+  getLastQueueIsLoading,
+} from '../model/selectors/lastQueueSelector';
+
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
+
 import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
 
-const CardBody = [
-  {
-    id: 1,
-    CardLeftTitle: 'Dermatolog',
-    CardLeftRoomNumber: '15-xona',
-    CardLeftDoctorName: 'Qosimova Nargiza',
-    icon: <Tooth />,
-  },
-  {
-    id: 2,
-    CardLeftTitle: 'Pediatr',
-    CardLeftRoomNumber: '12-xona',
-    CardLeftDoctorName: '2 ta Shifokor',
-    icon: <Ankle />,
-  },
-  {
-    id: 3,
-    CardLeftTitle: 'Xirurg',
-    CardLeftRoomNumber: '32-xona',
-    CardLeftDoctorName: 'Nurmatov Rustam',
-    icon: <Brain />,
-  },
-  {
-    id: 4,
-    CardLeftTitle: 'Kardiolog',
-    CardLeftRoomNumber: '4-xona',
-    CardLeftDoctorName: 'Karimov Shuxrat',
-    icon: <Intestine />,
-  },
-  {
-    id: 5,
-    CardLeftTitle: 'Nervopotolog',
-    CardLeftRoomNumber: '8-xona',
-    CardLeftDoctorName: 'Qosimova Nargiza',
-    icon: <Cell />,
-  },
-  {
-    id: 6,
-    CardLeftTitle: 'Akusherolog',
-    CardLeftRoomNumber: '19-xona',
-    CardLeftDoctorName: '2 ta Shifokor',
-    icon: <Temperature />,
-  },
-  {
-    id: 7,
-    CardLeftTitle: 'Dermatolog',
-    CardLeftRoomNumber: '15-xona',
-    CardLeftDoctorName: 'Qosimova Nargiza',
-    icon: <Tooth />,
-  },
-  {
-    id: 8,
-    CardLeftTitle: 'Pediatr',
-    CardLeftRoomNumber: '12-xona',
-    CardLeftDoctorName: '2 ta Shifokor',
-    icon: <Ankle />,
-  },
-  {
-    id: 9,
-    CardLeftTitle: 'Xirurg',
-    CardLeftRoomNumber: '32-xona',
-    CardLeftDoctorName: 'Nurmatov Rustam',
-    icon: <Brain />,
-  },
-  {
-    id: 10,
-    CardLeftTitle: 'Kardiolog',
-    CardLeftRoomNumber: '4-xona',
-    CardLeftDoctorName: 'Karimov Shuxrat',
-    icon: <Intestine />,
-  },
-  {
-    id: 11,
-    CardLeftTitle: 'Nervopotolog',
-    CardLeftRoomNumber: '8-xona',
-    CardLeftDoctorName: 'Qosimova Nargiza',
-    icon: <Cell />,
-  },
-  {
-    id: 12,
-    CardLeftTitle: 'Akusherolog',
-    CardLeftRoomNumber: '19-xona',
-    CardLeftDoctorName: '2 ta Shifokor',
-    icon: <Temperature />,
-  },
-  {
-    id: 13,
-    CardLeftTitle: 'Xirurg',
-    CardLeftRoomNumber: '32-xona',
-    CardLeftDoctorName: 'Nurmatov Rustam',
-    icon: <Brain />,
-  },
-  {
-    id: 14,
-    CardLeftTitle: 'Kardiolog',
-    CardLeftRoomNumber: '4-xona',
-    CardLeftDoctorName: 'Karimov Shuxrat',
-    icon: <Intestine />,
-  },
-  {
-    id: 15,
-    CardLeftTitle: 'Nervopotolog',
-    CardLeftRoomNumber: '8-xona',
-    CardLeftDoctorName: 'Qosimova Nargiza',
-    icon: <Cell />,
-  },
-  {
-    id: 16,
-    CardLeftTitle: 'Akusherolog',
-    CardLeftRoomNumber: '19-xona',
-    CardLeftDoctorName: '2 ta Shifokor',
-    icon: <Temperature />,
-  },
-];
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
+
+import { Loader } from '@/widgets/Loader';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 
 const QueuingTv = () => {
-  const {
-    isOpenQueuingCardClicked,
-    isQueuingCardClickedGetId,
-    isOpenQueuingTvCardPopapSecond,
-  } = useContext(ButtonsContext);
+  const dispatch = useAppDispatch();
 
-  const getObjectFind = CardBody.find(
-    (item) => item.id === isQueuingCardClickedGetId,
-  );
+  const { isOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
-  // console.log(getObjectFind);
+  const deparmentList = useSelector(getDeparmentListData);
+  const deparmentListIsLoading = useSelector(getDeparmentListIsLoading);
+  const deparmentListError = useSelector(getDeparmentListError);
+
+  const currentQueue = useSelector(getCurrentQueueData);
+  const currentQueueIsLoading = useSelector(getCurrentQueueIsLoading);
+  const currentQueueError = useSelector(getCurrentQueueError);
+
+  const lastQueue = useSelector(getLastQueueData);
+  const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
+  const lastQueueError = useSelector(getLastQueueError);
+
+  useEffect(() => {
+    dispatch(fetchDepartmentList({ limit: 'all' }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={cls.QueuingTvWrapper}>
-      <ButtonNavbar TableTitle="Bo‘limlar" ItemsLength={CardBody.length} />
+      <ButtonNavbar TableTitle="Xonalar" ItemsLength={deparmentList?.length} />
 
       <div className={cls.RenderSectionCard}>
-        {CardBody.map((item) => (
-          <QueuingTvCard
-            key={item.id}
-            id={item.id}
-            CardLeftTitle={item.CardLeftTitle}
-            CardLeftRoomNumber={item.CardLeftRoomNumber}
-            CardLeftDoctorName={item.CardLeftDoctorName}
-            icon={item.icon}
-          />
-        ))}
+        {deparmentList &&
+          deparmentList.map((item) => (
+            <QueuingTvCard
+              key={item?.id}
+              DoctorId={item?.doctor_id?.id}
+              CardLeftTitle={item?.department_id?.name}
+              CardLeftRoomNumber={item?.name}
+              CardLeftDoctorName={item?.doctor_id?.name}
+              // @ts-ignore
+              icon={item?.department_id?.photo}
+            />
+          ))}
       </div>
 
-      {isOpenQueuingCardClicked ? (
-        <QueuingTvCardPopap getObjectFind={getObjectFind} />
-      ) : (
-        ''
-      )}
+      {isOpenQueuingTvCardPopapSecond &&
+        !lastQueueIsLoading &&
+        lastQueue?.pagination && (
+          <QueuingTvCardPopapSecond
+            roomNumber={lastQueue?.pagination?.split('-')?.slice()[0]?.at(-1)}
+            ticketNumber={lastQueue?.pagination}
+          />
+        )}
 
-      {isOpenQueuingTvCardPopapSecond ? <QueuingTvCardPopapSecond /> : ''}
+      {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
+
+      {(deparmentListError || currentQueueError || lastQueueError) && (
+        <ErrorDialog isErrorProps={!false} />
+      )}
     </div>
   );
 };

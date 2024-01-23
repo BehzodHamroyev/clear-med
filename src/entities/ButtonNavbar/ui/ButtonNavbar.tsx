@@ -2,15 +2,25 @@ import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import { CalendarSection } from '@/entities/Calendar';
+// import { CalendarSection } from '@/entities/Calendar';
 import { ButtonNavbarProps } from '../model/types/ButtonNavbarTypes';
-import { CarbonAdd, Search } from '@/shared/assets/entities/ButtonNavbar';
+import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
 const ButtonNavbar = (props: ButtonNavbarProps) => {
-  const { TableTitle, ItemsLength, Calendar, dontCreate, CreateCarbonAdd } = props;
+  const {
+    TableTitle,
+    ItemsLength,
+    Calendar,
+    dontCreate,
+    CreateCarbonAdd,
+    roomNumber,
+    departmentName,
+    doctorName,
+  } = props;
   const location = useLocation();
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
@@ -22,7 +32,8 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   } = useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
-    if (location.pathname === '/department') {
+    /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
+    if (location.pathname === '/') {
       setIsOpenDepartmentAddCard(true);
     } else if (location.pathname === '/add_room_age') {
       setIsOpenRoomAddCard(true);
@@ -34,25 +45,34 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   return (
     <div className={cls.ButtonNavbarWrapper}>
       <p>
-        {TableTitle} {ItemsLength ? <span>({ItemsLength})</span> : ''}
+        {doctorName} {doctorName && ' | '} {TableTitle}
+        {ItemsLength ? <span>({ItemsLength})</span> : ''}{' '}
       </p>
 
-      {Calendar ? <CalendarSection /> : ''}
+      {/* {Calendar ? <CalendarSection /> : ''} */}
+      {Calendar ? (
+        <div style={{ marginTop: '-23px' }}>
+          <BestCalendar />
+        </div>
+      ) : (
+        ''
+      )}
 
-      {dontCreate ? (
-        <h3 className={cls.BulimTuri}>{t('12-Xona, Dermatolog')}</h3>
+      {dontCreate && roomNumber && departmentName ? (
+        <h3 className={cls.BulimTuri}>
+          {roomNumber}-{t('Xona')}, {departmentName}
+        </h3>
       ) : (
         ''
       )}
 
       {location.pathname !== '/settings' ? (
         <div className={cls.ButtonNavbarIcons}>
-          <div
+          {/* <div
             className={`${cls.ButtonNavParent} ${
               searchOpen === true ? cls.OpenWidth : ''
             }`}
           >
-            {/* {searchOpen ? ( */}
             <input
               maxLength={30}
               type="text"
@@ -60,15 +80,13 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
                 searchOpen === false ? cls.CloseInput : ''
               }`}
             />
-            {/* ) : (
-              ''
-            )} */}
+          </div>
 
             <Search
               onClick={() => setSearchOpen(!searchOpen)}
               className={cls.ButtonNavbarIconsChild}
             />
-          </div>
+          </div> */}
 
           {CreateCarbonAdd === true ? (
             <CarbonAdd

@@ -37,6 +37,12 @@
       padding: 20px;
     }
 
+    .roomNumber {
+      font-weight: 300;
+      margin-bottom: 10px;
+      font-family: sans-serif;
+    }
+
     .InputBulim {
       width: 100%;
       color: #4f4f51;
@@ -65,6 +71,11 @@
       font-family: sans-serif;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.3s linear;
+    }
+
+    .Btn:active {
+      transform: scale(0.98);
     }
 
     .Btn2 {

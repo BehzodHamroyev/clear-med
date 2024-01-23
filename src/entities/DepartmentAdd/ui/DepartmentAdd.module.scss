@@ -87,6 +87,11 @@
       font-family: sans-serif;
       border-radius: 8px;
       cursor: pointer;
+      transition: all 0.1s linear;
+    }
+
+    .Btn:active {
+      transform: scale(0.98);
     }
 
     .Btn2 {
@@ -99,6 +104,11 @@
       background-color: transparent;
       color: #828282;
       border: 1px solid #828282;
+    }
+
+    .Btn1:hover {
+      color: red;
+      border-color: red;
     }
 
     .Btn3 {

@@ -1,93 +1,156 @@
-/* eslint-disable no-constant-condition */
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import cls from './TableReportsDoctorPage.module.scss';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { fetchTableReports } from '../model/service/TableReportService';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { fetchReportControlDoctor } from '../model/service/fetchReportDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import {
+  getreportControlDoctorData,
+  getreportControlDoctorError,
+  getreportControlDoctorIsLoading,
+} from '../model/selector/reportControlDoctorSelector';
+import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
+import { Loader } from '@/widgets/Loader';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 const tableTitle = [
   'ID',
-  'Shifokor',
-  'Xona',
+  'Qabul kuni',
   'Qabul boshlanishi',
   'Qabul tugashi',
-];
-
-const KorilganBemorlar = [
-  {
-    id: 1,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '9:30:24',
-    qabultugashi: '9:50:12',
-  },
-  {
-    id: 2,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '10:00:24',
-    qabultugashi: '10:34:53',
-  },
-  {
-    id: 3,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '11:40:04',
-    qabultugashi: '12:10:22',
-  },
-  {
-    id: 4,
-    shifokor: 'Umid Rustamov',
-    xona: '2',
-    qabulboshlanishi: '12:20:02',
-    qabultugashi: '12:50:12',
-  },
+  'Xolati',
 ];
 
 const TableReportsDoctorPage = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
+  const reportList = useSelector(getreportControlDoctorData);
+  const reportIsLoading = useSelector(getreportControlDoctorIsLoading);
+  const reportError = useSelector(getreportControlDoctorError);
+
+  const { calendarBeginValue, calendarEndValue } = useContext(ButtonsContext);
+
+  // ----- gtmTime convert to Est time -----
+  const convertToEst = (gmtTime: any) => {
+    return new Date(
+      new Date(gmtTime).toLocaleString('uz-UZ'),
+    ).toLocaleDateString('uz-UZ');
+  };
+
   useEffect(() => {
-    dispatch(fetchTableReports({ id: '658287fdff48c5727ec7b1d6' }));
-  }, [dispatch]);
+    if (calendarBeginValue && calendarEndValue) {
+      dispatch(
+        fetchReportControlDoctor({
+          startDate: calendarBeginValue,
+          endDate: calendarEndValue,
+          limit: 1000,
+          page: 1,
+        }),
+      );
+    } else {
+      dispatch(
+        fetchReportControlDoctor({
+          startDate: convertToEst(new Date()),
+          endDate: convertToEst(
+            new Date(new Date().getTime() + 24 * 3600 * 1000),
+          ),
+          limit: 1000,
+          page: 1,
+        }),
+      );
+    }
+  }, [calendarBeginValue, calendarEndValue, dispatch]);
+
+  if (reportError) {
+    console.log(reportError);
+  }
 
   return (
-    <table className={cls.TableTitleWrapper}>
-      <ButtonNavbar
-        TableTitle="Shifokorlar"
-        ItemsLength={KorilganBemorlar.length}
-        Calendar
-      />
+    <>
+      <table className={cls.TableTitleWrapper}>
+        <ButtonNavbar TableTitle="Hisobot" Calendar />
 
-      <h3 className={cls.KorilganBemorlar}>
-        {t("Jami Ko'rilgan Bemorlar : ")}
-        {KorilganBemorlar.length}
-        {t(' ta')}
-      </h3>
+        {reportList && reportList.length > 0 ? (
+          <>
+            <div className={cls.TableTitleWrapper__title}>
+              <h3 className={cls.KorilganBemorlar}>
+                {t("Jami Ko'rilgan Bemorlar : ")}
+                {reportList ? reportList.length : 0}
+                {t(' ta')}
+              </h3>
 
-      <thead className={cls.Tablethead}>
-        <tr className={cls.tr}>
-          {tableTitle.map((title: string) => (
-            <th className={cls.th}>{title}</th>
-          ))}
-        </tr>
-      </thead>
+              <h3 className={cls.KorilganBemorlar}>
+                {t('Tasdiqlangan Bemorlar : ')}
+                {reportList
+                  ? reportList.filter((item) => item.status === 'completed')
+                      .length
+                  : 0}
+                {t(' ta')}
+              </h3>
 
-      <tbody className={cls.Tabletbody}>
-        {KorilganBemorlar.map((item, index) => (
-          <tr key={index} className={cls.tr}>
-            <td className={cls.td}>{item.id}</td>
-            <td className={cls.td}>{item.shifokor}</td>
-            <td className={cls.td}>{item.xona}</td>
-            <td className={cls.td}>{item.qabulboshlanishi}</td>
-            <td className={cls.td}>{item.qabultugashi}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              <h3 className={cls.KorilganBemorlar}>
+                {t('Bekor qilingan Bemorlar : ')}
+                {reportList
+                  ? reportList.filter((item) => item.status === 'rejected')
+                      .length
+                  : 0}
+                {t(' ta')}
+              </h3>
+            </div>
+            <thead className={cls.Tablethead}>
+              <tr className={cls.tr}>
+                {tableTitle.map((title: string) => (
+                  <th key={title} className={cls.th}>
+                    {title}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+
+            <tbody className={cls.Tabletbody}>
+              {reportList &&
+                reportList.length > 0 &&
+                reportList.map((item, index) => (
+                  <tr key={item.id} className={cls.tr}>
+                    <td className={cls.td}>{item.queues_name}</td>
+                    <td className={cls.td}>
+                      {item.completed_date?.split('T')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      {item.accepted_date?.split('T')[1].split('.')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      {item.completed_date?.split('T')[1].split('.')[0]}
+                    </td>
+                    <td className={cls.td}>
+                      <img
+                        src={
+                          item.status === 'completed' ? CheckedIcon : ErrorIcon
+                        }
+                        alt="rejected"
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </>
+        ) : (
+          <h3 className={cls.reportEmpty}>
+            {t(
+              "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
+            )}
+          </h3>
+        )}
+      </table>
+
+      {reportIsLoading && <Loader />}
+
+      {reportError && <ErrorDialog isErrorProps={!false} />}
+    </>
   );
 };
 

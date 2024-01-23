@@ -14,11 +14,15 @@ const CalendarSection = () => {
 
   const [value2, onChangeSecond] = useState<Value>(new Date());
 
+  const [gmtTime, setGmtTime] = useState<string>('');
+  const [estTime, setEstTime] = useState<string>('');
+
   const {
     isCloseCalendar,
     setIsCloseCalendar,
     isCloseCalendar2,
     setIsCloseCalendar2,
+    setCalendarBeginValue,
   } = useContext(ButtonsContext);
 
   const data = {
@@ -31,6 +35,22 @@ const CalendarSection = () => {
     day: value2?.toString().slice(8, 10),
     month: value2?.toString().slice(4, 7),
     year: value2?.toString().slice(11, 15),
+  };
+
+  const convertToEst = (gmtTime: any) => {
+    const gmtDate = new Date(gmtTime);
+    const estDate = new Date(
+      gmtDate.toLocaleString('en-US', { timeZone: 'America/New_York' }),
+    );
+    setEstTime(estDate.toLocaleString());
+  };
+
+  const handleClickGetDate = () => {
+    setIsCloseCalendar(false);
+
+    convertToEst(value);
+
+    console.log(estTime);
   };
 
   return (
@@ -70,9 +90,7 @@ const CalendarSection = () => {
               value={value}
             />
             <button
-              onClick={() => {
-                setIsCloseCalendar(false);
-              }}
+              onClick={handleClickGetDate}
               type="button"
               className={cls.CloseBtn}
             >

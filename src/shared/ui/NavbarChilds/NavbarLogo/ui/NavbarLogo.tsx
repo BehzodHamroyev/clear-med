@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
 import cls from './NabarLogo.module.scss';
-import { LogoNabar } from '@/shared/assets/widgets/Navbar';
 import { BugerNavbar } from '@/shared/assets/icons';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { Logo } from '@/shared/assets/Logo';
 
 const NavbarLogo = () => {
   const { isOpenBurgerNavbar, setIsOpenBurgerNavbar } =
@@ -15,7 +15,9 @@ const NavbarLogo = () => {
         onClick={() => setIsOpenBurgerNavbar(!isOpenBurgerNavbar)}
         className={cls.NavbarLogo2}
       />
-      <LogoNabar className={cls.NavbarLogo} />
+      {/* <LogoNabar /> */}
+      <Logo className={cls.NavbarLogo} />
+      <p className={cls.NavbarText}>Medical Sentre</p>
     </div>
   );
 };

@@ -4,4 +4,7 @@ export interface ButtonNavbarProps {
   Calendar?: boolean;
   dontCreate?: boolean;
   CreateCarbonAdd?: boolean;
+  roomNumber?: number;
+  departmentName?: string;
+  doctorName?: string;
 }
