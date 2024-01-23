@@ -1,11 +1,16 @@
-import { memo, ReactElement } from 'react';
+import { memo, ReactElement, useContext, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { classNames } from '@/shared/lib/classNames/classNames';
+
 import cls from './MainLayout.module.scss';
+
 import { Sidebar } from '@/widgets/Sidebar';
-import { Login } from '@/features/Auth';
-// import { Footer } from '@/widgets/Footer';
-// import { Footer } from '@/widgets/Footer';
+import { getAuthUserData, Login } from '@/features/Auth';
+import Toast from '@/shared/ui/Toast/Toast';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface MainLayoutProps {
   className?: string;
@@ -18,7 +23,20 @@ interface MainLayoutProps {
 export const MainLayout = memo((props: MainLayoutProps) => {
   const { className, content, toolbar, header, sidebar } = props;
 
+  const { t } = useTranslation();
+
+  const authUserData = useSelector(getAuthUserData);
+
+  const { setHasOpenToast } = useContext(ButtonsContext);
+
   const location = useLocation();
+
+  useEffect(() => {
+    if (authUserData) {
+      setHasOpenToast(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUserData]);
 
   return (
     <div>
@@ -36,7 +54,11 @@ export const MainLayout = memo((props: MainLayoutProps) => {
             <div className={cls.header}>{header}</div>
             <div className={cls.toolbar}>{toolbar}</div>
           </div>
-          {/* <Footer /> */}
+
+          <Toast
+            severity="success"
+            message={t('Timizga muvaffaqqiyatli kirdingiz')}
+          />
         </div>
       )}
     </div>
