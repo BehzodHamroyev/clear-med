@@ -1,9 +1,11 @@
 /* eslint-disable no-alert */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import cls from './QueueUserControl.module.scss';
+
+import Toast from '../../../Toast/Toast';
 import { CheckedIcon, ErrorIcon, Refresh } from '@/shared/assets/Pages/Doctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
@@ -12,6 +14,7 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueUserControlProps {
   proccessedStep: number;
@@ -20,6 +23,9 @@ interface QueueUserControlProps {
 const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const { setHasOpenToast } = useContext(ButtonsContext);
+
   const proccessedList = useSelector(getControlPanelDocktorData);
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
@@ -45,6 +51,8 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           path: '',
         }),
       );
+
+      setHasOpenToast(true);
 
       setProccessCansel(true);
     }
@@ -79,6 +87,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           path: '',
         }),
       );
+      setHasOpenToast(true);
 
       setProccessConfirm(true);
     }
@@ -144,6 +153,13 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           />
         </button>
       </div>
+
+      {(proccessCansel || proccessConfirm) && (
+        <Toast
+          severity="success"
+          message={t("Bemor ko'rilganlar ro'yhatiga qo'shildi")}
+        />
+      )}
     </div>
   );
 };

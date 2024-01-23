@@ -3,8 +3,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { SerializedError } from '@reduxjs/toolkit';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -33,20 +31,6 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   return (
     <DialogTitle sx={{ m: 0, p: 2, background: '#800000' }} {...other}>
       {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon sx={{ fontSize: '24px', color: 'white' }} />
-        </IconButton>
-      ) : null}
     </DialogTitle>
   );
 }
