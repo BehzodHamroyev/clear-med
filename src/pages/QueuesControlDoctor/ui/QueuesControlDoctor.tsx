@@ -43,6 +43,7 @@ import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitle
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { getAuthUserData } from '@/features/Auth';
+import PaginationComponent from '@/shared/ui/Pagination/Pagination';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -147,6 +148,8 @@ const QueuesControlDoctor = () => {
                   Tablethead={['Id', 'Bilet berilgan vaqti']}
                   Tabletbody={queuesList}
                 />
+
+                <PaginationComponent count={100} />
               </>
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>

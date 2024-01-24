@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -20,7 +20,7 @@ const QueueUserNext = () => {
 
   const proccessedList = useSelector(getControlPanelDocktorData);
   const queuesList = useSelector(getQueuesControlDoctorData);
-  const [updateQueueList, setUpdateQueueList] = useState(false);
+  // const [updateQueueList, setUpdateQueueList] = useState(false);
 
   const handleClicknextQueue = () => {
     dispatch(
@@ -31,7 +31,7 @@ const QueueUserNext = () => {
       }),
     );
 
-    setUpdateQueueList(true);
+    // setUpdateQueueList(true);
   };
 
   // useEffect(() => {
