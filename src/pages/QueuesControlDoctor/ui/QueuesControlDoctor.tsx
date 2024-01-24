@@ -44,6 +44,7 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { getAuthUserData } from '@/features/Auth';
 import PaginationComponent from '@/shared/ui/Pagination/Pagination';
+import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -73,6 +74,8 @@ const QueuesControlDoctor = () => {
   const authUserData = useSelector(getAuthUserData);
 
   const { addQueue, removeQueue } = useQueuesControlDoctorActions();
+
+  const { addDoneQueue } = useDoneQueuesControlDoctorActons();
 
   const fetchIP = async () => {
     try {
@@ -118,7 +121,25 @@ const QueuesControlDoctor = () => {
 
   socket.on('getProccessQueue', (data) => {
     if (data) {
-      removeQueue(data.data[0]);
+      removeQueue(data);
+    }
+  });
+
+  socket.on('getAcceptedQueue', (data) => {
+    if (data) {
+      addDoneQueue(data);
+    }
+  });
+
+  socket.on('getRejectedQueue', (data) => {
+    if (data) {
+      addDoneQueue(data);
+    }
+  });
+
+  socket.on('getRecallQueueToTV', (data) => {
+    if (data) {
+      console.log(data);
     }
   });
 

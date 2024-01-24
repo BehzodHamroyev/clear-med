@@ -8,54 +8,69 @@ import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanel
 
 export const fetchQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
-  { method: string; path: string; status: string },
+  { method: string; path: string; status: string; isReCall?: boolean },
   ThunkConfig<string>
->('fetchQueuesProccess', async ({ method, path, status }, thunkApi) => {
-  const { rejectWithValue } = thunkApi;
+>(
+  'fetchQueuesProccess',
+  async ({ method, path, status, isReCall = false }, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
 
-  const socket = io('http://socketmed.magicsoft.uz');
+    const socket = io('http://socketmed.magicsoft.uz');
 
-  const getTokenCookie = Cookies.get('token');
+    const getTokenCookie = Cookies.get('token');
 
-  if (!status) {
-    throw new Error('');
-  }
+    if (!status) {
+      throw new Error('');
+    }
 
-  try {
-    let response;
+    try {
+      let response;
 
-    if (method === 'get') {
-      response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
-        `${baseUrl}/doctor/${path}${status}`,
+      if (method === 'get') {
+        response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
+          `${baseUrl}/doctor/${path}${status}`,
 
-        {
-          headers: {
-            authorization: `Bearer ${getTokenCookie}`,
+          {
+            headers: {
+              authorization: `Bearer ${getTokenCookie}`,
+            },
           },
-        },
-      );
-    } else if (method === 'post') {
-      response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
-        `${baseUrl}/doctor/${path}${status}`,
-        {},
-        {
-          headers: {
-            authorization: `Bearer ${getTokenCookie}`,
+        );
+      } else if (method === 'post') {
+        response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+          `${baseUrl}/doctor/${path}${status}`,
+          {},
+          {
+            headers: {
+              authorization: `Bearer ${getTokenCookie}`,
+            },
           },
-        },
-      );
-    }
+        );
+      }
 
-    if (response?.data) {
-      socket.emit('proccessQueue', response.data);
-    }
+      if (response?.data && status === 'proccessed' && !isReCall) {
+        socket.emit('proccessQueue', response.data);
+      }
 
-    if (!response) {
-      throw new Error();
-    }
+      if (response?.data && status === 'proccessed' && isReCall) {
+        socket.emit('recallQueue', response.data);
+      }
 
-    return response.data;
-  } catch (e) {
-    return rejectWithValue('error');
-  }
-});
+      if (response?.data && status === 'rejected') {
+        socket.emit('rejectQueue', response.data);
+      }
+
+      if (response?.data && status === 'completed') {
+        socket.emit('acceptedQueue', response.data);
+      }
+
+      if (!response) {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (e) {
+      return rejectWithValue('error');
+    }
+  },
+);

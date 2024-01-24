@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +13,7 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
+// import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueUserControlProps {
@@ -37,6 +37,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           method: 'post',
           status: 'proccessed',
           path: '',
+          isReCall: true,
         }),
       );
     }
@@ -58,25 +59,26 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
     }
   };
 
-  useEffect(() => {
-    if (proccessCansel) {
-      dispatch(
-        fetchDoneQueuesControlDoctor({
-          limit: 100,
-        }),
-      );
-      setProccessCansel(false);
-    }
-    if (proccessConfirm) {
-      dispatch(
-        fetchDoneQueuesControlDoctor({
-          limit: 100,
-        }),
-      );
-      setProccessConfirm(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [proccessedList]);
+  // useEffect(() => {
+  //   if (proccessCansel) {
+  //     dispatch(
+  //       fetchDoneQueuesControlDoctor({
+  //         limit: 100,
+  //       }),
+  //     );
+  //     setProccessCansel(false);
+  //   }
+
+  //   if (proccessConfirm) {
+  //     dispatch(
+  //       fetchDoneQueuesControlDoctor({
+  //         limit: 100,
+  //       }),
+  //     );
+  //     setProccessConfirm(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [proccessedList]);
 
   const handleClickProccessConfirm = () => {
     if (proccessedStep) {
