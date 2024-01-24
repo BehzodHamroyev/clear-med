@@ -13,7 +13,10 @@ import {
   DynamicModuleLoader,
   ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
+import {
+  queuesControlDoctorReducer,
+  useQueuesControlDoctorActions,
+} from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
@@ -68,6 +71,8 @@ const QueuesControlDoctor = () => {
 
   const authUserData = useSelector(getAuthUserData);
 
+  const { addQueue } = useQueuesControlDoctorActions();
+
   const fetchIP = async () => {
     try {
       const responce = await axios.get('https://api.ipify.org?format=json');
@@ -106,9 +111,13 @@ const QueuesControlDoctor = () => {
 
   socket.on('getNewQueue', (data) => {
     console.log('Socket Queue data:', data);
+
+    if (data) {
+      addQueue(data);
+    }
   });
 
-  console.log(queuesList);
+  // console.log(queuesList);
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

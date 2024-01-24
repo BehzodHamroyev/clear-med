@@ -1,15 +1,34 @@
 interface Department {
+  disabled: boolean;
+  duration: number;
+  id: string;
+  image: string;
   name: string;
-  id: string | null;
+  photo: string;
+  __v: number;
+  _id: string;
 }
 
 interface Room {
+  department_id: string;
+  disabled: boolean;
+  doctor_id: string;
+  id: string;
   name: number;
-  id: string | null;
+  __v: number;
+  _id: string;
 }
 
 interface Doctor {
+  exprience: 3;
+  id: string;
+  login: number;
   name: string;
+  passwordChangedDate: null;
+  photo: string;
+  role: string;
+  __v: number;
+  _id: string;
 }
 
 export interface Queue {

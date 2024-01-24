@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { CurrentQueueSchemaForReception } from '../types/departmentListSchema';
 import { CurrentQueueDataApiRespoceType } from '../types/departmentListTypes';
 import { fetchCurrentQueue } from '../services/fetchCurrentQueue';
+import { buildSlice } from '@/shared/lib/store';
 
 const initialState: CurrentQueueSchemaForReception = {
   isLoading: false,
@@ -9,10 +10,18 @@ const initialState: CurrentQueueSchemaForReception = {
   data: undefined,
 };
 
-export const currentQueue = createSlice({
+export const currentQueue = buildSlice({
   name: 'Current Queueu ',
   initialState,
-  reducers: {},
+  reducers: {
+    clearCurrentQueue: (state) => {
+      console.log('clearedddddd');
+
+      state.data = undefined;
+
+      console.log(state.data, 'clearedddddd');
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCurrentQueue.pending, (state) => {
@@ -36,3 +45,4 @@ export const currentQueue = createSlice({
 
 export const { actions: currentQueueuActions } = currentQueue;
 export const { reducer: currentQueueuReducer } = currentQueue;
+export const { useActions: useCurrentQueueuActions } = currentQueue;

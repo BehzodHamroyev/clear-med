@@ -22,6 +22,8 @@ import {
   getCurrentQueueIsLoading,
 } from '@/pages/QueuingTV/model/selectors/currentQueueSelector';
 import { Loader } from '@/widgets/Loader';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { useCurrentQueueuActions } from '@/pages/QueuingTV/model/slice/currentQueueListSlice';
 
 interface QueuingTvCardPopapSecondProps {
   roomNumber: string | undefined;
@@ -46,6 +48,8 @@ const QueuingTvCardPopapSecond = ({
   const currentQueueLoading = useSelector(getCurrentQueueIsLoading);
   const currentQueueError = useSelector(getCurrentQueueError);
 
+  const { clearCurrentQueue } = useCurrentQueueuActions();
+
   const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
     useContext(ButtonsContext);
 
@@ -66,37 +70,6 @@ const QueuingTvCardPopapSecond = ({
         }),
       ).then(() => {
         if (!currentQueueError && !currentQueueLoading) printCom();
-
-        if (currentQueueData) {
-          socket.emit(
-            'create_queue',
-            { queue_data: currentQueueData },
-            (responce: { status: string }) => {
-              console.log(responce);
-            },
-          );
-        }
-      });
-    }
-
-    if (lastQueue && lastQueue.room.department_id && printableDivRef?.current) {
-      dispatch(
-        fetchCurrentQueue({
-          departmentId: String(lastQueue?.room?.department_id._id),
-          roomId: lastQueue?.room?._id,
-        }),
-      ).then(() => {
-        if (!currentQueueError && !currentQueueLoading) printCom();
-
-        if (currentQueueData) {
-          socket.emit(
-            'create_queue',
-            { queue_data: currentQueueData },
-            (responce: { status: string }) => {
-              console.log(responce);
-            },
-          );
-        }
       });
     }
   };
@@ -152,7 +125,10 @@ const QueuingTvCardPopapSecond = ({
 
         <div className={cls.BtnParnet}>
           <button
-            onClick={() => setIsOpenQueuingTvCardPopapSecond(false)}
+            onClick={() => {
+              setIsOpenQueuingTvCardPopapSecond(false);
+              clearCurrentQueue();
+            }}
             type="button"
             className={`${cls.Btn} ${cls.Btn1}`}
           >
