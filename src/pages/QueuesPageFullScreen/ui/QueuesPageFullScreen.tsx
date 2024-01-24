@@ -1,9 +1,8 @@
 import React from 'react';
 import { useFullScreenHandle } from 'react-full-screen';
 
-import { QueuesList } from '@/entities/QueuesChilds';
-
 import cls from './QueuesPageFullScreen.module.scss';
+import { QueuesList2 } from '@/entities/QueuesChilds2';
 
 const QueuesPageFullScreen = () => {
   const handle = useFullScreenHandle();
@@ -13,26 +12,18 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPageFlex}>
         {/* <img src={Spetalete} alt="#" className={cls.QueuesPageImg} /> */}
         <div className={cls.RightCardRendering}>
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
-          <QueuesList />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
+          <QueuesList2 />
         </div>
       </div>
 
