@@ -71,7 +71,7 @@ const QueuesControlDoctor = () => {
 
   const authUserData = useSelector(getAuthUserData);
 
-  const { addQueue } = useQueuesControlDoctorActions();
+  const { addQueue, removeQueue } = useQueuesControlDoctorActions();
 
   const fetchIP = async () => {
     try {
@@ -110,14 +110,16 @@ const QueuesControlDoctor = () => {
   }, [dispatch]);
 
   socket.on('getNewQueue', (data) => {
-    console.log('Socket Queue data:', data);
-
     if (data) {
       addQueue(data);
     }
   });
 
-  // console.log(queuesList);
+  socket.on('getProccessQueue', (data) => {
+    if (data) {
+      removeQueue(data.data[0]);
+    }
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

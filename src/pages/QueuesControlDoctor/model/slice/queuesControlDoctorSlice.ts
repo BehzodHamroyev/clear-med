@@ -18,20 +18,14 @@ export const queuesControlDoctorSlice = buildSlice({
   initialState,
   reducers: {
     addQueue: (state, { payload }: PayloadAction<Queue>) => {
-      // console.log(payload);
-
       if (payload.queues_name) {
         state.data?.push(payload);
-
-        console.log(state.data, 'state data');
       }
-
-      // if (state.data) {
-
-      //   state.data = [payload, ...state.data];
-      // } else {
-      //   state.data = [payload];
-      // }
+    },
+    removeQueue: (state, { payload }: PayloadAction<Queue>) => {
+      if (payload?._id) {
+        state.data = state.data?.filter((item) => item._id !== payload._id);
+      }
     },
   },
   extraReducers: (builder) => {

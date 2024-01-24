@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { io } from 'socket.io-client';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
@@ -11,6 +12,8 @@ export const fetchQueuesProccess = createAsyncThunk<
   ThunkConfig<string>
 >('fetchQueuesProccess', async ({ method, path, status }, thunkApi) => {
   const { rejectWithValue } = thunkApi;
+
+  const socket = io('http://socketmed.magicsoft.uz');
 
   const getTokenCookie = Cookies.get('token');
 
@@ -41,6 +44,10 @@ export const fetchQueuesProccess = createAsyncThunk<
           },
         },
       );
+    }
+
+    if (response?.data) {
+      socket.emit('proccessQueue', response.data);
     }
 
     if (!response) {
