@@ -16,6 +16,7 @@ import {
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
+import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
 import { doctorListReducer } from '@/pages/ReportsPage';
 
 export function createReduxStore(
@@ -36,6 +37,7 @@ export function createReduxStore(
     currentQueue: currentQueueuReducer,
     RoomGetAll: RoomListSliceReducer,
     lastQueue: lastQueueReducer,
+    departmentAdd:departmentAddSliceSliceReducer,
     doctorList: doctorListReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,

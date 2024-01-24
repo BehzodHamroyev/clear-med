@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { ErrorReload } from '@/widgets/Error';
 import { TableTitle } from '@/entities/TableTitle';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
+import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { DepartmentAdd } from '@/entities/DepartmentAdd';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
@@ -22,7 +24,6 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import cls from './DepartmentPage.module.scss';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -96,6 +97,8 @@ const DepartmentPage = () => {
 
               <TableTitle Tablethead={tableTitle} Tabletbody={tableBody} />
             </div>
+
+            <ToastHalper />
 
             {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
             {isOpenDepartmentEditCard ? (

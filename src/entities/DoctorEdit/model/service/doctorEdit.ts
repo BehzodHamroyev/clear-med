@@ -17,7 +17,7 @@ export const fetchDoctorEdit = createAsyncThunk<
 
   try {
     const response = await axios.patch<DoctorEditType>(
-      `${baseUrl}/users/:${data.idCard}`,
+      `${baseUrl}/users/${data.idCard}`,
       data,
       {
         maxBodyLength: Infinity,
