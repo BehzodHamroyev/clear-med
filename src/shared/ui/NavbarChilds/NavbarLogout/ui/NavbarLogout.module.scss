@@ -5,18 +5,25 @@
   font-family: sans-serif;
   gap: 10px;
 
-  .language {
-    font-size: 30px;
-    margin-top: -3px;
-    color: #707070;
+  &__language {
     cursor: pointer;
+
+    &--icon {
+      font-size: 35px;
+      color: #707070;
+    }
+
+    &--img {
+      width: 25px;
+      height: 25px;
+    }
   }
 
-  .language:hover {
+  &__language:hover &--icon {
     color: #353535;
   }
 
-  .language:active {
+  &__language:active &--icon {
     transform: scale(0.96);
   }
 }

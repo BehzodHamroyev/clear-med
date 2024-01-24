@@ -8,6 +8,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: end;
+  user-select: none;
 
   &__card {
     width: 200px;
@@ -15,11 +16,27 @@
     border-radius: 8px;
     background-color: #fff;
     overflow: hidden;
+    user-select: none;
     box-shadow: 0 0 19px 2px #223c5033;
+
+    &--activeLang {
+      background-color: #deeafb;
+    }
 
     &--languages {
       padding: 20px;
+      font-size: 18px;
+      font-weight: 500;
       font-family: sans-serif;
+      user-select: none;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 25px;
+      }
     }
 
     &--languages:hover {

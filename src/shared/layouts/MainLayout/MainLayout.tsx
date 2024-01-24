@@ -28,7 +28,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const authUserData = useSelector(getAuthUserData);
 
-  const { setHasOpenToast } = useContext(ButtonsContext);
+  const { setHasOpenToast, isOpenLanugagePopup, setisOpenLanugagePopup } =
+    useContext(ButtonsContext);
 
   const [hasToaster, setHasToaster] = useState(false);
 
@@ -71,7 +72,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
             <div className={cls.toolbar}>{toolbar}</div>
           </div>
 
-          <LanguageModal />
+          {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
           {hasToaster && (
             <Toast
