@@ -45,7 +45,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   return (
     <div className={cls.ButtonNavbarWrapper}>
       <p>
-        {doctorName} {doctorName && ' | '} {TableTitle}
+        {doctorName} {doctorName && ' | '} {TableTitle}{' '}
         {ItemsLength ? <span>({ItemsLength})</span> : ''}{' '}
       </p>
 

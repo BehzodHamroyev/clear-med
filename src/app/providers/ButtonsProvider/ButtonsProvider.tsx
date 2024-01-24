@@ -59,6 +59,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [getResponseData, setResponseData] = useState('');
 
+  const [isOpenLanugagePopup, setisOpenLanugagePopup] = useState(false);
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -135,6 +137,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setCurrentQueueData,
       isOpenSettingsChangePassword,
       setIsOpenSettingsChangePassword,
+      isOpenLanugagePopup,
+      setisOpenLanugagePopup,
       formData,
       setFormData,
       settingsFormData,
@@ -217,6 +221,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenThemeOrLanguage,
       isOpenDepartmentAddCard,
       setIsOpenDepartmentAddCard,
+      isOpenLanugagePopup,
+      setisOpenLanugagePopup,
       isOpenDepartmentEditCard,
       setIsOpenDepartmentEditCard,
       isOpenRoomEditCard,

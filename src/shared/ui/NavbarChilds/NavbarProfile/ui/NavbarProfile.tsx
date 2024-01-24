@@ -11,8 +11,6 @@ const NavbarProfile = () => {
 
   const { t } = useTranslation();
 
-  console.log(loginData?.role);
-
   const profile =
     loginData?.role === 'admin'
       ? 'Admin'

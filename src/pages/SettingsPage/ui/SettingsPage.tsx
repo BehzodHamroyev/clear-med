@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ListOfSettings } from '@/entities/ListOfSettings';
-import { ListOfSettingsLangs } from '@/entities/ListOfSettingsLangs';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './SettingsPage.module.scss';
@@ -24,7 +23,8 @@ const SettingsPage = () => {
         <ListOfSettings />
 
         {isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
-          <ListOfSettingsLangs />
+          // <ListOfSettingsLangs />
+          ''
         ) : !isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
           <ListOfSettingsTheme />
         ) : isOpenSettingsChangePassword ? (

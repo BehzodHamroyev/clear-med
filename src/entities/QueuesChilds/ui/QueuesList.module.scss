@@ -1,7 +1,10 @@
 .QueuesListWrapper {
-  width: 300px;
+  min-width: 260px;
+  max-width: 260px;
   user-select: none;
   background-color: #fff;
+  border: 1px solid #b1b1b1;
+  margin: 10px 0;
 
   .QueuesListTitle {
     width: 100%;

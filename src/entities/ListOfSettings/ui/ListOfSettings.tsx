@@ -5,7 +5,6 @@ import cls from './ListOfSettings.module.scss';
 import {
   RightIcon,
   ThemeIcon,
-  LanguageIcon,
   PassWordIcon,
 } from '@/shared/assets/Pages/Settings';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -21,7 +20,7 @@ const ListOfSettings = () => {
 
   return (
     <div className={cls.ListOfSettingsWrapper}>
-      <div
+      {/* <div
         className={`${cls.Language} ${isOpenThemeOrLanguage ? cls.IsOpen : ''}`}
         onClick={() => {
           setIsOpenThemeOrLanguage(true);
@@ -33,7 +32,7 @@ const ListOfSettings = () => {
           <p>{t('Tilni o‘zgartirish')}</p>
         </div>
         <RightIcon className={cls.span} />
-      </div>
+      </div> */}
 
       <div
         onClick={() => {

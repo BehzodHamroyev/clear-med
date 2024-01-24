@@ -201,7 +201,7 @@ const ReportsDoctorPage = () => {
     <div className={cls.ReportsDoctorPageWrapper}>
       <ButtonNavbar
         Calendar
-        TableTitle="Ko'rilgan be'morlar "
+        TableTitle={t("Ko'rilgan bemorlar")}
         ItemsLength={
           reportDetailList && reportDetailList?.length > 0
             ? Number(reportDetailList?.length)
@@ -224,7 +224,7 @@ const ReportsDoctorPage = () => {
             className={cls.ReportsDoctorPageWrapper__backbtn}
             onClick={() => handleClickBack()}
           >
-            Ortga qaytish
+            {t('Ortga qaytish')}
           </div>
 
           <h3 className={cls.reportEmpty}>
