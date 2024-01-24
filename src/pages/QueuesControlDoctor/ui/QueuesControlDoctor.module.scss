@@ -7,16 +7,6 @@
     flex-direction: column;
     margin: 20px auto;
     gap: 10px;
-
-    .TableDoctorChild {
-      @media only screen and (max-width: 1560px) {
-        width: 100%;
-
-        &:first-child {
-          order: 2;
-        }
-      }
-    }
   }
 
   .TableTitle {

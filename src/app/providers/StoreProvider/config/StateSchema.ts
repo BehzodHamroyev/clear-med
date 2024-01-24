@@ -33,7 +33,7 @@ export interface StateSchema {
   currentQueue: CurrentQueueSchemaForReception;
   RoomGetAll: RoomListSchema;
   lastQueue: LastQueueDataSchema;
-  departmentAdd:DepartmentScheme
+  departmentAdd: DepartmentScheme;
   doctorList: DoctorListScheam;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;

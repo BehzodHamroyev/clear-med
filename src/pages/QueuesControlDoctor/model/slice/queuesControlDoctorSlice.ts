@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
   QueuesControlDoctorSchema,
   QueueApiResponseControlDoctorTypes,
 } from '../..';
 import { fetchQueuesControlDoctor } from '../services/fetchQueuesControlDoctor';
+import { buildSlice } from '@/shared/lib/store';
 
 const initialState: QueuesControlDoctorSchema = {
   isLoading: false,
@@ -11,10 +12,17 @@ const initialState: QueuesControlDoctorSchema = {
   data: undefined,
 };
 
-export const queuesControlDoctorSlice = createSlice({
+export const queuesControlDoctorSlice = buildSlice({
   name: 'Queues Control Doctor ',
   initialState,
-  reducers: {},
+  reducers: {
+    addQueue: (
+      state,
+      { payload }: PayloadAction<QueueApiResponseControlDoctorTypes>,
+    ) => {
+      state.data?.push(payload.data[0]);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQueuesControlDoctor.pending, (state) => {
@@ -38,3 +46,5 @@ export const queuesControlDoctorSlice = createSlice({
 
 export const { actions: queuesControlDoctorActions } = queuesControlDoctorSlice;
 export const { reducer: queuesControlDoctorReducer } = queuesControlDoctorSlice;
+export const { useActions: useQueuesControlDoctorActions } =
+  queuesControlDoctorSlice;
