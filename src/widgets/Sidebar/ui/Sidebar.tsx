@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import cls from './Sidebar.module.scss';
 import { SidebarTitle } from '@/shared/ui/SidebarChilds/SidebarTitle';
@@ -7,7 +7,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const Sidebar = () => {
   const { isOpenBurgerNavbar, setIsOpenBurgerNavbar } =
-    useContext(ButtonsContext);
+    React.useContext(ButtonsContext);
 
   return isOpenBurgerNavbar ? (
     <div className={cls.SidebarWrapper}>

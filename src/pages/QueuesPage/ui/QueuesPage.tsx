@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import { QueuesList } from '@/entities/QueuesChilds';
-import { Spetalete } from '@/shared/assets/Pages/Queues';
 import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 
 import cls from './QueuesPage.module.scss';
@@ -31,8 +30,8 @@ const QueuesPage = () => {
     const handleResize = () => {
       setFullWidth({
         ...getFullWidth,
-        width: Math.floor(0.7 * window.innerWidth),
-        height: Math.floor(0.7 * window.innerHeight),
+        width: Math.floor(0.75 * window.innerWidth - 250),
+        height: Math.floor(window.innerHeight),
       });
     };
 
@@ -47,7 +46,7 @@ const QueuesPage = () => {
 
   const styleImg = {
     width: `${getFullWidth.width}px`,
-    // height: `${getFullWidth.width}px`,
+    // height: `${getFullWidth.height}px`,
   };
 
   /* UI */
@@ -67,66 +66,29 @@ const QueuesPage = () => {
         ) : (
           <div className={cls.QueuesPageWrapper}>
             <div className={cls.QueuesPageFlex}>
-              <img
+              {/* <img
                 style={styleImg}
                 src={Spetalete}
                 alt="#"
                 className={cls.QueuesPageImg}
-              />
+              /> */}
 
-              <div className={cls.RightCardRendering}>
-                <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
+              <QueuesList />
 
-                <QueuesList />
+              <QueuesList />
 
-                <QueuesList />
+              <QueuesList />
 
-                <QueuesList />
-              </div>
+              <QueuesList />
             </div>
-
-            <div className={cls.RightCardRendering2}>
-              {/* <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div> */}
-
-              {/* <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div> */}
-            </div>
-
-            {/* <Marquee className={cls.Marquee}> */}
-            {/* {t('Text for medic , Text medic uchun va h.k')} */}
-            {/* </Marquee> */}
           </div>
         )}
       </FullScreen>
