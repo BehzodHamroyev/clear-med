@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Language } from '@mui/icons-material';
 import cls from './NavbarLogout.module.scss';
 import { NavbarProfile } from '../../NavbarProfile';
 import { NavbarCalendar } from '../../NavbarCalendar';
@@ -11,6 +12,8 @@ const NavbarLogout = () => {
       <NavbarProfile />
 
       <NavbarCalendar />
+
+      <Language className={cls.language} />
 
       <LogoutChild />
     </div>

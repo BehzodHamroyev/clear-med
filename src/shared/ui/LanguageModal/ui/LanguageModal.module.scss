@@ -1,0 +1,29 @@
+.LanguageModalWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: end;
+
+  &__card {
+    width: 200px;
+    margin: 50px;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 19px 2px #223c5033;
+
+    &--languages {
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    &--languages:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
