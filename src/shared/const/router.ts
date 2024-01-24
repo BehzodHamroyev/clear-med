@@ -28,6 +28,13 @@ export enum ReceptionRoutes {
   REPORTS_PATIENT = 'reports_patient',
 }
 
+export enum MonitorRoutes {
+  QUEUES = 'queues',
+  FORBIDDEN = 'forbidden',
+  NOT_FOUND = 'not_found',
+  SETTINGSPAGE = 'setting_page',
+}
+
 // ----- Common -----
 export const getRoute = () => '/login';
 export const getRouteNotFound = () => '/*';
@@ -49,9 +56,12 @@ export const getRouteReportsPageId = () => '/reports/:id';
 // ----- Reception -----
 export const getRouteReportQueuingTv = () => '/';
 
+// ----- Monitor -----
+export const getRouteQueuesPageForMonitor = () => '/';
+
 export const AppRouteByPathPattern: Record<
   string,
-  CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
+  CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes | MonitorRoutes
 > = {
   [getRouteNotFound()]: CommonRoutes.NOT_FOUND,
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
@@ -69,4 +79,6 @@ export const AppRouteByPathPattern: Record<
   [getRouteReportsPage()]: ReceptionRoutes.REPORTS,
   [getRouteReportQueuingTv()]: ReceptionRoutes.QUEUING_TV,
   [getRouteReportsPageId()]: ReceptionRoutes.REPORTS_PATIENT,
+
+  [getRouteQueuesPageForMonitor()]: MonitorRoutes.FORBIDDEN,
 };

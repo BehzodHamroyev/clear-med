@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -49,7 +49,7 @@ const QueuesControlDoctor = () => {
 
   const { t } = useTranslation();
 
-  // const socket = io('ws://magicsoft.uz:8900');
+  const socket = io('http://socketmed.magicsoft.uz');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -77,7 +77,7 @@ const QueuesControlDoctor = () => {
   }, []);
 
   if (authUserData) {
-    // socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
+    socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
   }
 
   useEffect(() => {
@@ -96,9 +96,9 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
-  // socket.on('getNewQueue', (data) => {
-  //   console.log('Socket Queue data:', data);
-  // });
+  socket.on('getNewQueue', (data) => {
+    console.log('Socket Queue data:', data);
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

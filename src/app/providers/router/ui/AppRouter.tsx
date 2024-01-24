@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import {
   routeConfigForAdmin,
   routeConfigForDoctor,
+  routeConfigForMonitor,
   routeConfigForReception,
 } from '../config/routeConfig';
 import { AppRoutesProps } from '@/shared/types/router';
@@ -38,6 +39,8 @@ const AppRouter = () => {
           ? routeConfigForDoctor
           : currentRole === 'reception'
           ? routeConfigForReception
+          : currentRole === 'monitor'
+          ? routeConfigForMonitor
           : '',
       ).map(renderWithWrapper)}
 
