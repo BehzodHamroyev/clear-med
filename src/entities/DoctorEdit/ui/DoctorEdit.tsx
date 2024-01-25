@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { baseUrl } from '../../../../baseurl';
 import { DoctorEditType } from '../model/types/doctorEdit';
-import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
+import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './DoctorEdit.module.scss';
 
-/* Parent Functions */
+/* Parent Function */
 const DoctorEdit = (prop: DoctorEditType) => {
   const { tableBody } = prop;
 
@@ -160,7 +160,7 @@ const DoctorEdit = (prop: DoctorEditType) => {
           <div className={cls.AddCardImg}>
             <img
               className={cls.AddCardImgValue}
-              src={img ? URL.createObjectURL(img) : Doctor}
+              src={img ? URL.createObjectURL(img) : getAllFormData.fileUrl}
               alt="#"
             />
 

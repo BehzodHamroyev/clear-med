@@ -1,90 +1,165 @@
 .FullScreenBtn {
   padding: 10px 20px;
-  position: absolute;
-  color: #fff;
+
+  // position: absolute;
+  color: #000;
   border-radius: 8px;
-  border: 1px solid #fff;
+  border: 1px solid #000;
   cursor: pointer;
   font-family: sans-serif;
-  margin: 10px;
+  margin: 10px 0;
   background-color: transparent;
 }
 
-.QueuesPageWrapper {
-  width: 100%;
+.QueuesPage {
+  border: 1px solid #27374d;
 
-  .QueuesPageImg {
-    max-width: 950px;
-    width: 100%;
-    height: 570px;
-    float: left;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-family: sans-serif;
+    background-color: #dde6ed;
+  }
 
-    @media only screen and (max-width: 1270px) {
-      width: 630px;
-      height: 370px;
+  &__headerLeft {
+    p {
+      color: #27374d;
+      font-family: sans-serif;
+      font-size: 26px;
     }
   }
 
-  .RightCardRendering {
+  &__headerRight {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 50px;
+
+    img {
+      width: 50px;
+    }
+
+    p {
+      font-size: 20px;
+      color: #27374d;
+    }
+  }
+
+  &__queuesContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__queuesContainerLeft {
+    width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    margin-left: -5px;
-
-    @media only screen and (max-width: 1580px) {
-      display: none;
-    }
+    justify-content: start;
+    padding: 18px 22px;
   }
 
-  .RightCardRendering2 {
-    width: 500px;
+  &__queuesContainerRigth {
+    width: 50%;
+    padding: 18px 22px;
     display: flex;
-    gap: 24px;
-    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
 
-    @media only screen and (max-width: 1580px) {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
+    .rolik {
+      width: 100%;
+      height: 100%;
+      background-color: #dde6ed;
+      color: #27374d;
 
-    @media only screen and (max-width: 1270px) {
-      grid-template-columns: 1fr 1fr;
-    }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    .responsiveVisable {
-      display: none;
-
-      @media only screen and (max-width: 1580px) {
-        display: grid;
+      p {
+        font-size: 32px;
+        font-family: sans-serif;
       }
     }
   }
 
-  .QueuesPageFlex {
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 30px;
+  .queuesTable {
+    &__head {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 5px;
+
+      p {
+        font-family: sans-serif;
+        text-align: center;
+        color: #27374d;
+        font-size: 28px;
+      }
+    }
+
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    &__item {
+      height: 110px;
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      background: #dde6ed;
+      box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.05);
+      font-size: 40px;
+      font-family: sans-serif;
+    }
+
+    &__itemDepartmentName {
+      padding: 17px 25px;
+      color: #27374d;
+    }
+
+    &__itemRoomNumber,
+    &__itemBiletNumber {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #dde6ed;
+      background: #27374d;
+      box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.05);
+    }
   }
+}
 
-  .BorderCardOchered {
-    border: 1px solid #e0e0e0;
-  }
+@media only screen and (max-width: 1600px) {
+  .QueuesPage {
+    .queuesTable {
+      &__head {
+        gap: 10px;
 
-  .Marquee {
-    font-size: 20px;
-    margin: 25px;
-    margin-left: 0;
-    user-select: none;
-    font-family: sans-serif;
-    color: #000;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 0.1px;
+        p {
+          font-size: 24px;
+        }
+      }
 
-    @media only screen and (max-width: 1580px) {
-      max-width: 95px;
+      &__items {
+        gap: 10px;
+      }
+
+      &__item {
+        height: 90px;
+        gap: 10px;
+        font-size: 32px;
+      }
+
+      &__itemDepartmentName {
+        padding: 14px 20px;
+      }
     }
   }
 }

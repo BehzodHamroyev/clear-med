@@ -1,6 +1,7 @@
 .QueuesListWrapper {
   min-width: 260px;
   width: 100%;
+  height: 23vh;
 
   // max-width: 300px;
   user-select: none;
@@ -30,65 +31,66 @@
 
     .QueuesListTitleChild1 {
       width: 50%;
-      font-size: 36px;
+      font-size: 50px;
       border-right: 1px solid #e0e0e0;
 
       @media only screen and (max-width: 2488px) {
-        font-size: 36px;
+        font-size: 50px;
       }
 
       @media only screen and (max-width: 2200px) {
-        font-size: 32px;
+        font-size: 48px;
       }
 
       @media only screen and (max-width: 1900px) {
-        font-size: 28px;
+        font-size: 44px;
       }
 
       @media only screen and (max-width: 1800px) {
-        font-size: 24px;
+        font-size: 40px;
       }
 
       @media only screen and (max-width: 1700px) {
-        font-size: 20px;
+        font-size: 30px;
       }
 
       @media only screen and (max-width: 1450px) {
-        font-size: 18px;
+        font-size: 22px;
       }
     }
 
     .QueuesListTitleChild2 {
-      font-size: 36px;
+      font-size: 50px;
       width: 50%;
 
       @media only screen and (max-width: 2488px) {
-        font-size: 36px;
+        font-size: 50px;
       }
 
       @media only screen and (max-width: 2200px) {
-        font-size: 32px;
+        font-size: 48px;
       }
 
       @media only screen and (max-width: 1900px) {
-        font-size: 28px;
+        font-size: 44px;
       }
 
       @media only screen and (max-width: 1800px) {
-        font-size: 24px;
+        font-size: 40px;
       }
 
       @media only screen and (max-width: 1700px) {
-        font-size: 20px;
+        font-size: 30px;
       }
 
       @media only screen and (max-width: 1450px) {
-        font-size: 18px;
+        font-size: 22px;
       }
     }
   }
 
   .QueuesNumber {
+    height: 55%;
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
     align-items: center;
@@ -116,7 +118,7 @@
     @media only screen and (max-width: 2488px) {
       p {
         margin: 20px auto;
-        font-size: 36px;
+        font-size: 48px;
       }
 
       img {
@@ -131,7 +133,7 @@
     @media only screen and (max-width: 2200px) {
       p {
         margin: 20px auto;
-        font-size: 32px;
+        font-size: 44px;
       }
 
       img {
@@ -143,7 +145,7 @@
     @media only screen and (max-width: 1900px) {
       p {
         margin: 15px auto;
-        font-size: 28px;
+        font-size: 40px;
       }
 
       img {
@@ -155,7 +157,7 @@
     @media only screen and (max-width: 1800px) {
       p {
         margin: 12px auto;
-        font-size: 28px;
+        font-size: 36px;
       }
 
       img {
@@ -167,7 +169,7 @@
     @media only screen and (max-width: 1700px) {
       p {
         margin: 10px auto;
-        font-size: 20px;
+        font-size: 32px;
       }
 
       img {
@@ -179,7 +181,7 @@
     @media only screen and (max-width: 1450px) {
       p {
         margin: 5px auto;
-        font-size: 18px;
+        font-size: 24px;
       }
 
       img {

@@ -2,7 +2,6 @@ import React, { useContext, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
-import { io } from 'socket.io-client';
 
 import cls from './QueuingTvCardPopapSecond.module.scss';
 import cls2 from './PrintQueuePage.module.scss';
@@ -36,8 +35,6 @@ const QueuingTvCardPopapSecond = ({
 }: QueuingTvCardPopapSecondProps) => {
   const { t } = useTranslation();
 
-  const socket = io('http://socketmed.magicsoft.uz');
-
   const printableDivRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
@@ -67,6 +64,19 @@ const QueuingTvCardPopapSecond = ({
         fetchCurrentQueue({
           departmentId: lastQueue?.data?.department_id,
           roomId: lastQueue?.data?.room_id,
+        }),
+      ).then(() => {
+        if (!currentQueueError && !currentQueueLoading) printCom();
+      });
+    } else if (
+      lastQueue &&
+      lastQueue.room.department_id &&
+      printableDivRef?.current
+    ) {
+      dispatch(
+        fetchCurrentQueue({
+          departmentId: lastQueue?.room?.department_id._id,
+          roomId: lastQueue?.room?._id,
         }),
       ).then(() => {
         if (!currentQueueError && !currentQueueLoading) printCom();

@@ -1,15 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import Marquee from 'react-fast-marquee';
+import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
-import { useTranslation } from 'react-i18next';
 import { QueuesList } from '@/entities/QueuesChilds';
-
-import cls from './QueuesPage.module.scss';
-import { Spetalete } from '@/shared/assets/Pages/Queues';
 import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 
+import cls from './QueuesPage.module.scss';
+import { classNames } from '@/shared/lib/classNames/classNames';
+
+import medLogo from '../../../../public/assets/medLogo.png';
+
 const QueuesPage = () => {
+  const [getFullWidth, setFullWidth] = React.useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
   const handle = useFullScreenHandle();
 
   const { t } = useTranslation();
@@ -18,8 +25,30 @@ const QueuesPage = () => {
     handle.enter();
   };
 
+  React.useEffect(() => {
+    const handleResize = () => {
+      setFullWidth({
+        ...getFullWidth,
+        width: Math.floor(0.75 * window.innerWidth - 250),
+        height: Math.floor(window.innerHeight),
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const styleImg = {
+    width: `${getFullWidth.width}px`,
+  };
+
   return (
-    <div>
+    <>
       <button
         className={cls.FullScreenBtn}
         type="button"
@@ -32,69 +61,194 @@ const QueuesPage = () => {
         {handle.active ? (
           <QueuesPageFullScreen />
         ) : (
-          <div className={cls.QueuesPageWrapper}>
-            <div className={cls.QueuesPageFlex}>
-              <img src={Spetalete} alt="#" className={cls.QueuesPageImg} />
-
-              <div className={cls.RightCardRendering}>
-                <div className={cls.BorderCardOchered}>
-                  <QueuesList />
+          <div className={cls.QueuesPage}>
+            <div className={classNames(cls.QueuesPage__header, {}, [])}>
+              <div className={classNames(cls.QueuesPage__headerLeft)}>
+                <p>Med Navbat Clinic Centr</p>
+              </div>
+              <div className={classNames(cls.QueuesPage__headerRight)}>
+                <div
+                  className={classNames(cls.QueuesPage__headerRightPhoneBox)}
+                >
+                  <p>{t('Ishonch raqami:')}+998 71 225 25 25</p>
                 </div>
-                <div className={cls.BorderCardOchered}>
-                  <QueuesList />
-                </div>
-                <div className={cls.BorderCardOchered}>
-                  <QueuesList />
-                </div>
-                <div className={cls.BorderCardOchered}>
-                  <QueuesList />
+                <div className={classNames(cls.QueuesPage__headerRightLogo)}>
+                  <img src={medLogo} alt="logo" />
                 </div>
               </div>
             </div>
 
-            <div className={cls.RightCardRendering2}>
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
+            <div className={classNames(cls.QueuesPage__queuesContainer)}>
+              <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
+                <div className={classNames(cls.queuesTable)}>
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+
+                  <div className={classNames(cls.queuesTable__items)}>
+                    <div className={classNames(cls.queuesTable__item)}>
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>Nevropatologiya</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>08</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>NE-05</p>
+                      </div>
+                    </div>
+
+                    <div className={classNames(cls.queuesTable__item)}>
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>Nevropatologiya</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>08</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>NE-05</p>
+                      </div>
+                    </div>
+
+                    <div className={classNames(cls.queuesTable__item)}>
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>Nevropatologiya</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>08</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>NE-05</p>
+                      </div>
+                    </div>
+
+                    <div className={classNames(cls.queuesTable__item)}>
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>Nevropatologiya</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>08</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>NE-05</p>
+                      </div>
+                    </div>
+
+                    <div className={classNames(cls.queuesTable__item)}>
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>Nevropatologiya</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>08</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>NE-05</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-              <div className={cls.BorderCardOchered}>
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
-              </div>
-              <div
-                className={`${cls.BorderCardOchered} ${cls.responsiveVisable}`}
-              >
-                <QueuesList />
+
+              <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
+                <div className={classNames(cls.rolik)}>
+                  <p>Reklama</p>
+                </div>
               </div>
             </div>
-
-            <Marquee className={cls.Marquee}>
-              {/* {t('Text for medic , Text medic uchun va h.k')} */}
-            </Marquee>
           </div>
         )}
       </FullScreen>
-    </div>
+    </>
   );
+
+  // return (
+  //   <>
+  //     <button
+  //       className={cls.FullScreenBtn}
+  //       type="button"
+  //       onClick={handleClicked}
+  //     >
+  //       {t('Fullscreen')}
+  //     </button>
+
+  //     <FullScreen className={cls.MyComponentScreen} handle={handle}>
+  //       {handle.active ? (
+  //         <QueuesPageFullScreen />
+  //       ) : (
+  //         <div className={cls.QueuesPageWrapper}>
+  //           <div className={cls.QueuesPageFlex}>
+  //             {/* <img
+  //               style={styleImg}
+  //               src={Spetalete}
+  //               alt="#"
+  //               className={cls.QueuesPageImg}
+  //             /> */}
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //             <QueuesList />
+  //           </div>
+  //         </div>
+  //       )}
+  //     </FullScreen>
+  //   </>
+  // );
 };
 
 export default QueuesPage;
