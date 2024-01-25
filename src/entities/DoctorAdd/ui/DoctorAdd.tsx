@@ -19,8 +19,7 @@ const DoctorAdd = () => {
   const dispatch = useAppDispatch();
 
   /* context */
-  const { setIsOpenDoctorAddCard, responseAddDoctorStatusCode } =
-    React.useContext(ButtonsContext);
+  const { setIsOpenDoctorAddCard } = React.useContext(ButtonsContext);
 
   /* useState */
   const [selectedFile, setSelectedFile] = React.useState<any>(null);
@@ -30,6 +29,8 @@ const DoctorAdd = () => {
   });
 
   const [value, setValue] = React.useState('');
+
+  const [value2, setValue2] = React.useState('');
 
   const [hideEye, setHideEye] = React.useState(false);
 
@@ -63,7 +64,7 @@ const DoctorAdd = () => {
   }
 
   function handleInputChangePassword(event: any, name: string) {
-    setValue(event);
+    setValue2(event);
 
     setIsAllFormData({ ...isAllFormData, password: event });
   }
@@ -74,12 +75,12 @@ const DoctorAdd = () => {
 
     const data = new FormData();
 
+    data.append('role', `doctor`);
     data.append('file', selectedFile);
     data.append('name', `${isAllFormData!.name}`);
     data.append('login', `${isAllFormData!.login}`);
     data.append('password', `${isAllFormData!.password}`);
     data.append('exprience', `${isAllFormData!.exprience}`);
-    data.append('role', `doctor`);
 
     dispatch(fetchDoctorAdd({ data }));
   };
@@ -158,6 +159,7 @@ const DoctorAdd = () => {
             <Input
               value={value}
               maxLength={20}
+              id="PhoneNumber"
               autoComplete="off"
               name="PhoneNumber"
               rules={{ required: true }}
@@ -171,6 +173,8 @@ const DoctorAdd = () => {
                 required
                 minLength={8}
                 maxLength={14}
+                value={value2}
+                id="UserPassword"
                 autoComplete="off"
                 name="UserPassword"
                 className={cls.InputBulim}
