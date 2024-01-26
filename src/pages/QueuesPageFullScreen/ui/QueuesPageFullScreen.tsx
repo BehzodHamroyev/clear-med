@@ -66,7 +66,7 @@ const QueuesPageFullScreen = () => {
                 </p>
               </div>
 
-              <div className={classNames(cls.queuesTable__items)}>
+              {/* <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue?.monitor?.rooms &&
                   allProccessQueue?.monitor?.rooms?.length > 0 &&
                   allProccessQueue?.monitor?.rooms.map(
@@ -101,7 +101,7 @@ const QueuesPageFullScreen = () => {
                         </div>
                       ),
                   )}
-              </div>
+              </div> */}
             </div>
           </div>
 

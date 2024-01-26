@@ -67,29 +67,29 @@ const QueuesPage = () => {
     };
   }, []);
 
-  socket.on('getRecallQueueToTV', (data) => {
-    if (data) {
-      console.log(data);
-    }
-  });
+  // socket.on('getRecallQueueToTV', (data) => {
+  //   if (data) {
+  //     // console.log(data);
+  //   }
+  // });
 
-  socket.on('getProccessQueueToTV', (data) => {
-    if (data) {
-      console.log(data);
-    }
-  });
+  // socket.on('getProccessQueueToTV', (data) => {
+  //   if (data) {
+  //     // console.log(data);
+  //   }
+  // });
 
-  socket.on('getRejectQueueToTV', (data) => {
-    if (data) {
-      console.log(data);
-    }
-  });
+  // socket.on('getRejectQueueToTV', (data) => {
+  //   if (data) {
+  //     // console.log(data);
+  //   }
+  // });
 
-  socket.on('getAcceptedQueueToTV', (data) => {
-    if (data) {
-      console.log(data);
-    }
-  });
+  // socket.on('getAcceptedQueueToTV', (data) => {
+  //   if (data) {
+  //     // console.log(data);
+  //   }
+  // });
 
   return (
     <>
@@ -122,7 +122,7 @@ const QueuesPage = () => {
               </div>
             </div>
 
-            <div className={classNames(cls.QueuesPage__queuesContainer)}>
+            {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
                 <div className={classNames(cls.queuesTable)}>
                   <div className={classNames(cls.queuesTable__head)}>
@@ -349,7 +349,7 @@ const QueuesPage = () => {
                   </div>
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>

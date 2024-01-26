@@ -1,16 +1,4 @@
-interface Queue {
-  _id: string;
-  department_id: string;
-  room_id: string;
-  doctor_id: string;
-  queues_name: string;
-  step: number;
-  status: string;
-  created_date: string;
-  created_time: string;
-  accepted_date: string;
-  id: string;
-}
+import { Queue } from '@/pages/QueuesControlDoctor';
 
 interface Department {
   photo: string;
@@ -43,7 +31,7 @@ interface Room {
   department_id: Department;
   doctor_id: string;
   disabled: boolean;
-  proceed: Proced[];
+  proceed: Queue[];
   __v: number;
   id: string;
 }
@@ -64,4 +52,9 @@ interface Monitor {
 export interface AllQueueProccessApiResponse {
   status: string;
   monitor: Monitor;
+}
+
+export interface QueueProccessInRedux {
+  videoUrl: string[];
+  proccessQueues: Queue[];
 }

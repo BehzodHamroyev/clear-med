@@ -17,7 +17,9 @@ export const allQueueProccessSlice = buildSlice({
   initialState,
   reducers: {
     clearProccessQueue: (state) => {
-      state.data = undefined;
+      if (state.data) {
+        state.data.proccessQueues = [];
+      }
     },
 
     // removeProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
@@ -35,7 +37,23 @@ export const allQueueProccessSlice = buildSlice({
         (state, action: PayloadAction<AllQueueProccessApiResponse>) => {
           state.isLoading = false;
 
-          state.data = action.payload;
+          if (!state.data) {
+            state.data = {
+              videoUrl: [],
+              proccessQueues: [],
+            };
+          }
+
+          state.data.videoUrl = [
+            ...action.payload.monitor.videos,
+            ...state.data.videoUrl,
+          ];
+
+          action.payload.monitor.rooms.forEach((item) => {
+            if (item.proceed?.length > 0) {
+              state.data?.proccessQueues.push(item.proceed[0]);
+            }
+          });
         },
       )
       .addCase(fetchAllQueueProccess.rejected, (state, action) => {

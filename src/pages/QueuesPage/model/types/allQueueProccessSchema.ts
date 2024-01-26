@@ -1,7 +1,7 @@
-import { AllQueueProccessApiResponse } from './allQueueProccessTypes';
+import { QueueProccessInRedux } from './allQueueProccessTypes';
 
 export interface AllQueueProccessSchema {
   isLoading: boolean;
   error?: string;
-  data?: AllQueueProccessApiResponse;
+  data?: QueueProccessInRedux;
 }
