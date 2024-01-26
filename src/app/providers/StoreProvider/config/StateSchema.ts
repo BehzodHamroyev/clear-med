@@ -21,6 +21,7 @@ import {
 import { RoomListSchema } from '@/pages/RoomPage';
 import { DepartmentScheme } from '@/entities/DepartmentAdd';
 import { DoctorListScheam } from '@/pages/ReportsPage';
+import { AllQueueProccessSchema } from '@/pages/QueuesPage';
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -35,6 +36,7 @@ export interface StateSchema {
   lastQueue: LastQueueDataSchema;
   departmentAdd: DepartmentScheme;
   doctorList: DoctorListScheam;
+  allQueueProccess: AllQueueProccessSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

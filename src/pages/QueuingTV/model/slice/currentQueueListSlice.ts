@@ -15,11 +15,7 @@ export const currentQueue = buildSlice({
   initialState,
   reducers: {
     clearCurrentQueue: (state) => {
-      console.log('clearedddddd');
-
       state.data = undefined;
-
-      console.log(state.data, 'clearedddddd');
     },
   },
   extraReducers: (builder) => {
