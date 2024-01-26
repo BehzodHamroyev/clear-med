@@ -18,6 +18,8 @@ import {
   getAllQueueProccessError,
   getAllQueueProccessIsLoading,
 } from '../model/selector/allQueueProccessSelector';
+import { Loader } from '@/widgets/Loader';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
@@ -47,7 +49,7 @@ const QueuesPage = () => {
     handle.enter();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       setFullWidth({
         ...getFullWidth,
@@ -64,10 +66,6 @@ const QueuesPage = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  const styleImg = {
-    width: `${getFullWidth.width}px`,
-  };
 
   socket.on('getRecallQueueToTV', (data) => {
     if (data) {
@@ -116,7 +114,7 @@ const QueuesPage = () => {
                 <div
                   className={classNames(cls.QueuesPage__headerRightPhoneBox)}
                 >
-                  <p>{t('Ishonch raqami:')}+998 71 225 25 25</p>
+                  <p>{t('Ishonch raqami:')} +998 71 225 25 25</p>
                 </div>
                 <div className={classNames(cls.QueuesPage__headerRightLogo)}>
                   <img src={medLogo} alt="logo" />
@@ -668,6 +666,10 @@ const QueuesPage = () => {
             </div> */}
           </div>
         )}
+
+        {allProccessQueueIsLoading && <Loader />}
+
+        {allProccessQueueIsError && <ErrorDialog isErrorProps={!false} />}
       </FullScreen>
     </>
   );
