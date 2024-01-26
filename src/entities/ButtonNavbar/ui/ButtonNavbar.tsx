@@ -26,9 +26,10 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   const { t } = useTranslation();
 
   const {
-    setIsOpenDepartmentAddCard,
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
+    setIsOpenDepartmentAddCard,
+    setIsOpenAdvertisementAddCard,
   } = useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
@@ -39,6 +40,8 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       setIsOpenRoomAddCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorAddCard(true);
+    } else if (location.pathname === '/add_advertisement') {
+      setIsOpenAdvertisementAddCard(true);
     }
   };
 
