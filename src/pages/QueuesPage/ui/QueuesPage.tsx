@@ -22,7 +22,7 @@ import {
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
 
-  const [hasRolik, setHasRolik] = useState(false);
+  const [hasRolik, setHasRolik] = useState(true);
 
   const socket = io('http://socketmed.magicsoft.uz');
 
@@ -38,8 +38,6 @@ const QueuesPage = () => {
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
   }, []);
-
-  // console.log(allProccessQueue);
 
   const handle = useFullScreenHandle();
 
@@ -77,6 +75,24 @@ const QueuesPage = () => {
     }
   });
 
+  socket.on('getProccessQueueToTV', (data) => {
+    if (data) {
+      console.log(data);
+    }
+  });
+
+  socket.on('getRejectQueueToTV', (data) => {
+    if (data) {
+      console.log(data);
+    }
+  });
+
+  socket.on('getAcceptedQueueToTV', (data) => {
+    if (data) {
+      console.log(data);
+    }
+  });
+
   return (
     <>
       <button
@@ -109,6 +125,235 @@ const QueuesPage = () => {
             </div>
 
             <div className={classNames(cls.QueuesPage__queuesContainer)}>
+              <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
+                <div className={classNames(cls.queuesTable)}>
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+
+                  <div className={classNames(cls.queuesTable__items)}>
+                    {allProccessQueue?.monitor?.rooms &&
+                      allProccessQueue?.monitor?.rooms?.length > 0 &&
+                      allProccessQueue?.monitor?.rooms.map(
+                        (item) =>
+                          item.proceed &&
+                          item.proceed.length > 0 && (
+                            <div
+                              key={item._id}
+                              className={classNames(cls.queuesTable__item)}
+                            >
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemDepartmentName,
+                                )}
+                              >
+                                <p>{item.department_id?.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemRoomNumber,
+                                )}
+                              >
+                                <p>{item.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemBiletNumber,
+                                )}
+                              >
+                                <p>{item.proceed[0]?.queues_name}</p>
+                              </div>
+                            </div>
+                          ),
+                      )}
+                  </div>
+                </div>
+              </div>
+
+              {hasRolik ? (
+                <div
+                  className={classNames(cls.QueuesPage__queuesContainerRigth)}
+                >
+                  <div className={classNames(cls.rolik)}>
+                    <p>Reklama</p>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={classNames(cls.QueuesPage__queuesContainerLeft)}
+                >
+                  <div className={classNames(cls.queuesTable)}>
+                    <div className={classNames(cls.queuesTable__head)}>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t("Bo'lim")}
+                      </p>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t('Xona')}
+                      </p>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t('Bilet')}
+                      </p>
+                    </div>
+
+                    <div className={classNames(cls.queuesTable__items)}>
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+
+                      <div className={classNames(cls.queuesTable__item)}>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>Nevropatologiya</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>08</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>NE-05</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
                 <div className={classNames(cls.queuesTable)}>
                   <div className={classNames(cls.queuesTable__head)}>
@@ -420,7 +665,7 @@ const QueuesPage = () => {
                   </div>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         )}
       </FullScreen>

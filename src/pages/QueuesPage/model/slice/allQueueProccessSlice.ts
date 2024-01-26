@@ -16,9 +16,13 @@ export const allQueueProccessSlice = buildSlice({
   name: 'All Queue Proccess',
   initialState,
   reducers: {
-    clearCurrentQueue: (state) => {
+    clearProccessQueue: (state) => {
       state.data = undefined;
     },
+
+    // removeProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
+    //   state.data = undefined;
+    // },
   },
   extraReducers: (builder) => {
     builder
