@@ -120,26 +120,25 @@ const QueuesControlDoctor = () => {
   });
 
   socket.on('getProccessQueue', (data) => {
+    // console.log(data, 'removedQueueList');
     if (data) {
       removeQueue(data);
     }
   });
 
   socket.on('getAcceptedQueue', (data) => {
+    // console.log(data, 'addDoneQueue');
+
     if (data) {
       addDoneQueue(data);
     }
   });
 
   socket.on('getRejectedQueue', (data) => {
+    // console.log(data, 'addDoneQueue');
+
     if (data) {
       addDoneQueue(data);
-    }
-  });
-
-  socket.on('getRecallQueueToTV', (data) => {
-    if (data) {
-      console.log(data);
     }
   });
 
