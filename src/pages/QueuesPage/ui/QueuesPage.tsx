@@ -20,6 +20,8 @@ import {
 } from '../model/selector/allQueueProccessSelector';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
+import { Queue } from '@/pages/QueuesControlDoctor';
 
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +33,13 @@ const QueuesPage = () => {
   const allProccessQueue = useSelector(getAllQueueProccessData);
   const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
+
+  const {
+    recallQueue,
+    addProccessQueue,
+    clearProccessQueue,
+    removeProccessQueue,
+  } = useAllQueueProccessActions();
 
   const [getFullWidth, setFullWidth] = React.useState({
     width: window.innerWidth,
@@ -67,29 +76,33 @@ const QueuesPage = () => {
     };
   }, []);
 
-  // socket.on('getRecallQueueToTV', (data) => {
-  //   if (data) {
-  //     // console.log(data);
-  //   }
-  // });
+  socket.on('getProccessQueueToTV', (data: Queue) => {
+    if (data) {
+      // console.log(data);
+      addProccessQueue(data);
+    }
+  });
 
-  // socket.on('getProccessQueueToTV', (data) => {
-  //   if (data) {
-  //     // console.log(data);
-  //   }
-  // });
+  socket.on('getRecallQueueToTV', (data: Queue) => {
+    if (data) {
+      // console.log(data);
+      recallQueue(data);
+    }
+  });
 
-  // socket.on('getRejectQueueToTV', (data) => {
-  //   if (data) {
-  //     // console.log(data);
-  //   }
-  // });
+  socket.on('getAcceptedQueueToTV', (data: Queue) => {
+    if (data) {
+      // console.log(data);
+      removeProccessQueue(data);
+    }
+  });
 
-  // socket.on('getAcceptedQueueToTV', (data) => {
-  //   if (data) {
-  //     // console.log(data);
-  //   }
-  // });
+  socket.on('getRejectQueueToTV', (data: Queue) => {
+    if (data) {
+      // console.log(data);
+      removeProccessQueue(data);
+    }
+  });
 
   return (
     <>

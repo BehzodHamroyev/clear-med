@@ -5,6 +5,7 @@ import { buildSlice } from '@/shared/lib/store';
 import { fetchAllQueueProccess } from '../services/fetchAllQueueProccess';
 import { AllQueueProccessSchema } from '../types/allQueueProccessSchema';
 import { AllQueueProccessApiResponse } from '../types/allQueueProccessTypes';
+import { Queue } from '@/pages/QueuesControlDoctor';
 
 const initialState: AllQueueProccessSchema = {
   isLoading: false,
@@ -22,9 +23,25 @@ export const allQueueProccessSlice = buildSlice({
       }
     },
 
-    // removeProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
-    //   state.data = undefined;
-    // },
+    removeProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
+      if (state.data) {
+        state.data.proccessQueues = state.data.proccessQueues.filter(
+          (item) => item._id !== payload._id,
+        );
+      }
+    },
+
+    addProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
+      state.data?.proccessQueues.push(payload);
+    },
+
+    recallQueue: (state, { payload }: PayloadAction<Queue>) => {
+      state.data?.proccessQueues.forEach((item) => {
+        if (item._id === payload._id) {
+          item.status = payload.status;
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
