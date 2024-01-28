@@ -96,6 +96,15 @@ const listOfPageDoktor: ListOfPageTypes[] = [
   },
 ];
 
+const listOfPageMonitor: ListOfPageTypes[] = [
+  {
+    id: 1,
+    path: '/',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
+  },
+];
+
 export const ListOfPages = memo(() => {
   const location = useLocation();
 
@@ -155,6 +164,12 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '216px';
       }
+    } else if (profileValue === 'monitor') {
+      if (divRef.current && location.pathname === '/') {
+        divRef.current.style.top = '20px';
+      } else if (divRef.current && location.pathname === '/settings') {
+        divRef.current.style.top = '63px';
+      }
     }
   }, [profileValue, location]);
 
@@ -165,6 +180,8 @@ export const ListOfPages = memo(() => {
       setListToUse(listOfPageDoktor);
     } else if (profileValue === 'reception') {
       setListToUse(listOfPageQabulXona);
+    } else if (profileValue === 'monitor') {
+      setListToUse(listOfPageMonitor);
     }
   }, [profileValue]);
 

@@ -17,6 +17,8 @@ import {
   getRouteReportControlDoctor,
   getRouteAddMonitor,
   getRouteAddAdvertisement,
+  MonitorRoutes,
+  getRouteQueuesPageForMonitor,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -157,6 +159,31 @@ export const routeConfigForReception: Record<
 
   // setting
   [CommonRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
+  },
+};
+
+export const routeConfigForMonitor: Record<
+  CommonRoutes,
+  AppRoutesProps | MonitorRoutes
+> = {
+  [MonitorRoutes.FORBIDDEN]: {
+    path: getRouteForbidden(),
+    element: <ForbiddenPage />,
+  },
+  [MonitorRoutes.NOT_FOUND]: {
+    path: getRouteNotFound(),
+    element: <NotFoundPage />,
+  },
+
+  [MonitorRoutes.QUEUES]: {
+    path: getRouteQueuesPageForMonitor(),
+    element: <QueuesPage />,
+  },
+
+  // setting
+  [MonitorRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
   },

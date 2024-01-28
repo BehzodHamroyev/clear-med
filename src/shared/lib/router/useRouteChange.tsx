@@ -6,12 +6,13 @@ import {
   AdminRoutes,
   DoctorRoutes,
   ReceptionRoutes,
+  MonitorRoutes,
 } from '@/shared/const/router';
 
 export function useRouteChange() {
   const location = useLocation();
   const [appRoute, setAppRoute] = useState<
-    CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes
+    CommonRoutes | AdminRoutes | DoctorRoutes | ReceptionRoutes | MonitorRoutes
   >();
 
   useEffect(() => {

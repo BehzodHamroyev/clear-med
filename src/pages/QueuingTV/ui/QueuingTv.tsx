@@ -77,6 +77,7 @@ const QueuingTv = () => {
 
       {isOpenQueuingTvCardPopapSecond &&
         !lastQueueIsLoading &&
+        !lastQueueError &&
         lastQueue?.pagination && (
           <QueuingTvCardPopapSecond
             roomNumber={lastQueue?.pagination?.split('-')?.slice()[0]?.at(-1)}
