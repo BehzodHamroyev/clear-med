@@ -81,6 +81,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenAdvertisementAddCard, setIsOpenAdvertisementAddCard] =
     useState(false);
 
+  const [isOpenAdvertisementEditCard, setIsOpenAdvertisementEditCard] =
+    useState(false);
+
   const [isOpenDoctorEditCard, setIsOpenDoctorEditCard] = useState(false);
 
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
@@ -170,6 +173,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDoctorAddCard,
       isOpenAdvertisementAddCard,
       setIsOpenAdvertisementAddCard,
+      isOpenAdvertisementEditCard,
+      setIsOpenAdvertisementEditCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
@@ -238,6 +243,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDoctorAddCard,
       isOpenAdvertisementAddCard,
       setIsOpenAdvertisementAddCard,
+      isOpenAdvertisementEditCard,
+      setIsOpenAdvertisementEditCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,

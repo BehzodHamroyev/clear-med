@@ -20,6 +20,7 @@ const TableTitleReklama = (props: TableInfo) => {
     setIsOpenRoomEditCard,
     setIsOpenDoctorEditCard,
     setIsOpenDepartmentEditCard,
+    setIsOpenAdvertisementEditCard,
   } = useContext(ButtonsContext);
 
   /* haler functions */
@@ -33,6 +34,8 @@ const TableTitleReklama = (props: TableInfo) => {
       setIsOpenRoomEditCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorEditCard(true);
+    } else if (location.pathname === '/add_advertisement') {
+      setIsOpenAdvertisementEditCard(true);
     }
   };
 

@@ -7,6 +7,7 @@ import cls from './addAdvertisementPage.module.scss';
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { AddAdvertisement } from '@/entities/AddAdvertisement';
+import { AdvertisementEdit } from '@/entities/AdvertisementEdit';
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
 
@@ -86,7 +87,8 @@ const tableBody: any = [
 ];
 
 const AddAdvertisementPage = () => {
-  const { isOpenAdvertisementAddCard } = useContext(ButtonsContext);
+  const { isOpenAdvertisementAddCard, isOpenAdvertisementEditCard } =
+    useContext(ButtonsContext);
 
   return (
     <div className={cls.AddAdvertisementPageWrapper}>
@@ -100,6 +102,12 @@ const AddAdvertisementPage = () => {
         <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
 
         {isOpenAdvertisementAddCard ? <AddAdvertisement /> : ''}
+
+        {isOpenAdvertisementEditCard ? (
+          <AdvertisementEdit tableBody={[]} />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

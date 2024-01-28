@@ -1,11 +1,9 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import Input from 'react-phone-number-input/input';
 
 import { FormDataInState } from '../model/types/doctorAddTypes';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { fetchDoctorAdd } from '../model/service/fetchDoctorAdd';
-import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -19,21 +17,12 @@ const AddAdvertisement = () => {
   const dispatch = useAppDispatch();
 
   /* context */
-  const { isOpenAdvertisementAddCard, setIsOpenAdvertisementAddCard } =
-    React.useContext(ButtonsContext);
+  const { setIsOpenAdvertisementAddCard } = React.useContext(ButtonsContext);
 
   /* useState */
   const [selectedFile, setSelectedFile] = React.useState<any>(null);
 
-  const [isYearDoctor, setIsYearDoctor] = React.useState({
-    years: '',
-  });
-
-  const [value, setValue] = React.useState('');
-
-  const [value2, setValue2] = React.useState('');
-
-  const [hideEye, setHideEye] = React.useState(false);
+  const [urlSuccess, setUrlSuccess] = React.useState<any>();
 
   const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
     name: '',
@@ -58,17 +47,11 @@ const AddAdvertisement = () => {
     setSelectedFile(file);
   };
 
-  function handleInputChange(event: any, name: string) {
-    setValue(event);
-
-    setIsAllFormData({ ...isAllFormData, login: event });
-  }
-
-  function handleInputChangePassword(event: any, name: string) {
-    setValue2(event);
-
-    setIsAllFormData({ ...isAllFormData, password: event });
-  }
+  // if (validUrl.isUri('https://www.npmjs.com/package/valid-url')) {
+  //   setUrlSuccess(true);
+  // } else {
+  //   setUrlSuccess(false);
+  // }
 
   /* fetch data */
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -101,7 +84,7 @@ const AddAdvertisement = () => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+        <h3 className={cls.CardTitle}>{t('Reklama qo’shish')}</h3>
 
         <div className={cls.AddDoctorCard}>
           <div className={cls.AddCardImg}>
@@ -135,69 +118,14 @@ const AddAdvertisement = () => {
               type="text"
               maxLength={30}
               className={cls.InputBulim}
-              placeholder={t('F.I.Sh')}
-              onChange={(e) =>
-                setIsAllFormData({ ...isAllFormData, name: e.target.value })
-              }
+              placeholder={t('Reklama nomi')}
             />
 
             <input
-              type="number"
-              maxLength={2}
-              required
-              onChange={(e) => {
-                setIsAllFormData({
-                  ...isAllFormData,
-                  exprience: e.target.value,
-                });
-                setIsYearDoctor({ ...isYearDoctor, years: e.target.value });
-              }}
-              value={isYearDoctor.years}
+              type="text"
               className={cls.InputBulim}
-              placeholder={t('tajribasi')}
+              placeholder={t('Reklama manzili (Url)')}
             />
-
-            <Input
-              value={value}
-              maxLength={20}
-              id="PhoneNumber"
-              autoComplete="off"
-              name="PhoneNumber"
-              rules={{ required: true }}
-              className={cls.InputBulim}
-              placeholder={t('Telefon raqami')}
-              onChange={(e) => handleInputChange(e, 'PhoneNumber')}
-            />
-
-            <div className={cls.PhoneNumberInputWrapper}>
-              <input
-                required
-                minLength={8}
-                maxLength={14}
-                value={value2}
-                id="UserPassword"
-                autoComplete="off"
-                name="UserPassword"
-                className={cls.InputBulim}
-                placeholder="Parolni kiriting..."
-                type={hideEye ? 'text' : 'password'}
-                onChange={(e) =>
-                  handleInputChangePassword(e.target.value, 'UserPassword')
-                }
-              />
-
-              {hideEye ? (
-                <EyeIcon
-                  className={cls.FixValueBnt}
-                  onClick={() => setHideEye(false)}
-                />
-              ) : (
-                <HideIcon
-                  className={cls.FixValueBnt}
-                  onClick={() => setHideEye(true)}
-                />
-              )}
-            </div>
 
             <div className={cls.BtnParnet}>
               <button
