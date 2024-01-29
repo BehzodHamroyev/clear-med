@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
+
 import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
@@ -22,13 +22,12 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
 import { Queue } from '@/pages/QueuesControlDoctor';
+import { socket } from '@/shared/lib/utils/socket';
 
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
 
   const [hasRolik, setHasRolik] = useState(true);
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
   const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
@@ -77,8 +76,9 @@ const QueuesPage = () => {
   }, []);
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
+    console.log('THIS PROCCED');
     if (data) {
-      // console.log(data);
+      console.log(data);
       addProccessQueue(data);
     }
   });

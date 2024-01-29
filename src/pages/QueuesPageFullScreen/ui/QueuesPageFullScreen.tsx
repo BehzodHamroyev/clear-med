@@ -18,7 +18,7 @@ const QueuesPageFullScreen = () => {
   const handle = useFullScreenHandle();
 
   const [hasRolik, setHasRolik] = useState(true);
-  const [hasQueueDialog, setHasQueueDialog] = useState(true);
+  const [hasQueueDialog, setHasQueueDialog] = useState(false);
 
   const { t } = useTranslation();
 
@@ -108,7 +108,7 @@ const QueuesPageFullScreen = () => {
           {hasRolik ? (
             <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
               <div className={classNames(cls.rolik)}>
-                <p>Reklama</p>
+                {/* <p>Reklama</p> */}
               </div>
             </div>
           ) : (

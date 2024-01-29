@@ -2,7 +2,6 @@ import { memo, ReactElement, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { io } from 'socket.io-client';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
 
@@ -13,6 +12,7 @@ import { getAuthUserData, Login } from '@/features/Auth';
 import Toast from '@/shared/ui/Toast/Toast';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
+import { socket } from '@/shared/lib/utils/socket';
 
 interface MainLayoutProps {
   className?: string;
@@ -26,8 +26,6 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   const { className, content, toolbar, header, sidebar } = props;
 
   const { t } = useTranslation();
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const authUserData = useSelector(getAuthUserData);
 
@@ -62,7 +60,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     if (authUserData) {
       socket.emit('addUser', authUserData.id);
     }
-  }, [authUserData, socket]);
+  }, [authUserData]);
 
   return (
     <div>

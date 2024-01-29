@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { io } from 'socket.io-client';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -43,6 +42,7 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import PaginationComponent from '@/shared/ui/Pagination/Pagination';
 import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
+import { socket } from '@/shared/lib/utils/socket';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -52,8 +52,6 @@ const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
