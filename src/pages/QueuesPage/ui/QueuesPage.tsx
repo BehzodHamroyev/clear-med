@@ -113,7 +113,7 @@ const QueuesPage = () => {
               </div>
             </div>
 
-            {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
+            <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
                 <div className={classNames(cls.queuesTable)}>
                   <div className={classNames(cls.queuesTable__head)}>
@@ -129,40 +129,36 @@ const QueuesPage = () => {
                   </div>
 
                   <div className={classNames(cls.queuesTable__items)}>
-                    {allProccessQueue?.monitor?.rooms &&
-                      allProccessQueue?.monitor?.rooms?.length > 0 &&
-                      allProccessQueue?.monitor?.rooms.map(
-                        (item) =>
-                          item.proceed &&
-                          item.proceed.length > 0 && (
-                            <div
-                              key={item._id}
-                              className={classNames(cls.queuesTable__item)}
-                            >
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemDepartmentName,
-                                )}
-                              >
-                                <p>{item.department_id?.name}</p>
-                              </div>
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemRoomNumber,
-                                )}
-                              >
-                                <p>{item.name}</p>
-                              </div>
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemBiletNumber,
-                                )}
-                              >
-                                <p>{item.proceed[0]?.queues_name}</p>
-                              </div>
-                            </div>
-                          ),
-                      )}
+                    {allProccessQueue?.proccessQueues &&
+                      allProccessQueue?.proccessQueues.length > 0 &&
+                      allProccessQueue?.proccessQueues.map((item) => (
+                        <div
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
+                        >
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -340,7 +336,7 @@ const QueuesPage = () => {
                   </div>
                 </div>
               )}
-            </div> */}
+            </div>
 
             {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>

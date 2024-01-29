@@ -3,6 +3,10 @@
   height: 100%;
   background-color: #f9f9f9;
 
+  .closeIcon {
+    cursor: pointer;
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -13,6 +17,10 @@
   }
 
   &__headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
     p {
       color: #27374d;
       font-family: sans-serif;
