@@ -8,11 +8,16 @@ export enum CommonRoutes {
 
 // Admin saytlari uchun
 export enum AdminRoutes {
+  REPORTS = 'reports',
+  ROOMPAGE = 'room_page',
   DEPARTMENT = 'department',
   ADD_DOCTOR = 'add_doctor',
-  ROOMPAGE = 'room_page',
+  ADD_MONITOR = 'add_monitor',
+  MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
-  REPORTS = 'reports',
+  ADD_ADVERTISEMENT = 'add_advertisement',
+  ROOM_ATTACHMENT_MONITOR = 'room_attachment_monitor',
+  ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
 }
 
 // Doctor saytlari uchun
@@ -46,12 +51,20 @@ export const getRouteSettingsPage = () => '/settings';
 export const getRouteReportDoctor = () => '/reports';
 export const getRouteReportControlDoctor = () => '/';
 
+// ----- Admin -----
 export const getRouteDepartment = () => '/';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddDoctor = () => '/add_doctor';
+export const getRouteAddMonitor = () => '/add_monitor';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
+export const getRouteMonitorChild = () => '/add_monitor/:id';
+export const getRouteRoomAttachmentMonitor = () =>
+  '/add_monitor/:id/room_attachment_monitor';
+export const getRouteAdvertisementAttachmentMonitor = () =>
+  '/add_monitor/:id/advertisement_attachment_monitor';
+export const getRouteAddAdvertisement = () => '/add_advertisement';
 
 // ----- Reception -----
 export const getRouteReportQueuingTv = () => '/';
@@ -68,9 +81,15 @@ export const AppRouteByPathPattern: Record<
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
   [getRouteAddDoctor()]: AdminRoutes.ROOMPAGE,
-  [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddRoomPage()]: AdminRoutes.ROOMPAGE,
+  [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
+  [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
+  [getRouteAddAdvertisement()]: AdminRoutes.ADD_ADVERTISEMENT,
+  [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
+  [getRouteRoomAttachmentMonitor()]: AdminRoutes.ROOM_ATTACHMENT_MONITOR,
+  [getRouteAdvertisementAttachmentMonitor()]:
+    AdminRoutes.ADVERTISEMENT_ATTACHMENT_MONITOR,
 
   [getRouteReportDoctor()]: DoctorRoutes.REPORTS_DOCTOR,
   [getRouteReportControlDoctor()]: DoctorRoutes.QUEUES_CONTROL_DOCTOR,

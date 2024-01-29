@@ -61,6 +61,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenLanugagePopup, setisOpenLanugagePopup] = useState(false);
 
+  const [isOpenMonitorAddCard, setIsOpenMonitorAddCard] = useState(false);
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -77,6 +79,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenRoomEditCard, setIsOpenRoomEditCard] = useState(false);
 
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
+
+  const [isOpenAdvertisementAddCard, setIsOpenAdvertisementAddCard] =
+    useState(false);
+
+  const [isOpenAdvertisementEditCard, setIsOpenAdvertisementEditCard] =
+    useState(false);
 
   const [isOpenDoctorEditCard, setIsOpenDoctorEditCard] = useState(false);
 
@@ -165,6 +173,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAddCard,
       isOpenDoctorAddCard,
       setIsOpenDoctorAddCard,
+      isOpenAdvertisementAddCard,
+      setIsOpenAdvertisementAddCard,
+      isOpenAdvertisementEditCard,
+      setIsOpenAdvertisementEditCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
@@ -195,6 +207,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsDataFormAddRoom,
       responseAddDoctorStatusCode,
       setResponseAddDoctorStatusCode,
+      isOpenMonitorAddCard,
+      setIsOpenMonitorAddCard,
       clickedDoctorId,
       setClickedDoctorId,
     }),
@@ -231,6 +245,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAddCard,
       isOpenDoctorAddCard,
       setIsOpenDoctorAddCard,
+      isOpenAdvertisementAddCard,
+      setIsOpenAdvertisementAddCard,
+      isOpenAdvertisementEditCard,
+      setIsOpenAdvertisementEditCard,
+      isOpenMonitorAddCard,
+      setIsOpenMonitorAddCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,

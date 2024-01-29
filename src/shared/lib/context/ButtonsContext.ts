@@ -61,6 +61,15 @@ export interface ButtonsClickedProps {
   isOpenDoctorAddCard: boolean;
   setIsOpenDoctorAddCard: (prop: boolean) => void;
 
+  isOpenAdvertisementAddCard: boolean;
+  setIsOpenAdvertisementAddCard: (prop: boolean) => void;
+
+  isOpenMonitorAddCard: boolean;
+  setIsOpenMonitorAddCard: (prop: boolean) => void;
+
+  isOpenAdvertisementEditCard: boolean;
+  setIsOpenAdvertisementEditCard: (prop: boolean) => void;
+
   isOpenDoctorEditCard: boolean;
   setIsOpenDoctorEditCard: (prop: boolean) => void;
 
@@ -155,6 +164,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenLanugagePopup: false,
   setisOpenLanugagePopup: () => {},
 
+  isOpenMonitorAddCard: false,
+  setIsOpenMonitorAddCard: () => {},
+
   responseAddDoctorStatusCode: 0,
   setResponseAddDoctorStatusCode: () => {},
 
@@ -208,6 +220,12 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDoctorAddCard: false,
   setIsOpenDoctorAddCard: () => {},
+
+  isOpenAdvertisementAddCard: false,
+  setIsOpenAdvertisementAddCard: () => {},
+
+  isOpenAdvertisementEditCard: false,
+  setIsOpenAdvertisementEditCard: () => {},
 
   isOpenDoctorEditCard: false,
   setIsOpenDoctorEditCard: () => {},
