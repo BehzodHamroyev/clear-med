@@ -40,11 +40,6 @@ const QueuesPage = () => {
     removeProccessQueue,
   } = useAllQueueProccessActions();
 
-  const [getFullWidth, setFullWidth] = React.useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
   }, []);
@@ -57,26 +52,9 @@ const QueuesPage = () => {
     handle.enter();
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setFullWidth({
-        ...getFullWidth,
-        width: Math.floor(0.75 * window.innerWidth - 250),
-        height: Math.floor(window.innerHeight),
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  console.log('rerender');
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
-    console.log('THIS PROCCED');
     if (data) {
       console.log(data);
       addProccessQueue(data);
@@ -85,21 +63,21 @@ const QueuesPage = () => {
 
   socket.on('getRecallQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'recall');
       recallQueue(data);
     }
   });
 
   socket.on('getAcceptedQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'accept');
       removeProccessQueue(data);
     }
   });
 
   socket.on('getRejectQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'reject');
       removeProccessQueue(data);
     }
   });

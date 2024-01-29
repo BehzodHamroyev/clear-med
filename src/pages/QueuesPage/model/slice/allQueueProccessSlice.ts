@@ -32,7 +32,11 @@ export const allQueueProccessSlice = buildSlice({
     },
 
     addProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
-      state.data?.proccessQueues.push(payload);
+      if (
+        !state.data?.proccessQueues.some((item) => item._id === payload._id)
+      ) {
+        state.data?.proccessQueues.push(payload);
+      }
     },
 
     recallQueue: (state, { payload }: PayloadAction<Queue>) => {

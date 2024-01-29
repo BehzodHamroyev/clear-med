@@ -47,19 +47,39 @@ export const fetchQueuesProccess = createAsyncThunk<
         );
       }
 
-      if (response?.data && status === 'proccessed' && !isReCall) {
+      console.log();
+
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'proccessed' &&
+        !isReCall
+      ) {
         socket.emit('proccessQueue', response.data);
       }
 
-      if (response?.data && status === 'proccessed' && isReCall) {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'proccessed' &&
+        isReCall
+      ) {
         socket.emit('recallQueue', response.data);
       }
 
-      if (response?.data && status === 'rejected') {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'rejected'
+      ) {
         socket.emit('rejectQueue', response.data);
       }
 
-      if (response?.data && status === 'completed') {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'completed'
+      ) {
         socket.emit('acceptedQueue', response.data);
       }
 
