@@ -27,10 +27,10 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
 
       <tbody className={cls.Tabletbody}>
         {Tabletbody?.map((queue) => (
-          <tr key={queue.id} className={cls.tr}>
-            <td className={cls.td}>{queue.queues_name}</td>
+          <tr key={queue?.id} className={cls.tr}>
+            <td className={cls.td}>{queue?.queues_name}</td>
             <td className={cls.td}>
-              {queue?.created_time.split('T')[1].split('.')[0]}
+              {queue?.created_time?.split('T')[1].split('.')[0]}
               {/* {' | '} {queue.created_time.split('T')[0]} */}
             </td>
           </tr>

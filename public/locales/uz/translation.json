@@ -2,6 +2,7 @@
   "MENU": "MENU",
 
   "Bo‘lim qo‘shish": "Bo‘lim qo‘shish",
+  "Reklama qo'shish": "Reklama qo'shish",
   "Xona qo‘shish": "Xona qo‘shish",
   "Shifokor qo‘shish": "Shifokor qo‘shish",
   "Hisobotlar": "Hisobotlar",
@@ -9,6 +10,8 @@
   "Navbat berish": "Navbat berish",
   "Sozlamalar": "Sozlamalar",
   "Umumiy": "Umumiy",
+  "Reklama qo’shish": "Reklama qo’shish",
+  "Monitor qo’shish": "Monitor qo’shish",
 
   "Tilni o‘zgartirish": "Tilni o‘zgartirish",
   "Mavzuni o‘zgartirish": "Mavzuni o‘zgartirish",
@@ -35,5 +38,6 @@
   "November": "Noyabr",
   "December": "Dekabr",
   "doctor": "Doctor",
-  "reception": "Reception"
+  "reception": "Reception",
+  "monitor": "Monitor"
 }

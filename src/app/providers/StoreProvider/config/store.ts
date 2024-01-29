@@ -18,6 +18,7 @@ import {
 } from '@/pages/QueuingTV';
 import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
 import { doctorListReducer } from '@/pages/ReportsPage';
+import { allQueueProccessReducer } from '@/pages/QueuesPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -37,8 +38,9 @@ export function createReduxStore(
     currentQueue: currentQueueuReducer,
     RoomGetAll: RoomListSliceReducer,
     lastQueue: lastQueueReducer,
-    departmentAdd:departmentAddSliceSliceReducer,
+    departmentAdd: departmentAddSliceSliceReducer,
     doctorList: doctorListReducer,
+    allQueueProccess: allQueueProccessReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

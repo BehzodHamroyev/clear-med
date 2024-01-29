@@ -7,7 +7,6 @@ import { baseUrl } from '../../../../baseurl';
 import { DepartmentEditType } from '../model/types/departmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
 import {
@@ -26,9 +25,6 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
 
   /* useTranslation */
   const { t } = useTranslation();
-
-  /* useAppDispatch */
-  const dispatch = useAppDispatch();
 
   /* useState */
   const [inputValue, setInputValue] = React.useState<UseStateType>({

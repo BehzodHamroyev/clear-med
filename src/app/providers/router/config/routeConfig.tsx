@@ -15,6 +15,13 @@ import {
   getRouteReportsPageId,
   getRouteReportQueuingTv,
   getRouteReportControlDoctor,
+  getRouteAddMonitor,
+  getRouteAddAdvertisement,
+  MonitorRoutes,
+  getRouteQueuesPageForMonitor,
+  getRouteMonitorChild,
+  getRouteRoomAttachmentMonitor,
+  getRouteAdvertisementAttachmentMonitor,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -30,6 +37,11 @@ import { DoctorsListPage } from '@/pages/DoctorsListPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
+import { AddMonitorPage } from '@/pages/AddMonitorPage';
+import { AddAdvertisementPage } from '@/pages/AddAdvertisementPage';
+import { AttachMonitorOrAdvertisement } from '@/pages/AttachMonitorOrAdvertisement';
+import { RoomAttachmentMonitor } from '@/entities/RoomAttachmentMonitor';
+import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachmentMonitor';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -54,6 +66,28 @@ export const routeConfigForAdmin: Record<
   [AdminRoutes.ADD_DOCTOR]: {
     path: getRouteAddDoctor(),
     element: <DoctorsListPage />,
+  },
+  [AdminRoutes.ADD_MONITOR]: {
+    path: getRouteAddMonitor(),
+    element: <AddMonitorPage />,
+  },
+  [AdminRoutes.MONITOR_CHILD]: {
+    path: getRouteMonitorChild(),
+    element: <AttachMonitorOrAdvertisement />,
+  },
+  [AdminRoutes.ADD_ADVERTISEMENT]: {
+    path: getRouteAddAdvertisement(),
+    element: <AddAdvertisementPage />,
+  },
+
+  [AdminRoutes.ROOM_ATTACHMENT_MONITOR]: {
+    path: getRouteRoomAttachmentMonitor(),
+    element: <RoomAttachmentMonitor />,
+  },
+
+  [AdminRoutes.ADVERTISEMENT_ATTACHMENT_MONITOR]: {
+    path: getRouteAdvertisementAttachmentMonitor(),
+    element: <AdvertisementAttachmentMonitor />,
   },
 
   [CommonRoutes.QUEUES]: {
@@ -145,6 +179,31 @@ export const routeConfigForReception: Record<
 
   // setting
   [CommonRoutes.SETTINGSPAGE]: {
+    path: getRouteSettingsPage(),
+    element: <SettingsPage />,
+  },
+};
+
+export const routeConfigForMonitor: Record<
+  CommonRoutes,
+  AppRoutesProps | MonitorRoutes
+> = {
+  [MonitorRoutes.FORBIDDEN]: {
+    path: getRouteForbidden(),
+    element: <ForbiddenPage />,
+  },
+  [MonitorRoutes.NOT_FOUND]: {
+    path: getRouteNotFound(),
+    element: <NotFoundPage />,
+  },
+
+  [MonitorRoutes.QUEUES]: {
+    path: getRouteQueuesPageForMonitor(),
+    element: <QueuesPage />,
+  },
+
+  // setting
+  [MonitorRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
   },

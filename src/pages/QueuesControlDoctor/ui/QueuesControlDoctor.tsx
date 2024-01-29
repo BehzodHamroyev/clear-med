@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';
+import axios from 'axios';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -12,7 +13,10 @@ import {
   DynamicModuleLoader,
   ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
+import {
+  queuesControlDoctorReducer,
+  useQueuesControlDoctorActions,
+} from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
@@ -39,6 +43,8 @@ import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitle
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { getAuthUserData } from '@/features/Auth';
+import PaginationComponent from '@/shared/ui/Pagination/Pagination';
+import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -49,7 +55,7 @@ const QueuesControlDoctor = () => {
 
   const { t } = useTranslation();
 
-  // const socket = io('ws://magicsoft.uz:8900');
+  const socket = io('http://socketmed.magicsoft.uz');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -67,18 +73,29 @@ const QueuesControlDoctor = () => {
 
   const authUserData = useSelector(getAuthUserData);
 
-  const [ipAddress, setIPAddress] = useState('');
+  const { addQueue, removeQueue } = useQueuesControlDoctorActions();
+
+  const { addDoneQueue } = useDoneQueuesControlDoctorActons();
+
+  const fetchIP = async () => {
+    try {
+      const responce = await axios.get('https://api.ipify.org?format=json');
+
+      if (responce && authUserData) {
+        socket.emit('addUser', {
+          userId: authUserData.id,
+          ip_address: responce.data.ip,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    fetch('https://api.ipify.org?format=json')
-      .then((response) => response.json())
-      .then((data) => setIPAddress(data.ip))
-      .catch((error) => console.log(error));
+    fetchIP();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (authUserData) {
-    // socket.emit('addUser', { userId: authUserData.id, ip_address: ipAddress });
-  }
 
   useEffect(() => {
     dispatch(
@@ -96,9 +113,34 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
-  // socket.on('getNewQueue', (data) => {
-  //   console.log('Socket Queue data:', data);
-  // });
+  socket.on('getNewQueue', (data) => {
+    if (data) {
+      addQueue(data);
+    }
+  });
+
+  socket.on('getProccessQueue', (data) => {
+    // console.log(data, 'removedQueueList');
+    if (data) {
+      removeQueue(data);
+    }
+  });
+
+  socket.on('getAcceptedQueue', (data) => {
+    // console.log(data, 'addDoneQueue');
+
+    if (data) {
+      addDoneQueue(data);
+    }
+  });
+
+  socket.on('getRejectedQueue', (data) => {
+    // console.log(data, 'addDoneQueue');
+
+    if (data) {
+      addDoneQueue(data);
+    }
+  });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -114,6 +156,28 @@ const QueuesControlDoctor = () => {
         <ControlPanelDocktor />
 
         <div className={cls.TableDoctor}>
+          <div className={cls.TableDoctorChild}>
+            {queuesList && queuesList.length > 0 ? (
+              <>
+                <ButtonNavbar
+                  dontCreate
+                  TableTitle={t('Kutayotgan bemorlar')}
+                  ItemsLength={queuesList?.length}
+                />
+                <TableTitleDoctorProfile
+                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tabletbody={queuesList}
+                />
+
+                <PaginationComponent count={100} />
+              </>
+            ) : (
+              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
+                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
+              </h2>
+            )}
+          </div>
+
           <div className={cls.TableDoctorChild}>
             {doneQueuesList && doneQueuesList.length > 0 ? (
               <>
@@ -136,26 +200,6 @@ const QueuesControlDoctor = () => {
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
                 {t("Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!")}
-              </h2>
-            )}
-          </div>
-
-          <div className={cls.TableDoctorChild}>
-            {queuesList && queuesList.length > 0 ? (
-              <>
-                <ButtonNavbar
-                  dontCreate
-                  TableTitle={t('Kutayotgan bemorlar')}
-                  ItemsLength={queuesList?.length}
-                />
-                <TableTitleDoctorProfile
-                  Tablethead={['Id', 'Bilet berilgan vaqti']}
-                  Tabletbody={queuesList}
-                />
-              </>
-            ) : (
-              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
-                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
               </h2>
             )}
           </div>

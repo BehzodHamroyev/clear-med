@@ -44,7 +44,24 @@ const listOfPageAdmin: ListOfPageTypes[] = [
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
   },
-  { id: 5, path: '/queues', title: 'Navbatlar', icon: <Navbatlar /> },
+  {
+    id: 5,
+    path: '/queues',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
+  },
+  {
+    id: 6,
+    path: '/add_advertisement',
+    title: 'Reklama qo’shish',
+    icon: <Bolimlar />,
+  },
+  {
+    id: 7,
+    path: '/add_monitor',
+    title: 'Monitor qo’shish',
+    icon: <Bolimlar />,
+  },
 ];
 
 const listOfPageQabulXona: ListOfPageTypes[] = [
@@ -76,6 +93,15 @@ const listOfPageDoktor: ListOfPageTypes[] = [
     path: '/reports',
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
+  },
+];
+
+const listOfPageMonitor: ListOfPageTypes[] = [
+  {
+    id: 1,
+    path: '/',
+    title: 'Navbatlar',
+    icon: <Navbatlar />,
   },
 ];
 
@@ -113,8 +139,12 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '149px';
       } else if (divRef.current && location.pathname === '/queues') {
         divRef.current.style.top = '192px';
+      } else if (divRef.current && location.pathname === '/add_advertisement') {
+        divRef.current.style.top = '235px';
+      } else if (divRef.current && location.pathname === '/add_monitor') {
+        divRef.current.style.top = '280px';
       } else if (divRef.current && location.pathname === '/settings') {
-        divRef.current.style.top = '300px';
+        divRef.current.style.top = '388px';
       }
     } else if (profileValue === 'doktor') {
       if (divRef.current && location.pathname === '/') {
@@ -134,6 +164,12 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '216px';
       }
+    } else if (profileValue === 'monitor') {
+      if (divRef.current && location.pathname === '/') {
+        divRef.current.style.top = '20px';
+      } else if (divRef.current && location.pathname === '/settings') {
+        divRef.current.style.top = '63px';
+      }
     }
   }, [profileValue, location]);
 
@@ -144,6 +180,8 @@ export const ListOfPages = memo(() => {
       setListToUse(listOfPageDoktor);
     } else if (profileValue === 'reception') {
       setListToUse(listOfPageQabulXona);
+    } else if (profileValue === 'monitor') {
+      setListToUse(listOfPageMonitor);
     }
   }, [profileValue]);
 
@@ -151,11 +189,9 @@ export const ListOfPages = memo(() => {
     const classNamesOne =
       location.pathname === item.path ? cls.liActive : cls.li;
 
-    const classNamesTwo = LinkIndex === 1 ? cls.liActiveFirst : '';
-
     return (
       <Link
-        className={`${classNamesOne} ${classNamesTwo}`}
+        className={`${classNamesOne} `}
         key={item.title}
         to={item.path}
         onClick={() => setLinkIndex(index + 1)}

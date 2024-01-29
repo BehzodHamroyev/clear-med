@@ -1,0 +1,50 @@
+.MonitorsWrapper {
+  margin: 0 auto;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 12px;
+  font-family: sans-serif;
+  box-shadow: 4px 4px 12px 0 #0000001a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  user-zoom: none;
+
+  p {
+    margin-top: 40%;
+    text-align: center;
+    color: #000000bf;
+    font-size: 38px;
+    font-weight: 500;
+    font-style: normal;
+    font-family: sans-serif;
+    line-height: 40px; /* 105.263% */
+  }
+
+  .IconWrap {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+
+    .icon {
+      color: grey;
+    }
+  }
+
+  .IconWrap:hover .icon {
+    color: #000;
+  }
+}
+
+.MonitorsWrapper:hover {
+  transform: scale(1.01);
+}
