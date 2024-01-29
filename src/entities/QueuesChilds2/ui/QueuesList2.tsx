@@ -10,8 +10,8 @@ const QueuesList2 = () => {
   return (
     <div className={cls.QueuesListWrapper}>
       <div className={cls.QueuesListTitle}>
-        <p className={cls.QueuesListTitleChild1}>{t('Bilet raqami')}</p>
-        <p className={cls.QueuesListTitleChild2}>{t('Xona raqami')}</p>
+        <p className={cls.QueuesListTitleChild1}>{t('Men Uchaman')}</p>
+        <p className={cls.QueuesListTitleChild2}>{t('Jafar King')}</p>
       </div>
       <div className={cls.QueuesNumber}>
         <p>AA-005</p>

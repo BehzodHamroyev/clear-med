@@ -65,6 +65,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-virtualized": "^9.21.21",
+    "@types/valid-url": "^1.0.7",
     "@types/webpack": "^5.28.0",
     "@types/webpack-bundle-analyzer": "^4.4.1",
     "@types/webpack-dev-server": "^4.7.2",
@@ -154,7 +155,8 @@
     "react-router-dom": "^6.21.2",
     "react-thermal-printer": "^0.18.1",
     "react-to-print": "^2.14.15",
-    "socket.io-client": "^4.7.3"
+    "socket.io-client": "^4.7.3",
+    "valid-url": "^1.0.9"
   },
   "loki": {
     "configurations": {
