@@ -28,6 +28,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   const {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
+    setIsOpenMonitorAddCard,
     setIsOpenDepartmentAddCard,
     setIsOpenAdvertisementAddCard,
   } = useContext(ButtonsContext);
@@ -42,6 +43,8 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       setIsOpenDoctorAddCard(true);
     } else if (location.pathname === '/add_advertisement') {
       setIsOpenAdvertisementAddCard(true);
+    } else if (location.pathname === '/add_monitor') {
+      setIsOpenMonitorAddCard(true);
     }
   };
 

@@ -179,7 +179,7 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
               ref={inputRef}
               style={{ display: 'none' }}
               onChange={handleFileChange}
-              accept=".jpg, .jpeg, .png, .svg"
+              accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
             />
           </div>
 

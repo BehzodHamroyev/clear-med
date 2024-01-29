@@ -1,3 +1,14 @@
 .AddMonitorPageWrapper {
   width: 100%;
+
+  .MonitorsList {
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    padding: 0;
+    margin: 20px auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

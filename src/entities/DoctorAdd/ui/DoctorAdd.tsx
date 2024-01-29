@@ -124,7 +124,7 @@ const DoctorAdd = () => {
               type="file"
               ref={inputRef}
               style={{ display: 'none' }}
-              accept=".jpg, .jpeg, .png, .svg"
+              accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
               onChange={(e) => handleFileChange(e)}
             />
           </div>

@@ -64,6 +64,9 @@ export interface ButtonsClickedProps {
   isOpenAdvertisementAddCard: boolean;
   setIsOpenAdvertisementAddCard: (prop: boolean) => void;
 
+  isOpenMonitorAddCard: boolean;
+  setIsOpenMonitorAddCard: (prop: boolean) => void;
+
   isOpenAdvertisementEditCard: boolean;
   setIsOpenAdvertisementEditCard: (prop: boolean) => void;
 
@@ -160,6 +163,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenLanugagePopup: false,
   setisOpenLanugagePopup: () => {},
+
+  isOpenMonitorAddCard: false,
+  setIsOpenMonitorAddCard: () => {},
 
   responseAddDoctorStatusCode: 0,
   setResponseAddDoctorStatusCode: () => {},

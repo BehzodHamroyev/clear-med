@@ -61,6 +61,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenLanugagePopup, setisOpenLanugagePopup] = useState(false);
 
+  const [isOpenMonitorAddCard, setIsOpenMonitorAddCard] = useState(false);
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -205,6 +207,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsDataFormAddRoom,
       responseAddDoctorStatusCode,
       setResponseAddDoctorStatusCode,
+      isOpenMonitorAddCard,
+      setIsOpenMonitorAddCard,
       clickedDoctorId,
       setClickedDoctorId,
     }),
@@ -245,6 +249,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenAdvertisementAddCard,
       isOpenAdvertisementEditCard,
       setIsOpenAdvertisementEditCard,
+      isOpenMonitorAddCard,
+      setIsOpenMonitorAddCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
