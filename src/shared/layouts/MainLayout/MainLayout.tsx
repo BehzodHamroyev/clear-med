@@ -2,6 +2,7 @@ import { memo, ReactElement, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { io } from 'socket.io-client';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
 
@@ -25,6 +26,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   const { className, content, toolbar, header, sidebar } = props;
 
   const { t } = useTranslation();
+
+  const socket = io('http://socketmed.magicsoft.uz');
 
   const authUserData = useSelector(getAuthUserData);
 
@@ -54,6 +57,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
       return () => clearTimeout(timeoutId);
     }
   }, [hasToaster]);
+
+  useEffect(() => {
+    if (authUserData) {
+      socket.emit('addUser', authUserData.id);
+    }
+  }, [authUserData, socket]);
 
   return (
     <div>
