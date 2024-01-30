@@ -54,7 +54,19 @@ export interface AllQueueProccessApiResponse {
   monitor: Monitor;
 }
 
+interface videoUrl {
+  createdAt: string;
+  disabled: boolean;
+  id: string;
+  link: string;
+  name: string;
+  photo: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
 export interface QueueProccessInRedux {
-  videoUrl: string[];
+  videoUrl: videoUrl[];
   proccessQueues: Queue[];
 }
