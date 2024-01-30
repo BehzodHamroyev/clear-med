@@ -19,6 +19,7 @@ import {
 import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
 import { doctorListReducer } from '@/pages/ReportsPage';
 import { allQueueProccessReducer } from '@/pages/QueuesPage';
+import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -41,6 +42,7 @@ export function createReduxStore(
     departmentAdd: departmentAddSliceSliceReducer,
     doctorList: doctorListReducer,
     allQueueProccess: allQueueProccessReducer,
+    AddAdvertisementPage: AdvertisementListSliceReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

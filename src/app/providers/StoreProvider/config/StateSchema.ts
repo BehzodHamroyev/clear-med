@@ -23,6 +23,8 @@ import { DepartmentScheme } from '@/entities/DepartmentAdd';
 import { DoctorListScheam } from '@/pages/ReportsPage';
 import { AllQueueProccessSchema } from '@/pages/QueuesPage';
 
+import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
+
 export interface StateSchema {
   authUser: AuthReduxType;
   departmentPage: DepartmentListSchema;
@@ -37,6 +39,7 @@ export interface StateSchema {
   departmentAdd: DepartmentScheme;
   doctorList: DoctorListScheam;
   allQueueProccess: AllQueueProccessSchema;
+  AddAdvertisementPage: AdvertisementListSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

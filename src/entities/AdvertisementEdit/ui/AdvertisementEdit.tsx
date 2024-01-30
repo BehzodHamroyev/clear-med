@@ -14,13 +14,21 @@ import cls from './AdvertisementEdit.module.scss';
 const AdvertisementEdit = (prop: DoctorEditType) => {
   const { tableBody } = prop;
 
-  /* Cookies */
   const token = Cookies.get('token');
 
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useContext */
+  const [img, setImg] = React.useState<any>();
+
+  const [isFileChanged, setIsFileChanged] = React.useState<boolean>(false);
+
+  const [getAllFormData, setAllFormData] = React.useState<any>({
+    idCard: '',
+    ImgUrl: '',
+    name: '',
+    link: '',
+  });
+
   const {
     departmentGetId,
     setResponseData,
@@ -28,56 +36,35 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
     setResponseAddDoctorStatusCode,
   } = React.useContext(ButtonsContext);
 
-  /* useState */
-
-  const [img, setImg] = React.useState<any>();
-
-  const [getAllFormData, setAllFormData] = React.useState<any>({
-    fileUrl: '',
-    fullName: '',
-    experiance: '',
-    phoneNumber: '',
-    passwordValue: '',
-  });
-
-  /* useRef */
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-  /* hapler function */
   const matchingItems = tableBody?.find((item) => item?.id === departmentGetId);
 
-  const getPhoneSliceValue =
-    getAllFormData.phoneNumber.length > 9
-      ? getAllFormData.phoneNumber.slice(-9)
-      : getAllFormData.phoneNumber;
-
-  /* useEffect */
   React.useEffect(() => {
     if (matchingItems) {
       setAllFormData({
         idCard: departmentGetId,
-        fileUrl: `${matchingItems.img}`,
-        fullName: `${matchingItems.item1}`,
-        experiance: `${matchingItems.item4}`,
-        passwordValue: `${matchingItems.lastChild}`,
-        phoneNumber: `${matchingItems.lastChild}`,
+        ImgUrl: `${matchingItems.img}`,
+        name: `${matchingItems.item2}`,
+        link: `${matchingItems.url}`,
       });
     } else {
       console.log('No matching item found');
     }
   }, [departmentGetId, matchingItems]);
 
-  /* handle change functions */
   const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
   };
 
+  // submit img for state
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setImg(file);
-    setAllFormData({ ...getAllFormData, fileUrl: file });
+    setIsFileChanged(true);
+    setAllFormData({ ...getAllFormData, ImgUrl: file });
   };
 
   /* handle submit functions */
@@ -86,14 +73,16 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
 
     const data = new FormData();
 
-    data.append('login', getPhoneSliceValue);
-    data.append('file', getAllFormData.fileUrl);
-    data.append('name', getAllFormData.fullName);
-    data.append('exprience', getAllFormData.experiance);
+    if (isFileChanged) {
+      data.append('file', getAllFormData.ImgUrl);
+      setIsFileChanged(false);
+    }
+    data.append('name', getAllFormData.name);
+    data.append('link', getAllFormData.link);
 
     try {
       const response = await axios.patch<DoctorEditType>(
-        `${baseUrl}/users/${getAllFormData.idCard}`,
+        `${baseUrl}/videos/${getAllFormData.idCard}`,
         data,
         {
           maxBodyLength: Infinity,
@@ -160,7 +149,7 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
           <div className={cls.AddCardImg}>
             <img
               className={cls.AddCardImgValue}
-              src={img ? URL.createObjectURL(img) : getAllFormData.fileUrl}
+              src={img ? URL.createObjectURL(img) : getAllFormData.ImgUrl}
               alt="#"
             />
 
@@ -188,11 +177,11 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
               type="text"
               className={cls.InputBulim}
               placeholder={t('Reklama nomi')}
-              value={getAllFormData.fullName}
+              value={getAllFormData.name}
               onChange={(e) => {
                 setAllFormData({
                   ...getAllFormData,
-                  fullName: e.target.value,
+                  name: e.target.value,
                 });
               }}
             />
@@ -200,12 +189,12 @@ const AdvertisementEdit = (prop: DoctorEditType) => {
             <input
               type="text"
               className={cls.InputBulim}
-              value={`${getAllFormData.experiance}`}
+              value={`${getAllFormData.link}`}
               placeholder={t('Reklama manzili (url)')}
               onChange={(e) =>
                 setAllFormData({
                   ...getAllFormData,
-                  experiance: e.target.value,
+                  link: e.target.value,
                 })
               }
             />

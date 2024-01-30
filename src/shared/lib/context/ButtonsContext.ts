@@ -31,6 +31,7 @@ export interface ButtonsClickedProps {
 
   calendarEndValue: string;
   setCalendarEndValue: (props: string) => void;
+
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
 

@@ -61,6 +61,7 @@ const TableTitleReklama = (props: TableInfo) => {
 
       <tbody className={cls.Tabletbody}>
         {Tabletbody.map((item) => {
+          console.log(item.img);
           return (
             <tr
               key={item?.id}
