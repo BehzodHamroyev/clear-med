@@ -116,6 +116,8 @@ const QueuesControlDoctor = () => {
     }
   });
 
+  console.log('rerender');
+
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>

@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import ReactPlayer from 'react-player';
+
 import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
@@ -51,8 +53,6 @@ const QueuesPage = () => {
   const handleClicked = () => {
     handle.enter();
   };
-
-  console.log('rerender');
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
     if (data) {
@@ -168,7 +168,11 @@ const QueuesPage = () => {
                   className={classNames(cls.QueuesPage__queuesContainerRigth)}
                 >
                   <div className={classNames(cls.rolik)}>
-                    <p>Reklama</p>
+                    <ReactPlayer
+                      // eslint-disable-next-line max-len
+                      url="https://www.youtube.com/embed/PZUr2YyYmFY?autoplay=1&si=stHXBOccrB0sjZIe?rel=0&amp;controls=1&amp&amp;showinfo=0&amp;modestbranding=1"
+                      loop
+                    />
                   </div>
                 </div>
               ) : (

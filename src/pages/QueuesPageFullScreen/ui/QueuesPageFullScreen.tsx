@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import ReactPlayer from 'react-player';
+
 import { useFullScreenHandle } from 'react-full-screen';
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +21,10 @@ import {
 } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import Loader from '@/widgets/Loader/ui/Loader';
+import { socket } from '@/shared/lib/utils/socket';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
+import { Queue } from '@/pages/QueuesControlDoctor';
 
 const QueuesPageFullScreen = () => {
   const handle = useFullScreenHandle();
@@ -27,6 +33,13 @@ const QueuesPageFullScreen = () => {
   const [hasQueueDialog, setHasQueueDialog] = useState(false);
 
   const { t } = useTranslation();
+
+  const {
+    recallQueue,
+    addProccessQueue,
+    clearProccessQueue,
+    removeProccessQueue,
+  } = useAllQueueProccessActions();
 
   useEffect(() => {
     if (hasQueueDialog) {
@@ -44,6 +57,34 @@ const QueuesPageFullScreen = () => {
   const handleExitFullScreenClick = () => {
     document.exitFullscreen();
   };
+
+  socket.on('getProccessQueueToTV', (data: Queue) => {
+    if (data) {
+      console.log(data);
+      addProccessQueue(data);
+    }
+  });
+
+  socket.on('getRecallQueueToTV', (data: Queue) => {
+    if (data) {
+      console.log(data, 'recall');
+      recallQueue(data);
+    }
+  });
+
+  socket.on('getAcceptedQueueToTV', (data: Queue) => {
+    if (data) {
+      console.log(data, 'accept');
+      removeProccessQueue(data);
+    }
+  });
+
+  socket.on('getRejectQueueToTV', (data: Queue) => {
+    if (data) {
+      console.log(data, 'reject');
+      removeProccessQueue(data);
+    }
+  });
 
   return (
     <>
@@ -118,7 +159,11 @@ const QueuesPageFullScreen = () => {
           {hasRolik ? (
             <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
               <div className={classNames(cls.rolik)}>
-                <p>Reklama</p>
+                <ReactPlayer
+                  // eslint-disable-next-line max-len
+                  url="https://www.youtube.com/embed/PZUr2YyYmFY?autoplay=1&si=stHXBOccrB0sjZIe?rel=0&amp;controls=1&amp&amp;showinfo=0&amp;modestbranding=1"
+                  loop
+                />
               </div>
             </div>
           ) : (
