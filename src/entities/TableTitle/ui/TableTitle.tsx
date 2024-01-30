@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import cls from './TableTitle.module.scss';
 import { TableInfo } from '../model/types/TableInfo';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -10,11 +10,16 @@ const TableTitle = (props: TableInfo) => {
 
   const location = useLocation();
 
+  const { id } = useParams();
+
+  const url = `/add_monitor/${id}/room_attachment_monitor`;
+
   const {
     setDepartmentGetId,
     setIsOpenRoomEditCard,
     setIsOpenDoctorEditCard,
     setIsOpenDepartmentEditCard,
+    setIsOpenRoomAttachmentMonitorChildFormEdit,
   } = useContext(ButtonsContext);
 
   const handleCardAddCard = (id: string) => {
@@ -27,6 +32,8 @@ const TableTitle = (props: TableInfo) => {
       setIsOpenRoomEditCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorEditCard(true);
+    } else if (location.pathname === url) {
+      setIsOpenRoomAttachmentMonitorChildFormEdit(true);
     }
   };
 

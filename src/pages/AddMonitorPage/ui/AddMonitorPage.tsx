@@ -6,10 +6,15 @@ import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './addMonitorPage.module.scss';
+import { MonitorEdit } from '@/entities/MonitorEdit';
 
 const AddMonitorPage = () => {
-  const { isOpenMonitorAddCard, setIsOpenMonitorAddCard } =
-    React.useContext(ButtonsContext);
+  const {
+    isOpenMonitorAddCard,
+    setIsOpenMonitorAddCard,
+    isOpenMonitorEditCard,
+    setIsOpenMonitorEditCard,
+  } = React.useContext(ButtonsContext);
 
   return (
     <div>
@@ -29,6 +34,8 @@ const AddMonitorPage = () => {
         </div>
       </div>
       {isOpenMonitorAddCard ? <MonitorAdd /> : ''}
+
+      {isOpenMonitorEditCard ? <MonitorEdit /> : ''}
     </div>
   );
 };

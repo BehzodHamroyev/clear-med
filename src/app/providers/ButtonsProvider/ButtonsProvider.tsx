@@ -63,6 +63,18 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenMonitorAddCard, setIsOpenMonitorAddCard] = useState(false);
 
+  const [isOpenMonitorEditCard, setIsOpenMonitorEditCard] = useState(false);
+
+  const [
+    isOpenRoomAttachmentMonitorChildForm,
+    setIsOpenRoomAttachmentMonitorChildForm,
+  ] = useState(false);
+
+  const [
+    isOpenAttachmentRoomMonitorChild,
+    setIsOpenAttachmentRoomMonitorChild,
+  ] = useState(false);
+
   const [isCloseCalendar, setIsCloseCalendar] = useState(false);
 
   const [isCloseCalendar2, setIsCloseCalendar2] = useState(false);
@@ -79,6 +91,16 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenRoomEditCard, setIsOpenRoomEditCard] = useState(false);
 
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
+
+  const [
+    isOpenRoomAttachmentMonitorChildFormedit,
+    setIsOpenRoomAttachmentMonitorChildFormEdit,
+  ] = useState(false);
+
+  const [
+    isOpenAttachmentRoomMonitorChildEdit,
+    setIsOpenAttachmentRoomMonitorChildEdit,
+  ] = useState(false);
 
   const [isOpenAdvertisementAddCard, setIsOpenAdvertisementAddCard] =
     useState(false);
@@ -211,6 +233,16 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenMonitorAddCard,
       clickedDoctorId,
       setClickedDoctorId,
+      isOpenMonitorEditCard,
+      setIsOpenMonitorEditCard,
+      isOpenAttachmentRoomMonitorChild,
+      setIsOpenAttachmentRoomMonitorChild,
+      isOpenAttachmentRoomMonitorChildEdit,
+      setIsOpenAttachmentRoomMonitorChildEdit,
+      isOpenRoomAttachmentMonitorChildForm,
+      setIsOpenRoomAttachmentMonitorChildForm,
+      isOpenRoomAttachmentMonitorChildFormedit,
+      setIsOpenRoomAttachmentMonitorChildFormEdit,
     }),
     [
       currentQueueData,
@@ -283,6 +315,17 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setResponseAddDoctorStatusCode,
       clickedDoctorId,
       setClickedDoctorId,
+      isOpenMonitorEditCard,
+      setIsOpenMonitorEditCard,
+      isOpenAttachmentRoomMonitorChild,
+      setIsOpenAttachmentRoomMonitorChild,
+
+      isOpenAttachmentRoomMonitorChildEdit,
+      setIsOpenAttachmentRoomMonitorChildEdit,
+      isOpenRoomAttachmentMonitorChildForm,
+      setIsOpenRoomAttachmentMonitorChildForm,
+      isOpenRoomAttachmentMonitorChildFormedit,
+      setIsOpenRoomAttachmentMonitorChildFormEdit,
     ],
   );
 

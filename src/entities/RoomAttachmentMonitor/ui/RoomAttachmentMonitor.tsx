@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './roomAttachmentMonitor.module.scss';
 import { TableTitle } from '@/entities/TableTitle';
+import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
 
 /* svg */
 const Svg = (
@@ -44,31 +47,53 @@ const RoomAttachmentMonitor = () => {
   /* useParams */
   const { id } = useParams();
 
+  const {
+    isOpenRoomAttachmentMonitorChildFormedit,
+    setIsOpenRoomAttachmentMonitorChildFormEdit,
+    isOpenRoomAttachmentMonitorChildForm,
+    setIsOpenRoomAttachmentMonitorChildForm,
+  } = useContext(ButtonsContext);
+
   /* UI */
   return (
-    <div className={cls.RoomAttachmentMonitorWrapper}>
-      {/* Title */}
-      <div className={cls.RoomAttachmentMonitorWrapper__Title}>
-        <Link
-          className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
-          to={`/add_monitor/${id}`}
-        >
-          {Svg}
-          Ortga
-        </Link>
-        <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-          {id} - Monitorga biriktirilgan xonalar{' '}
-          <span>({Tablebody.length})</span>
-        </p>
-        <CarbonAdd
-          onClick={() => {}}
-          className={cls['RoomAttachmentMonitorWrapper__Title--create']}
-        />
+    <div>
+      <div className={cls.RoomAttachmentMonitorWrapper}>
+        {/* Title */}
+        <div className={cls.RoomAttachmentMonitorWrapper__Title}>
+          <Link
+            className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
+            to={`/add_monitor/${id}`}
+          >
+            {Svg}
+            Ortga
+          </Link>
+          <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
+            {id} - Monitorga biriktirilgan xonalar{' '}
+            <span>({Tablebody.length})</span>
+          </p>
+          <CarbonAdd
+            onClick={() => setIsOpenRoomAttachmentMonitorChildForm(true)}
+            className={cls['RoomAttachmentMonitorWrapper__Title--create']}
+          />
+        </div>
+
+        {/* Body */}
+
+        <TableTitle Tablethead={Tablethead} Tabletbody={Tablebody} />
       </div>
 
-      {/* Body */}
+      {/* halper popup */}
+      {isOpenRoomAttachmentMonitorChildForm ? (
+        <RoomAttachmentMonitorChildForm />
+      ) : (
+        ''
+      )}
 
-      <TableTitle Tablethead={Tablethead} Tabletbody={Tablebody} />
+      {isOpenRoomAttachmentMonitorChildFormedit ? (
+        <RoomAttachmentMonitorChildFormEdit />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
