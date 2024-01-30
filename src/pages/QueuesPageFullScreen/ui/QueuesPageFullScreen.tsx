@@ -195,6 +195,7 @@ const QueuesPageFullScreen = () => {
               <div className={classNames(cls.rolik)}>
                 <ReactPlayer
                   url={videoUrl}
+                  volume={hasQueueDialog ? 0 : 1}
                   loop
                   playing
                   controls
