@@ -69,7 +69,7 @@ const QueueDialog = ({
         </div>
       </div>
       <ReactAudioPlayer
-        src="/assets/monitorRingtone.mp3"
+        src="/assets/callRingtone.mp3"
         autoPlay
         controls
         style={{ opacity: '0' }}

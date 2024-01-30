@@ -35,7 +35,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
       dispatch(
         fetchQueuesProccess({
           method: 'post',
-          status: 'proccessed',
+          status: 'recall',
           path: '',
           isReCall: true,
         }),
