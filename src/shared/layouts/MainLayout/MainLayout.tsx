@@ -12,6 +12,7 @@ import { getAuthUserData, Login } from '@/features/Auth';
 import Toast from '@/shared/ui/Toast/Toast';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
+import { socket } from '@/shared/lib/utils/socket';
 
 interface MainLayoutProps {
   className?: string;
@@ -54,6 +55,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
       return () => clearTimeout(timeoutId);
     }
   }, [hasToaster]);
+
+  useEffect(() => {
+    if (authUserData) {
+      socket.emit('addUser', authUserData.id);
+    }
+  }, [authUserData]);
 
   return (
     <div>

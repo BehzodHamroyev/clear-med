@@ -1,10 +1,11 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { io } from 'socket.io-client';
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
+import { socket } from '@/shared/lib/utils/socket';
 
 export const fetchQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
@@ -14,8 +15,6 @@ export const fetchQueuesProccess = createAsyncThunk<
   'fetchQueuesProccess',
   async ({ method, path, status, isReCall = false }, thunkApi) => {
     const { rejectWithValue } = thunkApi;
-
-    const socket = io('http://socketmed.magicsoft.uz');
 
     const getTokenCookie = Cookies.get('token');
 
@@ -48,19 +47,39 @@ export const fetchQueuesProccess = createAsyncThunk<
         );
       }
 
-      if (response?.data && status === 'proccessed' && !isReCall) {
+      console.log();
+
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'proccessed' &&
+        !isReCall
+      ) {
         socket.emit('proccessQueue', response.data);
       }
 
-      if (response?.data && status === 'proccessed' && isReCall) {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'proccessed' &&
+        isReCall
+      ) {
         socket.emit('recallQueue', response.data);
       }
 
-      if (response?.data && status === 'rejected') {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'rejected'
+      ) {
         socket.emit('rejectQueue', response.data);
       }
 
-      if (response?.data && status === 'completed') {
+      if (
+        response?.data &&
+        response?.data.data.length > 0 &&
+        status === 'completed'
+      ) {
         socket.emit('acceptedQueue', response.data);
       }
 

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
+
 import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
@@ -22,13 +22,12 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
 import { Queue } from '@/pages/QueuesControlDoctor';
+import { socket } from '@/shared/lib/utils/socket';
 
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
 
   const [hasRolik, setHasRolik] = useState(true);
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
   const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
@@ -40,11 +39,6 @@ const QueuesPage = () => {
     clearProccessQueue,
     removeProccessQueue,
   } = useAllQueueProccessActions();
-
-  const [getFullWidth, setFullWidth] = React.useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
 
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
@@ -58,48 +52,32 @@ const QueuesPage = () => {
     handle.enter();
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setFullWidth({
-        ...getFullWidth,
-        width: Math.floor(0.75 * window.innerWidth - 250),
-        height: Math.floor(window.innerHeight),
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  console.log('rerender');
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data);
       addProccessQueue(data);
     }
   });
 
   socket.on('getRecallQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'recall');
       recallQueue(data);
     }
   });
 
   socket.on('getAcceptedQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'accept');
       removeProccessQueue(data);
     }
   });
 
   socket.on('getRejectQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
+      console.log(data, 'reject');
       removeProccessQueue(data);
     }
   });
@@ -135,7 +113,7 @@ const QueuesPage = () => {
               </div>
             </div>
 
-            {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
+            <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
                 <div className={classNames(cls.queuesTable)}>
                   <div className={classNames(cls.queuesTable__head)}>
@@ -151,40 +129,36 @@ const QueuesPage = () => {
                   </div>
 
                   <div className={classNames(cls.queuesTable__items)}>
-                    {allProccessQueue?.monitor?.rooms &&
-                      allProccessQueue?.monitor?.rooms?.length > 0 &&
-                      allProccessQueue?.monitor?.rooms.map(
-                        (item) =>
-                          item.proceed &&
-                          item.proceed.length > 0 && (
-                            <div
-                              key={item._id}
-                              className={classNames(cls.queuesTable__item)}
-                            >
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemDepartmentName,
-                                )}
-                              >
-                                <p>{item.department_id?.name}</p>
-                              </div>
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemRoomNumber,
-                                )}
-                              >
-                                <p>{item.name}</p>
-                              </div>
-                              <div
-                                className={classNames(
-                                  cls.queuesTable__itemBiletNumber,
-                                )}
-                              >
-                                <p>{item.proceed[0]?.queues_name}</p>
-                              </div>
-                            </div>
-                          ),
-                      )}
+                    {allProccessQueue?.proccessQueues &&
+                      allProccessQueue?.proccessQueues.length > 0 &&
+                      allProccessQueue?.proccessQueues.map((item) => (
+                        <div
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
+                        >
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -362,7 +336,7 @@ const QueuesPage = () => {
                   </div>
                 </div>
               )}
-            </div> */}
+            </div>
 
             {/* <div className={classNames(cls.QueuesPage__queuesContainer)}>
               <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { io } from 'socket.io-client';
 
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { CurrentQueueDataApiRespoceType } from '../types/departmentListTypes';
+import { socket } from '@/shared/lib/utils/socket';
 
 export const fetchCurrentQueue = createAsyncThunk<
   CurrentQueueDataApiRespoceType,
@@ -13,8 +13,6 @@ export const fetchCurrentQueue = createAsyncThunk<
   ThunkConfig<string>
 >('fetchCurrentQueue', async ({ departmentId, roomId }, thunkApi) => {
   const { rejectWithValue } = thunkApi;
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const getTokenCookie = Cookies.get('token');
 

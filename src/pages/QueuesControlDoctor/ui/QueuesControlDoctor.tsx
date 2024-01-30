@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { io } from 'socket.io-client';
-import axios from 'axios';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
@@ -42,9 +40,9 @@ import {
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-import { getAuthUserData } from '@/features/Auth';
 import PaginationComponent from '@/shared/ui/Pagination/Pagination';
 import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
+import { socket } from '@/shared/lib/utils/socket';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -54,8 +52,6 @@ const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
-
-  const socket = io('http://socketmed.magicsoft.uz');
 
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
@@ -71,31 +67,9 @@ const QueuesControlDoctor = () => {
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
 
-  const authUserData = useSelector(getAuthUserData);
-
   const { addQueue, removeQueue } = useQueuesControlDoctorActions();
 
   const { addDoneQueue } = useDoneQueuesControlDoctorActons();
-
-  const fetchIP = async () => {
-    try {
-      const responce = await axios.get('https://api.ipify.org?format=json');
-
-      if (responce && authUserData) {
-        socket.emit('addUser', {
-          userId: authUserData.id,
-          ip_address: responce.data.ip,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchIP();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     dispatch(
