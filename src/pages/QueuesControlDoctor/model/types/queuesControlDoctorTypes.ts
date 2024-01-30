@@ -36,7 +36,7 @@ export interface Queue {
   department_id: Department;
   room_id: Room;
   doctor_id: Doctor;
-  queues_name: string[];
+  queues_name: string[] | string;
   step: number;
   created_date: string;
   status: string;

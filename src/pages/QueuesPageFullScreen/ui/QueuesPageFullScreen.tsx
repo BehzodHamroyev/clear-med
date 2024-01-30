@@ -27,17 +27,17 @@ import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQu
 import { Queue } from '@/pages/QueuesControlDoctor';
 
 const QueuesPageFullScreen = () => {
+  const { t } = useTranslation();
+
   const handle = useFullScreenHandle();
 
   const [hasRolik, setHasRolik] = useState(true);
-  const [hasQueueDialog, setHasQueueDialog] = useState(false);
+  const [hasQueueDialog, setHasQueueDialog] = useState(true);
   const [queueDialogData, setQueueDialogData] = useState({
-    roomNumber: '',
-    biletNumber: '',
-    step: 0,
+    roomNumber: '90',
+    biletNumber: 'NEV2-1000',
+    step: 1,
   });
-
-  const { t } = useTranslation();
 
   const {
     recallQueue,
@@ -59,7 +59,7 @@ const QueuesPageFullScreen = () => {
 
       setQueueDialogData({
         roomNumber: String(data.room_id.name),
-        biletNumber: data.queues_name[0],
+        biletNumber: String(data.queues_name),
         step: data.step,
       });
 
@@ -74,7 +74,7 @@ const QueuesPageFullScreen = () => {
 
       setQueueDialogData({
         roomNumber: String(data.room_id.name),
-        biletNumber: data.queues_name[0],
+        biletNumber: String(data.queues_name),
         step: data.step,
       });
 
@@ -100,7 +100,7 @@ const QueuesPageFullScreen = () => {
     if (hasQueueDialog) {
       setTimeout(() => {
         setHasQueueDialog(false);
-      }, 3000);
+      }, 3500);
     }
   }, [hasQueueDialog]);
 
@@ -130,48 +130,53 @@ const QueuesPageFullScreen = () => {
 
         <div className={classNames(cls.QueuesPage__queuesContainer)}>
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
-            <div className={classNames(cls.queuesTable)}>
-              <div className={classNames(cls.queuesTable__head)}>
-                <p className={classNames(cls.queuesTable__headItem)}>
-                  {t("Bo'lim")}
-                </p>
-                <p className={classNames(cls.queuesTable__headItem)}>
-                  {t('Xona')}
-                </p>
-                <p className={classNames(cls.queuesTable__headItem)}>
-                  {t('Bilet')}
-                </p>
-              </div>
+            {allProccessQueue?.proccessQueues &&
+              allProccessQueue?.proccessQueues.length > 0 && (
+                <div className={classNames(cls.queuesTable)}>
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
 
-              <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue?.proccessQueues &&
-                  allProccessQueue?.proccessQueues.length > 0 &&
-                  allProccessQueue?.proccessQueues.map((item) => (
-                    <div
-                      key={item._id}
-                      className={classNames(cls.queuesTable__item)}
-                    >
+                  <div className={classNames(cls.queuesTable__items)}>
+                    {allProccessQueue?.proccessQueues.map((item) => (
                       <div
-                        className={classNames(
-                          cls.queuesTable__itemDepartmentName,
-                        )}
+                        key={item._id}
+                        className={classNames(cls.queuesTable__item)}
                       >
-                        <p>{item.department_id?.name}</p>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>{item.department_id?.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>{item.room_id.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>{item.queues_name}</p>
+                        </div>
                       </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemRoomNumber)}
-                      >
-                        <p>{item.room_id.name}</p>
-                      </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemBiletNumber)}
-                      >
-                        <p>{item.queues_name}</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
+                    ))}
+                  </div>
+                </div>
+              )}
           </div>
 
           {hasRolik ? (
