@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import cls from './DoneQueueTableTitleDoctorProfile.module.scss';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
@@ -11,7 +11,7 @@ interface TableInfo {
   Tabletbody?: Queue[];
 }
 
-const DoneQueueTableTitleDoctorProfile = (props: TableInfo) => {
+const DoneQueueTableTitleDoctorProfile = memo((props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   return (
@@ -48,6 +48,6 @@ const DoneQueueTableTitleDoctorProfile = (props: TableInfo) => {
       </tbody>
     </table>
   );
-};
+});
 
 export default DoneQueueTableTitleDoctorProfile;

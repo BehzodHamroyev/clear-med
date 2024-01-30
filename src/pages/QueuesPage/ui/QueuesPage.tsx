@@ -56,28 +56,28 @@ const QueuesPage = () => {
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
     if (data) {
-      console.log(data);
+      // console.log(data);
       addProccessQueue(data);
     }
   });
 
   socket.on('getRecallQueueToTV', (data: Queue) => {
     if (data) {
-      console.log(data, 'recall');
+      // console.log(data, 'recall');
       recallQueue(data);
     }
   });
 
   socket.on('getAcceptedQueueToTV', (data: Queue) => {
     if (data) {
-      console.log(data, 'accept');
+      // console.log(data, 'accept');
       removeProccessQueue(data);
     }
   });
 
   socket.on('getRejectQueueToTV', (data: Queue) => {
     if (data) {
-      console.log(data, 'reject');
+      // console.log(data, 'reject');
       removeProccessQueue(data);
     }
   });

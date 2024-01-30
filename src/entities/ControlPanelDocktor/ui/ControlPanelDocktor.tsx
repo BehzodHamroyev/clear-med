@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import cls from './ControlPanelDocktor.module.scss';
@@ -13,7 +13,7 @@ import {
   getControlPanelDocktorIsLoading,
 } from '../model/selectors/controlPanelDocktorSelector';
 
-const ControlPanelDocktor = () => {
+const ControlPanelDocktor = memo(() => {
   const dispatch = useAppDispatch();
   const proccessedList = useSelector(getControlPanelDocktorData);
   const proccessedIsLoading = useSelector(getControlPanelDocktorIsLoading);
@@ -44,6 +44,6 @@ const ControlPanelDocktor = () => {
       <QueueUserNext />
     </div>
   );
-};
+});
 
 export default ControlPanelDocktor;
