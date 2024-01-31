@@ -1,85 +1,66 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 
 import { FormDataInState } from '../model/types/doctorAddTypes';
-import { fetchDoctorAdd } from '../model/service/fetchDoctorAdd';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './MonitorAdd.module.scss';
+import { fetchCreateNewMonitorForMonitorPage } from '../model/service/fetchCreateNewMonitorForMonitorPage';
 
 const MonitorAdd = () => {
-  /* translate */
   const { t } = useTranslation();
 
-  /* dispatch */
   const dispatch = useAppDispatch();
 
-  /* context */
-  const { setIsOpenMonitorAddCard } = React.useContext(ButtonsContext);
-
-  /* useState */
-  const [selectedFile, setSelectedFile] = React.useState<any>(null);
-
-  const [value, setValue] = React.useState('');
-
-  const [value2, setValue2] = React.useState('');
+  const { setIsOpenMonitorAddCard, isMonitorAddSelectionFormAdvertisement } =
+    React.useContext(ButtonsContext);
 
   const [hideEye, setHideEye] = React.useState(false);
 
   const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
     name: '',
-    login: null,
+    login: '',
     password: '',
-    file: undefined,
-    exprience: null,
+    exprience: false,
   });
 
-  /* useRef */
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
-
-  /* halper functions */
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
+  const handleInputChangeFormName = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setIsAllFormData({ ...isAllFormData, name: e.target.value });
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  function handleInputChange(event: any, name: string) {
-    setValue(event);
-
+  function handleInputChangeFormPhoneNumber(event: any, name: string) {
     setIsAllFormData({ ...isAllFormData, login: event });
   }
 
-  function handleInputChangePassword(event: any, name: string) {
-    setValue2(event);
-
+  function handleInputChangeFormPassword(event: any, name: string) {
     setIsAllFormData({ ...isAllFormData, password: event });
   }
 
-  /* fetch data */
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const data = new FormData();
-
-    data.append('role', `doctor`);
-    data.append('file', selectedFile);
-    data.append('name', `${isAllFormData!.name}`);
-    data.append('login', `${isAllFormData!.login}`);
-    data.append('password', `${isAllFormData!.password}`);
-    data.append('exprience', `${isAllFormData!.exprience}`);
-
-    dispatch(fetchDoctorAdd({ data }));
+    dispatch(
+      fetchCreateNewMonitorForMonitorPage({
+        name: isAllFormData.name,
+        login: `${isAllFormData.login}`,
+        password: `${isAllFormData.password}`,
+        exprience: isAllFormData.exprience,
+      }),
+    );
   };
+
+  React.useEffect(() => {
+    setIsAllFormData({
+      ...isAllFormData,
+      exprience: isMonitorAddSelectionFormAdvertisement,
+    });
+  }, [isAllFormData, isMonitorAddSelectionFormAdvertisement]);
 
   /* UI */
   return (
@@ -100,25 +81,25 @@ const MonitorAdd = () => {
 
         <div className={cls.CardBody}>
           <input
+            required
             type="text"
             maxLength={30}
-            className={cls.InputBulim}
             placeholder={t('Nomi')}
-            onChange={(e) =>
-              setIsAllFormData({ ...isAllFormData, name: e.target.value })
-            }
+            className={cls.InputBulim}
+            value={`${isAllFormData.name}`}
+            onChange={(e) => handleInputChangeFormName(e)}
           />
 
           <Input
-            value={value}
             maxLength={20}
             id="PhoneNumber"
             autoComplete="off"
             name="PhoneNumber"
+            placeholder={t('Login')}
             rules={{ required: true }}
             className={cls.InputBulim}
-            placeholder={t('Login')}
-            onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+            value={`${isAllFormData.login}`}
+            onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
           />
 
           <div className={cls.PhoneNumberInputWrapper}>
@@ -126,15 +107,15 @@ const MonitorAdd = () => {
               required
               minLength={8}
               maxLength={14}
-              value={value2}
               id="UserPassword"
               autoComplete="off"
               name="UserPassword"
-              className={cls.InputBulim}
               placeholder="Parol"
+              className={cls.InputBulim}
+              value={isAllFormData.password}
               type={hideEye ? 'text' : 'password'}
               onChange={(e) =>
-                handleInputChangePassword(e.target.value, 'UserPassword')
+                handleInputChangeFormPassword(e.target.value, 'UserPassword')
               }
             />
 

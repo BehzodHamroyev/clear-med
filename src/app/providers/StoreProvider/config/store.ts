@@ -1,25 +1,28 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState, Reducer } from 'redux';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+
 import { $api } from '@/shared/api/api';
 import { rtkApi } from '@/shared/api/rtkApi';
-import { createReducerManager } from './reducerManager';
-import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { AuthUserSliceReducer } from '@/features/Auth';
-import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
-import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
-import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
-import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
-import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
+import { createReducerManager } from './reducerManager';
+import { doctorListReducer } from '@/pages/ReportsPage';
 import { RoomListSliceReducer } from '@/pages/RoomPage';
+import { StateSchema, ThunkExtraArg } from './StateSchema';
+import { allQueueProccessReducer } from '@/pages/QueuesPage';
+import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
+import { GetAllMonitorPageReducer } from '@/pages/AddMonitorPage';
+import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
+import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
+import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
+import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
+import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
+import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
+
 import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
-import { doctorListReducer } from '@/pages/ReportsPage';
-import { allQueueProccessReducer } from '@/pages/QueuesPage';
-import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -29,20 +32,21 @@ export function createReduxStore(
     ...asyncReducers,
     // login: AuthSliceReducer,
 
-    getDoctorPageReducer: DoctorListSliceReducer,
+    lastQueue: lastQueueReducer,
+    doctorList: doctorListReducer,
     authUser: AuthUserSliceReducer,
+    RoomGetAll: RoomListSliceReducer,
+    currentQueue: currentQueueuReducer,
+    deparmentList: departmentListReducer,
+    allQueueProccess: allQueueProccessReducer,
     departmentPage: DepartmentListSliceReducer,
+    GetAllMonitorPage: GetAllMonitorPageReducer,
+    getDoctorPageReducer: DoctorListSliceReducer,
+    departmentAdd: departmentAddSliceSliceReducer,
+    reportControlDoctor: reportControlDoctorReducer,
+    AddAdvertisementPage: AdvertisementListSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
-    reportControlDoctor: reportControlDoctorReducer,
-    deparmentList: departmentListReducer,
-    currentQueue: currentQueueuReducer,
-    RoomGetAll: RoomListSliceReducer,
-    lastQueue: lastQueueReducer,
-    departmentAdd: departmentAddSliceSliceReducer,
-    doctorList: doctorListReducer,
-    allQueueProccess: allQueueProccessReducer,
-    AddAdvertisementPage: AdvertisementListSliceReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

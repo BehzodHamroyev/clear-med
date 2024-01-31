@@ -19,7 +19,8 @@ const MonitorEdit = () => {
   const dispatch = useAppDispatch();
 
   /* context */
-  const { setIsOpenMonitorAddCard } = React.useContext(ButtonsContext);
+  const { isOpenMonitorEditCard, setIsOpenMonitorEditCard } =
+    React.useContext(ButtonsContext);
 
   /* useState */
   const [selectedFile, setSelectedFile] = React.useState<any>(null);
@@ -86,7 +87,7 @@ const MonitorEdit = () => {
     <div
       onClick={(e) => {
         e.stopPropagation();
-        setIsOpenMonitorAddCard(false);
+        setIsOpenMonitorEditCard(false);
       }}
       className={cls.DepartmentAddWrapper}
     >
@@ -96,7 +97,7 @@ const MonitorEdit = () => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
+        <h3 className={cls.CardTitle}>{t('Monitorni tahrirlash')}</h3>
 
         <div className={cls.CardBody}>
           <input
@@ -157,7 +158,7 @@ const MonitorEdit = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setIsOpenMonitorAddCard(false);
+                setIsOpenMonitorEditCard(false);
               }}
               type="button"
               className={`${cls.Btn} ${cls.Btn1}`}

@@ -17,6 +17,9 @@ export interface ButtonsClickedProps {
   isOpenLanugagePopup: Boolean;
   setisOpenLanugagePopup: (porp: boolean) => void;
 
+  isMonitorAddSelectionFormAdvertisement: Boolean;
+  setIsMonitorAddSelectionFormAdvertisement: (porp: boolean) => void;
+
   responseAddDoctorStatusCode: number | string;
   setResponseAddDoctorStatusCode: (prop: number | string) => void;
 
@@ -182,6 +185,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenRoomAttachmentMonitorChildForm: false,
   setIsOpenRoomAttachmentMonitorChildForm: () => {},
+
+  isMonitorAddSelectionFormAdvertisement: false,
+  setIsMonitorAddSelectionFormAdvertisement: () => {},
 
   isOpenRoomAttachmentMonitorChildFormedit: false,
   setIsOpenRoomAttachmentMonitorChildFormEdit: () => {},

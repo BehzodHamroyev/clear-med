@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PenTools } from '@/shared/assets/entities/TableTitle';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -8,11 +8,15 @@ import cls from './monitors.module.scss';
 
 interface MonitorsProp {
   number: number;
+  name: string;
+  id: string;
 }
 
 const Monitors = (props: MonitorsProp) => {
   /* props */
-  const { number } = props;
+  const { number, name, id } = props;
+
+  const navigate = useNavigate();
 
   /* useContext */
   const { setIsOpenMonitorEditCard } = React.useContext(ButtonsContext);
@@ -24,10 +28,18 @@ const Monitors = (props: MonitorsProp) => {
     setIsOpenMonitorEditCard(true);
   };
 
+  const handleNavigate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    navigate(`/add_monitor/${number}`);
+  };
+
   return (
-    <Link onClick={(e) => e.stopPropagation()} to={`/add_monitor/${number}`}>
+    <div onClick={(e) => handleNavigate(e)}>
       <div className={cls.MonitorsWrapper}>
-        <p>{number}-Monitor</p>
+        <div>
+          <h3>{number}-Monitor</h3>
+          <p>{name}</p>
+        </div>
 
         <button
           type="button"
@@ -38,7 +50,7 @@ const Monitors = (props: MonitorsProp) => {
           <PenTools className={cls.icon} />
         </button>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -10,31 +10,33 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchDoctorGetAll, getListOfDoctor } from '@/pages/DoctorsListPage';
+import { fetchDoctorGetAll } from '@/pages/DoctorsListPage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const MonitorAddSelection = () => {
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
-  /* useContext */
-  const { isDataFormAddRoom, setIsDataFormAddRoom } =
-    React.useContext(ButtonsContext);
+  const {
+    isDataFormAddRoom,
+    setIsDataFormAddRoom,
+    setIsMonitorAddSelectionFormAdvertisement,
+  } = React.useContext(ButtonsContext);
 
-  /* useState */
   const [doctorValue, setDoctorValue] = React.useState('');
-
-  /* useSelector */
-  const getListOfDoctors = useSelector(getListOfDoctor);
 
   /* halper function */
   const handleChange = (event: SelectChangeEvent) => {
-    setDoctorValue(event.target.value as string);
+    setDoctorValue(event.target.value as any);
+
+    if (event.target.value === '1') {
+      setIsMonitorAddSelectionFormAdvertisement(true);
+    } else {
+      setIsMonitorAddSelectionFormAdvertisement(false);
+    }
+
     setIsDataFormAddRoom({
       ...isDataFormAddRoom,
       DoctorName: event.target.value as string,
@@ -61,8 +63,8 @@ const MonitorAddSelection = () => {
             id="demo-simple-select"
             labelId="demo-simple-select-label"
           >
-            <MenuItem value="Reklamali">Reklamali</MenuItem>
-            <MenuItem value="Reklamasiz">Reklamasiz</MenuItem>
+            <MenuItem value="1">Reklamali</MenuItem>
+            <MenuItem value="2">Reklamasiz</MenuItem>
           </Select>
         </FormControl>
       </Box>

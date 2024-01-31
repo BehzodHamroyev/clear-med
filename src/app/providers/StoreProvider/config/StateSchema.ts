@@ -1,45 +1,49 @@
-import {
-  AnyAction,
-  EnhancedStore,
-  Reducer,
-  ReducersMapObject,
-} from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
+
+import {
+  Reducer,
+  AnyAction,
+  EnhancedStore,
+  ReducersMapObject,
+} from '@reduxjs/toolkit';
+
 import { rtkApi } from '@/shared/api/rtkApi';
 import { AuthReduxType } from '@/features/Auth';
+import { RoomListSchema } from '@/pages/RoomPage';
+import { DoctorListScheam } from '@/pages/ReportsPage';
+import { DoctorListSchema } from '@/pages/DoctorsListPage';
+import { DepartmentScheme } from '@/entities/DepartmentAdd';
+import { AllQueueProccessSchema } from '@/pages/QueuesPage';
+import { DepartmentListSchema } from '@/pages/DepartmentPage';
+import { AllMonitorListSchema } from '@/pages/AddMonitorPage';
+import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
+import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
 import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
-import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
-import { DepartmentListSchema } from '@/pages/DepartmentPage';
-import { DoctorListSchema } from '@/pages/DoctorsListPage';
+
 import {
   LastQueueDataSchema,
-  DepartmentListSchemaForReception,
   CurrentQueueSchemaForReception,
+  DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
-import { RoomListSchema } from '@/pages/RoomPage';
-import { DepartmentScheme } from '@/entities/DepartmentAdd';
-import { DoctorListScheam } from '@/pages/ReportsPage';
-import { AllQueueProccessSchema } from '@/pages/QueuesPage';
-
-import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
 
 export interface StateSchema {
   authUser: AuthReduxType;
-  departmentPage: DepartmentListSchema;
-  controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
-  doneQueuesControlDoctor: QueuesControlDoctorSchema;
-  reportControlDoctor: ReportDoctorSchema;
-  getDoctorPageReducer: DoctorListSchema;
-  deparmentList: DepartmentListSchemaForReception;
-  currentQueue: CurrentQueueSchemaForReception;
   RoomGetAll: RoomListSchema;
+  doctorList: DoctorListScheam;
   lastQueue: LastQueueDataSchema;
   departmentAdd: DepartmentScheme;
-  doctorList: DoctorListScheam;
+  departmentPage: DepartmentListSchema;
+  getDoctorPageReducer: DoctorListSchema;
+  GetAllMonitorPage: AllMonitorListSchema;
+  reportControlDoctor: ReportDoctorSchema;
   allQueueProccess: AllQueueProccessSchema;
+  currentQueue: CurrentQueueSchemaForReception;
   AddAdvertisementPage: AdvertisementListSchema;
+  deparmentList: DepartmentListSchemaForReception;
+  doneQueuesControlDoctor: QueuesControlDoctorSchema;
+  controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

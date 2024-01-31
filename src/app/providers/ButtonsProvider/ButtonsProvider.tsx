@@ -93,6 +93,11 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
 
   const [
+    isMonitorAddSelectionFormAdvertisement,
+    setIsMonitorAddSelectionFormAdvertisement,
+  ] = useState(false);
+
+  const [
     isOpenRoomAttachmentMonitorChildFormedit,
     setIsOpenRoomAttachmentMonitorChildFormEdit,
   ] = useState(false);
@@ -243,6 +248,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildForm,
       isOpenRoomAttachmentMonitorChildFormedit,
       setIsOpenRoomAttachmentMonitorChildFormEdit,
+      isMonitorAddSelectionFormAdvertisement,
+      setIsMonitorAddSelectionFormAdvertisement,
     }),
     [
       currentQueueData,
@@ -326,6 +333,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildForm,
       isOpenRoomAttachmentMonitorChildFormedit,
       setIsOpenRoomAttachmentMonitorChildFormEdit,
+      isMonitorAddSelectionFormAdvertisement,
+      setIsMonitorAddSelectionFormAdvertisement,
     ],
   );
 

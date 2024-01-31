@@ -14,7 +14,16 @@
   user-zoom: none;
 
   p {
-    margin-top: 40%;
+    max-width: 90%;
+    color: grey;
+    text-align: center;
+    margin: 10px auto;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  h3 {
+    margin-top: 35%;
     text-align: center;
     color: #000000bf;
     font-size: 38px;
