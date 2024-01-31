@@ -16,8 +16,11 @@ const MonitorAdd = () => {
 
   const dispatch = useAppDispatch();
 
-  const { setIsOpenMonitorAddCard, isMonitorAddSelectionFormAdvertisement } =
-    React.useContext(ButtonsContext);
+  const {
+    setIsOpenMonitorAddCard,
+    isMonitorAddSelectionFormAdvertisement,
+    setResponseData,
+  } = React.useContext(ButtonsContext);
 
   const [hideEye, setHideEye] = React.useState(false);
 
@@ -50,9 +53,12 @@ const MonitorAdd = () => {
         name: isAllFormData.name,
         login: `${isAllFormData.login}`,
         password: `${isAllFormData.password}`,
-        exprience: isAllFormData.exprience,
+        addvertising: isAllFormData.exprience,
       }),
     );
+
+    setResponseData(`${Math.random() * 100 + 1}`);
+    setIsOpenMonitorAddCard(false);
   };
 
   React.useEffect(() => {
@@ -105,6 +111,7 @@ const MonitorAdd = () => {
           <div className={cls.PhoneNumberInputWrapper}>
             <input
               required
+              min={8}
               minLength={8}
               maxLength={14}
               id="UserPassword"

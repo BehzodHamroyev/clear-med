@@ -14,20 +14,20 @@ export const fetchCreateNewMonitorForMonitorPage = createAsyncThunk<
     name: string;
     login: string;
     password: string;
-    exprience: Boolean;
+    addvertising: Boolean;
   },
   ThunkConfig<string>
 >(
   'fetchCreateNewMonitorForMonitorPage',
-  async ({ name, login, password, exprience }, thunkApi) => {
+  async ({ name, login, password, addvertising }, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     const token = Cookies.get('token');
 
     try {
       const response = await axios.post<DoctorAddTypes>(
-        `${baseUrl}/users`,
-        { name, login, password, exprience },
+        `${baseUrl}/monitor`,
+        { name, login, password, addvertising },
         {
           maxBodyLength: Infinity,
           headers: {

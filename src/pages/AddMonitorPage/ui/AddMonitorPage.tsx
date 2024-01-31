@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useSelector } from 'react-redux';
 import { Monitors } from '@/entities/Monitors';
@@ -28,6 +28,8 @@ import { ErrorReload } from '@/widgets/Error';
 const AddMonitorPage = () => {
   const dispatch = useAppDispatch();
 
+  const { getResponseData } = useContext(ButtonsContext);
+
   const reducers: ReducersList = {
     GetAllMonitorPage: GetAllMonitorPageReducer,
   };
@@ -48,6 +50,12 @@ const AddMonitorPage = () => {
   React.useEffect(() => {
     dispatch(fetchGetAllMonitors({}));
   }, [dispatch]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      dispatch(fetchGetAllMonitors({}));
+    }, 1000);
+  }, [dispatch, getResponseData]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
