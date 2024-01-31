@@ -64,7 +64,7 @@ const QueuingTvCardPopapSecond = ({
     if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
       dispatch(
         fetchCurrentQueue({
-          departmentId: lastQueue?.data?.department_id,
+          departmentId: lastQueue?.data?.department_id._id,
           roomId: lastQueue?.data?.room_id,
         }),
       ).then(() => {
@@ -105,7 +105,16 @@ const QueuingTvCardPopapSecond = ({
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
-              <p>{t('Shifokor')}:</p>
+              <p>Бўлим:</p>
+              <p className={cls2.medicNameDeparment}>
+                {lastQueue?.data?.department_id
+                  ? lastQueue?.data?.department_id?.name
+                  : lastQueue?.room?.department_id?.name}
+              </p>
+            </div>
+
+            <div className={cls2.PrintQueuePage__medicName}>
+              <p>Шифокор:</p>
               <p className={cls2.medicNameFullName}>
                 {lastQueue?.data?.doctor_id
                   ? lastQueue?.data?.doctor_id?.name
@@ -114,7 +123,7 @@ const QueuingTvCardPopapSecond = ({
             </div>
 
             <div className={cls2.PrintQueuePage__medicName}>
-              <p>{t('Berilgan vaqt')}:</p>
+              <p>Берилган вақт:</p>
               <p className={cls2.PrintQueuePage__dateGetQueue}>
                 {new Date().getDate()}/
                 {new Date().getMonth() < 10
@@ -131,7 +140,9 @@ const QueuingTvCardPopapSecond = ({
               </p>
             </div>
 
-            <p className={cls2.PrintQueuePage__message}>{t('Katta rahmat')}</p>
+            <p className={cls2.PrintQueuePage__message}>
+              Ташрифингиз учун раҳмат!
+            </p>
           </div>
         </div>
 

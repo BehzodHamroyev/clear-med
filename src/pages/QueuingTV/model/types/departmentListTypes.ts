@@ -85,7 +85,16 @@ export interface CurrentQueueDataApiRespoceType {
 
 export interface LastQueueData {
   _id: string;
-  department_id: string;
+  department_id: {
+    photo: string;
+    _id: string;
+    name: string;
+    duration: number;
+    image: string;
+    disabled: boolean;
+    __v: number;
+    id: string;
+  };
   room_id: string;
   doctor_id: {
     exprience: number;

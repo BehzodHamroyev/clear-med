@@ -1,7 +1,6 @@
 import React from 'react';
 
 import cls from './QueueUserDoctor.module.scss';
-import { Vektor } from '@/shared/assets/Pages/Queues';
 
 interface QueueUserDoctorProps {
   ticketNumber: string | undefined;
@@ -15,13 +14,13 @@ const QueueUserDoctor = ({
   return (
     <div className={cls.QueueUserDoctorWrapper}>
       <div className={cls.QueuesListTitle}>
-        <p className={cls.QueuesListTitleChild1}>Bilet raqami</p>
-        <p className={cls.QueuesListTitleChild2}>Xona raqami</p>
+        <p className={cls.QueuesListTitleChild1}>Билет рақами</p>
+        <p className={cls.QueuesListTitleChild2}>Хона рақами</p>
       </div>
       <div className={cls.QueuesNumber}>
-        <p>{ticketNumber}</p>
-        <img src={Vektor} alt="#" />
-        <p style={{ textAlign: 'center' }}>{roomNumber}</p>
+        <p className={cls.ticketNumber}>{ticketNumber}</p>
+
+        <p className={cls.roomNumber}>{roomNumber}</p>
       </div>
     </div>
   );
