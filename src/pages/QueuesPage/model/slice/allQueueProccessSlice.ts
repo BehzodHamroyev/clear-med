@@ -65,16 +65,16 @@ export const allQueueProccessSlice = buildSlice({
             };
           }
 
-          state.data.videoUrl = action.payload.monitor.videos;
+          state.data.videoUrl = action.payload.monitor?.videos;
 
-          action.payload.monitor.rooms.forEach((item) => {
+          action?.payload?.monitor?.rooms?.forEach((item) => {
             if (
               item.proceed?.length > 0 &&
-              !state.data?.proccessQueues.some(
-                (itemState) => itemState._id === item.proceed[0]._id,
+              !state.data?.proccessQueues?.some(
+                (itemState) => itemState._id === item?.proceed[0]?._id,
               )
             ) {
-              state.data?.proccessQueues.push(item.proceed[0]);
+              state.data?.proccessQueues.push(item?.proceed[0]);
             }
           });
         },

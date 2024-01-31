@@ -69,6 +69,8 @@ const TableReportsDoctorPage = () => {
     console.log(reportError);
   }
 
+  console.log('rerender');
+
   return (
     <>
       <table className={cls.TableTitleWrapper}>

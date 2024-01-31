@@ -112,7 +112,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
           <div className={cls.PhoneNumberInputWrapper}>
             <input
               name="password"
-              placeholder="Eski parolni kiriting..."
+              placeholder={t('Eski parolni kiriting')}
               className={cls.PhoneNumberInput}
               type="text"
               autoComplete="off"
@@ -134,7 +134,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
           <div className={cls.PhoneNumberInputWrapper}>
             <input
               name="newPassword"
-              placeholder="Yangi parolni kiriting..."
+              placeholder={t('Yangi parolni kiriting')}
               className={cls.PhoneNumberInput}
               type="text"
               autoComplete="off"

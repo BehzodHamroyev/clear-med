@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
-const ButtonNavbar = (props: ButtonNavbarProps) => {
+const ButtonNavbar = memo((props: ButtonNavbarProps) => {
   const {
     TableTitle,
     ItemsLength,
@@ -108,6 +108,6 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       )}
     </div>
   );
-};
+});
 
 export default ButtonNavbar;

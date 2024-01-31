@@ -36,5 +36,30 @@
   "September": "September",
   "October": "October",
   "November": "November",
-  "December": "December"
+  "December": "December",
+
+  "Xonalar": "Rooms",
+
+  "Shifokorlar": "Physicians",
+  "Ortga": "Back",
+  "Monitorga biriktirilgan xonalar": "Rooms attached to the monitor",
+  "Parol o'zgartirildi": "Password Changed",
+  "Xatolik sodir bo'ldi": "An error occurred",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "The new password must not be the same as the old one",
+  "Parolni o'zgartirish": "Change password",
+  "Eski parolni kiriting": "Enter old password...",
+  "Eski parolni kiriting...": "Enter old password",
+  "Yangi parolni kiriting": "Enter new password",
+  "Yangi parolni kiriting...": "Enter new password...",
+  "O'zgartirish": "Change",
+
+  "Ortga qaytish": "Back",
+  "Jami ko'rilgan bemorlar : ": "Total patients seen: ",
+  "Tasdiqlangan bemorlar : ": "Approved Patients: ",
+  "Bekor qilingan bemorlar : ": "Cancelled patients: ",
+  " ta": " ta",
+  "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Patient reports for this period are empty. Try changing the period!",
+  "Ko'rilgan bemorlar": "Patients Seen",
+  "dan": "from",
+  "gacha": "until"
 }

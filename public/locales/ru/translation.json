@@ -39,5 +39,30 @@
   "December": "Декабрь",
   "doctor": "Врач",
   "reception": "Прием",
-  "monitor": "Монитор"
+  "monitor": "Монитор",
+
+  "Xonalar": "Номера",
+
+  "Shifokorlar": "Врачи",
+  "Ortga": "Назад",
+  "Monitorga biriktirilgan xonalar": "Комнаты, прикрепленные к монитору",
+  "Parol o'zgartirildi": "Пароль изменен",
+  "Xatolik sodir bo'ldi": "Произошла ошибка",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "Новый пароль не должен совпадать со старым",
+  "Parolni o'zgartirish": "Изменить пароль",
+  "Eski parolni kiriting": "Введите старый пароль...",
+  "Eski parolni kiriting...": "Введите старый пароль",
+  "Yangi parolni kiriting": "Введите новый пароль",
+  "Yangi parolni kiriting...": "Введите новый пароль..",
+  "O'zgartirish": "Изменить",
+
+  "Ortga qaytish": "Назад",
+  "Jami ko'rilgan bemorlar : ": "Всего посещенных пациентов: ",
+  "Tasdiqlangan bemorlar : ": "Одобренные пациенты: ",
+  "Bekor qilingan bemorlar : ": "Отмененные пациенты: ",
+  " ta": " та",
+  "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Отчеты пациентов за этот период пусты. Попробуйте изменить период!",
+  "Ko'rilgan bemorlar": "Виден пациентов",
+  "dan": "от",
+  "gacha": "пока"
 }

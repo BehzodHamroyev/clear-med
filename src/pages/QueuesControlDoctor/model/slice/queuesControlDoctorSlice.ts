@@ -18,7 +18,7 @@ export const queuesControlDoctorSlice = buildSlice({
   initialState,
   reducers: {
     addQueue: (state, { payload }: PayloadAction<Queue>) => {
-      if (payload.queues_name) {
+      if (!state.data?.some((item) => item._id === payload._id)) {
         state.data?.push(payload);
       }
     },

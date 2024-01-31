@@ -82,7 +82,7 @@ const QueuesControlDoctor = () => {
   useEffect(() => {
     dispatch(
       fetchDoneQueuesControlDoctor({
-        limit: 100,
+        limit: 1000,
       }),
     );
   }, [dispatch]);

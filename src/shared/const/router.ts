@@ -96,7 +96,7 @@ export const AppRouteByPathPattern: Record<
 
   [getRouteQueuesPage()]: ReceptionRoutes.REPORTS,
   [getRouteReportsPage()]: ReceptionRoutes.REPORTS,
-  [getRouteReportQueuingTv()]: ReceptionRoutes.QUEUING_TV,
+  // [getRouteReportQueuingTv()]: ReceptionRoutes.QUEUING_TV,
   [getRouteReportsPageId()]: ReceptionRoutes.REPORTS_PATIENT,
 
   [getRouteQueuesPageForMonitor()]: MonitorRoutes.FORBIDDEN,

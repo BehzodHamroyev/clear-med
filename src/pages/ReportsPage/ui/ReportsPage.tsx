@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import { useTranslation } from 'react-i18next';
 import cls from './ReportsPage.module.scss';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
@@ -121,9 +122,14 @@ const ReportsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <div className={cls.ReportsPageWrapper}>
-      <ButtonNavbar TableTitle="Shifokorlar" ItemsLength={doctorList?.length} />
+      <ButtonNavbar
+        TableTitle={t('Shifokorlar')}
+        ItemsLength={doctorList?.length}
+      />
 
       {doctorList && (
         <TableTitleReports

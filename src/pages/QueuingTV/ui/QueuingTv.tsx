@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import { useTranslation } from 'react-i18next';
 import cls from './QueuingTv.module.scss';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -37,6 +38,8 @@ import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 const QueuingTv = () => {
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
+
   const { isOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
   const deparmentList = useSelector(getDeparmentListData);
@@ -58,7 +61,10 @@ const QueuingTv = () => {
 
   return (
     <div className={cls.QueuingTvWrapper}>
-      <ButtonNavbar TableTitle="Xonalar" ItemsLength={deparmentList?.length} />
+      <ButtonNavbar
+        TableTitle={t('Xonalar')}
+        ItemsLength={deparmentList?.length}
+      />
 
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
