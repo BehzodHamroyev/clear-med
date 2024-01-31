@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './AdvertisementAttachmentMonitor.module.scss';
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
+import { AttachmentRoomMonitorChild } from '@/entities/AttachmentRoomMonitorChild';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { AttachmentRoomMonitorChildEdit } from '@/entities/AttachmentRoomMonitorChildEdit';
 
 /* svg */
 const Svg = (
@@ -67,31 +70,48 @@ const AdvertisementAttachmentMonitor = () => {
   /* useParams */
   const { id } = useParams();
 
+  const {
+    isOpenAttachmentRoomMonitorChild,
+    setIsOpenAttachmentRoomMonitorChild,
+    isOpenAttachmentRoomMonitorChildEdit,
+  } = useContext(ButtonsContext);
+
   /* UI */
   return (
-    <div className={cls.RoomAttachmentMonitorWrapper}>
-      {/* Title */}
-      <div className={cls.RoomAttachmentMonitorWrapper__Title}>
-        <Link
-          className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
-          to={`/add_monitor/${id}`}
-        >
-          {Svg}
-          Ortga
-        </Link>
-        <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-          {id} - Monitorga biriktirilgan reklamalar{' '}
-          <span>({tableBody.length})</span>
-        </p>
-        <CarbonAdd
-          onClick={() => {}}
-          className={cls['RoomAttachmentMonitorWrapper__Title--create']}
-        />
+    <div>
+      <div className={cls.RoomAttachmentMonitorWrapper}>
+        {/* Title */}
+        <div className={cls.RoomAttachmentMonitorWrapper__Title}>
+          <Link
+            className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
+            to={`/add_monitor/${id}`}
+          >
+            {Svg}
+            Ortga
+          </Link>
+          <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
+            {id} - Monitorga biriktirilgan reklamalar{' '}
+            <span>({tableBody.length})</span>
+          </p>
+          <CarbonAdd
+            onClick={() => {
+              setIsOpenAttachmentRoomMonitorChild(true);
+            }}
+            className={cls['RoomAttachmentMonitorWrapper__Title--create']}
+          />
+        </div>
+
+        {/* Body */}
+        <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
       </div>
 
-      {/* Body */}
+      {isOpenAttachmentRoomMonitorChild ? <AttachmentRoomMonitorChild /> : ''}
 
-      <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
+      {isOpenAttachmentRoomMonitorChildEdit ? (
+        <AttachmentRoomMonitorChildEdit />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

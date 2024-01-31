@@ -5,6 +5,7 @@ export interface TableData {
   item3: string;
   item4: number | string;
   lastChild: number;
+  url?: string;
   img: string;
 }
 

@@ -8,8 +8,17 @@ export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
+  isOpenRoomAttachmentMonitorChildForm: boolean;
+  setIsOpenRoomAttachmentMonitorChildForm: (prop: boolean) => void;
+
+  isOpenRoomAttachmentMonitorChildFormedit: boolean;
+  setIsOpenRoomAttachmentMonitorChildFormEdit: (prop: boolean) => void;
+
   isOpenLanugagePopup: Boolean;
   setisOpenLanugagePopup: (porp: boolean) => void;
+
+  isMonitorAddSelectionFormAdvertisement: Boolean;
+  setIsMonitorAddSelectionFormAdvertisement: (porp: boolean) => void;
 
   responseAddDoctorStatusCode: number | string;
   setResponseAddDoctorStatusCode: (prop: number | string) => void;
@@ -25,6 +34,7 @@ export interface ButtonsClickedProps {
 
   calendarEndValue: string;
   setCalendarEndValue: (props: string) => void;
+
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
 
@@ -55,6 +65,9 @@ export interface ButtonsClickedProps {
   isOpenRoomAddCard: boolean;
   setIsOpenRoomAddCard: (prop: boolean) => void;
 
+  isOpenAttachmentRoomMonitorChild: boolean;
+  setIsOpenAttachmentRoomMonitorChild: (prop: boolean) => void;
+
   isOpenRoomEditCard: boolean;
   setIsOpenRoomEditCard: (prop: boolean) => void;
 
@@ -66,6 +79,9 @@ export interface ButtonsClickedProps {
 
   isOpenMonitorAddCard: boolean;
   setIsOpenMonitorAddCard: (prop: boolean) => void;
+
+  isOpenMonitorEditCard: boolean;
+  setIsOpenMonitorEditCard: (prop: boolean) => void;
 
   isOpenAdvertisementEditCard: boolean;
   setIsOpenAdvertisementEditCard: (prop: boolean) => void;
@@ -132,6 +148,9 @@ export interface ButtonsClickedProps {
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
 
+  isOpenAttachmentRoomMonitorChildEdit: boolean;
+  setIsOpenAttachmentRoomMonitorChildEdit: (prop: boolean) => void;
+
   isOpenDepartmentAddCardIcon: boolean;
   setIsOpenDepartmentAddCardIcon: (prop: boolean) => void;
 
@@ -158,6 +177,21 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   clickedDoctorId: '',
   setClickedDoctorId: () => {},
 
+  isOpenAttachmentRoomMonitorChild: false,
+  setIsOpenAttachmentRoomMonitorChild: () => {},
+
+  isOpenAttachmentRoomMonitorChildEdit: false,
+  setIsOpenAttachmentRoomMonitorChildEdit: () => {},
+
+  isOpenRoomAttachmentMonitorChildForm: false,
+  setIsOpenRoomAttachmentMonitorChildForm: () => {},
+
+  isMonitorAddSelectionFormAdvertisement: false,
+  setIsMonitorAddSelectionFormAdvertisement: () => {},
+
+  isOpenRoomAttachmentMonitorChildFormedit: false,
+  setIsOpenRoomAttachmentMonitorChildFormEdit: () => {},
+
   hasOpenToast: false,
   setHasOpenToast: () => {},
 
@@ -166,6 +200,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenMonitorAddCard: false,
   setIsOpenMonitorAddCard: () => {},
+
+  isOpenMonitorEditCard: false,
+  setIsOpenMonitorEditCard: () => {},
 
   responseAddDoctorStatusCode: 0,
   setResponseAddDoctorStatusCode: () => {},

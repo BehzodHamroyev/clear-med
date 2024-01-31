@@ -1,13 +1,12 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { FormDataInState } from '../model/types/doctorAddTypes';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
-import { fetchDoctorAdd } from '../model/service/fetchDoctorAdd';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './AddAdvertisement.module.scss';
+import { fetchAdvertisementAdd } from '../model/service/fetchAdvertisementAdd';
 
 const AddAdvertisement = () => {
   /* translate */
@@ -17,19 +16,18 @@ const AddAdvertisement = () => {
   const dispatch = useAppDispatch();
 
   /* context */
-  const { setIsOpenAdvertisementAddCard } = React.useContext(ButtonsContext);
+  const { setResponseData, setIsOpenAdvertisementAddCard } =
+    React.useContext(ButtonsContext);
 
   /* useState */
   const [selectedFile, setSelectedFile] = React.useState<any>(null);
 
   const [urlSuccess, setUrlSuccess] = React.useState<any>();
 
-  const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
+  const [isAllFormData, setIsAllFormData] = React.useState({
     name: '',
-    login: null,
-    password: '',
     file: undefined,
-    exprience: null,
+    link: '',
   });
 
   /* useRef */
@@ -47,26 +45,19 @@ const AddAdvertisement = () => {
     setSelectedFile(file);
   };
 
-  // if (validUrl.isUri('https://www.npmjs.com/package/valid-url')) {
-  //   setUrlSuccess(true);
-  // } else {
-  //   setUrlSuccess(false);
-  // }
-
-  /* fetch data */
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const data = new FormData();
 
-    data.append('role', `doctor`);
     data.append('file', selectedFile);
     data.append('name', `${isAllFormData!.name}`);
-    data.append('login', `${isAllFormData!.login}`);
-    data.append('password', `${isAllFormData!.password}`);
-    data.append('exprience', `${isAllFormData!.exprience}`);
+    data.append('link', `${isAllFormData!.link}`);
 
-    dispatch(fetchDoctorAdd({ data }));
+    dispatch(fetchAdvertisementAdd({ data }));
+
+    setResponseData(`${Math.random() * 100 + 1}`);
+    setIsOpenAdvertisementAddCard(false);
   };
 
   /* UI */
@@ -119,12 +110,18 @@ const AddAdvertisement = () => {
               maxLength={30}
               className={cls.InputBulim}
               placeholder={t('Reklama nomi')}
+              onChange={(e) => {
+                setIsAllFormData({ ...isAllFormData, name: e.target.value });
+              }}
             />
 
             <input
               type="text"
               className={cls.InputBulim}
               placeholder={t('Reklama manzili (Url)')}
+              onChange={(e) => {
+                setIsAllFormData({ ...isAllFormData, link: e.target.value });
+              }}
             />
 
             <div className={cls.BtnParnet}>
