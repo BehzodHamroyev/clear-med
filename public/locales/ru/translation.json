@@ -54,5 +54,15 @@
   "Eski parolni kiriting...": "Введите старый пароль",
   "Yangi parolni kiriting": "Введите новый пароль",
   "Yangi parolni kiriting...": "Введите новый пароль..",
-  "O'zgartirish": "Изменить"
+  "O'zgartirish": "Изменить",
+
+  "Ortga qaytish": "Назад",
+  "Jami ko'rilgan bemorlar : ": "Всего посещенных пациентов: ",
+  "Tasdiqlangan bemorlar : ": "Одобренные пациенты: ",
+  "Bekor qilingan bemorlar : ": "Отмененные пациенты: ",
+  " ta": " та",
+  "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Отчеты пациентов за этот период пусты. Попробуйте изменить период!",
+  "Ko'rilgan bemorlar": "Виден пациентов",
+  "dan": "от",
+  "gacha": "пока"
 }

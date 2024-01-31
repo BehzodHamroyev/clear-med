@@ -56,14 +56,13 @@ const TableTitlePatients = (props: TableInfoPatients) => {
               className={cls.TableTitleWrapper__backbtn}
               onClick={() => handleClickBack()}
             >
-              {t('Ortga qaytish')}
+              {t('Ortga')}
             </div>
 
             <div className={cls.TableTitleWrapper__title}>
               <h3 className={cls.KorilganBemorlar}>
                 {t("Jami ko'rilgan bemorlar : ")}
                 {TableBody ? TableBody.length : 0}
-                {t(' ta')}
               </h3>
 
               <h3 className={cls.KorilganBemorlar} style={{ color: '#148043' }}>
@@ -72,7 +71,6 @@ const TableTitlePatients = (props: TableInfoPatients) => {
                   ? TableBody.filter((item) => item.status === 'completed')
                       .length
                   : 0}
-                {t(' ta')}
               </h3>
 
               <h3 className={cls.KorilganBemorlar} style={{ color: '#FF0000' }}>
@@ -81,7 +79,6 @@ const TableTitlePatients = (props: TableInfoPatients) => {
                   ? TableBody.filter((item) => item.status === 'rejected')
                       .length
                   : 0}
-                {t(' ta')}
               </h3>
             </div>
           </div>

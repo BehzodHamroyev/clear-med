@@ -51,5 +51,15 @@
   "Eski parolni kiriting...": "Enter old password",
   "Yangi parolni kiriting": "Enter new password",
   "Yangi parolni kiriting...": "Enter new password...",
-  "O'zgartirish": "Change"
+  "O'zgartirish": "Change",
+
+  "Ortga qaytish": "Back",
+  "Jami ko'rilgan bemorlar : ": "Total patients seen: ",
+  "Tasdiqlangan bemorlar : ": "Approved Patients: ",
+  "Bekor qilingan bemorlar : ": "Cancelled patients: ",
+  " ta": " ta",
+  "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Patient reports for this period are empty. Try changing the period!",
+  "Ko'rilgan bemorlar": "Patients Seen",
+  "dan": "from",
+  "gacha": "until"
 }
