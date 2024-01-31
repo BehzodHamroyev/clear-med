@@ -166,21 +166,24 @@ export const routeConfigForReception: Record<
     path: getRouteReportsPageId(),
     element: <ReportsDoctorPage />,
   },
-  [CommonRoutes.QUEUES]: {
-    path: getRouteQueuesPage(),
-    element: <QueuesPage />,
-  },
-
+  // [CommonRoutes.QUEUES]: {
+  //   path: getRouteQueuesPage(),
+  //   element: <QueuesPage />,
+  // },
   // QueuingTv
   [ReceptionRoutes.QUEUING_TV]: {
     path: getRouteReportQueuingTv(),
     element: <QueuingTv />,
   },
-
   // setting
   [CommonRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
+  },
+
+  [CommonRoutes.QUEUES]: {
+    path: getRouteNotFound(),
+    element: <NotFoundPage />,
   },
 };
 

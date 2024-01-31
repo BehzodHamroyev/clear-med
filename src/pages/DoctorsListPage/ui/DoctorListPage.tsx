@@ -123,7 +123,7 @@ const DoctorListPage = () => {
           <div className={cls.AddDoctorPageWrapper}>
             <ButtonNavbar
               CreateCarbonAdd
-              TableTitle="Shifokorlar"
+              TableTitle={t('Shifokorlar')}
               ItemsLength={tableBody.length}
             />
 

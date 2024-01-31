@@ -39,5 +39,20 @@
   "December": "Декабрь",
   "doctor": "Врач",
   "reception": "Прием",
-  "monitor": "Монитор"
+  "monitor": "Монитор",
+
+  "Xonalar": "Номера",
+
+  "Shifokorlar": "Врачи",
+  "Ortga": "Назад",
+  "Monitorga biriktirilgan xonalar": "Комнаты, прикрепленные к монитору",
+  "Parol o'zgartirildi": "Пароль изменен",
+  "Xatolik sodir bo'ldi": "Произошла ошибка",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "Новый пароль не должен совпадать со старым",
+  "Parolni o'zgartirish": "Изменить пароль",
+  "Eski parolni kiriting": "Введите старый пароль...",
+  "Eski parolni kiriting...": "Введите старый пароль",
+  "Yangi parolni kiriting": "Введите новый пароль",
+  "Yangi parolni kiriting...": "Введите новый пароль..",
+  "O'zgartirish": "Изменить"
 }

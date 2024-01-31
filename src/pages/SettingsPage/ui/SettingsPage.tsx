@@ -15,8 +15,6 @@ const SettingsPage = () => {
   const { isOpenThemeOrLanguage, isOpenSettingsChangePassword } =
     useContext(ButtonsContext);
 
-  console.log('render');
-
   return (
     <div className={cls.SettingsPageWrapper}>
       <ButtonNavbar TableTitle={t('Sozlamalar')} />

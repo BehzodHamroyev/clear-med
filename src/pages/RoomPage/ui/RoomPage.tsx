@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RoomAdd } from '@/entities/RoomAdd';
 import { ErrorReload } from '@/widgets/Error';
 import { RoomEdit } from '@/entities/RoomEdit';
@@ -31,6 +32,8 @@ const tableTitle = ['Xona raqami', 'Bo‘limlar', 'Biriktirilgan shifokorlar'];
 const RoomPage = () => {
   /* useAppDispatch */
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   /* useState */
   const [tableBody, setTableBody] = React.useState<any>([]);
@@ -87,7 +90,7 @@ const RoomPage = () => {
           <div className={cls.AddRoomPageWrapper}>
             <ButtonNavbar
               CreateCarbonAdd
-              TableTitle="Xonalar"
+              TableTitle={t('Xonalar')}
               ItemsLength={tableBody.length}
             />
 

@@ -78,7 +78,10 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
     icon: <Xisobotlar />,
   },
 
-  { id: 5, path: '/queues', title: 'Navbatlar', icon: <Navbatlar /> },
+  // {
+  //   id: 5, path: '/queues',
+  //   title: 'Navbatlar', icon: <Navbatlar />
+  // },
 ];
 
 const listOfPageDoktor: ListOfPageTypes[] = [

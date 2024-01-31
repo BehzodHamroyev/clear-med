@@ -59,6 +59,8 @@ const QueuingTvCardPopapSecond = ({
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
+    clearCurrentQueue();
+
     if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
       dispatch(
         fetchCurrentQueue({

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './roomAttachmentMonitor.module.scss';
@@ -44,6 +45,8 @@ const RoomAttachmentMonitor = () => {
   /* useParams */
   const { id } = useParams();
 
+  const { t } = useTranslation();
+
   /* UI */
   return (
     <div className={cls.RoomAttachmentMonitorWrapper}>
@@ -54,10 +57,10 @@ const RoomAttachmentMonitor = () => {
           to={`/add_monitor/${id}`}
         >
           {Svg}
-          Ortga
+          {t('Ortga')}
         </Link>
         <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-          {id} - Monitorga biriktirilgan xonalar{' '}
+          {id} - {t('Monitorga biriktirilgan xonalar')}{' '}
           <span>({Tablebody.length})</span>
         </p>
         <CarbonAdd
