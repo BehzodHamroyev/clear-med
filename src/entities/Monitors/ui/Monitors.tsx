@@ -19,13 +19,19 @@ const Monitors = (props: MonitorsProp) => {
   const navigate = useNavigate();
 
   /* useContext */
-  const { setIsOpenMonitorEditCard } = React.useContext(ButtonsContext);
+  const {
+    setDepartmentGetId,
+    setIsOpenMonitorEditCard,
+    setMonitorEditFormOldValue,
+  } = React.useContext(ButtonsContext);
 
   const handleClickPen = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+    setDepartmentGetId(id);
     setIsOpenMonitorEditCard(true);
+    setMonitorEditFormOldValue(name);
   };
 
   const handleNavigate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

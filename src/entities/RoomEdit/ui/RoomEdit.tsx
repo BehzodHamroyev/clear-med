@@ -126,32 +126,39 @@ const RoomEdit = (prop: RoomEditType) => {
       >
         <h3 className={cls.CardTitle}>{t('Xonani tahrirlash')}</h3>
 
-        <div className={cls.CardBody}>
-          <p className={cls.roomNumber}>{t('Xona Raqami')}</p>
+        <form
+          action="#"
+          onSubmit={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div className={cls.CardBody}>
+            <p className={cls.roomNumber}>{t('Xona Raqami')}</p>
 
-          <RoomEditNumberInput />
+            <RoomEditNumberInput />
 
-          <RoomEditSectionInput />
+            <RoomEditSectionInput />
 
-          <RoomEditDoctorInput />
+            <RoomEditDoctorInput />
 
-          <div className={cls.BtnParnet}>
-            <button
-              onClick={roomCardDeleteItem}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
-            >
-              {t('O‘chirib yuborish')}
-            </button>
-            <button
-              type="button"
-              onClick={roomAddCardEditItem}
-              className={`${cls.Btn} ${cls.Btn2}`}
-            >
-              {t('Saqlash')}
-            </button>
+            <div className={cls.BtnParnet}>
+              <button
+                onClick={roomCardDeleteItem}
+                type="button"
+                className={`${cls.Btn} ${cls.Btn1}`}
+              >
+                {t('O‘chirib yuborish')}
+              </button>
+              <button
+                type="button"
+                onClick={roomAddCardEditItem}
+                className={`${cls.Btn} ${cls.Btn2}`}
+              >
+                {t('Saqlash')}
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

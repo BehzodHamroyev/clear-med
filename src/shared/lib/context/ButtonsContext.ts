@@ -38,6 +38,9 @@ export interface ButtonsClickedProps {
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
 
+  monitorEditFormOldValue: string;
+  setMonitorEditFormOldValue: (prop: string) => void;
+
   isSubmitLoginForm: boolean;
   setIsSubmitLoginForm: (prop: boolean) => void;
 
@@ -179,6 +182,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenAttachmentRoomMonitorChild: false,
   setIsOpenAttachmentRoomMonitorChild: () => {},
+
+  monitorEditFormOldValue: '',
+  setMonitorEditFormOldValue: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},

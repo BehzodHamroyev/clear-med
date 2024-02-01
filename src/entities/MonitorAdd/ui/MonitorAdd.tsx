@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Input from 'react-phone-number-input/input';
 
 import { FormDataInState } from '../model/types/doctorAddTypes';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
@@ -38,7 +37,7 @@ const MonitorAdd = () => {
   };
 
   function handleInputChangeFormPhoneNumber(event: any, name: string) {
-    setIsAllFormData({ ...isAllFormData, login: event });
+    setIsAllFormData({ ...isAllFormData, login: event.target.value });
   }
 
   function handleInputChangeFormPassword(event: any, name: string) {
@@ -95,8 +94,17 @@ const MonitorAdd = () => {
             value={`${isAllFormData.name}`}
             onChange={(e) => handleInputChangeFormName(e)}
           />
+          <input
+            required
+            type="number"
+            maxLength={20}
+            placeholder={t('Login')}
+            className={cls.InputBulim}
+            value={`${isAllFormData.login}`}
+            onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
+          />
 
-          <Input
+          {/* <Input
             maxLength={20}
             id="PhoneNumber"
             autoComplete="off"
@@ -106,7 +114,7 @@ const MonitorAdd = () => {
             className={cls.InputBulim}
             value={`${isAllFormData.login}`}
             onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
-          />
+          /> */}
 
           <div className={cls.PhoneNumberInputWrapper}>
             <input

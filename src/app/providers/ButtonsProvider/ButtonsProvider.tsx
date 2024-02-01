@@ -92,6 +92,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
 
+  const [monitorEditFormOldValue, setMonitorEditFormOldValue] = useState('');
+
   const [
     isMonitorAddSelectionFormAdvertisement,
     setIsMonitorAddSelectionFormAdvertisement,
@@ -240,6 +242,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setClickedDoctorId,
       isOpenMonitorEditCard,
       setIsOpenMonitorEditCard,
+      monitorEditFormOldValue,
+      setMonitorEditFormOldValue,
       isOpenAttachmentRoomMonitorChild,
       setIsOpenAttachmentRoomMonitorChild,
       isOpenAttachmentRoomMonitorChildEdit,
@@ -326,7 +330,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenMonitorEditCard,
       isOpenAttachmentRoomMonitorChild,
       setIsOpenAttachmentRoomMonitorChild,
-
+      monitorEditFormOldValue,
+      setMonitorEditFormOldValue,
       isOpenAttachmentRoomMonitorChildEdit,
       setIsOpenAttachmentRoomMonitorChildEdit,
       isOpenRoomAttachmentMonitorChildForm,
