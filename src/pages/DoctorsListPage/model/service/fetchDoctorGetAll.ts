@@ -16,15 +16,12 @@ export const fetchDoctorGetAll = createAsyncThunk<
   const { extra, rejectWithValue } = thunkApi;
 
   try {
-    const response = await axios.get<DoctorListPage>(
-      `${baseUrl}/users?role=doctor&limit=1000`,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
+    const response = await axios.get<DoctorListPage>(`${baseUrl}/users/free`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     return response.data;
   } catch (e: any) {
