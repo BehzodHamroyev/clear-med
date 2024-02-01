@@ -73,14 +73,16 @@ const AddMonitorPage = () => {
             />
 
             <div className={cls.MonitorsList}>
-              {getListOfAdvertisements?.map((item, index) => (
-                <Monitors
-                  key={item.id}
-                  number={index + 1}
-                  name={item.name}
-                  id={item.id}
-                />
-              ))}
+              {getListOfAdvertisements?.map((item, index) => {
+                return (
+                  <Monitors
+                    key={item.id}
+                    name={item.name}
+                    number={index + 1}
+                    id={item.monitors[0].id}
+                  />
+                );
+              })}
             </div>
           </div>
 

@@ -97,7 +97,10 @@ const MonitorAdd = () => {
           <input
             required
             type="number"
-            maxLength={20}
+            maxLength={9}
+            minLength={9}
+            min={9}
+            max={9}
             placeholder={t('Login')}
             className={cls.InputBulim}
             value={`${isAllFormData.login}`}

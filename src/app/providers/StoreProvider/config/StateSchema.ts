@@ -27,6 +27,7 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -43,6 +44,7 @@ export interface StateSchema {
   AddAdvertisementPage: AdvertisementListSchema;
   deparmentList: DepartmentListSchemaForReception;
   doneQueuesControlDoctor: QueuesControlDoctorSchema;
+  GetAllRoomAtachmentMonitorSlice: MonitorRoomListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;

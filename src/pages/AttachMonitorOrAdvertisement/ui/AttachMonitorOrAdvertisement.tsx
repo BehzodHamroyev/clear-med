@@ -73,7 +73,6 @@ const SpeakerSvg = (
 const AttachMonitorOrAdvertisement = () => {
   /* useParams */
   const { id } = useParams();
-  console.log(id, 'AttachMonitorOrAdvertisement');
 
   return (
     <div className={cls.AttachMonitorOrAdvertisementWrapper}>
@@ -89,7 +88,7 @@ const AttachMonitorOrAdvertisement = () => {
         <p
           className={cls['AttachMonitorOrAdvertisementWrapper__Title--content']}
         >
-          {id} - Monitor
+          {}
         </p>
         <p />
       </div>

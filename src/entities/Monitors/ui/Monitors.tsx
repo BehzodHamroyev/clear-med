@@ -13,12 +13,10 @@ interface MonitorsProp {
 }
 
 const Monitors = (props: MonitorsProp) => {
-  /* props */
   const { number, name, id } = props;
 
   const navigate = useNavigate();
 
-  /* useContext */
   const {
     setDepartmentGetId,
     setIsOpenMonitorEditCard,
@@ -36,7 +34,9 @@ const Monitors = (props: MonitorsProp) => {
 
   const handleNavigate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    navigate(`/add_monitor/${number}`);
+    setDepartmentGetId(id);
+    // navigate(`/add_monitor/${number}`);
+    navigate(`/add_monitor/${id}`);
   };
 
   return (
@@ -49,8 +49,8 @@ const Monitors = (props: MonitorsProp) => {
 
         <button
           type="button"
-          onClick={(e) => handleClickPen(e)}
           className={cls.IconWrap}
+          onClick={(e) => handleClickPen(e)}
         >
           {' '}
           <PenTools className={cls.icon} />

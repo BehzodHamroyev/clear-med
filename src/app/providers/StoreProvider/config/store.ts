@@ -23,6 +23,7 @@ import {
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
+import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -47,6 +48,7 @@ export function createReduxStore(
     AddAdvertisementPage: AdvertisementListSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
+    GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

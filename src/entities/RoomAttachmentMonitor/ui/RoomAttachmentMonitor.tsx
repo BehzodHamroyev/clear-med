@@ -1,15 +1,32 @@
 /* eslint-disable max-len */
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
-import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { TableTitle } from '@/entities/TableTitle';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
+import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
+import { GetAllRoomAtachmentMonitorReducer } from '../model/slice/getAllRoomAtachmentMonitorSlice';
+import { fetchGetAllRoomAtachmentMonitorOne } from '../model/service/fetchGetAllRoomAtachmentMonitor';
+
+import {
+  ReducersList,
+  DynamicModuleLoader,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+
+import {
+  getIsError,
+  getIsLoading,
+  GetAllRoomAtachmentMonitorData,
+} from '../model/selector/GetAllMonitorSelectorSlice';
 
 import cls from './roomAttachmentMonitor.module.scss';
-import { TableTitle } from '@/entities/TableTitle';
-import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
+import { ErrorReload } from '@/widgets/Error';
 
 /* svg */
 const Svg = (
@@ -43,61 +60,105 @@ const Tablebody = [
   },
 ];
 
-/* Component */
+const reudcer: ReducersList = {
+  GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
+};
+
 const RoomAttachmentMonitor = () => {
-  /* useParams */
   const { id } = useParams();
 
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
+
+  const [tableBody, setTableBody] = React.useState<any>([]);
+
+  const getError = useSelector(getIsError);
+  const getLoading = useSelector(getIsLoading);
+  const getData = useSelector(GetAllRoomAtachmentMonitorData);
+
   const {
-    isOpenRoomAttachmentMonitorChildFormedit,
-    setIsOpenRoomAttachmentMonitorChildFormEdit,
     isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
+    isOpenRoomAttachmentMonitorChildFormedit,
+    setIsOpenRoomAttachmentMonitorChildFormEdit,
+    departmentGetId,
   } = useContext(ButtonsContext);
+
+  /* useEffect */
+  React.useEffect(() => {
+    if (getData) {
+      const tableBodys = getData.Monitor.rooms.map((item: any) => {
+        return {
+          id: item.id,
+          item1: item.name,
+          item2: item.department_id.name,
+          lastChild: item.doctor_id.name,
+        };
+      });
+      setTableBody(() => [...tableBodys]);
+    }
+  }, [getData]);
+
+  React.useEffect(() => {
+    dispatch(
+      fetchGetAllRoomAtachmentMonitorOne({
+        id: departmentGetId,
+      }),
+    );
+  }, [departmentGetId, dispatch]);
 
   /* UI */
   return (
-    <div>
-      <div className={cls.RoomAttachmentMonitorWrapper}>
-        {/* Title */}
-        <div className={cls.RoomAttachmentMonitorWrapper__Title}>
-          <Link
-            className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
-            to={`/add_monitor/${id}`}
-          >
-            {Svg}
-            {t('Ortga')}
-          </Link>
-          <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-            {id} - {t('Monitorga biriktirilgan xonalar')}{' '}
-            <span>({Tablebody.length})</span>
-          </p>
-          <CarbonAdd
-            onClick={() => setIsOpenRoomAttachmentMonitorChildForm(true)}
-            className={cls['RoomAttachmentMonitorWrapper__Title--create']}
-          />
+    <DynamicModuleLoader reducers={reudcer}>
+      {getLoading === true ? (
+        <LoaderAdmin />
+      ) : getError ? (
+        <ErrorReload message={getError} />
+      ) : (
+        <div>
+          <div className={cls.RoomAttachmentMonitorWrapper}>
+            {/* Title */}
+            <div className={cls.RoomAttachmentMonitorWrapper__Title}>
+              <Link
+                className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
+                to={`/add_monitor/${id}`}
+              >
+                {Svg}
+                {t('Ortga')}
+              </Link>
+              <p
+                className={cls['RoomAttachmentMonitorWrapper__Title--content']}
+              >
+                {t('Monitorga biriktirilgan xonalar')}{' '}
+                <span>({tableBody.length})</span>
+              </p>
+              <CarbonAdd
+                onClick={() => setIsOpenRoomAttachmentMonitorChildForm(true)}
+                className={cls['RoomAttachmentMonitorWrapper__Title--create']}
+              />
+            </div>
+
+            {/* Body */}
+
+            <TableTitle Tablethead={Tablethead} Tabletbody={tableBody} />
+          </div>
+
+          {/* halper popup */}
+          {isOpenRoomAttachmentMonitorChildForm ? (
+            <RoomAttachmentMonitorChildForm />
+          ) : (
+            ''
+          )}
+
+          {isOpenRoomAttachmentMonitorChildFormedit ? (
+            <RoomAttachmentMonitorChildFormEdit />
+          ) : (
+            ''
+          )}
         </div>
-
-        {/* Body */}
-
-        <TableTitle Tablethead={Tablethead} Tabletbody={Tablebody} />
-      </div>
-
-      {/* halper popup */}
-      {isOpenRoomAttachmentMonitorChildForm ? (
-        <RoomAttachmentMonitorChildForm />
-      ) : (
-        ''
       )}
-
-      {isOpenRoomAttachmentMonitorChildFormedit ? (
-        <RoomAttachmentMonitorChildFormEdit />
-      ) : (
-        ''
-      )}
-    </div>
+    </DynamicModuleLoader>
   );
 };
 
