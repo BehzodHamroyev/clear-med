@@ -11,11 +11,9 @@ export const fetchDoctorAdd = createAsyncThunk<
   RoomAddTypes,
   {
     name: number;
-    doctor_id: string;
-    department_id: string;
   },
   ThunkConfig<string>
->('DoctorAdd', async ({ department_id, doctor_id, name }, thunkApi) => {
+>('DoctorAdd', async ({ name }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
   const token = Cookies.get('token');
@@ -23,7 +21,7 @@ export const fetchDoctorAdd = createAsyncThunk<
   try {
     const response = await axios.post<RoomAddTypes>(
       `${baseUrl}/room/create`,
-      { department_id, doctor_id, name },
+      { name },
       {
         maxBodyLength: Infinity,
         headers: {

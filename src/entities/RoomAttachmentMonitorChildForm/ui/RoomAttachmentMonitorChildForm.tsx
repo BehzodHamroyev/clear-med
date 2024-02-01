@@ -10,11 +10,14 @@ import ListItemText from '@mui/material/ListItemText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+// import { useSelector } from 'react-redux';
 import { baseUrl } from '../../../../baseurl';
 import { RoomAddTypes } from '../model/types/roomAddTypes';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './RoomAttachmentMonitorChildForm.module.scss';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchRoomGetAll } from '@/pages/RoomPage';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -47,6 +50,8 @@ const RoomAttachmentMonitorChildForm = () => {
   /* Cookies */
   const token = Cookies.get('token');
 
+  const dispatch = useAppDispatch();
+
   /* useContext */
   const {
     setHasOpenToast,
@@ -62,16 +67,10 @@ const RoomAttachmentMonitorChildForm = () => {
     setDepartmentListChanged(`${Math.random() * 100 + 1}`);
     try {
       const response = await axios.post<RoomAddTypes>(
-        `${baseUrl}/room/create`,
+        `${baseUrl}/monitor/${12121}`,
         {
-          department_id: isDataFormAddRoom?.SectionName
-            ? isDataFormAddRoom?.SectionName
-            : '',
-          doctor_id: isDataFormAddRoom?.DoctorName
-            ? isDataFormAddRoom?.DoctorName
-            : '',
           name: Number(
-            isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '0',
+            isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '',
           ),
         },
         {
@@ -106,6 +105,12 @@ const RoomAttachmentMonitorChildForm = () => {
     );
   };
 
+  React.useEffect(() => {
+    dispatch(fetchRoomGetAll({}));
+  }, [dispatch]);
+
+  // const roomData = useSelector(getListOfRoom);
+
   /* UI */
   return (
     <div
@@ -122,7 +127,6 @@ const RoomAttachmentMonitorChildForm = () => {
         className={cls.DepartmentAddCard}
       >
         <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
-
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">Xonalar</InputLabel>
           <Select

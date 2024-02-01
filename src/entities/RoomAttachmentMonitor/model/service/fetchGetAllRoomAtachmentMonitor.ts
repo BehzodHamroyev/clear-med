@@ -22,7 +22,6 @@ export const fetchGetAllRoomAtachmentMonitorOne = createAsyncThunk<
       },
     });
 
-    console.log(response.data);
     // if (!response.data) {
     //   throw new Error();
     // }

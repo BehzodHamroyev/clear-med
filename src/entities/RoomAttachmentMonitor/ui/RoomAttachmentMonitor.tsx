@@ -71,7 +71,14 @@ const RoomAttachmentMonitor = () => {
 
   const dispatch = useAppDispatch();
 
-  const [tableBody, setTableBody] = React.useState<any>([]);
+  const [tableBody, setTableBody] = React.useState<any>([
+    {
+      id: '',
+      item1: '',
+      item2: '',
+      lastInDeleteChild: '',
+    },
+  ]);
 
   const getError = useSelector(getIsError);
   const getLoading = useSelector(getIsLoading);
@@ -90,10 +97,10 @@ const RoomAttachmentMonitor = () => {
     if (getData) {
       const tableBodys = getData.Monitor.rooms.map((item: any) => {
         return {
-          id: item.id,
-          item1: item.name,
-          item2: item.department_id.name,
-          lastChild: item.doctor_id.name,
+          id: item?.id,
+          item1: item?.name,
+          item2: item?.department_id?.name,
+          lastInDeleteChild: item?.doctor_id?.name,
         };
       });
       setTableBody(() => [...tableBodys]);

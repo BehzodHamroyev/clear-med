@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import cls from './TableTitle.module.scss';
 import { TableInfo } from '../model/types/TableInfo';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { PenTools } from '@/shared/assets/entities/TableTitle';
+import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 
 const TableTitle = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
@@ -72,10 +72,22 @@ const TableTitle = (props: TableInfo) => {
               {item?.item6 ? <td className={cls.td}>{item.item6}</td> : ''}
               {item?.item7 ? <td className={cls.td}>{item.item7}</td> : ''}
               {item?.item8 ? <td className={cls.td}>{item.item8}</td> : ''}
+
               {item?.lastChild ? (
                 <td className={`${cls.lastChild}`}>
                   <pre>{item?.lastChild}</pre>{' '}
                   <PenTools onClick={() => handleCardAddCard(`${item.id}`)} />
+                </td>
+              ) : (
+                ''
+              )}
+
+              {item?.lastInDeleteChild ? (
+                <td className={`${cls.lastChild}`}>
+                  <pre>{item?.lastInDeleteChild}</pre>{' '}
+                  <DeleteTools
+                    onClick={() => handleCardAddCard(`${item.id}`)}
+                  />
                 </td>
               ) : (
                 ''

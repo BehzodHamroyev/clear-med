@@ -10,6 +10,7 @@ type TableBody = {
   item7?: string | number;
   item8?: string | number;
   lastChild?: string | number;
+  lastInDeleteChild?: string | number;
   imgName?: string;
 };
 
