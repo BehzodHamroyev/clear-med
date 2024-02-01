@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,14 @@ import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
 import cls from './DepartmentAdd.module.scss';
+import { fetchDepartmentGetAll } from '../../../pages/DepartmentPage/model/service/getAllDepartmentRequest';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const DepartmentAdd = () => {
   const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useAppDispatch();
 
   const {
     setDepartmentListChanged,
@@ -21,27 +26,36 @@ const DepartmentAdd = () => {
     setIsOpenDepartmentAddCardIcon,
     setResponseAddDoctorStatusCode,
     isOpenDepartmentAddCardIconIndex,
-  } = React.useContext(ButtonsContext);
+  } = useContext(ButtonsContext);
 
-  const [inputValue, setInputValue] = React.useState<Number>();
+  const [inputValue, setInputValue] = useState<string>();
 
-  const [departmentName, setDepartmentName] = React.useState('');
-
-  const token = Cookies.get('token');
-
-  /* handle change functions */
-  const handleInputChange = (e: { target: { value: string } }) => {
-    const newValue = e.target.value.replace(/\D/g, '');
-
-    if (newValue.length <= 2) {
-      setInputValue(Number(newValue));
-    }
-  };
+  const [departmentName, setDepartmentName] = useState('');
 
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
+  /* handle change functions */
+  const handleChangeDoctorName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const capitalizedText =
+      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+
+    setDepartmentName(capitalizedText);
+  };
+
+  const handleChangeDoctorExperience = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newValue = e.target.value.replace(/\D/g, '');
+
+    if (newValue.length <= 3) {
+      setInputValue(newValue);
+    }
+  };
+
   const handleButtonSubmit = async () => {
+    const token = Cookies.get('token');
+
     setDepartmentListChanged(departmentName);
 
     try {
@@ -63,6 +77,10 @@ const DepartmentAdd = () => {
       setResponseAddDoctorStatusCode(200);
       setIsOpenDepartmentAddCard(false);
 
+      if (response.data) {
+        dispatch(fetchDepartmentGetAll({}));
+      }
+
       return response.data;
     } catch (e: any) {
       setResponseAddDoctorStatusCode('404');
@@ -70,7 +88,12 @@ const DepartmentAdd = () => {
     }
   };
 
-  /* UI */
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef?.current?.focus();
+    }
+  }, []);
+
   return (
     <div
       onClick={(e) => {
@@ -91,28 +114,29 @@ const DepartmentAdd = () => {
           <ResultIconSrc />
         </div>
 
-        <form action="#" className={cls.CardBody}>
+        <form action="#" className={cls.CardBody} onSubmit={handleButtonSubmit}>
           <input
+            ref={inputRef}
             type="text"
             maxLength={20}
             minLength={3}
             min={3}
             required
-            onChange={(e) => setDepartmentName(e.target.value)}
+            onChange={handleChangeDoctorName}
+            value={departmentName}
             className={cls.InputBulim}
             placeholder={t('Bo‘lim nomi')}
           />
 
           <input
             id="1"
-            min={1}
-            max={60}
+            max={180}
             required
             type="number"
-            maxLength={2}
-            value={Number(inputValue)}
+            maxLength={3}
+            value={inputValue}
             className={cls.InputBulim}
-            onChange={handleInputChange}
+            onChange={handleChangeDoctorExperience}
             placeholder={t("Bemorni ko'rishga ketadigan taxminiy vaqt")}
           />
 
@@ -148,11 +172,7 @@ const DepartmentAdd = () => {
               {t('Bekor qilish')}
             </button>
 
-            <button
-              onClick={handleButtonSubmit}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn2}`}
-            >
+            <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
               {t('Saqlash')}
             </button>
           </div>

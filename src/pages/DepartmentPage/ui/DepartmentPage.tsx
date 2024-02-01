@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ErrorReload } from '@/widgets/Error';
@@ -32,21 +32,17 @@ const reducer: ReducersList = {
 };
 
 const DepartmentPage = () => {
-  /* useState */
   const [tableBody, setTableBody] = React.useState<any>([]);
 
-  /* dispatch */
   const dispatch = useAppDispatch();
 
-  /* useSelector */
   const getListOfDepartment = useSelector(getListOfDepartmens);
 
   const getDepartmentLoading = useSelector(getIsLoading);
 
   const getDepartmentError = useSelector(getError);
 
-  /* useEffect */
-  React.useEffect(() => {
+  useEffect(() => {
     if (getListOfDepartment) {
       const tableBodys = getListOfDepartment?.map((item) => {
         return {
@@ -66,19 +62,12 @@ const DepartmentPage = () => {
     departmentListChanged,
     isOpenDepartmentAddCard,
     isOpenDepartmentEditCard,
-  } = React.useContext(ButtonsContext);
+  } = useContext(ButtonsContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      dispatch(fetchDepartmentGetAll({}));
-    }, 500);
-  }, [departmentListChanged, dispatch]);
-
-  /* UI */
   return (
     <div className={cls.DepartmentPageWrapper}>
       <DynamicModuleLoader reducers={reducer}>
