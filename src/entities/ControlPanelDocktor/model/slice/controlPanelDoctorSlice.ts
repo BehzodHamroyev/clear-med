@@ -1,7 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { fetchQueuesProccess } from '../services/fetchQueuesProccess';
 import { ProccessControlPanelDoctorSchema } from '../types/controlPanelDocktorSchema';
-import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
+import {
+  ProccesApiResponseControlPanelDoctorTypes,
+  Queue,
+} from '../types/controlPanelDocktorTypes';
+import { buildSlice } from '@/shared/lib/store';
 
 const initialState: ProccessControlPanelDoctorSchema = {
   isLoading: false,
@@ -9,10 +13,28 @@ const initialState: ProccessControlPanelDoctorSchema = {
   data: undefined,
 };
 
-export const controlPanelDoctorSlice = createSlice({
+export const controlPanelDoctorSlice = buildSlice({
   name: 'Proccess Control Doctor ',
   initialState,
-  reducers: {},
+  reducers: {
+    equalProccedQueue: (state, { payload }: PayloadAction<Queue>) => {
+      if (state.data && state.data.data) {
+        state.data = {
+          result: 1,
+          status: 'succes',
+          data: [payload],
+        };
+      }
+    },
+
+    clearProccedQueue: (state) => {
+      state.data = {
+        result: 0,
+        status: '',
+        data: [],
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQueuesProccess.pending, (state) => {
@@ -47,3 +69,5 @@ export const controlPanelDoctorSlice = createSlice({
 
 export const { actions: controlPanelDoctorActions } = controlPanelDoctorSlice;
 export const { reducer: controlPanelDoctorReducer } = controlPanelDoctorSlice;
+export const { useActions: useQueuesControlPanelDoctorActions } =
+  controlPanelDoctorSlice;
