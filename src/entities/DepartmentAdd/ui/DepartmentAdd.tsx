@@ -12,10 +12,8 @@ import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/hel
 import cls from './DepartmentAdd.module.scss';
 
 const DepartmentAdd = () => {
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useContext */
   const {
     setDepartmentListChanged,
     setIsOpenDepartmentAddCard,
@@ -25,12 +23,10 @@ const DepartmentAdd = () => {
     isOpenDepartmentAddCardIconIndex,
   } = React.useContext(ButtonsContext);
 
-  /* useState */
   const [inputValue, setInputValue] = React.useState<Number>();
 
   const [departmentName, setDepartmentName] = React.useState('');
 
-  /* Cookies */
   const token = Cookies.get('token');
 
   /* handle change functions */
@@ -42,11 +38,9 @@ const DepartmentAdd = () => {
     }
   };
 
-  /* get img card */
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
-  /* fetch add */
   const handleButtonSubmit = async () => {
     setDepartmentListChanged(departmentName);
 
@@ -106,7 +100,7 @@ const DepartmentAdd = () => {
             required
             onChange={(e) => setDepartmentName(e.target.value)}
             className={cls.InputBulim}
-            placeholder={t('Bo‘lim qo‘shish')}
+            placeholder={t('Bo‘lim nomi')}
           />
 
           <input
@@ -132,13 +126,13 @@ const DepartmentAdd = () => {
             {t("Bo'limga rasm qo'shish")}
           </button>
 
-          <button
+          {/* <button
             className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
             onClick={() => {}}
             type="button"
           >
             {t("Bo'limga rasm yuklash")}
-          </button>
+          </button> */}
 
           {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
 

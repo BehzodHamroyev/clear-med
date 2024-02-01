@@ -64,5 +64,11 @@
   "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Отчеты пациентов за этот период пусты. Попробуйте изменить период!",
   "Ko'rilgan bemorlar": "Виден пациентов",
   "dan": "от",
-  "gacha": "пока"
+  "gacha": "пока",
+
+  "Bo‘lim nomi": "Название отдела",
+  "Bemorni ko'rishga ketadigan taxminiy vaqt": "Расчетное время приема пациента",
+  "Bo'limga rasm qo'shish": "Добавить изображение в раздел",
+  "Bekor qilish": "Отмена",
+  "Saqlash": "Сохранить"
 }
