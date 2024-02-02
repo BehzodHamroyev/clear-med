@@ -5,7 +5,6 @@ import {
   ReceptionRoutes,
   getRouteNotFound,
   getRouteForbidden,
-  getRouteAddDoctor,
   getRouteDepartment,
   getRouteQueuesPage,
   getRouteAddRoomPage,
@@ -23,6 +22,7 @@ import {
   getRouteRoomAttachmentMonitor,
   getRouteAdvertisementAttachmentMonitor,
   getRouteAddRoomPageFIX,
+  getRouteAllDoctorsPage,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -33,7 +33,6 @@ import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
-import { DoctorsListPage } from '@/pages/DoctorsListPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
@@ -46,6 +45,7 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 // ----- Admin -----
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
+import { AllDoctorsPage } from '@/pages/AllDoctorsPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -76,10 +76,15 @@ export const routeConfigForAdmin: Record<
     element: <AddRoomPage />,
   },
 
-  [AdminRoutes.ADD_DOCTOR]: {
-    path: getRouteAddDoctor(),
-    element: <DoctorsListPage />,
+  [AdminRoutes.ALL_DOCTORS]: {
+    path: getRouteAllDoctorsPage(),
+    element: <AllDoctorsPage />,
   },
+
+  // [AdminRoutes.ADD_DOCTOR]: {
+  //   path: getRouteAddDoctor(),
+  //   element: <DoctorsListPage />,
+  // },
 
   [AdminRoutes.ADD_MONITOR]: {
     path: getRouteAddMonitor(),
