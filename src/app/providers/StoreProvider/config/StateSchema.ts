@@ -22,14 +22,16 @@ import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
 import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 
+import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
+import { AllDoctorsTypeSchema } from '@/pages/AllDoctorsPage';
+import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
+import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+
 import {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
-import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
-import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
-import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 
 export interface StateSchema {
   allRooms: AllRoomsTypeSchema;
@@ -38,6 +40,7 @@ export interface StateSchema {
   doctorList: DoctorListScheam;
   lastQueue: LastQueueDataSchema;
   departmentAdd: DepartmentScheme;
+  AllDoctors: AllDoctorsTypeSchema;
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
   GetAllMonitorPage: AllMonitorListSchema;

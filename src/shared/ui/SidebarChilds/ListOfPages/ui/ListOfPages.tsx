@@ -34,7 +34,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 3,
-    path: '/add_doctor',
+    path: '/all_doctors',
     title: 'Shifokor qo‘shish',
     icon: <Shifokor />,
   },
