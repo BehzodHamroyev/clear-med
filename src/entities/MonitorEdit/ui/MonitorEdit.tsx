@@ -1,85 +1,80 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Input from 'react-phone-number-input/input';
 
-import { FormDataInState } from '../model/types/doctorAddTypes';
-import { fetchDoctorAdd } from '../model/service/fetchDoctorAdd';
-import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { baseUrl } from '../../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
+import { fetchMonitorCardEdit } from '../model/service/fetchMonitorCardEdit';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './monitorEdit.module.scss';
 
-const MonitorEdit = () => {
-  /* translate */
+const MonitorEdit = (props: any) => {
   const { t } = useTranslation();
 
-  /* dispatch */
   const dispatch = useAppDispatch();
 
-  /* context */
-  const { isOpenMonitorEditCard, setIsOpenMonitorEditCard } =
-    React.useContext(ButtonsContext);
+  const {
+    setResponseData,
+    departmentGetId,
+    monitorEditFormOldValue,
+    setIsOpenMonitorEditCard,
+  } = React.useContext(ButtonsContext);
 
-  /* useState */
-  const [selectedFile, setSelectedFile] = React.useState<any>(null);
-
-  const [value, setValue] = React.useState('');
-
-  const [value2, setValue2] = React.useState('');
-
-  const [hideEye, setHideEye] = React.useState(false);
-
-  const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
-    name: '',
-    login: null,
-    password: '',
-    file: undefined,
-    exprience: null,
+  const [isAllFormData, setIsAllFormData] = React.useState({
+    name: monitorEditFormOldValue,
   });
 
-  /* useRef */
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
-
-  /* halper functions */
-  const handleClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
+  const handleInputChangeFormName = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setIsAllFormData({ ...isAllFormData, name: e.target.value });
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  function handleInputChange(event: any, name: string) {
-    setValue(event);
-
-    setIsAllFormData({ ...isAllFormData, login: event });
-  }
-
-  function handleInputChangePassword(event: any, name: string) {
-    setValue2(event);
-
-    setIsAllFormData({ ...isAllFormData, password: event });
-  }
-
-  /* fetch data */
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const data = new FormData();
+    dispatch(
+      fetchMonitorCardEdit({
+        name: isAllFormData.name,
+        idCard: departmentGetId,
+      }),
+    );
 
-    data.append('role', `doctor`);
-    data.append('file', selectedFile);
-    data.append('name', `${isAllFormData!.name}`);
-    data.append('login', `${isAllFormData!.login}`);
-    data.append('password', `${isAllFormData!.password}`);
-    data.append('exprience', `${isAllFormData!.exprience}`);
+    setResponseData(`${Math.random() * 100 + 1}`);
+    setIsOpenMonitorEditCard(false);
+  };
 
-    dispatch(fetchDoctorAdd({ data }));
+  const token = Cookies.get('token');
+
+  const handleDeleteCardMonitor = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setResponseData(`${Math.random() * 100 + 1}`);
+    setIsOpenMonitorEditCard(false);
+
+    try {
+      const response = await axios.delete<any>(
+        `${baseUrl}/users/${departmentGetId}`,
+        {
+          maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      // setResponseAddDoctorStatusCode(200);
+      // setIsOpenDepartmentEditCard(false);
+
+      return response.data;
+    } catch (e) {
+      // return setResponseAddDoctorStatusCode('404');
+      return console.log(e);
+    }
   };
 
   /* UI */
@@ -101,69 +96,22 @@ const MonitorEdit = () => {
 
         <div className={cls.CardBody}>
           <input
+            required
             type="text"
             maxLength={30}
-            className={cls.InputBulim}
             placeholder={t('Nomi')}
-            onChange={(e) =>
-              setIsAllFormData({ ...isAllFormData, name: e.target.value })
-            }
-          />
-
-          <Input
-            value={value}
-            maxLength={20}
-            id="PhoneNumber"
-            autoComplete="off"
-            name="PhoneNumber"
-            rules={{ required: true }}
             className={cls.InputBulim}
-            placeholder={t('Login')}
-            onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+            value={`${isAllFormData.name}`}
+            onChange={(e) => handleInputChangeFormName(e)}
           />
-
-          <div className={cls.PhoneNumberInputWrapper}>
-            <input
-              required
-              minLength={8}
-              maxLength={14}
-              value={value2}
-              id="UserPassword"
-              autoComplete="off"
-              name="UserPassword"
-              className={cls.InputBulim}
-              placeholder="Parol"
-              type={hideEye ? 'text' : 'password'}
-              onChange={(e) =>
-                handleInputChangePassword(e.target.value, 'UserPassword')
-              }
-            />
-
-            {hideEye ? (
-              <EyeIcon
-                className={cls.FixValueBnt}
-                onClick={() => setHideEye(false)}
-              />
-            ) : (
-              <HideIcon
-                className={cls.FixValueBnt}
-                onClick={() => setHideEye(true)}
-              />
-            )}
-          </div>
-
-          <MonitorAddSelection />
 
           <div className={cls.BtnParnet}>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpenMonitorEditCard(false);
-              }}
+              onClick={(e) => handleDeleteCardMonitor(e)}
               type="button"
               className={`${cls.Btn} ${cls.Btn1}`}
             >
-              {t('Bekor qilish')}
+              {t("O'chirib tashlash")}
             </button>
 
             <button

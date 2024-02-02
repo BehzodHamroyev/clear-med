@@ -27,6 +27,8 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
+import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 
 export interface StateSchema {
@@ -39,12 +41,14 @@ export interface StateSchema {
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
   GetAllMonitorPage: AllMonitorListSchema;
+  allDepartments: AllDepartmentTypeSchema;
   reportControlDoctor: ReportDoctorSchema;
   allQueueProccess: AllQueueProccessSchema;
   currentQueue: CurrentQueueSchemaForReception;
   AddAdvertisementPage: AdvertisementListSchema;
   deparmentList: DepartmentListSchemaForReception;
   doneQueuesControlDoctor: QueuesControlDoctorSchema;
+  GetAllRoomAtachmentMonitorSlice: MonitorRoomListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;

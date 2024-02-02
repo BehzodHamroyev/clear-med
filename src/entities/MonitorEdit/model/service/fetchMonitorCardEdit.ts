@@ -1,27 +1,28 @@
-/* eslint-disable camelcase */
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import Cookies from 'js-cookie';
 import { baseUrl } from '../../../../../baseurl';
-import { RoomAddTypes } from '../types/roomAddTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
-export const fetchDoctorAdd = createAsyncThunk<
-  RoomAddTypes,
+export const fetchMonitorCardEdit = createAsyncThunk<
+  any,
   {
-    name: number;
+    idCard: string | number;
+    name: string;
   },
   ThunkConfig<string>
->('DoctorAdd', async ({ name }, thunkApi) => {
+>('MonitorEditFetch', async ({ idCard, name }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
   const token = Cookies.get('token');
 
   try {
-    const response = await axios.post<RoomAddTypes>(
-      `${baseUrl}/room/create`,
-      { name },
+    const response = await axios.patch(
+      `${baseUrl}/users/${idCard}`,
+      {
+        name,
+      },
       {
         maxBodyLength: Infinity,
         headers: {
