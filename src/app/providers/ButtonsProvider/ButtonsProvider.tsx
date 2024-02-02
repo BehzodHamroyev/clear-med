@@ -168,6 +168,11 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [hasOpenToast, setHasOpenToast] = useState(false);
 
+  const [toastDataForAddRoomForm, setToastDataForAddRoomForm] = useState({
+    toastSeverityForAddRoomForm: '',
+    toastMessageForAddRoomForm: '',
+  });
+
   const defaultProps = useMemo(
     () => ({
       currentQueueData,
@@ -232,6 +237,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setDepartmentGetId,
       hasOpenToast,
       setHasOpenToast,
+      toastDataForAddRoomForm,
+      setToastDataForAddRoomForm,
       isDataFormAddRoom,
       setIsDataFormAddRoom,
       responseAddDoctorStatusCode,
@@ -318,6 +325,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setDepartmentGetId,
       hasOpenToast,
       setHasOpenToast,
+      toastDataForAddRoomForm,
+      setToastDataForAddRoomForm,
       isDataFormAddRoom,
       setIsDataFormAddRoom,
       responseAddRoomStatusCode,

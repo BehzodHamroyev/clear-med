@@ -23,6 +23,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { AddRoomFormDialog } from '@/entities/AddRoomFormDialog';
+import Toast from '@/shared/ui/Toast/Toast';
 
 interface AddRoomPageProps {
   className?: string;
@@ -33,7 +34,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
   const dispatch = useAppDispatch();
 
-  const { setIsOpenRoomAddCard } = useContext(ButtonsContext);
+  const { setIsOpenRoomAddCard, toastDataForAddRoomForm } =
+    useContext(ButtonsContext);
 
   const allRoomsData = useSelector(getAllRoomsData);
   const allRoomsIsLoading = useSelector(getAllRoomsIsLoading);
@@ -99,6 +101,11 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       )}
 
       <AddRoomFormDialog />
+
+      <Toast
+        severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+        message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+      />
 
       {allRoomsIsLoading && <Loader />}
 

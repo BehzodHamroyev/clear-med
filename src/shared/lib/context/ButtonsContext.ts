@@ -174,6 +174,16 @@ export interface ButtonsClickedProps {
 
   hasOpenToast: boolean;
   setHasOpenToast: (prop: boolean) => void;
+
+  toastDataForAddRoomForm: {
+    toastSeverityForAddRoomForm: string;
+    toastMessageForAddRoomForm: string;
+  };
+
+  setToastDataForAddRoomForm: (prop: {
+    toastSeverityForAddRoomForm: string;
+    toastMessageForAddRoomForm: string;
+  }) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -200,6 +210,13 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   hasOpenToast: false,
   setHasOpenToast: () => {},
+
+  toastDataForAddRoomForm: {
+    toastSeverityForAddRoomForm: '',
+    toastMessageForAddRoomForm: '',
+  },
+
+  setToastDataForAddRoomForm: () => {},
 
   isOpenLanugagePopup: false,
   setisOpenLanugagePopup: () => {},
