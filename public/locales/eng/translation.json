@@ -61,5 +61,12 @@
   "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Patient reports for this period are empty. Try changing the period!",
   "Ko'rilgan bemorlar": "Patients Seen",
   "dan": "from",
-  "gacha": "until"
+  "gacha": "until",
+
+  "Bo‘lim nomi": "Department name",
+
+  "Bemorni ko'rishga ketadigan taxminiy vaqt": "Estimated time to see the patient",
+  "Bo'limga rasm qo'shish": "Add image to section",
+  "Bekor qilish": "Cancel",
+  "Saqlash": "Save"
 }

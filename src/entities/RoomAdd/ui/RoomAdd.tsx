@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -9,33 +9,29 @@ import { RoomAddNumberInput } from '@/entities/RoomAddNumberInput';
 import { RoomAddDoctorInput } from '@/entities/RoomAddDoctorInput';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { RoomAddSectionInput } from '@/entities/RoomAddSectionInput';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './RoomAdd.module.scss';
 
 const RoomAdd = () => {
-  /* translation */
   const { t } = useTranslation();
 
-  /* Cookies */
   const token = Cookies.get('token');
 
-  /* useAppDispatch */
-  const dispatch = useAppDispatch();
-
-  /* useContext */
   const {
     setHasOpenToast,
     isDataFormAddRoom,
     setIsOpenRoomAddCard,
+    setIsDataFormAddRoom,
     setDepartmentListChanged,
     responseAddRoomStatusCode,
     setResponseAddDoctorStatusCode,
-  } = React.useContext(ButtonsContext);
+  } = useContext(ButtonsContext);
 
-  /* fetch data */
-  const handleSubmitAllFormData = async () => {
+  const handleSubmitAllFormData = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
     setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+
     try {
       const response = await axios.post<RoomAddTypes>(
         `${baseUrl}/room/create`,
@@ -59,8 +55,19 @@ const RoomAdd = () => {
         },
       );
 
-      setIsOpenRoomAddCard(false);
-      setResponseAddDoctorStatusCode(200);
+      if (response.data) {
+        setIsOpenRoomAddCard(false);
+
+        setHasOpenToast(true);
+
+        setIsDataFormAddRoom({
+          RoomNumber: '',
+          SectionName: '',
+          DoctorName: '',
+        });
+
+        setResponseAddDoctorStatusCode(200);
+      }
 
       return response.data;
     } catch (e) {
@@ -68,7 +75,18 @@ const RoomAdd = () => {
     }
   };
 
-  /* UI */
+  const handleClickCancelForm = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+
+    setIsOpenRoomAddCard(false);
+
+    setIsDataFormAddRoom({
+      RoomNumber: '',
+      SectionName: '',
+      DoctorName: '',
+    });
+  };
+
   return (
     <div
       className={cls.DepartmentAddWrapper}
@@ -83,38 +101,33 @@ const RoomAdd = () => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Xona qo‘shish')}</h3>
+        <form onSubmit={handleSubmitAllFormData}>
+          <h3 className={cls.CardTitle}>{t('Xona qo‘shish')}</h3>
 
-        <div className={cls.CardBody}>
-          <p className={cls.roomNumber}>{t('Xona Raqami')}</p>
+          <div className={cls.CardBody}>
+            <p className={cls.roomNumber}>{t('Xona Raqami')}</p>
 
-          <RoomAddNumberInput />
+            <RoomAddNumberInput />
 
-          <RoomAddSectionInput />
+            <RoomAddSectionInput />
 
-          <RoomAddDoctorInput />
+            <RoomAddDoctorInput />
 
-          <div className={cls.BtnParnet}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpenRoomAddCard(false);
-              }}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
-            >
-              {t('Bekor qilish')}
-            </button>
+            <div className={cls.BtnParnet}>
+              <button
+                onClick={handleClickCancelForm}
+                type="button"
+                className={`${cls.Btn} ${cls.Btn1}`}
+              >
+                {t('Bekor qilish')}
+              </button>
 
-            <button
-              onClick={handleSubmitAllFormData}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn2}`}
-            >
-              {t('Saqlash')}
-            </button>
+              <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
+                {t('Saqlash')}
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

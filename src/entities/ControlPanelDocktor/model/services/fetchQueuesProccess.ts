@@ -47,7 +47,9 @@ export const fetchQueuesProccess = createAsyncThunk<
         );
       }
 
-      console.log();
+      if (response?.data && response?.data.data.length > 0) {
+        socket.emit('realTimeQueue', response.data);
+      }
 
       if (
         response?.data &&

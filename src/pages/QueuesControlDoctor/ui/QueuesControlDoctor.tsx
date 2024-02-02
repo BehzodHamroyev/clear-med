@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
+import {
+  ControlPanelDocktor,
+  useQueuesControlPanelDoctorActions,
+} from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
 import cls from './QueuesControlDoctor.module.scss';
@@ -69,6 +72,9 @@ const QueuesControlDoctor = () => {
 
   const { addQueue, removeQueue } = useQueuesControlDoctorActions();
 
+  const { equalProccedQueue, clearProccedQueue } =
+    useQueuesControlPanelDoctorActions();
+
   const { addDoneQueue } = useDoneQueuesControlDoctorActons();
 
   useEffect(() => {
@@ -114,6 +120,26 @@ const QueuesControlDoctor = () => {
     if (data) {
       addDoneQueue(data);
     }
+  });
+
+  socket.on('realTimeQueueGet', (data) => {
+    if (data?.status === 'proccessed') {
+      equalProccedQueue(data);
+    }
+
+    if (data?.status === 'rejected') {
+      addDoneQueue(data);
+
+      clearProccedQueue();
+    }
+
+    if (data?.status === 'completed') {
+      addDoneQueue(data);
+
+      clearProccedQueue();
+    }
+
+    console.log(data.status, 'realTimeQueueGet');
   });
 
   return (
