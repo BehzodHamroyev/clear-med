@@ -31,7 +31,11 @@ const App = () => {
         fetchAuthUser({
           refresh: true,
         }),
-      );
+      ).then((res) => {
+        if (res.payload === 'error') {
+          navigate('/login');
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -26,6 +26,7 @@ export const fetchAuthUser = createAsyncThunk<
 
       if (response) {
         // console.log(response.data, 'for token1');
+        console.log(response);
       }
 
       // console.log(response.data);
