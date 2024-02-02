@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -11,13 +11,14 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 // import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { baseUrl } from '../../../../baseurl';
 import { RoomAddTypes } from '../model/types/roomAddTypes';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './RoomAttachmentMonitorChildForm.module.scss';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchRoomGetAll } from '@/pages/RoomPage';
+import { fetchRoomGetAll, getListOfRoom } from '@/pages/RoomPage';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -51,6 +52,8 @@ const RoomAttachmentMonitorChildForm = () => {
   const token = Cookies.get('token');
 
   const dispatch = useAppDispatch();
+
+  const [roomData, setRoomData] = useState<any>({});
 
   /* useContext */
   const {
@@ -105,6 +108,14 @@ const RoomAttachmentMonitorChildForm = () => {
     );
   };
 
+  /* selectors */
+
+  useEffect(() => {
+    setRoomData('');
+  }, []);
+  const getListOfRooms = useSelector(getListOfRoom);
+  console.log(getListOfRooms);
+
   React.useEffect(() => {
     dispatch(fetchRoomGetAll({}));
   }, [dispatch]);
@@ -139,10 +150,10 @@ const RoomAttachmentMonitorChildForm = () => {
             renderValue={(selected) => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.indexOf(name) > -1} />
-                <ListItemText primary={name} />
+            {getListOfRooms?.room.map((item: any) => (
+              <MenuItem key={item.id} value={item.name}>
+                <Checkbox checked={personName.indexOf(item.name) > -1} />
+                <ListItemText primary={item.name} />
               </MenuItem>
             ))}
           </Select>
