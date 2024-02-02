@@ -34,7 +34,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
   const dispatch = useAppDispatch();
 
-  const { setIsOpenRoomAddCard, toastDataForAddRoomForm } =
+  const { setIsOpenRoomAddCard, toastDataForAddRoomForm, hasOpenToast } =
     useContext(ButtonsContext);
 
   const allRoomsData = useSelector(getAllRoomsData);
@@ -64,7 +64,6 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
           <p>+</p>
         </div>
       </div>
-
       {allRoomsData && allRoomsData.length > 0 ? (
         <div className={classNames(cls.addRoomPage__table)}>
           <table>
@@ -99,16 +98,15 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       ) : (
         <h1>{t('Xonalar mavjud emas')}</h1>
       )}
-
       <AddRoomFormDialog />
-
-      <Toast
-        severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
-        message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
-      />
+      {hasOpenToast && (
+        <Toast
+          severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+          message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+        />
+      )}
 
       {allRoomsIsLoading && <Loader />}
-
       {allRoomsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );

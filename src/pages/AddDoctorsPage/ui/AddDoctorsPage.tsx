@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
-import cls from './AllDoctorsPage.module.scss';
+import cls from './AddDoctorsPage.module.scss';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllDoctors } from '../model/service/fetchAllDoctors';

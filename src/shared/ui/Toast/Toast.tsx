@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
@@ -27,6 +27,14 @@ const Toast = ({ severity, message }: ToastProps) => {
 
     setHasOpenToast(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (hasOpenToast) {
+        setHasOpenToast(false);
+      }
+    }, 3000);
+  }, [hasOpenToast, setHasOpenToast]);
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>

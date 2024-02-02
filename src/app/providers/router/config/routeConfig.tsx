@@ -45,7 +45,7 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 // ----- Admin -----
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
-import { AllDoctorsPage } from '@/pages/AllDoctorsPage';
+import { AddDoctorsPage } from '@/pages/AddDoctorsPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -78,7 +78,7 @@ export const routeConfigForAdmin: Record<
 
   [AdminRoutes.ALL_DOCTORS]: {
     path: getRouteAllDoctorsPage(),
-    element: <AllDoctorsPage />,
+    element: <AddDoctorsPage />,
   },
 
   // [AdminRoutes.ADD_DOCTOR]: {

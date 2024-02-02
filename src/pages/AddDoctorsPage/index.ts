@@ -1,4 +1,4 @@
-export { default as AllDoctorsPage } from './ui/AllDoctorsPage';
+export { default as AddDoctorsPage } from './ui/AddDoctorsPage';
 
 export type { AllDoctorsTypeSchema } from './model/types/doctorsTypesSchema';
 

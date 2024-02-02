@@ -27,7 +27,8 @@ import {
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { allDoctorsSliceReducer } from '@/pages/AllDoctorsPage';
+import { allDoctorsSliceReducer } from '@/pages/AddDoctorsPage';
+import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -45,6 +46,7 @@ export function createReduxStore(
     AllDoctors: allDoctorsSliceReducer,
     currentQueue: currentQueueuReducer,
     deparmentList: departmentListReducer,
+    allFreeDoctors: allFreeDoctorsReducer,
     allQueueProccess: allQueueProccessReducer,
     allDepartments: allDepartmentsSliceReducer,
     departmentPage: DepartmentListSliceReducer,

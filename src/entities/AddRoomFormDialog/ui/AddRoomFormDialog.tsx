@@ -26,10 +26,21 @@ import {
   getAllDepartmentsError,
   getAllDepartmentsIsLoading,
 } from '@/pages/AddDepartmentPage';
+
+import {
+  getAllFreeDoctorsData,
+  getAllFreeDoctorsError,
+  getAllFreeDoctorsIsLoading,
+} from '../model/selector/allFreeDoctorsSelector';
+
+import { fetchAllFreeDoctors } from '../model/service/fetchAllFreeDoctors';
+
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { baseUrl } from '../../../../baseurl';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchAllRooms } from '@/pages/AddRoomPage/model/services/fetchAllRooms';
 
 interface AddRoomFormDialogProps {
   className?: string;
@@ -65,6 +76,10 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
 
+  const allFreeDoctorsData = useSelector(getAllFreeDoctorsData);
+  const allFreeDoctorsIsLoading = useSelector(getAllFreeDoctorsIsLoading);
+  const allFreeDoctorsError = useSelector(getAllFreeDoctorsError);
+
   const handleClose = () => {
     setIsOpenRoomAddCard(false);
   };
@@ -78,8 +93,6 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
     const roomNumber = roomNumberRef.current?.value;
     const selectedDepartment = departmentSelectRef.current?.value;
     const selectedDoctor = doctorSelectRef.current?.value;
-
-    console.log(roomNumber, selectedDepartment, selectedDoctor);
 
     if (roomNumber && selectedDepartment && selectedDoctor) {
       try {
@@ -103,6 +116,13 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
           setIsOpenRoomAddCard(false);
 
           setHasOpenToast(true);
+
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Xona muvaffaqiyatli qo'shildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+
+          dispatch(fetchAllRooms({}));
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -149,12 +169,14 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
   useEffect(() => {
     if (isOpenRoomAddCard) {
       dispatch(fetchAllDepartments({}));
+
+      dispatch(fetchAllFreeDoctors({}));
     }
   }, [dispatch, isOpenRoomAddCard]);
 
   return (
     <>
-      {allDepartmentsData && (
+      {allDepartmentsData && allFreeDoctorsData && (
         <BootstrapDialog
           className={classNames(cls.AddRoomFormDialog__Container, {}, [
             className,
@@ -192,8 +214,6 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
                   id="demo-simple-select"
                   labelId="demo-simple-select-label"
                   label={t("Bo'lim turlari")}
-                  // value={}
-                  // onChange={}
                 >
                   {allDepartmentsData?.map((e) => {
                     return (
@@ -216,18 +236,14 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
                   id="demo-simple-select"
                   labelId="demo-simple-select-label2"
                   label={t("Shifokorlar ro'yhati")}
-                  value={1}
-                  // onChange={}
                 >
-                  {/* {getListOfDepartments
-                  ? getListOfDepartments?.map((e, index) => {
-                      return (
-                        <MenuItem key={e.id} value={`${e.id}`}>
-                          {e?.name}
-                        </MenuItem>
-                      );
-                    })
-                  : ''} */}
+                  {allFreeDoctorsData?.map((element) => {
+                    return (
+                      <MenuItem key={element.id} value={`${element.id}`}>
+                        {element.name}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
 
@@ -256,9 +272,11 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
         </BootstrapDialog>
       )}
 
-      {allDepartmentsIsLoading && <Loader />}
+      {(allDepartmentsIsLoading || allFreeDoctorsIsLoading) && <Loader />}
 
-      {allDepartmentsError && <ErrorDialog isErrorProps={!false} />}
+      {(allDepartmentsError || allFreeDoctorsError) && (
+        <ErrorDialog isErrorProps={!false} />
+      )}
     </>
   );
 };

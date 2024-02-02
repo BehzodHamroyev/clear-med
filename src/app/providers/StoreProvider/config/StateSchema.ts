@@ -23,9 +23,10 @@ import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
-import { AllDoctorsTypeSchema } from '@/pages/AllDoctorsPage';
+import { AllDoctorsTypeSchema } from '@/pages/AddDoctorsPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
 import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
 
 import {
   LastQueueDataSchema,
@@ -41,6 +42,7 @@ export interface StateSchema {
   lastQueue: LastQueueDataSchema;
   departmentAdd: DepartmentScheme;
   AllDoctors: AllDoctorsTypeSchema;
+  allFreeDoctors: AllFreeDoctorsTypeSchema;
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
   GetAllMonitorPage: AllMonitorListSchema;
