@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -16,9 +16,13 @@ import {
   getAllRoomsError,
   getAllRoomsIsLoading,
 } from '../model/selector/allRoomSelector';
+
+import { Room } from '../model/types/roomTypes';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { Room } from '../model/types/roomTypes';
+import { AddRoomFormDialog } from '@/entities/AddRoomFormDialog';
 
 interface AddRoomPageProps {
   className?: string;
@@ -29,6 +33,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
   const dispatch = useAppDispatch();
 
+  const { setIsOpenRoomAddCard } = useContext(ButtonsContext);
+
   const allRoomsData = useSelector(getAllRoomsData);
   const allRoomsIsLoading = useSelector(getAllRoomsIsLoading);
   const allRoomsError = useSelector(getAllRoomsError);
@@ -36,6 +42,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   useEffect(() => {
     dispatch(fetchAllRooms({}));
   }, [dispatch]);
+
+  const handleClickOpenCard = () => {
+    setIsOpenRoomAddCard(true);
+  };
 
   return (
     <div className={classNames(cls.addRoomPage, {}, [className])}>
@@ -45,7 +55,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
           <span>{10}</span>
         </div>
 
-        <div className={classNames(cls['addRoomPage__header--right'])}>
+        <div
+          className={classNames(cls['addRoomPage__header--right'])}
+          onClick={handleClickOpenCard}
+        >
           <p>+</p>
         </div>
       </div>
@@ -84,6 +97,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       ) : (
         <h1>{t('Xonalar mavjud emas')}</h1>
       )}
+
+      <AddRoomFormDialog />
 
       {allRoomsIsLoading && <Loader />}
 
