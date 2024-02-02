@@ -12,7 +12,7 @@ export enum AdminRoutes {
   ROOMPAGE = 'room_page',
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
-  ADD_DOCTOR = 'add_doctor',
+  ALL_DOCTORS = 'all_doctors',
   ADD_MONITOR = 'add_monitor',
   MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
@@ -56,11 +56,11 @@ export const getRouteReportControlDoctor = () => '/';
 export const getRouteDepartment = () => '/';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
-export const getRouteAddDoctor = () => '/add_doctor';
 export const getRouteAddMonitor = () => '/add_monitor';
 export const getRouteAddRoomPageFIX = () => '/add-room';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
+export const getRouteAllDoctorsPage = () => '/all_doctors';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
 export const getRouteRoomAttachmentMonitor = () =>
@@ -83,7 +83,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAddDoctor()]: AdminRoutes.ROOMPAGE,
+  [getRouteAllDoctorsPage()]: AdminRoutes.ROOMPAGE,
   [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
