@@ -33,7 +33,6 @@ import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
-import { DepartmentPage } from '@/pages/DepartmentPage';
 import { DoctorsListPage } from '@/pages/DoctorsListPage';
 import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
@@ -46,6 +45,7 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 
 // ----- Admin -----
 import { AddRoomPage } from '@/pages/AddRoomPage';
+import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -63,7 +63,7 @@ export const routeConfigForAdmin: Record<
 
   [AdminRoutes.DEPARTMENT]: {
     path: getRouteDepartment(),
-    element: <DepartmentPage />,
+    element: <AddDepartmentPage />,
   },
 
   [AdminRoutes.ROOMPAGE]: {

@@ -12,18 +12,19 @@ import { allQueueProccessReducer } from '@/pages/QueuesPage';
 import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
 import { GetAllMonitorPageReducer } from '@/pages/AddMonitorPage';
 import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
+import { allDepartmentsSliceReducer } from '@/pages/AddDepartmentPage';
 import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
+import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
 
 import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -40,6 +41,7 @@ export function createReduxStore(
     currentQueue: currentQueueuReducer,
     deparmentList: departmentListReducer,
     allQueueProccess: allQueueProccessReducer,
+    allDepartments: allDepartmentsSliceReducer,
     departmentPage: DepartmentListSliceReducer,
     GetAllMonitorPage: GetAllMonitorPageReducer,
     getDoctorPageReducer: DoctorListSliceReducer,
