@@ -27,8 +27,10 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 
 export interface StateSchema {
+  allRooms: AllRoomsTypeSchema;
   authUser: AuthReduxType;
   RoomGetAll: RoomListSchema;
   doctorList: DoctorListScheam;
