@@ -37,7 +37,7 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
     /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
     if (location.pathname === '/') {
       setIsOpenDepartmentAddCard(true);
-    } else if (location.pathname === '/add_room_age') {
+    } else if (location.pathname === '/add-room') {
       setIsOpenRoomAddCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorAddCard(true);

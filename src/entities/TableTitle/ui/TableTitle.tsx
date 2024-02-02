@@ -28,7 +28,7 @@ const TableTitle = (props: TableInfo) => {
 
     if (location.pathname === '/') {
       setIsOpenDepartmentEditCard(true);
-    } else if (location.pathname === '/add_room_age') {
+    } else if (location.pathname === '/add-room') {
       setIsOpenRoomEditCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorEditCard(true);

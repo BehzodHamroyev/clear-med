@@ -29,8 +29,10 @@ import {
 } from '@/pages/QueuingTV';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
 import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 
 export interface StateSchema {
+  allRooms: AllRoomsTypeSchema;
   authUser: AuthReduxType;
   RoomGetAll: RoomListSchema;
   doctorList: DoctorListScheam;

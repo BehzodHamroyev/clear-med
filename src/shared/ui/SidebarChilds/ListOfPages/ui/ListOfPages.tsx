@@ -28,7 +28,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 2,
-    path: '/add_room_age',
+    path: '/add-room',
     title: 'Xona qo‘shish',
     icon: <Xona />,
   },
@@ -134,7 +134,7 @@ export const ListOfPages = memo(() => {
     if (profileValue === 'admin') {
       if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
-      } else if (divRef.current && location.pathname === '/add_room_age') {
+      } else if (divRef.current && location.pathname === '/add-room') {
         divRef.current.style.top = '63px';
       } else if (divRef.current && location.pathname === '/add_doctor') {
         divRef.current.style.top = '106px';

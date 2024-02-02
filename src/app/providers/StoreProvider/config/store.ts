@@ -3,6 +3,8 @@ import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 
 import { $api } from '@/shared/api/api';
 import { rtkApi } from '@/shared/api/rtkApi';
+
+import { allRoomsReducer } from '@/pages/AddRoomPage';
 import { AuthUserSliceReducer } from '@/features/Auth';
 import { createReducerManager } from './reducerManager';
 import { doctorListReducer } from '@/pages/ReportsPage';
@@ -34,6 +36,7 @@ export function createReduxStore(
     ...asyncReducers,
     // login: AuthSliceReducer,
 
+    allRooms: allRoomsReducer,
     lastQueue: lastQueueReducer,
     doctorList: doctorListReducer,
     authUser: AuthUserSliceReducer,
