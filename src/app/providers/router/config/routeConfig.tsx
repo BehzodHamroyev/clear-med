@@ -22,7 +22,7 @@ import {
   getRouteRoomAttachmentMonitor,
   getRouteAdvertisementAttachmentMonitor,
   getRouteAddRoomPageFIX,
-  getRouteAllDoctorsPage,
+  getRouteAddDoctorsPage,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -77,7 +77,7 @@ export const routeConfigForAdmin: Record<
   },
 
   [AdminRoutes.ALL_DOCTORS]: {
-    path: getRouteAllDoctorsPage(),
+    path: getRouteAddDoctorsPage(),
     element: <AddDoctorsPage />,
   },
 

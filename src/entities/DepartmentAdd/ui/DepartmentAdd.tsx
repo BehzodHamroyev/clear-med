@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
@@ -7,14 +8,15 @@ import { baseUrl } from '../../../../baseurl';
 import { DepartmentType } from '../model/types/departmentType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+import { fetchDepartmentGetAll } from '../../../pages/DepartmentPage/model/service/getAllDepartmentRequest';
 
 import cls from './DepartmentAdd.module.scss';
-import { fetchDepartmentGetAll } from '../../../pages/DepartmentPage/model/service/getAllDepartmentRequest';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const DepartmentAdd = () => {
   const { t } = useTranslation();
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useAppDispatch();
