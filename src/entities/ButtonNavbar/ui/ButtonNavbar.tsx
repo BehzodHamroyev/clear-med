@@ -25,6 +25,7 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
 
+  // isOpenDoctorAddCard
   const {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,

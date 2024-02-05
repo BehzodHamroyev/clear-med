@@ -15,7 +15,7 @@ import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
 import { GetAllMonitorPageReducer } from '@/pages/AddMonitorPage';
 import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
 import { allDepartmentsSliceReducer } from '@/pages/AddDepartmentPage';
-import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
+import { departmentAddSliceSliceReducer } from '@/entities/AddDepartmentFormDialog';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
@@ -27,7 +27,7 @@ import {
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { allDoctorsSliceReducer } from '@/pages/AddDoctorsPage';
+import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allMonitorsReducer } from '@/pages/Monitors';
 

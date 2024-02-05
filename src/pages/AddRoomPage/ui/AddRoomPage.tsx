@@ -102,6 +102,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
         ''
       )}
       <AddRoomFormDialog />
+
       {hasOpenToast && (
         <Toast
           severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}

@@ -13,7 +13,7 @@ import { AuthReduxType } from '@/features/Auth';
 import { RoomListSchema } from '@/pages/RoomPage';
 import { DoctorListScheam } from '@/pages/ReportsPage';
 import { DoctorListSchema } from '@/pages/DoctorsListPage';
-import { DepartmentScheme } from '@/entities/DepartmentAdd';
+import { DepartmentScheme } from '@/entities/AddDepartmentFormDialog';
 import { AllQueueProccessSchema } from '@/pages/QueuesPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 import { AllMonitorListSchema } from '@/pages/AddMonitorPage';
@@ -23,7 +23,7 @@ import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
-import { AllDoctorsTypeSchema } from '@/pages/AddDoctorsPage';
+import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
 import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';

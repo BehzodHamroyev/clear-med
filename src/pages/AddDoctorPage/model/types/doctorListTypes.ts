@@ -2,7 +2,7 @@ interface Room {
   _id: string;
   name: number;
   // eslint-disable-next-line no-use-before-define
-  department_id: string | Department;
+  department_id: Department;
   doctor_id: string;
   disabled: boolean;
   __v: number;
