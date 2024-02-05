@@ -127,12 +127,6 @@ const AddDepartmentFormDialog = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (inputRef.current) {
-  //     inputRef?.current?.focus();
-  //   }
-  // }, []);
-
   return (
     <div
       onClick={(e) => {

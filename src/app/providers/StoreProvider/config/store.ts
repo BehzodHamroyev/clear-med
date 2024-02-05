@@ -27,7 +27,7 @@ import {
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { allDoctorsSliceReducer } from '@/pages/AddDoctorsPage';
+import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 
 export function createReduxStore(

@@ -129,26 +129,6 @@ const AddDepartmentPage = () => {
                       className={cls['AddDepartmentPageWrp__Table--delete']}
                     />
                   </td>
-
-                  {/* {item?.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
-                  {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
-                  {item?.item3 ? <td className={cls.td}>{item.item3}</td> : ''}
-                  {item?.item4 ? <td className={cls.td}>{item.item4}</td> : ''}
-                  {item?.item5 ? <td className={cls.td}>{item.item5}</td> : ''}
-                  {item?.item6 ? <td className={cls.td}>{item.item6}</td> : ''}
-                  {item?.item7 ? <td className={cls.td}>{item.item7}</td> : ''}
-                  {item?.item8 ? <td className={cls.td}>{item.item8}</td> : ''} */}
-
-                  {/* {item?.lastChild ? (
-                    <td className={`${cls.lastChild}`}>
-                      <pre>{item?.lastChild}</pre>{' '}
-                      <PenTools
-                      // onClick={() => handleCardAddCard(`${item.id}`)}
-                      />
-                    </td>
-                  ) : (
-                    ''
-                  )} */}
                 </tr>
               );
             })}
