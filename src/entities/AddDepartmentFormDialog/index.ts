@@ -1,4 +1,4 @@
-export { default as DepartmentAdd } from './ui/DepartmentAdd';
+export { default as AddDepartmentFormDialog } from './ui/AddDepartmentFormDialog';
 
 export type {
   DepartmentType,

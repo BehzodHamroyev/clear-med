@@ -63,7 +63,7 @@ export const getRouteAddMonitor = () => '/add_monitor';
 export const getRouteAddRoomPageFIX = () => '/add-room';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
-export const getRouteAllDoctorsPage = () => '/all_doctors';
+export const getRouteAddDoctorsPage = () => '/add-doctors';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
 export const getRouteRoomAttachmentMonitor = () =>
@@ -89,7 +89,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAllDoctorsPage()]: AdminRoutes.ROOMPAGE,
+  [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
   [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,

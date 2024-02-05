@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 import { ErrorReload } from '@/widgets/Error';
-import { DoctorAdd } from '@/entities/DoctorAdd';
 import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
@@ -27,6 +26,7 @@ import {
 
 import cls from './AddDoctorPage.module.scss';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
+import { AddDoctorFormDialog } from '@/entities/AddDoctorFormDialog';
 
 /* halper array */
 const tableTitle = [
@@ -132,7 +132,7 @@ const DoctorListPage = () => {
 
           <ToastHalper />
 
-          {isOpenDoctorAddCard ? <DoctorAdd /> : ''}
+          {isOpenDoctorAddCard ? <AddDoctorFormDialog /> : ''}
           {isOpenDoctorEditCard ? <DoctorEdit tableBody={tableBody} /> : ''}
         </div>
       )}

@@ -1,7 +1,7 @@
 /* stylelint-disable no-descending-specificity */
-.AddDepartmentPageWrp {
-  width: 100%;
-  max-width: 1300px;
+.AddDoctorPageWrp {
+  width: 1300px;
+  font-family: sans-serif;
 
   &__Title {
     max-width: 1300px;
@@ -98,7 +98,7 @@
     }
 
     &--tr:hover {
-      transform: scale(1.01);
+      background-color: #ececec;
     }
 
     &--th,

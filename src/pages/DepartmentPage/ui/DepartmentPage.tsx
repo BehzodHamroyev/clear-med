@@ -6,7 +6,7 @@ import { TableTitle } from '@/entities/TableTitle';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { DepartmentAdd } from '@/entities/DepartmentAdd';
+import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
@@ -89,7 +89,7 @@ const DepartmentPage = () => {
 
             <ToastHalper />
 
-            {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+            {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
             {isOpenDepartmentEditCard ? (
               <DepartmentEdit tableBody={tableBody} />
             ) : (
