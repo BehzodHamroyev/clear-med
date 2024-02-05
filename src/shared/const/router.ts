@@ -63,7 +63,7 @@ export const getRouteAddMonitor = () => '/add_monitor';
 export const getRouteAddRoomPageFIX = () => '/add-room';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
-export const getRouteAddDoctorsPage = () => '/add_doctors';
+export const getRouteAddDoctorsPage = () => '/add-doctors';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
 export const getRouteRoomAttachmentMonitor = () =>

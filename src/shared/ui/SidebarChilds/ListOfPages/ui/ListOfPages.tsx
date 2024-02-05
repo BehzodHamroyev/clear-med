@@ -34,7 +34,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 3,
-    path: '/add_doctors',
+    path: '/add-doctors',
     title: 'Shifokor qo‘shish',
     icon: <Shifokor />,
   },
@@ -143,7 +143,7 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/add-room') {
         divRef.current.style.top = '63px';
-      } else if (divRef.current && location.pathname === '/add_doctors') {
+      } else if (divRef.current && location.pathname === '/add-doctors') {
         divRef.current.style.top = '106px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '149px';

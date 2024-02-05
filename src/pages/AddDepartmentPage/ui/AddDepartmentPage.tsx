@@ -80,7 +80,7 @@ const AddDepartmentPage = () => {
             </th>
 
             <th className={cls['AddDepartmentPageWrp__Table--th']}>
-              {t('Xonalar raqami')}
+              {t('Xonalar soni')}
             </th>
 
             <th className={cls['AddDepartmentPageWrp__Table--edit']} />
@@ -92,7 +92,6 @@ const AddDepartmentPage = () => {
             {allDepartmentsData.map((item) => {
               const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
 
-              console.log(ImgSvg, 'Jafar');
               return (
                 <tr
                   key={item?.id}
@@ -107,12 +106,16 @@ const AddDepartmentPage = () => {
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.name}
+                    {item?.name ? item.name : '-'}
                   </td>
 
-                  <td className={cls['AddDepartmentPageWrp__Table--td']}>-</td>
+                  <td className={cls['AddDepartmentPageWrp__Table--td']}>
+                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                  </td>
 
-                  <td className={cls['AddDepartmentPageWrp__Table--td']}>-</td>
+                  <td className={cls['AddDepartmentPageWrp__Table--td']}>
+                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                  </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--lastChild']}>
                     {}
