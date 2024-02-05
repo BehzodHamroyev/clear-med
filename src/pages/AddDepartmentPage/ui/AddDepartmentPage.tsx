@@ -8,12 +8,12 @@ import cls from './AddDepartmentPage.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
-import { DepartmentAdd } from '@/entities/DepartmentAdd';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
+import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
@@ -157,7 +157,7 @@ const AddDepartmentPage = () => {
         )}
       </table>
 
-      {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+      {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
     </div>
   );
 };

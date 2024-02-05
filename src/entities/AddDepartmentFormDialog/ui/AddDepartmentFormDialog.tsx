@@ -4,6 +4,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import cls from './AddDepartmentFormDialog.module.scss';
+
 import { baseUrl } from '../../../../baseurl';
 import { DepartmentType } from '../model/types/departmentType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -12,9 +14,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 import { fetchDepartmentGetAll } from '../../../pages/DepartmentPage/model/service/getAllDepartmentRequest';
 
-import cls from './DepartmentAdd.module.scss';
-
-const DepartmentAdd = () => {
+const AddDepartmentFormDialog = () => {
   const { t } = useTranslation();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -184,4 +184,4 @@ const DepartmentAdd = () => {
   );
 };
 
-export default DepartmentAdd;
+export default AddDepartmentFormDialog;

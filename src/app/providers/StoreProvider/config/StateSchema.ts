@@ -13,7 +13,7 @@ import { AuthReduxType } from '@/features/Auth';
 import { RoomListSchema } from '@/pages/RoomPage';
 import { DoctorListScheam } from '@/pages/ReportsPage';
 import { DoctorListSchema } from '@/pages/DoctorsListPage';
-import { DepartmentScheme } from '@/entities/DepartmentAdd';
+import { DepartmentScheme } from '@/entities/AddDepartmentFormDialog';
 import { AllQueueProccessSchema } from '@/pages/QueuesPage';
 import { DepartmentListSchema } from '@/pages/DepartmentPage';
 import { AllMonitorListSchema } from '@/pages/AddMonitorPage';
