@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -24,6 +24,8 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { AddRoomFormDialog } from '@/entities/AddRoomFormDialog';
 import Toast from '@/shared/ui/Toast/Toast';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import EditRoomFormDialog from '@/entities/EditRoomFormDialog/EditRoomFormDialog';
 
 interface AddRoomPageProps {
   className?: string;
@@ -34,8 +36,15 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
   const dispatch = useAppDispatch();
 
-  const { setIsOpenRoomAddCard, toastDataForAddRoomForm, hasOpenToast } =
-    useContext(ButtonsContext);
+  const [editRoomId, setEditRoomId] = useState<string>();
+
+  const {
+    setIsOpenRoomAddCard,
+    isOpenRoomEditCard,
+    setIsOpenRoomEditCard,
+    toastDataForAddRoomForm,
+    hasOpenToast,
+  } = useContext(ButtonsContext);
 
   const allRoomsData = useSelector(getAllRoomsData);
   const allRoomsIsLoading = useSelector(getAllRoomsIsLoading);
@@ -47,6 +56,12 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
   const handleClickOpenCard = () => {
     setIsOpenRoomAddCard(true);
+  };
+
+  const handeClickEditRoom = (id: string) => {
+    setEditRoomId(id);
+
+    setIsOpenRoomEditCard(true);
   };
 
   return (
@@ -83,7 +98,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                   <td>{item?.name}</td>
                   <td>{item?.department_id?.name}</td>
                   <td>{item?.doctor_id?.name}</td>
-                  <td className={classNames(cls.tablePenRow)}>
+                  <td
+                    className={classNames(cls.tablePenRow)}
+                    onClick={() => handeClickEditRoom(item?.id)}
+                  >
                     {}
                     <FaPen className={classNames(cls.tablePen)} />
                   </td>
@@ -102,6 +120,11 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
         ''
       )}
       <AddRoomFormDialog />
+
+      {editRoomId && isOpenRoomEditCard && (
+        <EditRoomFormDialog roomId={editRoomId} />
+      )}
+
       {hasOpenToast && (
         <Toast
           severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
