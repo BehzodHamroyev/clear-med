@@ -95,8 +95,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
             </tbody>
           </table>
         </div>
-      ) : (
+      ) : !allRoomsIsLoading ? (
         <h1>{t('Xonalar mavjud emas')}</h1>
+      ) : (
+        ''
       )}
       <AddRoomFormDialog />
       {hasOpenToast && (
