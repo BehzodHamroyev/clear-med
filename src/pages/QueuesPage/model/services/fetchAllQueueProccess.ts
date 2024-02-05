@@ -8,27 +8,46 @@ import { AllQueueProccessApiResponse } from '../types/allQueueProccessTypes';
 
 export const fetchAllQueueProccess = createAsyncThunk<
   AllQueueProccessApiResponse,
-  {},
+  { monitorId?: string },
   ThunkConfig<string>
-  // eslint-disable-next-line no-empty-pattern
->('fetchAllQueueProccess', async ({}, thunkApi) => {
+>('fetchAllQueueProccess', async ({ monitorId }, thunkApi) => {
   const { rejectWithValue } = thunkApi;
 
   const getTokenCookie = Cookies.get('token');
+  if (monitorId) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/monitor/proceed/${monitorId}`,
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
 
-  try {
-    const response = await axios.get(`${baseUrl}/monitor/proceed`, {
-      headers: {
-        authorization: `Bearer ${getTokenCookie}`,
-      },
-    });
+      if (!response.data) {
+        throw new Error();
+      }
 
-    if (!response.data) {
-      throw new Error();
+      return response.data;
+    } catch (e) {
+      return rejectWithValue('error');
     }
+  } else {
+    try {
+      const response = await axios.get(`${baseUrl}/monitor/proceed`, {
+        headers: {
+          authorization: `Bearer ${getTokenCookie}`,
+        },
+      });
 
-    return response.data;
-  } catch (e) {
-    return rejectWithValue('error');
+      if (!response.data) {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (e) {
+      return rejectWithValue('error');
+    }
   }
 });

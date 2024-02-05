@@ -54,7 +54,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       <div className={classNames(cls.addRoomPage__header)}>
         <div className={classNames(cls['addRoomPage__header--left'])}>
           <p>{t('Xonalar')}:</p>
-          <span>{10}</span>
+          <span>{allRoomsData?.length}</span>
         </div>
 
         <div
@@ -64,6 +64,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
           <p>+</p>
         </div>
       </div>
+
       {allRoomsData && allRoomsData.length > 0 ? (
         <div className={classNames(cls.addRoomPage__table)}>
           <table>

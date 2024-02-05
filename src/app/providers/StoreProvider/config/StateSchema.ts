@@ -33,9 +33,11 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 
 export interface StateSchema {
   allRooms: AllRoomsTypeSchema;
+  allMonitors: AllMonitorsTypeSchema;
   authUser: AuthReduxType;
   RoomGetAll: RoomListSchema;
   doctorList: DoctorListScheam;

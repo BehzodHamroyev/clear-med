@@ -46,8 +46,8 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 5,
-    path: '/queues',
-    title: 'Navbatlar',
+    path: '/monitors',
+    title: 'Monitorlar',
     icon: <Navbatlar />,
   },
   {
@@ -72,7 +72,7 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
     icon: <Bolimlar />,
   },
   {
-    id: 4,
+    id: 2,
     path: '/reports',
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
@@ -82,6 +82,13 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
   //   id: 5, path: '/queues',
   //   title: 'Navbatlar', icon: <Navbatlar />
   // },
+
+  {
+    id: 3,
+    path: '/monitors',
+    title: 'Monitorlar',
+    icon: <Navbatlar />,
+  },
 ];
 
 const listOfPageDoktor: ListOfPageTypes[] = [

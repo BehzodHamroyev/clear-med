@@ -29,6 +29,7 @@ import {
 } from '@/pages/QueuingTV';
 import { allDoctorsSliceReducer } from '@/pages/AddDoctorsPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
+import { allMonitorsReducer } from '@/pages/Monitors';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -38,6 +39,7 @@ export function createReduxStore(
     ...asyncReducers,
     // login: AuthSliceReducer,
 
+    allMonitors: allMonitorsReducer,
     allRooms: allRoomsReducer,
     lastQueue: lastQueueReducer,
     doctorList: doctorListReducer,
