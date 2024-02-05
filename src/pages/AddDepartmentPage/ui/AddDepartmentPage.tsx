@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import cls from './AddDepartmentPage.module.scss';
 
-import { baseUrl } from '../../../../baseurl';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
@@ -21,14 +20,19 @@ import {
   getAllDepartmentsError,
   getAllDepartmentsIsLoading,
 } from '../model/selector/AllDepartmentSelector';
+import Toast from '@/shared/ui/Toast/Toast';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  const { isOpenDepartmentAddCard, setIsOpenDepartmentAddCard } =
-    useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    toastDataForAddRoomForm,
+    isOpenDepartmentAddCard,
+    setIsOpenDepartmentAddCard,
+  } = useContext(ButtonsContext);
 
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
@@ -86,8 +90,9 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 ? (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `${baseUrl}${item.photo}`;
+              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
 
+              console.log(ImgSvg, 'Jafar');
               return (
                 <tr
                   key={item?.id}
@@ -156,6 +161,13 @@ const AddDepartmentPage = () => {
           ''
         )}
       </table>
+
+      {hasOpenToast && (
+        <Toast
+          severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+          message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+        />
+      )}
 
       {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
     </div>

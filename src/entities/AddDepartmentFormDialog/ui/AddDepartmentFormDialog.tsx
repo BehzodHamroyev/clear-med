@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+
+import { TextField } from '@mui/material';
 
 import cls from './AddDepartmentFormDialog.module.scss';
 
@@ -12,89 +14,124 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
-import { fetchDepartmentGetAll } from '../../../pages/DepartmentPage/model/service/getAllDepartmentRequest';
+import { fetchAllDepartments } from '../../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
 
 const AddDepartmentFormDialog = () => {
   const { t } = useTranslation();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const patientViewingTimeRef = useRef<HTMLInputElement>(null);
+
   const dispatch = useAppDispatch();
 
   const {
-    setDepartmentListChanged,
+    setHasOpenToast,
     setIsOpenDepartmentAddCard,
+    setToastDataForAddRoomForm,
     isOpenDepartmentAddCardIcon,
     setIsOpenDepartmentAddCardIcon,
-    setResponseAddDoctorStatusCode,
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
-
-  const [inputValue, setInputValue] = useState<string>();
-
-  const [departmentName, setDepartmentName] = useState('');
 
   const ResultIconSrc =
     iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
 
-  /* handle change functions */
-  const handleChangeDoctorName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const capitalizedText =
-      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
-
-    setDepartmentName(capitalizedText);
+  const handleClose = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    setIsOpenDepartmentAddCard(false);
   };
 
-  const handleChangeDoctorExperience = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const newValue = e.target.value.replace(/\D/g, '');
+  // eslint-disable-next-line consistent-return
+  const handleFormSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-    if (newValue.length <= 3) {
-      setInputValue(newValue);
-    }
-  };
-
-  const handleButtonSubmit = async () => {
     const token = Cookies.get('token');
 
-    setDepartmentListChanged(departmentName);
+    // Access values using refs
+    const inputValue = inputRef.current?.value;
 
-    try {
-      const response = await axios.post<DepartmentType>(
-        `${baseUrl}/department/create`,
-        {
-          name: departmentName,
-          duration: Number(inputValue),
-          image: `${isOpenDepartmentAddCardIconIndex}`,
-        },
-        {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
+    const capitalizedText = `${inputValue
+      ?.charAt(0)
+      .toUpperCase()}${inputValue?.slice(1)}`;
+
+    const patientViewingTime = patientViewingTimeRef.current?.value.replace(
+      /\D/g,
+      '',
+    );
+
+    if (
+      capitalizedText &&
+      patientViewingTime &&
+      isOpenDepartmentAddCardIconIndex
+    ) {
+      try {
+        const response = await axios.post<DepartmentType>(
+          `${baseUrl}/department/create`,
+          {
+            name: capitalizedText,
+            duration: Number(patientViewingTime),
+            image: `${isOpenDepartmentAddCardIconIndex}`,
           },
-        },
-      );
-      setResponseAddDoctorStatusCode(200);
-      setIsOpenDepartmentAddCard(false);
+          {
+            maxBodyLength: Infinity,
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
+            },
+          },
+        );
 
-      if (response.data) {
-        dispatch(fetchDepartmentGetAll({}));
+        if (response.data) {
+          setIsOpenDepartmentAddCard(false);
+
+          setHasOpenToast(true);
+
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Bo'lim muvaffaqiyatli qo'shildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+
+          dispatch(fetchAllDepartments({}));
+        }
+
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 404) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Barcha maydonlar to'ldirilishi shart",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+
+          if (
+            error.response?.status !== 404 &&
+            error.response?.status !== 403
+          ) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Barcha maydonlar to'ldirilishi shart",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+        }
       }
-
-      return response.data;
-    } catch (e: any) {
-      setResponseAddDoctorStatusCode('404');
-      return console.log(e, 'error');
     }
   };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef?.current?.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (inputRef.current) {
+  //     inputRef?.current?.focus();
+  //   }
+  // }, []);
 
   return (
     <div
@@ -116,30 +153,27 @@ const AddDepartmentFormDialog = () => {
           <ResultIconSrc />
         </div>
 
-        <form action="#" className={cls.CardBody} onSubmit={handleButtonSubmit}>
-          <input
-            ref={inputRef}
-            type="text"
-            maxLength={20}
-            minLength={3}
-            min={3}
+        <form action="#" className={cls.CardBody} onSubmit={handleFormSubmit}>
+          <TextField
             required
-            onChange={handleChangeDoctorName}
-            value={departmentName}
+            type="text"
+            inputRef={inputRef}
+            id="outlined-basic"
+            variant="outlined"
+            label={t('Bo‘lim nomi')}
             className={cls.InputBulim}
-            placeholder={t('Bo‘lim nomi')}
+            inputProps={{ maxLength: 20, minLength: 3 }}
           />
 
-          <input
-            id="1"
-            max={180}
+          <TextField
             required
             type="number"
-            maxLength={3}
-            value={inputValue}
+            id="outlined-basic"
+            variant="outlined"
+            inputProps={{ min: 1 }}
             className={cls.InputBulim}
-            onChange={handleChangeDoctorExperience}
-            placeholder={t("Bemorni ko'rishga ketadigan taxminiy vaqt")}
+            inputRef={patientViewingTimeRef}
+            label={t("Bemorni ko'rish vaqti")}
           />
 
           <button
@@ -152,22 +186,11 @@ const AddDepartmentFormDialog = () => {
             {t("Bo'limga rasm qo'shish")}
           </button>
 
-          {/* <button
-            className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
-            onClick={() => {}}
-            type="button"
-          >
-            {t("Bo'limga rasm yuklash")}
-          </button> */}
-
           {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
 
           <div className={cls.BtnParnet}>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpenDepartmentAddCard(false);
-              }}
+              onClick={handleClose}
               type="button"
               className={`${cls.Btn} ${cls.Btn1}`}
             >

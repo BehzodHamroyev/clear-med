@@ -99,6 +99,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
         <h1>{t('Xonalar mavjud emas')}</h1>
       )}
       <AddRoomFormDialog />
+
       {hasOpenToast && (
         <Toast
           severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
