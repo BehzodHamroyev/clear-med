@@ -19,6 +19,9 @@ export enum AdminRoutes {
   ADD_ADVERTISEMENT = 'add_advertisement',
   ROOM_ATTACHMENT_MONITOR = 'room_attachment_monitor',
   ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
+
+  MONITORS = 'monitors',
+  MONITORS_DETAIL = 'monitors_details',
 }
 
 // Doctor saytlari uchun
@@ -69,6 +72,9 @@ export const getRouteAdvertisementAttachmentMonitor = () =>
   '/add_monitor/:id/advertisement_attachment_monitor';
 export const getRouteAddAdvertisement = () => '/add_advertisement';
 
+export const getRouteMonitors = () => '/monitors';
+export const getRouteMonitorsDetail = () => '/monitors/:id';
+
 // ----- Reception -----
 export const getRouteReportQueuingTv = () => '/';
 
@@ -103,4 +109,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteReportsPageId()]: ReceptionRoutes.REPORTS_PATIENT,
 
   [getRouteQueuesPageForMonitor()]: MonitorRoutes.FORBIDDEN,
+
+  [getRouteMonitors()]: AdminRoutes.MONITORS,
+  [getRouteMonitorsDetail()]: AdminRoutes.MONITORS_DETAIL,
 };

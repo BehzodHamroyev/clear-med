@@ -20,6 +20,7 @@ export const allQueueProccessSlice = buildSlice({
     clearProccessQueue: (state) => {
       if (state.data) {
         state.data.proccessQueues = [];
+        state.data.videoUrl = [];
       }
     },
 
