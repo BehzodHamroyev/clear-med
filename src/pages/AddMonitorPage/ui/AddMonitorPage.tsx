@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
-
 import { useSelector } from 'react-redux';
+
+import cls from './addMonitorPage.module.scss';
+
+import { ErrorReload } from '@/widgets/Error';
 import { Monitors } from '@/entities/Monitors';
 import { MonitorAdd } from '@/entities/MonitorAdd';
+import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { MonitorEdit } from '@/entities/MonitorEdit';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -21,10 +25,6 @@ import {
   DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
-import cls from './addMonitorPage.module.scss';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
-import { ErrorReload } from '@/widgets/Error';
-
 const AddMonitorPage = () => {
   const dispatch = useAppDispatch();
 
@@ -34,11 +34,11 @@ const AddMonitorPage = () => {
     GetAllMonitorPage: GetAllMonitorPageReducer,
   };
 
-  const getAdvertisementError = useSelector(getError);
+  const getAllMonitorError = useSelector(getError);
 
-  const getAdvertisementLoading = useSelector(getIsLoading);
+  const getAllMonitorIsLoading = useSelector(getIsLoading);
 
-  const getListOfAdvertisements = useSelector(GetAllMonitorPageData);
+  const getAllMonitorData = useSelector(GetAllMonitorPageData);
 
   const {
     isOpenMonitorAddCard,
@@ -51,19 +51,19 @@ const AddMonitorPage = () => {
     dispatch(fetchGetAllMonitors({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      dispatch(fetchGetAllMonitors({}));
-    }, 1000);
-  }, [dispatch, getResponseData]);
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     dispatch(fetchGetAllMonitors({}));
+  //   }, 1000);
+  // }, [dispatch, getResponseData]);
 
   return (
     <DynamicModuleLoader reducers={reducers}>
-      {getAdvertisementLoading === true ? (
-        <LoaderAdmin />
-      ) : getAdvertisementError ? (
-        <ErrorReload message={getAdvertisementError} />
-      ) : (
+      {getAllMonitorIsLoading && <LoaderAdmin />}
+
+      {getAllMonitorError && <ErrorReload message={getAllMonitorError} />}
+
+      {getAllMonitorData && (
         <div>
           <div className={cls.AddMonitorPageWrapper}>
             <ButtonNavbar
@@ -73,7 +73,7 @@ const AddMonitorPage = () => {
             />
 
             <div className={cls.MonitorsList}>
-              {getListOfAdvertisements?.map((item, index) => {
+              {getAllMonitorData?.map((item, index) => {
                 return (
                   <Monitors
                     key={item.id}
