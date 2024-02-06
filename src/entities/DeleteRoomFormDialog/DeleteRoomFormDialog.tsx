@@ -1,26 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { styled } from '@mui/material/styles';
-import {
-  Dialog,
-  Select,
-  TextField,
-  InputLabel,
-  FormControl,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import { Dialog } from '@mui/material';
 
 import cls from './DeleteRoomFormDialog.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
 import { baseUrl } from '../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { Loader } from '@/widgets/Loader';
-import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchAllRooms } from '@/pages/AddRoomPage/model/services/fetchAllRooms';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -31,8 +24,100 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const DeleteRoomFormDialog = () => {
-  return <div>DeleteRoomFormDialog</div>;
+interface DeleteRoomFormDialogProps {
+  roomId: string;
+}
+
+const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
+  const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+
+  const {
+    isOpenRoomDeleteCard,
+    setIsOpenRoomDeleteCard,
+    setHasOpenToast,
+    setToastDataForAddRoomForm,
+  } = useContext(ButtonsContext);
+
+  const handleClose = () => {
+    setIsOpenRoomDeleteCard(false);
+  };
+
+  const handleSubmit = async () => {
+    console.log(roomId);
+
+    const token = Cookies.get('token');
+
+    try {
+      const response = await axios.delete(
+        `${baseUrl}/room/${roomId}`,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.data) {
+        setIsOpenRoomDeleteCard(false);
+
+        setHasOpenToast(true);
+
+        setToastDataForAddRoomForm({
+          toastMessageForAddRoomForm: t("Xona o'chirildi"),
+          toastSeverityForAddRoomForm: 'success',
+        });
+
+        dispatch(fetchAllRooms({}));
+      }
+    } catch (error) {
+      console.log(error);
+
+      setHasOpenToast(true);
+
+      setToastDataForAddRoomForm({
+        toastMessageForAddRoomForm: t(
+          "Xona o'chirilmadi. Tizimda xatolik sodir bo'ldi",
+        ),
+        toastSeverityForAddRoomForm: 'error',
+      });
+    }
+  };
+
+  return (
+    <BootstrapDialog
+      className={classNames(cls.DeleteRoomFormDialog__Container, {})}
+      onClose={handleClose}
+      aria-labelledby="customized-dialog-title"
+      open={isOpenRoomDeleteCard}
+    >
+      <div className={classNames(cls.DeleteRoomFormDialog)}>
+        <div className={classNames(cls.DeleteRoomFormDialog__head)}>
+          <p> {t("Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
+        </div>
+        <div className={classNames(cls.DeleteRoomFormDialog__buttons)}>
+          <button
+            type="button"
+            className={classNames(cls['DeleteRoomFormDialog__buttons--cansel'])}
+            onClick={handleClose}
+          >
+            {t('Bekor qilish')}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={classNames(cls['DeleteRoomFormDialog__buttons--submit'])}
+          >
+            {t("O'chirish")}
+          </button>
+        </div>
+      </div>
+    </BootstrapDialog>
+  );
 };
 
 export default DeleteRoomFormDialog;

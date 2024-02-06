@@ -26,6 +26,8 @@ import { AddRoomFormDialog } from '@/entities/AddRoomFormDialog';
 import Toast from '@/shared/ui/Toast/Toast';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import EditRoomFormDialog from '@/entities/EditRoomFormDialog/EditRoomFormDialog';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import DeleteRoomFormDialog from '../../../entities/DeleteRoomFormDialog/DeleteRoomFormDialog';
 
 interface AddRoomPageProps {
   className?: string;
@@ -43,6 +45,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
     isOpenRoomEditCard,
     setIsOpenRoomEditCard,
     toastDataForAddRoomForm,
+    setIsOpenRoomDeleteCard,
+    isOpenRoomDeleteCard,
     hasOpenToast,
   } = useContext(ButtonsContext);
 
@@ -62,6 +66,12 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
     setEditRoomId(id);
 
     setIsOpenRoomEditCard(true);
+  };
+
+  const handleClickDeteRoom = (id: string) => {
+    setEditRoomId(id);
+
+    setIsOpenRoomDeleteCard(true);
   };
 
   return (
@@ -105,7 +115,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                     {}
                     <FaPen className={classNames(cls.tablePen)} />
                   </td>
-                  <td className={classNames(cls.tableDeleteRow)}>
+                  <td
+                    className={classNames(cls.tableDeleteRow)}
+                    onClick={() => handleClickDeteRoom(item?.id)}
+                  >
                     {}
                     <MdDelete className={classNames(cls.tableDelete)} />
                   </td>
@@ -123,6 +136,10 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
 
       {editRoomId && isOpenRoomEditCard && (
         <EditRoomFormDialog roomId={editRoomId} />
+      )}
+
+      {editRoomId && isOpenRoomDeleteCard && (
+        <DeleteRoomFormDialog roomId={editRoomId} />
       )}
 
       {hasOpenToast && (

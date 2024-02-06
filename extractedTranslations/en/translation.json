@@ -185,6 +185,7 @@
   "Navbatni tasdiqlang": "",
   "Nomi": "",
   "O'chirib tashlash": "",
+  "O'chirish": "",
   "O'zbek": "",
   "O'zbek ": "",
   "O'zbek (": "",
@@ -315,6 +316,8 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
+  "Ushbu xonani xaqiyqatdan o'chirmoqchimisiz ?": "",
   "Xatolik sodir bo'ldi": "",
   "Xatolik yuz berdi!": "",
   "Xona": "",
@@ -324,6 +327,10 @@
   "Xona ma'lumotlari yangilandi": "",
   "Xona muvaffaqiyatli qo'shildi": "",
   "Xona muvaffaqqiyatli qo'shildi": "",
+  "Xona o'chirildi": "",
+  "Xona o'chirilmadi": {
+    " Tizimda xatolik sodir bo'ldi": ""
+  },
   "Xona qo'shildi": "",
   "Xona qo'shish": "",
   "Xona qo‘shish": "",
