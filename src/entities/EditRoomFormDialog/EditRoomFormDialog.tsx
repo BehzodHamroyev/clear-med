@@ -185,7 +185,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       roomCurrentData.data.roomNumber
     ) {
       try {
-        const response = await axios.post(
+        const response = await axios.patch(
           `${baseUrl}/room/${roomId}`,
           {
             doctor_id: roomCurrentData.data.doctorId,

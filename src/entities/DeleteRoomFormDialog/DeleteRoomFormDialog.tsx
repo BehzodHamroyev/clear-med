@@ -45,8 +45,6 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
   };
 
   const handleSubmit = async () => {
-    console.log(roomId);
-
     const token = Cookies.get('token');
 
     try {
