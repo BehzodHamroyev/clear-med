@@ -47,8 +47,6 @@ export const fetchCreateNewMonitorForMonitorPage = createAsyncThunk<
       setResponseAddDoctorStatusCode(response.status);
       setIsOpenDoctorAddCard(false);
 
-      console.log(response.status);
-
       return response.data;
     } catch (e) {
       console.log(e, 'department');

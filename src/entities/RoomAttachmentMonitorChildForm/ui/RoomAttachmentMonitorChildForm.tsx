@@ -114,7 +114,6 @@ const RoomAttachmentMonitorChildForm = () => {
     setRoomData('');
   }, []);
   const getListOfRooms = useSelector(getListOfRoom);
-  console.log(getListOfRooms);
 
   React.useEffect(() => {
     dispatch(fetchRoomGetAll({}));
