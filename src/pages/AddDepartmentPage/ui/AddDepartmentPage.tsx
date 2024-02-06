@@ -122,11 +122,27 @@ const AddDepartmentPage = () => {
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                    {item.rooms_id.length ? (
+                      item?.rooms_id?.length
+                    ) : (
+                      <p
+                        className={cls['AddDepartmentPageWrp__Table--invalid']}
+                      >
+                        {t("Shifokor yo'q")}
+                      </p>
+                    )}
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                    {item.rooms_id.length ? (
+                      item?.rooms_id?.length
+                    ) : (
+                      <p
+                        className={cls['AddDepartmentPageWrp__Table--invalid']}
+                      >
+                        {t("Xona yo'q")}
+                      </p>
+                    )}
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--lastChild']}>
