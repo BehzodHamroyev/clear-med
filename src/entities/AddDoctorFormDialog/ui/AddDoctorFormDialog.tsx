@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useContext, useRef, useState } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, {
+  useRef,
+  useState,
+  useContext,
+  ChangeEvent,
+  useEffect,
+} from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -38,7 +45,12 @@ const AddDoctorFormDialog = () => {
   const experienceInputRef = useRef<HTMLInputElement>(null);
 
   /* phone Number Doctor input value */
-  const [phoneNumberDoctor, setPhoneNumberDoctor] = useState('');
+  const phoneInput = useRef<HTMLInputElement | null>(null);
+  const [value, setValue] = useState('+998');
+
+  function handleInputChange(event: any, name: string) {
+    setValue(event);
+  }
 
   /* Password input value */
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -80,11 +92,6 @@ const AddDoctorFormDialog = () => {
     setSelectedFile(file);
   };
 
-  /* PhoneNumber event */
-  function handleInputChange(event: any, name: string) {
-    setPhoneNumberDoctor(event);
-  }
-
   // eslint-disable-next-line consistent-return
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -92,7 +99,8 @@ const AddDoctorFormDialog = () => {
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
     const Experience = experienceInputRef?.current?.value;
-    const PhoneNumber = phoneNumberDoctor;
+    const PhoneNumber = value;
+
     const Password = inputPasswordRef?.current?.value;
 
     const token = Cookies.get('token');
@@ -178,6 +186,12 @@ const AddDoctorFormDialog = () => {
     }
   };
 
+  useEffect(() => {
+    if (phoneInput.current) {
+      phoneInput.current.focus();
+    }
+  }, []);
+
   return (
     <div
       onClick={(e) => {
@@ -244,20 +258,22 @@ const AddDoctorFormDialog = () => {
               inputProps={{ min: 1, max: 50 }}
             />
 
-            <Input
-              required
-              maxLength={20}
-              id="PhoneNumber"
-              autoComplete="off"
-              name="PhoneNumber"
-              label={t('Phone Number')}
-              value={phoneNumberDoctor}
-              rules={{ required: true }}
-              className={cls.InputPhoneNumber}
-              placeholder={t('Telefon raqami')}
-              onChange={(e) => handleInputChange(e, 'PhoneNumber')}
-            />
-
+            <label>
+              Telfon raqami
+              <Input
+                required
+                autoFocus
+                value={value}
+                minLength={8}
+                name="PhoneNumber"
+                autoComplete="off"
+                inputRef={phoneInput}
+                rules={{ required: true }}
+                className={cls.InputPhoneNumber}
+                placeholder={t('Telefon raqami')}
+                onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+              />
+            </label>
             {/* get Value Pasword Input started */}
             <FormControl
               sx={{ width: '100%', margin: '10px 0' }}

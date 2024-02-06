@@ -13,7 +13,7 @@
   background-color: rgba(53, 53, 53, 60%);
 
   .DepartmentAddCard {
-    width: 750px;
+    width: 450px;
     background-color: #fff;
     border-radius: 8px;
     user-select: none;
@@ -21,25 +21,31 @@
     .AddDoctorCard {
       width: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .AddCardImg {
-      max-width: 300px;
-      width: 300px;
-      height: 300px;
-      margin: 20px;
+      max-width: 280px;
+      width: 280px;
+      height: 280px;
+      display: flex;
+      margin: 10px auto;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       position: relative;
     }
 
     .AddCardImgValue {
-      border-radius: 20px;
       width: 250px;
       height: 250px;
       min-width: 250px;
       min-height: 250px;
-      object-position: top;
       object-fit: cover;
+      border-radius: 20px;
+      object-position: top;
       border: 5px solid #2e0569;
     }
 
@@ -53,8 +59,8 @@
       justify-content: center;
       font-size: 24px;
       position: absolute;
-      right: -10px;
-      bottom: 30px;
+      right: 10px;
+      bottom: 5px;
       cursor: pointer;
     }
 
@@ -90,7 +96,7 @@
       padding: 10px 2px;
       border: none;
       outline: none;
-      border-bottom: 1px solid #000;
+      border-bottom: 2px solid #000;
       margin-bottom: 20px;
     }
 
