@@ -10,13 +10,13 @@ export enum CommonRoutes {
 export enum AdminRoutes {
   REPORTS = 'reports',
   ROOMPAGE = 'room_page',
+  ADD_ADS_Page = 'add-ads',
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
   ALL_DOCTORS = 'all_doctors',
   ADD_MONITOR = 'add_monitor',
   MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
-  ADD_ADVERTISEMENT = 'add_advertisement',
   ROOM_ATTACHMENT_MONITOR = 'room_attachment_monitor',
   ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
 
@@ -57,6 +57,7 @@ export const getRouteReportControlDoctor = () => '/';
 
 // ----- Admin -----
 export const getRouteDepartment = () => '/';
+export const getRouteAddAds = () => '/add-ads';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddMonitor = () => '/add_monitor';
@@ -70,7 +71,6 @@ export const getRouteRoomAttachmentMonitor = () =>
   '/add_monitor/:id/room_attachment_monitor';
 export const getRouteAdvertisementAttachmentMonitor = () =>
   '/add_monitor/:id/advertisement_attachment_monitor';
-export const getRouteAddAdvertisement = () => '/add_advertisement';
 
 export const getRouteMonitors = () => '/monitors';
 export const getRouteMonitorsDetail = () => '/monitors/:id';
@@ -89,13 +89,13 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
-  [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
+  [getRouteAddAds()]: AdminRoutes.ADD_ADS_Page,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
-  [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
-  [getRouteAddAdvertisement()]: AdminRoutes.ADD_ADVERTISEMENT,
+  [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
   [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
+  [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
+  [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
   [getRouteRoomAttachmentMonitor()]: AdminRoutes.ROOM_ATTACHMENT_MONITOR,
   [getRouteAdvertisementAttachmentMonitor()]:
     AdminRoutes.ADVERTISEMENT_ATTACHMENT_MONITOR,

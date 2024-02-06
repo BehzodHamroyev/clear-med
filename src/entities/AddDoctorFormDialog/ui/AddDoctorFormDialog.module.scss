@@ -96,6 +96,13 @@
       border: none;
       outline: none;
       margin-bottom: 20px;
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        /* stylelint-disable-next-line property-no-vendor-prefix */
+        -webkit-appearance: none;
+        margin: 0;
+      }
     }
 
     .InputPhoneNumber {
