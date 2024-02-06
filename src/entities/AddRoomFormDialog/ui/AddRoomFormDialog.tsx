@@ -68,7 +68,6 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
     isOpenRoomAddCard,
     setIsOpenRoomAddCard,
     setHasOpenToast,
-    toastDataForAddRoomForm,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
 

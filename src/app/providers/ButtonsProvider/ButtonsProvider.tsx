@@ -90,7 +90,14 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenRoomEditCard, setIsOpenRoomEditCard] = useState(false);
 
+  const [isOpenRoomDeleteCard, setIsOpenRoomDeleteCard] = useState(false);
+
+  const [isOpenDoctorDeleteCard, setIsOpenDoctorDeleteCard] = useState(false);
+
   const [isOpenDoctorAddCard, setIsOpenDoctorAddCard] = useState(false);
+
+  const [isOpenDepartmentDeleteCard, setIsOpenDepartmentDeleteCard] =
+    useState(false);
 
   const [monitorEditFormOldValue, setMonitorEditFormOldValue] = useState('');
 
@@ -201,6 +208,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentEditCard,
       isOpenRoomEditCard,
       setIsOpenRoomEditCard,
+      isOpenRoomDeleteCard,
+      setIsOpenRoomDeleteCard,
+      isOpenDoctorDeleteCard,
+      setIsOpenDoctorDeleteCard,
+      isOpenDepartmentDeleteCard,
+      setIsOpenDepartmentDeleteCard,
       isOpenRoomAddCard,
       getResponseData,
       setResponseData,
@@ -291,6 +304,12 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenDepartmentEditCard,
       isOpenRoomEditCard,
       setIsOpenRoomEditCard,
+      isOpenRoomDeleteCard,
+      setIsOpenRoomDeleteCard,
+      isOpenDoctorDeleteCard,
+      setIsOpenDoctorDeleteCard,
+      isOpenDepartmentDeleteCard,
+      setIsOpenDepartmentDeleteCard,
       isOpenRoomAddCard,
       setIsOpenRoomAddCard,
       isOpenDoctorAddCard,

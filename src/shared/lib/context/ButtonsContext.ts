@@ -74,6 +74,15 @@ export interface ButtonsClickedProps {
   isOpenRoomEditCard: boolean;
   setIsOpenRoomEditCard: (prop: boolean) => void;
 
+  isOpenRoomDeleteCard: boolean;
+  setIsOpenRoomDeleteCard: (prop: boolean) => void;
+
+  isOpenDoctorDeleteCard: boolean;
+  setIsOpenDoctorDeleteCard: (prop: boolean) => void;
+
+  isOpenDepartmentDeleteCard: boolean;
+  setIsOpenDepartmentDeleteCard: (prop: boolean) => void;
+
   isOpenDoctorAddCard: boolean;
   setIsOpenDoctorAddCard: (prop: boolean) => void;
 
@@ -277,6 +286,15 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenRoomEditCard: false,
   setIsOpenRoomEditCard: () => {},
+
+  isOpenRoomDeleteCard: false,
+  setIsOpenRoomDeleteCard: () => {},
+
+  isOpenDoctorDeleteCard: false,
+  setIsOpenDoctorDeleteCard: () => {},
+
+  isOpenDepartmentDeleteCard: false,
+  setIsOpenDepartmentDeleteCard: () => {},
 
   isOpenDoctorAddCard: false,
   setIsOpenDoctorAddCard: () => {},

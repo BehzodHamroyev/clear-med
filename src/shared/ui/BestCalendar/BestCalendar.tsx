@@ -20,7 +20,7 @@ const BestCalendar = ({ className }: BestCalendarProps) => {
   const { setCalendarBeginValue, setCalendarEndValue } =
     useContext(ButtonsContext);
 
-  // ----- gtmTime convert to Est time -----
+  // ----- gmtTime convert to Est time -----
   const convertToEst = (gmtTime: any) => {
     return new Date(
       new Date(gmtTime).toLocaleString('uz-UZ'),
