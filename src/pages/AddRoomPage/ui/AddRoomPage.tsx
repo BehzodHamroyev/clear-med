@@ -133,6 +133,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       )}
 
       {allRoomsIsLoading && <Loader />}
+
       {allRoomsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );
