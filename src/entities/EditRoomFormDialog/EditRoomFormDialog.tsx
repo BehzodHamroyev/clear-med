@@ -140,6 +140,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   }, [allFreeDoctorsData]);
 
   const handleClose = () => {
+    setDoctorList([]);
+
     setIsOpenRoomEditCard(false);
   };
 
@@ -159,7 +161,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       ...prevData,
       data: {
         roomNumber: prevData?.data?.roomNumber,
-        departmentId: event.target.value,
+        departmentId: event?.target?.value,
         doctorId: prevData?.data?.doctorId,
       },
     }));
@@ -171,7 +173,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       data: {
         roomNumber: prevData?.data?.roomNumber,
         departmentId: prevData?.data?.departmentId,
-        doctorId: event.target.value,
+        doctorId: event?.target?.value,
       },
     }));
   };
@@ -181,16 +183,16 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
     if (
       roomCurrentData?.data?.departmentId &&
-      roomCurrentData.data.doctorId &&
-      roomCurrentData.data.roomNumber
+      roomCurrentData?.data?.doctorId &&
+      roomCurrentData?.data?.roomNumber
     ) {
       try {
         const response = await axios.patch(
           `${baseUrl}/room/${roomId}`,
           {
-            doctor_id: roomCurrentData.data.doctorId,
-            name: Number(roomCurrentData.data.roomNumber),
-            department_id: roomCurrentData.data.departmentId,
+            doctor_id: roomCurrentData?.data?.doctorId,
+            name: Number(roomCurrentData?.data?.roomNumber),
+            department_id: roomCurrentData?.data?.departmentId,
           },
           {
             headers: {
@@ -210,11 +212,15 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
             toastSeverityForAddRoomForm: 'success',
           });
 
+          setDoctorList([]);
+
           dispatch(fetchAllRooms({}));
         }
       } catch (error) {
+        setDoctorList([]);
+
         if (axios.isAxiosError(error)) {
-          if (error.response?.status === 403) {
+          if (error?.response?.status === 403) {
             setToastDataForAddRoomForm({
               toastMessageForAddRoomForm: t(
                 "Bu doktor boshqa xonaga biriktirilgan. Doktorni o'zgartiring",
@@ -237,8 +243,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
           }
 
           if (
-            error.response?.status !== 404 &&
-            error.response?.status !== 403
+            error?.response?.status !== 404 &&
+            error?.response?.status !== 403
           ) {
             setToastDataForAddRoomForm({
               toastMessageForAddRoomForm: t(
@@ -280,7 +286,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                   label={t('Xona raqami')}
                   variant="outlined"
                   type="number"
-                  value={roomCurrentData.data.roomNumber}
+                  value={roomCurrentData?.data?.roomNumber}
                   onChange={handleInputChange}
                 />
 
@@ -294,12 +300,12 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                     id="demo-simple-select"
                     labelId="demo-simple-select-label"
                     label={t("Bo'lim turlari")}
-                    value={roomCurrentData.data.departmentId}
+                    value={roomCurrentData?.data?.departmentId}
                     onChange={handleChangeDepartmentName}
                   >
                     {allDepartmentsData?.map((e) => {
                       return (
-                        <MenuItem key={e.id} value={`${e.id}`}>
+                        <MenuItem key={e?.id} value={`${e?.id}`}>
                           {e?.name}
                         </MenuItem>
                       );
@@ -318,12 +324,12 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                     labelId="demo-simple-select-label2"
                     label={t("Shifokorlar ro'yhati")}
                     onChange={handleChangeDoctorName}
-                    value={roomCurrentData.data.doctorId}
+                    value={roomCurrentData?.data?.doctorId}
                   >
                     {doctorList?.map((element) => {
                       return (
-                        <MenuItem key={element.id} value={`${element.id}`}>
-                          {element.name}
+                        <MenuItem key={element?.id} value={`${element?.id}`}>
+                          {element?.name}
                         </MenuItem>
                       );
                     })}

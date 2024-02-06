@@ -63,13 +63,21 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   };
 
   const handeClickEditRoom = (id: string) => {
-    setEditRoomId(id);
+    setEditRoomId('');
+
+    if (id) {
+      setEditRoomId(id);
+    }
 
     setIsOpenRoomEditCard(true);
   };
 
-  const handleClickDeteRoom = (id: string) => {
-    setEditRoomId(id);
+  const handleClickDeleteRoom = (id: string) => {
+    setEditRoomId('');
+
+    if (id) {
+      setEditRoomId(id);
+    }
 
     setIsOpenRoomDeleteCard(true);
   };
@@ -117,7 +125,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                   </td>
                   <td
                     className={classNames(cls.tableDeleteRow)}
-                    onClick={() => handleClickDeteRoom(item?.id)}
+                    onClick={() => handleClickDeleteRoom(item?.id)}
                   >
                     {}
                     <MdDelete className={classNames(cls.tableDelete)} />

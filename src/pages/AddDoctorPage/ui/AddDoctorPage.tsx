@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import cls from './AddDoctorPage.module.scss';
 
 import Toast from '@/shared/ui/Toast/Toast';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { fetchAllDoctors } from '../model/service/fetchAllDoctors';
@@ -22,6 +21,9 @@ import {
   getAllDoctorsIsLoading,
 } from '../model/selector/AllDoctorsSelector';
 
+import DeleteDoctorFormDialog from '../../../entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
+import { Loader } from '@/widgets/Loader';
+
 const AddDoctorPage = () => {
   const { t } = useTranslation();
 
@@ -30,13 +32,17 @@ const AddDoctorPage = () => {
   const {
     hasOpenToast,
     isOpenDoctorAddCard,
+    isOpenDoctorDeleteCard,
     setIsOpenDoctorAddCard,
     toastDataForAddRoomForm,
+    setIsOpenDoctorDeleteCard,
   } = useContext(ButtonsContext);
 
   const allDoctorsData = useSelector(getAllDoctorsData);
   const allDoctorsError = useSelector(getAllDoctorsError);
   const allDoctorsIsLoading = useSelector(getAllDoctorsIsLoading);
+
+  const [deleteDoctorId, setDeleteDoctorId] = useState<string>();
 
   const handleCardAddCard = () => {
     setIsOpenDoctorAddCard(true);
@@ -45,6 +51,12 @@ const AddDoctorPage = () => {
   useEffect(() => {
     dispatch(fetchAllDoctors({}));
   }, [dispatch]);
+
+  const handleClickDeleteDoctor = (id: string) => {
+    setIsOpenDoctorDeleteCard(true);
+
+    setDeleteDoctorId(id);
+  };
 
   return (
     <div className={cls.AddDoctorPageWrp}>
@@ -92,7 +104,7 @@ const AddDoctorPage = () => {
           </tr>
         </thead>
 
-        {allDoctorsData && allDoctorsData.length > 0 ? (
+        {allDoctorsData && allDoctorsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allDoctorsData.map((item) => {
               const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
@@ -139,7 +151,10 @@ const AddDoctorPage = () => {
                     />
                   </td>
 
-                  <td className={cls['AddDoctorPageWrp__Table--lastChild2']}>
+                  <td
+                    className={cls['AddDoctorPageWrp__Table--lastChild2']}
+                    onClick={() => handleClickDeleteDoctor(item?.id)}
+                  >
                     {}
                     <DeleteTools
                       className={cls['AddDoctorPageWrp__Table--delete']}
@@ -149,14 +164,15 @@ const AddDoctorPage = () => {
               );
             })}
           </tbody>
-        ) : allDoctorsIsLoading ? (
-          <LoaderAdmin />
-        ) : allDoctorsError ? (
-          <ErrorDialog isErrorProps={!false} />
-        ) : (
-          ''
         )}
+
+        {allDoctorsIsLoading && <Loader />}
+        {allDoctorsError && <ErrorDialog isErrorProps={!false} />}
       </table>
+
+      {deleteDoctorId && isOpenDoctorDeleteCard && (
+        <DeleteDoctorFormDialog doctorId={deleteDoctorId} />
+      )}
 
       {hasOpenToast && (
         <Toast

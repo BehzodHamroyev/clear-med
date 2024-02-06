@@ -50,10 +50,10 @@ const AddDepartmentPage = () => {
     <div className={cls.AddDepartmentPageWrp}>
       <div className={cls.AddDepartmentPageWrp__Title}>
         <p className={cls['AddDepartmentPageWrp__Title--text']}>
-          {t('Bo‘limlar')}{' '}
+          {t('Bo‘limlar')}
           <span className={cls['AddDepartmentPageWrp__Title--span']}>
             ({allDepartmentsData ? allDepartmentsData.length : 0})
-          </span>{' '}
+          </span>
         </p>
 
         <div className={cls['AddDepartmentPageWrp__Title--IconDiv']}>
