@@ -22,6 +22,8 @@ import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
 import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 
+import { AllAdsTypeSchema } from '@/pages/AddAdsPage';
+import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
@@ -33,24 +35,24 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
-import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 
 export interface StateSchema {
-  allRooms: AllRoomsTypeSchema;
-  allMonitors: AllMonitorsTypeSchema;
   authUser: AuthReduxType;
+  allAds: AllAdsTypeSchema;
   RoomGetAll: RoomListSchema;
+  allRooms: AllRoomsTypeSchema;
   doctorList: DoctorListScheam;
   lastQueue: LastQueueDataSchema;
   departmentAdd: DepartmentScheme;
   AllDoctors: AllDoctorsTypeSchema;
-  allFreeDoctors: AllFreeDoctorsTypeSchema;
+  allMonitors: AllMonitorsTypeSchema;
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
   GetAllMonitorPage: AllMonitorListSchema;
   allDepartments: AllDepartmentTypeSchema;
   reportControlDoctor: ReportDoctorSchema;
   allQueueProccess: AllQueueProccessSchema;
+  allFreeDoctors: AllFreeDoctorsTypeSchema;
   currentQueue: CurrentQueueSchemaForReception;
   AddAdvertisementPage: AdvertisementListSchema;
   deparmentList: DepartmentListSchemaForReception;

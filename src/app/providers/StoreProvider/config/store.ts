@@ -30,6 +30,7 @@ import {
 import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allMonitorsReducer } from '@/pages/Monitors';
+import { allAdsReducer } from '@/pages/AddAdsPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -38,12 +39,12 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     // login: AuthSliceReducer,
-
-    allMonitors: allMonitorsReducer,
+    allAds: allAdsReducer,
     allRooms: allRoomsReducer,
     lastQueue: lastQueueReducer,
     doctorList: doctorListReducer,
     authUser: AuthUserSliceReducer,
+    allMonitors: allMonitorsReducer,
     RoomGetAll: RoomListSliceReducer,
     AllDoctors: allDoctorsSliceReducer,
     currentQueue: currentQueueuReducer,
