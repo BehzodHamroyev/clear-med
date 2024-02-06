@@ -24,7 +24,7 @@ import {
   getRouteMonitors,
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
-  getRouteAddAds,
+  getRouteAddAdsPage,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -100,11 +100,16 @@ export const routeConfigForAdmin: Record<
     element: <AttachMonitorOrAdvertisement />,
   },
 
-  [AdminRoutes.ADD_ADS_Page]: {
-    path: getRouteAddAds(),
+  [AdminRoutes.ADD_ADS_PAGE]: {
+    path: getRouteAddAdsPage(),
     element: <AddAdsPage />,
-    // element: <AddAdvertisementPage />,
   },
+
+  // [AdminRoutes.ADD_ADS_Page]: {
+  //   path: getRouteAddAds(),
+  //   element: <AddAdsPage />,
+  //   // element: <AddAdvertisementPage />,
+  // },
 
   [AdminRoutes.ROOM_ATTACHMENT_MONITOR]: {
     path: getRouteRoomAttachmentMonitor(),

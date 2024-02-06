@@ -10,7 +10,7 @@ export enum CommonRoutes {
 export enum AdminRoutes {
   REPORTS = 'reports',
   ROOMPAGE = 'room_page',
-  ADD_ADS_Page = 'add-ads',
+  ADD_ADS_PAGE = 'add_ads',
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
   ALL_DOCTORS = 'all_doctors',
@@ -57,7 +57,7 @@ export const getRouteReportControlDoctor = () => '/';
 
 // ----- Admin -----
 export const getRouteDepartment = () => '/';
-export const getRouteAddAds = () => '/add-ads';
+export const getRouteAddAdsPage = () => '/add_ads';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddMonitor = () => '/add_monitor';
@@ -89,7 +89,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAddAds()]: AdminRoutes.ADD_ADS_Page,
+  [getRouteAddAdsPage()]: AdminRoutes.ADD_ADS_PAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
   [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
