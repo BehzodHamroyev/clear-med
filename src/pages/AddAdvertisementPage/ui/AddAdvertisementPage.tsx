@@ -37,7 +37,7 @@ const AddAdvertisementPage = () => {
 
   const {
     getResponseData,
-    isOpenAdvertisementAddCard,
+    // isOpenAdvertisementAddCard,
     isOpenAdvertisementEditCard,
   } = useContext(ButtonsContext);
 

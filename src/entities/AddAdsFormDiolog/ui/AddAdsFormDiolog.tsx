@@ -3,9 +3,7 @@ import React, { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material/styles';
 
-import { Dialog } from '@mui/material';
 import cls from './AddAdsFormDiolog.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
@@ -21,7 +19,6 @@ const AddAdsFormDiolog = () => {
 
   const {
     setHasOpenToast,
-    isOpenAdvertisementAddCard,
     setToastDataForAddRoomForm,
     setIsOpenAdvertisementAddCard,
   } = React.useContext(ButtonsContext);
@@ -43,19 +40,6 @@ const AddAdsFormDiolog = () => {
       inputRef.current.click();
     }
   };
-
-  const handleClose = () => {
-    setIsOpenAdvertisementAddCard(false);
-  };
-
-  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
-    },
-  }));
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -157,13 +141,19 @@ const AddAdsFormDiolog = () => {
 
   /* UI */
   return (
-    <BootstrapDialog
-      onClose={handleClose}
-      open={isOpenAdvertisementAddCard}
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsOpenAdvertisementAddCard(false);
+      }}
       className={cls.DepartmentAddWrapper}
-      aria-labelledby="customized-dialog-title"
     >
-      <div className={cls.DepartmentAddCard}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className={cls.DepartmentAddCard}
+      >
         <h3 className={cls.CardTitle}>{t('Reklama qo’shish')}</h3>
 
         <form onSubmit={handleSubmitForm} className={cls.AddDoctorCard}>
@@ -198,7 +188,6 @@ const AddAdsFormDiolog = () => {
               required
               type="text"
               maxLength={30}
-              value={isAllFormData.name}
               className={cls.InputBulim}
               placeholder={t('Reklama nomi')}
               onChange={(e) => {
@@ -209,7 +198,6 @@ const AddAdsFormDiolog = () => {
             <input
               required
               type="text"
-              value={isAllFormData.link}
               className={cls.InputBulim}
               placeholder={t('Reklama manzili (Url)')}
               onChange={handleUrlInputChange}
@@ -238,7 +226,7 @@ const AddAdsFormDiolog = () => {
           </div>
         </form>
       </div>
-    </BootstrapDialog>
+    </div>
   );
 };
 
