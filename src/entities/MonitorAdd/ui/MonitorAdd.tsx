@@ -1,13 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Dialog } from '@mui/material';
+import cls from './MonitorAdd.module.scss';
+
 import { FormDataInState } from '../model/types/doctorAddTypes';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-
-import cls from './MonitorAdd.module.scss';
 import { fetchCreateNewMonitorForMonitorPage } from '../model/service/fetchCreateNewMonitorForMonitorPage';
 
 const MonitorAdd = () => {
@@ -16,6 +17,7 @@ const MonitorAdd = () => {
   const dispatch = useAppDispatch();
 
   const {
+    isOpenMonitorAddCard,
     setIsOpenMonitorAddCard,
     isMonitorAddSelectionFormAdvertisement,
     setResponseData,
@@ -44,7 +46,11 @@ const MonitorAdd = () => {
     setIsAllFormData({ ...isAllFormData, password: event });
   }
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleClose = () => {
+    setIsOpenMonitorAddCard(false);
+  };
+
+  const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     dispatch(
@@ -69,12 +75,12 @@ const MonitorAdd = () => {
 
   /* UI */
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpenMonitorAddCard(false);
-      }}
+    <Dialog
+      open={isOpenMonitorAddCard}
+      onClose={handleClose}
       className={cls.DepartmentAddWrapper}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
       <div
         onClick={(e) => {
@@ -84,7 +90,7 @@ const MonitorAdd = () => {
       >
         <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
 
-        <div className={cls.CardBody}>
+        <form onSubmit={handleSubmitForm} className={cls.CardBody}>
           <input
             required
             type="text"
@@ -106,18 +112,6 @@ const MonitorAdd = () => {
             value={`${isAllFormData.login}`}
             onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
           />
-
-          {/* <Input
-            maxLength={20}
-            id="PhoneNumber"
-            autoComplete="off"
-            name="PhoneNumber"
-            placeholder={t('Login')}
-            rules={{ required: true }}
-            className={cls.InputBulim}
-            value={`${isAllFormData.login}`}
-            onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
-          /> */}
 
           <div className={cls.PhoneNumberInputWrapper}>
             <input
@@ -164,17 +158,13 @@ const MonitorAdd = () => {
               {t('Bekor qilish')}
             </button>
 
-            <button
-              type="button"
-              className={`${cls.Btn} ${cls.Btn2}`}
-              onClick={handleSubmit}
-            >
+            <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
               {t('Saqlash')}
             </button>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
+    </Dialog>
   );
 };
 

@@ -123,17 +123,27 @@ const AddDoctorPage = () => {
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.name ? item?.name : '-'}
+                    {item?.name ? item?.name : "Ism yo'q"}
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.rooms?.[0]?.name ? item?.rooms?.[0]?.name : '-'}
+                    {item?.rooms?.[0]?.name ? (
+                      item?.rooms?.[0]?.name
+                    ) : (
+                      <p className={cls['AddDoctorPageWrp__Table--invalid']}>
+                        {t("Xona yo'q")}
+                      </p>
+                    )}
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.rooms?.[0]?.department_id?.name
-                      ? item?.rooms?.[0]?.department_id?.name
-                      : '-'}
+                    {item?.rooms?.[0]?.department_id?.name ? (
+                      item?.rooms?.[0]?.department_id?.name
+                    ) : (
+                      <p className={cls['AddDoctorPageWrp__Table--invalid']}>
+                        {t("Bo'lim yo'q")}
+                      </p>
+                    )}
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>

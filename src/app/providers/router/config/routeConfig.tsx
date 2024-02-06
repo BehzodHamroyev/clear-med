@@ -15,7 +15,6 @@ import {
   getRouteReportQueuingTv,
   getRouteReportControlDoctor,
   getRouteAddMonitor,
-  getRouteAddAdvertisement,
   MonitorRoutes,
   getRouteQueuesPageForMonitor,
   getRouteMonitorChild,
@@ -25,6 +24,7 @@ import {
   getRouteMonitors,
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
+  getRouteAddAdsPage,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -39,7 +39,6 @@ import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { AddMonitorPage } from '@/pages/AddMonitorPage';
-import { AddAdvertisementPage } from '@/pages/AddAdvertisementPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/AttachMonitorOrAdvertisement';
 import { RoomAttachmentMonitor } from '@/entities/RoomAttachmentMonitor';
 import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachmentMonitor';
@@ -50,6 +49,7 @@ import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
 import { MonitorsPage } from '@/pages/Monitors';
 import { MonitorsDetail } from '@/pages/MonitorsDetail';
+import { AddAdsPage } from '@/pages/AddAdsPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -100,10 +100,16 @@ export const routeConfigForAdmin: Record<
     element: <AttachMonitorOrAdvertisement />,
   },
 
-  [AdminRoutes.ADD_ADVERTISEMENT]: {
-    path: getRouteAddAdvertisement(),
-    element: <AddAdvertisementPage />,
+  [AdminRoutes.ADD_ADS_PAGE]: {
+    path: getRouteAddAdsPage(),
+    element: <AddAdsPage />,
   },
+
+  // [AdminRoutes.ADD_ADS_Page]: {
+  //   path: getRouteAddAds(),
+  //   element: <AddAdsPage />,
+  //   // element: <AddAdvertisementPage />,
+  // },
 
   [AdminRoutes.ROOM_ATTACHMENT_MONITOR]: {
     path: getRouteRoomAttachmentMonitor(),
