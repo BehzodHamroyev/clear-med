@@ -47,7 +47,7 @@ const AddAdsFormDiolog = () => {
   };
 
   const validateUrl = (inputUrl: string) => {
-    const urlPattern = /^(https?:\/\/)?([\w.]+)\.([a-z]{2,})(\/\S*)?$/;
+    const urlPattern = /^(https?:\/\/)([\w.]+)\.([a-z]{2,})(\/\S*)?$/;
     return urlPattern.test(inputUrl);
   };
 
