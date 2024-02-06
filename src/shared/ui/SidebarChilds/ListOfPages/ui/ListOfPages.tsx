@@ -52,7 +52,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 6,
-    path: '/add_advertisement',
+    path: '/add-ads',
     title: 'Reklama qo’shish',
     icon: <Bolimlar />,
   },
@@ -149,7 +149,7 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '149px';
       } else if (divRef.current && location.pathname === '/queues') {
         divRef.current.style.top = '192px';
-      } else if (divRef.current && location.pathname === '/add_advertisement') {
+      } else if (divRef.current && location.pathname === '/add-ads') {
         divRef.current.style.top = '235px';
       } else if (divRef.current && location.pathname === '/add_monitor') {
         divRef.current.style.top = '280px';

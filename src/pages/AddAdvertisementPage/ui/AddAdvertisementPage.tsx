@@ -4,7 +4,6 @@ import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
-import { AddAdvertisement } from '@/entities/AddAdvertisement';
 import { AdvertisementEdit } from '@/entities/AdvertisementEdit';
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -94,7 +93,7 @@ const AddAdvertisementPage = () => {
 
             <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
 
-            {isOpenAdvertisementAddCard ? <AddAdvertisement /> : ''}
+            {/* {isOpenAdvertisementAddCard ? <AddAdvertisement /> : ''} */}
 
             {isOpenAdvertisementEditCard ? (
               <AdvertisementEdit tableBody={tableBody} />
