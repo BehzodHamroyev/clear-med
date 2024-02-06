@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import cls from './AddDepartmentPage.module.scss';
 
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -21,6 +20,9 @@ import {
   getAllDepartmentsIsLoading,
 } from '../model/selector/AllDepartmentSelector';
 import Toast from '@/shared/ui/Toast/Toast';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
+import { Loader } from '@/widgets/Loader';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -32,11 +34,15 @@ const AddDepartmentPage = () => {
     toastDataForAddRoomForm,
     isOpenDepartmentAddCard,
     setIsOpenDepartmentAddCard,
+    isOpenDepartmentDeleteCard,
+    setIsOpenDepartmentDeleteCard,
   } = useContext(ButtonsContext);
 
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
+
+  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
 
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
@@ -45,6 +51,12 @@ const AddDepartmentPage = () => {
   useEffect(() => {
     dispatch(fetchAllDepartments({}));
   }, [dispatch]);
+
+  const handleClickDeleteDepartment = (id: string) => {
+    setDeleteDepartmentId(id);
+
+    setIsOpenDepartmentDeleteCard(true);
+  };
 
   return (
     <div className={cls.AddDepartmentPageWrp}>
@@ -87,7 +99,7 @@ const AddDepartmentPage = () => {
             <th className={cls['AddDepartmentPageWrp__Table--delete']} />
           </tr>
         </thead>
-        {allDepartmentsData && allDepartmentsData.length > 0 ? (
+        {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
               const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
@@ -126,6 +138,7 @@ const AddDepartmentPage = () => {
 
                   <td
                     className={cls['AddDepartmentPageWrp__Table--lastChild2']}
+                    onClick={() => handleClickDeleteDepartment(item?.id)}
                   >
                     {}
                     <DeleteTools
@@ -136,14 +149,16 @@ const AddDepartmentPage = () => {
               );
             })}
           </tbody>
-        ) : allDepartmentsIsLoading ? (
-          <LoaderAdmin />
-        ) : allDepartmentsError ? (
-          <ErrorDialog isErrorProps={!false} />
-        ) : (
-          ''
         )}
+
+        {allDepartmentsIsLoading && <Loader />}
+
+        {allDepartmentsError && <ErrorDialog isErrorProps={!false} />}
       </table>
+
+      {deleteDepartmentId && isOpenDepartmentDeleteCard && (
+        <DeleteDepartmentFormDialog departmentId={deleteDepartmentId} />
+      )}
 
       {hasOpenToast && (
         <Toast

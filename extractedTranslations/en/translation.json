@@ -70,6 +70,10 @@
   "Bo'lim": "",
   "Bo'lim muvaffaqiyatli qo'shildi": "",
   "Bo'lim nomi": "",
+  "Bo'lim o'chirildi": "",
+  "Bo'lim o'chirilmadi": {
+    " Tizimda xatolik sodir bo'ldi": ""
+  },
   "Bo'lim rasmi": "",
   "Bo'lim turl": "",
   "Bo'lim turlari": "",
@@ -320,6 +324,7 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu xonani xaqiyqatdan o'chirmoqchimisiz ?": "",
