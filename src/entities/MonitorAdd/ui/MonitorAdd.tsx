@@ -1,29 +1,39 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useRef, useState } from 'react';
+
+import axios from 'axios';
+import { Dialog, Input } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Dialog } from '@mui/material';
+import Cookies from 'js-cookie';
 import cls from './MonitorAdd.module.scss';
 
+import { baseUrl } from '../../../../baseurl';
 import { FormDataInState } from '../model/types/doctorAddTypes';
 import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchCreateNewMonitorForMonitorPage } from '../model/service/fetchCreateNewMonitorForMonitorPage';
+import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
 
 const MonitorAdd = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
+  const phoneInput = useRef<HTMLInputElement | null>(null);
+
   const {
+    setHasOpenToast,
     isOpenMonitorAddCard,
     setIsOpenMonitorAddCard,
+    setToastDataForAddRoomForm,
     isMonitorAddSelectionFormAdvertisement,
-    setResponseData,
   } = React.useContext(ButtonsContext);
 
-  const [hideEye, setHideEye] = React.useState(false);
+  const [hideEye, setHideEye] = useState(false);
+
+  const [phoneError, setPhoneError] = useState<boolean | null>(null);
 
   const [isAllFormData, setIsAllFormData] = React.useState<FormDataInState>({
     name: '',
@@ -39,7 +49,16 @@ const MonitorAdd = () => {
   };
 
   function handleInputChangeFormPhoneNumber(event: any, name: string) {
-    setIsAllFormData({ ...isAllFormData, login: event.target.value });
+    if (event.target.value.length === 13) {
+      const phoneNumber = event.target.value;
+      const formattedValue = phoneNumber.replace('+998', '');
+
+      setIsAllFormData({ ...isAllFormData, login: formattedValue });
+      setPhoneError(false);
+    } else {
+      setIsAllFormData({ ...isAllFormData, login: event.target.value });
+      setPhoneError(true);
+    }
   }
 
   function handleInputChangeFormPassword(event: any, name: string) {
@@ -50,19 +69,88 @@ const MonitorAdd = () => {
     setIsOpenMonitorAddCard(false);
   };
 
+  const token = Cookies.get('token');
+
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    dispatch(
-      fetchCreateNewMonitorForMonitorPage({
-        name: isAllFormData.name,
-        login: `${isAllFormData.login}`,
-        password: `${isAllFormData.password}`,
-        addvertising: isAllFormData.exprience,
-      }),
-    );
+    if (
+      isAllFormData.name &&
+      isAllFormData.login &&
+      isAllFormData.password &&
+      isAllFormData.exprience
+    ) {
+      try {
+        const response = await axios.post(
+          `${baseUrl}/monitor`,
+          {
+            name: isAllFormData.name,
+            login: `${isAllFormData.login}`,
+            password: `${isAllFormData.password}`,
+            addvertising: isAllFormData.exprience,
+          },
+          {
+            maxBodyLength: Infinity,
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
+            },
+          },
+        );
 
-    setResponseData(`${Math.random() * 100 + 1}`);
+        if (response.data) {
+          setIsOpenMonitorAddCard(false);
+
+          setHasOpenToast(true);
+
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Monitor muvaffaqiyatli qo'shildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+
+          dispatch(fetchGetAllMonitors({}));
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 403) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Bu Login boshqa Monitorga biriktirilgan. Loginni o'zgartiring",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+
+          if (error.response?.status === 404) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "maydonlar to'liq to'ldirilganiga ishonch hosil qiling yoki qayta urining!",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+
+          if (
+            error.response?.status !== 404 &&
+            error.response?.status !== 403
+          ) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Barcha maydonlar to'ldirilishi shart",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+        }
+      }
+    }
+
     setIsOpenMonitorAddCard(false);
   };
 
@@ -100,16 +188,28 @@ const MonitorAdd = () => {
             value={`${isAllFormData.name}`}
             onChange={(e) => handleInputChangeFormName(e)}
           />
-          <input
+
+          <Input
             required
-            type="number"
-            maxLength={9}
-            minLength={9}
-            min={9}
-            max={9}
-            placeholder={t('Login')}
+            autoFocus
+            name="PhoneNumber"
+            autoComplete="off"
+            inputRef={phoneInput}
             className={cls.InputBulim}
-            value={`${isAllFormData.login}`}
+            inputProps={{
+              minLength: 13,
+              maxLength: 13,
+              pattern: '+[0-9]{3}-[0-9]{2}-[0-9]{3}-[0-9]{4}',
+            }}
+            style={
+              phoneError === true
+                ? { borderBottom: 'red' }
+                : phoneError === false
+                ? { borderBottom: 'green' }
+                : { borderBottom: 'black' }
+            }
+            // value={`${isAllFormData.login}`}
+            placeholder={t('Login (+998 90 123 45 67)')}
             onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
           />
 
