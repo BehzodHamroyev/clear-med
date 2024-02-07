@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { fetchAllDepartments } from '../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
+import { Loader } from '@/widgets/Loader';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -35,6 +36,11 @@ const DeleteDepartmentFormDialog = ({
 
   const dispatch = useAppDispatch();
 
+  const [
+    deleteDepartmentFormDialogSubmitIsLoading,
+    setDeleteDepartmentFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const {
     isOpenDepartmentDeleteCard,
     setIsOpenDepartmentDeleteCard,
@@ -47,6 +53,8 @@ const DeleteDepartmentFormDialog = ({
   };
 
   const handleSubmit = async () => {
+    setDeleteDepartmentFormDialogSubmitIsLoading(true);
+
     const token = Cookies.get('token');
 
     try {
@@ -62,6 +70,8 @@ const DeleteDepartmentFormDialog = ({
       );
 
       if (response.data) {
+        setDeleteDepartmentFormDialogSubmitIsLoading(false);
+
         setIsOpenDepartmentDeleteCard(false);
 
         setHasOpenToast(true);
@@ -74,6 +84,8 @@ const DeleteDepartmentFormDialog = ({
         dispatch(fetchAllDepartments({}));
       }
     } catch (error) {
+      setDeleteDepartmentFormDialogSubmitIsLoading(false);
+
       console.log(error);
 
       setHasOpenToast(true);
@@ -88,39 +100,43 @@ const DeleteDepartmentFormDialog = ({
   };
 
   return (
-    <BootstrapDialog
-      className={classNames(cls.DeleteDepartmentFormDialog__Container, {})}
-      onClose={handleClose}
-      aria-labelledby="customized-dialog-title"
-      open={isOpenDepartmentDeleteCard}
-    >
-      <div className={classNames(cls.DeleteDepartmentFormDialog)}>
-        <div className={classNames(cls.DeleteDepartmentFormDialog__head)}>
-          <p> {t("Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
-        </div>
-        <div className={classNames(cls.DeleteDepartmentFormDialog__buttons)}>
-          <button
-            type="button"
-            className={classNames(
-              cls['DeleteDepartmentFormDialog__buttons--cansel'],
-            )}
-            onClick={handleClose}
-          >
-            {t('Bekor qilish')}
-          </button>
+    <>
+      <BootstrapDialog
+        className={classNames(cls.DeleteDepartmentFormDialog__Container, {})}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={isOpenDepartmentDeleteCard}
+      >
+        <div className={classNames(cls.DeleteDepartmentFormDialog)}>
+          <div className={classNames(cls.DeleteDepartmentFormDialog__head)}>
+            <p> {t("Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
+          </div>
+          <div className={classNames(cls.DeleteDepartmentFormDialog__buttons)}>
+            <button
+              type="button"
+              className={classNames(
+                cls['DeleteDepartmentFormDialog__buttons--cansel'],
+              )}
+              onClick={handleClose}
+            >
+              {t('Bekor qilish')}
+            </button>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className={classNames(
-              cls['DeleteDepartmentFormDialog__buttons--submit'],
-            )}
-          >
-            {t("O'chirish")}
-          </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className={classNames(
+                cls['DeleteDepartmentFormDialog__buttons--submit'],
+              )}
+            >
+              {t("O'chirish")}
+            </button>
+          </div>
         </div>
-      </div>
-    </BootstrapDialog>
+      </BootstrapDialog>
+
+      {deleteDepartmentFormDialogSubmitIsLoading && <Loader />}
+    </>
   );
 };
 
