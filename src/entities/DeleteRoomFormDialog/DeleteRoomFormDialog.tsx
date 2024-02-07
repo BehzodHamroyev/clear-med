@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAllRooms } from '@/pages/AddRoomPage/model/services/fetchAllRooms';
+import { Loader } from '@/widgets/Loader';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -33,6 +34,11 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
 
   const dispatch = useAppDispatch();
 
+  const [
+    deleteRoomFormDialogSubmitIsLoading,
+    setDeleteRoomFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const {
     isOpenRoomDeleteCard,
     setIsOpenRoomDeleteCard,
@@ -45,6 +51,8 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
   };
 
   const handleSubmit = async () => {
+    setDeleteRoomFormDialogSubmitIsLoading(true);
+
     const token = Cookies.get('token');
 
     try {
@@ -60,6 +68,8 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
       );
 
       if (response.data) {
+        setDeleteRoomFormDialogSubmitIsLoading(false);
+
         setIsOpenRoomDeleteCard(false);
 
         setHasOpenToast(true);
@@ -72,6 +82,8 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
         dispatch(fetchAllRooms({}));
       }
     } catch (error) {
+      setDeleteRoomFormDialogSubmitIsLoading(false);
+
       console.log(error);
 
       setHasOpenToast(true);
@@ -86,35 +98,43 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
   };
 
   return (
-    <BootstrapDialog
-      className={classNames(cls.DeleteRoomFormDialog__Container, {})}
-      onClose={handleClose}
-      aria-labelledby="customized-dialog-title"
-      open={isOpenRoomDeleteCard}
-    >
-      <div className={classNames(cls.DeleteRoomFormDialog)}>
-        <div className={classNames(cls.DeleteRoomFormDialog__head)}>
-          <p> {t("Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
-        </div>
-        <div className={classNames(cls.DeleteRoomFormDialog__buttons)}>
-          <button
-            type="button"
-            className={classNames(cls['DeleteRoomFormDialog__buttons--cansel'])}
-            onClick={handleClose}
-          >
-            {t('Bekor qilish')}
-          </button>
+    <>
+      <BootstrapDialog
+        className={classNames(cls.DeleteRoomFormDialog__Container, {})}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={isOpenRoomDeleteCard}
+      >
+        <div className={classNames(cls.DeleteRoomFormDialog)}>
+          <div className={classNames(cls.DeleteRoomFormDialog__head)}>
+            <p> {t("Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
+          </div>
+          <div className={classNames(cls.DeleteRoomFormDialog__buttons)}>
+            <button
+              type="button"
+              className={classNames(
+                cls['DeleteRoomFormDialog__buttons--cansel'],
+              )}
+              onClick={handleClose}
+            >
+              {t('Bekor qilish')}
+            </button>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className={classNames(cls['DeleteRoomFormDialog__buttons--submit'])}
-          >
-            {t("O'chirish")}
-          </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className={classNames(
+                cls['DeleteRoomFormDialog__buttons--submit'],
+              )}
+            >
+              {t("O'chirish")}
+            </button>
+          </div>
         </div>
-      </div>
-    </BootstrapDialog>
+      </BootstrapDialog>
+
+      {deleteRoomFormDialogSubmitIsLoading && <Loader />}
+    </>
   );
 };
 
