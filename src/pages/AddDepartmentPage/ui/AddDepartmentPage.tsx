@@ -23,6 +23,7 @@ import Toast from '@/shared/ui/Toast/Toast';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { Loader } from '@/widgets/Loader';
+import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -33,8 +34,10 @@ const AddDepartmentPage = () => {
     hasOpenToast,
     toastDataForAddRoomForm,
     isOpenDepartmentAddCard,
+    isOpenDepartmentEditCard,
     setIsOpenDepartmentAddCard,
     isOpenDepartmentDeleteCard,
+    setIsOpenDepartmentEditCard,
     setIsOpenDepartmentDeleteCard,
   } = useContext(ButtonsContext);
 
@@ -145,7 +148,12 @@ const AddDepartmentPage = () => {
                     )}
                   </td>
 
-                  <td className={cls['AddDepartmentPageWrp__Table--lastChild']}>
+                  <td
+                    onClick={() => {
+                      setIsOpenDepartmentEditCard(true);
+                    }}
+                    className={cls['AddDepartmentPageWrp__Table--lastChild']}
+                  >
                     {}
                     <PenTools
                       className={cls['AddDepartmentPageWrp__Table--edit']}
@@ -184,6 +192,8 @@ const AddDepartmentPage = () => {
       )}
 
       {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
+
+      {isOpenDepartmentEditCard ? <EditDepartmentFormDiolog /> : ''}
     </div>
   );
 };
