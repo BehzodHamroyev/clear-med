@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { TableInfo } from '../model/types/TableInfo';
 import { PenTools } from '@/shared/assets/entities/TableTitle';
@@ -11,6 +11,10 @@ const TableTitleReklama = (props: TableInfo) => {
   /* props */
   const { Tablethead, Tabletbody, cursor } = props;
 
+  /* useParams */
+  const { id } = useParams();
+  const url = `/add_monitor/${id}/advertisement_attachment_monitor`;
+
   /* useLocation */
   const location = useLocation();
 
@@ -21,7 +25,8 @@ const TableTitleReklama = (props: TableInfo) => {
     setIsOpenDoctorEditCard,
     setIsOpenDepartmentEditCard,
     setIsOpenAdvertisementEditCard,
-  } = useContext(ButtonsContext);
+    setIsOpenAttachmentRoomMonitorChildEdit,
+  } = React.useContext(ButtonsContext);
 
   /* haler functions */
   const handleCardAddCard = (id: string) => {
@@ -30,12 +35,14 @@ const TableTitleReklama = (props: TableInfo) => {
 
     if (location.pathname === '/') {
       setIsOpenDepartmentEditCard(true);
-    } else if (location.pathname === '/add_room_age') {
+    } else if (location.pathname === '/add-room') {
       setIsOpenRoomEditCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorEditCard(true);
     } else if (location.pathname === '/add_advertisement') {
       setIsOpenAdvertisementEditCard(true);
+    } else if (location.pathname === url) {
+      setIsOpenAttachmentRoomMonitorChildEdit(true);
     }
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -20,21 +20,16 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const RoomAddSectionInput = () => {
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
-  /* useSelector */
   const getListOfDepartments = useSelector(getListOfDepartmens);
 
-  /* useState */
   const [sectionValue, setSectionValue] = React.useState('');
 
-  /* useContext */
   const { isDataFormAddRoom, setIsDataFormAddRoom } =
-    React.useContext(ButtonsContext);
+    useContext(ButtonsContext);
 
   /* halper function */
   const handleChange = (event: SelectChangeEvent) => {
@@ -45,12 +40,10 @@ const RoomAddSectionInput = () => {
     });
   };
 
-  /* useEffect */
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
   }, [dispatch]);
 
-  /* UI */
   return (
     <div>
       <Box sx={{ minWidth: 120, marginTop: '20px', marginBottom: '20px' }}>
@@ -68,7 +61,7 @@ const RoomAddSectionInput = () => {
             {getListOfDepartments
               ? getListOfDepartments?.map((e, index) => {
                   return (
-                    <MenuItem key={index + 1} value={`${e.id}`}>
+                    <MenuItem key={e.id} value={`${e.id}`}>
                       {e?.name}
                     </MenuItem>
                   );

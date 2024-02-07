@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import cls from './TableTitleDoctorProfile.module.scss';
 
@@ -10,7 +10,7 @@ interface TableInfo {
   Tabletbody?: Queue[];
 }
 
-const TableTitleDoctorProfile = (props: TableInfo) => {
+const TableTitleDoctorProfile = memo((props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   return (
@@ -38,6 +38,6 @@ const TableTitleDoctorProfile = (props: TableInfo) => {
       </tbody>
     </table>
   );
-};
+});
 
 export default TableTitleDoctorProfile;

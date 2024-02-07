@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import 'dayjs/locale/de';
+import { useTranslation } from 'react-i18next';
 
 import cls from './BestCalendar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -14,6 +15,8 @@ interface BestCalendarProps {
 }
 
 const BestCalendar = ({ className }: BestCalendarProps) => {
+  const { t } = useTranslation();
+
   const { setCalendarBeginValue, setCalendarEndValue } =
     useContext(ButtonsContext);
 
@@ -50,8 +53,8 @@ const BestCalendar = ({ className }: BestCalendarProps) => {
                 },
               }}
               localeText={{
-                start: 'dan',
-                end: 'gacha',
+                start: t('dan'),
+                end: t('gacha'),
               }}
               onChange={handleDateChange}
               format="DD/MM/YYYY"

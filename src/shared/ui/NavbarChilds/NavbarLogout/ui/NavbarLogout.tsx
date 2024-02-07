@@ -9,14 +9,11 @@ import { RuIcon, UzIcon, EngIcon } from '@/shared/assets/Pages/Settings';
 import cls from './NavbarLogout.module.scss';
 
 const NavbarLogout = () => {
-  /* ButtonsContext */
   const { isOpenLanugagePopup, setisOpenLanugagePopup } =
     React.useContext(ButtonsContext);
 
-  /* localStorage */
   const LangValue = localStorage.getItem('i18nextLng');
 
-  /* UI */
   return (
     <div className={cls.NavbarLogoutWrapper}>
       <NavbarProfile />

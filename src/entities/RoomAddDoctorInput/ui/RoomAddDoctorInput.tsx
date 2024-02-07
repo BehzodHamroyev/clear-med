@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -16,20 +16,15 @@ import { fetchDoctorGetAll, getListOfDoctor } from '@/pages/DoctorsListPage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const RoomAddDoctorInput = () => {
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
-  /* useContext */
   const { isDataFormAddRoom, setIsDataFormAddRoom } =
-    React.useContext(ButtonsContext);
+    useContext(ButtonsContext);
 
-  /* useState */
-  const [doctorValue, setDoctorValue] = React.useState('');
+  const [doctorValue, setDoctorValue] = useState('');
 
-  /* useSelector */
   const getListOfDoctors = useSelector(getListOfDoctor);
 
   /* halper function */
@@ -41,8 +36,7 @@ const RoomAddDoctorInput = () => {
     });
   };
 
-  /* useEffect */
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDoctorGetAll({}));
   }, [dispatch]);
 

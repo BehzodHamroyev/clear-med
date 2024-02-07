@@ -1,0 +1,39 @@
+/* eslint-disable camelcase */
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { baseUrl } from '../../../../../baseurl';
+import { RoomAddTypes } from '../types/roomAddTypes';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+
+export const fetchDoctorAdd = createAsyncThunk<
+  RoomAddTypes,
+  {
+    name: number;
+  },
+  ThunkConfig<string>
+>('DoctorAdd', async ({ name }, thunkApi) => {
+  const { extra, rejectWithValue } = thunkApi;
+
+  const token = Cookies.get('token');
+
+  try {
+    const response = await axios.post<RoomAddTypes>(
+      `${baseUrl}/room/create`,
+      { name },
+      {
+        maxBodyLength: Infinity,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (e) {
+    console.log(e, 'department');
+    return rejectWithValue('error');
+  }
+});

@@ -16,6 +16,13 @@
     width: 800px;
     height: 300px;
 
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+    -webkit-animation-duration: 0.7s;
+    animation-duration: 0.7s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
     &__head {
       display: flex;
       align-items: center;
@@ -45,7 +52,7 @@
     .QueueDialogBox {
       height: 100%;
       display: grid;
-      grid-template-columns: 2fr 1fr 2fr;
+      grid-template-columns: 5fr 1fr 5fr;
       align-items: center;
       justify-content: center;
 
@@ -56,7 +63,7 @@
       }
 
       p {
-        font-size: 76px;
+        font-size: 60px;
         font-weight: 700;
         color: white;
         font-family: sans-serif;
@@ -92,5 +99,27 @@
 
   .backColorStep3 {
     background-color: #b71c14;
+  }
+}
+
+@-webkit-keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
   }
 }

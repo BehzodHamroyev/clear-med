@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ErrorReload } from '@/widgets/Error';
@@ -6,7 +6,7 @@ import { TableTitle } from '@/entities/TableTitle';
 import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { DepartmentAdd } from '@/entities/DepartmentAdd';
+import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 import { DepartmentEdit } from '@/entities/DepartmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DepartmentListSliceReducer } from '../model/slice/getDepartmentSlice';
@@ -32,21 +32,17 @@ const reducer: ReducersList = {
 };
 
 const DepartmentPage = () => {
-  /* useState */
   const [tableBody, setTableBody] = React.useState<any>([]);
 
-  /* dispatch */
   const dispatch = useAppDispatch();
 
-  /* useSelector */
   const getListOfDepartment = useSelector(getListOfDepartmens);
 
   const getDepartmentLoading = useSelector(getIsLoading);
 
   const getDepartmentError = useSelector(getError);
 
-  /* useEffect */
-  React.useEffect(() => {
+  useEffect(() => {
     if (getListOfDepartment) {
       const tableBodys = getListOfDepartment?.map((item) => {
         return {
@@ -66,19 +62,12 @@ const DepartmentPage = () => {
     departmentListChanged,
     isOpenDepartmentAddCard,
     isOpenDepartmentEditCard,
-  } = React.useContext(ButtonsContext);
+  } = useContext(ButtonsContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchDepartmentGetAll({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      dispatch(fetchDepartmentGetAll({}));
-    }, 500);
-  }, [departmentListChanged, dispatch]);
-
-  /* UI */
   return (
     <div className={cls.DepartmentPageWrapper}>
       <DynamicModuleLoader reducers={reducer}>
@@ -100,7 +89,7 @@ const DepartmentPage = () => {
 
             <ToastHalper />
 
-            {isOpenDepartmentAddCard ? <DepartmentAdd /> : ''}
+            {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
             {isOpenDepartmentEditCard ? (
               <DepartmentEdit tableBody={tableBody} />
             ) : (

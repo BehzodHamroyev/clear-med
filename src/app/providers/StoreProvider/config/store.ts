@@ -1,24 +1,36 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState, Reducer } from 'redux';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+
 import { $api } from '@/shared/api/api';
 import { rtkApi } from '@/shared/api/rtkApi';
-import { createReducerManager } from './reducerManager';
-import { StateSchema, ThunkExtraArg } from './StateSchema';
+
+import { allRoomsReducer } from '@/pages/AddRoomPage';
 import { AuthUserSliceReducer } from '@/features/Auth';
-import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
-import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
-import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
-import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
-import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
+import { createReducerManager } from './reducerManager';
+import { doctorListReducer } from '@/pages/ReportsPage';
 import { RoomListSliceReducer } from '@/pages/RoomPage';
+import { StateSchema, ThunkExtraArg } from './StateSchema';
+import { allQueueProccessReducer } from '@/pages/QueuesPage';
+import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
+import { GetAllMonitorPageReducer } from '@/pages/AddMonitorPage';
+import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
+import { allDepartmentsSliceReducer } from '@/pages/AddDepartmentPage';
+import { departmentAddSliceSliceReducer } from '@/entities/AddDepartmentFormDialog';
+import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
+import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
+import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
+import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
+import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
+
 import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
 } from '@/pages/QueuingTV';
-import { departmentAddSliceSliceReducer } from '@/entities/DepartmentAdd';
-import { doctorListReducer } from '@/pages/ReportsPage';
-import { allQueueProccessReducer } from '@/pages/QueuesPage';
+import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
+import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
+import { allMonitorsReducer } from '@/pages/Monitors';
+import { allAdsReducer } from '@/pages/AddAdsPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -27,20 +39,28 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     // login: AuthSliceReducer,
-
-    getDoctorPageReducer: DoctorListSliceReducer,
+    allAds: allAdsReducer,
+    allRooms: allRoomsReducer,
+    lastQueue: lastQueueReducer,
+    doctorList: doctorListReducer,
     authUser: AuthUserSliceReducer,
+    allMonitors: allMonitorsReducer,
+    RoomGetAll: RoomListSliceReducer,
+    AllDoctors: allDoctorsSliceReducer,
+    currentQueue: currentQueueuReducer,
+    deparmentList: departmentListReducer,
+    allFreeDoctors: allFreeDoctorsReducer,
+    allQueueProccess: allQueueProccessReducer,
+    allDepartments: allDepartmentsSliceReducer,
     departmentPage: DepartmentListSliceReducer,
+    GetAllMonitorPage: GetAllMonitorPageReducer,
+    getDoctorPageReducer: DoctorListSliceReducer,
+    departmentAdd: departmentAddSliceSliceReducer,
+    reportControlDoctor: reportControlDoctorReducer,
+    AddAdvertisementPage: AdvertisementListSliceReducer,
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
-    reportControlDoctor: reportControlDoctorReducer,
-    deparmentList: departmentListReducer,
-    currentQueue: currentQueueuReducer,
-    RoomGetAll: RoomListSliceReducer,
-    lastQueue: lastQueueReducer,
-    departmentAdd: departmentAddSliceSliceReducer,
-    doctorList: doctorListReducer,
-    allQueueProccess: allQueueProccessReducer,
+    GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
 
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

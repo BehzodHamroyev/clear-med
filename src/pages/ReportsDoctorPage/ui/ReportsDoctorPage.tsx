@@ -224,7 +224,7 @@ const ReportsDoctorPage = () => {
             className={cls.ReportsDoctorPageWrapper__backbtn}
             onClick={() => handleClickBack()}
           >
-            {t('Ortga qaytish')}
+            {t('Ortga')}
           </div>
 
           <h3 className={cls.reportEmpty}>

@@ -54,8 +54,6 @@ export default function ErrorDialog({
     };
   }, []);
 
-  console.log(errorProps);
-
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);

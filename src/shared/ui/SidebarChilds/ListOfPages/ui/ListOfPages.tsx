@@ -28,13 +28,13 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 2,
-    path: '/add_room_age',
+    path: '/add-room',
     title: 'Xona qo‘shish',
     icon: <Xona />,
   },
   {
     id: 3,
-    path: '/add_doctor',
+    path: '/add-doctors',
     title: 'Shifokor qo‘shish',
     icon: <Shifokor />,
   },
@@ -46,13 +46,13 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 5,
-    path: '/queues',
-    title: 'Navbatlar',
+    path: '/monitors',
+    title: 'Monitorlar',
     icon: <Navbatlar />,
   },
   {
     id: 6,
-    path: '/add_advertisement',
+    path: '/add-ads',
     title: 'Reklama qo’shish',
     icon: <Bolimlar />,
   },
@@ -72,13 +72,23 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
     icon: <Bolimlar />,
   },
   {
-    id: 4,
+    id: 2,
     path: '/reports',
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
   },
 
-  { id: 5, path: '/queues', title: 'Navbatlar', icon: <Navbatlar /> },
+  // {
+  //   id: 5, path: '/queues',
+  //   title: 'Navbatlar', icon: <Navbatlar />
+  // },
+
+  {
+    id: 3,
+    path: '/monitors',
+    title: 'Monitorlar',
+    icon: <Navbatlar />,
+  },
 ];
 
 const listOfPageDoktor: ListOfPageTypes[] = [
@@ -131,15 +141,15 @@ export const ListOfPages = memo(() => {
     if (profileValue === 'admin') {
       if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
-      } else if (divRef.current && location.pathname === '/add_room_age') {
+      } else if (divRef.current && location.pathname === '/add-room') {
         divRef.current.style.top = '63px';
-      } else if (divRef.current && location.pathname === '/add_doctor') {
+      } else if (divRef.current && location.pathname === '/add-doctors') {
         divRef.current.style.top = '106px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '149px';
       } else if (divRef.current && location.pathname === '/queues') {
         divRef.current.style.top = '192px';
-      } else if (divRef.current && location.pathname === '/add_advertisement') {
+      } else if (divRef.current && location.pathname === '/add-ads') {
         divRef.current.style.top = '235px';
       } else if (divRef.current && location.pathname === '/add_monitor') {
         divRef.current.style.top = '280px';

@@ -16,6 +16,7 @@ import 'react-calendar/dist/Calendar.css';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAuthUser } from '@/features/Auth';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { socket } from '@/shared/lib/utils/socket';
 
 const App = () => {
   const { theme } = useTheme();
@@ -30,7 +31,11 @@ const App = () => {
         fetchAuthUser({
           refresh: true,
         }),
-      );
+      ).then((res) => {
+        if (res.payload === 'error') {
+          navigate('/login');
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -40,6 +45,22 @@ const App = () => {
       navigate('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Event listener for beforeunload
+    const handleBeforeUnload = () => {
+      // Disconnect the Socket.IO connection before the page is unloaded
+      socket.disconnect();
+    };
+
+    // Add the event listener
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup: Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   return (

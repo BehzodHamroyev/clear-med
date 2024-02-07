@@ -8,8 +8,17 @@ export interface ButtonsClickedProps {
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
+  isOpenRoomAttachmentMonitorChildForm: boolean;
+  setIsOpenRoomAttachmentMonitorChildForm: (prop: boolean) => void;
+
+  isOpenRoomAttachmentMonitorChildFormedit: boolean;
+  setIsOpenRoomAttachmentMonitorChildFormEdit: (prop: boolean) => void;
+
   isOpenLanugagePopup: Boolean;
   setisOpenLanugagePopup: (porp: boolean) => void;
+
+  isMonitorAddSelectionFormAdvertisement: Boolean;
+  setIsMonitorAddSelectionFormAdvertisement: (porp: boolean) => void;
 
   responseAddDoctorStatusCode: number | string;
   setResponseAddDoctorStatusCode: (prop: number | string) => void;
@@ -25,8 +34,12 @@ export interface ButtonsClickedProps {
 
   calendarEndValue: string;
   setCalendarEndValue: (props: string) => void;
+
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
+
+  monitorEditFormOldValue: string;
+  setMonitorEditFormOldValue: (prop: string) => void;
 
   isSubmitLoginForm: boolean;
   setIsSubmitLoginForm: (prop: boolean) => void;
@@ -55,8 +68,14 @@ export interface ButtonsClickedProps {
   isOpenRoomAddCard: boolean;
   setIsOpenRoomAddCard: (prop: boolean) => void;
 
+  isOpenAttachmentRoomMonitorChild: boolean;
+  setIsOpenAttachmentRoomMonitorChild: (prop: boolean) => void;
+
   isOpenRoomEditCard: boolean;
   setIsOpenRoomEditCard: (prop: boolean) => void;
+
+  isOpenRoomDeleteCard: boolean;
+  setIsOpenRoomDeleteCard: (prop: boolean) => void;
 
   isOpenDoctorAddCard: boolean;
   setIsOpenDoctorAddCard: (prop: boolean) => void;
@@ -66,6 +85,9 @@ export interface ButtonsClickedProps {
 
   isOpenMonitorAddCard: boolean;
   setIsOpenMonitorAddCard: (prop: boolean) => void;
+
+  isOpenMonitorEditCard: boolean;
+  setIsOpenMonitorEditCard: (prop: boolean) => void;
 
   isOpenAdvertisementEditCard: boolean;
   setIsOpenAdvertisementEditCard: (prop: boolean) => void;
@@ -132,6 +154,9 @@ export interface ButtonsClickedProps {
   isOpenQueuingTvCardPopapSecond: boolean;
   setIsOpenQueuingTvCardPopapSecond: (prop: boolean) => void;
 
+  isOpenAttachmentRoomMonitorChildEdit: boolean;
+  setIsOpenAttachmentRoomMonitorChildEdit: (prop: boolean) => void;
+
   isOpenDepartmentAddCardIcon: boolean;
   setIsOpenDepartmentAddCardIcon: (prop: boolean) => void;
 
@@ -152,20 +177,58 @@ export interface ButtonsClickedProps {
 
   hasOpenToast: boolean;
   setHasOpenToast: (prop: boolean) => void;
+
+  toastDataForAddRoomForm: {
+    toastSeverityForAddRoomForm: string;
+    toastMessageForAddRoomForm: string;
+  };
+
+  setToastDataForAddRoomForm: (prop: {
+    toastSeverityForAddRoomForm: string;
+    toastMessageForAddRoomForm: string;
+  }) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
   clickedDoctorId: '',
   setClickedDoctorId: () => {},
 
+  isOpenAttachmentRoomMonitorChild: false,
+  setIsOpenAttachmentRoomMonitorChild: () => {},
+
+  monitorEditFormOldValue: '',
+  setMonitorEditFormOldValue: () => {},
+
+  isOpenAttachmentRoomMonitorChildEdit: false,
+  setIsOpenAttachmentRoomMonitorChildEdit: () => {},
+
+  isOpenRoomAttachmentMonitorChildForm: false,
+  setIsOpenRoomAttachmentMonitorChildForm: () => {},
+
+  isMonitorAddSelectionFormAdvertisement: false,
+  setIsMonitorAddSelectionFormAdvertisement: () => {},
+
+  isOpenRoomAttachmentMonitorChildFormedit: false,
+  setIsOpenRoomAttachmentMonitorChildFormEdit: () => {},
+
   hasOpenToast: false,
   setHasOpenToast: () => {},
+
+  toastDataForAddRoomForm: {
+    toastSeverityForAddRoomForm: '',
+    toastMessageForAddRoomForm: '',
+  },
+
+  setToastDataForAddRoomForm: () => {},
 
   isOpenLanugagePopup: false,
   setisOpenLanugagePopup: () => {},
 
   isOpenMonitorAddCard: false,
   setIsOpenMonitorAddCard: () => {},
+
+  isOpenMonitorEditCard: false,
+  setIsOpenMonitorEditCard: () => {},
 
   responseAddDoctorStatusCode: 0,
   setResponseAddDoctorStatusCode: () => {},
@@ -217,6 +280,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenRoomEditCard: false,
   setIsOpenRoomEditCard: () => {},
+
+  isOpenRoomDeleteCard: false,
+  setIsOpenRoomDeleteCard: () => {},
 
   isOpenDoctorAddCard: false,
   setIsOpenDoctorAddCard: () => {},

@@ -5,7 +5,7 @@ interface DoctorAddDataTypes {
   role?: string;
   password?: string;
   passwordChangedDate?: null;
-  exprience?: number;
+  exprience?: number | boolean;
   active?: boolean;
   _id?: string;
   __v?: number;
@@ -19,8 +19,7 @@ export interface DoctorAddTypes {
 
 export interface FormDataInState {
   name: string;
-  file: any;
-  login: null | string | number;
   password: string | number;
-  exprience: null | string | number;
+  login: string | number;
+  exprience: Boolean;
 }

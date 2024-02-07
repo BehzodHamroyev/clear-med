@@ -18,8 +18,6 @@ const ToastHalper = (props: any) => {
 
   const statusCode = responseAddDoctorStatusCode;
 
-  console.log(statusCode);
-
   useEffect(() => {
     if (statusCode) {
       if (statusCode === 200 || statusCode === '200') {

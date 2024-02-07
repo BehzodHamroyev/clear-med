@@ -8,10 +8,13 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './MainLayout.module.scss';
 
 import { Sidebar } from '@/widgets/Sidebar';
-import { getAuthUserData, Login } from '@/features/Auth';
+import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import Toast from '@/shared/ui/Toast/Toast';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
+import { socket } from '@/shared/lib/utils/socket';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 
 interface MainLayoutProps {
   className?: string;
@@ -27,6 +30,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   const { t } = useTranslation();
 
   const authUserData = useSelector(getAuthUserData);
+  const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
   const { setHasOpenToast, isOpenLanugagePopup, setisOpenLanugagePopup } =
     useContext(ButtonsContext);
@@ -55,6 +59,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     }
   }, [hasToaster]);
 
+  useEffect(() => {
+    if (authUserData) {
+      socket.emit('addUser', authUserData.id);
+    }
+  }, [authUserData]);
+
   return (
     <div>
       {location.pathname === '/login' ? (
@@ -82,6 +92,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
           )}
         </div>
       )}
+
+      {authUserDataIsLoading && <LoaderBackHidden />}
     </div>
   );
 });

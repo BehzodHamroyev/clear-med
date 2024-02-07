@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
-const ButtonNavbar = (props: ButtonNavbarProps) => {
+const ButtonNavbar = memo((props: ButtonNavbarProps) => {
   const {
     TableTitle,
     ItemsLength,
@@ -25,6 +25,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
 
+  // isOpenDoctorAddCard
   const {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
@@ -37,7 +38,7 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
     /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
     if (location.pathname === '/') {
       setIsOpenDepartmentAddCard(true);
-    } else if (location.pathname === '/add_room_age') {
+    } else if (location.pathname === '/add-room') {
       setIsOpenRoomAddCard(true);
     } else if (location.pathname === '/add_doctor') {
       setIsOpenDoctorAddCard(true);
@@ -108,6 +109,6 @@ const ButtonNavbar = (props: ButtonNavbarProps) => {
       )}
     </div>
   );
-};
+});
 
 export default ButtonNavbar;

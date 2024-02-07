@@ -63,13 +63,22 @@
   justify-content: center;
 
   pre {
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 500;
     max-width: 170px;
     min-width: 170px;
   }
 
   svg {
+    margin-right: -10px;
     color: #828282;
     cursor: pointer;
+    font-size: 24px;
+  }
+
+  svg:hover {
+    color: red;
   }
 
   svg:active {

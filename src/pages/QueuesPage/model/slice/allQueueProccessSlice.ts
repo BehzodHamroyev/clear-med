@@ -20,6 +20,7 @@ export const allQueueProccessSlice = buildSlice({
     clearProccessQueue: (state) => {
       if (state.data) {
         state.data.proccessQueues = [];
+        state.data.videoUrl = [];
       }
     },
 
@@ -32,7 +33,11 @@ export const allQueueProccessSlice = buildSlice({
     },
 
     addProccessQueue: (state, { payload }: PayloadAction<Queue>) => {
-      state.data?.proccessQueues.push(payload);
+      if (
+        !state.data?.proccessQueues.some((item) => item._id === payload._id)
+      ) {
+        state.data?.proccessQueues.push(payload);
+      }
     },
 
     recallQueue: (state, { payload }: PayloadAction<Queue>) => {
@@ -61,14 +66,16 @@ export const allQueueProccessSlice = buildSlice({
             };
           }
 
-          state.data.videoUrl = [
-            ...action.payload.monitor.videos,
-            ...state.data.videoUrl,
-          ];
+          state.data.videoUrl = action.payload.monitor?.videos;
 
-          action.payload.monitor.rooms.forEach((item) => {
-            if (item.proceed?.length > 0) {
-              state.data?.proccessQueues.push(item.proceed[0]);
+          action?.payload?.monitor?.rooms?.forEach((item) => {
+            if (
+              item.proceed?.length > 0 &&
+              !state.data?.proccessQueues?.some(
+                (itemState) => itemState._id === item?.proceed[0]?._id,
+              )
+            ) {
+              state.data?.proccessQueues.push(item?.proceed[0]);
             }
           });
         },

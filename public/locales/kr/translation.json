@@ -38,5 +38,36 @@
   "November": "Ноябрь",
   "December": "Декабрь",
 
-  "monitor": "Монитор"
+  "monitor": "Монитор",
+  "Xonalar": "Хоналар",
+
+  "Shifokorlar": "Шифокорлар",
+  "Ortga": "Ортга",
+  "Monitorga biriktirilgan xonalar": "Мониторга бириктирилган хоналар",
+  "Parol o'zgartirildi": "Пароль ўзгартирилди",
+  "Xatolik sodir bo'ldi": "Хатолик содир бўлди",
+  "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "Янги пароль эскиси билан бир хил бўлмаслиги керак",
+  "Parolni o'zgartirish": "Паролни ўзгартириш",
+  "Eski parolni kiriting": "Эски паролни киритинг...",
+  "Eski parolni kiriting...": "Эски паролни киритинг",
+  "Yangi parolni kiriting": "Янги паролни киритинг",
+  "Yangi parolni kiriting...": "Янги паролни киритинг...",
+  "O'zgartirish": "Ўзгартириш",
+
+  "Ortga qaytish": "Ортга қайтиш",
+  "Jami ko'rilgan bemorlar : ": "Жами кўрилган беморлар: ",
+  "Tasdiqlangan bemorlar : ": "Тасдиқланган беморлар: ",
+  "Bekor qilingan bemorlar : ": "Бекор қилинган беморлар: ",
+  " ta": " та",
+  "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!": "Бу муддатдаги беморлар ҳисоботи бўш. Муддатни ўзгартириб кўринг!",
+  "Ko'rilgan bemorlar": "Кўрилган беморлар",
+  "dan": "дан",
+  "gacha": "гача",
+
+  "Bo‘lim nomi": "Бўлим номи",
+
+  "Bemorni ko'rishga ketadigan taxminiy vaqt": "Беморни кўришга кетадиган тахминий вақт",
+  "Bo'limga rasm qo'shish": "Бўлимга расм қўшиш",
+  "Bekor qilish": "Бекор қилиш",
+  "Saqlash": "Сақлаш"
 }
