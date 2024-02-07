@@ -99,7 +99,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       if (response?.data?.message) {
         const responceData: ApiResponse = response?.data;
 
-        setDoctorList((prev) => [...prev, response.data.message.doctor_id]);
+        if (
+          !doctorList?.some(
+            (item) => item._id === response?.data?.message?.doctor_id?._id,
+          )
+        ) {
+          // doctorList?.push(response.data.message.doctor_id);
+          setDoctorList((prev) => [
+            ...prev,
+            response?.data?.message?.doctor_id,
+          ]);
+        }
 
         setRoomCurrentData({
           isLoading: false,
@@ -135,8 +145,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   useEffect(() => {
     if (allFreeDoctorsData) {
-      setDoctorList((prev) => [...prev, ...allFreeDoctorsData]);
+      if (doctorList.length > 0) {
+        allFreeDoctorsData.forEach((freeDoctor) => {
+          if (!doctorList?.some((doctor) => doctor.id === freeDoctor.id)) {
+            setDoctorList((prev) => [...prev, freeDoctor]);
+          }
+        });
+      } else {
+        setDoctorList([...allFreeDoctorsData]);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFreeDoctorsData]);
 
   const handleClose = () => {
@@ -264,7 +283,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
     <>
       {roomCurrentData?.data?.roomNumber &&
         allDepartmentsData &&
-        allFreeDoctorsData && (
+        allFreeDoctorsData &&
+        allFreeDoctorsData.length >= 0 && (
           <BootstrapDialog
             className={classNames(cls.AddRoomFormDialog__Container, {})}
             onClose={handleClose}
