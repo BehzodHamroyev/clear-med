@@ -1,16 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Button, Dialog, TextField } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+
 import cls from './EditDepartmentFormDiolog.module.scss';
+
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
+import { EditDepartmentFormDiologTypes } from '../model/types/EditDepartmentFormDiologTypes';
+import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
 
-const EditDepartmentFormDiolog = () => {
+const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
+  const { editDepartmentId } = prop;
+
   const { t } = useTranslation();
 
-  // const inputValue = inputRef.current?.value;
+  const [roomCurrentData, setRoomCurrentData] =
+    useState<AllDepartmentTypeSchema>();
+
+  const token = Cookies.get('token');
 
   const {
     isOpenDepartmentEditCard,
@@ -22,6 +32,20 @@ const EditDepartmentFormDiolog = () => {
   const handleClose = () => {
     setIsOpenDepartmentEditCard(false);
   };
+
+  const fetchRoomData = async () => {
+    setRoomCurrentData({
+      isLoading: true,
+      error: false,
+      data: undefined,
+    });
+  };
+
+  useEffect(() => {
+    if (editDepartmentId) {
+      fetchRoomData();
+    }
+  }, [editDepartmentId]);
 
   const handleFormSubmit = () => {};
 

@@ -30,6 +30,10 @@ const AddDepartmentPage = () => {
 
   const dispatch = useAppDispatch();
 
+  const [editDepartmentId, setEditDepartmentId] = useState<string>();
+
+  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
+
   const {
     hasOpenToast,
     toastDataForAddRoomForm,
@@ -45,21 +49,23 @@ const AddDepartmentPage = () => {
   const allDepartmentsError = useSelector(getAllDepartmentsError);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
 
-  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
-
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
   };
-
-  useEffect(() => {
-    dispatch(fetchAllDepartments({}));
-  }, [dispatch]);
 
   const handleClickDeleteDepartment = (id: string) => {
     setDeleteDepartmentId(id);
 
     setIsOpenDepartmentDeleteCard(true);
   };
+
+  const handeClickEditRoom = (id: string) => {
+    setEditDepartmentId(id);
+  };
+
+  useEffect(() => {
+    dispatch(fetchAllDepartments({}));
+  }, [dispatch]);
 
   return (
     <div className={cls.AddDepartmentPageWrp}>
@@ -156,6 +162,7 @@ const AddDepartmentPage = () => {
                   >
                     {}
                     <PenTools
+                      onClick={() => handeClickEditRoom(item.id)}
                       className={cls['AddDepartmentPageWrp__Table--edit']}
                     />
                   </td>
@@ -193,7 +200,11 @@ const AddDepartmentPage = () => {
 
       {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
 
-      {isOpenDepartmentEditCard ? <EditDepartmentFormDiolog /> : ''}
+      {editDepartmentId && isOpenDepartmentEditCard ? (
+        <EditDepartmentFormDiolog editDepartmentId={editDepartmentId} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
