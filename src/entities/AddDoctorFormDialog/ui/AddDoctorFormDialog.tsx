@@ -30,9 +30,13 @@ import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllDoctors } from '../../../pages/AddDoctorPage/model/service/fetchAllDoctors';
+import { Loader } from '@/widgets/Loader';
 
 const AddDoctorFormDialog = () => {
   const { t } = useTranslation();
+
+  const [addDoctorFormDialogIsLoading, setAddDoctorFormDialogIsLoading] =
+    useState(false);
 
   /* img input value */
   const inputProfileImgRef = useRef<HTMLInputElement>(null);
@@ -96,6 +100,8 @@ const AddDoctorFormDialog = () => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    setAddDoctorFormDialogIsLoading(true);
+
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
     const Experience = experienceInputRef?.current?.value;
@@ -134,6 +140,8 @@ const AddDoctorFormDialog = () => {
         });
 
         if (response.data) {
+          setAddDoctorFormDialogIsLoading(false);
+
           setIsOpenDoctorAddCard(false);
 
           setHasOpenToast(true);
@@ -148,6 +156,8 @@ const AddDoctorFormDialog = () => {
 
         return response.data;
       } catch (error) {
+        setAddDoctorFormDialogIsLoading(false);
+
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
             setToastDataForAddRoomForm({
@@ -193,140 +203,144 @@ const AddDoctorFormDialog = () => {
   }, []);
 
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpenDoctorAddCard(false);
-      }}
-      className={cls.DepartmentAddWrapper}
-    >
+    <>
       <div
         onClick={(e) => {
           e.stopPropagation();
+          setIsOpenDoctorAddCard(false);
         }}
-        className={cls.DepartmentAddCard}
+        className={cls.DepartmentAddWrapper}
       >
-        <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className={cls.DepartmentAddCard}
+        >
+          <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
 
-        <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
-          <div className={cls.AddCardImg}>
-            <img
-              className={cls.AddCardImgValue}
-              src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
-              alt="#"
-            />
-
-            <button
-              type="submit"
-              onClick={handleClick}
-              className={cls.AddCardImgValuebtn}
-            >
-              <GetImage />
-              {}
-            </button>
-
-            <input
-              id="input"
-              type="file"
-              ref={inputProfileImgRef}
-              style={{ display: 'none' }}
-              accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
-              onChange={(e) => handleImgProfileFileChange(e)}
-            />
-          </div>
-
-          <div className={cls.CardBody}>
-            <TextField
-              required
-              type="text"
-              variant="outlined"
-              label={t('F.I.Sh')}
-              id="outlined-basic"
-              className={cls.InputBulim}
-              inputRef={FullNameInputRef}
-              inputProps={{ min: 1, maxLength: 30 }}
-            />
-
-            <TextField
-              required
-              type="number"
-              variant="outlined"
-              id="outlined-basic"
-              label={t('Tajribasi')}
-              className={cls.InputBulim}
-              inputRef={experienceInputRef}
-              inputProps={{ min: 1, max: 50 }}
-            />
-
-            <label>
-              Telfon raqami
-              <Input
-                required
-                autoFocus
-                value={value}
-                minLength={8}
-                name="PhoneNumber"
-                autoComplete="off"
-                inputRef={phoneInput}
-                rules={{ required: true }}
-                className={cls.InputPhoneNumber}
-                placeholder={t('Telefon raqami')}
-                onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+          <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
+            <div className={cls.AddCardImg}>
+              <img
+                className={cls.AddCardImgValue}
+                src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
+                alt="#"
               />
-            </label>
-            {/* get Value Pasword Input started */}
-            <FormControl
-              sx={{ width: '100%', margin: '10px 0' }}
-              variant="outlined"
-            >
-              <InputLabel htmlFor="outlined-adornment-password">
-                Parolni kiriting
-              </InputLabel>
-              <OutlinedInput
-                required
-                inputRef={inputPasswordRef}
-                inputProps={{ maxLength: 12, minLength: 8 }}
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Parolni kiriting"
-              />
-            </FormControl>
-            {/* get Value Pasword Input finished */}
 
-            <div className={cls.BtnParnet}>
-              <Button
-                type="button"
-                variant="outlined"
-                onClick={handleClose}
-                className={`${cls.Btn} ${cls.Btn1}`}
-              >
-                {t('Bekor qilish')}
-              </Button>
-
-              <Button
-                className={`${cls.Btn} ${cls.Btn2}`}
+              <button
                 type="submit"
-                variant="contained"
+                onClick={handleClick}
+                className={cls.AddCardImgValuebtn}
               >
-                {t('Saqlash')}
-              </Button>
+                <GetImage />
+                {}
+              </button>
+
+              <input
+                id="input"
+                type="file"
+                ref={inputProfileImgRef}
+                style={{ display: 'none' }}
+                accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
+                onChange={(e) => handleImgProfileFileChange(e)}
+              />
             </div>
-          </div>
-        </form>
+
+            <div className={cls.CardBody}>
+              <TextField
+                required
+                type="text"
+                variant="outlined"
+                label={t('F.I.Sh')}
+                id="outlined-basic"
+                className={cls.InputBulim}
+                inputRef={FullNameInputRef}
+                inputProps={{ min: 1, maxLength: 30 }}
+              />
+
+              <TextField
+                required
+                type="number"
+                variant="outlined"
+                id="outlined-basic"
+                label={t('Tajribasi')}
+                className={cls.InputBulim}
+                inputRef={experienceInputRef}
+                inputProps={{ min: 1, max: 50 }}
+              />
+
+              <label>
+                Telfon raqami
+                <Input
+                  required
+                  autoFocus
+                  value={value}
+                  minLength={8}
+                  name="PhoneNumber"
+                  autoComplete="off"
+                  inputRef={phoneInput}
+                  rules={{ required: true }}
+                  className={cls.InputPhoneNumber}
+                  placeholder={t('Telefon raqami')}
+                  onChange={(e) => handleInputChange(e, 'PhoneNumber')}
+                />
+              </label>
+              {/* get Value Pasword Input started */}
+              <FormControl
+                sx={{ width: '100%', margin: '10px 0' }}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Parolni kiriting
+                </InputLabel>
+                <OutlinedInput
+                  required
+                  inputRef={inputPasswordRef}
+                  inputProps={{ maxLength: 12, minLength: 8 }}
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Parolni kiriting"
+                />
+              </FormControl>
+              {/* get Value Pasword Input finished */}
+
+              <div className={cls.BtnParnet}>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  onClick={handleClose}
+                  className={`${cls.Btn} ${cls.Btn1}`}
+                >
+                  {t('Bekor qilish')}
+                </Button>
+
+                <Button
+                  className={`${cls.Btn} ${cls.Btn2}`}
+                  type="submit"
+                  variant="contained"
+                >
+                  {t('Saqlash')}
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+
+      {addDoctorFormDialogIsLoading && <Loader />}
+    </>
   );
 };
 
