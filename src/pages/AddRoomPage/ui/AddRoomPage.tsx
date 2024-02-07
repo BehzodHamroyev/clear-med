@@ -41,13 +41,14 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   const [editRoomId, setEditRoomId] = useState<string>();
 
   const {
+    hasOpenToast,
+    isOpenRoomAddCard,
     setIsOpenRoomAddCard,
     isOpenRoomEditCard,
     setIsOpenRoomEditCard,
-    toastDataForAddRoomForm,
-    setIsOpenRoomDeleteCard,
     isOpenRoomDeleteCard,
-    hasOpenToast,
+    setIsOpenRoomDeleteCard,
+    toastDataForAddRoomForm,
   } = useContext(ButtonsContext);
 
   const allRoomsData = useSelector(getAllRoomsData);
@@ -140,7 +141,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       ) : (
         ''
       )}
-      <AddRoomFormDialog />
+
+      {isOpenRoomAddCard && <AddRoomFormDialog />}
 
       {editRoomId && isOpenRoomEditCard && (
         <EditRoomFormDialog roomId={editRoomId} />

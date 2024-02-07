@@ -1,4 +1,10 @@
-import React, { Fragment, useContext, useEffect, useRef } from 'react';
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -64,6 +70,9 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
 
   const dispatch = useAppDispatch();
 
+  const [addRoomFormDialogIsLoading, setAddRoomFormDialogIsLoading] =
+    useState(false);
+
   const {
     isOpenRoomAddCard,
     setIsOpenRoomAddCard,
@@ -85,6 +94,8 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
 
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    setAddRoomFormDialogIsLoading(true);
 
     const token = Cookies.get('token');
 
@@ -112,6 +123,8 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
         );
 
         if (response.data) {
+          setAddRoomFormDialogIsLoading(false);
+
           setIsOpenRoomAddCard(false);
 
           setHasOpenToast(true);
@@ -124,6 +137,8 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
           dispatch(fetchAllRooms({}));
         }
       } catch (error) {
+        setAddRoomFormDialogIsLoading(false);
+
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 403) {
             setToastDataForAddRoomForm({
@@ -271,7 +286,9 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
         </BootstrapDialog>
       )}
 
-      {(allDepartmentsIsLoading || allFreeDoctorsIsLoading) && <Loader />}
+      {(allDepartmentsIsLoading ||
+        allFreeDoctorsIsLoading ||
+        addRoomFormDialogIsLoading) && <Loader />}
 
       {(allDepartmentsError || allFreeDoctorsError) && (
         <ErrorDialog isErrorProps={!false} />
