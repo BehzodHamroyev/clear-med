@@ -23,18 +23,25 @@ import Toast from '@/shared/ui/Toast/Toast';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { Loader } from '@/widgets/Loader';
+import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
+  const [editDepartmentId, setEditDepartmentId] = useState<string>();
+
+  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
+
   const {
     hasOpenToast,
     toastDataForAddRoomForm,
     isOpenDepartmentAddCard,
+    isOpenDepartmentEditCard,
     setIsOpenDepartmentAddCard,
     isOpenDepartmentDeleteCard,
+    setIsOpenDepartmentEditCard,
     setIsOpenDepartmentDeleteCard,
   } = useContext(ButtonsContext);
 
@@ -42,21 +49,23 @@ const AddDepartmentPage = () => {
   const allDepartmentsError = useSelector(getAllDepartmentsError);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
 
-  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
-
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
   };
-
-  useEffect(() => {
-    dispatch(fetchAllDepartments({}));
-  }, [dispatch]);
 
   const handleClickDeleteDepartment = (id: string) => {
     setDeleteDepartmentId(id);
 
     setIsOpenDepartmentDeleteCard(true);
   };
+
+  const handeClickEditRoom = (id: string) => {
+    setEditDepartmentId(id);
+  };
+
+  useEffect(() => {
+    dispatch(fetchAllDepartments({}));
+  }, [dispatch]);
 
   return (
     <div className={cls.AddDepartmentPageWrp}>
@@ -145,9 +154,15 @@ const AddDepartmentPage = () => {
                     )}
                   </td>
 
-                  <td className={cls['AddDepartmentPageWrp__Table--lastChild']}>
+                  <td
+                    onClick={() => {
+                      setIsOpenDepartmentEditCard(true);
+                    }}
+                    className={cls['AddDepartmentPageWrp__Table--lastChild']}
+                  >
                     {}
                     <PenTools
+                      onClick={() => handeClickEditRoom(item.id)}
                       className={cls['AddDepartmentPageWrp__Table--edit']}
                     />
                   </td>
@@ -184,6 +199,12 @@ const AddDepartmentPage = () => {
       )}
 
       {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
+
+      {editDepartmentId && isOpenDepartmentEditCard ? (
+        <EditDepartmentFormDiolog editDepartmentId={editDepartmentId} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

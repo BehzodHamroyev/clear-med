@@ -24,6 +24,7 @@ import {
 import cls from './addMonitorPage.module.scss';
 import { ErrorReload } from '@/widgets/Error';
 import { Loader } from '@/widgets/Loader';
+import Toast from '@/shared/ui/Toast/Toast';
 
 const AddMonitorPage = () => {
   const dispatch = useAppDispatch();
@@ -41,8 +42,10 @@ const AddMonitorPage = () => {
   const getAllMonitorData = useSelector(GetAllMonitorPageData);
 
   const {
+    hasOpenToast,
     isOpenMonitorAddCard,
     isOpenMonitorEditCard,
+    toastDataForAddRoomForm,
     setIsOpenMonitorAddCard,
     setIsOpenMonitorEditCard,
   } = React.useContext(ButtonsContext);
@@ -84,6 +87,13 @@ const AddMonitorPage = () => {
 
           {isOpenMonitorEditCard ? <MonitorEdit /> : ''}
         </div>
+      )}
+
+      {hasOpenToast && (
+        <Toast
+          message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+          severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+        />
       )}
     </DynamicModuleLoader>
   );

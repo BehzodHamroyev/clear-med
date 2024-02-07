@@ -5,6 +5,7 @@
   " Ortga qaytish": "",
   " ta": "",
   "+998 ": "",
+  "+998 90 123 45 67": "",
   "+998 97 777 65 5": "",
   "+998 97 777 65 54": "",
   "1": "",
@@ -114,6 +115,9 @@
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
   "Bo’lim": "",
+  "Bu Login boshqa Monitorga biriktirilgan": {
+    " Loginni o'zgartiring": ""
+  },
   "Bu doktor boshqa xonaga biriktirilgan": {
     " Doktorni o'zgartiring": ""
   },
@@ -159,6 +163,7 @@
   "Kutayotgan be'morlar": "",
   "Kutayotgan bemorlar": "",
   "Login": "",
+  "Login (+998 90 123 45 67)": "",
   "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
@@ -173,6 +178,7 @@
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor muvaffaqiyatli qo'shildi": "",
   "Monitor qo'shish": "",
   "Monitor qo'shish1": "",
   "Monitorga biriktirilgan xonalar": "",
@@ -364,6 +370,9 @@
   "dan": "",
   "gacha": "",
   "kIRISH": "",
+  "maydonlar to'liq to'ldirilganiga ishonch hosil qiling": "",
+  "maydonlar to'liq to'ldirilganiga ishonch hosil qiling yoki qayta urining": "",
+  "maydonlar to'liq to'ldirilganiga ishonch hosil qiling yoki qayta urining!": "",
   "menu": "",
   "mi": "",
   "minu": "",
