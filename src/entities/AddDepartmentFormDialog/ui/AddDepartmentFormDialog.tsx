@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -15,6 +15,7 @@ import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 import { fetchAllDepartments } from '../../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
+import { Loader } from '@/widgets/Loader';
 
 const AddDepartmentFormDialog = () => {
   const { t } = useTranslation();
@@ -24,6 +25,11 @@ const AddDepartmentFormDialog = () => {
   const patientViewingTimeRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useAppDispatch();
+
+  const [
+    addDepartmentFormDialogIsLoading,
+    setAddDepartmentFormDialogIsLoading,
+  ] = useState(false);
 
   const {
     setHasOpenToast,
@@ -65,6 +71,8 @@ const AddDepartmentFormDialog = () => {
       patientViewingTime &&
       isOpenDepartmentAddCardIconIndex
     ) {
+      setAddDepartmentFormDialogIsLoading(true);
+
       try {
         const response = await axios.post<DepartmentType>(
           `${baseUrl}/department/create`,
@@ -83,6 +91,8 @@ const AddDepartmentFormDialog = () => {
         );
 
         if (response.data) {
+          setAddDepartmentFormDialogIsLoading(false);
+
           setIsOpenDepartmentAddCard(false);
 
           setHasOpenToast(true);
@@ -97,6 +107,8 @@ const AddDepartmentFormDialog = () => {
 
         return response.data;
       } catch (error) {
+        setAddDepartmentFormDialogIsLoading(false);
+
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
             setToastDataForAddRoomForm({
@@ -128,76 +140,80 @@ const AddDepartmentFormDialog = () => {
   };
 
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpenDepartmentAddCard(false);
-      }}
-      className={cls.DepartmentAddWrapper}
-    >
+    <>
       <div
         onClick={(e) => {
           e.stopPropagation();
+          setIsOpenDepartmentAddCard(false);
         }}
-        className={cls.DepartmentAddCard}
+        className={cls.DepartmentAddWrapper}
       >
-        <div className={cls.TitleFlex}>
-          <h3 className={cls.CardTitle}>{t('Bo‘lim qo‘shish')}</h3>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className={cls.DepartmentAddCard}
+        >
+          <div className={cls.TitleFlex}>
+            <h3 className={cls.CardTitle}>{t('Bo‘lim qo‘shish')}</h3>
 
-          <ResultIconSrc />
-        </div>
-
-        <form action="#" className={cls.CardBody} onSubmit={handleFormSubmit}>
-          <TextField
-            required
-            type="text"
-            inputRef={inputRef}
-            id="outlined-basic"
-            variant="outlined"
-            label={t('Bo‘lim nomi')}
-            className={cls.InputBulim}
-            inputProps={{ maxLength: 20, minLength: 3 }}
-          />
-
-          <TextField
-            required
-            type="number"
-            id="outlined-basic"
-            variant="outlined"
-            inputProps={{ min: 1 }}
-            className={cls.InputBulim}
-            inputRef={patientViewingTimeRef}
-            label={t("Bemorni ko'rish vaqti")}
-          />
-
-          <button
-            className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
-            onClick={() => {
-              setIsOpenDepartmentAddCardIcon(true);
-            }}
-            type="button"
-          >
-            {t("Bo'limga rasm qo'shish")}
-          </button>
-
-          {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
-
-          <div className={cls.BtnParnet}>
-            <button
-              onClick={handleClose}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
-            >
-              {t('Bekor qilish')}
-            </button>
-
-            <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
-              {t('Saqlash')}
-            </button>
+            <ResultIconSrc />
           </div>
-        </form>
+
+          <form action="#" className={cls.CardBody} onSubmit={handleFormSubmit}>
+            <TextField
+              required
+              type="text"
+              inputRef={inputRef}
+              id="outlined-basic"
+              variant="outlined"
+              label={t('Bo‘lim nomi')}
+              className={cls.InputBulim}
+              inputProps={{ maxLength: 20, minLength: 3 }}
+            />
+
+            <TextField
+              required
+              type="number"
+              id="outlined-basic"
+              variant="outlined"
+              inputProps={{ min: 1 }}
+              className={cls.InputBulim}
+              inputRef={patientViewingTimeRef}
+              label={t("Bemorni ko'rish vaqti")}
+            />
+
+            <button
+              className={`${cls.Btn} ${cls.BtnHover} ${cls.Btn3}`}
+              onClick={() => {
+                setIsOpenDepartmentAddCardIcon(true);
+              }}
+              type="button"
+            >
+              {t("Bo'limga rasm qo'shish")}
+            </button>
+
+            {isOpenDepartmentAddCardIcon ? <GetIconForDepartment /> : ''}
+
+            <div className={cls.BtnParnet}>
+              <button
+                onClick={handleClose}
+                type="button"
+                className={`${cls.Btn} ${cls.Btn1}`}
+              >
+                {t('Bekor qilish')}
+              </button>
+
+              <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
+                {t('Saqlash')}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+
+      {addDepartmentFormDialogIsLoading && <Loader />}
+    </>
   );
 };
 
