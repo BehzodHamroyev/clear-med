@@ -62,6 +62,11 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   const [doctorList, setDoctorList] = useState<any[]>([]);
 
+  const [
+    editRoomFormDialogSubmitIsLoading,
+    setEditRoomFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
@@ -200,6 +205,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    setEditRoomFormDialogSubmitIsLoading(true);
+
     if (
       roomCurrentData?.data?.departmentId &&
       roomCurrentData?.data?.doctorId &&
@@ -222,6 +229,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
         );
 
         if (response.data) {
+          setEditRoomFormDialogSubmitIsLoading(false);
+
           setIsOpenRoomEditCard(false);
 
           setHasOpenToast(true);
@@ -237,6 +246,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
         }
       } catch (error) {
         setDoctorList([]);
+
+        setEditRoomFormDialogSubmitIsLoading(false);
 
         if (axios.isAxiosError(error)) {
           if (error?.response?.status === 403) {
@@ -381,13 +392,15 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
           </BootstrapDialog>
         )}
 
-      {roomCurrentData?.isLoading &&
-        allDepartmentsIsLoading &&
-        allFreeDoctorsIsLoading && <Loader />}
+      {(roomCurrentData?.isLoading ||
+        allDepartmentsIsLoading ||
+        allFreeDoctorsIsLoading ||
+        editRoomFormDialogSubmitIsLoading ||
+        roomCurrentData?.isLoading) && <Loader />}
 
-      {roomCurrentData?.isError &&
-        allDepartmentsError &&
-        allFreeDoctorsError && <ErrorDialog isErrorProps={!false} />}
+      {(roomCurrentData?.isError ||
+        allDepartmentsError ||
+        allFreeDoctorsError) && <ErrorDialog isErrorProps={!false} />}
     </>
   );
 };
