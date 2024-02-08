@@ -124,7 +124,17 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenAdvertisementEditCard, setIsOpenAdvertisementEditCard] =
     useState(false);
 
+  const [isOpenAdvertisementDeleteCard, setIsOpenAdvertisementDeleteCard] =
+    useState(false);
+
   const [isOpenDoctorEditCard, setIsOpenDoctorEditCard] = useState(false);
+
+  const [isOpenAddReceptionCard, setIsOpenAddReceptionCard] = useState(false);
+
+  const [isOpenEditReceptionCard, setIsOpenEditReceptionCard] = useState(false);
+
+  const [isOpenDeleteReceptionCard, setIsOpenDeleteReceptionCard] =
+    useState(false);
 
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
@@ -186,6 +196,15 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      isOpenAddReceptionCard,
+      setIsOpenAddReceptionCard,
+
+      isOpenEditReceptionCard,
+      setIsOpenEditReceptionCard,
+
+      isOpenDeleteReceptionCard,
+      setIsOpenDeleteReceptionCard,
+
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -228,6 +247,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenAdvertisementAddCard,
       isOpenAdvertisementEditCard,
       setIsOpenAdvertisementEditCard,
+      isOpenAdvertisementDeleteCard,
+      setIsOpenAdvertisementDeleteCard,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
@@ -284,6 +305,15 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsMonitorAddSelectionFormAdvertisement,
     }),
     [
+      isOpenAddReceptionCard,
+      setIsOpenAddReceptionCard,
+
+      isOpenEditReceptionCard,
+      setIsOpenEditReceptionCard,
+
+      isOpenDeleteReceptionCard,
+      setIsOpenDeleteReceptionCard,
+
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -328,6 +358,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenAdvertisementAddCard,
       isOpenAdvertisementEditCard,
       setIsOpenAdvertisementEditCard,
+      isOpenAdvertisementDeleteCard,
+      setIsOpenAdvertisementDeleteCard,
       isOpenMonitorAddCard,
       setIsOpenMonitorAddCard,
       monitorGetId,

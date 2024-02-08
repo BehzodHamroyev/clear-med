@@ -4,77 +4,81 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import cls from './AddDoctorPage.module.scss';
+import cls from './AddReceptionPage.module.scss';
 
 import Toast from '@/shared/ui/Toast/Toast';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
-import { fetchAllDoctors } from '../model/service/fetchAllDoctors';
-import { AddDoctorFormDialog } from '@/entities/AddDoctorFormDialog';
+import { fetchAllReceptions } from '../model/service/fetchAllReceptions';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
-  getAllDoctorsData,
-  getAllDoctorsError,
-  getAllDoctorsIsLoading,
-} from '../model/selector/AllDoctorsSelector';
+  getAllReceptionsData,
+  getAllReceptionsError,
+  getAllReceptionsIsLoading,
+} from '../model/selector/AllReceptionsSelector';
 
-import DeleteDoctorFormDialog from '../../../entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
 import { Loader } from '@/widgets/Loader';
-import EditDoctorFormDialog from '@/entities/EditDoctorFormDialog/EditDoctorFormDialog';
 
-const AddDoctorPage = () => {
+import DeleteReceptionFormDialog from '../../../entities/DeleteReceptionFormDialog/DeleteReceptionFormDialog';
+import EditReceptionFormDialog from '../../../entities/EditReceptionFormDialog/EditReceptionFormDialog';
+import { AddReceptionFormDialog } from '@/entities/AddReceptionFormDialog';
+
+const AddReceptionPage = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
   const {
     hasOpenToast,
-    isOpenDoctorAddCard,
-    isOpenDoctorDeleteCard,
-    setIsOpenDoctorAddCard,
     toastDataForAddRoomForm,
-    setIsOpenDoctorDeleteCard,
-    isOpenDoctorEditCard,
-    setIsOpenDoctorEditCard,
+
+    isOpenAddReceptionCard,
+    setIsOpenAddReceptionCard,
+
+    isOpenDeleteReceptionCard,
+    setIsOpenDeleteReceptionCard,
+
+    isOpenEditReceptionCard,
+    setIsOpenEditReceptionCard,
   } = useContext(ButtonsContext);
 
-  const allDoctorsData = useSelector(getAllDoctorsData);
-  const allDoctorsError = useSelector(getAllDoctorsError);
-  const allDoctorsIsLoading = useSelector(getAllDoctorsIsLoading);
+  const allReceptionsData = useSelector(getAllReceptionsData);
+  const allReceptionsError = useSelector(getAllReceptionsError);
+  const allReceptionsIsLoading = useSelector(getAllReceptionsIsLoading);
 
-  const [deleteDoctorId, setDeleteDoctorId] = useState<string>();
-  const [editDoctorId, setEditDoctorId] = useState<string>();
+  const [deleteReceptionId, setDeleteReceptionId] = useState<string>();
+  const [editReceptionId, setEditReceptionId] = useState<string>();
 
   const handleCardAddCard = () => {
-    setIsOpenDoctorAddCard(true);
+    setIsOpenAddReceptionCard(true);
   };
 
   useEffect(() => {
-    dispatch(fetchAllDoctors({}));
+    dispatch(fetchAllReceptions({}));
   }, [dispatch]);
 
   const handleClickDeleteDoctor = (id: string) => {
-    setIsOpenDoctorDeleteCard(true);
+    setIsOpenDeleteReceptionCard(true);
 
-    setDeleteDoctorId(id);
+    setDeleteReceptionId(id);
   };
 
   const handleClickEditDoctor = (id: string) => {
-    setIsOpenDoctorEditCard(true);
+    setIsOpenEditReceptionCard(true);
 
-    setEditDoctorId(id);
+    setEditReceptionId(id);
   };
 
   return (
     <div className={cls.AddDoctorPageWrp}>
       <div className={cls.AddDoctorPageWrp__Title}>
         <p className={cls['AddDoctorPageWrp__Title--text']}>
-          {t('Shifokorlar')}{' '}
+          {t('Receptions')}{' '}
           <span className={cls['AddDoctorPageWrp__Title--span']}>
-            ({allDoctorsData ? allDoctorsData.length : 0})
+            ({allReceptionsData ? allReceptionsData.length : 0})
           </span>{' '}
         </p>
 
@@ -95,12 +99,6 @@ const AddDoctorPage = () => {
               {t('F.I.Sh')}
             </th>
 
-            <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Xona')}</th>
-
-            <th className={cls['AddDoctorPageWrp__Table--th']}>
-              {t('Bo’lim')}
-            </th>
-
             <th className={cls['AddDoctorPageWrp__Table--th']}>
               {t('Tajribasi')}
             </th>
@@ -114,9 +112,9 @@ const AddDoctorPage = () => {
           </tr>
         </thead>
 
-        {allDoctorsData && allDoctorsData.length > 0 && (
+        {allReceptionsData && allReceptionsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
-            {allDoctorsData.map((item) => {
+            {allReceptionsData.map((item) => {
               const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
 
               return (
@@ -134,26 +132,6 @@ const AddDoctorPage = () => {
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
                     {item?.name ? item?.name : "Ism yo'q"}
-                  </td>
-
-                  <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.rooms?.[0]?.name ? (
-                      item?.rooms?.[0]?.name
-                    ) : (
-                      <p className={cls['AddDoctorPageWrp__Table--invalid']}>
-                        {t("Xona yo'q")}
-                      </p>
-                    )}
-                  </td>
-
-                  <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.rooms?.[0]?.department_id?.name ? (
-                      item?.rooms?.[0]?.department_id?.name
-                    ) : (
-                      <p className={cls['AddDoctorPageWrp__Table--invalid']}>
-                        {t("Bo'lim yo'q")}
-                      </p>
-                    )}
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
@@ -188,18 +166,16 @@ const AddDoctorPage = () => {
             })}
           </tbody>
         )}
-
-        {allDoctorsIsLoading && <Loader />}
-
-        {allDoctorsError && <ErrorDialog isErrorProps={!false} />}
       </table>
 
-      {editDoctorId && isOpenDoctorEditCard && (
-        <EditDoctorFormDialog doctorId={editDoctorId} />
+      {isOpenAddReceptionCard && <AddReceptionFormDialog />}
+
+      {editReceptionId && isOpenEditReceptionCard && (
+        <EditReceptionFormDialog receptionId={editReceptionId} />
       )}
 
-      {deleteDoctorId && isOpenDoctorDeleteCard && (
-        <DeleteDoctorFormDialog doctorId={deleteDoctorId} />
+      {deleteReceptionId && isOpenDeleteReceptionCard && (
+        <DeleteReceptionFormDialog receptionId={deleteReceptionId} />
       )}
 
       {hasOpenToast && (
@@ -209,9 +185,11 @@ const AddDoctorPage = () => {
         />
       )}
 
-      {isOpenDoctorAddCard ? <AddDoctorFormDialog /> : ''}
+      {allReceptionsIsLoading && <Loader />}
+
+      {allReceptionsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );
 };
 
-export default AddDoctorPage;
+export default AddReceptionPage;

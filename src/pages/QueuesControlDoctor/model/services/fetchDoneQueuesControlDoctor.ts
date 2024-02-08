@@ -14,13 +14,10 @@ export const fetchDoneQueuesControlDoctor = createAsyncThunk<
 
   const getTokenCookie = Cookies.get('token');
 
-  if (!limit) {
-    throw new Error('');
-  }
-
   try {
     const response = await axios.get<QueueApiResponseControlDoctorTypes>(
-      `${baseUrl}/doctor/report?limit=${limit}`,
+      `${baseUrl}/doctor/report
+    `,
 
       {
         headers: {

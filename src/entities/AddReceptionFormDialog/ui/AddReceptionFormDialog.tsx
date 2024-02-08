@@ -23,19 +23,19 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import cls from './AddDoctorFormDialog.module.scss';
+import cls from './AddReceptionFormDialog.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllDoctors } from '../../../pages/AddDoctorPage/model/service/fetchAllDoctors';
+import { fetchAllReceptions } from '../../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { Loader } from '@/widgets/Loader';
 
-const AddDoctorFormDialog = () => {
+const AddReceptionFormDialog = () => {
   const { t } = useTranslation();
 
-  const [addDoctorFormDialogIsLoading, setAddDoctorFormDialogIsLoading] =
+  const [addReceptionFormDialogIsLoading, setAddReceptionFormDialogIsLoading] =
     useState(false);
 
   /* img input value */
@@ -63,7 +63,7 @@ const AddDoctorFormDialog = () => {
 
   const {
     setHasOpenToast,
-    setIsOpenDoctorAddCard,
+    setIsOpenAddReceptionCard,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
 
@@ -81,7 +81,7 @@ const AddDoctorFormDialog = () => {
 
   const handleClose = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    setIsOpenDoctorAddCard(false);
+    setIsOpenAddReceptionCard(false);
   };
 
   const handleClick = () => {
@@ -100,7 +100,7 @@ const AddDoctorFormDialog = () => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    setAddDoctorFormDialogIsLoading(true);
+    setAddReceptionFormDialogIsLoading(true);
 
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
@@ -118,8 +118,12 @@ const AddDoctorFormDialog = () => {
       PhoneNumber.length > 8 &&
       PhoneNumber.length >= 8
     ) {
-      dataForm.append('role', `doctor`);
-      dataForm.append('file', ImgProfile);
+      dataForm.append('role', `reception`);
+
+      if (ImgProfile) {
+        dataForm.append('file', ImgProfile);
+      }
+
       dataForm.append('name', `${FullName}`);
       dataForm.append('exprience', `${Experience}`);
       dataForm.append(
@@ -129,7 +133,7 @@ const AddDoctorFormDialog = () => {
       dataForm.append('password', `${Password}`);
     }
 
-    if (ImgProfile && FullName && Experience && PhoneNumber && Password) {
+    if (FullName && Experience && PhoneNumber && Password) {
       try {
         const response = await axios.post(`${baseUrl}/users`, dataForm, {
           maxBodyLength: Infinity,
@@ -140,23 +144,23 @@ const AddDoctorFormDialog = () => {
         });
 
         if (response.data) {
-          setAddDoctorFormDialogIsLoading(false);
+          setAddReceptionFormDialogIsLoading(false);
 
-          setIsOpenDoctorAddCard(false);
+          setIsOpenAddReceptionCard(false);
 
           setHasOpenToast(true);
 
           setToastDataForAddRoomForm({
-            toastMessageForAddRoomForm: t("Doktor muvaffaqiyatli qo'shildi"),
+            toastMessageForAddRoomForm: t("Reception muvaffaqiyatli qo'shildi"),
             toastSeverityForAddRoomForm: 'success',
           });
 
-          dispatch(fetchAllDoctors({}));
+          dispatch(fetchAllReceptions({}));
         }
 
         return response.data;
       } catch (error) {
-        setAddDoctorFormDialogIsLoading(false);
+        setAddReceptionFormDialogIsLoading(false);
 
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
@@ -193,6 +197,12 @@ const AddDoctorFormDialog = () => {
           }
         }
       }
+    } else {
+      setToastDataForAddRoomForm({
+        toastMessageForAddRoomForm: t("Barcha maydonlar to'ldirilishi shart"),
+        toastSeverityForAddRoomForm: 'warning',
+      });
+      setHasOpenToast(true);
     }
   };
 
@@ -207,7 +217,7 @@ const AddDoctorFormDialog = () => {
       <div
         onClick={(e) => {
           e.stopPropagation();
-          setIsOpenDoctorAddCard(false);
+          setIsOpenAddReceptionCard(false);
         }}
         className={cls.DepartmentAddWrapper}
       >
@@ -217,7 +227,7 @@ const AddDoctorFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+          <h3 className={cls.CardTitle}>{t('Reception qo‘shish')}</h3>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
@@ -228,7 +238,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <button
-                type="submit"
+                type="button"
                 onClick={handleClick}
                 className={cls.AddCardImgValuebtn}
               >
@@ -339,9 +349,9 @@ const AddDoctorFormDialog = () => {
         </div>
       </div>
 
-      {addDoctorFormDialogIsLoading && <Loader />}
+      {addReceptionFormDialogIsLoading && <Loader />}
     </>
   );
 };
 
-export default AddDoctorFormDialog;
+export default AddReceptionFormDialog;

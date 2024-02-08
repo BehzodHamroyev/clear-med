@@ -14,6 +14,7 @@ export enum AdminRoutes {
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
   ALL_DOCTORS = 'all_doctors',
+  ADD_RECEPTION = 'add-reception',
   ADD_MONITOR = 'add_monitor',
   MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
@@ -65,6 +66,7 @@ export const getRouteAddRoomPageFIX = () => '/add-room';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
 export const getRouteAddDoctorsPage = () => '/add-doctors';
+export const getRouteAddReceptionsPage = () => '/add-reception';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
 export const getRouteRoomAttachmentMonitor = () =>
@@ -93,6 +95,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
   [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
+  [getRouteAddReceptionsPage()]: AdminRoutes.ADD_RECEPTION,
   [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
   [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
