@@ -270,6 +270,10 @@
   "Reklama manzili (url)": "",
   "Reklama muvaffaqiyatli qo'shildi": "",
   "Reklama nomi": "",
+  "Reklama o'chirildi": "",
+  "Reklama o'chirilmadi": {
+    " Tizimda xatolik sodir bo'ldi": ""
+  },
   "Reklama qo’shish": "",
   "Reklama tahrirlash": "",
   "Reklama turi": "",
@@ -343,6 +347,7 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Ushbu Reklamani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Url takrorlangan , urlni o'zgartiring": "",
   "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?": "",

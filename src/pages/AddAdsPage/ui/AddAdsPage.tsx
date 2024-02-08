@@ -24,6 +24,8 @@ import {
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 import { Loader } from '@/widgets/Loader';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
 
 const AddAdsPage = () => {
   const { t } = useTranslation();
@@ -37,6 +39,8 @@ const AddAdsPage = () => {
     setIsOpenAdvertisementAddCard,
     isOpenAdvertisementEditCard,
     setIsOpenAdvertisementEditCard,
+    isOpenAdvertisementDeleteCard,
+    setIsOpenAdvertisementDeleteCard,
   } = useContext(ButtonsContext);
 
   const allAdsData = useSelector(getAllAdsData);
@@ -44,6 +48,7 @@ const AddAdsPage = () => {
   const allAdsIsLoading = useSelector(getAllAdsIsLoading);
 
   const [editAdsId, setEditAdsId] = useState<string>();
+  const [deleteAdsId, setDeleteAdsId] = useState<string>();
 
   useEffect(() => {
     dispatch(fetchAllAds({}));
@@ -57,6 +62,12 @@ const AddAdsPage = () => {
     setIsOpenAdvertisementEditCard(true);
 
     setEditAdsId(id);
+  };
+
+  const handleClickDeleteAds = (id: string) => {
+    setIsOpenAdvertisementDeleteCard(true);
+
+    setDeleteAdsId(id);
   };
 
   return (
@@ -142,7 +153,10 @@ const AddAdsPage = () => {
                       <PenTools className={cls['AddAdsPageWrp__Table--edit']} />
                     </td>
 
-                    <td className={cls['AddAdsPageWrp__Table--lastChild2']}>
+                    <td
+                      className={cls['AddAdsPageWrp__Table--lastChild2']}
+                      onClick={() => handleClickDeleteAds(item?.id)}
+                    >
                       {}
                       <DeleteTools
                         className={cls['AddAdsPageWrp__Table--delete']}
@@ -173,6 +187,10 @@ const AddAdsPage = () => {
 
       {editAdsId && isOpenAdvertisementEditCard && (
         <EditAdsFormDiolog editAdsId={editAdsId} />
+      )}
+
+      {deleteAdsId && isOpenAdvertisementDeleteCard && (
+        <DeleteAdsFormDialog adsId={deleteAdsId} />
       )}
 
       {allAdsIsLoading && <Loader />}

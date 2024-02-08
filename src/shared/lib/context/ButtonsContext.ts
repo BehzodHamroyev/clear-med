@@ -98,6 +98,9 @@ export interface ButtonsClickedProps {
   isOpenAdvertisementEditCard: boolean;
   setIsOpenAdvertisementEditCard: (prop: boolean) => void;
 
+  isOpenAdvertisementDeleteCard: boolean;
+  setIsOpenAdvertisementDeleteCard: (prop: boolean) => void;
+
   isOpenDoctorEditCard: boolean;
   setIsOpenDoctorEditCard: (prop: boolean) => void;
 
@@ -201,6 +204,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenAttachmentRoomMonitorChild: false,
   setIsOpenAttachmentRoomMonitorChild: () => {},
+
+  isOpenAdvertisementDeleteCard: false,
+  setIsOpenAdvertisementDeleteCard: () => {},
 
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
