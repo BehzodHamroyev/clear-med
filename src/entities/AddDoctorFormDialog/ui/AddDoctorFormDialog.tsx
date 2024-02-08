@@ -21,6 +21,7 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  Dialog,
 } from '@mui/material';
 
 import cls from './AddDoctorFormDialog.module.scss';
@@ -63,6 +64,7 @@ const AddDoctorFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenDoctorAddCard,
     setIsOpenDoctorAddCard,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
@@ -204,19 +206,14 @@ const AddDoctorFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenDoctorAddCard(false);
-        }}
-        className={cls.DepartmentAddWrapper}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenDoctorAddCard}
+        className={cls.DoctorAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          className={cls.DepartmentAddCard}
-        >
+        <div className={cls.DoctorAddCard}>
           <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
@@ -337,7 +334,7 @@ const AddDoctorFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addDoctorFormDialogIsLoading && <Loader />}
     </>

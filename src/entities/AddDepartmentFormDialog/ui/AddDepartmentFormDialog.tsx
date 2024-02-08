@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
-import { TextField } from '@mui/material';
+import { Dialog, TextField } from '@mui/material';
 
 import cls from './AddDepartmentFormDialog.module.scss';
 
@@ -33,6 +33,7 @@ const AddDepartmentFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenDepartmentAddCard,
     setIsOpenDepartmentAddCard,
     setToastDataForAddRoomForm,
     isOpenDepartmentAddCardIcon,
@@ -141,12 +142,12 @@ const AddDepartmentFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenDepartmentAddCard(false);
-        }}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenDepartmentAddCard}
         className={cls.DepartmentAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <div
           onClick={(e) => {
@@ -210,7 +211,7 @@ const AddDepartmentFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addDepartmentFormDialogIsLoading && <Loader />}
     </>
