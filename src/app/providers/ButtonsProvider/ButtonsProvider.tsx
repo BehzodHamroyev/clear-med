@@ -127,6 +127,13 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenDoctorEditCard, setIsOpenDoctorEditCard] = useState(false);
 
+  const [isOpenAddReceptionCard, setIsOpenAddReceptionCard] = useState(false);
+
+  const [isOpenEditReceptionCard, setIsOpenEditReceptionCard] = useState(false);
+
+  const [isOpenDeleteReceptionCard, setIsOpenDeleteReceptionCard] =
+    useState(false);
+
   const [responseAddRoomStatusCode, setResponseAddRoomStatusCode] = useState(0);
 
   const [responseAddDoctorStatusCode, setResponseAddDoctorStatusCode] =
@@ -185,6 +192,15 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      isOpenAddReceptionCard,
+      setIsOpenAddReceptionCard,
+
+      isOpenEditReceptionCard,
+      setIsOpenEditReceptionCard,
+
+      isOpenDeleteReceptionCard,
+      setIsOpenDeleteReceptionCard,
+
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -281,6 +297,15 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsMonitorAddSelectionFormAdvertisement,
     }),
     [
+      isOpenAddReceptionCard,
+      setIsOpenAddReceptionCard,
+
+      isOpenEditReceptionCard,
+      setIsOpenEditReceptionCard,
+
+      isOpenDeleteReceptionCard,
+      setIsOpenDeleteReceptionCard,
+
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,

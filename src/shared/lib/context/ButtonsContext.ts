@@ -86,6 +86,15 @@ export interface ButtonsClickedProps {
   isOpenDoctorAddCard: boolean;
   setIsOpenDoctorAddCard: (prop: boolean) => void;
 
+  isOpenAddReceptionCard: boolean;
+  setIsOpenAddReceptionCard: (prop: boolean) => void;
+
+  isOpenEditReceptionCard: boolean;
+  setIsOpenEditReceptionCard: (prop: boolean) => void;
+
+  isOpenDeleteReceptionCard: boolean;
+  setIsOpenDeleteReceptionCard: (prop: boolean) => void;
+
   isOpenAdvertisementAddCard: boolean;
   setIsOpenAdvertisementAddCard: (prop: boolean) => void;
 
@@ -379,4 +388,13 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
     sizdan_oldingi_bemorlar_soni: 1,
   },
   setCurrentQueueData: () => {},
+
+  isOpenAddReceptionCard: false,
+  setIsOpenAddReceptionCard: () => {},
+
+  isOpenEditReceptionCard: false,
+  setIsOpenEditReceptionCard: () => {},
+
+  isOpenDeleteReceptionCard: false,
+  setIsOpenDeleteReceptionCard: () => {},
 });

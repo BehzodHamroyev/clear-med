@@ -25,6 +25,7 @@ import {
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
   getRouteAddAdsPage,
+  getRouteAddReceptionsPage,
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
@@ -47,6 +48,7 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
+import { AddReceptionPage } from '@/pages/AddReceptionPage';
 import { MonitorsPage } from '@/pages/Monitors';
 import { MonitorsDetail } from '@/pages/MonitorsDetail';
 import { AddAdsPage } from '@/pages/AddAdsPage';
@@ -78,6 +80,11 @@ export const routeConfigForAdmin: Record<
   [AdminRoutes.ADD_ROOM_PAGE]: {
     path: getRouteAddRoomPageFIX(),
     element: <AddRoomPage />,
+  },
+
+  [AdminRoutes.ADD_RECEPTION]: {
+    path: getRouteAddReceptionsPage(),
+    element: <AddReceptionPage />,
   },
 
   [AdminRoutes.ALL_DOCTORS]: {

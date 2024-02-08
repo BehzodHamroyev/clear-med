@@ -40,24 +40,30 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   },
   {
     id: 4,
+    path: '/add-reception',
+    title: 'Reception qo‘shish',
+    icon: <Shifokor />,
+  },
+  {
+    id: 5,
     path: '/reports',
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
   },
   {
-    id: 5,
+    id: 6,
     path: '/monitors',
     title: 'Monitorlar',
     icon: <Navbatlar />,
   },
   {
-    id: 6,
+    id: 7,
     path: '/add_ads',
     title: 'Reklama qo’shish',
     icon: <Bolimlar />,
   },
   {
-    id: 7,
+    id: 8,
     path: '/add_monitor',
     title: 'Monitor qo’shish',
     icon: <Bolimlar />,
@@ -145,16 +151,18 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '63px';
       } else if (divRef.current && location.pathname === '/add-doctors') {
         divRef.current.style.top = '106px';
-      } else if (divRef.current && location.pathname === '/reports') {
+      } else if (divRef.current && location.pathname === '/add-reception') {
         divRef.current.style.top = '149px';
-      } else if (divRef.current && location.pathname === '/queues') {
+      } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '192px';
-      } else if (divRef.current && location.pathname === '/add_ads') {
+      } else if (divRef.current && location.pathname === '/monitors') {
         divRef.current.style.top = '235px';
-      } else if (divRef.current && location.pathname === '/add_monitor') {
+      } else if (divRef.current && location.pathname === '/add_ads') {
         divRef.current.style.top = '280px';
+      } else if (divRef.current && location.pathname === '/add_monitor') {
+        divRef.current.style.top = '321px';
       } else if (divRef.current && location.pathname === '/settings') {
-        divRef.current.style.top = '388px';
+        divRef.current.style.top = '428px';
       }
     } else if (profileValue === 'doktor') {
       if (divRef.current && location.pathname === '/') {

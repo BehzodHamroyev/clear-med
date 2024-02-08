@@ -8,7 +8,7 @@ import { ReportDoctorTypes } from '../..';
 
 export const fetchReportControlDoctor = createAsyncThunk<
   ReportDoctorTypes,
-  { startDate: string; endDate: string; limit: number; page: number },
+  { startDate: string; endDate: string; limit?: number; page?: number },
   ThunkConfig<string>
 >(
   'fetchReportControlDoctor',
@@ -17,16 +17,12 @@ export const fetchReportControlDoctor = createAsyncThunk<
 
     const getTokenCookie = Cookies.get('token');
 
-    if (!limit) {
-      throw new Error('');
-    }
-
     try {
       const response = await axios.get<ReportDoctorTypes>(
         startDate && endDate
           ? // eslint-disable-next-line max-len
-            `${baseUrl}/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=${limit}&page=${page}`
-          : `${baseUrl}/doctor/report?limit=${limit}&page=${page}aa`,
+            `${baseUrl}/doctor/report?startDate=${startDate}&endDate=${endDate}`
+          : `${baseUrl}/doctor/report`,
         {
           headers: {
             authorization: `Bearer ${getTokenCookie}`,
