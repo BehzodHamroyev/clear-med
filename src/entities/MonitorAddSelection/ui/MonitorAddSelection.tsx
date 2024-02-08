@@ -50,8 +50,8 @@ const MonitorAddSelection = () => {
 
   return (
     <div>
-      <Box sx={{ minWidth: 120, marginTop: '20px', marginBottom: '20px' }}>
-        <FormControl fullWidth>
+      <Box sx={{ minWidth: 120, marginBottom: '20px' }}>
+        <FormControl required fullWidth>
           <InputLabel id="demo-simple-select-label">
             {t('Reklama turi')}
           </InputLabel>
@@ -63,8 +63,8 @@ const MonitorAddSelection = () => {
             id="demo-simple-select"
             labelId="demo-simple-select-label"
           >
-            <MenuItem value="1">Reklamali</MenuItem>
-            <MenuItem value="2">Reklamasiz</MenuItem>
+            <MenuItem value="1">{t('Reklamali')}</MenuItem>
+            <MenuItem value="2">{t('Reklamasiz')}</MenuItem>
           </Select>
         </FormControl>
       </Box>

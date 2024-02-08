@@ -79,48 +79,30 @@
     .InputBulim {
       width: 100%;
       color: #4f4f51;
-      font-family: sans-serif;
       font-size: 18px;
-      font-style: normal;
       font-weight: 500;
+      font-style: normal;
+      font-family: sans-serif;
       line-height: 16.678px; /* 104.24% */
       letter-spacing: 0.417px;
-      padding: 10px 2px;
       border: none;
       outline: none;
-      border-bottom: 1px solid #000;
       margin-bottom: 20px;
     }
 
     .BtnParnet {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
     }
 
     .Btn {
       width: 100%;
       padding: 10px;
-      font-family: sans-serif;
-      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3 ease-in;
-    }
-
-    .Btn:active {
-      transform: scale(0.95);
-    }
-
-    .Btn2 {
-      background-color: #0000ac;
-      color: #fff;
-      border: none;
-    }
-
-    .Btn1 {
-      background-color: transparent;
-      color: #828282;
-      border: 1px solid #828282;
+      border-radius: 8px;
+      font-family: sans-serif;
     }
   }
 }

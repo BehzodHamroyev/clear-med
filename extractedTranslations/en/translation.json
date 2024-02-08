@@ -179,7 +179,12 @@
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor ma'lumotlari yangilandi": "",
   "Monitor muvaffaqiyatli qo'shildi": "",
+  "Monitor o'chirildi": "",
+  "Monitor o'chirilmadi": {
+    " Tizimda xatolik sodir bo'ldi": ""
+  },
   "Monitor qo'shish": "",
   "Monitor qo'shish1": "",
   "Monitorga biriktirilgan xonalar": "",
@@ -243,6 +248,10 @@
   "Pass": "",
   "Password": "",
   "Phone Number": "",
+  "Qandaydir xatolik yuzaga keldi": {
+    " Qayta urinib ko'ring!": "",
+    " qayta urinib ko'ring!": ""
+  },
   "Qayta chaqirish": "",
   "Qidirish": "",
   "Qorong‘i": "",
@@ -270,8 +279,10 @@
   "Reklama qo’shish": "",
   "Reklama tahrirlash": "",
   "Reklama turi": "",
+  "Reklamali": "",
   "Reklamani Tahrirlash": "",
   "Reklamani tahrirlash": "",
+  "Reklamasiz": "",
   "Sahifa topilmadi": "",
   "Sana": "",
   "Sana ": "",
@@ -340,12 +351,10 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
-
+  "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
+  "Ushbu Url takrorlangan , urlni o'zgartiring": "",
   "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?": "",
-
-  "Ushbu Url takrorlangan , urlni o'zgartiring": "",
-
   "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Xatolik sodir bo'ldi": "",
   "Xatolik yuz berdi!": "",
@@ -391,6 +400,7 @@
   "tajribas": "",
   "tajribasi": "",
   "throw error": "",
+  "xatolik yuzaga keldi": "",
   "xona yo'q": "",
   "yil": "",
   "yil ": "",

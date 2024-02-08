@@ -2,11 +2,11 @@
 import React, { useRef, useState } from 'react';
 
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { Dialog, Input } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import Cookies from 'js-cookie';
-import cls from './MonitorAdd.module.scss';
+import cls from './AddMonitorFormDialog.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
 import { FormDataInState } from '../model/types/doctorAddTypes';
@@ -16,7 +16,7 @@ import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
 
-const MonitorAdd = () => {
+const AddMonitorFormDialog = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -161,7 +161,6 @@ const MonitorAdd = () => {
     });
   }, [isAllFormData, isMonitorAddSelectionFormAdvertisement]);
 
-  /* UI */
   return (
     <Dialog
       open={isOpenMonitorAddCard}
@@ -268,4 +267,4 @@ const MonitorAdd = () => {
   );
 };
 
-export default MonitorAdd;
+export default AddMonitorFormDialog;
