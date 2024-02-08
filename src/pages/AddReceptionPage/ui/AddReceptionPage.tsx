@@ -72,6 +72,9 @@ const AddReceptionPage = () => {
     setEditReceptionId(id);
   };
 
+  if (allReceptionsData)
+    console.log(allReceptionsData[0].login.toString().split(''));
+
   return (
     <div className={cls.AddDoctorPageWrp}>
       <div className={cls.AddDoctorPageWrp__Title}>
@@ -139,7 +142,16 @@ const AddReceptionPage = () => {
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.login ? item?.login : '-'}
+                    {item?.login ? (
+                      <span>
+                        ({item?.login.toString().substring(0, 2)}){' '}
+                        {item?.login.toString().substring(2, 5)}{' '}
+                        {item?.login.toString().substring(5, 7)}{' '}
+                        {item?.login.toString().substring(7, 9)}
+                      </span>
+                    ) : (
+                      '-'
+                    )}
                   </td>
 
                   <td

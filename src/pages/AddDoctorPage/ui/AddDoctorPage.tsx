@@ -23,6 +23,7 @@ import {
 
 import DeleteDoctorFormDialog from '../../../entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
 import { Loader } from '@/widgets/Loader';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import EditDoctorFormDialog from '@/entities/EditDoctorFormDialog/EditDoctorFormDialog';
 
 const AddDoctorPage = () => {
@@ -161,7 +162,16 @@ const AddDoctorPage = () => {
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.login ? item?.login : '-'}
+                    {item?.login ? (
+                      <span>
+                        ({item?.login.toString().substring(0, 2)}){' '}
+                        {item?.login.toString().substring(2, 5)}{' '}
+                        {item?.login.toString().substring(5, 7)}{' '}
+                        {item?.login.toString().substring(7, 9)}
+                      </span>
+                    ) : (
+                      '-'
+                    )}
                   </td>
 
                   <td
