@@ -23,6 +23,7 @@ import {
 
 import DeleteDoctorFormDialog from '../../../entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
 import { Loader } from '@/widgets/Loader';
+import EditDoctorFormDialog from '@/entities/EditDoctorFormDialog/EditDoctorFormDialog';
 
 const AddDoctorPage = () => {
   const { t } = useTranslation();
@@ -36,6 +37,8 @@ const AddDoctorPage = () => {
     setIsOpenDoctorAddCard,
     toastDataForAddRoomForm,
     setIsOpenDoctorDeleteCard,
+    isOpenDoctorEditCard,
+    setIsOpenDoctorEditCard,
   } = useContext(ButtonsContext);
 
   const allDoctorsData = useSelector(getAllDoctorsData);
@@ -43,6 +46,7 @@ const AddDoctorPage = () => {
   const allDoctorsIsLoading = useSelector(getAllDoctorsIsLoading);
 
   const [deleteDoctorId, setDeleteDoctorId] = useState<string>();
+  const [editDoctorId, setEditDoctorId] = useState<string>();
 
   const handleCardAddCard = () => {
     setIsOpenDoctorAddCard(true);
@@ -56,6 +60,12 @@ const AddDoctorPage = () => {
     setIsOpenDoctorDeleteCard(true);
 
     setDeleteDoctorId(id);
+  };
+
+  const handleClickEditDoctor = (id: string) => {
+    setIsOpenDoctorEditCard(true);
+
+    setEditDoctorId(id);
   };
 
   return (
@@ -154,7 +164,10 @@ const AddDoctorPage = () => {
                     {item?.login ? item?.login : '-'}
                   </td>
 
-                  <td className={cls['AddDoctorPageWrp__Table--lastChild']}>
+                  <td
+                    className={cls['AddDoctorPageWrp__Table--lastChild']}
+                    onClick={() => handleClickEditDoctor(item?.id)}
+                  >
                     {}
                     <PenTools
                       className={cls['AddDoctorPageWrp__Table--edit']}
@@ -177,8 +190,13 @@ const AddDoctorPage = () => {
         )}
 
         {allDoctorsIsLoading && <Loader />}
+
         {allDoctorsError && <ErrorDialog isErrorProps={!false} />}
       </table>
+
+      {editDoctorId && isOpenDoctorEditCard && (
+        <EditDoctorFormDialog doctorId={editDoctorId} />
+      )}
 
       {deleteDoctorId && isOpenDoctorDeleteCard && (
         <DeleteDoctorFormDialog doctorId={deleteDoctorId} />

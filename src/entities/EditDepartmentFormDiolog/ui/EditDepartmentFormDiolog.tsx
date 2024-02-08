@@ -9,8 +9,9 @@ import cls from './EditDepartmentFormDiolog.module.scss';
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
-import { EditDepartmentFormDiologTypes } from '../model/types/EditDepartmentFormDiologTypes';
+
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
+import { EditDepartmentFormDiologTypes } from '../model/types/editDepartmentFormDiologTypes';
 
 const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
   const { editDepartmentId } = prop;
