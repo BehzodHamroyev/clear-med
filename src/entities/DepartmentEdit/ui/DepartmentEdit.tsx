@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
 import { baseUrl } from '../../../../baseurl';
-import { DepartmentEditType } from '../model/types/departmentEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
@@ -84,34 +83,34 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
   };
 
   /* fetch edit */
-  const DepartmentAddCardEditItem = async () => {
-    setDepartmentListChanged(`${Math.random() * 10 + 1}`);
+  // const DepartmentAddCardEditItem = async () => {
+  //   setDepartmentListChanged(`${Math.random() * 10 + 1}`);
 
-    try {
-      const response = await axios.patch<DepartmentEditType>(
-        `${baseUrl}/department/${inputValue.id}`,
-        {
-          name: inputValue.departmentName,
-          image: `${isOpenDepartmentAddCardIconIndex || 1}`,
-          duration: Number(inputValue.durationTime),
-        },
-        {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  //   try {
+  //     const response = await axios.patch<DepartmentEditType>(
+  //       `${baseUrl}/department/${inputValue.id}`,
+  //       {
+  //         name: inputValue.departmentName,
+  //         image: `${isOpenDepartmentAddCardIconIndex || 1}`,
+  //         duration: Number(inputValue.durationTime),
+  //       },
+  //       {
+  //         maxBodyLength: Infinity,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
 
-      setResponseAddDoctorStatusCode(200);
-      setIsOpenDepartmentEditCard(false);
+  //     setResponseAddDoctorStatusCode(200);
+  //     setIsOpenDepartmentEditCard(false);
 
-      return response.data;
-    } catch (e) {
-      return setResponseAddDoctorStatusCode('404');
-    }
-  };
+  //     return response.data;
+  //   } catch (e) {
+  //     return setResponseAddDoctorStatusCode('404');
+  //   }
+  // };
 
   /* filter array data */
   const matchingItem = tableBody?.find((item) => item?.id === departmentGetId);
@@ -206,7 +205,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
 
             <button
               type="button"
-              onClick={DepartmentAddCardEditItem}
+              // onClick={DepartmentAddCardEditItem}
               className={`${cls.Btn} ${cls.Btn2}`}
             >
               {t('Saqlash')}
