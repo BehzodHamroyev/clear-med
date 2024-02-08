@@ -38,6 +38,12 @@ export interface ButtonsClickedProps {
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
 
+  monitorGetId: string;
+  setMonitorGetId: (prop: string) => void;
+
+  isOpenMonitorDeleteCard: boolean;
+  setIsOpenMonitorDeleteCard: (prop: boolean) => void;
+
   monitorEditFormOldValue: string;
   setMonitorEditFormOldValue: (prop: string) => void;
 
@@ -235,6 +241,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   hasOpenToast: false,
   setHasOpenToast: () => {},
 
+  isOpenMonitorDeleteCard: false,
+  setIsOpenMonitorDeleteCard: () => {},
+
   toastDataForAddRoomForm: {
     toastSeverityForAddRoomForm: '',
     toastMessageForAddRoomForm: '',
@@ -271,6 +280,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   departmentGetId: '',
   setDepartmentGetId: () => {},
+
+  monitorGetId: '',
+  setMonitorGetId: () => {},
 
   isSubmitLoginForm: false,
   setIsSubmitLoginForm: () => {},

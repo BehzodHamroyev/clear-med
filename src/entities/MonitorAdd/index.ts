@@ -1,1 +1,1 @@
-export { default as MonitorAdd } from './ui/MonitorAdd';
+export { default as AddMonitorFormDialog } from './ui/AddMonitorFormDialog';

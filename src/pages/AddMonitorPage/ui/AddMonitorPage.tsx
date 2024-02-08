@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { Monitors } from '@/entities/Monitors';
-import { MonitorAdd } from '@/entities/MonitorAdd';
-import { MonitorEdit } from '@/entities/MonitorEdit';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchGetAllMonitors } from '../model/service/fetchGetAllMonitors';
@@ -22,12 +20,18 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import cls from './addMonitorPage.module.scss';
-import { ErrorReload } from '@/widgets/Error';
+
 import { Loader } from '@/widgets/Loader';
 import Toast from '@/shared/ui/Toast/Toast';
+import { ErrorReload } from '@/widgets/Error';
+import { AddMonitorFormDialog } from '@/entities/MonitorAdd';
+import { EditMonitorFormDialog } from '@/entities/EditMonitorFormDialog';
+import { DeleteMonitorFormDialog } from '@/entities/DeleteMonitorFormDialog';
 
 const AddMonitorPage = () => {
   const dispatch = useAppDispatch();
+
+  const [monitorEditId, setMonitorEditId] = useState<string>();
 
   const { getResponseData } = useContext(ButtonsContext);
 
@@ -45,9 +49,8 @@ const AddMonitorPage = () => {
     hasOpenToast,
     isOpenMonitorAddCard,
     isOpenMonitorEditCard,
+    isOpenMonitorDeleteCard,
     toastDataForAddRoomForm,
-    setIsOpenMonitorAddCard,
-    setIsOpenMonitorEditCard,
   } = React.useContext(ButtonsContext);
 
   React.useEffect(() => {
@@ -76,16 +79,16 @@ const AddMonitorPage = () => {
                     key={item.id}
                     name={item.name}
                     number={index + 1}
-                    id={item.monitors[0].id}
+                    id={item.id}
                   />
                 );
               })}
             </div>
           </div>
+          {isOpenMonitorAddCard ? <AddMonitorFormDialog /> : ''}
+          {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''}
 
-          {isOpenMonitorAddCard ? <MonitorAdd /> : ''}
-
-          {isOpenMonitorEditCard ? <MonitorEdit /> : ''}
+          {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />}
         </div>
       )}
 

@@ -131,7 +131,7 @@ const AddDepartmentPage = () => {
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? (
+                    {item?.rooms_id?.length ? (
                       item?.rooms_id?.length
                     ) : (
                       <p
@@ -143,7 +143,7 @@ const AddDepartmentPage = () => {
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? (
+                    {item?.rooms_id?.length ? (
                       item?.rooms_id?.length
                     ) : (
                       <p
@@ -162,7 +162,7 @@ const AddDepartmentPage = () => {
                   >
                     {}
                     <PenTools
-                      onClick={() => handeClickEditRoom(item.id)}
+                      onClick={() => handeClickEditRoom(item?.id)}
                       className={cls['AddDepartmentPageWrp__Table--edit']}
                     />
                   </td>

@@ -19,15 +19,16 @@ interface Room {
 }
 
 export interface Department {
-  _id: string;
-  name: string;
-  duration: number;
-  image: string;
-  disabled: boolean;
-  photo: string;
+  _id?: string;
+  name?: string;
+  duration?: number;
+  image?: string;
+  disabled?: boolean;
+  photo?: string;
   updatedAt?: string;
-  rooms_id: Room[];
+  rooms_id?: Room[];
   id: string;
+  __v?: number;
 }
 
 export interface AllDepartmentsApiResponse {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { PenTools } from '@/shared/assets/entities/TableTitle';
+import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './monitors.module.scss';
@@ -18,22 +18,33 @@ const Monitors = (props: MonitorsProp) => {
   const navigate = useNavigate();
 
   const {
+    setMonitorGetId,
     setDepartmentGetId,
     setIsOpenMonitorEditCard,
     setMonitorEditFormOldValue,
+    setIsOpenMonitorDeleteCard,
   } = React.useContext(ButtonsContext);
 
   const handleClickPen = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    setDepartmentGetId(id);
+    setMonitorGetId(id);
     setIsOpenMonitorEditCard(true);
     setMonitorEditFormOldValue(name);
   };
 
+  const handleClickDel = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setMonitorGetId(id);
+    setIsOpenMonitorDeleteCard(true);
+  };
+
   const handleNavigate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
+    setMonitorGetId(id);
     setDepartmentGetId(id);
     // navigate(`/add_monitor/${number}`);
     navigate(`/add_monitor/${id}`);
@@ -47,14 +58,25 @@ const Monitors = (props: MonitorsProp) => {
           <p>{name}</p>
         </div>
 
-        <button
-          type="button"
-          className={cls.IconWrap}
-          onClick={(e) => handleClickPen(e)}
-        >
-          {' '}
-          <PenTools className={cls.icon} />
-        </button>
+        <div className={cls.flexBtn}>
+          <button
+            type="button"
+            className={cls.IconWrap}
+            onClick={(e) => handleClickPen(e)}
+          >
+            {' '}
+            <PenTools className={cls.icon} />
+          </button>
+
+          <button
+            type="button"
+            className={cls.IconWrap2}
+            onClick={(e) => handleClickDel(e)}
+          >
+            {' '}
+            <DeleteTools className={cls.icon} />
+          </button>
+        </div>
       </div>
     </div>
   );
