@@ -45,6 +45,7 @@ interface Monitor {
   rooms: Room[];
   createdAt: string;
   updatedAt: string;
+  addvertising: boolean;
   __v: number;
   id: string;
 }
@@ -69,4 +70,5 @@ interface videoUrl {
 export interface QueueProccessInRedux {
   videoUrl: videoUrl[];
   proccessQueues: Queue[];
+  addvertising?: boolean;
 }

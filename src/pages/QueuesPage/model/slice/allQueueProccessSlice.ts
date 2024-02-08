@@ -63,10 +63,13 @@ export const allQueueProccessSlice = buildSlice({
             state.data = {
               videoUrl: [],
               proccessQueues: [],
+              addvertising: false,
             };
           }
 
           state.data.videoUrl = action.payload.monitor?.videos;
+
+          state.data.addvertising = action.payload.monitor.addvertising;
 
           action?.payload?.monitor?.rooms?.forEach((item) => {
             if (
