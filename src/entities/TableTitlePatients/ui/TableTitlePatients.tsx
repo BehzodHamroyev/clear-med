@@ -26,6 +26,11 @@ interface TableInfoPatients {
   cursor?: boolean;
   Tablethead: string[];
   TableBody: reportDetailListTtype[];
+  TableInfo: {
+    all: number;
+    counCompleted: number;
+    countReject: number;
+  };
 }
 
 const tableTitle = [
@@ -37,7 +42,7 @@ const tableTitle = [
 ];
 
 const TableTitlePatients = (props: TableInfoPatients) => {
-  const { Tablethead, TableBody, cursor } = props;
+  const { Tablethead, TableBody, TableInfo, cursor } = props;
 
   const navigate = useNavigate();
 
@@ -62,23 +67,17 @@ const TableTitlePatients = (props: TableInfoPatients) => {
             <div className={cls.TableTitleWrapper__title}>
               <h3 className={cls.KorilganBemorlar}>
                 {t("Jami ko'rilgan bemorlar : ")}
-                {TableBody ? TableBody.length : 0}
+                {TableInfo.all}
               </h3>
 
               <h3 className={cls.KorilganBemorlar} style={{ color: '#148043' }}>
                 {t('Tasdiqlangan bemorlar : ')}
-                {TableBody
-                  ? TableBody.filter((item) => item.status === 'completed')
-                      .length
-                  : 0}
+                {TableInfo.counCompleted}
               </h3>
 
               <h3 className={cls.KorilganBemorlar} style={{ color: '#FF0000' }}>
                 {t('Bekor qilingan bemorlar : ')}
-                {TableBody
-                  ? TableBody.filter((item) => item.status === 'rejected')
-                      .length
-                  : 0}
+                {TableInfo.countReject}
               </h3>
             </div>
           </div>

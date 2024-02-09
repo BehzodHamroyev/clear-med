@@ -21,7 +21,7 @@ export const fetchReportControlDoctor = createAsyncThunk<
       const response = await axios.get<ReportDoctorTypes>(
         startDate && endDate
           ? // eslint-disable-next-line max-len
-            `${baseUrl}/doctor/report?startDate=${startDate}&endDate=${endDate}`
+            `${baseUrl}/doctor/report?startDate=${startDate}&endDate=${endDate}&limit=25&page=${page}`
           : `${baseUrl}/doctor/report`,
         {
           headers: {

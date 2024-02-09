@@ -42,6 +42,12 @@ interface reportDetailListTtype {
   id: string;
 }
 
+interface TableInfo {
+  all: number;
+  counCompleted: number;
+  countReject: number;
+}
+
 const ReportsDoctorPage = () => {
   const { t } = useTranslation();
 
@@ -51,6 +57,12 @@ const ReportsDoctorPage = () => {
 
   const [reportDetailList, setReportDetailList] =
     useState<reportDetailListTtype[]>();
+  const [reportInfo, setReportInfo] = useState<TableInfo>({
+    all: 0,
+    counCompleted: 0,
+    countReject: 0,
+  });
+
   const [reportDetailAllPages, setReportDetailAllPages] = useState<number>();
   const [reportDetailPage, setReportDetailPage] = useState<number>(1);
 
@@ -94,6 +106,8 @@ const ReportsDoctorPage = () => {
         if (responce.data.pagination.all) {
           setReportDetailAllPages(Math.ceil(responce.data.pagination.all / 25));
         }
+
+        setReportInfo(responce.data.pagination);
 
         setReportDetailList(responce?.data?.data);
 
@@ -140,6 +154,7 @@ const ReportsDoctorPage = () => {
             cursor
             Tablethead={tableTitle}
             TableBody={reportDetailList}
+            TableInfo={reportInfo}
           />
 
           <div className={cls.ReportsDoctorPageWrapper__pagination}>
