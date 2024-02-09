@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
 
+  monitorNumber: number | null;
+  setMonitorNumber: (prop: number) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -225,6 +228,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
+
+  monitorNumber: null,
+  setMonitorNumber: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},

@@ -1,8 +1,15 @@
 import React, { useContext, useState } from 'react';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
+import cls from './addMonitorPage.module.scss';
+
+import { Loader } from '@/widgets/Loader';
+import Toast from '@/shared/ui/Toast/Toast';
+import { ErrorReload } from '@/widgets/Error';
 import { Monitors } from '@/entities/Monitors';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchGetAllMonitors } from '../model/service/fetchGetAllMonitors';
 import { GetAllMonitorPageReducer } from '../model/slice/GetAllMonitorsSlice';
@@ -19,16 +26,9 @@ import {
   DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
-import cls from './addMonitorPage.module.scss';
-
-import { Loader } from '@/widgets/Loader';
-import Toast from '@/shared/ui/Toast/Toast';
-import { ErrorReload } from '@/widgets/Error';
-import { AddMonitorFormDialog } from '@/entities/MonitorAdd';
-import { EditMonitorFormDialog } from '@/entities/EditMonitorFormDialog';
-import { DeleteMonitorFormDialog } from '@/entities/DeleteMonitorFormDialog';
-
 const AddMonitorPage = () => {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const [monitorEditId, setMonitorEditId] = useState<string>();
@@ -49,9 +49,14 @@ const AddMonitorPage = () => {
     hasOpenToast,
     isOpenMonitorAddCard,
     isOpenMonitorEditCard,
+    setIsOpenMonitorAddCard,
     isOpenMonitorDeleteCard,
     toastDataForAddRoomForm,
   } = React.useContext(ButtonsContext);
+
+  const handleCardAddCard = () => {
+    setIsOpenMonitorAddCard(true);
+  };
 
   React.useEffect(() => {
     dispatch(fetchGetAllMonitors({}));
@@ -66,29 +71,41 @@ const AddMonitorPage = () => {
       {getAllMonitorData && (
         <div>
           <div className={cls.AddMonitorPageWrapper}>
-            <ButtonNavbar
-              CreateCarbonAdd
-              TableTitle="Monitor qo’shish"
-              ItemsLength={getAllMonitorData?.length}
-            />
+            <div className={cls.AddMonitorPageWrapper__Title}>
+              <p className={cls['AddMonitorPageWrapper__Title--text']}>
+                {t("Monitor qo'shish")}{' '}
+                <span className={cls['AddMonitorPageWrapper__Title--span']}>
+                  ({getAllMonitorData?.length || 0})
+                </span>{' '}
+              </p>
+
+              <div className={cls['AddMonitorPageWrapper__Title--IconDiv']}>
+                <CarbonAdd
+                  onClick={handleCardAddCard}
+                  className={cls['AddMonitorPageWrapper__Title--Icon']}
+                />
+              </div>
+            </div>
 
             <div className={cls.MonitorsList}>
               {getAllMonitorData?.map((item, index) => {
                 return (
                   <Monitors
+                    id={item.id}
                     key={item.id}
                     name={item.name}
                     number={index + 1}
-                    id={item.id}
                   />
                 );
               })}
             </div>
           </div>
-          {isOpenMonitorAddCard ? <AddMonitorFormDialog /> : ''}
-          {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''}
 
-          {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />}
+          {/* {isOpenMonitorAddCard && <AddMonitorFormDialog />} */}
+
+          {/* {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''} */}
+
+          {/* {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />} */}
         </div>
       )}
 
