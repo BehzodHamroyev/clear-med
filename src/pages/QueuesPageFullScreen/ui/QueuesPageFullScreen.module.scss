@@ -50,6 +50,10 @@
     height: 100%;
   }
 
+  &__queuesContainerFullQueue {
+    height: 100%;
+  }
+
   &__queuesContainerLeft {
     width: 50%;
     display: flex;
@@ -101,6 +105,13 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
+
+    &__itemsFullQueue {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding-top: 20px;
     }
 
     &__item {

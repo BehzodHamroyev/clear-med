@@ -136,25 +136,29 @@ const QueuesPageFullScreen = () => {
           </div>
         </div>
 
-        <div className={classNames(cls.QueuesPage__queuesContainer)}>
-          <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
-            {allProccessQueue?.proccessQueues &&
-              allProccessQueue?.proccessQueues.length > 0 && (
-                <div className={classNames(cls.queuesTable)}>
-                  <div className={classNames(cls.queuesTable__head)}>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p>
-                  </div>
+        {allProccessQueue?.addvertising &&
+        allProccessQueue?.videoUrl &&
+        videoUrl.length > 0 &&
+        allProccessQueue?.videoUrl.length > 0 ? (
+          <div className={classNames(cls.QueuesPage__queuesContainer)}>
+            <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
+              <div className={classNames(cls.queuesTable)}>
+                <div className={classNames(cls.queuesTable__head)}>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t("Bo'lim")}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Xona')}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Bilet')}
+                  </p>
+                </div>
 
-                  <div className={classNames(cls.queuesTable__items)}>
-                    {allProccessQueue?.proccessQueues.map((item) => (
+                <div className={classNames(cls.queuesTable__items)}>
+                  {allProccessQueue?.proccessQueues &&
+                    allProccessQueue?.proccessQueues.length > 0 &&
+                    allProccessQueue?.proccessQueues.map((item) => (
                       <div
                         key={item._id}
                         className={classNames(cls.queuesTable__item)}
@@ -182,20 +186,14 @@ const QueuesPageFullScreen = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
                 </div>
-              )}
-          </div>
+              </div>
+            </div>
 
-          {hasRolik &&
-          allProccessQueue?.videoUrl &&
-          videoUrl.length > 0 &&
-          allProccessQueue?.videoUrl.length > 0 ? (
             <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
               <div className={classNames(cls.rolik)}>
                 <ReactPlayer
                   url={videoUrl}
-                  volume={hasQueueDialog ? 0 : 1}
                   loop
                   playing
                   controls
@@ -208,10 +206,65 @@ const QueuesPageFullScreen = () => {
                 />
               </div>
             </div>
-          ) : (
-            ''
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className={classNames(cls.QueuesPage__queuesContainerFullQueue)}>
+            <div className={classNames(cls.queuesTable)}>
+              <div className={classNames(cls.queuesTable__itemsFullQueue)}>
+                <div className={classNames(cls.queuesTable__head)}>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t("Bo'lim")}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Xona')}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Bilet')}
+                  </p>
+                </div>
+
+                <div className={classNames(cls.queuesTable__head)}>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t("Bo'lim")}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Xona')}
+                  </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Bilet')}
+                  </p>
+                </div>
+
+                {allProccessQueue?.proccessQueues &&
+                  allProccessQueue?.proccessQueues.length > 0 &&
+                  allProccessQueue?.proccessQueues.map((item) => (
+                    <div
+                      key={item._id}
+                      className={classNames(cls.queuesTable__item)}
+                    >
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>{item.department_id?.name}</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>{item.room_id.name}</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>{item.queues_name}</p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {allProccessQueueIsLoading && <Loader />}
