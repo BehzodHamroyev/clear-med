@@ -354,7 +354,8 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         </Dialog>
       )}
 
-      {roomCurrentData?.isLoading && <Loader />}
+      {roomCurrentData?.isLoading ||
+        (editRoomFormDialogSubmitIsLoading && <Loader />)}
 
       {editRoomFormDialogSubmitIsLoading && <Loader />}
 
