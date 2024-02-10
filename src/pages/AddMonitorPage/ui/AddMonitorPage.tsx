@@ -1,10 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
+import cls from './addMonitorPage.module.scss';
+
+import { Loader } from '@/widgets/Loader';
+import Toast from '@/shared/ui/Toast/Toast';
+import { ErrorReload } from '@/widgets/Error';
 import { Monitors } from '@/entities/Monitors';
-import { MonitorAdd } from '@/entities/MonitorAdd';
-import { MonitorEdit } from '@/entities/MonitorEdit';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchGetAllMonitors } from '../model/service/fetchGetAllMonitors';
 import { GetAllMonitorPageReducer } from '../model/slice/GetAllMonitorsSlice';
@@ -21,12 +26,12 @@ import {
   DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
-import cls from './addMonitorPage.module.scss';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
-import { ErrorReload } from '@/widgets/Error';
-
 const AddMonitorPage = () => {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
+
+  const [monitorEditId, setMonitorEditId] = useState<string>();
 
   const { getResponseData } = useContext(ButtonsContext);
 
@@ -34,62 +39,81 @@ const AddMonitorPage = () => {
     GetAllMonitorPage: GetAllMonitorPageReducer,
   };
 
-  const getAdvertisementError = useSelector(getError);
+  const getAllMonitorError = useSelector(getError);
 
-  const getAdvertisementLoading = useSelector(getIsLoading);
+  const getAllMonitorIsLoading = useSelector(getIsLoading);
 
-  const getListOfAdvertisements = useSelector(GetAllMonitorPageData);
+  const getAllMonitorData = useSelector(GetAllMonitorPageData);
 
   const {
+    hasOpenToast,
     isOpenMonitorAddCard,
     isOpenMonitorEditCard,
     setIsOpenMonitorAddCard,
-    setIsOpenMonitorEditCard,
+    isOpenMonitorDeleteCard,
+    toastDataForAddRoomForm,
   } = React.useContext(ButtonsContext);
+
+  const handleCardAddCard = () => {
+    setIsOpenMonitorAddCard(true);
+  };
 
   React.useEffect(() => {
     dispatch(fetchGetAllMonitors({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      dispatch(fetchGetAllMonitors({}));
-    }, 1000);
-  }, [dispatch, getResponseData]);
-
   return (
     <DynamicModuleLoader reducers={reducers}>
-      {getAdvertisementLoading === true ? (
-        <LoaderAdmin />
-      ) : getAdvertisementError ? (
-        <ErrorReload message={getAdvertisementError} />
-      ) : (
+      {getAllMonitorIsLoading && <Loader />}
+
+      {getAllMonitorError && <ErrorReload message={getAllMonitorError} />}
+
+      {getAllMonitorData && (
         <div>
           <div className={cls.AddMonitorPageWrapper}>
-            <ButtonNavbar
-              CreateCarbonAdd
-              TableTitle="Monitor qo’shish"
-              ItemsLength={3}
-            />
+            <div className={cls.AddMonitorPageWrapper__Title}>
+              <p className={cls['AddMonitorPageWrapper__Title--text']}>
+                {t("Monitor qo'shish")}{' '}
+                <span className={cls['AddMonitorPageWrapper__Title--span']}>
+                  ({getAllMonitorData?.length || 0})
+                </span>{' '}
+              </p>
+
+              <div className={cls['AddMonitorPageWrapper__Title--IconDiv']}>
+                <CarbonAdd
+                  onClick={handleCardAddCard}
+                  className={cls['AddMonitorPageWrapper__Title--Icon']}
+                />
+              </div>
+            </div>
 
             <div className={cls.MonitorsList}>
-              {getListOfAdvertisements?.map((item, index) => {
+              {getAllMonitorData?.map((item, index) => {
                 return (
                   <Monitors
+                    id={item.id}
                     key={item.id}
                     name={item.name}
                     number={index + 1}
-                    id={item.monitors[0].id}
                   />
                 );
               })}
             </div>
           </div>
 
-          {isOpenMonitorAddCard ? <MonitorAdd /> : ''}
+          {/* {isOpenMonitorAddCard && <AddMonitorFormDialog />} */}
 
-          {isOpenMonitorEditCard ? <MonitorEdit /> : ''}
+          {/* {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''} */}
+
+          {/* {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />} */}
         </div>
+      )}
+
+      {hasOpenToast && (
+        <Toast
+          message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+          severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+        />
       )}
     </DynamicModuleLoader>
   );

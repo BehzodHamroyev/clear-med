@@ -31,6 +31,7 @@ import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allMonitorsReducer } from '@/pages/Monitors';
 import { allAdsReducer } from '@/pages/AddAdsPage';
+import { allReceptionsReducer } from '@/pages/AddReceptionPage';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -47,6 +48,7 @@ export function createReduxStore(
     allMonitors: allMonitorsReducer,
     RoomGetAll: RoomListSliceReducer,
     AllDoctors: allDoctorsSliceReducer,
+    allReceptions: allReceptionsReducer,
     currentQueue: currentQueueuReducer,
     deparmentList: departmentListReducer,
     allFreeDoctors: allFreeDoctorsReducer,

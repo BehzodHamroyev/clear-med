@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { TableInfo } from '../model/types/TableInfo';
@@ -6,6 +7,8 @@ import { TableInfo } from '../model/types/TableInfo';
 import cls from './TableTitle.module.scss';
 
 const TableTitleReports = (props: TableInfo) => {
+  const { t } = useTranslation();
+
   const { Tablethead, Tabletbody, cursor } = props;
 
   return (
@@ -33,13 +36,17 @@ const TableTitleReports = (props: TableInfo) => {
               {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
                 <td className={cls.td}>{item.rooms[0]?.department_id?.name}</td>
               ) : (
-                <td className={cls.td}>----------------------</td>
+                <td className={cls.td}>
+                  <span className={cls.td_invalid}>{t("Bo'lim yo'q")}</span>
+                </td>
               )}
 
               {item.rooms.length > 0 && item.rooms[0]?.name ? (
                 <td className={cls.td}>{item.rooms[0]?.name}</td>
               ) : (
-                <td className={cls.td}>------</td>
+                <td className={cls.td}>
+                  <span className={cls.td_invalid}>{t("Xona yo'q")}</span>
+                </td>
               )}
 
               {item.name ? <td className={cls.td}>{item.name}</td> : ''}

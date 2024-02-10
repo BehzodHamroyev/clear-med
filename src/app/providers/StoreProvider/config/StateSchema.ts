@@ -29,6 +29,7 @@ import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
 import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
+import { AllReceptionsTypeSchema } from '@/pages/AddReceptionPage';
 
 import {
   LastQueueDataSchema,
@@ -48,6 +49,7 @@ export interface StateSchema {
   allMonitors: AllMonitorsTypeSchema;
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
+  allReceptions: AllReceptionsTypeSchema;
   GetAllMonitorPage: AllMonitorListSchema;
   allDepartments: AllDepartmentTypeSchema;
   reportControlDoctor: ReportDoctorSchema;

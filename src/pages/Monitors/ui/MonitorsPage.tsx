@@ -41,7 +41,7 @@ const MonitorsPage = () => {
       <div className={classNames(cls.Monitors__header)}>
         <div className={classNames(cls['Monitors__header--left'])}>
           <p>{t('Monitorlar')}:</p>
-          <span>{10}</span>
+          <span>{allMonitorsData?.length}</span>
           <div />
         </div>
       </div>

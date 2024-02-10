@@ -140,7 +140,7 @@ const ReportsDoctorPage = () => {
 
   const [reportDetailList, setReportDetailList] =
     useState<reportDetailListTtype[]>();
-  const [reportDetailLimit, setReportDetailLimit] = useState<number>(20);
+  const [reportDetailLimit, setReportDetailLimit] = useState<number>();
   const [reportDetailPage, setReportDetailPage] = useState<number>(1);
 
   const [reportDoctorDetailIsLoading, setReportDoctorDetailIsLoading] =
@@ -162,7 +162,7 @@ const ReportsDoctorPage = () => {
     try {
       const responce = await axios.get(
         // eslint-disable-next-line max-len
-        `${baseUrl}/doctor/report?startDate=${calendarBeginValue}&endDate=${calendarEndValue}&limit=${reportDetailLimit}&page=${reportDetailPage}&userId=${paramIdUrl.id}`,
+        `${baseUrl}/doctor/report?startDate=${calendarBeginValue}&endDate=${calendarEndValue}&userId=${paramIdUrl.id}`,
 
         {
           headers: {

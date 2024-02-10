@@ -62,6 +62,11 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   const [doctorList, setDoctorList] = useState<any[]>([]);
 
+  const [
+    editRoomFormDialogSubmitIsLoading,
+    setEditRoomFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
@@ -99,7 +104,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       if (response?.data?.message) {
         const responceData: ApiResponse = response?.data;
 
-        setDoctorList((prev) => [...prev, response.data.message.doctor_id]);
+        if (
+          !doctorList?.some(
+            (item) => item._id === response?.data?.message?.doctor_id?._id,
+          )
+        ) {
+          // doctorList?.push(response.data.message.doctor_id);
+          setDoctorList((prev) => [
+            ...prev,
+            response?.data?.message?.doctor_id,
+          ]);
+        }
 
         setRoomCurrentData({
           isLoading: false,
@@ -135,11 +150,22 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   useEffect(() => {
     if (allFreeDoctorsData) {
-      setDoctorList((prev) => [...prev, ...allFreeDoctorsData]);
+      if (doctorList.length > 0) {
+        allFreeDoctorsData.forEach((freeDoctor) => {
+          if (!doctorList?.some((doctor) => doctor.id === freeDoctor.id)) {
+            setDoctorList((prev) => [...prev, freeDoctor]);
+          }
+        });
+      } else {
+        setDoctorList([...allFreeDoctorsData]);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFreeDoctorsData]);
 
   const handleClose = () => {
+    setDoctorList([]);
+
     setIsOpenRoomEditCard(false);
   };
 
@@ -159,7 +185,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       ...prevData,
       data: {
         roomNumber: prevData?.data?.roomNumber,
-        departmentId: event.target.value,
+        departmentId: event?.target?.value,
         doctorId: prevData?.data?.doctorId,
       },
     }));
@@ -171,7 +197,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       data: {
         roomNumber: prevData?.data?.roomNumber,
         departmentId: prevData?.data?.departmentId,
-        doctorId: event.target.value,
+        doctorId: event?.target?.value,
       },
     }));
   };
@@ -179,18 +205,20 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    setEditRoomFormDialogSubmitIsLoading(true);
+
     if (
       roomCurrentData?.data?.departmentId &&
-      roomCurrentData.data.doctorId &&
-      roomCurrentData.data.roomNumber
+      roomCurrentData?.data?.doctorId &&
+      roomCurrentData?.data?.roomNumber
     ) {
       try {
         const response = await axios.patch(
           `${baseUrl}/room/${roomId}`,
           {
-            doctor_id: roomCurrentData.data.doctorId,
-            name: Number(roomCurrentData.data.roomNumber),
-            department_id: roomCurrentData.data.departmentId,
+            doctor_id: roomCurrentData?.data?.doctorId,
+            name: Number(roomCurrentData?.data?.roomNumber),
+            department_id: roomCurrentData?.data?.departmentId,
           },
           {
             headers: {
@@ -201,6 +229,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
         );
 
         if (response.data) {
+          setEditRoomFormDialogSubmitIsLoading(false);
+
           setIsOpenRoomEditCard(false);
 
           setHasOpenToast(true);
@@ -210,11 +240,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
             toastSeverityForAddRoomForm: 'success',
           });
 
+          setDoctorList([]);
+
           dispatch(fetchAllRooms({}));
         }
       } catch (error) {
+        setDoctorList([]);
+
+        setEditRoomFormDialogSubmitIsLoading(false);
+
         if (axios.isAxiosError(error)) {
-          if (error.response?.status === 403) {
+          if (error?.response?.status === 403) {
             setToastDataForAddRoomForm({
               toastMessageForAddRoomForm: t(
                 "Bu doktor boshqa xonaga biriktirilgan. Doktorni o'zgartiring",
@@ -237,8 +273,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
           }
 
           if (
-            error.response?.status !== 404 &&
-            error.response?.status !== 403
+            error?.response?.status !== 404 &&
+            error?.response?.status !== 403
           ) {
             setToastDataForAddRoomForm({
               toastMessageForAddRoomForm: t(
@@ -258,7 +294,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
     <>
       {roomCurrentData?.data?.roomNumber &&
         allDepartmentsData &&
-        allFreeDoctorsData && (
+        allFreeDoctorsData &&
+        allFreeDoctorsData.length >= 0 && (
           <BootstrapDialog
             className={classNames(cls.AddRoomFormDialog__Container, {})}
             onClose={handleClose}
@@ -280,7 +317,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                   label={t('Xona raqami')}
                   variant="outlined"
                   type="number"
-                  value={roomCurrentData.data.roomNumber}
+                  value={roomCurrentData?.data?.roomNumber}
                   onChange={handleInputChange}
                 />
 
@@ -294,12 +331,12 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                     id="demo-simple-select"
                     labelId="demo-simple-select-label"
                     label={t("Bo'lim turlari")}
-                    value={roomCurrentData.data.departmentId}
+                    value={roomCurrentData?.data?.departmentId}
                     onChange={handleChangeDepartmentName}
                   >
                     {allDepartmentsData?.map((e) => {
                       return (
-                        <MenuItem key={e.id} value={`${e.id}`}>
+                        <MenuItem key={e?.id} value={`${e?.id}`}>
                           {e?.name}
                         </MenuItem>
                       );
@@ -318,12 +355,12 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                     labelId="demo-simple-select-label2"
                     label={t("Shifokorlar ro'yhati")}
                     onChange={handleChangeDoctorName}
-                    value={roomCurrentData.data.doctorId}
+                    value={roomCurrentData?.data?.doctorId}
                   >
                     {doctorList?.map((element) => {
                       return (
-                        <MenuItem key={element.id} value={`${element.id}`}>
-                          {element.name}
+                        <MenuItem key={element?.id} value={`${element?.id}`}>
+                          {element?.name}
                         </MenuItem>
                       );
                     })}
@@ -355,13 +392,15 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
           </BootstrapDialog>
         )}
 
-      {roomCurrentData?.isLoading &&
-        allDepartmentsIsLoading &&
-        allFreeDoctorsIsLoading && <Loader />}
+      {(roomCurrentData?.isLoading ||
+        allDepartmentsIsLoading ||
+        allFreeDoctorsIsLoading ||
+        editRoomFormDialogSubmitIsLoading ||
+        roomCurrentData?.isLoading) && <Loader />}
 
-      {roomCurrentData?.isError &&
-        allDepartmentsError &&
-        allFreeDoctorsError && <ErrorDialog isErrorProps={!false} />}
+      {(roomCurrentData?.isError ||
+        allDepartmentsError ||
+        allFreeDoctorsError) && <ErrorDialog isErrorProps={!false} />}
     </>
   );
 };

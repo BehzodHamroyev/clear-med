@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
 
+  monitorNumber: number | null;
+  setMonitorNumber: (prop: number) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -37,6 +40,12 @@ export interface ButtonsClickedProps {
 
   departmentGetId: string;
   setDepartmentGetId: (prop: string) => void;
+
+  monitorGetId: string;
+  setMonitorGetId: (prop: string) => void;
+
+  isOpenMonitorDeleteCard: boolean;
+  setIsOpenMonitorDeleteCard: (prop: boolean) => void;
 
   monitorEditFormOldValue: string;
   setMonitorEditFormOldValue: (prop: string) => void;
@@ -77,8 +86,23 @@ export interface ButtonsClickedProps {
   isOpenRoomDeleteCard: boolean;
   setIsOpenRoomDeleteCard: (prop: boolean) => void;
 
+  isOpenDoctorDeleteCard: boolean;
+  setIsOpenDoctorDeleteCard: (prop: boolean) => void;
+
+  isOpenDepartmentDeleteCard: boolean;
+  setIsOpenDepartmentDeleteCard: (prop: boolean) => void;
+
   isOpenDoctorAddCard: boolean;
   setIsOpenDoctorAddCard: (prop: boolean) => void;
+
+  isOpenAddReceptionCard: boolean;
+  setIsOpenAddReceptionCard: (prop: boolean) => void;
+
+  isOpenEditReceptionCard: boolean;
+  setIsOpenEditReceptionCard: (prop: boolean) => void;
+
+  isOpenDeleteReceptionCard: boolean;
+  setIsOpenDeleteReceptionCard: (prop: boolean) => void;
 
   isOpenAdvertisementAddCard: boolean;
   setIsOpenAdvertisementAddCard: (prop: boolean) => void;
@@ -91,6 +115,9 @@ export interface ButtonsClickedProps {
 
   isOpenAdvertisementEditCard: boolean;
   setIsOpenAdvertisementEditCard: (prop: boolean) => void;
+
+  isOpenAdvertisementDeleteCard: boolean;
+  setIsOpenAdvertisementDeleteCard: (prop: boolean) => void;
 
   isOpenDoctorEditCard: boolean;
   setIsOpenDoctorEditCard: (prop: boolean) => void;
@@ -196,8 +223,14 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenAttachmentRoomMonitorChild: false,
   setIsOpenAttachmentRoomMonitorChild: () => {},
 
+  isOpenAdvertisementDeleteCard: false,
+  setIsOpenAdvertisementDeleteCard: () => {},
+
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
+
+  monitorNumber: null,
+  setMonitorNumber: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},
@@ -213,6 +246,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   hasOpenToast: false,
   setHasOpenToast: () => {},
+
+  isOpenMonitorDeleteCard: false,
+  setIsOpenMonitorDeleteCard: () => {},
 
   toastDataForAddRoomForm: {
     toastSeverityForAddRoomForm: '',
@@ -251,6 +287,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   departmentGetId: '',
   setDepartmentGetId: () => {},
 
+  monitorGetId: '',
+  setMonitorGetId: () => {},
+
   isSubmitLoginForm: false,
   setIsSubmitLoginForm: () => {},
 
@@ -283,6 +322,12 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenRoomDeleteCard: false,
   setIsOpenRoomDeleteCard: () => {},
+
+  isOpenDoctorDeleteCard: false,
+  setIsOpenDoctorDeleteCard: () => {},
+
+  isOpenDepartmentDeleteCard: false,
+  setIsOpenDepartmentDeleteCard: () => {},
 
   isOpenDoctorAddCard: false,
   setIsOpenDoctorAddCard: () => {},
@@ -361,4 +406,13 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
     sizdan_oldingi_bemorlar_soni: 1,
   },
   setCurrentQueueData: () => {},
+
+  isOpenAddReceptionCard: false,
+  setIsOpenAddReceptionCard: () => {},
+
+  isOpenEditReceptionCard: false,
+  setIsOpenEditReceptionCard: () => {},
+
+  isOpenDeleteReceptionCard: false,
+  setIsOpenDeleteReceptionCard: () => {},
 });

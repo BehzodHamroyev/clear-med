@@ -41,13 +41,14 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   const [editRoomId, setEditRoomId] = useState<string>();
 
   const {
+    hasOpenToast,
+    isOpenRoomAddCard,
     setIsOpenRoomAddCard,
     isOpenRoomEditCard,
     setIsOpenRoomEditCard,
-    toastDataForAddRoomForm,
-    setIsOpenRoomDeleteCard,
     isOpenRoomDeleteCard,
-    hasOpenToast,
+    setIsOpenRoomDeleteCard,
+    toastDataForAddRoomForm,
   } = useContext(ButtonsContext);
 
   const allRoomsData = useSelector(getAllRoomsData);
@@ -63,13 +64,21 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   };
 
   const handeClickEditRoom = (id: string) => {
-    setEditRoomId(id);
+    setEditRoomId('');
+
+    if (id) {
+      setEditRoomId(id);
+    }
 
     setIsOpenRoomEditCard(true);
   };
 
-  const handleClickDeteRoom = (id: string) => {
-    setEditRoomId(id);
+  const handleClickDeleteRoom = (id: string) => {
+    setEditRoomId('');
+
+    if (id) {
+      setEditRoomId(id);
+    }
 
     setIsOpenRoomDeleteCard(true);
   };
@@ -117,7 +126,7 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                   </td>
                   <td
                     className={classNames(cls.tableDeleteRow)}
-                    onClick={() => handleClickDeteRoom(item?.id)}
+                    onClick={() => handleClickDeleteRoom(item?.id)}
                   >
                     {}
                     <MdDelete className={classNames(cls.tableDelete)} />
@@ -132,7 +141,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
       ) : (
         ''
       )}
-      <AddRoomFormDialog />
+
+      {isOpenRoomAddCard && <AddRoomFormDialog />}
 
       {editRoomId && isOpenRoomEditCard && (
         <EditRoomFormDialog roomId={editRoomId} />

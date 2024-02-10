@@ -2,6 +2,6 @@ import { Department } from './departmentTypes';
 
 export interface AllDepartmentTypeSchema {
   isLoading: boolean;
-  error?: string;
+  error?: boolean | string;
   data?: Department[];
 }

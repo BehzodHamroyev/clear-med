@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import cls from './attachMonitorOrAdvertisement.module.scss';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 /* svg */
 const Svg = (
@@ -74,6 +75,8 @@ const AttachMonitorOrAdvertisement = () => {
   /* useParams */
   const { id } = useParams();
 
+  const { monitorNumber } = useContext(ButtonsContext);
+
   return (
     <div className={cls.AttachMonitorOrAdvertisementWrapper}>
       {/* Title */}
@@ -88,7 +91,7 @@ const AttachMonitorOrAdvertisement = () => {
         <p
           className={cls['AttachMonitorOrAdvertisementWrapper__Title--content']}
         >
-          {}
+          {monitorNumber ? `${monitorNumber} - Monitor` : ''}
         </p>
         <p />
       </div>
