@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './AdvertisementAttachmentMonitor.module.scss';
@@ -9,6 +10,15 @@ import { TableTitleReklama } from '@/entities/TableTitleReklama';
 import { AttachmentRoomMonitorChild } from '@/entities/AttachmentRoomMonitorChild';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { AttachmentRoomMonitorChildEdit } from '@/entities/AttachmentRoomMonitorChildEdit';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAdsData } from '../model/selector/getAdsVideo';
+import { getAllAdsVideo } from '../model/service/getAllAdsVideo';
+import {
+  fetchGetAllMonitors,
+  GetAllMonitorPageData,
+} from '@/pages/AddMonitorPage';
+import { getAllAdsVideoForOneMonitor } from '../model/service/getAllAdsVideoForOneMonitor';
+import { getAdsDataForMonitor } from '../model/selector/getAdsVideoForOneMonitor';
 
 /* svg */
 const Svg = (
@@ -69,12 +79,25 @@ const tableBody: any = [
 const AdvertisementAttachmentMonitor = () => {
   /* useParams */
   const { id } = useParams();
+  const listAdsVideo = useSelector(getAdsData);
+  const dispatch = useAppDispatch();
+
+  const getAllMonitorData = useSelector(GetAllMonitorPageData);
+  const getAllForOneMonitor = useSelector(getAdsDataForMonitor);
 
   const {
     isOpenAttachmentRoomMonitorChild,
     setIsOpenAttachmentRoomMonitorChild,
     isOpenAttachmentRoomMonitorChildEdit,
   } = useContext(ButtonsContext);
+
+  console.log(getAllForOneMonitor.data, 'll');
+
+  useEffect(() => {
+    dispatch(getAllAdsVideo({}));
+    dispatch(fetchGetAllMonitors({}));
+    dispatch(getAllAdsVideoForOneMonitor({ id: `${id}` }));
+  }, [dispatch, id]);
 
   /* UI */
   return (
@@ -102,10 +125,22 @@ const AdvertisementAttachmentMonitor = () => {
         </div>
 
         {/* Body */}
-        <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
+
+        <TableTitleReklama
+          Tablethead={tableTitle}
+          // @ts-ignore
+          Tabletbody={getAllForOneMonitor.data}
+        />
       </div>
 
-      {isOpenAttachmentRoomMonitorChild ? <AttachmentRoomMonitorChild /> : ''}
+      {isOpenAttachmentRoomMonitorChild ? (
+        <AttachmentRoomMonitorChild
+          data={listAdsVideo!}
+          listMonitor={getAllMonitorData}
+        />
+      ) : (
+        ''
+      )}
 
       {isOpenAttachmentRoomMonitorChildEdit ? (
         <AttachmentRoomMonitorChildEdit />

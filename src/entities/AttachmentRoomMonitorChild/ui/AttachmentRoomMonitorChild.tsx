@@ -1,6 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+/* eslint-disable consistent-return */
+/* eslint-disable no-use-before-define */
+/* eslint-disable array-callback-return */
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,11 +11,15 @@ import ListItemText from '@mui/material/ListItemText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { baseUrl } from '../../../../baseurl';
-import { RoomAddTypes } from '../model/types/roomAddTypes';
+import { useParams } from 'react-router-dom';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './AttachmentRoomMonitorChild.module.scss';
+import { OneAdds } from '@/entities/AdvertisementAttachmentMonitor';
+import instance from '@/shared/lib/axios/api';
+// @ts-ignore
+import { AllMonitorData } from '@/pages/AddMonitorPage';
+import { RoomAddTypes } from '../model/types/roomAddTypes';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -26,6 +31,11 @@ const MenuProps = {
     },
   },
 };
+
+interface AttachmentRoomMonitorChildProp {
+  data?: OneAdds[];
+  listMonitor?: AllMonitorData[];
+}
 
 const names = [
   'Oliver Hansen',
@@ -40,52 +50,51 @@ const names = [
   'Kelly Snyder',
 ];
 
-const AttachmentRoomMonitorChild = () => {
+const AttachmentRoomMonitorChild = (prop: AttachmentRoomMonitorChildProp) => {
   /* translation */
+  const [connectionIdMonitor, setConnectionIdMonitor] = useState('');
+  const [listIdAds, setListIdAds] = useState<string[]>([]);
+  const [array, setArray] = useState<string[]>([]);
   const { t } = useTranslation();
+  const { id } = useParams();
+  const { data, listMonitor } = prop;
+  const [personName, setPersonName] = useState<string[]>([]);
 
-  /* Cookies */
-  const token = Cookies.get('token');
-
-  /* useContext */
   const {
-    setHasOpenToast,
-    isDataFormAddRoom,
     setIsOpenRoomAddCard,
     setDepartmentListChanged,
-    responseAddRoomStatusCode,
     setResponseAddDoctorStatusCode,
     setIsOpenAttachmentRoomMonitorChild,
+    // isOpenAttachmentRoomMonitorChild
   } = React.useContext(ButtonsContext);
 
-  /* fetch data */
+  const filteredArray = data!?.filter((obj) => personName.includes(obj.name));
+
+  useEffect(() => {
+    if (listMonitor) {
+      const idConnect = listMonitor?.filter((monitor) => monitor._id === id)[0];
+      const idMonitorConnection = idConnect.monitors[0]._id;
+      console.log(idMonitorConnection);
+      setConnectionIdMonitor(idMonitorConnection);
+    }
+  }, [id, listMonitor]);
+
   const handleSubmitAllFormData = async () => {
     setDepartmentListChanged(`${Math.random() * 100 + 1}`);
+
+    const connect = listMonitor?.filter((monitor) => monitor._id === id)?.[0];
+
+    // console.log(connect, 'kskskk', connectionIdMonitor);
+    const arrayId = filteredArray.map((obj) => obj._id);
     try {
-      const response = await axios.post<RoomAddTypes>(
-        `${baseUrl}/room/create`,
-        {
-          department_id: isDataFormAddRoom?.SectionName
-            ? isDataFormAddRoom?.SectionName
-            : '',
-          doctor_id: isDataFormAddRoom?.DoctorName
-            ? isDataFormAddRoom?.DoctorName
-            : '',
-          name: Number(
-            isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '0',
-          ),
-        },
-        {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        },
+      const response = await instance.patch<RoomAddTypes>(
+        `/monitor/${connectionIdMonitor}`,
+        { videos: arrayId },
       );
 
       setIsOpenRoomAddCard(false);
       setResponseAddDoctorStatusCode(200);
+      setIsOpenAttachmentRoomMonitorChild(false);
 
       return response.data;
     } catch (e) {
@@ -94,17 +103,21 @@ const AttachmentRoomMonitorChild = () => {
   };
 
   /* useState */
-  const [personName, setPersonName] = React.useState<string[]>([]);
 
-  /* halper */
+  useEffect(() => {
+    personName.map((name) => {
+      const id = data?.filter((oneAd) => oneAd.name === name)?.[0]?.id;
+      // @ts-ignore
+      setListIdAds((pre) => [id, ...pre]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [personName]);
+
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setPersonName(typeof value === 'string' ? value.split(',') : value);
   };
 
   /* UI */
@@ -113,7 +126,6 @@ const AttachmentRoomMonitorChild = () => {
       className={cls.DepartmentAddWrapper}
       onClick={(e) => {
         e.stopPropagation();
-        setIsOpenAttachmentRoomMonitorChild(false);
       }}
     >
       <div
@@ -136,10 +148,10 @@ const AttachmentRoomMonitorChild = () => {
             renderValue={(selected) => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.indexOf(name) > -1} />
-                <ListItemText primary={name} />
+            {data!?.map((name) => (
+              <MenuItem key={name.id} value={name.name}>
+                <Checkbox checked={personName.indexOf(name.name) > -1} />
+                <ListItemText primary={name.name} />
               </MenuItem>
             ))}
           </Select>
