@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable array-callback-return */
+import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useTranslation } from 'react-i18next';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-// import { useSelector } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { baseUrl } from '../../../../baseurl';
-import { RoomAddTypes } from '../model/types/roomAddTypes';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useTranslation } from 'react-i18next';
+import { SelectChangeEvent } from '@mui/material/Select';
 
+import { useParams } from 'react-router-dom';
+import { Dialog } from '@mui/material';
 import cls from './RoomAttachmentMonitorChildForm.module.scss';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
+import { baseUrl } from '../../../../baseurl';
 import { fetchRoomGetAll, getListOfRoom } from '@/pages/RoomPage';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchAllRoomForMonitor } from '../../../pages/AddRoomForMonitorPage/model/service/fetchAllRoomForMonitor';
+import { Loader } from '@/widgets/Loader';
+import { AddRoomForMonitorOPtions } from '@/shared/ui/AddRoomForMonitorOptions';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,29 +29,25 @@ const MenuProps = {
   },
 };
 
-const names = [
-  '1-xona',
-  '2-xona',
-  '3-xona',
-  '4-xona',
-  '5-xona',
-  '6-xona',
-  '7-xona',
-  '8-xona',
-  '9-xona',
-  '10-xona',
-];
-
 const RoomAttachmentMonitorChildForm = () => {
   /* translation */
   const { t } = useTranslation();
+
+  const { id } = useParams();
 
   /* Cookies */
   const token = Cookies.get('token');
 
   const dispatch = useAppDispatch();
 
-  const [roomData, setRoomData] = useState<any>({});
+  const [personName, setPersonName] = React.useState<string[]>([]);
+
+  const [personId, setPersonId] = React.useState<string[]>([]);
+
+  const [addDoctorFormDialogIsLoading, setAddDoctorFormDialogIsLoading] =
+    useState(false);
+
+  const getListOfRooms = useSelector(getListOfRoom);
 
   /* useContext */
   const {
@@ -61,74 +55,127 @@ const RoomAttachmentMonitorChildForm = () => {
     isDataFormAddRoom,
     setIsOpenRoomAddCard,
     setDepartmentListChanged,
+    setToastDataForAddRoomForm,
     setResponseAddDoctorStatusCode,
+    isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
   } = React.useContext(ButtonsContext);
 
-  /* fetch data */
+  console.log(personId);
+
+  // eslint-disable-next-line consistent-return
   const handleSubmitAllFormData = async () => {
-    setDepartmentListChanged(`${Math.random() * 100 + 1}`);
-    try {
-      const response = await axios.post<RoomAddTypes>(
-        `${baseUrl}/monitor/${12121}`,
-        {
-          name: Number(
-            isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '',
-          ),
-        },
-        {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
+    setAddDoctorFormDialogIsLoading(true);
+
+    if (id && personName) {
+      try {
+        const response = await axios.post(
+          `${baseUrl}/monitor/${id}`,
+          {
+            name: personName || '',
+
+            // isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '',
           },
-        },
-      );
 
-      setIsOpenRoomAddCard(false);
-      setResponseAddDoctorStatusCode(200);
+          {
+            maxBodyLength: Infinity,
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
+            },
+          },
+        );
 
-      return response.data;
-    } catch (e) {
-      return setResponseAddDoctorStatusCode('404');
+        if (response.data) {
+          setAddDoctorFormDialogIsLoading(false);
+
+          setIsOpenRoomAttachmentMonitorChildForm(false);
+
+          setHasOpenToast(true);
+
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Doktor muvaffaqiyatli qo'shildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+
+          dispatch(fetchAllRoomForMonitor({ id }));
+        }
+
+        return response.data;
+      } catch (error) {
+        setAddDoctorFormDialogIsLoading(false);
+
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 404) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Barcha maydonlar to'ldirilishi shart",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+          if (error.response?.status === 403) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t('Telefon raqami avval kiritilgan'),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+
+          if (
+            error.response?.status !== 404 &&
+            error.response?.status !== 403
+          ) {
+            setToastDataForAddRoomForm({
+              toastMessageForAddRoomForm: t(
+                "Barcha maydonlar to'ldirilishi shart",
+              ),
+              toastSeverityForAddRoomForm: 'warning',
+            });
+
+            setHasOpenToast(true);
+          }
+        }
+      }
     }
   };
-
-  /* useState */
-  const [personName, setPersonName] = React.useState<string[]>([]);
 
   /* halper */
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value },
     } = event;
+    // @ts-ignore
+    setPersonId((pre) => {
+      // @ts-ignore
+      return [...pre, ...value];
+    });
+
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
 
-  /* selectors */
-
-  useEffect(() => {
-    setRoomData('');
-  }, []);
-  const getListOfRooms = useSelector(getListOfRoom);
-
   React.useEffect(() => {
     dispatch(fetchRoomGetAll({}));
   }, [dispatch]);
 
-  // const roomData = useSelector(getListOfRoom);
+  const handleClose = () => {
+    setIsOpenRoomAttachmentMonitorChildForm(false);
+  };
 
   /* UI */
   return (
-    <div
+    <Dialog
+      onClose={handleClose}
       className={cls.DepartmentAddWrapper}
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOpenRoomAttachmentMonitorChildForm(false);
-      }}
+      aria-labelledby="alert-dialog-title"
+      open={isOpenRoomAttachmentMonitorChildForm}
+      aria-describedby="alert-dialog-description"
     >
       <div
         onClick={(e) => {
@@ -137,9 +184,12 @@ const RoomAttachmentMonitorChildForm = () => {
         className={cls.DepartmentAddCard}
       >
         <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
-        <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
+        <AddRoomForMonitorOPtions />
+
+        {/* <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">Xonalar</InputLabel>
           <Select
+            required
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
@@ -150,14 +200,13 @@ const RoomAttachmentMonitorChildForm = () => {
             MenuProps={MenuProps}
           >
             {getListOfRooms?.room.map((item: any) => (
-              <MenuItem key={item.id} value={item.name}>
+              <MenuItem key={item.id} value={item.id}>
                 <Checkbox checked={personName.indexOf(item.name) > -1} />
                 <ListItemText primary={item.name} />
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
-
+        </FormControl> */}
         <div className={cls.CardBody}>
           <div className={cls.BtnParnet}>
             <button
@@ -181,7 +230,9 @@ const RoomAttachmentMonitorChildForm = () => {
           </div>
         </div>
       </div>
-    </div>
+
+      {addDoctorFormDialogIsLoading && <Loader />}
+    </Dialog>
   );
 };
 

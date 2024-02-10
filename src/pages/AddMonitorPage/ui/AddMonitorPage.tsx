@@ -86,6 +86,7 @@ const AddMonitorPage = () => {
             </div>
           </div>
           {isOpenMonitorAddCard ? <AddMonitorFormDialog /> : ''}
+
           {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''}
 
           {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />}
