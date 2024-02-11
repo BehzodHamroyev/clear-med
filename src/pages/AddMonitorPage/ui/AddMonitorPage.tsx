@@ -101,6 +101,11 @@ const AddMonitorPage = () => {
             </div>
           </div>
 
+          {isOpenMonitorAddCard ? <AddMonitorFormDialog /> : ''}
+
+          {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''}
+
+
           {/* {isOpenMonitorAddCard && <AddMonitorFormDialog />} */}
 
           {/* {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''} */}

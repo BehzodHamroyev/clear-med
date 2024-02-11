@@ -27,7 +27,7 @@ import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
-import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+import { MonitorRoomListSchema } from '@/pages/AddRoomForMonitorPage';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
 import { AllReceptionsTypeSchema } from '@/pages/AddReceptionPage';
 

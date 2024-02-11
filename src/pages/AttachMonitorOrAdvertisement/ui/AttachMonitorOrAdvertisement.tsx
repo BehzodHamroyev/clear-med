@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import cls from './attachMonitorOrAdvertisement.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
@@ -72,10 +73,13 @@ const SpeakerSvg = (
 );
 
 const AttachMonitorOrAdvertisement = () => {
-  /* useParams */
   const { id } = useParams();
 
+
+  const { t } = useTranslation();
+
   const { monitorNumber } = useContext(ButtonsContext);
+
 
   return (
     <div className={cls.AttachMonitorOrAdvertisementWrapper}>
@@ -86,8 +90,9 @@ const AttachMonitorOrAdvertisement = () => {
           to="/add_monitor"
         >
           {Svg}
-          Ortga
+          {t('Ortga')}
         </Link>
+
         <p
           className={cls['AttachMonitorOrAdvertisementWrapper__Title--content']}
         >
@@ -95,10 +100,11 @@ const AttachMonitorOrAdvertisement = () => {
         </p>
         <p />
       </div>
+
       {/* Body */}
       <div className={cls.AttachMonitorOrAdvertisementWrapper__Body}>
         <Link
-          to={`/add_monitor/${id}/room_attachment_monitor`}
+          to={`/add_monitor/${id}/add_room_for_monitor`}
           className={cls['AttachMonitorOrAdvertisementWrapper__Body--box']}
         >
           <div
@@ -111,7 +117,7 @@ const AttachMonitorOrAdvertisement = () => {
                 cls['AttachMonitorOrAdvertisementWrapper__Body--boxChildText']
               }
             >
-              Xona biriktirish
+              {t('Xona biriktirish')}
             </p>
             {DoorSvg}
           </div>
@@ -131,7 +137,7 @@ const AttachMonitorOrAdvertisement = () => {
                 cls['AttachMonitorOrAdvertisementWrapper__Body--boxChildText']
               }
             >
-              Reklama biriktirish
+              {t('Reklama biriktirish')}
             </p>
             {SpeakerSvg}
           </div>
