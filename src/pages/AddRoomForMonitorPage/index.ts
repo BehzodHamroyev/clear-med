@@ -1,4 +1,4 @@
-export { default as RoomAttachmentMonitor } from './ui/RoomAttachmentMonitor';
+export { default as AddRoomForMonitorPage } from './ui/AddRoomForMonitorPage';
 
 export type { MonitorRoomListSchema } from './model/types/allMonitorTypes';
 
