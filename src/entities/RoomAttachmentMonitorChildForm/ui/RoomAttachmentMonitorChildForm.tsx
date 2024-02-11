@@ -1,81 +1,78 @@
-/* eslint-disable array-callback-return */
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { SelectChangeEvent } from '@mui/material/Select';
-
 import { useParams } from 'react-router-dom';
-import { Dialog } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import { useTranslation } from 'react-i18next';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Button, Dialog, TextField } from '@mui/material';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+
+import Autocomplete, {
+  AutocompleteChangeReason,
+  AutocompleteChangeDetails,
+} from '@mui/material/Autocomplete';
+
 import cls from './RoomAttachmentMonitorChildForm.module.scss';
 
+import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../baseurl';
-import { fetchRoomGetAll, getListOfRoom } from '@/pages/RoomPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllRoomForMonitor } from '../../../pages/AddRoomForMonitorPage/model/service/fetchAllRoomForMonitor';
-import { Loader } from '@/widgets/Loader';
-import { AddRoomForMonitorOPtions } from '@/shared/ui/AddRoomForMonitorOptions';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import {
+  getError,
+  getIsLoading,
+  getListOfRoom,
+  fetchRoomGetAll,
+} from '@/pages/RoomPage';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 const RoomAttachmentMonitorChildForm = () => {
-  /* translation */
-  const { t } = useTranslation();
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 
   const { id } = useParams();
-
-  /* Cookies */
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const token = Cookies.get('token');
 
-  const dispatch = useAppDispatch();
-
-  const [personName, setPersonName] = React.useState<string[]>([]);
+  const getListOfRooms = useSelector(getListOfRoom);
+  const getIsLoadingRooms = useSelector(getIsLoading);
+  const getErrorRooms = useSelector(getError);
 
   const [personId, setPersonId] = React.useState<string[]>([]);
-
+  const [getAllSelectionID, setAllSelectionID] = useState<string[]>([]);
+  const [asosiyArr, setAsosiyArr] = useState<any[]>([{ name: '', id: '' }]);
   const [addDoctorFormDialogIsLoading, setAddDoctorFormDialogIsLoading] =
     useState(false);
 
-  const getListOfRooms = useSelector(getListOfRoom);
-
-  /* useContext */
   const {
     setHasOpenToast,
-    isDataFormAddRoom,
-    setIsOpenRoomAddCard,
-    setDepartmentListChanged,
     setToastDataForAddRoomForm,
-    setResponseAddDoctorStatusCode,
+    setIsOpenDepartmentDeleteCard,
     isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
   } = React.useContext(ButtonsContext);
 
-  console.log(personId);
+  const personIds = useMemo(() => new Set(personId), [personId]);
 
-  // eslint-disable-next-line consistent-return
-  const handleSubmitAllFormData = async () => {
+  const handleSubmitAllFormData = async (e: {
+    preventDefault: () => void;
+  }): Promise<void> => {
+    e.preventDefault();
+
     setAddDoctorFormDialogIsLoading(true);
 
-    if (id && personName) {
+    if (id && getAllSelectionID.length > 0) {
       try {
-        const response = await axios.post(
+        const response = await axios.patch(
           `${baseUrl}/monitor/${id}`,
-          {
-            name: personName || '',
 
-            // isDataFormAddRoom?.RoomNumber ? isDataFormAddRoom?.RoomNumber : '',
-          },
+          JSON.stringify({ rooms: getAllSelectionID }),
 
           {
             maxBodyLength: Infinity,
@@ -94,14 +91,14 @@ const RoomAttachmentMonitorChildForm = () => {
           setHasOpenToast(true);
 
           setToastDataForAddRoomForm({
-            toastMessageForAddRoomForm: t("Doktor muvaffaqiyatli qo'shildi"),
+            toastMessageForAddRoomForm: t(
+              'Xonalar muvaffaqiyatli biriktirildi',
+            ),
             toastSeverityForAddRoomForm: 'success',
           });
 
           dispatch(fetchAllRoomForMonitor({ id }));
         }
-
-        return response.data;
       } catch (error) {
         setAddDoctorFormDialogIsLoading(false);
 
@@ -118,7 +115,7 @@ const RoomAttachmentMonitorChildForm = () => {
           }
           if (error.response?.status === 403) {
             setToastDataForAddRoomForm({
-              toastMessageForAddRoomForm: t('Telefon raqami avval kiritilgan'),
+              toastMessageForAddRoomForm: t('Ushbu xona  avval kiritilgan'),
               toastSeverityForAddRoomForm: 'warning',
             });
 
@@ -143,96 +140,121 @@ const RoomAttachmentMonitorChildForm = () => {
     }
   };
 
-  /* halper */
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    // @ts-ignore
-    setPersonId((pre) => {
-      // @ts-ignore
-      return [...pre, ...value];
-    });
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: any[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined,
+  ) => {
+    const newValue = value.map((option) => option.name);
 
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    if (!personId.includes(String(newValue[newValue.length - 1]))) {
+      setPersonId(newValue);
+    }
   };
-
-  React.useEffect(() => {
-    dispatch(fetchRoomGetAll({}));
-  }, [dispatch]);
 
   const handleClose = () => {
     setIsOpenRoomAttachmentMonitorChildForm(false);
   };
 
-  /* UI */
+  useEffect(() => {
+    if (asosiyArr.length > 0 && personIds.size > 0) {
+      const selectedIds: string[] = [];
+      asosiyArr.forEach(({ name, id }) => {
+        if (personIds.has(name)) {
+          selectedIds.push(id);
+        }
+        setAllSelectionID(selectedIds);
+      });
+    }
+  }, [asosiyArr, personIds]);
+
+  React.useEffect(() => {
+    dispatch(fetchRoomGetAll({}));
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    if (getListOfRooms) {
+      const optionsArray = getListOfRooms.room.map((item: any) => ({
+        name: item.name,
+        id: item.id,
+      }));
+      setAsosiyArr(optionsArray);
+    }
+  }, [getListOfRooms]);
+
   return (
-    <Dialog
-      onClose={handleClose}
-      className={cls.DepartmentAddWrapper}
-      aria-labelledby="alert-dialog-title"
-      open={isOpenRoomAttachmentMonitorChildForm}
-      aria-describedby="alert-dialog-description"
-    >
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className={cls.DepartmentAddCard}
-      >
-        <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
-        <AddRoomForMonitorOPtions />
-
-        {/* <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
-          <InputLabel id="demo-multiple-checkbox-label">Xonalar</InputLabel>
-          <Select
-            required
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput label="Xonalar" />}
-            renderValue={(selected) => selected.join(', ')}
-            MenuProps={MenuProps}
+    <>
+      {getListOfRooms && (
+        <Dialog
+          onClose={handleClose}
+          className={cls.DepartmentAddWrapper}
+          aria-labelledby="alert-dialog-title"
+          open={isOpenRoomAttachmentMonitorChildForm}
+          aria-describedby="alert-dialog-description"
+        >
+          <form
+            className={cls.DepartmentAddCard}
+            onSubmit={handleSubmitAllFormData}
           >
-            {getListOfRooms?.room.map((item: any) => (
-              <MenuItem key={item.id} value={item.id}>
-                <Checkbox checked={personName.indexOf(item.name) > -1} />
-                <ListItemText primary={item.name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
-        <div className={cls.CardBody}>
-          <div className={cls.BtnParnet}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpenRoomAttachmentMonitorChildForm(false);
+            <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
+
+            <Autocomplete
+              multiple
+              options={asosiyArr}
+              disableCloseOnSelect
+              onChange={handleChange}
+              id="checkboxes-tags-demo"
+              getOptionLabel={(option) => option.name}
+              className={cls.AddRoomForMonitorOPtionsWrp}
+              renderOption={(props, option: { name: string }, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checked={selected}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                  />
+                  {option.name} - xona
+                </li>
+              )}
+              style={{
+                width: '90%',
+                margin: '0 auto',
+                marginTop: '20px',
               }}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
-            >
-              {t('Bekor qilish')}
-            </button>
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Xonalar"
+                  style={{ cursor: 'pointer' }}
+                  placeholder="Xonani tanlang..."
+                  required={!(personId.length > 0)}
+                />
+              )}
+            />
 
-            <button
-              onClick={handleSubmitAllFormData}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn2}`}
-            >
-              {t('Saqlash')}
-            </button>
-          </div>
-        </div>
-      </div>
+            <div className={cls.BtnParnet}>
+              <Button
+                type="button"
+                onClick={handleClose}
+                className={`${cls.Btn} ${cls.Btn1}`}
+              >
+                {t('Bekor qilish')}
+              </Button>
 
-      {addDoctorFormDialogIsLoading && <Loader />}
-    </Dialog>
+              <Button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
+                {t('Saqlash')}
+              </Button>
+            </div>
+          </form>
+        </Dialog>
+      )}
+
+      {(getIsLoadingRooms || addDoctorFormDialogIsLoading) && <Loader />}
+
+      {getErrorRooms && <ErrorDialog isErrorProps={!false} />}
+    </>
   );
 };
 

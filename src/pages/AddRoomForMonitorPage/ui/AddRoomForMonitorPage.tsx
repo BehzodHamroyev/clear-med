@@ -27,6 +27,7 @@ import { fetchAllRoomForMonitor } from '../model/service/fetchAllRoomForMonitor'
 import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
 import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
 import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+import { DeleteRoomForMonitorPage } from '@/entities/DeleteRoomForMonitorPage';
 
 const Svg = (
   <svg
@@ -61,6 +62,8 @@ const AddRoomForMonitorPage = () => {
   console.log(getData?.monitor?.name, 'vjvjvjvj');
 
   const {
+    isOpenDepartmentDeleteCard,
+    setIsOpenDepartmentDeleteCard,
     isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
     isOpenRoomAttachmentMonitorChildFormedit,
@@ -190,6 +193,7 @@ const AddRoomForMonitorPage = () => {
                   >
                     {}
                     <DeleteTools
+                      onClick={() => setIsOpenDepartmentDeleteCard(true)}
                       className={cls['AddRoomForMonitorWrapper__Table--delete']}
                     />
                   </td>
@@ -211,6 +215,12 @@ const AddRoomForMonitorPage = () => {
 
         {isOpenRoomAttachmentMonitorChildFormedit ? (
           <RoomAttachmentMonitorChildFormEdit />
+        ) : (
+          ''
+        )}
+
+        {isOpenDepartmentDeleteCard ? (
+          <DeleteRoomForMonitorPage RoomId="11" />
         ) : (
           ''
         )}
