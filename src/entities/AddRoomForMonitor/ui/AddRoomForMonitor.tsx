@@ -40,7 +40,7 @@ const names = [
   'Kelly Snyder',
 ];
 
-const AttachmentRoomMonitorChild = () => {
+const AddRoomForMonitor = () => {
   /* translation */
   const { t } = useTranslation();
 
@@ -172,4 +172,4 @@ const AttachmentRoomMonitorChild = () => {
   );
 };
 
-export default AttachmentRoomMonitorChild;
+export default AddRoomForMonitor;

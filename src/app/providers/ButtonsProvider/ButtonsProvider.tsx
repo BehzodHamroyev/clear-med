@@ -88,6 +88,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDepartmentEditCard, setIsOpenDepartmentEditCard] =
     useState(false);
 
+  const [monitorNumber, setMonitorNumber] = useState<number | null>(null);
+
   const [isOpenRoomAddCard, setIsOpenRoomAddCard] = useState(false);
 
   const [isOpenRoomEditCard, setIsOpenRoomEditCard] = useState(false);
@@ -204,7 +206,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
       isOpenDeleteReceptionCard,
       setIsOpenDeleteReceptionCard,
-
+      monitorNumber,
+      setMonitorNumber,
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -307,6 +310,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     [
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
+
+      monitorNumber,
+      setMonitorNumber,
 
       isOpenEditReceptionCard,
       setIsOpenEditReceptionCard,
