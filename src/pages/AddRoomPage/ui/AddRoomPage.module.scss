@@ -8,14 +8,21 @@
     width: 100%;
     max-height: 60px;
     border-radius: 5.273px;
-    background: #fff;
+    background: var(--bg-table);
+
+    // background: #fff;
     align-self: center;
     padding: 20px;
     text-align: center;
-    border: 1.1px solid #e0e0e0;
+
+    // border: 1.1px solid #e0e0e0;
+
+    border: 1.1px solid var(--border-table);
 
     p {
-      color: #1d1d1d;
+      // color: #1d1d1d;
+
+      color: var(--text-color);
       font-family: sans-serif;
       font-size: 18px;
       font-style: normal;
