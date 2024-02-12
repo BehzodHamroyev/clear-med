@@ -62,7 +62,6 @@ export const fetchQueuesProccess = createAsyncThunk<
       response?.data.data.length > 0 &&
       status === 'recall'
     ) {
-      console.log('recall');
       socket.emit('recallQueue', response.data);
     }
 

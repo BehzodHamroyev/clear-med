@@ -50,7 +50,6 @@ const CalendarSection = () => {
 
     convertToEst(value);
 
-    console.log(estTime);
   };
 
   return (

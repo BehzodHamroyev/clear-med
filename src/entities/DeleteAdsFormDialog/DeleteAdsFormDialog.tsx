@@ -85,7 +85,6 @@ const DeleteAdsFormDialog = ({ adsId }: DeleteadsFormDialogProps) => {
       }
     } catch (error) {
       setDeleteAdsFormDialogSubmitIsLoading(false);
-      // console.log(error);
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

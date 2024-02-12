@@ -10,8 +10,8 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import cls from './TableTitleReklama.module.scss';
 import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
 import { DeleteTools } from '@/shared/assets/entities/TableTitle';
-import { deleteMonitorAds } from '../../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
 import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
+import DeleteAdsFormDialogForMonitor from '../../../entities/DeleteAdsFormDialogForMonitor/DeleteAdsFormDialogForMonitor';
 
 interface TableInfo {
   cursor?: boolean;
@@ -22,8 +22,6 @@ interface TableInfo {
 const TableTitleReklama = (props: TableInfo) => {
   /* props */
   const { Tablethead, Tabletbody, cursor } = props;
-
-  console.log(props.Tabletbody, 'kk');
 
   const connectionId = useSelector(connectionIdOfAds);
 
@@ -42,6 +40,8 @@ const TableTitleReklama = (props: TableInfo) => {
     setIsOpenDepartmentEditCard,
     setIsOpenAdvertisementEditCard,
     setIsOpenAttachmentRoomMonitorChildEdit,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
+    isOpenAdvertisementDeleteAdsForMonitor
   } = React.useContext(ButtonsContext);
 
   /* haler functions */
@@ -74,7 +74,11 @@ const TableTitleReklama = (props: TableInfo) => {
           ))}
         </tr>
       </thead>
-
+      {isOpenAdvertisementDeleteAdsForMonitor ? (
+        <DeleteAdsFormDialogForMonitor adsId="ee" />
+      ) : (
+        ''
+      )}
       <tbody className={cls.Tabletbody}>
         {Tabletbody?.map((item) => {
           const date = new Date(item.createdAt);
@@ -118,16 +122,14 @@ const TableTitleReklama = (props: TableInfo) => {
                 ''
               )}
               {/* {item?.lastInDeleteChild ? ( */}
-              <td className={`${cls.lastChild}`}>
+              <td
+                className={`${cls.lastChild}`}
+                onClick={() => {
+                  setIsOpenAdvertisementDeleteAdsForMonitor(true);
+                }}
+              >
                 {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
-                <DeleteTools
-                  onClick={() =>
-                    deleteMonitorAds({
-                      connectionId: connectionId!,
-                      adsId: item.id,
-                    })
-                  }
-                />
+                <DeleteTools />
               </td>
               {/* ) : (
                 ''

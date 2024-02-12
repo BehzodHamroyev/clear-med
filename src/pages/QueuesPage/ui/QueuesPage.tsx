@@ -63,14 +63,12 @@ const QueuesPage = () => {
 
   socket.on('getProccessQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data);
       addProccessQueue(data);
     }
   });
 
   socket.on('getRecallQueueToTV', (data: Queue) => {
     if (data) {
-      // console.log(data, 'recall');
       recallQueue(data);
     }
   });

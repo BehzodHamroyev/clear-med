@@ -47,11 +47,11 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 import { AddRoomPage } from '@/pages/AddRoomPage';
 import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
 import { AddDoctorPage } from '@/pages/AddDoctorPage';
-import { AddReceptionPage } from '@/pages/AddReceptionPage';
 import { MonitorsPage } from '@/pages/Monitors';
 import { MonitorsDetail } from '@/pages/MonitorsDetail';
 import { AddAdsPage } from '@/pages/AddAdsPage';
 import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
+import { AddReceptionPage } from '@/pages/AddReceptionPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,

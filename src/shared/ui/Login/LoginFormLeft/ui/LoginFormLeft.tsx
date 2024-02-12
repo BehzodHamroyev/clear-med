@@ -60,11 +60,6 @@ const LoginFormLeft = () => {
           phoneNumberValue.length > 8 &&
           userPasswordValue.length >= 8
         ) {
-          // console.log(
-          //   'Phone Number:', phoneNumberValue.split('+998')[1].replace(/\s/g, ''),
-          // );
-          // console.log('User Password:', userPasswordValue);
-
           dispatch(
             fetchAuthUser({
               password: userPasswordValue,

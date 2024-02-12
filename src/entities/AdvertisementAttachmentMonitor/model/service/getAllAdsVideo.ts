@@ -14,7 +14,6 @@ export const getAllAdsVideo = createAsyncThunk<
     const response = await instance.get(`/videos/all?limit=1000`);
     return response.data;
   } catch (e) {
-    // console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

@@ -1,21 +1,23 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
-import axios from 'axios';
+// import Cookies from 'js-cookie';
+// import axios from 'axios';
 
 import { styled } from '@mui/material/styles';
 import { Dialog } from '@mui/material';
 
-import cls from './DeleteAdsFormDialog.module.scss';
+import cls from './DeleteAdsFormDialogForMonitor.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-import { baseUrl } from '../../../baseurl';
+// import { baseUrl } from '../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { Loader } from '@/widgets/Loader';
 
-import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
+// import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
+
+// import { deleteMonitorAds } from '../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -27,16 +29,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 interface DeleteAdsFormDialogForMonitorProps {
-  adsId: string;
+  adsId?: string;
 }
 
 const DeleteAdsFormDialogForMonitor = ({
   adsId,
 }: DeleteAdsFormDialogForMonitorProps) => {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
-
   const [
     deleteAdsFormDialogSubmitIsLoading,
     setDeleteAdsFormDialogSubmitIsLoading,
@@ -53,50 +53,51 @@ const DeleteAdsFormDialogForMonitor = ({
     setIsOpenAdvertisementDeleteCard(false);
   };
 
-  const handleSubmit = async () => {
-    setDeleteAdsFormDialogSubmitIsLoading(true);
+  // const handleSubmit = async () => {
+  //   setDeleteAdsFormDialogSubmitIsLoading(true);
 
-    const token = Cookies.get('token');
+  //   const token = Cookies.get('token');
 
-    try {
-      const response = await axios.delete(
-        `${baseUrl}/videos/${adsId}`,
+  //   try {
+  //     const response = await axios.delete(
+  //       `${baseUrl}/videos/${adsId}`,
 
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
+  //     // deleteMonitorAds()
 
-      if (response.data) {
-        setDeleteAdsFormDialogSubmitIsLoading(false);
+  //     if (response.data) {
+  //       setDeleteAdsFormDialogSubmitIsLoading(false);
 
-        setIsOpenAdvertisementDeleteCard(false);
+  //       setIsOpenAdvertisementDeleteCard(false);
 
-        setHasOpenToast(true);
+  //       setHasOpenToast(true);
 
-        setToastDataForAddRoomForm({
-          toastMessageForAddRoomForm: t("Reklama o'chirildi"),
-          toastSeverityForAddRoomForm: 'success',
-        });
+  //       setToastDataForAddRoomForm({
+  //         toastMessageForAddRoomForm: t("Reklama o'chirildi"),
+  //         toastSeverityForAddRoomForm: 'success',
+  //       });
 
-        dispatch(fetchAllAds({}));
-      }
-    } catch (error) {
-      setDeleteAdsFormDialogSubmitIsLoading(false);
-      // console.log(error);
-      setHasOpenToast(true);
+  //       dispatch(fetchAllAds({}));
+  //     }
+  //   } catch (error) {
+  //     setDeleteAdsFormDialogSubmitIsLoading(false);
+  //     // console.log(error);
+  //     setHasOpenToast(true);
 
-      setToastDataForAddRoomForm({
-        toastMessageForAddRoomForm: t(
-          "Reklama o'chirilmadi. Tizimda xatolik sodir bo'ldi",
-        ),
-        toastSeverityForAddRoomForm: 'error',
-      });
-    }
-  };
+  //     setToastDataForAddRoomForm({
+  //       toastMessageForAddRoomForm: t(
+  //         "Reklama o'chirilmadi. Tizimda xatolik sodir bo'ldi",
+  //       ),
+  //       toastSeverityForAddRoomForm: 'error',
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -123,7 +124,7 @@ const DeleteAdsFormDialogForMonitor = ({
 
             <button
               type="button"
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
               className={classNames(
                 cls['DeleteDoctorFormDialog__buttons--submit'],
               )}
