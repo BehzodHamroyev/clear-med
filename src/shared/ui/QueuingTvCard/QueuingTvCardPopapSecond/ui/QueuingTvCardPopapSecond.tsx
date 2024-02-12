@@ -2,27 +2,21 @@ import React, { useContext, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { socket } from '@/shared/lib/utils/socket';
 
 import cls from './QueuingTvCardPopapSecond.module.scss';
 import cls2 from './PrintQueuePage.module.scss';
 
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchCurrentQueue } from '@/pages/QueuingTV/model/services/fetchCurrentQueue';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
 
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import {
-  getCurrentQueueData,
-  getCurrentQueueError,
-  getCurrentQueueIsLoading,
-} from '@/pages/QueuingTV/model/selectors/currentQueueSelector';
 import { Loader } from '@/widgets/Loader';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { useCurrentQueueuActions } from '@/pages/QueuingTV/model/slice/currentQueueListSlice';
+import { baseUrl } from '../../../../../../baseurl';
+import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 
 interface QueuingTvCardPopapSecondProps {
   roomNumber: string;
@@ -37,22 +31,15 @@ const QueuingTvCardPopapSecond = ({
 
   const printableDivRef = useRef<HTMLDivElement>(null);
 
-  const dispatch = useAppDispatch();
-
   const lastQueue = useSelector(getLastQueueData);
+
+  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+  const [createQueueIsError, setCreateQueueIsError] = useState(false);
 
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: roomNumber,
     createTicketNumber: ticketNumber,
   });
-
-  const currentQueueData = useSelector(getCurrentQueueData);
-  const currentQueueLoading = useSelector(getCurrentQueueIsLoading);
-  const currentQueueError = useSelector(getCurrentQueueError);
-
-  const { clearCurrentQueue } = useCurrentQueueuActions();
-
-  console.log(currentQueueData);
 
   const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
     useContext(ButtonsContext);
@@ -63,57 +50,71 @@ const QueuingTvCardPopapSecond = ({
     onAfterPrint: () => setIsOpenQueuingTvCardPopapSecond(false),
   });
 
-  const printFunc = () => {
-    printCom();
+  const createQueueFunc = async () => {
+    setCreateQueueIsLoading(true);
 
-    clearCurrentQueue();
+    const getTokenCookie = Cookies.get('token');
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}/queue/create`,
+        {
+          department_id: lastQueue?.data?.department_id._id,
+          room_id: lastQueue?.data?.room_id,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
+
+      if (response.data) {
+        setCreateQueueIsLoading(false);
+
+        setCreateQueueIsError(false);
+
+        setPrintRoomInfo({
+          createRoomNumber: String(response.data?.room?.name),
+          createTicketNumber: String(response.data?.navbat?.queues_name),
+        });
+
+        setTimeout(() => {
+          printCom();
+        }, 1);
+      }
+
+      if (
+        response?.data?.navbat?.created_date &&
+        response?.data?.navbat?.created_date?.length > 0
+      ) {
+        socket.emit(
+          'create_queue',
+          { queue_data: response.data },
+          (responce: { status: string }) => {
+            console.log(responce);
+          },
+        );
+      }
+    } catch (error) {
+      setCreateQueueIsLoading(false);
+
+      setCreateQueueIsError(true);
+    }
   };
 
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
     if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
-      dispatch(
-        fetchCurrentQueue({
-          departmentId: lastQueue?.data?.department_id._id,
-          roomId: lastQueue?.data?.room_id,
-        }),
-      ).then(() => {
-        if (!currentQueueError && !currentQueueLoading) {
-          setPrintRoomInfo({
-            createRoomNumber: String(currentQueueData?.room?.name),
-            createTicketNumber: String(currentQueueData?.navbat?.queues_name),
-          });
-
-          printFunc();
-        }
-      });
-    } else if (
-      lastQueue &&
-      lastQueue.room.department_id &&
-      printableDivRef?.current
-    ) {
-      dispatch(
-        fetchCurrentQueue({
-          departmentId: lastQueue?.room?.department_id._id,
-          roomId: lastQueue?.room?._id,
-        }),
-      ).then(() => {
-        if (!currentQueueError && !currentQueueLoading) {
-          setPrintRoomInfo({
-            createRoomNumber: String(currentQueueData?.room?.name),
-            createTicketNumber: String(currentQueueData?.navbat?.queues_name),
-          });
-
-          printFunc();
-        }
-      });
+      createQueueFunc();
     }
   };
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
-      {!currentQueueLoading && (
+      {!createQueueIsLoading && (
         <div className={cls.QueuingTvCardPopapSecond}>
           <h3 className={cls.QueuingTvCardPopapSecondTitle}>
             {t('Navbatni tasdiqlang')}
@@ -176,7 +177,6 @@ const QueuingTvCardPopapSecond = ({
             <button
               onClick={() => {
                 setIsOpenQueuingTvCardPopapSecond(false);
-                clearCurrentQueue();
               }}
               type="button"
               className={`${cls.Btn} ${cls.Btn1}`}
@@ -194,7 +194,9 @@ const QueuingTvCardPopapSecond = ({
         </div>
       )}
 
-      {currentQueueLoading && <Loader />}
+      {createQueueIsLoading && <Loader />}
+
+      {createQueueIsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );
 };
