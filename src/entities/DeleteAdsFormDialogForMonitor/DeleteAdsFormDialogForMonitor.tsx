@@ -26,12 +26,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-
-interface DeleteadsFormDialogProps {
+interface DeleteAdsFormDialogForMonitorProps {
   adsId: string;
 }
 
-const DeleteAdsFormDialog = ({ adsId }: DeleteadsFormDialogProps) => {
+const DeleteAdsFormDialogForMonitor = ({
+  adsId,
+}: DeleteAdsFormDialogForMonitorProps) => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -138,4 +139,4 @@ const DeleteAdsFormDialog = ({ adsId }: DeleteadsFormDialogProps) => {
   );
 };
 
-export default DeleteAdsFormDialog;
+export default DeleteAdsFormDialogForMonitor;

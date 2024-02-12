@@ -1,12 +1,17 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 // import { PenTools } from '@/shared/assets/entities/TableTitle';
+import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './TableTitleReklama.module.scss';
 import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
+import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+import { deleteMonitorAds } from '../../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
+import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
 
 interface TableInfo {
   cursor?: boolean;
@@ -19,6 +24,8 @@ const TableTitleReklama = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   console.log(props.Tabletbody, 'kk');
+
+  const connectionId = useSelector(connectionIdOfAds);
 
   /* useParams */
   const { id } = useParams();
@@ -110,16 +117,19 @@ const TableTitleReklama = (props: TableInfo) => {
               ) : (
                 ''
               )}
-              {/* {item?.item5 ? <td className={cls.td}>{item.item5}</td> : ''}
-              {item?.item6 ? <td className={cls.td}>{item.item6}</td> : ''}
-              {item?.item7 ? <td className={cls.td}>{item.item7}</td> : ''}
-              {item?.item8 ? <td className={cls.td}>{item.item8}</td> : ''}
-              {item?.lastChild ? (
-                <td className={`${cls.lastChild}`}>
-                  <pre>{item?.lastChild}</pre>{' '}
-                  <PenTools onClick={() => handleCardAddCard(`${item.id}`)} />
-                </td>
-              ) : (
+              {/* {item?.lastInDeleteChild ? ( */}
+              <td className={`${cls.lastChild}`}>
+                {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
+                <DeleteTools
+                  onClick={() =>
+                    deleteMonitorAds({
+                      connectionId: connectionId!,
+                      adsId: item.id,
+                    })
+                  }
+                />
+              </td>
+              {/* ) : (
                 ''
               )} */}
             </tr>

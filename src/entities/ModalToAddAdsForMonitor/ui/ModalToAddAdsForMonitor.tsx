@@ -83,10 +83,6 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
 
   const handleSubmitAllFormData = async () => {
     setDepartmentListChanged(`${Math.random() * 100 + 1}`);
-
-    const connect = listMonitor?.filter((monitor) => monitor._id === id)?.[0];
-
-    // console.log(connect, 'kskskk', connectionIdMonitor);
     const arrayId = filteredArray.map((obj) => obj._id);
     try {
       const response = await instance.patch<RoomAddTypes>(

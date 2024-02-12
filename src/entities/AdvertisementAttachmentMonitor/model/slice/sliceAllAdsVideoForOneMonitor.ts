@@ -23,8 +23,8 @@ export const sliceAllAdsVideoForOneMonitor = createSlice({
         getAllAdsVideoForOneMonitor.fulfilled,
         (state, action: PayloadAction<MonitorAdsBackend>) => {
           state.isLoading = false;
-          // console.log(action.payload.monitor.videos, 'sksk');
           state.data = action.payload.monitor.videos;
+          state.id = action.payload.monitor._id;
         },
       )
       .addCase(getAllAdsVideoForOneMonitor.rejected, (state, action) => {
