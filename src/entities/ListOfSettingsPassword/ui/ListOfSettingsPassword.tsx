@@ -54,6 +54,12 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
       );
 
       if (String(response.data.status) === 'success') {
+        setSettingsFormData({
+          password: '',
+          newPassword: '',
+          reNewPassword: '',
+        });
+
         setSettingLoad(false);
 
         Cookies.set('token', response.data.token);
@@ -134,6 +140,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
               maxLength={14}
               minLength={8}
               required
+              value={settingsFormData.password}
               onChange={(e) =>
                 setSettingsFormData({
                   password: e.target.value,
@@ -157,6 +164,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
               maxLength={14}
               minLength={8}
               required
+              value={settingsFormData.newPassword}
               onChange={(e) =>
                 setSettingsFormData({
                   password: settingsFormData.password,
@@ -182,6 +190,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
               maxLength={14}
               minLength={8}
               required
+              value={settingsFormData.reNewPassword}
               onChange={(e) =>
                 setSettingsFormData({
                   password: settingsFormData.password,

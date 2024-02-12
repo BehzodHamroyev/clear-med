@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { LastQueueDataSchema } from '../types/departmentListSchema';
 import { LastQueueDataApiResponce } from '../types/departmentListTypes';
 import { fetchLastQueue } from '../services/fetchLastQueue';
+import { buildSlice } from '@/shared/lib/store';
 
 const initialState: LastQueueDataSchema = {
   isLoading: false,
@@ -9,7 +10,7 @@ const initialState: LastQueueDataSchema = {
   data: undefined,
 };
 
-export const lastQueueSlice = createSlice({
+export const lastQueueSlice = buildSlice({
   name: 'Last Queue ',
   initialState,
   reducers: {
@@ -40,3 +41,4 @@ export const lastQueueSlice = createSlice({
 
 export const { actions: lastQueueActions } = lastQueueSlice;
 export const { reducer: lastQueueReducer } = lastQueueSlice;
+export const { useActions: useLasQueueActions } = lastQueueSlice;
