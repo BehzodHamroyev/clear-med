@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
 
+  monitorNumber: number | null;
+  setMonitorNumber: (prop: number) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -193,10 +196,15 @@ export interface ButtonsClickedProps {
   formData: { PhoneNumber: string; UserPassword: string };
   setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
 
-  settingsFormData: { password: string; newPassword: string };
+  settingsFormData: {
+    password: string;
+    newPassword: string;
+    reNewPassword: string;
+  };
   setSettingsFormData: (prop: {
     password: string;
     newPassword: string;
+    reNewPassword: string;
   }) => void;
 
   hasOpenToast: boolean;
@@ -225,6 +233,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
+
+  monitorNumber: null,
+  setMonitorNumber: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},
@@ -362,7 +373,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isDataFormAddRoom: { RoomNumber: '', SectionName: '', DoctorName: '' },
   setIsDataFormAddRoom: () => {},
 
-  settingsFormData: { password: '', newPassword: '' },
+  settingsFormData: { password: '', newPassword: '', reNewPassword: '' },
   setSettingsFormData: () => {},
 
   currentQueueData: {

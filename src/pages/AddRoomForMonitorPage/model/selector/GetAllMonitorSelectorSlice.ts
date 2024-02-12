@@ -1,6 +1,6 @@
 import { StateSchema } from '@/app/providers/StoreProvider';
 
-export const GetAllRoomAtachmentMonitorData = (state: StateSchema) =>
+export const GetAllRoomForMonitorData = (state: StateSchema) =>
   state.GetAllRoomAtachmentMonitorSlice.data;
 
 export const getIsLoading = (state: StateSchema) =>

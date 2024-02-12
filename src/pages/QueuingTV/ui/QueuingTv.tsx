@@ -86,7 +86,7 @@ const QueuingTv = () => {
         !lastQueueError &&
         lastQueue?.pagination && (
           <QueuingTvCardPopapSecond
-            roomNumber={lastQueue?.pagination?.split('-')?.slice()[0]?.at(-1)}
+            roomNumber={String(lastQueue?.room?.name)}
             ticketNumber={lastQueue?.pagination}
           />
         )}

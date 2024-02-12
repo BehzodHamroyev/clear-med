@@ -6,9 +6,9 @@ import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { MonitorRoomData } from '../types/allMonitorTypes';
 
-export const fetchGetAllRoomAtachmentMonitorOne = createAsyncThunk<
+export const fetchAllRoomForMonitor = createAsyncThunk<
   MonitorRoomData,
-  { id: string | number },
+  { id?: string | number },
   ThunkConfig<string>
 >('fetchGetAllRoomAtachmentMonitorOne', async ({ id }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
@@ -16,15 +16,12 @@ export const fetchGetAllRoomAtachmentMonitorOne = createAsyncThunk<
   const getTokenCookie = Cookies.get('token');
 
   try {
-    const response = await axios.get(`${baseUrl}/monitor/${id}`, {
+    const response = await axios.get(`${baseUrl}/monitor/user/${id}`, {
       headers: {
         authorization: `Bearer ${getTokenCookie}`,
       },
     });
 
-    // if (!response.data) {
-    //   throw new Error();
-    // }
     return response.data;
   } catch (e) {
     return rejectWithValue('error');

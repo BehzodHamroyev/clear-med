@@ -20,7 +20,7 @@ import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
-import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
+import { GetAllRoomAtachmentMonitorReducer } from '@/pages/AddRoomForMonitorPage';
 
 import {
   lastQueueReducer,
