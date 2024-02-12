@@ -25,8 +25,10 @@ import {
   ReducersList,
   DynamicModuleLoader,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+
 import { AddMonitorFormDialog } from '@/entities/AddMonitorFormDialog';
 import { EditMonitorFormDialog } from '@/entities/EditMonitorFormDialog';
+import { DeleteMonitorFormDialog } from '@/entities/DeleteMonitorFormDialog';
 
 const AddMonitorPage = () => {
   const { t } = useTranslation();
@@ -107,11 +109,7 @@ const AddMonitorPage = () => {
 
           {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''}
 
-          {/* {isOpenMonitorAddCard && <AddMonitorFormDialog />} */}
-
-          {/* {isOpenMonitorEditCard ? <EditMonitorFormDialog /> : ''} */}
-
-          {/* {isOpenMonitorDeleteCard && <DeleteMonitorFormDialog />} */}
+          {isOpenMonitorDeleteCard ? <DeleteMonitorFormDialog /> : ''}
         </div>
       )}
 
