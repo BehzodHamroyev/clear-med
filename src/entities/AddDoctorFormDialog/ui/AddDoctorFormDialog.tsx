@@ -225,7 +225,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <button
-                type="submit"
+                type="button"
                 onClick={handleClick}
                 className={cls.AddCardImgValuebtn}
               >
