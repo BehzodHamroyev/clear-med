@@ -24,7 +24,7 @@ import {
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
   getRouteAddAdsPage,
-  getRouteAddReceptionsPage,
+  // getRouteAddReceptionsPage,
   getRouteAddRoomForMonitor,
 } from '@/shared/const/router';
 
@@ -51,8 +51,10 @@ import { MonitorsPage } from '@/pages/Monitors';
 import { MonitorsDetail } from '@/pages/MonitorsDetail';
 import { AddAdsPage } from '@/pages/AddAdsPage';
 import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
-import { AddReceptionPage } from '@/pages/AddReceptionPage';
+// import { AddReceptionPage } from '@/pages/AddReceptionPage';
 
+
+// @ts-ignore
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
   AppRoutesProps
@@ -82,10 +84,10 @@ export const routeConfigForAdmin: Record<
     element: <AddRoomPage />,
   },
 
-  [AdminRoutes.ADD_RECEPTION]: {
-    path: getRouteAddReceptionsPage(),
-    element: <AddReceptionPage />,
-  },
+  // [AdminRoutes.ADD_RECEPTION]: {
+  //   path: getRouteAddReceptionsPage(),
+  //   element: <AddReceptionPage />,
+  // },
 
   [AdminRoutes.ALL_DOCTORS]: {
     path: getRouteAddDoctorsPage(),

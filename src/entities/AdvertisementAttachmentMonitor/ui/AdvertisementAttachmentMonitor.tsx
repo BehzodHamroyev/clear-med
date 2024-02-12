@@ -22,7 +22,6 @@ import {
 } from '../model/selector/getAdsVideoForOneMonitor';
 import { ModalToAddAdsForMonitor } from '@/entities/ModalToAddAdsForMonitor';
 import { Loader } from '@/widgets/Loader';
-import DeleteAdsFormDialogForMonitor from '../../../entities/DeleteAdsFormDialogForMonitor/DeleteAdsFormDialogForMonitor';
 
 const Svg = (
   <svg
@@ -101,6 +100,7 @@ const AdvertisementAttachmentMonitor = () => {
           Tabletbody={getAllForOneMonitor.data}
         />
       </div>
+      
       {isOpenAttachmentRoomMonitorChild ? (
         <ModalToAddAdsForMonitor
           data={listAdsVideo!}

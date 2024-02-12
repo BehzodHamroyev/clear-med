@@ -14,6 +14,8 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { Loader } from '@/widgets/Loader';
+import instance from '@/shared/lib/axios/api';
+import { getAllAdsVideoForOneMonitor } from '../AdvertisementAttachmentMonitor/model/service/getAllAdsVideoForOneMonitor';
 
 // import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
 
@@ -30,10 +32,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 interface DeleteAdsFormDialogForMonitorProps {
   adsId?: string;
+  connectionId?: string;
+  id?: string;
 }
 
 const DeleteAdsFormDialogForMonitor = ({
   adsId,
+  connectionId,
+  id,
 }: DeleteAdsFormDialogForMonitorProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -43,69 +49,60 @@ const DeleteAdsFormDialogForMonitor = ({
   ] = useState(false);
 
   const {
-    isOpenAdvertisementDeleteCard,
-    setIsOpenAdvertisementDeleteCard,
     setHasOpenToast,
     setToastDataForAddRoomForm,
+    isOpenAdvertisementDeleteAdsForMonitor,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
   } = useContext(ButtonsContext);
 
   const handleClose = () => {
-    setIsOpenAdvertisementDeleteCard(false);
+    setIsOpenAdvertisementDeleteAdsForMonitor(false);
   };
 
-  // const handleSubmit = async () => {
-  //   setDeleteAdsFormDialogSubmitIsLoading(true);
+  const handleSubmit = async () => {
+    setDeleteAdsFormDialogSubmitIsLoading(true);
+    try {
+      const response = await instance.put(`/monitor/video/${connectionId}`, {
+        video: adsId,
+      });
 
-  //   const token = Cookies.get('token');
+      if (response.data) {
+        // setDeleteAdsFormDialogSubmitIsLoading(false);
 
-  //   try {
-  //     const response = await axios.delete(
-  //       `${baseUrl}/videos/${adsId}`,
+        setIsOpenAdvertisementDeleteAdsForMonitor(false);
 
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           authorization: `Bearer ${token}`,
-  //         },
-  //       },
-  //     );
-  //     // deleteMonitorAds()
+        setHasOpenToast(true);
 
-  //     if (response.data) {
-  //       setDeleteAdsFormDialogSubmitIsLoading(false);
+        setToastDataForAddRoomForm({
+          toastMessageForAddRoomForm: t("Reklama o'chirildi"),
+          toastSeverityForAddRoomForm: 'success',
+        });
 
-  //       setIsOpenAdvertisementDeleteCard(false);
+        dispatch(getAllAdsVideoForOneMonitor({ id: `${id}` }));
+      }
+    } catch (error) {
+      setDeleteAdsFormDialogSubmitIsLoading(false);
+      // console.log(error);
+      setHasOpenToast(true);
 
-  //       setHasOpenToast(true);
+      setToastDataForAddRoomForm({
+        toastMessageForAddRoomForm: t(
+          "Reklama o'chirilmadi. Tizimda xatolik sodir bo'ldi",
+        ),
+        toastSeverityForAddRoomForm: 'error',
+      });
+    }
+  };
 
-  //       setToastDataForAddRoomForm({
-  //         toastMessageForAddRoomForm: t("Reklama o'chirildi"),
-  //         toastSeverityForAddRoomForm: 'success',
-  //       });
 
-  //       dispatch(fetchAllAds({}));
-  //     }
-  //   } catch (error) {
-  //     setDeleteAdsFormDialogSubmitIsLoading(false);
-  //     // console.log(error);
-  //     setHasOpenToast(true);
-
-  //     setToastDataForAddRoomForm({
-  //       toastMessageForAddRoomForm: t(
-  //         "Reklama o'chirilmadi. Tizimda xatolik sodir bo'ldi",
-  //       ),
-  //       toastSeverityForAddRoomForm: 'error',
-  //     });
-  //   }
-  // };
-
+  
   return (
     <>
       <BootstrapDialog
         className={classNames(cls.DeleteDoctorFormDialog__Container, {})}
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={isOpenAdvertisementDeleteCard}
+        open={isOpenAdvertisementDeleteAdsForMonitor}
       >
         <div className={classNames(cls.DeleteDoctorFormDialog)}>
           <div className={classNames(cls.DeleteDoctorFormDialog__head)}>
@@ -124,7 +121,7 @@ const DeleteAdsFormDialogForMonitor = ({
 
             <button
               type="button"
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
               className={classNames(
                 cls['DeleteDoctorFormDialog__buttons--submit'],
               )}

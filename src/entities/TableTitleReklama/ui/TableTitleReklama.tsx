@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 // import { PenTools } from '@/shared/assets/entities/TableTitle';
@@ -22,7 +22,7 @@ interface TableInfo {
 const TableTitleReklama = (props: TableInfo) => {
   /* props */
   const { Tablethead, Tabletbody, cursor } = props;
-
+  const [idAds, setIdAds] = useState('');
   const connectionId = useSelector(connectionIdOfAds);
 
   /* useParams */
@@ -41,7 +41,7 @@ const TableTitleReklama = (props: TableInfo) => {
     setIsOpenAdvertisementEditCard,
     setIsOpenAttachmentRoomMonitorChildEdit,
     setIsOpenAdvertisementDeleteAdsForMonitor,
-    isOpenAdvertisementDeleteAdsForMonitor
+    isOpenAdvertisementDeleteAdsForMonitor,
   } = React.useContext(ButtonsContext);
 
   /* haler functions */
@@ -74,11 +74,15 @@ const TableTitleReklama = (props: TableInfo) => {
           ))}
         </tr>
       </thead>
-      {isOpenAdvertisementDeleteAdsForMonitor ? (
-        <DeleteAdsFormDialogForMonitor adsId="ee" />
-      ) : (
-        ''
+      
+      {isOpenAdvertisementDeleteAdsForMonitor && (
+        <DeleteAdsFormDialogForMonitor
+          adsId={idAds}
+          connectionId={connectionId}
+          id={id}
+        />
       )}
+
       <tbody className={cls.Tabletbody}>
         {Tabletbody?.map((item) => {
           const date = new Date(item.createdAt);
@@ -121,19 +125,16 @@ const TableTitleReklama = (props: TableInfo) => {
               ) : (
                 ''
               )}
-              {/* {item?.lastInDeleteChild ? ( */}
               <td
                 className={`${cls.lastChild}`}
                 onClick={() => {
+                  setIdAds(item.id);
                   setIsOpenAdvertisementDeleteAdsForMonitor(true);
                 }}
               >
                 {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
                 <DeleteTools />
               </td>
-              {/* ) : (
-                ''
-              )} */}
             </tr>
           );
         })}
