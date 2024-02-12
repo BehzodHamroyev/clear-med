@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import axios from 'axios';
+
+import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AllDepartmentsApiResponse } from '../types/departmentTypes';
 
@@ -13,8 +16,8 @@ export const fetchAllDepartments = createAsyncThunk<
   const token = Cookies.get('token');
 
   try {
-    const response = await extra.api.get<AllDepartmentsApiResponse>(
-      'department/all',
+    const response = await axios.get<AllDepartmentsApiResponse>(
+      `${baseUrl}/department/all`,
       {
         headers: {
           'Content-Type': 'application/json',

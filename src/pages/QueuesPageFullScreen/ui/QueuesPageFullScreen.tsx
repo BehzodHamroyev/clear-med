@@ -108,7 +108,7 @@ const QueuesPageFullScreen = () => {
     if (hasQueueDialog) {
       setTimeout(() => {
         setHasQueueDialog(false);
-      }, 3500);
+      }, 5500);
     }
   }, [hasQueueDialog]);
 
