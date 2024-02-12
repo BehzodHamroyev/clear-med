@@ -59,8 +59,8 @@ const QueuingTvCardPopapSecond = ({
       const response = await axios.post(
         `${baseUrl}/queue/create`,
         {
-          department_id: lastQueue?.data?.department_id._id,
-          room_id: lastQueue?.data?.room_id,
+          department_id: lastQueue?.room.department_id,
+          room_id: lastQueue?.room._id,
         },
         {
           headers: {
@@ -107,7 +107,11 @@ const QueuingTvCardPopapSecond = ({
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
-    if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
+    if (
+      lastQueue &&
+      (lastQueue.data.department_id || lastQueue.room.department_id) &&
+      printableDivRef?.current
+    ) {
       createQueueFunc();
     }
   };

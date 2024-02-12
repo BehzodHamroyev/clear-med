@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Cookies from 'js-cookie';
 
@@ -14,7 +15,7 @@ import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 import 'react-calendar/dist/Calendar.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchAuthUser } from '@/features/Auth';
+import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { socket } from '@/shared/lib/utils/socket';
 
@@ -24,6 +25,8 @@ const App = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const authUserData = useSelector(getAuthUserData);
 
   useEffect(() => {
     if (Cookies.get('token')) {
@@ -47,20 +50,27 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     // Event listener for beforeunload
-    const handleBeforeUnload = () => {
-      // Disconnect the Socket.IO connection before the page is unloaded
-      socket.disconnect();
-    };
 
-    // Add the event listener
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    if (authUserData && authUserData._id) {
+      const handleBeforeUnload = () => {
+        // Disconnect the Socket.IO connection before the page is unloaded
+        socket.on('disconnect', () => {
+          socket.emit('dis', authUserData?._id);
+        });
+      };
 
-    // Cleanup: Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+      // Add the event listener
+      window.addEventListener('beforeunload', handleBeforeUnload);
+
+      // Cleanup: Remove the event listener when the component unmounts
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
