@@ -79,7 +79,7 @@ const AdvertisementAttachmentMonitor = () => {
           </Link>
           <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
             Monitorga biriktirilgan reklamalar{' '}
-            <span>({getAllForOneMonitor?.data!.length})</span>
+            <span>({getAllForOneMonitor.data!?.length})</span>
           </p>
           <CarbonAdd
             onClick={() => {
