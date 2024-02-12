@@ -4,6 +4,7 @@
   display: grid;
   grid-template-areas: 'sidebar content rightbar';
   grid-template-columns: min-content 1fr 20px;
+  background-color: var(--bg-color);
 }
 
 .sidebar {
