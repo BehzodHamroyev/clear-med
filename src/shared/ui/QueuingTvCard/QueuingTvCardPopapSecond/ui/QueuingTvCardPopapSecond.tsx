@@ -17,6 +17,8 @@ import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSel
 import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 
 interface QueuingTvCardPopapSecondProps {
   roomNumber: string;
@@ -32,6 +34,8 @@ const QueuingTvCardPopapSecond = ({
   const printableDivRef = useRef<HTMLDivElement>(null);
 
   const lastQueue = useSelector(getLastQueueData);
+
+  const { clearLastQueue } = useLasQueueActions();
 
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
@@ -59,8 +63,8 @@ const QueuingTvCardPopapSecond = ({
       const response = await axios.post(
         `${baseUrl}/queue/create`,
         {
-          department_id: lastQueue?.data?.department_id._id,
-          room_id: lastQueue?.data?.room_id,
+          department_id: lastQueue?.room.department_id,
+          room_id: lastQueue?.room._id,
         },
         {
           headers: {
@@ -82,6 +86,8 @@ const QueuingTvCardPopapSecond = ({
 
         setTimeout(() => {
           printCom();
+
+          clearLastQueue();
         }, 1);
       }
 
@@ -107,7 +113,11 @@ const QueuingTvCardPopapSecond = ({
   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
-    if (lastQueue && lastQueue.data.department_id && printableDivRef?.current) {
+    if (
+      lastQueue &&
+      (lastQueue.data.department_id || lastQueue.room.department_id) &&
+      printableDivRef?.current
+    ) {
       createQueueFunc();
     }
   };

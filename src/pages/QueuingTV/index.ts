@@ -2,7 +2,10 @@ export { getLastQueueData } from './model/selectors/lastQueueSelector';
 
 export { default as QueuingTv } from './ui/QueuingTv';
 
-export { lastQueueReducer } from './model/slice/lastQueueSlice';
+export {
+  lastQueueReducer,
+  useLasQueueActions,
+} from './model/slice/lastQueueSlice';
 export { departmentListReducer } from './model/slice/departmentListSlice';
 export { currentQueueuReducer } from './model/slice/currentQueueListSlice';
 

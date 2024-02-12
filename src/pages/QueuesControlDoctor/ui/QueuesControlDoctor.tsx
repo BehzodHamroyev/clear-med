@@ -138,7 +138,7 @@ const QueuesControlDoctor = () => {
       clearProccedQueue();
     }
 
-    console.log(data.status, 'realTimeQueueGet');
+    // console.log(data.status, 'realTimeQueueGet');
   });
 
   return (
