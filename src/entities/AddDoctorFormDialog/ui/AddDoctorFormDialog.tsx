@@ -129,7 +129,7 @@ const AddDoctorFormDialog = () => {
       dataForm.append('password', `${Password}`);
     }
 
-    if (ImgProfile && FullName && Experience && PhoneNumber && Password) {
+    if (FullName && Experience && PhoneNumber) {
       try {
         const response = await axios.post(`${baseUrl}/users`, dataForm, {
           maxBodyLength: Infinity,

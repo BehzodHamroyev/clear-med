@@ -242,7 +242,7 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
                 <Select
                   required
                   inputRef={doctorSelectRef}
-                  id="demo-simple-select"
+                  id="demo-simple-select2"
                   labelId="demo-simple-select-label2"
                   label={t("Shifokorlar ro'yhati")}
                 >
