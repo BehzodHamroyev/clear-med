@@ -17,8 +17,12 @@ import {
   GetAllMonitorPageData,
 } from '@/pages/AddMonitorPage';
 import { getAllAdsVideoForOneMonitor } from '../model/service/getAllAdsVideoForOneMonitor';
-import { getAdsDataForMonitor } from '../model/selector/getAdsVideoForOneMonitor';
+import {
+  getAdsDataForMonitor,
+  isLoadingForMonitor,
+} from '../model/selector/getAdsVideoForOneMonitor';
 import { ModalToAddAdsForMonitor } from '@/entities/ModalToAddAdsForMonitor';
+import { Loader } from '@/widgets/Loader';
 
 /* svg */
 const Svg = (
@@ -38,7 +42,7 @@ const Svg = (
 
 /* halperArr */
 
-const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
+const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana', 'Delete'];
 
 /* Component */
 const AdvertisementAttachmentMonitor = () => {
@@ -49,14 +53,12 @@ const AdvertisementAttachmentMonitor = () => {
 
   const getAllMonitorData = useSelector(GetAllMonitorPageData);
   const getAllForOneMonitor = useSelector(getAdsDataForMonitor);
-
+  const isLoading = useSelector(isLoadingForMonitor);
   const {
     isOpenAttachmentRoomMonitorChild,
     setIsOpenAttachmentRoomMonitorChild,
     isOpenAttachmentRoomMonitorChildEdit,
   } = useContext(ButtonsContext);
-
-  console.log(getAllForOneMonitor.data, 'll');
 
   useEffect(() => {
     dispatch(getAllAdsVideo({}));
@@ -69,6 +71,8 @@ const AdvertisementAttachmentMonitor = () => {
     <div>
       <div className={cls.RoomAttachmentMonitorWrapper}>
         {/* Title */}
+        {isLoading ? <Loader /> : ''}
+
         <div className={cls.RoomAttachmentMonitorWrapper__Title}>
           <Link
             className={cls['RoomAttachmentMonitorWrapper__Title--btn']}
