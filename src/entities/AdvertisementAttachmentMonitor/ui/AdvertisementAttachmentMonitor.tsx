@@ -7,7 +7,6 @@ import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './AdvertisementAttachmentMonitor.module.scss';
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
-import { AttachmentRoomMonitorChild } from '@/entities/AttachmentRoomMonitorChild';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { AttachmentRoomMonitorChildEdit } from '@/entities/AttachmentRoomMonitorChildEdit';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -19,6 +18,7 @@ import {
 } from '@/pages/AddMonitorPage';
 import { getAllAdsVideoForOneMonitor } from '../model/service/getAllAdsVideoForOneMonitor';
 import { getAdsDataForMonitor } from '../model/selector/getAdsVideoForOneMonitor';
+import { ModalToAddAdsForMonitor } from '@/entities/ModalToAddAdsForMonitor';
 
 /* svg */
 const Svg = (
@@ -99,7 +99,7 @@ const AdvertisementAttachmentMonitor = () => {
       </div>
 
       {isOpenAttachmentRoomMonitorChild ? (
-        <AttachmentRoomMonitorChild
+        <ModalToAddAdsForMonitor
           data={listAdsVideo!}
           listMonitor={getAllMonitorData}
         />
