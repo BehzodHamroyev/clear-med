@@ -5,3 +5,4 @@ export type { OneAdds } from './model/types/addsTypes';
 export type { MonitorAdsInRedux } from './model/types/addsTypes';
 export { sliceAllAdsVideoForOneMonitorReducer } from './model/slice/sliceAllAdsVideoForOneMonitor';
 export type { Videos } from './model/types/addsTypes';
+export { getAllAdsVideoForOneMonitor } from './model/service/getAllAdsVideoForOneMonitor';

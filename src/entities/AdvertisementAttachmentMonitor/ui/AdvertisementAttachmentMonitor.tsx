@@ -40,41 +40,6 @@ const Svg = (
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
 
-const tableBody: any = [
-  {
-    id: 'number',
-    img: 'https://cdn.pixabay.com/photo/2023/07/04/08/31/cats-8105667_1280.jpg',
-    item2: 'lor yonidi telivizor',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-    lastChild: '16.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://media.istockphoto.com/id/1437390637/photo/cute-ginger-kitten-sleeps.webp?s=1024x1024&w=is&k=20&c=yxwM2SCjXvVKkW44mIOCDnoDdgc1FWHW95qrCuHbD7I=',
-    item2: 'asosiy telivizor',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-    lastChild: '21.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    item2: 'qorovul oldidi telivizor',
-    item3: 'Open link',
-    url: 'https://youtu.be/OmBMD1Xy43Y?si=sBPNqiHnqWMvrkKL',
-    lastChild: '03.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://images.pexels.com/photos/2678059/pexels-photo-2678059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    item2: 'uzi yonidagi telivizor',
-    lastChild: '16.01.2024',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-  },
-];
-
 /* Component */
 const AdvertisementAttachmentMonitor = () => {
   /* useParams */
@@ -113,7 +78,8 @@ const AdvertisementAttachmentMonitor = () => {
             Ortga
           </Link>
           <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-            Monitorga biriktirilgan reklamalar <span>({tableBody.length})</span>
+            Monitorga biriktirilgan reklamalar{' '}
+            <span>({getAllForOneMonitor?.data!.length})</span>
           </p>
           <CarbonAdd
             onClick={() => {

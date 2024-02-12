@@ -20,6 +20,8 @@ import instance from '@/shared/lib/axios/api';
 // @ts-ignore
 import { AllMonitorData } from '@/pages/AddMonitorPage';
 import { RoomAddTypes } from '../model/types/roomAddTypes';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAllAdsVideoForOneMonitor } from '../../AdvertisementAttachmentMonitor/model/service/getAllAdsVideoForOneMonitor';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -59,7 +61,7 @@ const AttachmentRoomMonitorChild = (prop: AttachmentRoomMonitorChildProp) => {
   const { id } = useParams();
   const { data, listMonitor } = prop;
   const [personName, setPersonName] = useState<string[]>([]);
-
+  const dispatch = useAppDispatch();
   const {
     setIsOpenRoomAddCard,
     setDepartmentListChanged,
@@ -91,11 +93,10 @@ const AttachmentRoomMonitorChild = (prop: AttachmentRoomMonitorChildProp) => {
         `/monitor/${connectionIdMonitor}`,
         { videos: arrayId },
       );
-
+      dispatch(getAllAdsVideoForOneMonitor({ id: `${id}` }));
       setIsOpenRoomAddCard(false);
       setResponseAddDoctorStatusCode(200);
       setIsOpenAttachmentRoomMonitorChild(false);
-
       return response.data;
     } catch (e) {
       return setResponseAddDoctorStatusCode('404');
