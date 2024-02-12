@@ -131,7 +131,7 @@ const AddDoctorFormDialog = () => {
       dataForm.append('password', `${Password}`);
     }
 
-    if (ImgProfile && FullName && Experience && PhoneNumber && Password) {
+    if (FullName && Experience && PhoneNumber) {
       try {
         const response = await axios.post(`${baseUrl}/users`, dataForm, {
           maxBodyLength: Infinity,
@@ -225,7 +225,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <button
-                type="submit"
+                type="button"
                 onClick={handleClick}
                 className={cls.AddCardImgValuebtn}
               >

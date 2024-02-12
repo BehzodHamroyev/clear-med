@@ -37,7 +37,6 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           method: 'post',
           status: 'recall',
           path: '',
-          isReCall: true,
         }),
       );
     }

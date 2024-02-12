@@ -2,6 +2,7 @@
 .AddDepartmentPageWrp {
   width: 100%;
   max-width: 1300px;
+  background-color: transparent;
 
   &__Title {
     max-width: 1300px;
@@ -9,7 +10,8 @@
     max-height: 60px;
     font-family: sans-serif;
     border-radius: 5.273px;
-    background: #fff;
+    background: var(--bg-table);
+    border: 1px solid var(--border-table);
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -17,7 +19,7 @@
     text-align: center;
 
     &--text {
-      color: #1d1d1d;
+      color: var(--text-color);
       font-family: sans-serif;
       font-size: 18px;
       font-style: normal;
@@ -39,6 +41,7 @@
     }
 
     &--Icon {
+      color: var(--text-color);
       width: 35px;
       height: 35px;
       flex-shrink: 0;
@@ -91,7 +94,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      background-color: #fff;
+      background-color: var(--bg-table);
+      color: #fff;
+      border: 1px solid var(--border-table);
       padding: 20px;
       margin: 3px auto;
       transition: all 0.3s linear;

@@ -1,15 +1,31 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { TableInfo } from '../model/types/TableInfo';
-import { PenTools } from '@/shared/assets/entities/TableTitle';
+// import { PenTools } from '@/shared/assets/entities/TableTitle';
+import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './TableTitleReklama.module.scss';
+import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
+import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+import { deleteMonitorAds } from '../../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
+import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
+
+interface TableInfo {
+  cursor?: boolean;
+  Tablethead: string[];
+  Tabletbody: Videos[];
+}
 
 const TableTitleReklama = (props: TableInfo) => {
   /* props */
   const { Tablethead, Tabletbody, cursor } = props;
+
+  console.log(props.Tabletbody, 'kk');
+
+  const connectionId = useSelector(connectionIdOfAds);
 
   /* useParams */
   const { id } = useParams();
@@ -60,49 +76,62 @@ const TableTitleReklama = (props: TableInfo) => {
       </thead>
 
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => {
+        {Tabletbody?.map((item) => {
+          const date = new Date(item.createdAt);
+          // Extract day, month, and year
+          const day = date.getDate();
+          const month = date.getMonth() + 1; // Month is zero-based, so add 1
+          const year = date.getFullYear();
+
           return (
             <tr
               key={item?.id}
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
-              {item?.img ? (
+              {item?.photo ? (
                 <td className={cls.td}>
-                  <img className={cls.Img} src={item.img} alt="#" />
+                  <img className={cls.Img} src={item.photo} alt="#" />
                 </td>
               ) : (
                 ''
               )}
 
-              {item?.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
-              {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
-              {item?.item3 ? (
+              {item?.name ? <td className={cls.td}>{item.name}</td> : ''}
+              {/* {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''} */}
+              {item?.link ? (
                 <td className={cls.td}>
                   <a
                     target="_blank"
                     className={cls.btnLink}
-                    href={`${item.url}`}
+                    href={`${item.link}`}
                     rel="noreferrer"
                   >
-                    {item.item3}
+                    Open link
                   </a>
                 </td>
               ) : (
                 ''
               )}
-              {item?.item4 ? <td className={cls.td}>{item.item4}</td> : ''}
-              {item?.item5 ? <td className={cls.td}>{item.item5}</td> : ''}
-              {item?.item6 ? <td className={cls.td}>{item.item6}</td> : ''}
-              {item?.item7 ? <td className={cls.td}>{item.item7}</td> : ''}
-              {item?.item8 ? <td className={cls.td}>{item.item8}</td> : ''}
-              {item?.lastChild ? (
-                <td className={`${cls.lastChild}`}>
-                  <pre>{item?.lastChild}</pre>{' '}
-                  <PenTools onClick={() => handleCardAddCard(`${item.id}`)} />
-                </td>
+              {item?.createdAt ? (
+                <td className={cls.td}>{`${day}/${month}/${year}`}</td>
               ) : (
                 ''
               )}
+              {/* {item?.lastInDeleteChild ? ( */}
+              <td className={`${cls.lastChild}`}>
+                {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
+                <DeleteTools
+                  onClick={() =>
+                    deleteMonitorAds({
+                      connectionId: connectionId!,
+                      adsId: item.id,
+                    })
+                  }
+                />
+              </td>
+              {/* ) : (
+                ''
+              )} */}
             </tr>
           );
         })}

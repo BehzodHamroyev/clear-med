@@ -44,6 +44,8 @@ const RoomAttachmentMonitorChildForm = () => {
   const getIsLoadingRooms = useSelector(getIsLoading);
   const getErrorRooms = useSelector(getError);
 
+  console.log(getListOfRooms?.room.id, 'vjvjvj');
+
   const [personId, setPersonId] = React.useState<string[]>([]);
   const [getAllSelectionID, setAllSelectionID] = useState<string[]>([]);
   const [asosiyArr, setAsosiyArr] = useState<any[]>([{ name: '', id: '' }]);
@@ -67,10 +69,10 @@ const RoomAttachmentMonitorChildForm = () => {
 
     setAddDoctorFormDialogIsLoading(true);
 
-    if (id && getAllSelectionID.length > 0) {
+    if (getAllSelectionID.length > 0) {
       try {
         const response = await axios.patch(
-          `${baseUrl}/monitor/${id}`,
+          `${baseUrl}/monitor/${getListOfRooms!?.room?.id}`,
 
           JSON.stringify({ rooms: getAllSelectionID }),
 
@@ -175,7 +177,7 @@ const RoomAttachmentMonitorChildForm = () => {
 
   React.useEffect(() => {
     if (getListOfRooms) {
-      const optionsArray = getListOfRooms.room.map((item: any) => ({
+      const optionsArray = getListOfRooms!?.room.map((item: any) => ({
         name: item.name,
         id: item.id,
       }));

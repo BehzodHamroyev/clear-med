@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
@@ -12,9 +13,17 @@ export const fetchDepartmentList = createAsyncThunk<
 >('fetchDepartmentList', async ({ limit }, thunkApi) => {
   const { rejectWithValue } = thunkApi;
 
+  const token = Cookies.get('token');
+
   try {
     const response = await axios.get<DepartmentListApiResponceTypes>(
       `${baseUrl}/room/all`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      },
     );
 
     if (!response.data) {

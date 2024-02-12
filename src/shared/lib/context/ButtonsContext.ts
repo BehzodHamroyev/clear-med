@@ -219,6 +219,9 @@ export interface ButtonsClickedProps {
     toastSeverityForAddRoomForm: string;
     toastMessageForAddRoomForm: string;
   }) => void;
+
+  isOpenAdvertisementDeleteAdsForMonitor: boolean;
+  setIsOpenAdvertisementDeleteAdsForMonitor: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -230,6 +233,9 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenAdvertisementDeleteCard: false,
   setIsOpenAdvertisementDeleteCard: () => {},
+
+  isOpenAdvertisementDeleteAdsForMonitor: false,
+  setIsOpenAdvertisementDeleteAdsForMonitor: () => {},
 
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
