@@ -234,6 +234,16 @@ export const routeConfigForReception: Record<
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
+
+  [AdminRoutes.MONITORS]: {
+    path: getRouteMonitors(),
+    element: <MonitorsPage />,
+  },
+
+  [AdminRoutes.MONITORS_DETAIL]: {
+    path: getRouteMonitorsDetail(),
+    element: <MonitorsDetail />,
+  },
 };
 
 export const routeConfigForMonitor: Record<

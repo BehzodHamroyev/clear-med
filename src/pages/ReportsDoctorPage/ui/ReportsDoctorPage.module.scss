@@ -1,6 +1,13 @@
 .ReportsDoctorPageWrapper {
   width: 100%;
 
+  &__pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
   &__backbtn {
     width: fit-content;
     padding: 15px 8px 15px 22px;

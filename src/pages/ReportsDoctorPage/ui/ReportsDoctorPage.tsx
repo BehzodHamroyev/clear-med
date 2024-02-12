@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
 
 import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
@@ -24,97 +26,6 @@ const tableTitle = [
   'Qabul tugashi',
 ];
 
-const TableBody = [
-  {
-    id: 1,
-    item1: 'Nervopotolog',
-    item2: 'Umid Rustamov',
-    item3: 2,
-    KorilganBemorlar: [
-      {
-        id: 1,
-        shifokor: 'Umid Rustamov',
-        xona: '2',
-        qabulboshlanishi: '9:30:24',
-        qabultugashi: '9:50:12',
-      },
-      {
-        id: 2,
-        shifokor: 'Umid Rustamov',
-        xona: '2',
-        qabulboshlanishi: '10:00:24',
-        qabultugashi: '10:34:53',
-      },
-      {
-        id: 3,
-        shifokor: 'Umid Rustamov',
-        xona: '2',
-        qabulboshlanishi: '11:40:04',
-        qabultugashi: '12:10:22',
-      },
-      {
-        id: 4,
-        shifokor: 'Umid Rustamov',
-        xona: '2',
-        qabulboshlanishi: '12:20:02',
-        qabultugashi: '12:50:12',
-      },
-    ],
-  },
-  {
-    id: 2,
-    item1: 'Ginekolog',
-    item2: 'Hamroyev Behzod',
-    item3: 3,
-    KorilganBemorlar: [
-      {
-        id: 1,
-        shifokor: 'Hamroyev Behzod',
-        xona: '3',
-        qabulboshlanishi: '9:30:24',
-        qabultugashi: '9:50:12',
-      },
-    ],
-  },
-  {
-    id: 3,
-    item1: 'Akulist',
-    item2: "G'ulomov Abbos",
-    item3: 4,
-    KorilganBemorlar: [
-      {
-        id: 1,
-        shifokor: "G'ulomov Abbos",
-        xona: '4',
-        qabulboshlanishi: '9:30:24',
-        qabultugashi: '9:50:12',
-      },
-    ],
-  },
-  {
-    id: 4,
-    item1: 'Pediator',
-    item2: 'Tojiboyev Abdulaziz',
-    item3: 5,
-    KorilganBemorlar: [
-      {
-        id: 1,
-        shifokor: 'Tojiboyev Abdulaziz',
-        xona: '5',
-        qabulboshlanishi: '9:30:24',
-        qabultugashi: '9:50:12',
-      },
-    ],
-  },
-  {
-    id: 5,
-    item1: 'Glaznoy',
-    item2: "Xusainov Ulug'bek",
-    item3: 6,
-    KorilganBemorlar: [],
-  },
-];
-
 interface reportDetailListTtype {
   _id: string;
   department_id: string;
@@ -131,6 +42,12 @@ interface reportDetailListTtype {
   id: string;
 }
 
+interface TableInfo {
+  all: number;
+  counCompleted: number;
+  countReject: number;
+}
+
 const ReportsDoctorPage = () => {
   const { t } = useTranslation();
 
@@ -140,7 +57,13 @@ const ReportsDoctorPage = () => {
 
   const [reportDetailList, setReportDetailList] =
     useState<reportDetailListTtype[]>();
-  const [reportDetailLimit, setReportDetailLimit] = useState<number>();
+  const [reportInfo, setReportInfo] = useState<TableInfo>({
+    all: 0,
+    counCompleted: 0,
+    countReject: 0,
+  });
+
+  const [reportDetailAllPages, setReportDetailAllPages] = useState<number>();
   const [reportDetailPage, setReportDetailPage] = useState<number>(1);
 
   const [reportDoctorDetailIsLoading, setReportDoctorDetailIsLoading] =
@@ -152,6 +75,13 @@ const ReportsDoctorPage = () => {
 
   const paramIdUrl: { id?: string } = useParams();
 
+  const handlePagination = (
+    event: React.ChangeEvent<unknown>,
+    pageNumber: number,
+  ) => {
+    setReportDetailPage(pageNumber);
+  };
+
   const fetchReportDoctorDetail = async () => {
     setReportDoctorDetailIsLoading(true);
 
@@ -162,7 +92,7 @@ const ReportsDoctorPage = () => {
     try {
       const responce = await axios.get(
         // eslint-disable-next-line max-len
-        `${baseUrl}/doctor/report?startDate=${calendarBeginValue}&endDate=${calendarEndValue}&userId=${paramIdUrl.id}`,
+        `${baseUrl}/doctor/report?startDate=${calendarBeginValue}&endDate=${calendarEndValue}&userId=${paramIdUrl.id}&limit=25&page=${reportDetailPage}`,
 
         {
           headers: {
@@ -172,7 +102,13 @@ const ReportsDoctorPage = () => {
         },
       );
 
-      if (responce) {
+      if (responce?.data) {
+        if (responce.data.pagination.all) {
+          setReportDetailAllPages(Math.ceil(responce.data.pagination.all / 25));
+        }
+
+        setReportInfo(responce.data.pagination);
+
         setReportDetailList(responce?.data?.data);
 
         setReportDoctorDetailIsLoading(false);
@@ -191,7 +127,7 @@ const ReportsDoctorPage = () => {
   useEffect(() => {
     fetchReportDoctorDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calendarBeginValue, calendarEndValue]);
+  }, [calendarBeginValue, calendarEndValue, reportDetailPage]);
 
   const handleClickBack = () => {
     navigate('/reports');
@@ -213,11 +149,25 @@ const ReportsDoctorPage = () => {
       />
 
       {reportDetailList && reportDetailList?.length > 0 ? (
-        <TableTitlePatients
-          cursor
-          Tablethead={tableTitle}
-          TableBody={reportDetailList}
-        />
+        <>
+          <TableTitlePatients
+            cursor
+            Tablethead={tableTitle}
+            TableBody={reportDetailList}
+            TableInfo={reportInfo}
+          />
+
+          <div className={cls.ReportsDoctorPageWrapper__pagination}>
+            <Stack spacing={1}>
+              <Pagination
+                count={reportDetailAllPages}
+                variant="outlined"
+                shape="rounded"
+                onChange={(e, pageNumber) => handlePagination(e, pageNumber)}
+              />
+            </Stack>
+          </div>
+        </>
       ) : (
         <>
           <div

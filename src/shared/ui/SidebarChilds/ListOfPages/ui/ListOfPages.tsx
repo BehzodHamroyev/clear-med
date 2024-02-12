@@ -177,7 +177,7 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '63px';
-      } else if (divRef.current && location.pathname === '/queues') {
+      } else if (divRef.current && location.pathname === '/monitors') {
         divRef.current.style.top = '106px';
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '216px';

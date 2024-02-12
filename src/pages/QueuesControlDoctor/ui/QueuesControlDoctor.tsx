@@ -43,7 +43,6 @@ import {
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-import PaginationComponent from '@/shared/ui/Pagination/Pagination';
 import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
 import { socket } from '@/shared/lib/utils/socket';
 
@@ -168,8 +167,6 @@ const QueuesControlDoctor = () => {
                   Tablethead={['Id', 'Bilet berilgan vaqti']}
                   Tabletbody={queuesList}
                 />
-
-                <PaginationComponent count={100} />
               </>
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>

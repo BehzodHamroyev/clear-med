@@ -36,6 +36,8 @@ export enum ReceptionRoutes {
   REPORTS = 'reports',
   QUEUING_TV = 'queuing_tv',
   REPORTS_PATIENT = 'reports_patient',
+  MONITORS = 'monitors',
+  MONITORS_DETAIL = 'monitors_details',
 }
 
 export enum MonitorRoutes {

@@ -204,89 +204,32 @@ const MonitorsDetail = () => {
                   </p>
                 </div>
 
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
-
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
-
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
-
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
-
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
-
-                <div className={classNames(cls.queuesTable__item)}>
-                  <div
-                    className={classNames(cls.queuesTable__itemDepartmentName)}
-                  >
-                    <p>Nevropatologiya</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemRoomNumber)}>
-                    <p>08</p>
-                  </div>
-                  <div className={classNames(cls.queuesTable__itemBiletNumber)}>
-                    <p>NE-05</p>
-                  </div>
-                </div>
+                {allProccessQueue?.proccessQueues &&
+                  allProccessQueue?.proccessQueues.length > 0 &&
+                  allProccessQueue?.proccessQueues.map((item) => (
+                    <div
+                      key={item._id}
+                      className={classNames(cls.queuesTable__item)}
+                    >
+                      <div
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
+                      >
+                        <p>{item.department_id?.name}</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>{item.room_id.name}</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>{item.queues_name}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

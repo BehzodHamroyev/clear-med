@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
 
 import cls from './TableReportsDoctorPage.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchReportControlDoctor } from '../model/service/fetchReportDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import {
-  getreportControlDoctorData,
-  getreportControlDoctorError,
-  getreportControlDoctorIsLoading,
-} from '../model/selector/reportControlDoctorSelector';
+
+import { baseUrl } from '../../../../baseurl';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
@@ -24,46 +24,101 @@ const tableTitle = [
   'Xolati',
 ];
 
+interface reportListTtype {
+  _id: string;
+  department_id: string;
+  room_id: string;
+  doctor_id: string;
+  queues_name: string;
+  step: number;
+  status: string;
+  created_date: string;
+  created_time: string;
+  __v: 0;
+  accepted_date: string;
+  completed_date: string;
+  id: string;
+}
+
+interface TableInfo {
+  all: number;
+  counCompleted: number;
+  countReject: number;
+}
+
 const TableReportsDoctorPage = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const reportList = useSelector(getreportControlDoctorData);
-  const reportIsLoading = useSelector(getreportControlDoctorIsLoading);
-  const reportError = useSelector(getreportControlDoctorError);
+  const [reportList, setReportList] = useState<reportListTtype[]>();
+  const [reportInfo, setReportInfo] = useState<TableInfo>({
+    all: 0,
+    counCompleted: 0,
+    countReject: 0,
+  });
+  const [reportAllPages, setReportAllPages] = useState<number>();
+  const [reportPage, setReportPage] = useState<number>(1);
+
+  const [reportDoctorIsLoading, setReportDoctorIsLoading] =
+    useState<boolean>(false);
+  const [reportDoctorIsError, setReportDoctorIsError] =
+    useState<boolean>(false);
 
   const { calendarBeginValue, calendarEndValue } = useContext(ButtonsContext);
 
-  // ----- gtmTime convert to Est time -----
-  const convertToEst = (gmtTime: any) => {
-    return new Date(
-      new Date(gmtTime).toLocaleString('uz-UZ'),
-    ).toLocaleDateString('uz-UZ');
+  const handlePagination = (
+    event: React.ChangeEvent<unknown>,
+    pageNumber: number,
+  ) => {
+    setReportPage(pageNumber);
+  };
+
+  const fetchReportDoctor = async () => {
+    setReportDoctorIsLoading(true);
+
+    setReportDoctorIsError(false);
+
+    const getTokenCookie = Cookies.get('token');
+
+    try {
+      const responce = await axios.get(
+        // eslint-disable-next-line max-len
+        `${baseUrl}/doctor/report?startDate=${calendarBeginValue}&endDate=${calendarEndValue}&limit=25&page=${reportPage}`,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
+
+      if (responce?.data) {
+        if (responce.data.pagination.all) {
+          setReportAllPages(Math.ceil(responce.data.pagination.all / 25));
+        }
+
+        setReportInfo(responce.data.pagination);
+
+        setReportList(responce?.data?.data);
+
+        setReportDoctorIsLoading(false);
+      }
+
+      setReportDoctorIsLoading(false);
+    } catch (error) {
+      console.log(error);
+
+      setReportDoctorIsLoading(false);
+
+      setReportDoctorIsError(true);
+    }
   };
 
   useEffect(() => {
-    if (calendarBeginValue && calendarEndValue) {
-      dispatch(
-        fetchReportControlDoctor({
-          startDate: calendarBeginValue,
-          endDate: calendarEndValue,
-          limit: 1000,
-          page: 1,
-        }),
-      );
-    } else {
-      dispatch(
-        fetchReportControlDoctor({
-          startDate: convertToEst(new Date()),
-          endDate: convertToEst(
-            new Date(new Date().getTime() + 24 * 3600 * 1000),
-          ),
-          limit: 1000,
-          page: 1,
-        }),
-      );
-    }
-  }, [calendarBeginValue, calendarEndValue, dispatch]);
+    fetchReportDoctor();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calendarBeginValue, calendarEndValue, reportPage]);
 
   if (reportError) {
     console.log(reportError);
@@ -79,16 +134,13 @@ const TableReportsDoctorPage = () => {
             <div className={cls.TableTitleWrapper__title}>
               <h3 className={cls.KorilganBemorlar}>
                 {t("Jami ko'rilgan bemorlar : ")}
-                {reportList ? reportList.length : 0}
+                {reportInfo.all}
                 {t(' ta')}
               </h3>
 
               <h3 className={cls.KorilganBemorlar} style={{ color: '#0c8541' }}>
                 {t('Tasdiqlangan bemorlar : ')}
-                {reportList
-                  ? reportList.filter((item) => item.status === 'completed')
-                      .length
-                  : 0}
+                {reportInfo.counCompleted}
                 {t(' ta')}
               </h3>
 
@@ -97,10 +149,7 @@ const TableReportsDoctorPage = () => {
                 style={{ color: '#ff0000f4' }}
               >
                 {t('Bekor qilingan bemorlar : ')}
-                {reportList
-                  ? reportList.filter((item) => item.status === 'rejected')
-                      .length
-                  : 0}
+                {reportInfo.counCompleted}
                 {t(' ta')}
               </h3>
             </div>
@@ -140,6 +189,17 @@ const TableReportsDoctorPage = () => {
                   </tr>
                 ))}
             </tbody>
+
+            <div className={cls.pagination}>
+              <Stack spacing={1}>
+                <Pagination
+                  count={reportAllPages}
+                  variant="outlined"
+                  shape="rounded"
+                  onChange={(e, pageNumber) => handlePagination(e, pageNumber)}
+                />
+              </Stack>
+            </div>
           </>
         ) : (
           <h3 className={cls.reportEmpty}>
@@ -150,9 +210,9 @@ const TableReportsDoctorPage = () => {
         )}
       </table>
 
-      {reportIsLoading && <Loader />}
+      {reportDoctorIsLoading && <Loader />}
 
-      {reportError && <ErrorDialog isErrorProps={!false} />}
+      {reportDoctorIsError && <ErrorDialog isErrorProps={!false} />}
     </>
   );
 };
