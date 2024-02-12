@@ -83,5 +83,6 @@ export interface MonitorAdsBackend {
 export interface MonitorAdsInRedux {
   isLoading: boolean;
   data?: Videos[];
+  id?:string
   error?: string;
 }

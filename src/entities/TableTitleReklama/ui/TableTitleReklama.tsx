@@ -4,11 +4,14 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 // import { PenTools } from '@/shared/assets/entities/TableTitle';
-import { Delete } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './TableTitleReklama.module.scss';
 import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
+import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+import { deleteMonitorAds } from '../../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
+import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
 
 interface TableInfo {
   cursor?: boolean;
@@ -21,6 +24,8 @@ const TableTitleReklama = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   console.log(props.Tabletbody, 'kk');
+
+  const connectionId = useSelector(connectionIdOfAds);
 
   /* useParams */
   const { id } = useParams();
@@ -112,9 +117,21 @@ const TableTitleReklama = (props: TableInfo) => {
               ) : (
                 ''
               )}
-              <td className={cls.td}>
-                <Delete />
+              {/* {item?.lastInDeleteChild ? ( */}
+              <td className={`${cls.lastChild}`}>
+                {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
+                <DeleteTools
+                  onClick={() =>
+                    deleteMonitorAds({
+                      connectionId: connectionId!,
+                      adsId: item.id,
+                    })
+                  }
+                />
               </td>
+              {/* ) : (
+                ''
+              )} */}
             </tr>
           );
         })}
