@@ -55,8 +55,6 @@ const TableTitleReklama = (props: TableInfo) => {
     }
   };
 
-
-  
   /* UI */
   return (
     <table className={cls.TableTitleWrapper}>
@@ -101,7 +99,7 @@ const TableTitleReklama = (props: TableInfo) => {
                     href={`${item.link}`}
                     rel="noreferrer"
                   >
-                    {item.link}
+                    Open link
                   </a>
                 </td>
               ) : (

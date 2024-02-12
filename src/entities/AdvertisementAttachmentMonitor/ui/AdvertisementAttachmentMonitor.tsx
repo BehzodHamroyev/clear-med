@@ -113,8 +113,7 @@ const AdvertisementAttachmentMonitor = () => {
             Ortga
           </Link>
           <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-            {id} - Monitorga biriktirilgan reklamalar{' '}
-            <span>({tableBody.length})</span>
+            Monitorga biriktirilgan reklamalar <span>({tableBody.length})</span>
           </p>
           <CarbonAdd
             onClick={() => {
