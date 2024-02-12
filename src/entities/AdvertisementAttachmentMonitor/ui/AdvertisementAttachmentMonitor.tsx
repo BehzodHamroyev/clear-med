@@ -1,12 +1,23 @@
 /* eslint-disable max-len */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import cls from './AdvertisementAttachmentMonitor.module.scss';
-
+import { useSelector } from 'react-redux';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
+import cls from './AdvertisementAttachmentMonitor.module.scss';
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAdsData } from '../model/selector/getAdsVideo';
+import { getAllAdsVideo } from '../model/service/getAllAdsVideo';
+import {
+  fetchGetAllMonitors,
+  GetAllMonitorPageData,
+} from '@/pages/AddMonitorPage';
+import { getAllAdsVideoForOneMonitor } from '../model/service/getAllAdsVideoForOneMonitor';
+import { getAdsDataForMonitor } from '../model/selector/getAdsVideoForOneMonitor';
+import { ModalToAddAdsForMonitor } from '@/entities/ModalToAddAdsForMonitor';
 
 const Svg = (
   <svg
@@ -26,43 +37,14 @@ const Svg = (
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
 
-const tableBody: any = [
-  {
-    id: 'number',
-    img: 'https://cdn.pixabay.com/photo/2023/07/04/08/31/cats-8105667_1280.jpg',
-    item2: 'lor yonidi telivizor',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-    lastChild: '16.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://media.istockphoto.com/id/1437390637/photo/cute-ginger-kitten-sleeps.webp?s=1024x1024&w=is&k=20&c=yxwM2SCjXvVKkW44mIOCDnoDdgc1FWHW95qrCuHbD7I=',
-    item2: 'asosiy telivizor',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-    lastChild: '21.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    item2: 'qorovul oldidi telivizor',
-    item3: 'Open link',
-    url: 'https://youtu.be/OmBMD1Xy43Y?si=sBPNqiHnqWMvrkKL',
-    lastChild: '03.01.2024',
-  },
-  {
-    id: 'number',
-    img: 'https://images.pexels.com/photos/2678059/pexels-photo-2678059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    item2: 'uzi yonidagi telivizor',
-    lastChild: '16.01.2024',
-    item3: 'Open link',
-    url: 'https://youtube.com/shorts/Q-SXOC8ji9Q?si=EhN3JThnaxznv5T4',
-  },
-];
-
+/* Component */
 const AdvertisementAttachmentMonitor = () => {
   const { id } = useParams();
+  const listAdsVideo = useSelector(getAdsData);
+  const dispatch = useAppDispatch();
+
+  const getAllMonitorData = useSelector(GetAllMonitorPageData);
+  const getAllForOneMonitor = useSelector(getAdsDataForMonitor);
 
   const {
     isOpenAttachmentRoomMonitorChild,
@@ -70,6 +52,15 @@ const AdvertisementAttachmentMonitor = () => {
     isOpenAttachmentRoomMonitorChildEdit,
   } = useContext(ButtonsContext);
 
+  console.log(getAllForOneMonitor.data, 'll');
+
+  useEffect(() => {
+    dispatch(getAllAdsVideo({}));
+    dispatch(fetchGetAllMonitors({}));
+    dispatch(getAllAdsVideoForOneMonitor({ id: `${id}` }));
+  }, [dispatch, id]);
+
+  /* UI */
   return (
     <div>
       <div className={cls.RoomAttachmentMonitorWrapper}>
@@ -83,24 +74,35 @@ const AdvertisementAttachmentMonitor = () => {
             Ortga
           </Link>
           <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-            {id} - Monitorga biriktirilgan reklamalar{' '}
-            <span>({tableBody.length})</span>
+            Monitorga biriktirilgan reklamalar{' '}
+            <span>({getAllForOneMonitor.data!?.length})</span>
           </p>
-          <Link to="/">
-            <CarbonAdd
-              onClick={() => {
-                setIsOpenAttachmentRoomMonitorChild(true);
-              }}
-              className={cls['RoomAttachmentMonitorWrapper__Title--create']}
-            />
-          </Link>
+
+          <CarbonAdd
+            onClick={() => {
+              setIsOpenAttachmentRoomMonitorChild(true);
+            }}
+            className={cls['RoomAttachmentMonitorWrapper__Title--create']}
+          />
         </div>
 
         {/* Body */}
-        <TableTitleReklama Tablethead={tableTitle} Tabletbody={tableBody} />
+
+        <TableTitleReklama
+          Tablethead={tableTitle}
+          // @ts-ignore
+          Tabletbody={getAllForOneMonitor.data}
+        />
       </div>
 
-      {/* {isOpenAttachmentRoomMonitorChild ? <AddRoomForMonitor /> : ''} */}
+      {isOpenAttachmentRoomMonitorChild ? (
+        <ModalToAddAdsForMonitor
+          data={listAdsVideo!}
+          listMonitor={getAllMonitorData}
+        />
+      ) : (
+        ''
+      )}
 
       {/* {isOpenAttachmentRoomMonitorChildEdit ? (
         <AttachmentRoomMonitorChildEdit />
