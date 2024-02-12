@@ -180,6 +180,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [settingsFormData, setSettingsFormData] = useState({
     password: '',
     newPassword: '',
+    reNewPassword: '',
   });
 
   const [

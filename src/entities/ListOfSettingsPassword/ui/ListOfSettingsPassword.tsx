@@ -77,19 +77,34 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
     } catch (error) {
       setSettingLoad(false);
 
-      setToastProps({
-        message: t("Xatolik sodir bo'ldi"),
-        severity: 'error',
-      });
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          setToastProps({
+            message: t('Eski parol xato'),
+            severity: 'error',
+          });
+        } else {
+          setToastProps({
+            message: t("Xatolik sodir bo'ldi"),
+            severity: 'error',
+          });
+        }
 
-      setHasOpenToast(true);
+        setHasOpenToast(true);
+      }
     }
   };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (settingsFormData.password !== settingsFormData.newPassword) {
+    if (settingsFormData.reNewPassword !== settingsFormData.newPassword) {
+      setToastProps({
+        message: t('Yangi parol bir xil emas'),
+        severity: 'warning',
+      });
+      setHasOpenToast(true);
+    } else if (settingsFormData.password !== settingsFormData.newPassword) {
       fetchChangePassword();
     } else {
       setToastProps({
@@ -123,6 +138,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
                 setSettingsFormData({
                   password: e.target.value,
                   newPassword: settingsFormData.newPassword,
+                  reNewPassword: settingsFormData.reNewPassword,
                 })
               }
             />
@@ -136,7 +152,7 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
               name="newPassword"
               placeholder={t('Yangi parolni kiriting')}
               className={cls.PhoneNumberInput}
-              type="text"
+              type="password"
               autoComplete="off"
               maxLength={14}
               minLength={8}
@@ -145,6 +161,32 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
                 setSettingsFormData({
                   password: settingsFormData.password,
                   newPassword: e.target.value,
+                  reNewPassword: settingsFormData.reNewPassword,
+                })
+              }
+            />
+          </div>
+        </div>
+
+        <div className={cls.LoginPhoneNumberWrapper}>
+          <p className={cls.PhoneNumberStyle}>
+            {t('Yangi parolni tasdiqlash uchun qayta kiriting')}
+          </p>
+          <div className={cls.PhoneNumberInputWrapper}>
+            <input
+              name="newPassword"
+              placeholder={t('Yangi parolni tasdiqlash uchun qayta kiriting')}
+              className={cls.PhoneNumberInput}
+              type="password"
+              autoComplete="off"
+              maxLength={14}
+              minLength={8}
+              required
+              onChange={(e) =>
+                setSettingsFormData({
+                  password: settingsFormData.password,
+                  newPassword: settingsFormData.newPassword,
+                  reNewPassword: e.target.value,
                 })
               }
             />
