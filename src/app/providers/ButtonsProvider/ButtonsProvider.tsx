@@ -88,6 +88,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [isOpenDepartmentEditCard, setIsOpenDepartmentEditCard] =
     useState(false);
 
+  const [monitorNumber, setMonitorNumber] = useState<number | null>(null);
+
   const [isOpenRoomAddCard, setIsOpenRoomAddCard] = useState(false);
 
   const [isOpenRoomEditCard, setIsOpenRoomEditCard] = useState(false);
@@ -195,17 +197,26 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     toastMessageForAddRoomForm: '',
   });
 
+  const [
+    isOpenAdvertisementDeleteAdsForMonitor,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
+  ] = useState(false);
+
   const defaultProps = useMemo(
     () => ({
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
+
+      isOpenAdvertisementDeleteAdsForMonitor,
+      setIsOpenAdvertisementDeleteAdsForMonitor,
 
       isOpenEditReceptionCard,
       setIsOpenEditReceptionCard,
 
       isOpenDeleteReceptionCard,
       setIsOpenDeleteReceptionCard,
-
+      monitorNumber,
+      setMonitorNumber,
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -309,11 +320,17 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
 
+      monitorNumber,
+      setMonitorNumber,
+
       isOpenEditReceptionCard,
       setIsOpenEditReceptionCard,
 
       isOpenDeleteReceptionCard,
       setIsOpenDeleteReceptionCard,
+
+      isOpenAdvertisementDeleteAdsForMonitor,
+      setIsOpenAdvertisementDeleteAdsForMonitor,
 
       currentQueueData,
       setCurrentQueueData,

@@ -20,7 +20,7 @@ import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
 import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
-import { GetAllRoomAtachmentMonitorReducer } from '@/entities/RoomAttachmentMonitor';
+import { GetAllRoomAtachmentMonitorReducer } from '@/pages/AddRoomForMonitorPage';
 
 import {
   lastQueueReducer,
@@ -32,6 +32,10 @@ import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allMonitorsReducer } from '@/pages/Monitors';
 import { allAdsReducer } from '@/pages/AddAdsPage';
 import { allReceptionsReducer } from '@/pages/AddReceptionPage';
+import {
+  sliceAllAdsVideoForOneMonitorReducer,
+  sliceAllAdsVideoReducer,
+} from '@/entities/AdvertisementAttachmentMonitor';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -63,7 +67,9 @@ export function createReduxStore(
     controlPanelDoctorProccess: controlPanelDoctorReducer,
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
     GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
-
+    allAdsVideo: sliceAllAdsVideoReducer,
+    // @ts-ignore
+    allAdsForOneMonitor: sliceAllAdsVideoForOneMonitorReducer,
     [rtkApi.reducerPath]: rtkApi.reducer,
   };
 

@@ -23,6 +23,7 @@ const Monitors = (props: MonitorsProp) => {
     setIsOpenMonitorEditCard,
     setMonitorEditFormOldValue,
     setIsOpenMonitorDeleteCard,
+    setMonitorNumber,
   } = React.useContext(ButtonsContext);
 
   const handleClickPen = (
@@ -46,6 +47,9 @@ const Monitors = (props: MonitorsProp) => {
     e.stopPropagation();
     setMonitorGetId(id);
     setDepartmentGetId(id);
+    if (number) {
+      setMonitorNumber(number);
+    }
     // navigate(`/add_monitor/${number}`);
     navigate(`/add_monitor/${id}`);
   };

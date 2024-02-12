@@ -76,6 +76,23 @@
       padding: 20px;
     }
 
+    .InputPhone {
+      border: 1px solid rgba(128, 128, 128, 50%);
+      padding: 15px 10px;
+      border-bottom: 1px solid gray;
+      width: 100%;
+      color: #4f4f51;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: normal;
+      font-family: sans-serif;
+      line-height: 16.678px; /* 104.24% */
+      letter-spacing: 0.417px;
+      outline: none;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
     .InputBulim {
       width: 100%;
       color: #4f4f51;
@@ -85,7 +102,6 @@
       font-family: sans-serif;
       line-height: 16.678px; /* 104.24% */
       letter-spacing: 0.417px;
-      border: none;
       outline: none;
       margin-bottom: 20px;
     }

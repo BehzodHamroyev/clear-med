@@ -27,7 +27,7 @@ import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
-import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+import { MonitorRoomListSchema } from '@/pages/AddRoomForMonitorPage';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
 import { AllReceptionsTypeSchema } from '@/pages/AddReceptionPage';
 
@@ -36,6 +36,7 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import { AddsVideosDataRedux ,MonitorAdsInRedux} from '@/entities/AdvertisementAttachmentMonitor';
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -61,6 +62,8 @@ export interface StateSchema {
   doneQueuesControlDoctor: QueuesControlDoctorSchema;
   GetAllRoomAtachmentMonitorSlice: MonitorRoomListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
+  allAdsVideo: AddsVideosDataRedux;
+  allAdsForOneMonitor: MonitorAdsInRedux;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 

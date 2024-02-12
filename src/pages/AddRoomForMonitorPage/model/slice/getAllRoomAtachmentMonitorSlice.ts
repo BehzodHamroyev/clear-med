@@ -4,7 +4,7 @@ import {
   MonitorRoomData,
   MonitorRoomListSchema,
 } from '../types/allMonitorTypes';
-import { fetchGetAllRoomAtachmentMonitorOne } from '../service/fetchGetAllRoomAtachmentMonitor';
+import { fetchAllRoomForMonitor } from '../service/fetchAllRoomForMonitor';
 
 const initialState: MonitorRoomListSchema = {
   isLoading: false,
@@ -13,25 +13,25 @@ const initialState: MonitorRoomListSchema = {
 };
 
 export const GetAllRoomAtachmentMonitorSlice = createSlice({
-  name: 'getAllRoomAtachmentMonitorSlice',
+  name: 'get All Room for Monitor Slice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchGetAllRoomAtachmentMonitorOne.pending, (state) => {
+      .addCase(fetchAllRoomForMonitor.pending, (state) => {
         state.error = undefined;
         state.isLoading = true;
       })
       .addCase(
-        fetchGetAllRoomAtachmentMonitorOne.fulfilled,
+        fetchAllRoomForMonitor.fulfilled,
         (state, action: PayloadAction<MonitorRoomData>) => {
           state.isLoading = false;
           // @ts-ignore
           state.data = action.payload;
         },
       )
-      .addCase(fetchGetAllRoomAtachmentMonitorOne.rejected, (state, action) => {
-        state.error = `Serverda qandaydir xatolik bor. Sahifani qayta yuklang!`;
+      .addCase(fetchAllRoomForMonitor.rejected, (state, action) => {
+        state.error = action.payload;
         state.isLoading = false;
       });
   },

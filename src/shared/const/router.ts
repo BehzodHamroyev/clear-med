@@ -18,7 +18,7 @@ export enum AdminRoutes {
   ADD_MONITOR = 'add_monitor',
   MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
-  ROOM_ATTACHMENT_MONITOR = 'room_attachment_monitor',
+  ADD_ROOM_FOR_MONITOR = 'add_room_for_monitor',
   ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
 
   MONITORS = 'monitors',
@@ -71,8 +71,10 @@ export const getRouteAddDoctorsPage = () => '/add-doctors';
 export const getRouteAddReceptionsPage = () => '/add-reception';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
-export const getRouteRoomAttachmentMonitor = () =>
-  '/add_monitor/:id/room_attachment_monitor';
+
+export const getRouteAddRoomForMonitor = () =>
+  '/add_monitor/:id/add_room_for_monitor';
+
 export const getRouteAdvertisementAttachmentMonitor = () =>
   '/add_monitor/:id/advertisement_attachment_monitor';
 
@@ -101,7 +103,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
   [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
-  [getRouteRoomAttachmentMonitor()]: AdminRoutes.ROOM_ATTACHMENT_MONITOR,
+  [getRouteAddRoomForMonitor()]: AdminRoutes.ADD_ROOM_FOR_MONITOR,
   [getRouteAdvertisementAttachmentMonitor()]:
     AdminRoutes.ADVERTISEMENT_ATTACHMENT_MONITOR,
 

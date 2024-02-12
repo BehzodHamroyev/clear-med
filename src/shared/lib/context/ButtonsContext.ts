@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
 
+  monitorNumber: number | null;
+  setMonitorNumber: (prop: number) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -216,6 +219,9 @@ export interface ButtonsClickedProps {
     toastSeverityForAddRoomForm: string;
     toastMessageForAddRoomForm: string;
   }) => void;
+
+  isOpenAdvertisementDeleteAdsForMonitor: boolean;
+  setIsOpenAdvertisementDeleteAdsForMonitor: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -228,8 +234,14 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenAdvertisementDeleteCard: false,
   setIsOpenAdvertisementDeleteCard: () => {},
 
+  isOpenAdvertisementDeleteAdsForMonitor: false,
+  setIsOpenAdvertisementDeleteAdsForMonitor: () => {},
+
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
+
+  monitorNumber: null,
+  setMonitorNumber: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},
