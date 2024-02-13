@@ -51,8 +51,7 @@
 }
 
 .liActive {
-  // color: #0000ac;
-  color: #ea7ffb;
+  color: var(--menu-color);
   width: 100%;
   height: 50px;
   text-align: left;
@@ -70,7 +69,7 @@
 }
 
 .li:hover {
-  color: #ea7ffb;
+  color: var(--menu-color);
 }
 
 .icon {
