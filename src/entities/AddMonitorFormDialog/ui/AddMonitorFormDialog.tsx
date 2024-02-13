@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -81,9 +81,16 @@ const AddMonitorFormDialog = () => {
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    setAddMonitorFormDialogSubmitIsLoading(true);
+    console.log(isAllFormData, String(isAllFormData.login).length);
 
-    if (isAllFormData.name && isAllFormData.login && isAllFormData.password) {
+    if (
+      isAllFormData.name &&
+      isAllFormData.login &&
+      String(isAllFormData.login).length > 4 &&
+      isAllFormData.password
+    ) {
+      setAddMonitorFormDialogSubmitIsLoading(true);
+
       try {
         const response = await axios.post(
           `${baseUrl}/monitor`,
@@ -156,10 +163,17 @@ const AddMonitorFormDialog = () => {
           }
         }
       }
+    } else {
+      setHasOpenToast(true);
+
+      setToastDataForAddRoomForm({
+        toastMessageForAddRoomForm: t("Maydonlarni qayta to'ldiring"),
+        toastSeverityForAddRoomForm: 'warning',
+      });
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsAllFormData({
       ...isAllFormData,
       exprience: isMonitorAddSelectionFormAdvertisement,
