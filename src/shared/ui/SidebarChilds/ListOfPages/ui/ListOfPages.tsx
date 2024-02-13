@@ -167,7 +167,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '428px';
       }
-    } else if (profileValue === 'doktor') {
+    } else if (profileValue === 'doctor') {
       if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
