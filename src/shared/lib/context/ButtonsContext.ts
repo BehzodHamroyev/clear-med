@@ -8,6 +8,9 @@ export interface ButtonsClickedProps {
   monitorNumber: number | null;
   setMonitorNumber: (prop: number) => void;
 
+  isOpenSidebar: boolean;
+  setIsOpenSidebar: (prop: boolean) => void;
+
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
 
@@ -225,6 +228,9 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  isOpenSidebar: false,
+  setIsOpenSidebar: () => {},
+
   clickedDoctorId: '',
   setClickedDoctorId: () => {},
 

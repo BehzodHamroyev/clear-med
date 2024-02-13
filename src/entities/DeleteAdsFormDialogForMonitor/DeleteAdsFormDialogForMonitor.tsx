@@ -1,21 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
-import axios from 'axios';
+// import Cookies from 'js-cookie';
+// import axios from 'axios';
 
 import { styled } from '@mui/material/styles';
 import { Dialog } from '@mui/material';
 
-import cls from './DeleteAdsFormDialog.module.scss';
+import cls from './DeleteAdsFormDialogForMonitor.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-import { baseUrl } from '../../../baseurl';
+// import { baseUrl } from '../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { Loader } from '@/widgets/Loader';
+import instance from '@/shared/lib/axios/api';
+import { getAllAdsVideoForOneMonitor } from '../AdvertisementAttachmentMonitor/model/service/getAllAdsVideoForOneMonitor';
 
-import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
+// import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
+
+// import { deleteMonitorAds } from '../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -27,53 +31,45 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 interface DeleteAdsFormDialogForMonitorProps {
-  adsId: string;
+  adsId?: string;
+  connectionId?: string;
+  id?: string;
 }
 
 const DeleteAdsFormDialogForMonitor = ({
   adsId,
+  connectionId,
+  id,
 }: DeleteAdsFormDialogForMonitorProps) => {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
-
   const [
     deleteAdsFormDialogSubmitIsLoading,
     setDeleteAdsFormDialogSubmitIsLoading,
   ] = useState(false);
 
   const {
-    isOpenAdvertisementDeleteCard,
-    setIsOpenAdvertisementDeleteCard,
     setHasOpenToast,
     setToastDataForAddRoomForm,
+    isOpenAdvertisementDeleteAdsForMonitor,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
   } = useContext(ButtonsContext);
 
   const handleClose = () => {
-    setIsOpenAdvertisementDeleteCard(false);
+    setIsOpenAdvertisementDeleteAdsForMonitor(false);
   };
 
   const handleSubmit = async () => {
     setDeleteAdsFormDialogSubmitIsLoading(true);
-
-    const token = Cookies.get('token');
-
     try {
-      const response = await axios.delete(
-        `${baseUrl}/videos/${adsId}`,
-
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const response = await instance.put(`/monitor/video/${connectionId}`, {
+        video: adsId,
+      });
 
       if (response.data) {
-        setDeleteAdsFormDialogSubmitIsLoading(false);
+        // setDeleteAdsFormDialogSubmitIsLoading(false);
 
-        setIsOpenAdvertisementDeleteCard(false);
+        setIsOpenAdvertisementDeleteAdsForMonitor(false);
 
         setHasOpenToast(true);
 
@@ -82,7 +78,7 @@ const DeleteAdsFormDialogForMonitor = ({
           toastSeverityForAddRoomForm: 'success',
         });
 
-        dispatch(fetchAllAds({}));
+        dispatch(getAllAdsVideoForOneMonitor({ id: `${id}` }));
       }
     } catch (error) {
       setDeleteAdsFormDialogSubmitIsLoading(false);
@@ -98,13 +94,15 @@ const DeleteAdsFormDialogForMonitor = ({
     }
   };
 
+
+  
   return (
     <>
       <BootstrapDialog
         className={classNames(cls.DeleteDoctorFormDialog__Container, {})}
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={isOpenAdvertisementDeleteCard}
+        open={isOpenAdvertisementDeleteAdsForMonitor}
       >
         <div className={classNames(cls.DeleteDoctorFormDialog)}>
           <div className={classNames(cls.DeleteDoctorFormDialog__head)}>

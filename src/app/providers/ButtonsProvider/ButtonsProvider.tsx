@@ -53,6 +53,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [calendarBeginValue, setCalendarBeginValue] = useState('');
 
+  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
+
   const [calendarEndValue, setCalendarEndValue] = useState('');
 
   const [isProfileWho, setIsProfileWho] = useState('');
@@ -261,6 +263,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenAdvertisementEditCard,
       isOpenAdvertisementDeleteCard,
       setIsOpenAdvertisementDeleteCard,
+      isOpenSidebar,
+      setIsOpenSidebar,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
@@ -338,6 +342,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenSettingsChangePassword,
       formData,
       setFormData,
+      isOpenSidebar,
+      setIsOpenSidebar,
       settingsFormData,
       setSettingsFormData,
       isProfileWho,

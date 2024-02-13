@@ -23,15 +23,12 @@ export const departmentAddSlice = createSlice({
         (state, action: PayloadAction<DepartmentType>) => {
           state.isLoading = false;
           state.data = action.payload;
-
-          console.log(action);
         },
       )
       .addCase(fetchDepartmentAdd.rejected, (state, action) => {
         state.error = `Serverda qandaydir xatolik bor. Sahifani qayta yuklang!`;
         state.isLoading = false;
 
-        console.log(action);
       });
   },
 });
