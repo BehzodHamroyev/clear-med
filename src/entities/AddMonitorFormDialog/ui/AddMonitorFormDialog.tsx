@@ -3,8 +3,9 @@ import React, { useRef, useState } from 'react';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Dialog, Input } from '@mui/material';
+import { Dialog } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import Input from 'react-phone-number-input/input';
 
 import cls from './AddMonitorFormDialog.module.scss';
 
@@ -48,15 +49,15 @@ const AddMonitorFormDialog = () => {
     setIsAllFormData({ ...isAllFormData, name: e.target.value });
   };
 
-  function handleInputChangeFormPhoneNumber(event: any, name: string) {
-    if (event.target.value.length === 13) {
-      const phoneNumber = event.target.value;
+  function handleInputChangeFormPhoneNumber(value: any) {
+    if (value.length === 13) {
+      const phoneNumber = value;
       const formattedValue = phoneNumber.replace('+998', '');
 
       setIsAllFormData({ ...isAllFormData, login: formattedValue });
       setPhoneError(false);
     } else {
-      setIsAllFormData({ ...isAllFormData, login: event.target.value });
+      setIsAllFormData({ ...isAllFormData, login: value });
       setPhoneError(true);
     }
   }
@@ -191,26 +192,31 @@ const AddMonitorFormDialog = () => {
           <Input
             required
             autoFocus
+            maxLength={17}
+            minLength={17}
             name="PhoneNumber"
             autoComplete="off"
             inputRef={phoneInput}
             className={cls.InputBulim}
-            inputProps={{
-              minLength: 13,
-              maxLength: 13,
-              pattern: '+[0-9]{3}-[0-9]{2}-[0-9]{3}-[0-9]{4}',
-            }}
-            style={
-              phoneError === true
-                ? { borderBottom: 'red' }
-                : phoneError === false
-                ? { borderBottom: 'green' }
-                : { borderBottom: 'black' }
-            }
             // value={`${isAllFormData.login}`}
             placeholder={t('Login (+998 90 123 45 67)')}
-            onChange={(e) => handleInputChangeFormPhoneNumber(e, 'PhoneNumber')}
+            onChange={(e) => handleInputChangeFormPhoneNumber(e)}
           />
+
+          {/* <Input
+            required
+            autoFocus
+            maxLength={17}
+            minLength={17}
+            name="PhoneNumber"
+            autoComplete="off"
+            rules={{ required: true }}
+            className={cls.InputPhone}
+            placeholder={t('Telefon raqami')}
+            pattern="+[0-9]{3}-[0-9]{2}-[0-9]{3}-[0-9]{4}"
+            value={`${monitorCurrentData?.data?.login}`}
+            onChange={handleInputChangeFormPhoneNumber}
+          /> */}
 
           <div className={cls.PhoneNumberInputWrapper}>
             <input
