@@ -16,6 +16,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
+import { Loader } from '@/widgets/Loader';
 
 const AddMonitorFormDialog = () => {
   const { t } = useTranslation();
@@ -42,6 +43,11 @@ const AddMonitorFormDialog = () => {
     password: '',
     exprience: false,
   });
+
+  const [
+    addMonitorFormDialogSubmitIsLoading,
+    setAddMonitorFormDialogSubmitIsLoading,
+  ] = useState(false);
 
   const handleInputChangeFormName = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -75,12 +81,9 @@ const AddMonitorFormDialog = () => {
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (
-      isAllFormData.name &&
-      isAllFormData.login &&
-      isAllFormData.password &&
-      isAllFormData.exprience
-    ) {
+    setAddMonitorFormDialogSubmitIsLoading(true);
+
+    if (isAllFormData.name && isAllFormData.login && isAllFormData.password) {
       try {
         const response = await axios.post(
           `${baseUrl}/monitor`,
@@ -102,6 +105,8 @@ const AddMonitorFormDialog = () => {
         if (response.data) {
           setIsOpenMonitorAddCard(false);
 
+          setAddMonitorFormDialogSubmitIsLoading(false);
+
           setHasOpenToast(true);
 
           setToastDataForAddRoomForm({
@@ -112,6 +117,7 @@ const AddMonitorFormDialog = () => {
           dispatch(fetchGetAllMonitors({}));
         }
       } catch (error) {
+        setAddMonitorFormDialogSubmitIsLoading(false);
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 403) {
             setToastDataForAddRoomForm({
@@ -151,8 +157,6 @@ const AddMonitorFormDialog = () => {
         }
       }
     }
-
-    setIsOpenMonitorAddCard(false);
   };
 
   React.useEffect(() => {
@@ -163,113 +167,103 @@ const AddMonitorFormDialog = () => {
   }, [isAllFormData, isMonitorAddSelectionFormAdvertisement]);
 
   return (
-    <Dialog
-      open={isOpenMonitorAddCard}
-      onClose={handleClose}
-      className={cls.DepartmentAddWrapper}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className={cls.DepartmentAddCard}
+    <>
+      {addMonitorFormDialogSubmitIsLoading && <Loader />}
+
+      <Dialog
+        open={isOpenMonitorAddCard}
+        onClose={handleClose}
+        className={cls.DepartmentAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className={cls.DepartmentAddCard}
+        >
+          <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
 
-        <form onSubmit={handleSubmitForm} className={cls.CardBody}>
-          <input
-            required
-            type="text"
-            maxLength={30}
-            placeholder={t('Nomi')}
-            className={cls.InputBulim}
-            value={`${isAllFormData.name}`}
-            onChange={(e) => handleInputChangeFormName(e)}
-          />
-
-          <Input
-            required
-            autoFocus
-            maxLength={17}
-            minLength={17}
-            name="PhoneNumber"
-            autoComplete="off"
-            inputRef={phoneInput}
-            className={cls.InputBulim}
-            // value={`${isAllFormData.login}`}
-            placeholder={t('Login (+998 90 123 45 67)')}
-            onChange={(e) => handleInputChangeFormPhoneNumber(e)}
-          />
-
-          {/* <Input
-            required
-            autoFocus
-            maxLength={17}
-            minLength={17}
-            name="PhoneNumber"
-            autoComplete="off"
-            rules={{ required: true }}
-            className={cls.InputPhone}
-            placeholder={t('Telefon raqami')}
-            pattern="+[0-9]{3}-[0-9]{2}-[0-9]{3}-[0-9]{4}"
-            value={`${monitorCurrentData?.data?.login}`}
-            onChange={handleInputChangeFormPhoneNumber}
-          /> */}
-
-          <div className={cls.PhoneNumberInputWrapper}>
+          <form onSubmit={handleSubmitForm} className={cls.CardBody}>
             <input
               required
-              min={8}
-              minLength={8}
-              maxLength={14}
-              id="UserPassword"
-              autoComplete="off"
-              name="UserPassword"
-              placeholder="Parol"
+              type="text"
+              minLength={4}
+              maxLength={30}
+              placeholder={t('Nomi')}
               className={cls.InputBulim}
-              value={isAllFormData.password}
-              type={hideEye ? 'text' : 'password'}
-              onChange={(e) =>
-                handleInputChangeFormPassword(e.target.value, 'UserPassword')
-              }
+              value={`${isAllFormData.name}`}
+              onChange={(e) => handleInputChangeFormName(e)}
             />
 
-            {hideEye ? (
-              <EyeIcon
-                className={cls.FixValueBnt}
-                onClick={() => setHideEye(false)}
+            <Input
+              required
+              autoFocus
+              maxLength={17}
+              minLength={17}
+              name="PhoneNumber"
+              autoComplete="off"
+              inputRef={phoneInput}
+              className={cls.InputBulim}
+              // value={`${isAllFormData.login}`}
+              placeholder={t('Login (+998 90 123 45 67)')}
+              onChange={(e) => handleInputChangeFormPhoneNumber(e)}
+            />
+
+            <div className={cls.PhoneNumberInputWrapper}>
+              <input
+                required
+                min={8}
+                minLength={8}
+                maxLength={14}
+                id="UserPassword"
+                autoComplete="off"
+                name="UserPassword"
+                placeholder="Parol"
+                className={cls.InputBulim}
+                value={isAllFormData.password}
+                type={hideEye ? 'text' : 'password'}
+                onChange={(e) =>
+                  handleInputChangeFormPassword(e.target.value, 'UserPassword')
+                }
               />
-            ) : (
-              <HideIcon
-                className={cls.FixValueBnt}
-                onClick={() => setHideEye(true)}
-              />
-            )}
-          </div>
 
-          <MonitorAddSelection />
+              {hideEye ? (
+                <EyeIcon
+                  className={cls.FixValueBnt}
+                  onClick={() => setHideEye(false)}
+                />
+              ) : (
+                <HideIcon
+                  className={cls.FixValueBnt}
+                  onClick={() => setHideEye(true)}
+                />
+              )}
+            </div>
 
-          <div className={cls.BtnParnet}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpenMonitorAddCard(false);
-              }}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
-            >
-              {t('Bekor qilish')}
-            </button>
+            <MonitorAddSelection />
 
-            <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
-              {t('Saqlash')}
-            </button>
-          </div>
-        </form>
-      </div>
-    </Dialog>
+            <div className={cls.BtnParnet}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpenMonitorAddCard(false);
+                }}
+                type="button"
+                className={`${cls.Btn} ${cls.Btn1}`}
+              >
+                {t('Bekor qilish')}
+              </button>
+
+              <button type="submit" className={`${cls.Btn} ${cls.Btn2}`}>
+                {t('Saqlash')}
+              </button>
+            </div>
+          </form>
+        </div>
+      </Dialog>
+    </>
   );
 };
 
