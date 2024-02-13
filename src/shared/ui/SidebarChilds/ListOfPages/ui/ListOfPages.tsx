@@ -225,7 +225,8 @@ export const ListOfPages = memo(() => {
 
   return (
     <div className={cls.listOfPageWrapper}>
-      <div className={cls.selectionMenu} ref={divRef} />
+      {/* don't remove this commit */}
+      {/* <div className={cls.selectionMenu} ref={divRef} /> */}
 
       <div className={cls.listOfPage}>
         <div className={cls.wrapper}>{itemListOfPage}</div>
