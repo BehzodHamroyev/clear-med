@@ -40,8 +40,7 @@ const MonitorsPage = () => {
     <div className={classNames(cls.Monitors)}>
       <div className={classNames(cls.Monitors__header)}>
         <div className={classNames(cls['Monitors__header--left'])}>
-          <p>{t('Monitorlar')}:</p>
-          <span>{allMonitorsData?.length}</span>
+          <p>{t('Monitorlar')}</p> <span>({allMonitorsData?.length})</span>
           <div />
         </div>
       </div>
@@ -55,7 +54,6 @@ const MonitorsPage = () => {
               className={classNames(cls['Monitors__monitorsBox--monitorCard'])}
             >
               <h2>{item?.name}</h2>
-              {/* <p>Monitor nomi</p> */}
             </Link>
           ))}
         </div>
