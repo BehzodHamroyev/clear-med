@@ -68,6 +68,7 @@
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Estimated time to see the patient",
   "Bo'limga rasm qo'shish": "Add image to section",
   "Bekor qilish": "Cancel",
+
   "Qayta chaqirish": "Recall",
   "Tasdiqlash": "Confirmation",
   "Saqlash": "Save",
@@ -83,4 +84,9 @@
   "Qabul boshlanishi": "Start of reception",
   "Qabul tugashi": "End of admission",
   "Hisobot":"Report"
+
+  "Saqlash": "Save",
+
+  "admin": "Admin"
+
 }

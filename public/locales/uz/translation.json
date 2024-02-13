@@ -71,6 +71,7 @@
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Bemorni ko'rishga ketadigan taxminiy vaqt",
   "Bo'limga rasm qo'shish": "Bo'limga rasm qo'shish",
   "Bekor qilish": "Bekor qilish",
+
   "Qayta chaqirish": "Qayta chaqirish",
   "Tasdiqlash": "Tasdiqlash",
   "Saqlash": "Saqlash",
@@ -86,4 +87,9 @@
   "Qabul boshlanishi": "Qabul boshlanishi",
   "Qabul tugashi": "Qabul tugashi",
   "Hisobot": "Hisobot"
+
+  "Saqlash": "Saqlash",
+
+  "admin": "Admin"
+
 }

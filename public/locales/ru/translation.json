@@ -73,6 +73,7 @@
   "Tasdiqlash": "Подтверждение",
   "Bekor qilish": "Отмена",
   "Saqlash": "Сохранить",
+
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "На данный момент в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Пациенты, принятые и отмененные сегодня",
@@ -85,4 +86,8 @@
   "Qabul boshlanishi": "Начало приема",
   "Qabul tugashi": "Конец приема",
   "Hisobot": "Отчет"
+
+
+  "admin": "Администратор"
+
 }

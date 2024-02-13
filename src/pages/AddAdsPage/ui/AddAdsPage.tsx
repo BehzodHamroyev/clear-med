@@ -75,7 +75,7 @@ const AddAdsPage = () => {
       <div className={cls.AddAdsPageWrp}>
         <div className={cls.AddAdsPageWrp__Title}>
           <p className={cls['AddAdsPageWrp__Title--text']}>
-            {t('Bo‘limlar')}{' '}
+            {t('Reklamalar')}{' '}
             <span className={cls['AddAdsPageWrp__Title--span']}>
               ({allAdsData?.length || 0})
             </span>{' '}

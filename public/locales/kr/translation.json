@@ -71,6 +71,7 @@
   "Bo'limga rasm qo'shish": "Бўлимга расм қўшиш",
   "Bekor qilish": "Бекор қилиш",
   "Saqlash": "Сақлаш",
+
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "Ҳозир навбатга ёзилган беморлар мавжуд эмас!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Бугун кўрилган ва бекор қилинган беморлар мавжуд эмас!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Бугун кўрилган ва бекор қилинган беморлар",
@@ -83,4 +84,8 @@
   "Qabul boshlanishi": "Қабул бошланиши",
   "Qabul tugashi": "Қабул тугаши",
   "Hisobot":"Ҳисобот"
+
+
+  "admin": "Админ"
+
 }
