@@ -1,11 +1,22 @@
 .SidebarWrapper {
   height: calc(100% - 50px);
-  width: 250px;
   left: 0;
   top: 0;
   margin-top: 50px;
+  overflow: hidden;
   border-right: 1px solid #828282;
   padding-top: 30px;
   background-color: var(--bg-color);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.isOpenSidebar {
+  width: 250px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.isClieSidebar {
+  width: 60px;
+  transition: all 0.3s ease-in-out;
 }

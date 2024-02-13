@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ import cls from './ListOfPages.module.scss';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
@@ -136,6 +137,8 @@ export const ListOfPages = memo(() => {
 
   const [profileValue, setProfileValue] = useState<string>('');
 
+  const { isOpenSidebar } = useContext(ButtonsContext);
+
   useEffect(() => {
     if (authUserData) {
       setProfileValue(authUserData?.role);
@@ -215,7 +218,7 @@ export const ListOfPages = memo(() => {
         onClick={() => setLinkIndex(index + 1)}
       >
         {item.icon}
-        {t(item.title)}
+        {isOpenSidebar ? t(item.title) : ''}
       </Link>
     );
   });
@@ -229,7 +232,7 @@ export const ListOfPages = memo(() => {
 
         <hr className={cls.hr} />
 
-        <p className={cls.SidebarTitle}>{t('Umumiy')}</p>
+        {isOpenSidebar ? <p className={cls.SidebarTitle}>{t('Umumiy')}</p> : ''}
 
         <Link
           className={location.pathname === '/settings' ? cls.liActive : cls.li}
@@ -237,7 +240,7 @@ export const ListOfPages = memo(() => {
           onClick={() => setLinkIndex(10)}
         >
           <Settings />
-          {t('Sozlamalar')}
+          {isOpenSidebar ? t('Sozlamalar') : ''}
         </Link>
       </div>
     </div>
