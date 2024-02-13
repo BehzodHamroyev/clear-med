@@ -8,6 +8,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import cls from './SettingsPage.module.scss';
 import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
 import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
+// import { FileUploader } from '@/entities/FileUploader';
 
 const SettingsPage = () => {
   const { t } = useTranslation();
@@ -32,6 +33,8 @@ const SettingsPage = () => {
         ) : (
           ''
         )}
+
+        {/* <FileUploader /> */}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@
   "  ": "",
   " Ortga qaytish": "",
   " ta": "",
+  "'Bilet berilgan vaqti'": "",
   "+998 ": "",
   "+998 97 777 65 5": "",
   "+998 97 777 65 54": "",
@@ -15,6 +16,7 @@
   "A": "",
   "Abbos G'ulomov": "",
   "Alisher Qodirov Qudratovich": "",
+  "Amaldagi navbat": "",
   "Amaldagi navbat ": "",
   "Avto": "",
   "B": "",
@@ -64,6 +66,8 @@
   "Bemorni qabul qilishga ketadigan vaqtfvtcdreswa A2SW3DE4GT6QA2SW3T6HY7J8": "",
   "Berilgan vaqt": "",
   "Bilet": "",
+  "Bilet berilgan vaqti": "",
+  "Bilet berilgan vaqti'": "",
   "Bilet raqami": "",
   "Biriktirilgan bo'lim": "",
   "Biriktirilgan shifokor": "",
@@ -126,6 +130,7 @@
   "Bu muddatdagi bemorlar hisoboti bo'sh": {
     " Muddatni o'zgartirib ko'ring!": ""
   },
+  "Bugun ko'rilgan va bekor qilingan bemorlar": "",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "",
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "",
   "Chiqarish": "",
@@ -153,6 +158,7 @@
     }
   },
   "Fullscreen": "",
+  "Hisobot": "",
   "Hisobotlar": "",
   "I can be a React component, multiple React components, or just some text": {
     "": ""
@@ -253,6 +259,9 @@
   "Pass": "",
   "Password": "",
   "Phone Number": "",
+  "Qabul boshlanishi": "",
+  "Qabul kuni": "",
+  "Qabul tugashi": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
   },
@@ -383,6 +392,7 @@
   "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Xatolik sodir bo'ldi": "",
   "Xatolik yuz berdi!": "",
+  "Xolati": "",
   "Xona": "",
   "Xona Raqami": "",
   "Xona biriktirish": "",
@@ -428,6 +438,9 @@
   "tajribasi": "",
   "throw error": "",
   "xatolik yuzaga keldi": "",
+  "xona ": "",
+  "xona raqami": "",
+  "xona raqamin": "",
   "xona yo'q": "",
   "yil": "",
   "yil ": "",
