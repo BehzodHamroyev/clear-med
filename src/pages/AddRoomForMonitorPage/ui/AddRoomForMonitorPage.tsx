@@ -27,7 +27,6 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { fetchAllRoomForMonitor } from '../model/service/fetchAllRoomForMonitor';
 import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
 import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
-// import { DeleteTools } from '@/shared/assets/entities/TableTitle';
 import { DeleteRoomForMonitorPage } from '@/entities/DeleteRoomForMonitorPage';
 
 const Svg = (

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import cls from './ListOfSettings.module.scss';
 import {
   RightIcon,
