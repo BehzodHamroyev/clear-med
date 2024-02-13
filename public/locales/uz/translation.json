@@ -74,7 +74,7 @@
 
   "Qayta chaqirish": "Qayta chaqirish",
   "Tasdiqlash": "Tasdiqlash",
-  "Saqlash": "Saqlash",
+
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "Hozirda kutish ro'yxatida birorta ham bemor yo'q!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Bugun ko'rilgan va bekor qilingan bemorlar",
@@ -86,10 +86,9 @@
   "Qabul kuni": "Qabul kuni",
   "Qabul boshlanishi": "Qabul boshlanishi",
   "Qabul tugashi": "Qabul tugashi",
-  "Hisobot": "Hisobot"
+  "Hisobot": "Hisobot",
 
   "Saqlash": "Saqlash",
 
   "admin": "Admin"
-
 }
