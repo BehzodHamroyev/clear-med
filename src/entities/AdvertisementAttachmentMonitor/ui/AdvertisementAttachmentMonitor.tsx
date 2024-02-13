@@ -55,7 +55,7 @@ const AdvertisementAttachmentMonitor = () => {
   const {
     isOpenAttachmentRoomMonitorChild,
     setIsOpenAttachmentRoomMonitorChild,
-    isOpenAttachmentRoomMonitorChildEdit,
+    isOpenAdvertisementDeleteAdsForMonitor,
   } = useContext(ButtonsContext);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const AdvertisementAttachmentMonitor = () => {
           Tabletbody={getAllForOneMonitor.data}
         />
       </div>
-
+      
       {isOpenAttachmentRoomMonitorChild ? (
         <ModalToAddAdsForMonitor
           data={listAdsVideo!}
@@ -109,12 +109,7 @@ const AdvertisementAttachmentMonitor = () => {
       ) : (
         ''
       )}
-
-      {/* {isOpenAttachmentRoomMonitorChildEdit ? (
-        <AttachmentRoomMonitorChildEdit />
-      ) : (
-        ''
-      )} */}
+     
     </div>
   );
 };

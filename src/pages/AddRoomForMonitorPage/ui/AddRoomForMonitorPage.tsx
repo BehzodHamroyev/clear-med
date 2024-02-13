@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
@@ -26,7 +27,7 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { fetchAllRoomForMonitor } from '../model/service/fetchAllRoomForMonitor';
 import { RoomAttachmentMonitorChildForm } from '@/entities/RoomAttachmentMonitorChildForm';
 import { RoomAttachmentMonitorChildFormEdit } from '@/entities/RoomAttachmentMonitorChildFormEdit';
-import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+// import { DeleteTools } from '@/shared/assets/entities/TableTitle';
 import { DeleteRoomForMonitorPage } from '@/entities/DeleteRoomForMonitorPage';
 
 const Svg = (
@@ -59,7 +60,9 @@ const AddRoomForMonitorPage = () => {
   const getLoading = useSelector(getIsLoading);
   const getData = useSelector(GetAllRoomForMonitorData);
 
-  console.log(getData?.monitor, 'vjvjvjvj');
+  console.log(getData, 'getData');
+
+  const connectionId = getData?.monitor.id;
 
   const {
     isOpenDepartmentDeleteCard,
@@ -132,83 +135,68 @@ const AddRoomForMonitorPage = () => {
               </tr>
             </thead>
 
-            {getData?.monitor.rooms && getData?.monitor.rooms.length > 0 ? (
-              <tbody
-                className={cls['AddRoomForMonitorWrapper__Table--Tabletbody']}
-              >
-                <tr className={cls['AddRoomForMonitorWrapper__Table--tr']}>
-                  <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
-                    {getData?.monitor?.rooms ? (
-                      getData?.monitor?.rooms.map((item) => {
-                        return <p>{item?.name}</p>;
-                      })
-                    ) : (
+            {/* {getData?.monitor.rooms && getData?.monitor.rooms.length > 0 ? ( */}
+            <tbody
+              className={cls['AddRoomForMonitorWrapper__Table--Tabletbody']}
+            >
+              {getData?.monitor?.rooms.map((item) => {
+                return (
+                  <tr className={cls['AddRoomForMonitorWrapper__Table--tr']}>
+                    <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
                       <p
                         className={
                           cls['AddRoomForMonitorWrapper__Table--invalid']
                         }
                       >
-                        {t("Xona raqami yo'q")}
+                        {item?.name || t("Xona raqami yo'q")}
                       </p>
-                    )}
-                  </td>
+                    </td>
 
-                  <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
-                    {getData?.monitor?.rooms ? (
-                      getData?.monitor?.rooms.map((item) => {
-                        return <p>{item?.department_id?.name}</p>;
-                      })
-                    ) : (
+                    <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
                       <p
                         className={
                           cls['AddRoomForMonitorWrapper__Table--invalid']
                         }
                       >
-                        {t("Xona yo'q")}
+                        {item.department_id.name || t("Xona yo'q")}
                       </p>
-                    )}
-                  </td>
-
-                  <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
-                    {getData?.monitor?.rooms ? (
-                      getData?.monitor?.rooms.map((item) => {
-                        return <p>{item?.doctor_id?.name}</p>;
-                      })
-                    ) : (
+                    </td>
+                    <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
                       <p
                         className={
                           cls['AddRoomForMonitorWrapper__Table--invalid']
                         }
                       >
-                        {t("Doktor yo'q")}
+                        {item?.doctor_id?.name || t("Doktor yo'q")}
                       </p>
-                    )}
-                  </td>
-
-                  <td
-                    className={
-                      cls['AddRoomForMonitorWrapper__Table--lastChild2']
-                    }
-                    // onClick={() => handleClickDeleteDepartment(item?.id)}
-                  >
-                    {}
-                    <DeleteTools
-                      onClick={() => setIsOpenDepartmentDeleteCard(true)}
-                      className={cls['AddRoomForMonitorWrapper__Table--delete']}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            ) : (
+                    </td>
+                    {/* <td
+                      className={
+                        cls['AddRoomForMonitorWrapper__Table--lastChild2']
+                      }
+                      // onClick={() => handleClickDeleteDepartment(item?.id)}
+                    >
+                      <DeleteTools
+                        onClick={() => setIsOpenDepartmentDeleteCard(true)}
+                        className={
+                          cls['AddRoomForMonitorWrapper__Table--delete']
+                        }
+                      />
+                    </td> */}
+                  </tr>
+                );
+              })}
+            </tbody>
+            {/* ) : (
               <p className={cls['AddRoomForMonitorWrapper__Table--txt']}>
                 Biriktirilgan xonalar mavjud emas!
               </p>
-            )}
+            )} */}
           </table>
         </div>
 
         {isOpenRoomAttachmentMonitorChildForm ? (
-          <RoomAttachmentMonitorChildForm />
+          <RoomAttachmentMonitorChildForm connectionId={connectionId!} />
         ) : (
           ''
         )}

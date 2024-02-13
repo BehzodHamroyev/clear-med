@@ -31,7 +31,13 @@ import {
 } from '@/pages/RoomPage';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-const RoomAttachmentMonitorChildForm = () => {
+interface RoomAttachmentMonitorChildFormProp {
+  connectionId: string;
+}
+
+const RoomAttachmentMonitorChildForm = ({
+  connectionId,
+}: RoomAttachmentMonitorChildFormProp) => {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 
@@ -67,10 +73,10 @@ const RoomAttachmentMonitorChildForm = () => {
 
     setAddDoctorFormDialogIsLoading(true);
 
-    if (id && getAllSelectionID.length > 0) {
+    if (connectionId && getAllSelectionID.length > 0) {
       try {
         const response = await axios.patch(
-          `${baseUrl}/monitor/${id}`,
+          `${baseUrl}/monitor/${connectionId}`,
 
           JSON.stringify({ rooms: getAllSelectionID }),
 

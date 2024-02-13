@@ -426,4 +426,6 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDeleteReceptionCard: false,
   setIsOpenDeleteReceptionCard: () => {},
+
+ 
 });

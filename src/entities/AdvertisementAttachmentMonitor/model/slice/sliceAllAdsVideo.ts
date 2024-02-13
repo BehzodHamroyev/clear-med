@@ -23,7 +23,6 @@ export const sliceAllAdsVideo = createSlice({
         getAllAdsVideo.fulfilled,
         (state, action: PayloadAction<AddsVideosDataBackend>) => {
           state.isLoading = false;
-          console.log(action.payload.data);
           state.data = [...action.payload.data];
         },
       )

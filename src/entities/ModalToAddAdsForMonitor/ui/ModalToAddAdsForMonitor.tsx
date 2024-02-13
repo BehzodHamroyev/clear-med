@@ -76,7 +76,6 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
     if (listMonitor) {
       const idConnect = listMonitor?.filter((monitor) => monitor._id === id)[0];
       const idMonitorConnection = idConnect.monitors[0]._id;
-      console.log(idMonitorConnection);
       setConnectionIdMonitor(idMonitorConnection);
     }
   }, [id, listMonitor]);
