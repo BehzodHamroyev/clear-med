@@ -9,7 +9,7 @@
     max-height: 60px;
     font-family: sans-serif;
     border-radius: 5.273px;
-    background: #fff;
+    background: var(--bg-table);
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -17,7 +17,7 @@
     text-align: center;
 
     &--text {
-      color: #1d1d1d;
+      color: var(--text-color);
       font-family: sans-serif;
       font-size: 18px;
       font-style: normal;
@@ -48,6 +48,7 @@
       justify-content: center;
       cursor: pointer;
       user-select: none;
+      color: var(--icon-color);
       border: 1.1px solid #e0e0e0;
       border-radius: 5.2px;
     }
@@ -87,13 +88,13 @@
 
     &--btnLink {
       background-color: transparent;
-      border: 1px solid #000;
+      border: 1px solid var(--border-table);
       padding: 8px 16px;
       border-radius: 8px;
       list-style: none;
 
       //  text
-      color: #000;
+      color: var(--text-color);
       font-size: 18px;
       font-style: normal;
       font-weight: 500;
@@ -113,13 +114,14 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      background-color: #fff;
+      background-color: var(--bg-table);
       padding: 20px;
       margin: 3px auto;
+      color: var(--text-color);
       transition: all 0.3s linear;
 
       &:hover {
-        background-color: #ececec;
+        background-color: var(--hover-bg-table);
       }
     }
 
