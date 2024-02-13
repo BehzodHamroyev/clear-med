@@ -127,7 +127,7 @@ const TableReportsDoctorPage = () => {
   return (
     <>
       <table className={cls.TableTitleWrapper}>
-        <ButtonNavbar TableTitle="Hisobot" Calendar />
+        <ButtonNavbar TableTitle={t('Hisobot')} Calendar />
 
         {reportList && reportList.length > 0 ? (
           <>

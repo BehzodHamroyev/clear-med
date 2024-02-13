@@ -146,7 +146,7 @@ const QueuesControlDoctor = () => {
       <div className={cls.QueuesControlDoctorWrapper}>
         <ButtonNavbar
           dontCreate
-          TableTitle="Amaldagi navbat"
+          TableTitle={t('Amaldagi navbat')}
           // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
           roomNumber={proccessData?.data[0]?.room_id?.name}
           departmentName={proccessData?.data[0]?.department_id?.name}
@@ -164,7 +164,7 @@ const QueuesControlDoctor = () => {
                   ItemsLength={queuesList?.length}
                 />
                 <TableTitleDoctorProfile
-                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tablethead={['Id', t('Bilet berilgan vaqti')]}
                   Tabletbody={queuesList}
                 />
               </>
@@ -180,16 +180,16 @@ const QueuesControlDoctor = () => {
               <>
                 <ButtonNavbar
                   dontCreate
-                  TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+                  TableTitle={t("Bugun ko'rilgan va bekor qilingan bemorlar")}
                   ItemsLength={doneQueuesList?.length}
                 />
                 <DoneQueueTableTitleDoctorProfile
                   Tablethead={[
                     'Id',
-                    'Qabul kuni',
-                    'Qabul boshlanishi',
-                    'Qabul tugashi',
-                    'Xolati',
+                    t('Qabul kuni'),
+                    t('Qabul boshlanishi'),
+                    t('Qabul tugashi'),
+                    t('Xolati'),
                   ]}
                   Tabletbody={doneQueuesList}
                 />

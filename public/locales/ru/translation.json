@@ -69,6 +69,20 @@
   "Bo‘lim nomi": "Название отдела",
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Расчетное время приема пациента",
   "Bo'limga rasm qo'shish": "Добавить изображение в раздел",
+  "Qayta chaqirish": "Отзывать",
+  "Tasdiqlash": "Подтверждение",
   "Bekor qilish": "Отмена",
-  "Saqlash": "Сохранить"
+  "Saqlash": "Сохранить",
+  "Bugun navbatga yozilgan bemorlar mavjud emas!": "На данный момент в листе ожидания пациентов нет!",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня в листе ожидания пациентов нет!",
+  "Bugun ko'rilgan va bekor qilingan bemorlar": "Пациенты, принятые и отмененные сегодня",
+  "Amaldagi navbat": "Текущая очередь",
+  "Kutayotgan bemorlar": "Ожидающие пациентов",
+  "Bilet berilgan vaqti": "Время выдачи билетов",
+  "Xona": "Комната",
+  "Xolati": "Положение дел",
+  "Qabul kuni": "Приемный день",
+  "Qabul boshlanishi": "Начало приема",
+  "Qabul tugashi": "Конец приема",
+  "Hisobot": "Отчет"
 }

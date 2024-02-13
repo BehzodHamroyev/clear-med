@@ -65,9 +65,22 @@
   "gacha": "гача",
 
   "Bo‘lim nomi": "Бўлим номи",
-
+  "Qayta chaqirish": "Қайта чақириш",
+  "Tasdiqlash": "Тасдиқлаш",
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Беморни кўришга кетадиган тахминий вақт",
   "Bo'limga rasm qo'shish": "Бўлимга расм қўшиш",
   "Bekor qilish": "Бекор қилиш",
-  "Saqlash": "Сақлаш"
+  "Saqlash": "Сақлаш",
+  "Bugun navbatga yozilgan bemorlar mavjud emas!": "Ҳозир навбатга ёзилган беморлар мавжуд эмас!",
+  "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Бугун кўрилган ва бекор қилинган беморлар мавжуд эмас!",
+  "Bugun ko'rilgan va bekor qilingan bemorlar": "Бугун кўрилган ва бекор қилинган беморлар",
+  "Amaldagi navbat": "Амалдаги навбат",
+  "Kutayotgan bemorlar": "Кутаётган беморлар",
+  "Bilet berilgan vaqti": "Билет берилган вақти  ",
+  "Xona": "Хона",
+  "Xolati": "Холати",
+  "Qabul kuni": "Қабул куни",
+  "Qabul boshlanishi": "Қабул бошланиши",
+  "Qabul tugashi": "Қабул тугаши",
+  "Hisobot":"Ҳисобот"
 }
