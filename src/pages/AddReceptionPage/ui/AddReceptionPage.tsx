@@ -73,7 +73,6 @@ const AddReceptionPage = () => {
   };
 
   if (allReceptionsData)
-    console.log(allReceptionsData[0].login.toString().split(''));
 
   return (
     <div className={cls.AddDoctorPageWrp}>

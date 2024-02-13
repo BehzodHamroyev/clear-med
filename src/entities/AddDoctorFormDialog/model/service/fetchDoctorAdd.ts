@@ -42,7 +42,6 @@ export const fetchDoctorAdd = createAsyncThunk<
     setResponseAddDoctorStatusCode(response.status);
     setIsOpenDoctorAddCard(false);
 
-    console.log(response.status);
 
     return response.data;
   } catch (e) {
