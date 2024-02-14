@@ -34,7 +34,9 @@ const TableTitleReports = (props: TableInfo) => {
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
               {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
-                <td className={cls.td}>{item.rooms[0]?.department_id?.name}</td>
+                <td className={cls.td}>
+                  {t(item.rooms[0]?.department_id?.name)}
+                </td>
               ) : (
                 <td className={cls.td}>
                   <span className={cls.td_invalid}>{t("Bo'lim yo'q")}</span>

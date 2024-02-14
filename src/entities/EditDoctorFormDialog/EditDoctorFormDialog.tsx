@@ -380,7 +380,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     value={doctorCurrentData?.data?.exprience}
                     onChange={handleChangeExprience}
                   />
-                  Telfon raqami
+                  {t('Telefon raqami')}
                   <Input
                     required
                     autoFocus
@@ -398,7 +398,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     variant="outlined"
                   >
                     <InputLabel htmlFor="outlined-adornment-password">
-                      Parolni kiriting
+                      {t('Parolni kiriting')}
                     </InputLabel>
 
                     <OutlinedInput
@@ -419,7 +419,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      label="Parolni kiriting"
+                      label={t('Parolni kiriting')}
                     />
                   </FormControl>
                   <div className={cls.BtnParnet}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
@@ -14,6 +15,8 @@ interface MonitorsProp {
 
 const Monitors = (props: MonitorsProp) => {
   const { number, name, id } = props;
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -58,7 +61,9 @@ const Monitors = (props: MonitorsProp) => {
     <div onClick={(e) => handleNavigate(e)}>
       <div className={cls.MonitorsWrapper}>
         <div>
-          <h3>{number}-Monitor</h3>
+          <h3>
+            {number}-{t('Monitor')}
+          </h3>
           <p>{name}</p>
         </div>
 

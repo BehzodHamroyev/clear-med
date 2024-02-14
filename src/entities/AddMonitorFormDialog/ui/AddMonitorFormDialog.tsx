@@ -221,7 +221,7 @@ const AddMonitorFormDialog = () => {
               inputRef={phoneInput}
               className={cls.InputBulim}
               // value={`${isAllFormData.login}`}
-              placeholder={t('Login (+998 90 123 45 67)')}
+              placeholder={`${t('Login')} (+998 90 123 45 67)`}
               onChange={(e) => handleInputChangeFormPhoneNumber(e)}
             />
 
@@ -234,7 +234,7 @@ const AddMonitorFormDialog = () => {
                 id="UserPassword"
                 autoComplete="off"
                 name="UserPassword"
-                placeholder="Parol"
+                placeholder={t('Parol')}
                 className={cls.InputBulim}
                 value={isAllFormData.password}
                 type={hideEye ? 'text' : 'password'}

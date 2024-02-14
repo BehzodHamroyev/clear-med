@@ -1,8 +1,8 @@
+
 {
   "": "",
   " ": "",
   "  ": "",
-  "              Upload Logo": "",
   " Ortga qaytish": "",
   " ta": "",
   "+998 ": "",
@@ -120,6 +120,8 @@
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
   "Bo’lim": "",
+  "Bo’lim nomi": "",
+  "Bo’lim qo’shish": "",
   "Bu Login boshqa Monitorga biriktirilgan": {
     " Loginni o'zgartiring": ""
   },
@@ -176,6 +178,7 @@
   "Kutayotgan bemorlar": "",
   "Login": "",
   "Login (+998 90 123 45 67)": "",
+  "Login 111(+998 90 123 45 67)": "",
   "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
@@ -191,6 +194,7 @@
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor": "",
   "Monitor ma'lumotlari yangilandi": "",
   "Monitor muvaffaqiyatli qo'shildi": "",
   "Monitor o'chirildi": "",
@@ -236,7 +240,6 @@
   "Ortga qaytish": "",
   "O‘chirib yuborish": "",
   "P": "",
-  "PROJECT ": "",
   "Pa": "",
   "Par": "",
   "Paro": "",
@@ -258,14 +261,16 @@
   "Parolni kiriting": "",
   "Parolni o'zgartirish": "",
   "Parolni o‘zgartirish": "",
+  "Parolni yangilash": "",
   "Pass": "",
   "Password": "",
   "Phone Number": "",
-  "Project ma'lumotlari ": "",
   "Project ma'lumotlari yangilandi": "",
   "Qabul boshlanishi": "",
   "Qabul kuni": "",
+  "Qabul qo‘shish": "",
   "Qabul tugashi": "",
+  "Qabulni tahrirlash": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
   },
@@ -385,13 +390,6 @@
   "Umumiy": "",
   "Update center information": "",
   "Upload Logo": "",
-  "Uploade": "",
-  "Uploade Lo": "",
-  "Uploade Lod": "",
-  "Uploade Logo ": "",
-  "Uploade Logo an chaneg ": "",
-  "Uploade Logo an chaneg name of ": "",
-  "Uploade Logo an chaneg name of hospital": "",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Reklamani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Telefon raqami avval ishlatilgan": {
@@ -451,7 +449,6 @@
   "tajribas": "",
   "tajribasi": "",
   "throw error": "",
-  "update center information": "",
   "xatolik yuzaga keldi": "",
   "xona yo'q": "",
   "yil": "",
@@ -465,3 +462,4 @@
   "Создать статью": "",
   "У вас нет доступа к этой странице": ""
 }
+

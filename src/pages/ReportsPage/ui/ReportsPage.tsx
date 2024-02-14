@@ -17,7 +17,7 @@ import {
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-const tableTitle = ['Bo‘lim', 'Xona', 'Shifokor ro‘yxati', 'Shifokor'];
+const tableTitle = ['Bo’lim', 'Xona', 'Shifokor ro‘yxati', 'Shifokor'];
 
 const ReportsPage = () => {
   const dispatch = useAppDispatch();
