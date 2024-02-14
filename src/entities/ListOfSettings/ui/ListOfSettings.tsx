@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Upload } from '@mui/icons-material';
 import cls from './ListOfSettings.module.scss';
 import {
   RightIcon,
@@ -15,7 +16,11 @@ const ListOfSettings = () => {
     setIsOpenThemeOrLanguage,
     isOpenSettingsChangePassword,
     setIsOpenSettingsChangePassword,
+    setIsOpenUploadLogo,
+    isOpenUploadLogo,
   } = useContext(ButtonsContext);
+
+  console.log(isOpenUploadLogo);
 
   return (
     <div className={cls.ListOfSettingsWrapper}>
@@ -37,6 +42,7 @@ const ListOfSettings = () => {
         onClick={() => {
           setIsOpenThemeOrLanguage(false);
           setIsOpenSettingsChangePassword(false);
+          setIsOpenUploadLogo(false);
         }}
         className={`${cls.Theme} ${
           !isOpenThemeOrLanguage && !isOpenSettingsChangePassword
@@ -54,6 +60,8 @@ const ListOfSettings = () => {
       <div
         onClick={() => {
           setIsOpenThemeOrLanguage(false);
+          setIsOpenUploadLogo(false);
+
           setIsOpenSettingsChangePassword(true);
         }}
         className={`${cls.Theme} ${
@@ -63,6 +71,21 @@ const ListOfSettings = () => {
         <div className={cls.ThemeLeft}>
           <PassWordIcon />
           <p>{t('Parolni o‘zgartirish')}</p>
+        </div>
+        <RightIcon className={cls.span} />
+      </div>
+
+      <div
+        onClick={() => {
+          setIsOpenThemeOrLanguage(true);
+          setIsOpenSettingsChangePassword(false);
+          setIsOpenUploadLogo(true);
+        }}
+        className={`${cls.Theme} ${isOpenUploadLogo ? cls.IsOpen : ''} `}
+      >
+        <div className={cls.ThemeLeft}>
+          <Upload />
+          <p>{t('Update center information')}</p>
         </div>
         <RightIcon className={cls.span} />
       </div>

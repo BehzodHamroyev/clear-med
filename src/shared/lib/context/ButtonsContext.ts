@@ -225,6 +225,9 @@ export interface ButtonsClickedProps {
 
   isOpenAdvertisementDeleteAdsForMonitor: boolean;
   setIsOpenAdvertisementDeleteAdsForMonitor: (prop: boolean) => void;
+
+  isOpenUploadLogo: boolean;
+  setIsOpenUploadLogo: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
@@ -432,4 +435,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDeleteReceptionCard: false,
   setIsOpenDeleteReceptionCard: () => {},
+
+  isOpenUploadLogo: false,
+  setIsOpenUploadLogo: () => {},
 });
