@@ -16,7 +16,11 @@ const ListOfSettings = () => {
     setIsOpenThemeOrLanguage,
     isOpenSettingsChangePassword,
     setIsOpenSettingsChangePassword,
+    setIsOpenUploadLogo,
+    isOpenUploadLogo,
   } = useContext(ButtonsContext);
+
+  console.log(isOpenUploadLogo);
 
   return (
     <div className={cls.ListOfSettingsWrapper}>
@@ -38,6 +42,7 @@ const ListOfSettings = () => {
         onClick={() => {
           setIsOpenThemeOrLanguage(false);
           setIsOpenSettingsChangePassword(false);
+          setIsOpenUploadLogo(false);
         }}
         className={`${cls.Theme} ${
           !isOpenThemeOrLanguage && !isOpenSettingsChangePassword
@@ -55,6 +60,8 @@ const ListOfSettings = () => {
       <div
         onClick={() => {
           setIsOpenThemeOrLanguage(false);
+          setIsOpenUploadLogo(false);
+
           setIsOpenSettingsChangePassword(true);
         }}
         className={`${cls.Theme} ${
@@ -70,14 +77,15 @@ const ListOfSettings = () => {
 
       <div
         onClick={() => {
-          setIsOpenThemeOrLanguage(false);
-          setIsOpenSettingsChangePassword(true);
+          setIsOpenThemeOrLanguage(true);
+          setIsOpenSettingsChangePassword(false);
+          setIsOpenUploadLogo(true);
         }}
-        className={`${cls.Theme} ${cls.IsOpen} `}
+        className={`${cls.Theme} ${isOpenUploadLogo ? cls.IsOpen : ''} `}
       >
         <div className={cls.ThemeLeft}>
           <Upload />
-          <p>{t('Uploade Logo an chaneg name of hospital')}</p>
+          <p>{t('Update center information')}</p>
         </div>
         <RightIcon className={cls.span} />
       </div>

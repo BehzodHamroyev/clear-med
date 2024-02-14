@@ -18,6 +18,7 @@ import 'react-calendar/dist/Calendar.css';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { socket } from '@/shared/lib/utils/socket';
+import { getAllDataProject } from '@/entities/FileUploader';
 
 const App = () => {
   const { theme } = useTheme();
@@ -72,6 +73,12 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
+  // get data of project which are logo and text
+  useEffect(() => {
+    dispatch(getAllDataProject({}));
+  }, [dispatch]);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>

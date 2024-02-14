@@ -14,8 +14,11 @@ import { FileUploader } from '@/entities/FileUploader';
 const SettingsPage = () => {
   const { t } = useTranslation();
 
-  const { isOpenThemeOrLanguage, isOpenSettingsChangePassword } =
-    useContext(ButtonsContext);
+  const {
+    isOpenThemeOrLanguage,
+    isOpenUploadLogo,
+    isOpenSettingsChangePassword,
+  } = useContext(ButtonsContext);
 
   return (
     <div className={cls.SettingsPageWrapper}>
@@ -35,7 +38,7 @@ const SettingsPage = () => {
           ''
         )}
 
-        <FileUploader />
+        {isOpenUploadLogo ? <FileUploader /> : ''}
       </div>
     </div>
   );
