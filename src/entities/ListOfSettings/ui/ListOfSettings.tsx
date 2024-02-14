@@ -70,7 +70,7 @@ const ListOfSettings = () => {
       >
         <div className={cls.ThemeLeft}>
           <PassWordIcon />
-          <p>{t('Parolni o‘zgartirish')}</p>
+          <p>{t("Parolni o'zgartirish")}</p>
         </div>
         <RightIcon className={cls.span} />
       </div>

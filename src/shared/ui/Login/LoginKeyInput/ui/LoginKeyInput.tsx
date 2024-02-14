@@ -15,7 +15,7 @@ const LoginKeyInput = () => {
       <div className={cls.PhoneNumberInputWrapper}>
         <input
           name="UserPassword"
-          placeholder="Parolni kiriting..."
+          placeholder={`${t('Parolni kiriting')}...`}
           className={cls.PhoneNumberInput}
           type={hideEye ? 'text' : 'password'}
           autoComplete="off"

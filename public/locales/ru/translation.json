@@ -1,5 +1,6 @@
 {
   "MENU": "МEНУ",
+
   "Bo‘lim qo‘shish": "Добавить раздел",
   "Reklama qo'shish": "Добавить объявление",
   "Xona qo‘shish": "Добавить комнату",
@@ -85,10 +86,5 @@
   "Qabul boshlanishi": "Начало приема",
   "Qabul tugashi": "Конец приема",
   "Hisobot": "Отчет",
-  "admin": "Администратор",
-  "Update center information": "Обновить информацию о больнице",
-  "Hospital name": "Название больницы",
-  "Upload Logo": "Загрузить логотип",
-  "Save":"Сохранить"
-
+  "admin": "Администратор"
 }

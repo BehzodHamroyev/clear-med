@@ -96,7 +96,7 @@ const LoginFormLeft = () => {
 
         <LoginKeyInput />
 
-        <LoginSubmitBtn content={t('Kirish')} />
+        <LoginSubmitBtn content={t('KIRISH')} />
       </form>
 
       <Toast severity="error" message={t('Login yoki parol xato')} />

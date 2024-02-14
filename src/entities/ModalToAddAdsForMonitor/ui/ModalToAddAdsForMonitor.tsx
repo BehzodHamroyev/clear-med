@@ -133,14 +133,16 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
         <h3 className={cls.CardTitle}>{t('Reklama biriktirish')}</h3>
 
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
-          <InputLabel id="demo-multiple-checkbox-label">Reklamalar</InputLabel>
+          <InputLabel id="demo-multiple-checkbox-label">
+            {t('Reklamalar')}
+          </InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
             value={personName}
             onChange={handleChange}
-            input={<OutlinedInput label="Reklamalar" />}
+            input={<OutlinedInput label={t('Reklamalar')} />}
             renderValue={(selected) => selected.join(', ')}
             MenuProps={MenuProps}
           >
