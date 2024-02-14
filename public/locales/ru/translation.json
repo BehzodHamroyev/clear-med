@@ -86,6 +86,9 @@
   "Qabul tugashi": "Конец приема",
   "Hisobot": "Отчет",
   "admin": "Администратор",
-  "Update center information":"Обновить информацию о больнице"
+  "Update center information": "Обновить информацию о больнице",
+  "Hospital name": "Название больницы",
+  "Upload Logo": "Загрузить логотип",
+  "Save":"Сохранить"
 
 }

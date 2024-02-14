@@ -83,8 +83,11 @@
   "Qabul kuni": "Reception day",
   "Qabul boshlanishi": "Start of reception",
   "Qabul tugashi": "End of admission",
-  "Hisobot":"Report",
+  "Hisobot": "Report",
   "Saqlash": "Save",
   "admin": "Admin",
-  "Update center information":"Update hospital information"
+  "Update center information": "Update hospital information",
+  "Hospital name": "Hospital name",
+  "Upload Logo": "Upload Logo",
+  "Save": "Save"
 }
