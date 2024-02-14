@@ -50,6 +50,8 @@ const RoomAttachmentMonitorChildForm = ({
   const getIsLoadingRooms = useSelector(getIsLoading);
   const getErrorRooms = useSelector(getError);
 
+  console.log(getListOfRooms?.room.id, 'vjvjvj');
+
   const [personId, setPersonId] = React.useState<string[]>([]);
   const [getAllSelectionID, setAllSelectionID] = useState<string[]>([]);
   const [asosiyArr, setAsosiyArr] = useState<any[]>([{ name: '', id: '' }]);
@@ -181,7 +183,7 @@ const RoomAttachmentMonitorChildForm = ({
 
   React.useEffect(() => {
     if (getListOfRooms) {
-      const optionsArray = getListOfRooms.room.map((item: any) => ({
+      const optionsArray = getListOfRooms!?.room.map((item: any) => ({
         name: item.name,
         id: item.id,
       }));

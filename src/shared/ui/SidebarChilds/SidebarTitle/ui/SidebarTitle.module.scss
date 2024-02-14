@@ -1,15 +1,41 @@
 .SidebarTitleWrapper {
   width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: -15px;
+
+  &__burger {
+    padding: 5px;
+    margin-left: 12px;
+    cursor: pointer;
+
+    &--btn {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: #828282;
+      user-select: none;
+    }
+
+    &:hover &--btn {
+      color: var(--burger-color-hover) !important;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 
   .SidebarTitle {
     color: #828282;
+    background-color: transparent;
     font-family: sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.055px;
-    padding-left: 20px;
+    padding-left: 10px;
     user-select: none;
   }
 }

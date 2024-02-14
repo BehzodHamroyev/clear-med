@@ -71,7 +71,7 @@
 
   "Qayta chaqirish": "Recall",
   "Tasdiqlash": "Confirmation",
-  "Saqlash": "Save",
+
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "There are currently no patients on the waiting list!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "There are no patients on the waiting list today!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Patients seen and canceled today",
@@ -84,9 +84,6 @@
   "Qabul boshlanishi": "Start of reception",
   "Qabul tugashi": "End of admission",
   "Hisobot":"Report",
-
   "Saqlash": "Save",
-
   "admin": "Admin"
-
 }
