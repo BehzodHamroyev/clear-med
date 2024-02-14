@@ -41,18 +41,8 @@ export const fetchAuthLogin = createAsyncThunk<
         // sameSite: 'Lax',
       });
 
-      // Cookies.set('token', token, {
-      //   secure: true,
-      //   // httpOnly: true,
-      //   // sameSite: 'Lax',
-      // });
-
       const getTokenCookie = Cookies.get('token');
 
-      // consoleda token ko'rinsa demak token cookiega saqlangan
-      // console.log(getTokenCookie);
-
-      // localStorage.setItem('token', response.data.token);
       localStorage.setItem('token', tokenValue);
     }
     if (response.data.user.role) {
