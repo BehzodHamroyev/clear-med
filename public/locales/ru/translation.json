@@ -93,5 +93,16 @@
   "Bo'lim nomi": "Название отдела",
   "Shifokorlar soni": "Количество врачей",
   "Xonalar soni": "Количество комнат",
-  "Bemorni ko'rish vaqti": "Время увидеть пациента"
+  "Bemorni ko'rish vaqti": "Время увидеть пациента",
+
+  "Biriktirilgan bo'lim": "Прикрепленный раздел",
+  "Biriktirilgan shifokorlar": "Аффилированные врачи",
+  "Xona qo'shish": "Добавить комнату",
+  "Bo'lim turlari": "Типы разделов",
+  "Shifokorlar ro'yhati": "Список врачей",
+  "Bo‘limni tahrirlash": "Редактировать раздел",
+  "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "Вы действительно хотите удалить этот раздел?",
+  "O'chirish": "Удалить",
+  "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "Вы действительно хотите удалить эту комнату?",
+  "Monitorlar": "Мониторы"
 }

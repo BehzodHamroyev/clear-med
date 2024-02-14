@@ -93,5 +93,16 @@
   "Bo'lim nomi": "Department name",
   "Shifokorlar soni": "Number of doctors",
   "Xonalar soni": "Number of rooms",
-  "Bemorni ko'rish vaqti": "Time to see the patient"
+  "Bemorni ko'rish vaqti": "Time to see the patient",
+
+  "Biriktirilgan bo'lim": "Attached section",
+  "Biriktirilgan shifokorlar": "Affiliated Doctors",
+  "Xona qo'shish": "Add room",
+  "Bo'lim turlari": "Section types",
+  "Shifokorlar ro'yhati": "List of doctors",
+  "Bo‘limni tahrirlash": "Edit section",
+  "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "Do you really want to delete this section?",
+  "O'chirish": "Delete",
+  "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "Do you really want to delete this room?",
+  "Monitorlar": "Monitors"
 }

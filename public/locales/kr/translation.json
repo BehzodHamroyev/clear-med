@@ -91,5 +91,16 @@
   "Bo'lim nomi": "Бўлим номи",
   "Shifokorlar soni": "Шифокорлар сони",
   "Xonalar soni": "Хоналар сони",
-  "Bemorni ko'rish vaqti": "Беморни кўриш вақти"
+  "Bemorni ko'rish vaqti": "Беморни кўриш вақти",
+  "Biriktirilgan bo'lim": "Бириктирилган бўлим",
+  "Biriktirilgan shifokorlar": "Бириктирилган шифокорлар",
+
+  "Xona qo'shish": "Хона қўшиш",
+  "Bo'lim turlari": "Типы разделов",
+  "Shifokorlar ro'yhati": "Шифокорлар рўйҳати",
+  "Bo‘limni tahrirlash": "Бўлимни таҳрирлаш",
+  "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ушбу бўлимни хақийқатдан ҳам ўчирмоқчимисиз ?",
+  "O'chirish": "Ўчириш",
+  "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "Ушбу хонани хақийқатдан ҳам ўчирмоқчимисиз ?",
+  "Monitorlar": "Мониторлар"
 }
