@@ -86,6 +86,7 @@
   "Hisobot": "Report",
   "Saqlash": "Save",
 
+  "admin": "Admin",
   "KIRISH": "Sign in",
 
   "Bo‘limlar": "Departments",
@@ -135,10 +136,5 @@
   "Monitorni tahrirlash": "Edit monitor",
   "Parolni yangilash": "Password update",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Do you really want to turn off this monitor?",
-  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Enter your information to login.",
-  "admin": "Admin",
-  "Update center information": "Update hospital information",
-  "Hospital name": "Hospital name",
-  "Upload Logo": "Upload Logo",
-  "Save": "Save"
+  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Enter your information to login."
 }
