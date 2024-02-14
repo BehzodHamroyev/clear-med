@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Upload } from '@mui/icons-material';
 import cls from './ListOfSettings.module.scss';
 import {
   RightIcon,
@@ -63,6 +64,20 @@ const ListOfSettings = () => {
         <div className={cls.ThemeLeft}>
           <PassWordIcon />
           <p>{t('Parolni o‘zgartirish')}</p>
+        </div>
+        <RightIcon className={cls.span} />
+      </div>
+
+      <div
+        onClick={() => {
+          setIsOpenThemeOrLanguage(false);
+          setIsOpenSettingsChangePassword(true);
+        }}
+        className={`${cls.Theme} ${cls.IsOpen} `}
+      >
+        <div className={cls.ThemeLeft}>
+          <Upload />
+          <p>{t('Uploade Logo an chaneg name of hospital')}</p>
         </div>
         <RightIcon className={cls.span} />
       </div>
