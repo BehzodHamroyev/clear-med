@@ -1,4 +1,4 @@
-import { memo, ReactElement, useContext, useEffect, useState } from 'react';
+import { memo, ReactElement, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -32,32 +32,9 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   const authUserData = useSelector(getAuthUserData);
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
-  const { setHasOpenToast, isOpenLanugagePopup, setisOpenLanugagePopup } =
-    useContext(ButtonsContext);
-
-  const [hasToaster, setHasToaster] = useState(false);
+  const { hasOpenToast, isOpenLanugagePopup } = useContext(ButtonsContext);
 
   const location = useLocation();
-
-  useEffect(() => {
-    if (authUserData) {
-      setHasOpenToast(true);
-
-      setHasToaster(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUserData]);
-
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (hasToaster) {
-      const timeoutId = setTimeout(() => {
-        setHasToaster(false);
-      }, 3000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [hasToaster]);
 
   useEffect(() => {
     if (authUserData) {
@@ -84,7 +61,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
-          {hasToaster && (
+          {hasOpenToast && (
             <Toast
               severity="success"
               message={t('Timizga muvaffaqqiyatli kirdingiz')}
