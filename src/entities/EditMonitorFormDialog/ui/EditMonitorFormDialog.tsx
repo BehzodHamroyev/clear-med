@@ -354,7 +354,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
                 className={cls.InputBulim}
               >
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Parolni yangilash
+                  {t('Parolni yangilash')}
                 </InputLabel>
                 <OutlinedInput
                   inputProps={{ minLength: 8, maxLength: 13 }}
@@ -373,7 +373,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Parolni yangilash"
+                  label={t('Parolni yangilash')}
                 />
               </FormControl>
 

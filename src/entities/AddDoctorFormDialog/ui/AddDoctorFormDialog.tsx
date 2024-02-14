@@ -267,7 +267,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <label>
-                Telfon raqami
+                {t('Telefon raqami')}
                 <Input
                   required
                   autoFocus
@@ -288,7 +288,7 @@ const AddDoctorFormDialog = () => {
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Parolni kiriting
+                  {t('Parolni kiriting')}
                 </InputLabel>
                 <OutlinedInput
                   required
@@ -308,7 +308,7 @@ const AddDoctorFormDialog = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Parolni kiriting"
+                  label={t('Parolni kiriting')}
                 />
               </FormControl>
               {/* get Value Pasword Input finished */}

@@ -120,6 +120,8 @@
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
   "Bo’lim": "",
+  "Bo’lim nomi": "",
+  "Bo’lim qo’shish": "",
   "Bu Login boshqa Monitorga biriktirilgan": {
     " Loginni o'zgartiring": ""
   },
@@ -175,6 +177,7 @@
   "Kutayotgan bemorlar": "",
   "Login": "",
   "Login (+998 90 123 45 67)": "",
+  "Login 111(+998 90 123 45 67)": "",
   "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
@@ -190,6 +193,7 @@
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor": "",
   "Monitor ma'lumotlari yangilandi": "",
   "Monitor muvaffaqiyatli qo'shildi": "",
   "Monitor o'chirildi": "",
@@ -256,12 +260,15 @@
   "Parolni kiriting": "",
   "Parolni o'zgartirish": "",
   "Parolni o‘zgartirish": "",
+  "Parolni yangilash": "",
   "Pass": "",
   "Password": "",
   "Phone Number": "",
   "Qabul boshlanishi": "",
   "Qabul kuni": "",
+  "Qabul qo‘shish": "",
   "Qabul tugashi": "",
+  "Qabulni tahrirlash": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
   },

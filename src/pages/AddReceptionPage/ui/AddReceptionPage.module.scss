@@ -1,10 +1,10 @@
 /* stylelint-disable no-descending-specificity */
 .AddDoctorPageWrp {
-  width: 1300px;
+  width: 100%;
   font-family: sans-serif;
 
   &__Title {
-    max-width: 1300px;
+    // max-width: 1300px;
     width: 100%;
     max-height: 60px;
     font-family: sans-serif;
@@ -84,7 +84,7 @@
 
     &--edit,
     &--delete {
-      width: 120px;
+      width: 140px;
     }
 
     &--tr {
@@ -107,7 +107,7 @@
 
     &--th,
     &--td {
-      min-width: 180px;
+      // min-width: 180px;
       width: 100%;
     }
 

@@ -58,7 +58,7 @@ const MonitorAddSelection = () => {
 
           <Select
             value={doctorValue}
-            label="Reklama turi"
+            label={t('Reklama turi')}
             onChange={handleChange}
             id="demo-simple-select"
             labelId="demo-simple-select-label"
