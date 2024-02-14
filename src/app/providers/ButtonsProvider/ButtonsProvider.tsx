@@ -204,6 +204,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     setIsOpenAdvertisementDeleteAdsForMonitor,
   ] = useState(false);
 
+  const [isOpenUploadLogo, setIsOpenUploadLogo] = useState(false);
+
   const defaultProps = useMemo(
     () => ({
       isOpenAddReceptionCard,
@@ -319,6 +321,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildFormEdit,
       isMonitorAddSelectionFormAdvertisement,
       setIsMonitorAddSelectionFormAdvertisement,
+      setIsOpenUploadLogo,
+      isOpenUploadLogo,
     }),
     [
       isOpenAddReceptionCard,
@@ -436,6 +440,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildFormEdit,
       isMonitorAddSelectionFormAdvertisement,
       setIsMonitorAddSelectionFormAdvertisement,
+      isOpenUploadLogo,
     ],
   );
 

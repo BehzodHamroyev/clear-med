@@ -37,10 +37,8 @@
   "October": "Октябрь",
   "November": "Ноябрь",
   "December": "Декабрь",
-
   "monitor": "Монитор",
   "Xonalar": "Хоналар",
-
   "Shifokorlar": "Шифокорлар",
   "Ortga": "Ортга",
   "Monitorga biriktirilgan xonalar": "Мониторга бириктирилган хоналар",
@@ -53,7 +51,6 @@
   "Yangi parolni kiriting": "Янги паролни киритинг",
   "Yangi parolni kiriting...": "Янги паролни киритинг...",
   "O'zgartirish": "Ўзгартириш",
-
   "Ortga qaytish": "Ортга қайтиш",
   "Jami ko'rilgan bemorlar : ": "Жами кўрилган беморлар: ",
   "Tasdiqlangan bemorlar : ": "Тасдиқланган беморлар: ",
@@ -63,7 +60,6 @@
   "Ko'rilgan bemorlar": "Кўрилган беморлар",
   "dan": "дан",
   "gacha": "гача",
-
   "Bo‘lim nomi": "Бўлим номи",
   "Qayta chaqirish": "Қайта чақириш",
   "Tasdiqlash": "Тасдиқлаш",
@@ -71,7 +67,6 @@
   "Bo'limga rasm qo'shish": "Бўлимга расм қўшиш",
   "Bekor qilish": "Бекор қилиш",
   "Saqlash": "Сақлаш",
-
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "Ҳозир навбатга ёзилган беморлар мавжуд эмас!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Бугун кўрилган ва бекор қилинган беморлар мавжуд эмас!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Бугун кўрилган ва бекор қилинган беморлар",
@@ -132,5 +127,10 @@
   "Parolni yangilash": "Парольни Янгилаш",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ушбу Мониторни хақийқатдан ҳам ўчирмоқчимисиз ?",
   "KIRISH": "КИРИШ",
-  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Тизимга кириш учун маълумотларингизни киритинг."
+  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Тизимга кириш учун маълумотларингизни киритинг.",
+
+  "Update center information": "Шифохона маълумотларини янгилаш",
+  "Hospital name": "Шифохона номи",
+  "Upload Logo": "Лого юклаш",
+  "Save": "Сақлаш"
 }

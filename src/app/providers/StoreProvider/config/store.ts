@@ -36,6 +36,7 @@ import {
   sliceAllAdsVideoForOneMonitorReducer,
   sliceAllAdsVideoReducer,
 } from '@/entities/AdvertisementAttachmentMonitor';
+import { infoProjectSliceReducer } from '@/entities/FileUploader';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -68,7 +69,7 @@ export function createReduxStore(
     doneQueuesControlDoctor: doneQueuesControlDoctorReducer,
     GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
     allAdsVideo: sliceAllAdsVideoReducer,
-    // @ts-ignore
+    infoProject: infoProjectSliceReducer,
     allAdsForOneMonitor: sliceAllAdsVideoForOneMonitorReducer,
     [rtkApi.reducerPath]: rtkApi.reducer,
   };

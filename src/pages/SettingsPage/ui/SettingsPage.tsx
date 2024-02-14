@@ -8,13 +8,17 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import cls from './SettingsPage.module.scss';
 import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
 import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
+import { FileUploader } from '@/entities/FileUploader';
 // import { FileUploader } from '@/entities/FileUploader';
 
 const SettingsPage = () => {
   const { t } = useTranslation();
 
-  const { isOpenThemeOrLanguage, isOpenSettingsChangePassword } =
-    useContext(ButtonsContext);
+  const {
+    isOpenThemeOrLanguage,
+    isOpenUploadLogo,
+    isOpenSettingsChangePassword,
+  } = useContext(ButtonsContext);
 
   return (
     <div className={cls.SettingsPageWrapper}>
@@ -34,7 +38,7 @@ const SettingsPage = () => {
           ''
         )}
 
-        {/* <FileUploader /> */}
+        {isOpenUploadLogo ? <FileUploader /> : ''}
       </div>
     </div>
   );
