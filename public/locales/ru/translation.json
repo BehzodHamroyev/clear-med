@@ -86,5 +86,12 @@
   "Qabul boshlanishi": "Начало приема",
   "Qabul tugashi": "Конец приема",
   "Hisobot": "Отчет",
-  "admin": "Администратор"
+  "admin": "Администратор",
+
+  "Bo‘limlar": "Отделы",
+  "Bo'lim rasmi": "Изображение отдела",
+  "Bo'lim nomi": "Название отдела",
+  "Shifokorlar soni": "Количество врачей",
+  "Xonalar soni": "Количество комнат",
+  "Bemorni ko'rish vaqti": "Время увидеть пациента"
 }

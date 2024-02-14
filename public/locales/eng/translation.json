@@ -87,5 +87,12 @@
 
   "Saqlash": "Save",
 
-  "admin": "Admin"
+  "admin": "Admin",
+
+  "Bo‘limlar": "Departments",
+  "Bo'lim rasmi": "Department picture",
+  "Bo'lim nomi": "Department name",
+  "Shifokorlar soni": "Number of doctors",
+  "Xonalar soni": "Number of rooms",
+  "Bemorni ko'rish vaqti": "Time to see the patient"
 }

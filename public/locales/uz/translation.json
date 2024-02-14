@@ -90,5 +90,12 @@
 
   "Saqlash": "Saqlash",
 
-  "admin": "Admin"
+  "admin": "Admin",
+
+  "Bo‘limlar": "Bo‘limlar",
+  "Bo'lim rasmi": "Bo‘lim rasmi",
+  "Bo'lim nomi": "Bo‘lim nomi",
+  "Shifokorlar soni": "Shifokorlar soni",
+  "Xonalar soni": "Xonalar soni",
+  "Bemorni ko'rish vaqti": "Bemorni ko‘rish vaqti"
 }
