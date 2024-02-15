@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import cls from './NabarLogo.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // import { Logo } from '@/shared/assets/Logo';
@@ -12,22 +13,21 @@ const NavbarLogo = () => {
 
   const infoProject = useSelector(getInfoProject);
 
+  const imgLink: string = `http://medapi.magicsoft.uz/${infoProject?.[0]?.logo}`;
+
   return (
-    <div className={cls.NavbarLogoWrapper}>
+    <Link to="/" className={cls.NavbarLogoWrapper}>
       {/* <BugerNavbar
         onClick={() => setIsOpenBurgerNavbar(!isOpenBurgerNavbar)}
         className={cls.NavbarLogo2}
       /> */}
       {/* <LogoNabar /> */}
       {/* <Logo className={cls.NavbarLogo} /> */}
-      <img
-        src={`http://medapi.magicsoft.uz/${infoProject?.[0]?.logo}`}
-        alt=""
-        className={cls.NavbarLogo}
-      />
+
+      <img src={imgLink} alt="imgLink" className={cls.NavbarLogo} />
 
       <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
-    </div>
+    </Link>
   );
 };
 

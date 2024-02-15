@@ -1,5 +1,5 @@
-.MonitorsDetail {
-}
+// .MonitorsDetail {
+// }
 
 .FullScreenBtn {
   padding: 10px 20px;
@@ -10,6 +10,36 @@
   font-family: sans-serif;
   margin: 10px 0;
   background-color: transparent;
+}
+
+.NavbarLogo {
+  width: 35px;
+  height: 35px;
+  stroke-width: 1.5px;
+  font-size: 100px;
+  border-radius: 50%;
+  user-select: none;
+
+  // color: #280559;
+  text-align: justify;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  // margin-right: -25px;
+  margin-left: -20px;
+  margin-right: 12px;
+}
+
+.NavbarText {
+  font-weight: 600;
+  font-size: 24px;
+  font-style: bold;
+  font-family: sans-serif;
+  color: var(--text-color);
+
+  // color: #280559;
 }
 
 .QueuesPage {
@@ -30,6 +60,12 @@
   }
 
   &__headerLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-left: 20px;
+
     p {
       color: #27374d;
       font-family: sans-serif;
@@ -83,7 +119,6 @@
       width: 100%;
       height: 100%;
       color: #27374d;
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -100,12 +135,15 @@
       display: grid;
       grid-template-columns: 3fr 1fr 1fr;
       gap: 25px;
+      margin-top: 10px;
       margin-bottom: 10px;
 
       p {
         font-family: sans-serif;
         text-align: center;
-        color: #27374d;
+
+        // color: #27374d;
+        color: var(--text-color);
         font-size: 40px;
       }
     }
@@ -130,7 +168,7 @@
       gap: 20px;
       align-items: center;
       background: #dde6ed;
-      box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0 12px 2px #0000000d;
       font-size: 45px;
       font-family: sans-serif;
     }
@@ -149,7 +187,7 @@
       text-align: center;
       color: #dde6ed;
       background: #27374d;
-      box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0 12px 2px #0000000d;
     }
   }
 }
