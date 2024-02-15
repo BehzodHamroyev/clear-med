@@ -21,6 +21,7 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  Dialog,
 } from '@mui/material';
 
 import cls from './AddReceptionFormDialog.module.scss';
@@ -63,6 +64,7 @@ const AddReceptionFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenAddReceptionCard,
     setIsOpenAddReceptionCard,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
@@ -214,12 +216,12 @@ const AddReceptionFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenAddReceptionCard(false);
-        }}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenAddReceptionCard}
         className={cls.DepartmentAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <div
           onClick={(e) => {
@@ -347,7 +349,7 @@ const AddReceptionFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addReceptionFormDialogIsLoading && <Loader />}
     </>
