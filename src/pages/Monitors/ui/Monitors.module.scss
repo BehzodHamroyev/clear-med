@@ -56,7 +56,9 @@
       cursor: pointer;
       border-radius: 10px;
       background-color: var(--border-table);
-      box-shadow: #0006 0 2px 4px, #000d 0 7px 13px -3px #0003 0 -3px 0 inset;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
       h2 {
         color: #3b3a3a;
