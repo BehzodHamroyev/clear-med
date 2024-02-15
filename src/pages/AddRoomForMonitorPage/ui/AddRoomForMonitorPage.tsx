@@ -128,9 +128,9 @@ const AddRoomForMonitorPage = () => {
                   {t('Shifokorlar')}
                 </th>
 
-                <th className={cls['AddRoomForMonitorWrapper__Table--delete']}>
+                {/* <th className={cls['AddRoomForMonitorWrapper__Table--delete']}>
                   {}
-                </th>
+                </th> */}
               </tr>
             </thead>
 

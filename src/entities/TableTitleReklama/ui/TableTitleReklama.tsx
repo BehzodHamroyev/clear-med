@@ -5,6 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 
 // import { PenTools } from '@/shared/assets/entities/TableTitle';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './TableTitleReklama.module.scss';
@@ -20,19 +21,17 @@ interface TableInfo {
 }
 
 const TableTitleReklama = (props: TableInfo) => {
-  /* props */
+  const { t } = useTranslation();
+
   const { Tablethead, Tabletbody, cursor } = props;
   const [idAds, setIdAds] = useState('');
   const connectionId = useSelector(connectionIdOfAds);
 
-  /* useParams */
   const { id } = useParams();
   const url = `/add_monitor/${id}/advertisement_attachment_monitor`;
 
-  /* useLocation */
   const location = useLocation();
 
-  /* useContext */
   const {
     setDepartmentGetId,
     setIsOpenRoomEditCard,
@@ -69,12 +68,12 @@ const TableTitleReklama = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string, index) => (
             <th key={index + 1} className={cls.th}>
-              {title}
+              {t(title)}
             </th>
           ))}
         </tr>
       </thead>
-      
+
       {isOpenAdvertisementDeleteAdsForMonitor && (
         <DeleteAdsFormDialogForMonitor
           adsId={idAds}

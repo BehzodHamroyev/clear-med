@@ -156,7 +156,7 @@ const AddDepartmentFormDialog = () => {
           className={cls.DepartmentAddCard}
         >
           <div className={cls.TitleFlex}>
-            <h3 className={cls.CardTitle}>{t('Bo’lim qo’shish')}</h3>
+            <h3 className={cls.CardTitle}>{t("Bo'lim qo'shish")}</h3>
 
             <ResultIconSrc />
           </div>
@@ -168,7 +168,7 @@ const AddDepartmentFormDialog = () => {
               inputRef={inputRef}
               id="outlined-basic"
               variant="outlined"
-              label={t('Bo’lim nomi')}
+              label={t("Bo'lim nomi")}
               className={cls.InputBulim}
               inputProps={{ maxLength: 20, minLength: 3 }}
             />
