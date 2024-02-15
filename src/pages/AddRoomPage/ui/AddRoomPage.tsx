@@ -87,8 +87,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
     <div className={classNames(cls.addRoomPage, {}, [className])}>
       <div className={classNames(cls.addRoomPage__header)}>
         <div className={classNames(cls['addRoomPage__header--left'])}>
-          <p>{t('Xonalar')}:</p>
-          <span>{allRoomsData?.length}</span>
+          <p>{t('Xonalar')}</p>
+          <span>({allRoomsData?.length})</span>
         </div>
 
         <div

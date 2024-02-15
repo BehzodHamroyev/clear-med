@@ -75,11 +75,9 @@ const SpeakerSvg = (
 const AttachMonitorOrAdvertisement = () => {
   const { id } = useParams();
 
-
   const { t } = useTranslation();
 
   const { monitorNumber } = useContext(ButtonsContext);
-
 
   return (
     <div className={cls.AttachMonitorOrAdvertisementWrapper}>
@@ -96,7 +94,7 @@ const AttachMonitorOrAdvertisement = () => {
         <p
           className={cls['AttachMonitorOrAdvertisementWrapper__Title--content']}
         >
-          {monitorNumber ? `${monitorNumber} - Monitor` : ''}
+          {monitorNumber ? `${monitorNumber} - ${t('Monitor')}` : ''}
         </p>
         <p />
       </div>

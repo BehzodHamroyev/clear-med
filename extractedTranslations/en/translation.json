@@ -16,6 +16,7 @@
   "A": "",
   "Abbos G'ulomov": "",
   "Alisher Qodirov Qudratovich": "",
+  "Amaldagi navbat": "",
   "Amaldagi navbat ": "",
   "Avto": "",
   "B": "",
@@ -65,6 +66,7 @@
   "Bemorni qabul qilishga ketadigan vaqtfvtcdreswa A2SW3DE4GT6QA2SW3T6HY7J8": "",
   "Berilgan vaqt": "",
   "Bilet": "",
+  "Bilet berilgan vaqti": "",
   "Bilet raqami": "",
   "Biriktirilgan bo'lim": "",
   "Biriktirilgan shifokor": "",
@@ -78,6 +80,7 @@
   "Bo'lim o'chirilmadi": {
     " Tizimda xatolik sodir bo'ldi": ""
   },
+  "Bo'lim qo'shish": "",
   "Bo'lim rasmi": "",
   "Bo'lim turl": "",
   "Bo'lim turlari": "",
@@ -118,6 +121,8 @@
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
   "Bo’lim": "",
+  "Bo’lim nomi": "",
+  "Bo’lim qo’shish": "",
   "Bu Login boshqa Monitorga biriktirilgan": {
     " Loginni o'zgartiring": ""
   },
@@ -127,6 +132,7 @@
   "Bu muddatdagi bemorlar hisoboti bo'sh": {
     " Muddatni o'zgartirib ko'ring!": ""
   },
+  "Bugun ko'rilgan va bekor qilingan bemorlar": "",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "",
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "",
   "Chiqarish": "",
@@ -154,7 +160,9 @@
     }
   },
   "Fullscreen": "",
+  "Hisobot": "",
   "Hisobotlar": "",
+  "Hospital name": "",
   "I can be a React component, multiple React components, or just some text": {
     "": ""
   },
@@ -171,6 +179,7 @@
   "Kutayotgan bemorlar": "",
   "Login": "",
   "Login (+998 90 123 45 67)": "",
+  "Login 111(+998 90 123 45 67)": "",
   "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
@@ -181,10 +190,12 @@
   "Ma'lumotlarni qo'shilmadi": "",
   "Manzili": "",
   "Mavzuni o‘zgartirish": "",
+  "Maydonlarni qayta to'ldiring": "",
   "Mir": "",
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor": "",
   "Monitor ma'lumotlari yangilandi": "",
   "Monitor muvaffaqiyatli qo'shildi": "",
   "Monitor o'chirildi": "",
@@ -193,6 +204,7 @@
   },
   "Monitor qo'shish": "",
   "Monitor qo'shish1": "",
+  "Monitorga biriktirilgan reklamalar": "",
   "Monitorga biriktirilgan xonalar": "",
   "Monitorlar": "",
   "Monitorlar mavjud emas": "",
@@ -251,9 +263,16 @@
   "Parolni kiriting": "",
   "Parolni o'zgartirish": "",
   "Parolni o‘zgartirish": "",
+  "Parolni yangilash": "",
   "Pass": "",
   "Password": "",
   "Phone Number": "",
+  "Project ma'lumotlari yangilandi": "",
+  "Qabul boshlanishi": "",
+  "Qabul kuni": "",
+  "Qabul qo‘shish": "",
+  "Qabul tugashi": "",
+  "Qabulni tahrirlash": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
   },
@@ -308,6 +327,7 @@
   "Sana / vaqt": "",
   "Saqlash": "",
   "Saqlash ": "",
+  "Save": "",
   "Shifokor": "",
   "Shifokor o'chirildi": "",
   "Shifokor o'chirilmadi": {
@@ -370,6 +390,8 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Update center information": "",
+  "Upload Logo": "",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Reklamani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Telefon raqami avval ishlatilgan": {
@@ -384,6 +406,7 @@
   "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Xatolik sodir bo'ldi": "",
   "Xatolik yuz berdi!": "",
+  "Xolati": "",
   "Xona": "",
   "Xona Raqami": "",
   "Xona biriktirish": "",
@@ -405,6 +428,7 @@
   "Xonalar raqami": "",
   "Xonalar soni": "",
   "Xonani tahrirlash": "",
+  "Xonani tanlang": "",
   "Yangi parol bir xil emas": "",
   "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "",
   "Yangi parolingiz ": "",

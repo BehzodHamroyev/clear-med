@@ -337,7 +337,7 @@ const EditReceptionFormDialog = ({
         >
           <div className={cls.DepartmentAddWrapper}>
             <div className={cls.DepartmentAddCard}>
-              <h3 className={cls.CardTitle}>{t('Reception qo‘shish')}</h3>
+              <h3 className={cls.CardTitle}>{t('Qabulni tahrirlash')}</h3>
 
               <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
                 <div className={cls.AddCardImg}>
@@ -393,7 +393,7 @@ const EditReceptionFormDialog = ({
                     value={receptionCurrentData?.data?.exprience}
                     onChange={handleChangeExprience}
                   />
-                  Telfon raqami
+                  {t('Telefon raqami')}
                   <Input
                     required
                     autoFocus
@@ -411,7 +411,7 @@ const EditReceptionFormDialog = ({
                     variant="outlined"
                   >
                     <InputLabel htmlFor="outlined-adornment-password">
-                      Parolni kiriting
+                      {t('Parolni kiriting')}
                     </InputLabel>
 
                     <OutlinedInput
@@ -432,7 +432,7 @@ const EditReceptionFormDialog = ({
                           </IconButton>
                         </InputAdornment>
                       }
-                      label="Parolni kiriting"
+                      label={t('Parolni kiriting')}
                     />
                   </FormControl>
                   <div className={cls.BtnParnet}>

@@ -284,7 +284,6 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
             </div>
 
             <form
-              action="#"
               onSubmit={handleFormSubmit}
               className={cls['DepartmentFormWrp__Card--body']}
             >
@@ -354,10 +353,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         </Dialog>
       )}
 
-      {roomCurrentData?.isLoading ||
-        (editRoomFormDialogSubmitIsLoading && <Loader />)}
-
-      {editRoomFormDialogSubmitIsLoading && <Loader />}
+      {(roomCurrentData?.isLoading || editRoomFormDialogSubmitIsLoading) && (
+        <Loader />
+      )}
 
       {roomCurrentData?.error && <ErrorDialog isErrorProps={!false} />}
     </div>

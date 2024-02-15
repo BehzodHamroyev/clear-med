@@ -24,7 +24,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 1,
     path: '/',
-    title: 'Bo‘lim qo‘shish',
+    title: "Bo'lim qo'shish",
     icon: <Bolimlar />,
   },
   {
@@ -42,7 +42,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 4,
     path: '/add-reception',
-    title: 'Reception qo‘shish',
+    title: 'Qabul qo‘shish',
     icon: <Shifokor />,
   },
   {

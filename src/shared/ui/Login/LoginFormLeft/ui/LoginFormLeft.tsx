@@ -36,6 +36,8 @@ const LoginFormLeft = () => {
   const authUserIsLoading = useSelector(getAuthUserIsLoading);
   const authUserError = useSelector(getAuthUserError);
 
+  const buttonsContext = useContext(ButtonsContext);
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -67,6 +69,7 @@ const LoginFormLeft = () => {
                 phoneNumberValue.split('+998')[1].replace(/\s/g, ''),
               ),
               refresh: false,
+              buttonsContext,
             }),
           );
         } else {
@@ -96,7 +99,7 @@ const LoginFormLeft = () => {
 
         <LoginKeyInput />
 
-        <LoginSubmitBtn content={t('Kirish')} />
+        <LoginSubmitBtn content={t('KIRISH')} />
       </form>
 
       <Toast severity="error" message={t('Login yoki parol xato')} />

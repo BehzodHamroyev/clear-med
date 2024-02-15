@@ -17,7 +17,8 @@ const TableTitleReports = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string) => (
             <th key={title} className={cls.th}>
-              {title}
+              {t(title)}
+              {}
             </th>
           ))}
         </tr>
@@ -34,7 +35,9 @@ const TableTitleReports = (props: TableInfo) => {
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
               {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
-                <td className={cls.td}>{item.rooms[0]?.department_id?.name}</td>
+                <td className={cls.td}>
+                  {t(item.rooms[0]?.department_id?.name)}
+                </td>
               ) : (
                 <td className={cls.td}>
                   <span className={cls.td_invalid}>{t("Bo'lim yo'q")}</span>

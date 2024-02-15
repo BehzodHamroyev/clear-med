@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
+import { Dialog } from '@mui/material';
 import cls from './EditAdsFormDiolog.module.scss';
 
 import { baseUrl } from '../../../baseurl';
@@ -30,6 +31,7 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
   const {
     setHasOpenToast,
     setToastDataForAddRoomForm,
+    isOpenAdvertisementEditCard,
     setIsOpenAdvertisementEditCard,
   } = React.useContext(ButtonsContext);
 
@@ -233,16 +235,20 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
     }
   };
 
+  const handleClose = () => {
+    setIsOpenAdvertisementEditCard(false);
+  };
+
   /* UI */
   return (
     <>
       {adsCurrentData?.data && (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpenAdvertisementEditCard(false);
-          }}
+        <Dialog
+          onClose={handleClose}
+          open={isOpenAdvertisementEditCard}
           className={cls.DepartmentAddWrapper}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
           <div
             onClick={(e) => {
@@ -339,7 +345,7 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
               </div>
             </form>
           </div>
-        </div>
+        </Dialog>
       )}
 
       {(adsCurrentData?.isLoading || editAdsLoading) && <Loader />}

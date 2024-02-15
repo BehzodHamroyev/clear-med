@@ -15,6 +15,10 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  Box,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
 } from '@mui/material';
 
 import cls from './EditMonitorFormDialog.module.scss';
@@ -28,7 +32,22 @@ import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service
 
 interface EditMonitorFormDialogTypes {}
 
+interface Advertising {
+  addvertising: boolean;
+  createdAt: string;
+  disabled: boolean;
+  id: string;
+  monitor: string;
+  name: string;
+  rooms: string[];
+  updatedAt: string;
+  videos: string[];
+  __v: number;
+  _id: string;
+}
+
 interface MoniterData {
+  addvertising?: boolean;
   _id?: string;
   name?: string;
   photo?: string;
@@ -37,6 +56,7 @@ interface MoniterData {
   password?: string;
   passwordChangedDate?: Date | null;
   experience?: number;
+  monitors?: Advertising[];
   __v?: number;
   id?: string;
 }
@@ -73,6 +93,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
     monitorEditFormOldValue,
     setIsOpenMonitorEditCard,
     setToastDataForAddRoomForm,
+    setIsMonitorAddSelectionFormAdvertisement,
   } = useContext(ButtonsContext);
 
   const fetchMonitorData = async () => {
@@ -100,6 +121,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
             name: responceData.name,
             login: `+998 ${responceData.login}`,
             password: '',
+            addvertising: responceData!?.monitors!?.[0].addvertising,
           },
         });
       }
@@ -121,6 +143,8 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
       data: {
         name: event?.target?.value,
         login: monitorCurrentData?.data?.login,
+        password: monitorCurrentData?.data?.password,
+        addvertising: monitorCurrentData?.data?.addvertising,
       },
     }));
   };
@@ -132,6 +156,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
         name: monitorCurrentData?.data?.name,
         login: value,
         password: monitorCurrentData?.data?.password,
+        addvertising: monitorCurrentData?.data?.addvertising,
       },
     }));
 
@@ -153,8 +178,33 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
         name: monitorCurrentData?.data?.name,
         login: monitorCurrentData?.data?.login,
         password: e?.target?.value,
+        addvertising: monitorCurrentData?.data?.addvertising,
       },
     }));
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    if (event.target.value === '1') {
+      setMonitorCurrentData((prevData) => ({
+        ...prevData,
+        data: {
+          name: monitorCurrentData?.data?.name,
+          login: monitorCurrentData?.data?.login,
+          password: monitorCurrentData?.data?.password,
+          addvertising: true,
+        },
+      }));
+    } else {
+      setMonitorCurrentData((prevData) => ({
+        ...prevData,
+        data: {
+          name: monitorCurrentData?.data?.name,
+          login: monitorCurrentData?.data?.login,
+          password: monitorCurrentData?.data?.password,
+          addvertising: false,
+        },
+      }));
+    }
   };
 
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
@@ -165,6 +215,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
     const Name = monitorCurrentData?.data?.name;
     const Login = `${monitorCurrentData?.data?.login}`;
     const Password = monitorCurrentData?.data?.password;
+    const addvertisingValue = monitorCurrentData?.data?.addvertising;
 
     if (Name && Login && Login.startsWith('+998')) {
       try {
@@ -173,8 +224,8 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
           JSON.stringify({
             name: Name,
             login: `${Login.split('+998')[1].replace(/\s/g, '')}`,
-
             password: Password || null,
+            addvertising: addvertisingValue,
           }),
           {
             headers: {
@@ -303,7 +354,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
                 className={cls.InputBulim}
               >
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Parolni yangilash
+                  {t('Parolni yangilash')}
                 </InputLabel>
                 <OutlinedInput
                   inputProps={{ minLength: 8, maxLength: 13 }}
@@ -322,11 +373,35 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Parolni yangilash"
+                  label={t('Parolni yangilash')}
                 />
               </FormControl>
 
-              {/* <MonitorAddSelection /> */}
+              <Box sx={{ minWidth: 120, marginBottom: '20px' }}>
+                <FormControl required fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    {t('Reklama turi')}
+                  </InputLabel>
+
+                  <Select
+                    label="Reklama turi"
+                    onChange={handleChange}
+                    id="demo-simple-select"
+                    value={`${
+                      monitorCurrentData?.data?.addvertising &&
+                      monitorCurrentData?.data?.addvertising === true
+                        ? 1
+                        : monitorCurrentData?.data?.addvertising === false
+                        ? 2
+                        : ''
+                    }`}
+                    labelId="demo-simple-select-label"
+                  >
+                    <MenuItem value="1">{t('Reklamali')}</MenuItem>
+                    <MenuItem value="2">{t('Reklamasiz')}</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
 
               <div className={cls.BtnParnet}>
                 <Button
@@ -334,9 +409,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
                   type="button"
                   onClick={handleClose}
                   className={`${cls.Btn}`}
-                  // onClick={handleDeleteCardMonitor}
                 >
-                  {/* {t("O'chirib tashlash")} */}
                   {t('Bekor qilish')}
                 </Button>
 
@@ -362,32 +435,3 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
 };
 
 export default EditMonitorFormDialog;
-
-// const handleDeleteCardMonitor = async (
-//   e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-// ) => {
-//   e.stopPropagation();
-//   setResponseData(`${Math.random() * 100 + 1}`);
-//   setIsOpenMonitorEditCard(false);
-
-//   try {
-//     const response = await axios.delete<any>(
-//       `${baseUrl}/users/${departmentGetId}`,
-//       {
-//         maxBodyLength: Infinity,
-//         headers: {
-//           'Content-Type': 'application/json',
-//           authorization: `Bearer ${token}`,
-//         },
-//       },
-//     );
-
-//     // setResponseAddDoctorStatusCode(200);
-//     // setIsOpenDepartmentEditCard(false);
-
-//     return response.data;
-//   } catch (e) {
-//     // return setResponseAddDoctorStatusCode('404');
-//     return console.log(e);
-//   }
-// };

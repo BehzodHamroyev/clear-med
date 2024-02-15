@@ -8,47 +8,54 @@ import { AuthLogin } from '../types/AuthentificationTypes';
 
 export const fetchAuthUser = createAsyncThunk<
   AuthLogin,
-  { password?: string; login?: number; refresh: boolean },
+  { password?: string; login?: number; refresh: boolean; buttonsContext?: any },
   ThunkConfig<string>
->('Authorization', async ({ password, login, refresh }, thunkApi) => {
-  const { extra, rejectWithValue } = thunkApi;
+>(
+  'Authorization',
+  async ({ password, login, refresh, buttonsContext }, thunkApi) => {
+    const { extra, rejectWithValue } = thunkApi;
 
-  if (refresh) {
-    const getTokenCookie = Cookies.get('token');
+    const { setHasOpenToast } = buttonsContext;
 
-    try {
-      const response = await axios.get<AuthLogin>(`${baseUrl}/users/me`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${getTokenCookie}`,
-        },
-      });
+    if (refresh) {
+      const getTokenCookie = Cookies.get('token');
 
-      if (response) {
-        // console.log(response.data, 'for token1');
-        // console.log(response);
+      try {
+        const response = await axios.get<AuthLogin>(`${baseUrl}/users/me`, {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        });
+
+        if (response) {
+          // console.log(response.data, 'for token');
+        }
+
+        return response.data;
+      } catch (error) {
+        return rejectWithValue('error');
       }
+    } else {
+      try {
+        const response = await axios.post<AuthLogin>(
+          `${baseUrl}/users/signin`,
+          {
+            login,
+            password,
+          },
+        );
 
-      // console.log(response.data);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue('error');
-    }
-  } else {
-    try {
-      const response = await axios.post<AuthLogin>(`${baseUrl}/users/signin`, {
-        login,
-        password,
-      });
+        if (response) {
+          Cookies.set('token', response.data.token);
 
-      if (response) {
-        Cookies.set('token', response.data.token);
+          setHasOpenToast(true);
+        }
+
+        return response.data;
+      } catch (error) {
+        return rejectWithValue('error');
       }
-
-      // console.log(response.data);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue('error');
     }
-  }
-});
+  },
+);

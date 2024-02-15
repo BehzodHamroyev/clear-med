@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -18,6 +18,8 @@ import 'react-calendar/dist/Calendar.css';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { socket } from '@/shared/lib/utils/socket';
+import { getAllDataProject } from '@/entities/FileUploader';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const App = () => {
   const { theme } = useTheme();
@@ -28,11 +30,14 @@ const App = () => {
 
   const authUserData = useSelector(getAuthUserData);
 
+  const buttonsContext = useContext(ButtonsContext);
+
   useEffect(() => {
     if (Cookies.get('token')) {
       dispatch(
         fetchAuthUser({
           refresh: true,
+          buttonsContext,
         }),
       ).then((res) => {
         if (res.payload === 'error') {
@@ -72,6 +77,11 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // get data of project which are logo and text
+  useEffect(() => {
+    dispatch(getAllDataProject({}));
+  }, [dispatch]);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>

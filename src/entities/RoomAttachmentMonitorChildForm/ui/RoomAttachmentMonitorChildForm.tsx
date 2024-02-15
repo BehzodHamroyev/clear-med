@@ -234,9 +234,9 @@ const RoomAttachmentMonitorChildForm = ({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Xonalar"
+                  label={t('Xonalar')}
                   style={{ cursor: 'pointer' }}
-                  placeholder="Xonani tanlang..."
+                  placeholder={`${t('Xonani tanlang')}...`}
                   required={!(personId.length > 0)}
                 />
               )}
