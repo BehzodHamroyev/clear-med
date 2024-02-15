@@ -65,6 +65,8 @@ const App = () => {
         socket.on('disconnect', () => {
           socket.emit('dis', authUserData?._id);
         });
+
+        socket.disconnect();
       };
 
       // Add the event listener
