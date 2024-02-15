@@ -24,7 +24,12 @@ const TableTitleReports = (props: TableInfo) => {
         </tr>
       </thead>
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => (
+        {Tabletbody.filter(
+          (item) =>
+            item?.name &&
+            item?.rooms.length > 0 &&
+            item?.rooms[0]?.department_id,
+        ).map((item) => (
           <Link
             key={item._id}
             style={{ listStyle: 'none', textDecoration: 'none', color: '#000' }}
