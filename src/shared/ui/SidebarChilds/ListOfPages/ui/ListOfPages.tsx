@@ -42,7 +42,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 4,
     path: '/add-reception',
-    title: 'Reception qo‘shish',
+    title: 'Qabul qo‘shish',
     icon: <Shifokor />,
   },
   {
