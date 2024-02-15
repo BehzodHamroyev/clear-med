@@ -24,7 +24,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 1,
     path: '/',
-    title: 'Bo‘lim qo‘shish',
+    title: "Bo'lim qo'shish",
     icon: <Bolimlar />,
   },
   {

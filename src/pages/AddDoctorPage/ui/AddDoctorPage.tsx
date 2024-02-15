@@ -99,7 +99,7 @@ const AddDoctorPage = () => {
             <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Xona')}</th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
-              {t('Bo’lim')}
+              {t("Bo'lim")}
             </th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>

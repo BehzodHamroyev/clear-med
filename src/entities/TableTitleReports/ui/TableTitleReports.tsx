@@ -17,7 +17,8 @@ const TableTitleReports = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string) => (
             <th key={title} className={cls.th}>
-              {title}
+              {t(title)}
+              {}
             </th>
           ))}
         </tr>

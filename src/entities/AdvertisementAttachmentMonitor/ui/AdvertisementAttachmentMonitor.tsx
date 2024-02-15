@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './AdvertisementAttachmentMonitor.module.scss';
@@ -45,6 +46,8 @@ const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana', 'Delete'];
 
 /* Component */
 const AdvertisementAttachmentMonitor = () => {
+  const { t } = useTranslation();
+
   const { id } = useParams();
   const listAdsVideo = useSelector(getAdsData);
   const dispatch = useAppDispatch();
@@ -77,10 +80,10 @@ const AdvertisementAttachmentMonitor = () => {
             to={`/add_monitor/${id}`}
           >
             {Svg}
-            Ortga
+            {t('Ortga')}
           </Link>
           <p className={cls['RoomAttachmentMonitorWrapper__Title--content']}>
-            Monitorga biriktirilgan reklamalar{' '}
+            {t('Monitorga biriktirilgan reklamalar')}{' '}
             <span>({getAllForOneMonitor.data!?.length})</span>
           </p>
 
@@ -100,7 +103,7 @@ const AdvertisementAttachmentMonitor = () => {
           Tabletbody={getAllForOneMonitor.data}
         />
       </div>
-      
+
       {isOpenAttachmentRoomMonitorChild ? (
         <ModalToAddAdsForMonitor
           data={listAdsVideo!}
@@ -109,7 +112,6 @@ const AdvertisementAttachmentMonitor = () => {
       ) : (
         ''
       )}
-     
     </div>
   );
 };

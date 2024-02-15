@@ -3,11 +3,16 @@
   "Hospital name": "Название больницы",
   "Upload Logo": "Загрузка логотипа",
   "Save": "Сохранять",
+  "F.I.Sh": "Ф.И.Ш",
+  "Shifokor ro'yxati": "Список врачей",
+  "Shifokor": "Врачей",
+  "Xona biriktirish": "Приложение к комнате",
+  "Reklama biriktirish": "Приложение к объявлению",
 
   "MENU": "МEНУ",
   "KIRISH": "Aвторизоваться",
 
-  "Bo‘lim qo‘shish": "Добавить раздел",
+  "Bo'lim qo'shish": "Добавить раздел",
   "Reklama qo'shish": "Добавить объявление",
   "Xona qo‘shish": "Добавить комнату",
   "Shifokor qo‘shish": "Добавить врача",
@@ -48,6 +53,9 @@
   "monitor": "Монитор",
 
   "Xonalar": "Номера",
+  "Xonani tanlang": "Выберите номер",
+  "Monitorga biriktirilgan reklamalar": "Реклама прикреплена к монитору",
+  "Yangi parolni tasdiqlash uchun qayta kiriting": "Повторно введите новый пароль для подтверждения.",
 
   "Shifokorlar": "Врачи",
   "Ortga": "Назад",
