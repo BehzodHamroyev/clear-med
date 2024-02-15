@@ -32,7 +32,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   const authUserData = useSelector(getAuthUserData);
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
-  const { hasOpenToast, isOpenLanugagePopup } = useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    isOpenLanugagePopup,
+    isLoginForHasToast,
+    setIsLoginForHasToast,
+  } = useContext(ButtonsContext);
 
   const location = useLocation();
 
@@ -41,6 +46,14 @@ export const MainLayout = memo((props: MainLayoutProps) => {
       socket.emit('addUser', authUserData.id);
     }
   }, [authUserData]);
+
+  useEffect(() => {
+    if (isLoginForHasToast) {
+      setTimeout(() => {
+        setIsLoginForHasToast(false);
+      }, 5000);
+    }
+  }, [isLoginForHasToast, setIsLoginForHasToast]);
 
   return (
     <div>
@@ -61,7 +74,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
-          {hasOpenToast && (
+          {hasOpenToast && isLoginForHasToast && (
             <Toast
               severity="success"
               message={t('Timizga muvaffaqqiyatli kirdingiz')}
