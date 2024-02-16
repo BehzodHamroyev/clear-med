@@ -20,6 +20,7 @@
   "Reklama qo'shish": "Reklama qo'shish",
   "Xona qo‘shish": "Xona qo‘shish",
   "Shifokor qo‘shish": "Shifokor qo‘shish",
+  "Shifokorni tahrirlash": "Shifokorni tahrirlash",
   "Hisobotlar": "Hisobotlar",
   "Navbatlar": "Navbatlar",
   "Navbat berish": "Navbat berish",
@@ -36,6 +37,7 @@
   "Qorong‘i": "Qorong‘i",
 
   "Fullscreen": "To‘liq ekran",
+  "Receptions": "Qabullar",
 
   "Bilet raqami": "Bilet raqami",
   "Xona raqami": "Xona raqami",
@@ -53,7 +55,7 @@
   "November": "Noyabr",
   "December": "Dekabr",
   "doctor": "Doctor",
-  "reception": "Reception",
+  "reception": "Qabul Xona",
   "monitor": "Monitor",
 
   "Xonalar": "Xonalar",

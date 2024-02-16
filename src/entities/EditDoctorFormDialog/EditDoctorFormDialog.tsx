@@ -324,7 +324,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
         >
           <div className={cls.DoctorEditWrapperCard}>
             <div className={cls.EditDoctorCard}>
-              <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+              <h3 className={cls.CardTitle}>{t('Shifokorni tahrirlash')}</h3>
 
               <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
                 <div className={cls.AddCardImg}>
