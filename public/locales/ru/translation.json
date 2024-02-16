@@ -152,5 +152,9 @@
   "Monitorni tahrirlash": "Редактировать монитор",
   "Parolni yangilash": "Обновление пароля",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Вы действительно хотите выключить этот монитор?",
-  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Введите свои данные для входа."
+  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Введите свои данные для входа.",
+
+  "Bo'li yo'q": "Нет раздела",
+  "Xona yo'q": "Нет места",
+  "Shifokor yo'q": "Нет доктора"
 }
