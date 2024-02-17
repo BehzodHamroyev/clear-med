@@ -62,7 +62,12 @@
       box-shadow: 4px 4px 12px 0 #0000001a;
       transition: all 0.1s linear;
       cursor: pointer;
+      user-select: none;
       list-style: none;
+    }
+
+    &--disable {
+      opacity: 0.5;
     }
 
     &--box:hover {

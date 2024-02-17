@@ -1,10 +1,24 @@
 /* eslint-disable max-len */
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
-import { useTranslation } from 'react-i18next';
 import cls from './attachMonitorOrAdvertisement.module.scss';
+
+import {
+  getError,
+  getIsLoading,
+  fetchGetAllMonitors,
+  GetAllMonitorPageData,
+} from '@/pages/AddMonitorPage';
+
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from '@/widgets/Loader';
+import { ErrorReload } from '@/widgets/Error';
+import Toast from '@/shared/ui/Toast/Toast';
 
 /* svg */
 const Svg = (
@@ -77,71 +91,135 @@ const AttachMonitorOrAdvertisement = () => {
 
   const { t } = useTranslation();
 
-  const { monitorNumber } = useContext(ButtonsContext);
+  const dispatch = useAppDispatch();
+
+  const [advertisement, setAdvertisement] = useState<boolean | null>(null);
+
+  const [isOpenToast, setisOpenToast] = useState<boolean>(false);
+
+  const getAllMonitorError = useSelector(getError);
+
+  const { monitorNumber, hasOpenToast, setHasOpenToast } =
+    useContext(ButtonsContext);
+
+  const getAllMonitorIsLoading = useSelector(getIsLoading);
+
+  const getAllMonitorData = useSelector(GetAllMonitorPageData);
+
+  const handleOpenToast = () => {
+    setHasOpenToast(true);
+  };
+
+  useEffect(() => {
+    dispatch(fetchGetAllMonitors({}));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (id && getAllMonitorData) {
+      getAllMonitorData.filter((monitorData) => {
+        if (monitorData.id === id) {
+          setAdvertisement(monitorData.monitors[0].addvertising);
+        }
+        return null;
+      });
+    }
+  }, [getAllMonitorData, id]);
 
   return (
-    <div className={cls.AttachMonitorOrAdvertisementWrapper}>
-      {/* Title */}
-      <div className={cls.AttachMonitorOrAdvertisementWrapper__Title}>
-        <Link
-          className={cls['AttachMonitorOrAdvertisementWrapper__Title--btn']}
-          to="/add_monitor"
-        >
-          {Svg}
-          {t('Ortga')}
-        </Link>
+    <>
+      {getAllMonitorData && (
+        <div className={cls.AttachMonitorOrAdvertisementWrapper}>
+          {/* Title */}
+          <div className={cls.AttachMonitorOrAdvertisementWrapper__Title}>
+            <Link
+              className={cls['AttachMonitorOrAdvertisementWrapper__Title--btn']}
+              to="/add_monitor"
+            >
+              {Svg}
+              {t('Ortga')}
+            </Link>
 
-        <p
-          className={cls['AttachMonitorOrAdvertisementWrapper__Title--content']}
-        >
-          {monitorNumber ? `${monitorNumber} - ${t('Monitor')}` : ''}
-        </p>
-        <p />
-      </div>
-
-      {/* Body */}
-      <div className={cls.AttachMonitorOrAdvertisementWrapper__Body}>
-        <Link
-          to={`/add_monitor/${id}/add_room_for_monitor`}
-          className={cls['AttachMonitorOrAdvertisementWrapper__Body--box']}
-        >
-          <div
-            className={
-              cls['AttachMonitorOrAdvertisementWrapper__Body--boxChild']
-            }
-          >
             <p
               className={
-                cls['AttachMonitorOrAdvertisementWrapper__Body--boxChildText']
+                cls['AttachMonitorOrAdvertisementWrapper__Title--content']
               }
             >
-              {t('Xona biriktirish')}
+              {monitorNumber ? `${monitorNumber} - ${t('Monitor')}` : ''}
             </p>
-            {DoorSvg}
+            <p />
           </div>
-        </Link>
 
-        <Link
-          to={`/add_monitor/${id}/advertisement_attachment_monitor`}
-          className={cls['AttachMonitorOrAdvertisementWrapper__Body--box']}
-        >
-          <div
-            className={
-              cls['AttachMonitorOrAdvertisementWrapper__Body--boxChild']
-            }
-          >
-            <p
-              className={
-                cls['AttachMonitorOrAdvertisementWrapper__Body--boxChildText']
-              }
+          {/* Body */}
+          <div className={cls.AttachMonitorOrAdvertisementWrapper__Body}>
+            <Link
+              to={`/add_monitor/${id}/add_room_for_monitor`}
+              className={cls['AttachMonitorOrAdvertisementWrapper__Body--box']}
             >
-              {t('Reklama biriktirish')}
-            </p>
-            {SpeakerSvg}
+              <div
+                className={
+                  cls['AttachMonitorOrAdvertisementWrapper__Body--boxChild']
+                }
+              >
+                <p
+                  className={
+                    cls[
+                      'AttachMonitorOrAdvertisementWrapper__Body--boxChildText'
+                    ]
+                  }
+                >
+                  {t('Xona biriktirish')}
+                </p>
+                {DoorSvg}
+              </div>
+            </Link>
+
+            <Link
+              to={
+                advertisement
+                  ? `/add_monitor/${id}/advertisement_attachment_monitor`
+                  : ''
+              }
+              className={`${
+                cls['AttachMonitorOrAdvertisementWrapper__Body--box']
+              } ${
+                !advertisement
+                  ? cls['AttachMonitorOrAdvertisementWrapper__Body--disable']
+                  : ''
+              }`}
+              onClick={handleOpenToast}
+            >
+              <div
+                className={
+                  cls['AttachMonitorOrAdvertisementWrapper__Body--boxChild']
+                }
+              >
+                <p
+                  className={
+                    cls[
+                      'AttachMonitorOrAdvertisementWrapper__Body--boxChildText'
+                    ]
+                  }
+                >
+                  {t('Reklama biriktirish')}
+                </p>
+                {SpeakerSvg}
+              </div>
+            </Link>
           </div>
-        </Link>
-      </div>
-    </div>
+        </div>
+      )}
+
+      {getAllMonitorIsLoading && <Loader />}
+
+      {getAllMonitorError && <ErrorReload message={getAllMonitorError} />}
+
+      {!advertisement && hasOpenToast && (
+        <Toast
+          message={t("Ushbu Monitorga reklama biriktirish o'chirilgan!")}
+          severity="warning"
+        />
+      )}
+    </>
   );
 };
 
