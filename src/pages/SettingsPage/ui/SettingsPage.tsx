@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
@@ -9,7 +10,7 @@ import cls from './SettingsPage.module.scss';
 import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
 import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
 import { FileUploader } from '@/entities/FileUploader';
-// import { FileUploader } from '@/entities/FileUploader';
+import { getAuthUserData } from '@/features/Auth';
 
 const SettingsPage = () => {
   const { t } = useTranslation();
@@ -19,6 +20,8 @@ const SettingsPage = () => {
     isOpenUploadLogo,
     isOpenSettingsChangePassword,
   } = useContext(ButtonsContext);
+
+  const authUserData = useSelector(getAuthUserData);
 
   return (
     <div className={cls.SettingsPageWrapper}>
@@ -38,7 +41,11 @@ const SettingsPage = () => {
           ''
         )}
 
-        {isOpenUploadLogo ? <FileUploader /> : ''}
+        {isOpenUploadLogo && authUserData && authUserData?.role === 'admin' ? (
+          <FileUploader />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

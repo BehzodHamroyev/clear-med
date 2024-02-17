@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -36,11 +36,11 @@ const RoomPage = () => {
   const { t } = useTranslation();
 
   /* useState */
-  const [tableBody, setTableBody] = React.useState<any>([]);
+  const [tableBody, setTableBody] = useState<any>([]);
 
   /* useContext  */
   const { isOpenRoomEditCard, isOpenRoomAddCard, departmentListChanged } =
-    React.useContext(ButtonsContext);
+    useContext(ButtonsContext);
 
   /* selectors */
   const getListOfRooms = useSelector(getListOfRoom);
@@ -50,7 +50,7 @@ const RoomPage = () => {
   const getRoomError = useSelector(getError);
 
   /* useEffect */
-  React.useEffect(() => {
+  useEffect(() => {
     if (getListOfRooms) {
       const tableBodys = getListOfRooms.room.map((item: any) => {
         return {
@@ -64,11 +64,11 @@ const RoomPage = () => {
     }
   }, [getListOfRooms]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchRoomGetAll({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       dispatch(fetchRoomGetAll({}));
     }, 1000);
@@ -100,6 +100,7 @@ const RoomPage = () => {
           </div>
 
           {isOpenRoomAddCard ? <RoomAdd /> : ''}
+
           {isOpenRoomEditCard ? <RoomEdit tableBody={tableBody} /> : ''}
         </div>
       )}
