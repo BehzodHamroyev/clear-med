@@ -1,16 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 import cls from './ListOfSettingsPassword.module.scss';
-import { classNames } from '@/shared/lib/classNames/classNames';
 
+import { Loader } from '@/widgets/Loader';
+import Toast from '@/shared/ui/Toast/Toast';
 import { baseUrl } from '../../../../baseurl';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { LoginSubmitBtn } from '@/shared/ui/Login/LoginSubmitBtn';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import Toast from '@/shared/ui/Toast/Toast';
-import { Loader } from '@/widgets/Loader';
 
 interface ListOfSettingsPasswordProps {
   className?: string;
@@ -20,10 +21,10 @@ const ListOfSettingsPassword = ({ className }: ListOfSettingsPasswordProps) => {
   const { t } = useTranslation();
 
   const {
+    hasOpenToast,
+    setHasOpenToast,
     settingsFormData,
     setSettingsFormData,
-    setHasOpenToast,
-    hasOpenToast,
   } = useContext(ButtonsContext);
 
   const [toastProps, setToastProps] = useState({
