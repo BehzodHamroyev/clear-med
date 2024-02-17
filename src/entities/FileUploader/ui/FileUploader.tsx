@@ -129,7 +129,6 @@ export const FileUploader = () => {
         <div className={cls.wrapperInput}>
           <Input
             required
-            autoFocus
             minLength={8}
             maxLength={17}
             name="PhoneNumber"
