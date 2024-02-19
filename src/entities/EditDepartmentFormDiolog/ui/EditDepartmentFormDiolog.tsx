@@ -53,8 +53,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
-  const ResultIconArr =
-    iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon;
+  const ResultIconArr = isOpenDepartmentAddCardIconIndex
+    ? iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon
+    : undefined;
 
   const fetchRoomData = async () => {
     setRoomCurrentData({
@@ -77,10 +78,11 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
       if (response.data.department) {
         const responceData: Department = response?.data.department;
 
-        const ResultIconArr =
-          iconsCardDepartments[Number(responceData.image)].icon;
+        const ResultIconArr = isOpenDepartmentAddCardIconIndex
+          ? iconsCardDepartments[Number(responceData.image)].icon
+          : undefined;
 
-        setResultIcon(<ResultIconArr />);
+        setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
 
         setRoomCurrentData({
           error: false,
@@ -90,7 +92,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
             duration: responceData.duration,
             photo: responceData.photo,
             image: responceData?.image,
-            renderPhoto: <ResultIconArr />,
+            renderPhoto: ResultIconArr ? <ResultIconArr /> : null,
           },
         });
       }
@@ -227,8 +229,10 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         data: {
           name: roomCurrentData?.data?.name,
           duration: roomCurrentData?.data?.duration,
-          image: `${isOpenDepartmentAddCardIconIndex}`,
-          renderPhoto: <ResultIconArr />,
+          image: isOpenDepartmentAddCardIconIndex
+            ? `${isOpenDepartmentAddCardIconIndex}`
+            : '',
+          renderPhoto: ResultIconArr ? <ResultIconArr /> : undefined,
         },
       }));
     }
@@ -240,7 +244,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
   ]);
 
   useEffect(() => {
-    setResultIcon(<ResultIconArr />);
+    setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
   }, [ResultIconArr]);
 
   useEffect(() => {
