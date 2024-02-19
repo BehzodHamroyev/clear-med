@@ -36,6 +36,10 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     setEditDepartmentFormDialogSubmitIsLoading,
   ] = useState(false);
 
+  const [resultIcon, setResultIcon] = useState<React.ReactNode | undefined>(
+    undefined,
+  );
+
   const [roomCurrentData, setRoomCurrentData] =
     useState<EditDepartmentTypeSchema>();
 
@@ -49,12 +53,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
-  const ResultIconArr =
-    iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon;
-
-  const handleClose = () => {
-    setIsOpenDepartmentEditCard(false);
-  };
+  const ResultIconArr = isOpenDepartmentAddCardIconIndex
+    ? iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon
+    : undefined;
 
   const fetchRoomData = async () => {
     setRoomCurrentData({
@@ -77,8 +78,11 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
       if (response.data.department) {
         const responceData: Department = response?.data.department;
 
-        const ResultIconArr =
-          iconsCardDepartments[Number(responceData.image)].icon;
+        const ResultIconArr = isOpenDepartmentAddCardIconIndex
+          ? iconsCardDepartments[Number(responceData.image)].icon
+          : undefined;
+
+        setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
 
         setRoomCurrentData({
           error: false,
@@ -88,7 +92,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
             duration: responceData.duration,
             photo: responceData.photo,
             image: responceData?.image,
-            renderPhoto: <ResultIconArr />,
+            renderPhoto: ResultIconArr ? <ResultIconArr /> : null,
           },
         });
       }
@@ -124,6 +128,10 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         image: roomCurrentData?.data?.image,
       },
     }));
+  };
+
+  const handleGetIconDepartment = async () => {
+    setIsOpenDepartmentAddCardIcon(true);
   };
 
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
@@ -210,8 +218,8 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     }
   };
 
-  const handleGetIconDepartment = async () => {
-    setIsOpenDepartmentAddCardIcon(true);
+  const handleClose = () => {
+    setIsOpenDepartmentEditCard(false);
   };
 
   useEffect(() => {
@@ -221,8 +229,10 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         data: {
           name: roomCurrentData?.data?.name,
           duration: roomCurrentData?.data?.duration,
-          image: `${isOpenDepartmentAddCardIconIndex}`,
-          renderPhoto: <ResultIconArr />,
+          image: isOpenDepartmentAddCardIconIndex
+            ? `${isOpenDepartmentAddCardIconIndex}`
+            : '',
+          renderPhoto: ResultIconArr ? <ResultIconArr /> : undefined,
         },
       }));
     }
@@ -232,6 +242,10 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     roomCurrentData?.data?.duration,
     roomCurrentData?.data?.name,
   ]);
+
+  useEffect(() => {
+    setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
+  }, [ResultIconArr]);
 
   useEffect(() => {
     if (editDepartmentId) {
@@ -257,9 +271,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
               </h3>
 
               <div className={cls['DepartmentFormWrp__Card--iconRender']}>
-                {roomCurrentData.data.renderPhoto
-                  ? roomCurrentData.data.renderPhoto
-                  : ''}
+                {resultIcon || ''}
               </div>
             </div>
 
@@ -291,7 +303,6 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
                 variant="outlined"
                 id="outlined-basic"
                 inputProps={{ min: 1 }}
-                // label={t("Bemorni ko'rish vaqti")}
                 onChange={handleDurationInputChange}
                 value={roomCurrentData?.data.duration}
                 className={cls['DepartmentFormWrp__Card--Input']}
