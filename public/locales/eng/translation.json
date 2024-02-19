@@ -1,12 +1,14 @@
 {
   "Update center information": "Update hospital information",
   "Hospital name": "Name of the hospital",
+  "Hospital email": "Hospital email",
+  "Hospital address": "Hospital address",
   "Upload Logo": "Logo upload",
   "Save": "Save",
   "Shifokor ro'yxati": "List of doctors",
   "Shifokor": "Doctor",
   "Xona biriktirish": "Room attachment",
-  "Reklama biriktirish": "Ad attachment",
+  "Reklama biriktirish": "Ads attachment",
   "Xonani tanlang": "Select a room",
   "Monitorga biriktirilgan reklamalar": "Ads attached to the monitor",
   "Yangi parolni tasdiqlash uchun qayta kiriting": "Re-enter the new password to confirm",
@@ -158,5 +160,6 @@
 
   "Bo'lim yo'q": "No department",
   "Xona yo'q": "No room",
-  "Shifokor yo'q": "No Doctor"
+  "Shifokor yo'q": "No Doctor",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ads attachment is disabled on this Monitor!"
 }

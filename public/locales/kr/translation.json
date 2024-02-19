@@ -1,6 +1,8 @@
 {
   "Update center information": "Шифохона маълумотларини янгилаш",
   "Hospital name": "Шифохона номи",
+  "Hospital email": "Касалхона электрон почтаси",
+  "Hospital address": "Касалхона манзили",
   "Upload Logo": "Лого юклаш",
   "Save": "Сақлаш",
   "F.I.Sh": "Ф.И.Ш",
@@ -154,5 +156,6 @@
 
   "Bo'lim yo'q": "Бўлим йўқ",
   "Xona yo'q": "Хона йўқ",
-  "Shifokor yo'q": "Шифокор йўқ"
+  "Shifokor yo'q": "Шифокор йўқ",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ушбу Мониторга реклама бириктириш ўчирилган!"
 }

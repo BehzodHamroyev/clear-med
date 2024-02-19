@@ -1,6 +1,8 @@
 {
   "Update center information": "Shifoxona ma'lumotlarini yangilash",
   "Hospital name": "Shifoxona nomi",
+  "Hospital email": "Kasalxona elektron pochtasi",
+  "Hospital address": "Kasalxona manzili",
   "Upload Logo": "Logo yuklash",
   "Save": "Saqlash",
   "Shifokor ro'yxati": "Shifokor ro’yxati",
@@ -156,5 +158,6 @@
 
   "Bo'lim yo'q": "Bo‘lim yo'q",
   "Xona yo'q": "Xona yo'q",
-  "Shifokor yo'q": "Shifokor yo'q"
+  "Shifokor yo'q": "Shifokor yo'q",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ushbu Monitorga reklama biriktirish o'chirilgan!"
 }
