@@ -15,6 +15,22 @@ const ListOfSettingsTheme = () => {
   const themeActive = localStorage.getItem('themeIsActive');
 
   const { toggleTheme, theme } = useTheme();
+  console.log(theme);
+
+  const autoTheme = () => {
+    localStorage.setItem('themeIsActive', '1');
+    toggleTheme(Theme.AUTO);
+  };
+
+  const lightTheme = () => {
+    localStorage.setItem('themeIsActive', '2');
+    toggleTheme(Theme.LIGHT);
+  };
+
+  const darkTheme = () => {
+    localStorage.setItem('themeIsActive', '3');
+    toggleTheme(Theme.DARK);
+  };
 
   useEffect(() => {
     if (themeActive === '1') {
@@ -30,24 +46,15 @@ const ListOfSettingsTheme = () => {
       const timer = setInterval(autoSwitchTheme, 60 * 60 * 1000);
       return () => clearInterval(timer);
     }
+    if (themeActive === '2') {
+      toggleTheme(Theme.LIGHT);
+    }
+    if (themeActive === '3') {
+      toggleTheme(Theme.DARK);
+    }
 
     return console.log("don't remove");
   }, [themeActive, toggleTheme]);
-
-  const autoTheme = () => {
-    toggleTheme(Theme.AUTO);
-    localStorage.setItem('themeIsActive', '1');
-  };
-
-  const lightTheme = () => {
-    toggleTheme(Theme.LIGHT);
-    localStorage.setItem('themeIsActive', '2');
-  };
-
-  const darkTheme = () => {
-    toggleTheme(Theme.DARK);
-    localStorage.setItem('themeIsActive', '3');
-  };
 
   return (
     <div className={cls.ListOfSettingsThemeWrapper}>

@@ -62,10 +62,7 @@ export const FileUploader = () => {
       formData.append('name', name!);
       formData.append('email', email!);
       formData.append('address', address!);
-      formData.append(
-        'phoneNumber',
-        `${phoneNumber.split('+998')[1].replace(/\s/g, '')}`,
-      );
+      formData.append('phone', phoneNumber.split('+998')[1].replace(/\s/g, ''));
       formData.append('summary', 'summary'!);
     }
 
