@@ -46,6 +46,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       sizdan_oldingi_bemorlar_soni: 1,
     });
 
+  const [isLoginForHasToast, setIsLoginForHasToast] = useState<boolean>(false);
+
   const [clickedDoctorId, setClickedDoctorId] = useState('');
 
   const [isOpenSettingsChangePassword, setIsOpenSettingsChangePassword] =
@@ -208,6 +210,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      isLoginForHasToast,
+      setIsLoginForHasToast,
+
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
 
@@ -325,6 +330,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenUploadLogo,
     }),
     [
+      isLoginForHasToast,
+      setIsLoginForHasToast,
+
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
 

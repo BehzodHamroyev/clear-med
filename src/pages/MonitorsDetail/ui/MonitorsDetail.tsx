@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import ReactPlayer from 'react-player';
 
 import cls from './MonitorsDetail.module.scss';
-import medLogo from '../../../../public/assets/medLogo.png';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -23,11 +22,16 @@ import { socket } from '@/shared/lib/utils/socket';
 import { Queue } from '@/pages/QueuesControlDoctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { getInfoProject } from '@/entities/FileUploader';
 
 const MonitorsDetail = () => {
   const paramIdUrl: { id?: string } = useParams();
 
   const dispatch = useAppDispatch();
+
+  const infoProject = useSelector(getInfoProject);
+
+  const imgLink: string = `http://medapi.magicsoft.uz/${infoProject?.[0]?.logo}`;
 
   const videoUrl: string[] = [];
 
@@ -93,15 +97,17 @@ const MonitorsDetail = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <p>Med Navbat Clinic Centr</p>
+            <img src={imgLink} alt="imgLink" className={cls.NavbarLogo} />
+
+            <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
               <p>{t('Ishonch raqami:')} +998 71 225 25 25</p>
             </div>
-            <div className={classNames(cls.QueuesPage__headerRightLogo)}>
+            {/* <div className={classNames(cls.QueuesPage__headerRightLogo)}>
               <img src={medLogo} alt="logo" />
-            </div>
+            </div> */}
           </div>
         </div>
 

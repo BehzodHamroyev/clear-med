@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { Tooltip } from '@mui/material';
 import {
   Xona,
   Settings,
@@ -211,15 +212,21 @@ export const ListOfPages = memo(() => {
       location.pathname === item.path ? cls.liActive : cls.li;
 
     return (
-      <Link
-        className={`${classNamesOne} `}
-        key={item.title}
-        to={item.path}
-        onClick={() => setLinkIndex(index + 1)}
+      <Tooltip
+        className={cls.tooltipColor}
+        placement="right"
+        title={!isOpenSidebar ? item.title : null}
       >
-        {item.icon}
-        {isOpenSidebar ? t(item.title) : ''}
-      </Link>
+        <Link
+          className={`${classNamesOne} `}
+          key={item.title}
+          to={item.path}
+          onClick={() => setLinkIndex(index + 1)}
+        >
+          {item.icon}
+          {isOpenSidebar ? t(item.title) : ''}
+        </Link>
+      </Tooltip>
     );
   });
 

@@ -329,135 +329,134 @@ const EditReceptionFormDialog = ({
   return (
     <>
       {receptionCurrentData?.data && (
-        <BootstrapDialog
-          className={classNames(cls.AddRoomFormDialog__Container)}
+        <Dialog
           onClose={handleClose}
-          aria-labelledby="customized-dialog-title"
           open={isOpenEditReceptionCard}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className={classNames(cls.DepartmentAddWrapper)}
         >
-          <div className={cls.DepartmentAddWrapper}>
-            <div className={cls.DepartmentAddCard}>
-              <h3 className={cls.CardTitle}>{t('Qabulni tahrirlash')}</h3>
+          <div className={cls.DepartmentAddCard}>
+            <h3 className={cls.CardTitle}>{t('Qabulni tahrirlash')}</h3>
 
-              <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
-                <div className={cls.AddCardImg}>
-                  <img
-                    className={cls.AddCardImgValue}
-                    src={
-                      selectedFile
-                        ? URL.createObjectURL(selectedFile)
-                        : `http://medapi.magicsoft.uz/${receptionCurrentData.data.photo}`
+            <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
+              <div className={cls.AddCardImg}>
+                <img
+                  className={cls.AddCardImgValue}
+                  src={
+                    selectedFile
+                      ? URL.createObjectURL(selectedFile)
+                      : `http://medapi.magicsoft.uz/${receptionCurrentData.data.photo}`
+                  }
+                  alt="doctor"
+                />
+
+                <button
+                  type="button"
+                  onClick={handleClickUploadImage}
+                  className={cls.AddCardImgValuebtn}
+                >
+                  {}
+                  <GetImage />
+                </button>
+
+                <input
+                  id="input"
+                  type="file"
+                  ref={inputProfileImgRef}
+                  style={{ display: 'none' }}
+                  accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
+                  onChange={(e) => handleImgProfileFileChange(e)}
+                />
+              </div>
+
+              <div className={cls.CardBody}>
+                <TextField
+                  required
+                  type="text"
+                  variant="outlined"
+                  label={t('F.I.Sh')}
+                  id="outlined-basic"
+                  className={cls.InputBulim}
+                  inputProps={{ min: 1, maxLength: 30 }}
+                  value={receptionCurrentData?.data?.name}
+                  onChange={handleChangeName}
+                />
+                <TextField
+                  required
+                  type="number"
+                  variant="outlined"
+                  id="outlined-basic"
+                  label={t('Tajribasi')}
+                  className={cls.InputBulim}
+                  inputProps={{ min: 1, max: 50 }}
+                  value={receptionCurrentData?.data?.exprience}
+                  onChange={handleChangeExprience}
+                />
+                {t('Telefon raqami')}
+                <Input
+                  required
+                  autoFocus
+                  minLength={8}
+                  name="PhoneNumber"
+                  autoComplete="off"
+                  rules={{ required: true }}
+                  className={cls.InputPhoneNumber}
+                  placeholder={t('Telefon raqami')}
+                  value={receptionCurrentData?.data?.login}
+                  onChange={handleChangeLogin}
+                />
+                <FormControl
+                  sx={{ width: '100%', margin: '10px 0' }}
+                  variant="outlined"
+                >
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    {t('Parolni kiriting')}
+                  </InputLabel>
+
+                  <OutlinedInput
+                    inputProps={{ maxLength: 12, minLength: 8 }}
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={receptionCurrentData.data.password}
+                    onChange={handleChangePassword}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
                     }
-                    alt="doctor"
+                    label={t('Parolni kiriting')}
                   />
-
-                  <button
+                </FormControl>
+                <div className={cls.BtnParnet}>
+                  <Button
                     type="button"
-                    onClick={handleClickUploadImage}
-                    className={cls.AddCardImgValuebtn}
+                    variant="outlined"
+                    onClick={handleClose}
+                    className={`${cls.Btn} ${cls.Btn1}`}
                   >
-                    {}
-                    <GetImage />
-                  </button>
+                    {t('Bekor qilish')}
+                  </Button>
 
-                  <input
-                    id="input"
-                    type="file"
-                    ref={inputProfileImgRef}
-                    style={{ display: 'none' }}
-                    accept=".jpg, .jpeg, .png, .svg, .heic, .webp"
-                    onChange={(e) => handleImgProfileFileChange(e)}
-                  />
-                </div>
-
-                <div className={cls.CardBody}>
-                  <TextField
-                    required
-                    type="text"
-                    variant="outlined"
-                    label={t('F.I.Sh')}
-                    id="outlined-basic"
-                    className={cls.InputBulim}
-                    inputProps={{ min: 1, maxLength: 30 }}
-                    value={receptionCurrentData?.data?.name}
-                    onChange={handleChangeName}
-                  />
-                  <TextField
-                    required
-                    type="number"
-                    variant="outlined"
-                    id="outlined-basic"
-                    label={t('Tajribasi')}
-                    className={cls.InputBulim}
-                    inputProps={{ min: 1, max: 50 }}
-                    value={receptionCurrentData?.data?.exprience}
-                    onChange={handleChangeExprience}
-                  />
-                  {t('Telefon raqami')}
-                  <Input
-                    required
-                    autoFocus
-                    minLength={8}
-                    name="PhoneNumber"
-                    autoComplete="off"
-                    rules={{ required: true }}
-                    className={cls.InputPhoneNumber}
-                    placeholder={t('Telefon raqami')}
-                    value={receptionCurrentData?.data?.login}
-                    onChange={handleChangeLogin}
-                  />
-                  <FormControl
-                    sx={{ width: '100%', margin: '10px 0' }}
-                    variant="outlined"
+                  <Button
+                    className={`${cls.Btn} ${cls.Btn2}`}
+                    type="submit"
+                    variant="contained"
                   >
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      {t('Parolni kiriting')}
-                    </InputLabel>
-
-                    <OutlinedInput
-                      inputProps={{ maxLength: 12, minLength: 8 }}
-                      id="outlined-adornment-password"
-                      type={showPassword ? 'text' : 'password'}
-                      value={receptionCurrentData.data.password}
-                      onChange={handleChangePassword}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label={t('Parolni kiriting')}
-                    />
-                  </FormControl>
-                  <div className={cls.BtnParnet}>
-                    <Button
-                      type="button"
-                      variant="outlined"
-                      onClick={handleClose}
-                      className={`${cls.Btn} ${cls.Btn1}`}
-                    >
-                      {t('Bekor qilish')}
-                    </Button>
-
-                    <Button
-                      className={`${cls.Btn} ${cls.Btn2}`}
-                      type="submit"
-                      variant="contained"
-                    >
-                      {t('Saqlash')}
-                    </Button>
-                  </div>
+                    {t('Saqlash')}
+                  </Button>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
-        </BootstrapDialog>
+        </Dialog>
       )}
 
       {(receptionCurrentData?.isLoading ||

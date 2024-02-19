@@ -15,7 +15,7 @@ export const fetchAuthUser = createAsyncThunk<
   async ({ password, login, refresh, buttonsContext }, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
-    const { setHasOpenToast } = buttonsContext;
+    const { setHasOpenToast, setIsLoginForHasToast } = buttonsContext;
 
     if (refresh) {
       const getTokenCookie = Cookies.get('token');
@@ -50,6 +50,8 @@ export const fetchAuthUser = createAsyncThunk<
           Cookies.set('token', response.data.token);
 
           setHasOpenToast(true);
+
+          setIsLoginForHasToast(true);
         }
 
         return response.data;

@@ -8,10 +8,6 @@ import cls from './LogoutChild.module.scss';
 const LogoutChild = () => {
   const handleLogOut = () => {
     Cookies.remove('token');
-
-    if (!Cookies.get('token')) {
-      window.location.reload();
-    }
   };
 
   return (

@@ -50,6 +50,7 @@ const BestCalendar = ({ className }: BestCalendarProps) => {
                 },
                 '& .css-1d3z3hw-MuiOutlinedInput-notchedOutline': {
                   top: '0px',
+                  backgroundColor: 'white',
                 },
               }}
               localeText={{

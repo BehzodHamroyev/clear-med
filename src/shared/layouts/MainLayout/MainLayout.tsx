@@ -1,4 +1,4 @@
-import { memo, ReactElement, useContext, useEffect } from 'react';
+import { memo, ReactElement, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -29,18 +29,58 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const { t } = useTranslation();
 
+  const location = useLocation();
+
   const authUserData = useSelector(getAuthUserData);
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
-  const { hasOpenToast, isOpenLanugagePopup } = useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    isOpenLanugagePopup,
+    isLoginForHasToast,
+    setIsLoginForHasToast,
+  } = useContext(ButtonsContext);
 
-  const location = useLocation();
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
+  useEffect(() => {
+    function onConnect() {
+      setIsConnected(true);
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    if (authUserData) {
+      socket.on('connect', onConnect);
+      socket.on('disconnect', onDisconnect);
+    }
+
+    if (!isConnected && authUserData) {
+      socket.connect();
+    }
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+    };
+  }, [authUserData, isConnected]);
 
   useEffect(() => {
     if (authUserData) {
       socket.emit('addUser', authUserData.id);
     }
   }, [authUserData]);
+
+  // After logging in to the system, to display the message "You have successfully entered the system" only once and not to display it in other cases
+  useEffect(() => {
+    if (isLoginForHasToast) {
+      setTimeout(() => {
+        setIsLoginForHasToast(false);
+      }, 5000);
+    }
+  }, [isLoginForHasToast, setIsLoginForHasToast]);
 
   return (
     <div>
@@ -61,7 +101,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
-          {hasOpenToast && (
+          {hasOpenToast && isLoginForHasToast && (
             <Toast
               severity="success"
               message={t('Timizga muvaffaqqiyatli kirdingiz')}

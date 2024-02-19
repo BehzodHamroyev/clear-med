@@ -1,17 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useTranslation } from 'react-i18next';
-import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './monitors.module.scss';
 
-interface MonitorsProp {
-  number: number;
-  name: string;
-  id: string;
-}
+import { MonitorsProp } from '../model/types/monitorTypes';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 
 const Monitors = (props: MonitorsProp) => {
   const { number, name, id } = props;
@@ -22,11 +17,11 @@ const Monitors = (props: MonitorsProp) => {
 
   const {
     setMonitorGetId,
+    setMonitorNumber,
     setDepartmentGetId,
     setIsOpenMonitorEditCard,
     setMonitorEditFormOldValue,
     setIsOpenMonitorDeleteCard,
-    setMonitorNumber,
   } = React.useContext(ButtonsContext);
 
   const handleClickPen = (
@@ -53,7 +48,6 @@ const Monitors = (props: MonitorsProp) => {
     if (number) {
       setMonitorNumber(number);
     }
-    // navigate(`/add_monitor/${number}`);
     navigate(`/add_monitor/${id}`);
   };
 

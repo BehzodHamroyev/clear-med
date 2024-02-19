@@ -1,24 +1,28 @@
 import React, { useContext } from 'react';
 
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { ListOfSettings } from '@/entities/ListOfSettings';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './SettingsPage.module.scss';
-import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
-import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
+
+import { getAuthUserData } from '@/features/Auth';
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { FileUploader } from '@/entities/FileUploader';
-// import { FileUploader } from '@/entities/FileUploader';
+import { ListOfSettings } from '@/entities/ListOfSettings';
+import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
 
 const SettingsPage = () => {
   const { t } = useTranslation();
 
   const {
-    isOpenThemeOrLanguage,
     isOpenUploadLogo,
+    isOpenThemeOrLanguage,
     isOpenSettingsChangePassword,
   } = useContext(ButtonsContext);
+
+  const authUserData = useSelector(getAuthUserData);
 
   return (
     <div className={cls.SettingsPageWrapper}>
@@ -38,7 +42,11 @@ const SettingsPage = () => {
           ''
         )}
 
-        {isOpenUploadLogo ? <FileUploader /> : ''}
+        {isOpenUploadLogo && authUserData && authUserData?.role === 'admin' ? (
+          <FileUploader />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

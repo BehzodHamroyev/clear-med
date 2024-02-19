@@ -1,6 +1,8 @@
 {
   "Update center information": "Shifoxona ma'lumotlarini yangilash",
   "Hospital name": "Shifoxona nomi",
+  "Hospital email": "Kasalxona elektron pochtasi",
+  "Hospital address": "Kasalxona manzili",
   "Upload Logo": "Logo yuklash",
   "Save": "Saqlash",
   "Shifokor ro'yxati": "Shifokor ro’yxati",
@@ -10,6 +12,8 @@
   "Xonani tanlang": "Xonani tanlang",
   "Monitorga biriktirilgan reklamalar": "Monitorga biriktirilgan reklamalar",
   "Yangi parolni tasdiqlash uchun qayta kiriting": "Yangi parolni tasdiqlash uchun qayta kiriting",
+  "Bo'lim turlari qo'shilmagan": "Bo'lim turlari qo'shilmagan",
+  "Shifokorlar qo'shilmagan": "Shifokorlar qo'shilmagan",
 
   "MENU": "MENU",
   "KIRISH": "KIRISH",
@@ -18,6 +22,7 @@
   "Reklama qo'shish": "Reklama qo'shish",
   "Xona qo‘shish": "Xona qo‘shish",
   "Shifokor qo‘shish": "Shifokor qo‘shish",
+  "Shifokorni tahrirlash": "Shifokorni tahrirlash",
   "Hisobotlar": "Hisobotlar",
   "Navbatlar": "Navbatlar",
   "Navbat berish": "Navbat berish",
@@ -34,6 +39,7 @@
   "Qorong‘i": "Qorong‘i",
 
   "Fullscreen": "To‘liq ekran",
+  "Receptions": "Qabullar",
 
   "Bilet raqami": "Bilet raqami",
   "Xona raqami": "Xona raqami",
@@ -51,7 +57,7 @@
   "November": "Noyabr",
   "December": "Dekabr",
   "doctor": "Doctor",
-  "reception": "Reception",
+  "reception": "Qabul Xona",
   "monitor": "Monitor",
 
   "Xonalar": "Xonalar",
@@ -148,5 +154,10 @@
   "Reklamasiz": "Reklamasiz",
   "Monitorni tahrirlash": "Monitorni tahrirlash",
   "Parolni yangilash": "Parolni yangilash",
-  "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?"
+  "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?",
+
+  "Bo'lim yo'q": "Bo‘lim yo'q",
+  "Xona yo'q": "Xona yo'q",
+  "Shifokor yo'q": "Shifokor yo'q",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ushbu Monitorga reklama biriktirish o'chirilgan!"
 }

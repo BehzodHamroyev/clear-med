@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -34,10 +34,6 @@ const AddMonitorPage = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-
-  const [monitorEditId, setMonitorEditId] = useState<string>();
-
-  const { getResponseData } = useContext(ButtonsContext);
 
   const reducers: ReducersList = {
     GetAllMonitorPage: GetAllMonitorPageReducer,

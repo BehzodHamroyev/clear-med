@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Upload } from '@mui/icons-material';
 import cls from './ListOfSettings.module.scss';
@@ -8,9 +9,11 @@ import {
   PassWordIcon,
 } from '@/shared/assets/Pages/Settings';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { getAuthUserData } from '@/features/Auth';
 
 const ListOfSettings = () => {
   const { t } = useTranslation();
+
   const {
     isOpenThemeOrLanguage,
     setIsOpenThemeOrLanguage,
@@ -20,7 +23,7 @@ const ListOfSettings = () => {
     isOpenUploadLogo,
   } = useContext(ButtonsContext);
 
-  console.log(isOpenUploadLogo);
+  const authUserData = useSelector(getAuthUserData);
 
   return (
     <div className={cls.ListOfSettingsWrapper}>
@@ -75,20 +78,22 @@ const ListOfSettings = () => {
         <RightIcon className={cls.span} />
       </div>
 
-      <div
-        onClick={() => {
-          setIsOpenThemeOrLanguage(true);
-          setIsOpenSettingsChangePassword(false);
-          setIsOpenUploadLogo(true);
-        }}
-        className={`${cls.Theme} ${isOpenUploadLogo ? cls.IsOpen : ''} `}
-      >
-        <div className={cls.ThemeLeft}>
-          <Upload />
-          <p>{t('Update center information')}</p>
+      {authUserData?.role === 'admin' && (
+        <div
+          onClick={() => {
+            setIsOpenThemeOrLanguage(true);
+            setIsOpenSettingsChangePassword(false);
+            setIsOpenUploadLogo(true);
+          }}
+          className={`${cls.Theme} ${isOpenUploadLogo ? cls.IsOpen : ''} `}
+        >
+          <div className={cls.ThemeLeft}>
+            <Upload />
+            <p>{t('Update center information')}</p>
+          </div>
+          <RightIcon className={cls.span} />
         </div>
-        <RightIcon className={cls.span} />
-      </div>
+      )}
     </div>
   );
 };

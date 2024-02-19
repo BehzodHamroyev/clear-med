@@ -1,6 +1,8 @@
 {
   "Update center information": "Шифохона маълумотларини янгилаш",
   "Hospital name": "Шифохона номи",
+  "Hospital email": "Касалхона электрон почтаси",
+  "Hospital address": "Касалхона манзили",
   "Upload Logo": "Лого юклаш",
   "Save": "Сақлаш",
   "F.I.Sh": "Ф.И.Ш",
@@ -12,11 +14,18 @@
   "Xonani tanlang": "Хонани танланг",
   "Monitorga biriktirilgan reklamalar": "Мониторга бириктирилган рекламалар",
   "Yangi parolni tasdiqlash uchun qayta kiriting": "Янги паролни тасдиқлаш учун қайта киритинг",
+  "Bo'lim turlari qo'shilmagan": "Бўлим турлари қўшилмаган",
+  "Shifokorlar qo'shilmagan": "Шифокорлар қўшилмаган",
+  "reception": "Қабул хона",
+  "Receptions": "Қабуллар",
+  "Tajribasi": "Тажрибаси",
 
   "Bo'lim qo'shish": "Бўлим қўшиш",
   "Reklama qo'shish": "Реклама қўшиш",
   "Xona qo‘shish": "Хона қўшиш",
   "Shifokor qo‘shish": "Шифокор қўшиш",
+  "Shifokorni tahrirlash": "Шифокорни Тахрирлаш",
+
   "Hisobotlar": "Ҳисоботлар",
   "Navbatlar": "Навбатлар",
   "Navbat berish": "Навбат бериш",
@@ -108,7 +117,7 @@
   "Biriktirilgan shifokorlar": "Бириктирилган шифокорлар",
 
   "Xona qo'shish": "Хона қўшиш",
-  "Bo'lim turlari": "Типы разделов",
+  "Bo'lim turlari": "Бўлим турлари",
   "Shifokorlar ro'yhati": "Шифокорлар рўйҳати",
   "Bo‘limni tahrirlash": "Бўлимни таҳрирлаш",
   "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ушбу бўлимни хақийқатдан ҳам ўчирмоқчимисиз ?",
@@ -143,5 +152,10 @@
   "Parolni yangilash": "Парольни Янгилаш",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ушбу Мониторни хақийқатдан ҳам ўчирмоқчимисиз ?",
   "KIRISH": "КИРИШ",
-  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Тизимга кириш учун маълумотларингизни киритинг."
+  "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Тизимга кириш учун маълумотларингизни киритинг.",
+
+  "Bo'lim yo'q": "Бўлим йўқ",
+  "Xona yo'q": "Хона йўқ",
+  "Shifokor yo'q": "Шифокор йўқ",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ушбу Мониторга реклама бириктириш ўчирилган!"
 }

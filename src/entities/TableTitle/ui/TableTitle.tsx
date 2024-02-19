@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import cls from './TableTitle.module.scss';
 import { TableInfo } from '../model/types/TableInfo';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -9,6 +10,8 @@ const TableTitle = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
 
   const location = useLocation();
+
+  const { t } = useTranslation();
 
   const { id } = useParams();
 
@@ -43,7 +46,7 @@ const TableTitle = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string, index) => (
             <th key={index + 1} className={cls.th}>
-              {title}
+              {t(title)}
             </th>
           ))}
         </tr>

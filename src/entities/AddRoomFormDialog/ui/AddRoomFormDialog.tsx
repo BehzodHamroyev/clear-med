@@ -224,13 +224,17 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
                   labelId="demo-simple-select-label"
                   label={t("Bo'lim turlari")}
                 >
-                  {allDepartmentsData?.map((e) => {
-                    return (
+                  {allDepartmentsData.length > 0 ? (
+                    allDepartmentsData?.map((e) => (
                       <MenuItem key={e.id} value={`${e.id}`}>
-                        {e?.name}
+                        {e.name}
                       </MenuItem>
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <MenuItem disabled key="1" value="1">
+                      {t("Bo'lim turlari qo'shilmagan")}
+                    </MenuItem>
+                  )}
                 </Select>
               </FormControl>
 
@@ -246,13 +250,17 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
                   labelId="demo-simple-select-label2"
                   label={t("Shifokorlar ro'yhati")}
                 >
-                  {allFreeDoctorsData?.map((element) => {
-                    return (
+                  {allFreeDoctorsData.length > 0 ? (
+                    allFreeDoctorsData?.map((element) => (
                       <MenuItem key={element.id} value={`${element.id}`}>
                         {element.name}
                       </MenuItem>
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <MenuItem disabled key="1" value="1">
+                      {t("Shifokorlar qo'shilmagan")}
+                    </MenuItem>
+                  )}
                 </Select>
               </FormControl>
 
