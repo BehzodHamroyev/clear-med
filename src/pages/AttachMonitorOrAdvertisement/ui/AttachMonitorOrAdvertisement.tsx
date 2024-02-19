@@ -64,7 +64,7 @@ const AttachMonitorOrAdvertisement = () => {
 
   return (
     <>
-      {getAllMonitorData && (
+      {getAllMonitorData && id && (
         <div className={cls.AttachMonitorOrAdvertisementWrapper}>
           {/* Title */}
           <div className={cls.AttachMonitorOrAdvertisementWrapper__Title}>

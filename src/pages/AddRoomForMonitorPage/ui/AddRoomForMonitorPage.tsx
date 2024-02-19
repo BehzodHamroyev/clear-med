@@ -157,7 +157,7 @@ const AddRoomForMonitorPage = () => {
                           cls['AddRoomForMonitorWrapper__Table--invalid']
                         }
                       >
-                        {item.department_id.name || t("Xona yo'q")}
+                        {item.department_id?.name || t("Xona yo'q")}
                       </p>
                     </td>
                     <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
