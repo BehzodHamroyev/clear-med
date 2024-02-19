@@ -41,8 +41,9 @@ const AddDepartmentFormDialog = () => {
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
-  const ResultIconSrc =
-    iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+  const ResultIconSrc = isOpenDepartmentAddCardIconIndex
+    ? iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon
+    : undefined;
 
   const handleClose = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -158,7 +159,7 @@ const AddDepartmentFormDialog = () => {
           <div className={cls.TitleFlex}>
             <h3 className={cls.CardTitle}>{t("Bo'lim qo'shish")}</h3>
 
-            <ResultIconSrc />
+            {ResultIconSrc ? <ResultIconSrc /> : ''}
           </div>
 
           <form action="#" className={cls.CardBody} onSubmit={handleFormSubmit}>

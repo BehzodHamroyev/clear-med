@@ -43,6 +43,7 @@ const AddDepartmentPage = () => {
     isOpenDepartmentDeleteCard,
     setIsOpenDepartmentEditCard,
     setIsOpenDepartmentDeleteCard,
+    setIsOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
   const allDepartmentsData = useSelector(getAllDepartmentsData);
@@ -51,6 +52,7 @@ const AddDepartmentPage = () => {
 
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
+    setIsOpenDepartmentAddCardIconIndex(undefined);
   };
 
   const handleClickDeleteDepartment = (id: string) => {

@@ -192,7 +192,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
-  ] = useState(1);
+  ] = useState<undefined | number>(undefined);
 
   const [hasOpenToast, setHasOpenToast] = useState(false);
 
