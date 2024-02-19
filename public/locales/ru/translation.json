@@ -10,10 +10,8 @@
   "Shifokor": "Врачей",
   "Xona biriktirish": "Приложение к комнате",
   "Reklama biriktirish": "Приложение к объявлению",
-
   "MENU": "МEНУ",
   "KIRISH": "Aвторизоваться",
-
   "Bo'lim qo'shish": "Добавить раздел",
   "Reklama qo'shish": "Добавить объявление",
   "Xona qo‘shish": "Добавить комнату",
@@ -26,19 +24,14 @@
   "Umumiy": "Общий",
   "Reklama qo’shish": "Добавить объявление",
   "Monitor qo’shish": "Добавить монитор",
-
   "Tilni o‘zgartirish": "Изменить язык",
   "Mavzuni o‘zgartirish": "Изменить тему",
-
   "Avto": "Авто",
   "Yorqin": "Яркий",
   "Qorong‘i": "Темный",
-
   "Fullscreen": "Полноэкранный",
-
   "Bilet raqami": "Номер билета",
   "Xona raqami": "Номер комнаты",
-
   "January": "Январь",
   "February": "Февраль",
   "March": "Март",
@@ -54,7 +47,6 @@
   "doctor": "Врач",
   "reception": "Прием",
   "monitor": "Монитор",
-
   "Xonalar": "Номера",
   "Xonani tanlang": "Выберите номер",
   "Monitorga biriktirilgan reklamalar": "Реклама прикреплена к монитору",
@@ -62,7 +54,6 @@
   "Bo'lim turlari qo'shilmagan": "Типы разделов не добавляются",
   "Shifokorlar qo'shilmagan": "Врачи не включены",
   "Receptions": "Приемы",
-
   "Shifokorlar": "Врачи",
   "Ortga": "Назад",
   "Monitorga biriktirilgan xonalar": "Комнаты, прикрепленные к монитору",
@@ -75,7 +66,6 @@
   "Yangi parolni kiriting": "Введите новый пароль",
   "Yangi parolni kiriting...": "Введите новый пароль..",
   "O'zgartirish": "Изменить",
-
   "Ortga qaytish": "Назад",
   "Jami ko'rilgan bemorlar : ": "Всего посещенных пациентов: ",
   "Tasdiqlangan bemorlar : ": "Одобренные пациенты: ",
@@ -85,7 +75,6 @@
   "Ko'rilgan bemorlar": "Виден пациентов",
   "dan": "от",
   "gacha": "пока",
-
   "Bo‘lim nomi": "Название отдела",
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Расчетное время приема пациента",
   "Bo'limga rasm qo'shish": "Добавить изображение в раздел",
@@ -93,7 +82,6 @@
   "Tasdiqlash": "Подтверждение",
   "Bekor qilish": "Отмена",
   "Saqlash": "Сохранить",
-
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "На данный момент в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Пациенты, принятые и отмененные сегодня",
@@ -107,14 +95,12 @@
   "Qabul tugashi": "Конец приема",
   "Hisobot": "Отчет",
   "admin": "Администратор",
-
   "Bo‘limlar": "Отделы",
   "Bo'lim rasmi": "Изображение отдела",
   "Bo'lim nomi": "Название отдела",
   "Shifokorlar soni": "Количество врачей",
   "Xonalar soni": "Количество комнат",
   "Bemorni ko'rish vaqti": "Время увидеть пациента",
-
   "Biriktirilgan bo'lim": "Прикрепленный раздел",
   "Biriktirilgan shifokorlar": "Аффилированные врачи",
   "Xona qo'shish": "Добавить комнату",
@@ -155,7 +141,6 @@
   "Parolni yangilash": "Обновление пароля",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Вы действительно хотите выключить этот монитор?",
   "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Введите свои данные для входа.",
-
   "Bo'lim yo'q": "Нет раздела",
   "Xona yo'q": "Нет места",
   "Shifokor yo'q": "Нет доктора",
