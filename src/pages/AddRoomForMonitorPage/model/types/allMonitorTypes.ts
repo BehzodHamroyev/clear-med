@@ -30,11 +30,6 @@ interface RoomData {
 }
 
 export interface TypesOfRoomsAttachedToTheMonitor {
-  map(
-    arg0: (item: any) => import('react/jsx-runtime').JSX.Element,
-  ):
-    | import('react-i18next').ReactI18NextChild
-    | Iterable<import('react-i18next').ReactI18NextChild>;
   length: number;
   monitor: {
     addvertising: boolean;

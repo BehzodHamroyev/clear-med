@@ -1,4 +1,3 @@
-import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
 
 import {
@@ -36,8 +35,15 @@ import {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
-import { AddsVideosDataRedux ,MonitorAdsInRedux} from '@/entities/AdvertisementAttachmentMonitor';
+import {
+  AddsVideosDataRedux,
+  MonitorAdsInRedux,
+} from '@/entities/AdvertisementAttachmentMonitor';
 import { InfoProjectRedux } from '@/entities/FileUploader';
+
+type CombinedState<S> = {
+  [K in keyof S]: S[K];
+};
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -65,12 +71,10 @@ export interface StateSchema {
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
   allAdsVideo: AddsVideosDataRedux;
   allAdsForOneMonitor: MonitorAdsInRedux;
-  infoProject:InfoProjectRedux;
+  infoProject: InfoProjectRedux;
+  queuesControlDoctor: QueuesControlDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
-
-  // Asynchronous reducers
-  queuesControlDoctor?: QueuesControlDoctorSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

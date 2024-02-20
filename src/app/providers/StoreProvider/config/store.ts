@@ -1,4 +1,4 @@
-import { CombinedState, Reducer } from 'redux';
+import { Reducer } from 'redux';
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 
 import { $api } from '@/shared/api/api';
@@ -18,7 +18,10 @@ import { allDepartmentsSliceReducer } from '@/pages/AddDepartmentPage';
 import { departmentAddSliceSliceReducer } from '@/entities/AddDepartmentFormDialog';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
-import { doneQueuesControlDoctorReducer } from '@/pages/QueuesControlDoctor';
+import {
+  doneQueuesControlDoctorReducer,
+  queuesControlDoctorReducer,
+} from '@/pages/QueuesControlDoctor';
 import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
 import { GetAllRoomAtachmentMonitorReducer } from '@/pages/AddRoomForMonitorPage';
 
@@ -38,6 +41,10 @@ import {
 } from '@/entities/AdvertisementAttachmentMonitor';
 import { infoProjectSliceReducer } from '@/entities/FileUploader';
 
+type CombinedState<S> = {
+  [K in keyof S]: S[K];
+};
+
 export function createReduxStore(
   initialState?: StateSchema,
   asyncReducers?: ReducersMapObject<StateSchema>,
@@ -45,6 +52,7 @@ export function createReduxStore(
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
     // login: AuthSliceReducer,
+    queuesControlDoctor: queuesControlDoctorReducer,
     allAds: allAdsReducer,
     allRooms: allRoomsReducer,
     lastQueue: lastQueueReducer,

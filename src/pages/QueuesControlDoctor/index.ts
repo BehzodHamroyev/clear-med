@@ -1,3 +1,5 @@
+export { queuesControlDoctorReducer } from './model/slice/queuesControlDoctorSlice';
+
 export { fetchQueuesControlDoctor } from './model/services/fetchQueuesControlDoctor';
 
 export { getQueuesControlDoctorData } from './model/selectors/queuesControlDoctorSelector';
