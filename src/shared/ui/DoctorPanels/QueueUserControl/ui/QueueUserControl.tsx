@@ -33,17 +33,13 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   } = useContext(ButtonsContext);
 
   const proccessedList = useSelector(getControlPanelDocktorData);
+
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
 
   const handleClickProccessRecall = () => {
-    setIsOpenQueueUserTimer(true);
-
-    setTimeout(() => {
-      setIsOpenQueueUserTimer(false);
-    }, 10000);
-
     if (proccessedStep < 3) {
+      setIsOpenQueueUserTimer(true);
       dispatch(
         fetchQueuesProccess({
           method: 'post',
@@ -52,6 +48,10 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
         }),
       );
     }
+
+    setTimeout(() => {
+      setIsOpenQueueUserTimer(false);
+    }, 10000);
   };
 
   const handleClickProccessCansel = () => {
