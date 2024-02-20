@@ -14,10 +14,8 @@
   "Yangi parolni tasdiqlash uchun qayta kiriting": "Yangi parolni tasdiqlash uchun qayta kiriting",
   "Bo'lim turlari qo'shilmagan": "Bo'lim turlari qo'shilmagan",
   "Shifokorlar qo'shilmagan": "Shifokorlar qo'shilmagan",
-
   "MENU": "MENU",
   "KIRISH": "KIRISH",
-
   "Bo'lim qo'shish": "Bo‘lim qo‘shish",
   "Reklama qo'shish": "Reklama qo'shish",
   "Xona qo‘shish": "Xona qo‘shish",
@@ -30,10 +28,8 @@
   "Umumiy": "Umumiy",
   "Reklama qo’shish": "Reklama qo’shish",
   "Monitor qo’shish": "Monitor qo’shish",
-
   "Tilni o‘zgartirish": "Tilni o‘zgartirish",
   "Mavzuni o‘zgartirish": "Mavzuni o‘zgartirish",
-
   "Avto": "Avto",
   "Yorqin": "Yorqin",
   "Qorong‘i": "Qorong‘i",
@@ -44,10 +40,8 @@
 
   "Fullscreen": "To‘liq ekran",
   "Receptions": "Qabullar",
-
   "Bilet raqami": "Bilet raqami",
   "Xona raqami": "Xona raqami",
-
   "January": "Yanvar",
   "February": "Fevral",
   "March": "Mart",
@@ -63,9 +57,7 @@
   "doctor": "Doctor",
   "reception": "Qabul Xona",
   "monitor": "Monitor",
-
   "Xonalar": "Xonalar",
-
   "Shifokorlar": "Shifokorlar",
   "Ortga": "Ortga",
   "Monitorga biriktirilgan xonalar": "Monitorga biriktirilgan xonalar",
@@ -78,7 +70,6 @@
   "Yangi parolni kiriting": "Yangi parolni kiriting",
   "Yangi parolni kiriting...": "Yangi parolni kiriting...",
   "O'zgartirish": "O'zgartirish",
-
   "Ortga qaytish": "Ortga qaytish",
   "Jami ko'rilgan bemorlar : ": "Jami ko'rilgan bemorlar: ",
   "Tasdiqlangan bemorlar : ": "Tasdiqlangan bemorlar: ",
@@ -88,16 +79,12 @@
   "Ko'rilgan bemorlar": "Ko'rilgan bemorlar",
   "dan": "dan",
   "gacha": "gacha",
-
   "Bo‘lim nomi": "Bo‘lim nomi",
-
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Bemorni ko'rishga ketadigan taxminiy vaqt",
   "Bo'limga rasm qo'shish": "Bo'limga rasm qo'shish",
   "Bekor qilish": "Bekor qilish",
-
   "Qayta chaqirish": "Qayta chaqirish",
   "Tasdiqlash": "Tasdiqlash",
-
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "Hozirda kutish ro'yxatida birorta ham bemor yo'q!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Bugun ko'rilgan va bekor qilingan bemorlar",
@@ -111,9 +98,7 @@
   "Qabul tugashi": "Qabul tugashi",
   "Hisobot": "Hisobot",
   "Saqlash": "Saqlash",
-
   "admin": "Admin",
-
   "Bo‘limlar": "Bo‘limlar",
   "Bo'lim rasmi": "Bo‘lim rasmi",
   "Bo'lim nomi": "Bo‘lim nomi",
@@ -159,9 +144,9 @@
   "Monitorni tahrirlash": "Monitorni tahrirlash",
   "Parolni yangilash": "Parolni yangilash",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?",
-
   "Bo'lim yo'q": "Bo‘lim yo'q",
   "Xona yo'q": "Xona yo'q",
   "Shifokor yo'q": "Shifokor yo'q",
-  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ushbu Monitorga reklama biriktirish o'chirilgan!"
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ushbu Monitorga reklama biriktirish o'chirilgan!",
+  "Timizga muvaffaqqiyatli kirdingiz": "Timizga muvaffaqqiyatli kirdingiz"
 }
