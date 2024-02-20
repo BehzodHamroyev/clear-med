@@ -15,7 +15,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: any) => {
     const token = getToken();
 
     config.headers = config.headers || {};
