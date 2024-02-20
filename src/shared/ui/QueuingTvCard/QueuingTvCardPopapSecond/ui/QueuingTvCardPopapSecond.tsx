@@ -1,13 +1,14 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
 import { socket } from '@/shared/lib/utils/socket';
 
-import cls from './QueuingTvCardPopapSecond.module.scss';
 import cls2 from './PrintQueuePage.module.scss';
+import cls from './QueuingTvCardPopapSecond.module.scss';
 
 import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -19,6 +20,13 @@ import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import {
+  error,
+  isLoading,
+  getInfoProject,
+  getAllDataProject,
+} from '@/entities/FileUploader';
 
 interface QueuingTvCardPopapSecondProps {
   roomNumber: string;
@@ -30,6 +38,8 @@ const QueuingTvCardPopapSecond = ({
   ticketNumber,
 }: QueuingTvCardPopapSecondProps) => {
   const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
 
   const printableDivRef = useRef<HTMLDivElement>(null);
 
@@ -44,6 +54,10 @@ const QueuingTvCardPopapSecond = ({
     createRoomNumber: roomNumber,
     createTicketNumber: ticketNumber,
   });
+
+  const infoProjectError = useSelector(error);
+  const infoProject = useSelector(getInfoProject);
+  const infoProjectIsLoader = useSelector(isLoading);
 
   const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
     useContext(ButtonsContext);
@@ -122,9 +136,13 @@ const QueuingTvCardPopapSecond = ({
     }
   };
 
+  useEffect(() => {
+    dispatch(getAllDataProject({}));
+  }, [dispatch]);
+
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
-      {!createQueueIsLoading && (
+      {!createQueueIsLoading && infoProject && (
         <div className={cls.QueuingTvCardPopapSecond}>
           <h3 className={cls.QueuingTvCardPopapSecondTitle}>
             {t('Navbatni tasdiqlang')}
@@ -132,7 +150,9 @@ const QueuingTvCardPopapSecond = ({
 
           <div ref={printableDivRef} className={cls.QueuingTvPrintCard}>
             <div className={cls2.PrintQueuePage}>
-              <p className={cls2.PrintQueuePage__medName}>Medical Center</p>
+              <p className={cls2.PrintQueuePage__medName}>
+                {infoProject?.[0]?.name}
+              </p>
 
               <div className={cls2.PrintQueuePage__queueBox}>
                 <QueueUserDoctor
@@ -204,9 +224,11 @@ const QueuingTvCardPopapSecond = ({
         </div>
       )}
 
-      {createQueueIsLoading && <Loader />}
+      {createQueueIsLoading && infoProjectIsLoader && <Loader />}
 
-      {createQueueIsError && <ErrorDialog isErrorProps={!false} />}
+      {createQueueIsError && infoProjectError && (
+        <ErrorDialog isErrorProps={!false} />
+      )}
     </div>
   );
 };

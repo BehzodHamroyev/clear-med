@@ -13,6 +13,9 @@
 
   "MENU": "МEНУ",
   "KIRISH": "Aвторизоваться",
+  "Navbatni tasdiqlang": "Подтвердить очередь",
+  "Chiqarish": "Выпускать",
+  "Qabul xona xodimini qo'shish": "Добавить администратора",
 
   "Bo'lim qo'shish": "Добавить раздел",
   "Reklama qo'shish": "Добавить объявление",
@@ -93,6 +96,7 @@
   "Tasdiqlash": "Подтверждение",
   "Bekor qilish": "Отмена",
   "Saqlash": "Сохранить",
+  "Kuting": "Ждите пожалуйста",
 
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "На данный момент в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня в листе ожидания пациентов нет!",

@@ -4,6 +4,13 @@
   " ": "",
   "  ": "",
   " Ortga qaytish": "",
+  " kuting": {
+    "": {
+      "": {
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   " ta": "",
   "+998 ": "",
   "+998 97 777 65 5": "",
@@ -173,6 +180,13 @@
     "": ""
   },
   "IRISH": "",
+  "Iltimos kuting": {
+    "": {
+      "": {
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   "Jami Ko'rilgan Bemorlar": "",
   "Jami Ko'rilgan Bemorlar ": "",
   "KIRISH": "",
@@ -183,6 +197,14 @@
   "Ko'rilgan bemorlar": "",
   "Kutayotgan be'morlar": "",
   "Kutayotgan bemorlar": "",
+  "Kuting": {
+    "": {
+      "": {
+        "": "",
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   "Login": "",
   "Login (+998 90 123 45 67)": "",
   "Login 111(+998 90 123 45 67)": "",
@@ -278,6 +300,7 @@
   "Qabul kuni": "",
   "Qabul qo‘shish": "",
   "Qabul tugashi": "",
+  "Qabul xona xodimini qo'shish": "",
   "Qabulni tahrirlash": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
