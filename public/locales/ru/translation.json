@@ -12,6 +12,7 @@
   "Reklama biriktirish": "Приложение к объявлению",
   "MENU": "МEНУ",
   "KIRISH": "Aвторизоваться",
+
   "Bo'lim qo'shish": "Добавить раздел",
   "Reklama qo'shish": "Добавить объявление",
   "Xona qo‘shish": "Добавить комнату",
@@ -82,6 +83,8 @@
   "Tasdiqlash": "Подтверждение",
   "Bekor qilish": "Отмена",
   "Saqlash": "Сохранить",
+  "Kuting": "пожалуйста, подождите",
+
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "На данный момент в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня в листе ожидания пациентов нет!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Пациенты, принятые и отмененные сегодня",

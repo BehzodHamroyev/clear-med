@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   isLoginForHasToast: boolean;
   setIsLoginForHasToast: (prop: boolean) => void;
 
+  isOpenQueueUserTimer: boolean;
+  setIsOpenQueueUserTimer: (prop: boolean) => void;
+
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
 
@@ -236,6 +239,9 @@ export interface ButtonsClickedProps {
 export const ButtonsContext = createContext<ButtonsClickedProps>({
   isLoginForHasToast: false,
   setIsLoginForHasToast: () => {},
+
+  isOpenQueueUserTimer: false,
+  setIsOpenQueueUserTimer: () => {},
 
   isOpenSidebar: false,
   setIsOpenSidebar: () => {},

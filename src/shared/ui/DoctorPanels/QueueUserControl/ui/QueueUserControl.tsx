@@ -15,6 +15,7 @@ import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 // import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { QueueUserControlTimer } from '@/entities/QueueUserControlTimer';
 
 interface QueueUserControlProps {
   proccessedStep: number;
@@ -24,14 +25,21 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { hasOpenToast, setHasOpenToast } = useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    setHasOpenToast,
+    isOpenQueueUserTimer,
+    setIsOpenQueueUserTimer,
+  } = useContext(ButtonsContext);
 
   const proccessedList = useSelector(getControlPanelDocktorData);
+
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
 
   const handleClickProccessRecall = () => {
     if (proccessedStep < 3) {
+      setIsOpenQueueUserTimer(true);
       dispatch(
         fetchQueuesProccess({
           method: 'post',
@@ -40,6 +48,10 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
         }),
       );
     }
+
+    setTimeout(() => {
+      setIsOpenQueueUserTimer(false);
+    }, 10000);
   };
 
   const handleClickProccessCansel = () => {
@@ -165,6 +177,8 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           message={t("Bemor ko'rilganlar ro'yhatiga qo'shildi")}
         />
       )}
+
+      {isOpenQueueUserTimer && <QueueUserControlTimer />}
     </>
   );
 };

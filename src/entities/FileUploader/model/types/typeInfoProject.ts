@@ -3,6 +3,7 @@ export interface Info {
   name: string;
   summary: string;
   logo: string;
+  phone: string | number;
   disabled: false;
   createdAt: string;
   updatedAt: string;

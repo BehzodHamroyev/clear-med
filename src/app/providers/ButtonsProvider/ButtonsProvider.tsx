@@ -59,6 +59,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [calendarEndValue, setCalendarEndValue] = useState('');
 
+  const [isOpenQueueUserTimer, setIsOpenQueueUserTimer] = useState(false);
+
   const [isProfileWho, setIsProfileWho] = useState('');
 
   const [getResponseData, setResponseData] = useState('');
@@ -213,6 +215,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isLoginForHasToast,
       setIsLoginForHasToast,
 
+      isOpenQueueUserTimer,
+      setIsOpenQueueUserTimer,
+
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
 
@@ -332,6 +337,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     [
       isLoginForHasToast,
       setIsLoginForHasToast,
+
+      isOpenQueueUserTimer,
+      setIsOpenQueueUserTimer,
 
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,

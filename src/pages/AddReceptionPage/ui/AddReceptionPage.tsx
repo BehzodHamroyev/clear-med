@@ -76,7 +76,8 @@ const AddReceptionPage = () => {
     <div className={cls.AddDoctorPageWrp}>
       <div className={cls.AddDoctorPageWrp__Title}>
         <p className={cls['AddDoctorPageWrp__Title--text']}>
-          {t('Receptions')}{' '}
+          {/* {t('Receptions')} */}
+          {t("Qabul xona xodimini qo'shish")}{' '}
           <span className={cls['AddDoctorPageWrp__Title--span']}>
             ({allReceptionsData ? allReceptionsData.length : 0})
           </span>{' '}

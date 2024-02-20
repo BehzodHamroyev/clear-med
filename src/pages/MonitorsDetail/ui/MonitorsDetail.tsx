@@ -92,6 +92,16 @@ const MonitorsDetail = () => {
     }
   });
 
+  const phoneNumber = `+998${infoProject?.[0]?.phone}`;
+
+  const formattedPhoneNumber = `+998 (${phoneNumber.substring(
+    4,
+    6,
+  )}) ${phoneNumber.substring(6, 9)}-${phoneNumber.substring(
+    9,
+    11,
+  )}-${phoneNumber.substring(11)}`;
+
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -103,7 +113,9 @@ const MonitorsDetail = () => {
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ishonch raqami:')} +998 71 225 25 25</p>
+              <p>
+                {t('Ishonch raqami:')} {formattedPhoneNumber}
+              </p>
             </div>
             {/* <div className={classNames(cls.QueuesPage__headerRightLogo)}>
               <img src={medLogo} alt="logo" />
