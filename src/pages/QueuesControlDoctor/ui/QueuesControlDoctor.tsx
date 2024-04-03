@@ -44,7 +44,7 @@ import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitle
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -92,54 +92,66 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
-  socket.on('getNewQueue', (data) => {
-    if (data) {
-      addQueue(data);
-    }
-  });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(
+        fetchQueuesControlDoctor({
+          status: 'pending',
+        }),
+      );
+    }, 5000);
 
-  socket.on('getProccessQueue', (data) => {
-    // console.log(data, 'removedQueueList');
-    if (data) {
-      removeQueue(data);
-    }
-  });
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
-  socket.on('getAcceptedQueue', (data) => {
-    // console.log(data, 'addDoneQueue');
+  // socket.on('getNewQueue', (data) => {
+  //   if (data) {
+  //     addQueue(data);
+  //   }
+  // });
 
-    if (data) {
-      addDoneQueue(data);
-    }
-  });
+  // socket.on('getProccessQueue', (data) => {
+  //   // console.log(data, 'removedQueueList');
+  //   if (data) {
+  //     removeQueue(data);
+  //   }
+  // });
 
-  socket.on('getRejectedQueue', (data) => {
-    // console.log(data, 'addDoneQueue');
+  // socket.on('getAcceptedQueue', (data) => {
+  //   // console.log(data, 'addDoneQueue');
 
-    if (data) {
-      addDoneQueue(data);
-    }
-  });
+  //   if (data) {
+  //     addDoneQueue(data);
+  //   }
+  // });
 
-  socket.on('realTimeQueueGet', (data) => {
-    if (data?.status === 'proccessed') {
-      equalProccedQueue(data);
-    }
+  // socket.on('getRejectedQueue', (data) => {
+  //   // console.log(data, 'addDoneQueue');
 
-    if (data?.status === 'rejected') {
-      addDoneQueue(data);
+  //   if (data) {
+  //     addDoneQueue(data);
+  //   }
+  // });
 
-      clearProccedQueue();
-    }
+  // socket.on('realTimeQueueGet', (data) => {
+  //   if (data?.status === 'proccessed') {
+  //     equalProccedQueue(data);
+  //   }
 
-    if (data?.status === 'completed') {
-      addDoneQueue(data);
+  //   if (data?.status === 'rejected') {
+  //     addDoneQueue(data);
 
-      clearProccedQueue();
-    }
+  //     clearProccedQueue();
+  //   }
 
-    // console.log(data.status, 'realTimeQueueGet');
-  });
+  //   if (data?.status === 'completed') {
+  //     addDoneQueue(data);
+
+  //     clearProccedQueue();
+  //   }
+
+  //   // console.log(data.status, 'realTimeQueueGet');
+  // });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -204,7 +216,7 @@ const QueuesControlDoctor = () => {
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
         {(proccessIsLoading ||
-          queuesListIsLoading ||
+          // queuesListIsLoading ||
           doneQueuesListIsLoading) && <Loader />}
 
         {(queuesListError || proccessError || doneQueuesListError) && (

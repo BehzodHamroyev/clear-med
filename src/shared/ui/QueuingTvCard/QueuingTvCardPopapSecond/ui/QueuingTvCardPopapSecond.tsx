@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 import cls2 from './PrintQueuePage.module.scss';
 import cls from './QueuingTvCardPopapSecond.module.scss';
@@ -105,18 +105,18 @@ const QueuingTvCardPopapSecond = ({
         }, 1);
       }
 
-      if (
-        response?.data?.navbat?.created_date &&
-        response?.data?.navbat?.created_date?.length > 0
-      ) {
-        socket.emit(
-          'create_queue',
-          { queue_data: response.data },
-          (responce: { status: string }) => {
-            console.log(responce);
-          },
-        );
-      }
+      // if (
+      //   response?.data?.navbat?.created_date &&
+      //   response?.data?.navbat?.created_date?.length > 0
+      // ) {
+      //   socket.emit(
+      //     'create_queue',
+      //     { queue_data: response.data },
+      //     (responce: { status: string }) => {
+      //       console.log(responce);
+      //     },
+      //   );
+      // }
     } catch (error) {
       setCreateQueueIsLoading(false);
 

@@ -24,7 +24,7 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
 import { Queue } from '@/pages/QueuesControlDoctor';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 const QueuesPage = () => {
   const dispatch = useAppDispatch();
@@ -61,31 +61,31 @@ const QueuesPage = () => {
     handle.enter();
   };
 
-  socket.on('getProccessQueueToTV', (data: Queue) => {
-    if (data) {
-      addProccessQueue(data);
-    }
-  });
+  // socket.on('getProccessQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     addProccessQueue(data);
+  //   }
+  // });
 
-  socket.on('getRecallQueueToTV', (data: Queue) => {
-    if (data) {
-      recallQueue(data);
-    }
-  });
+  // socket.on('getRecallQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     recallQueue(data);
+  //   }
+  // });
 
-  socket.on('getAcceptedQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'accept');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'accept');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
-  socket.on('getRejectQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'reject');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getRejectQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'reject');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
   return (
     <>

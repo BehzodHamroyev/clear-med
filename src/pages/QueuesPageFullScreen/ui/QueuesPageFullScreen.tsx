@@ -21,7 +21,7 @@ import {
 } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import Loader from '@/widgets/Loader/ui/Loader';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
 import { Queue } from '@/pages/QueuesControlDoctor';
@@ -61,47 +61,47 @@ const QueuesPageFullScreen = () => {
     });
   }
 
-  socket.on('getProccessQueueToTV', (data: Queue) => {
-    if (data) {
-      addProccessQueue(data);
+  // socket.on('getProccessQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     addProccessQueue(data);
 
-      setQueueDialogData({
-        roomNumber: String(data.room_id.name),
-        biletNumber: String(data.queues_name),
-        step: data.step,
-      });
+  //     setQueueDialogData({
+  //       roomNumber: String(data.room_id.name),
+  //       biletNumber: String(data.queues_name),
+  //       step: data.step,
+  //     });
 
-      setHasQueueDialog(true);
-    }
-  });
+  //     setHasQueueDialog(true);
+  //   }
+  // });
 
-  socket.on('getRecallQueueToTV', (data: Queue) => {
-    if (data) {
-      recallQueue(data);
+  // socket.on('getRecallQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     recallQueue(data);
 
-      setQueueDialogData({
-        roomNumber: String(data.room_id.name),
-        biletNumber: String(data.queues_name),
-        step: data.step,
-      });
+  //     setQueueDialogData({
+  //       roomNumber: String(data.room_id.name),
+  //       biletNumber: String(data.queues_name),
+  //       step: data.step,
+  //     });
 
-      setHasQueueDialog(true);
-    }
-  });
+  //     setHasQueueDialog(true);
+  //   }
+  // });
 
-  socket.on('getAcceptedQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'accept');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'accept');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
-  socket.on('getRejectQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'reject');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getRejectQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'reject');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
   useEffect(() => {
     if (hasQueueDialog) {

@@ -18,7 +18,7 @@ import {
 import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 import { Queue } from '@/pages/QueuesControlDoctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
@@ -64,33 +64,33 @@ const MonitorsDetail = () => {
 
   const { t } = useTranslation();
 
-  socket.on('getProccessQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data);
-      addProccessQueue(data);
-    }
-  });
+  // socket.on('getProccessQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data);
+  //     addProccessQueue(data);
+  //   }
+  // });
 
-  socket.on('getRecallQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'recall');
-      recallQueue(data);
-    }
-  });
+  // socket.on('getRecallQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'recall');
+  //     recallQueue(data);
+  //   }
+  // });
 
-  socket.on('getAcceptedQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'accept');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'accept');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
-  socket.on('getRejectQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'reject');
-      removeProccessQueue(data);
-    }
-  });
+  // socket.on('getRejectQueueToTV', (data: Queue) => {
+  //   if (data) {
+  //     // console.log(data, 'reject');
+  //     removeProccessQueue(data);
+  //   }
+  // });
 
   const phoneNumber = `+998${infoProject?.[0]?.phone}`;
 

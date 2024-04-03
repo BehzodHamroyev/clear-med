@@ -12,7 +12,7 @@ import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import Toast from '@/shared/ui/Toast/Toast';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 
@@ -41,37 +41,37 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     setIsLoginForHasToast,
   } = useContext(ButtonsContext);
 
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  // const [isConnected, setIsConnected] = useState(socket.connected);
 
-  useEffect(() => {
-    function onConnect() {
-      setIsConnected(true);
-    }
+  // useEffect(() => {
+  //   function onConnect() {
+  //     setIsConnected(true);
+  //   }
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
+  //   function onDisconnect() {
+  //     setIsConnected(false);
+  //   }
 
-    if (authUserData) {
-      socket.on('connect', onConnect);
-      socket.on('disconnect', onDisconnect);
-    }
+  //   if (authUserData) {
+  //     socket.on('connect', onConnect);
+  //     socket.on('disconnect', onDisconnect);
+  //   }
 
-    if (!isConnected && authUserData) {
-      socket.connect();
-    }
+  //   if (!isConnected && authUserData) {
+  //     socket.connect();
+  //   }
 
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-    };
-  }, [authUserData, isConnected]);
+  //   return () => {
+  //     socket.off('connect', onConnect);
+  //     socket.off('disconnect', onDisconnect);
+  //   };
+  // }, [authUserData, isConnected]);
 
-  useEffect(() => {
-    if (authUserData) {
-      socket.emit('addUser', authUserData.id);
-    }
-  }, [authUserData]);
+  // useEffect(() => {
+  //   if (authUserData) {
+  //     socket.emit('addUser', authUserData.id);
+  //   }
+  // }, [authUserData]);
 
   // After logging in to the system, to display the message "You have successfully entered the system" only once and not to display it in other cases
   useEffect(() => {
