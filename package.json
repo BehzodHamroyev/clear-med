@@ -75,6 +75,7 @@
     "@vitejs/plugin-react": "^2.1.0",
     "babel-loader": "^8.3.0",
     "babel-plugin-i18next-extract": "^0.8.3",
+    "babel-plugin-styled-components": "^2.1.4",
     "circular-dependency-plugin": "^5.2.2",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.8.1",
@@ -160,6 +161,7 @@
     "react-thermal-printer": "^0.18.1",
     "react-to-print": "^2.14.15",
     "socket.io-client": "^4.7.3",
+    "styled-components": "^6.1.8",
     "valid-url": "^1.0.9"
   },
   "loki": {

@@ -87,6 +87,14 @@ const QueuesPage = () => {
   //   }
   // });
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchAllQueueProccess({}));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
   return (
     <>
       <button
@@ -260,7 +268,7 @@ const QueuesPage = () => {
           </div>
         )}
 
-        {allProccessQueueIsLoading && <Loader />}
+        {/* {allProccessQueueIsLoading && <Loader />} */}
 
         {allProccessQueueIsError && <ErrorDialog isErrorProps={!false} />}
       </FullScreen>

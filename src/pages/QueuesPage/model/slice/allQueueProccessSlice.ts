@@ -59,6 +59,8 @@ export const allQueueProccessSlice = buildSlice({
         (state, action: PayloadAction<AllQueueProccessApiResponse>) => {
           state.isLoading = false;
 
+          let hasProceed = false;
+
           if (!state.data) {
             state.data = {
               videoUrl: [],
@@ -67,18 +69,29 @@ export const allQueueProccessSlice = buildSlice({
             };
           }
 
+          console.log(action.payload);
+
           state.data.videoUrl = action.payload.monitor?.videos;
 
           state.data.addvertising = action.payload.monitor.addvertising;
 
           action?.payload?.monitor?.rooms?.forEach((item) => {
+            if (item.proceed?.length > 0) {
+              hasProceed = true;
+            }
+
             if (
+              hasProceed &&
               item.proceed?.length > 0 &&
               !state.data?.proccessQueues?.some(
                 (itemState) => itemState._id === item?.proceed[0]?._id,
               )
             ) {
               state.data?.proccessQueues.push(item?.proceed[0]);
+            }
+
+            if (!hasProceed && state.data) {
+              state.data.proccessQueues = [];
             }
           });
         },

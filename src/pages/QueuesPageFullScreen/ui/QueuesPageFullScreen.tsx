@@ -20,16 +20,21 @@ import {
   getAllQueueProccessIsLoading,
 } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import Loader from '@/widgets/Loader/ui/Loader';
+// import Loader from '@/widgets/Loader/ui/Loader';
 // import { socket } from '@/shared/lib/utils/socket';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
-import { Queue } from '@/pages/QueuesControlDoctor';
+// import { Queue } from '@/pages/QueuesControlDoctor';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
 
   const handle = useFullScreenHandle();
+
+  const dispatch = useAppDispatch();
 
   const [hasRolik, setHasRolik] = useState(true);
   const [hasQueueDialog, setHasQueueDialog] = useState(false);
@@ -102,6 +107,15 @@ const QueuesPageFullScreen = () => {
   //     removeProccessQueue(data);
   //   }
   // });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchAllQueueProccess({}));
+    }, 5000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     if (hasQueueDialog) {
@@ -266,7 +280,7 @@ const QueuesPageFullScreen = () => {
         )}
       </div>
 
-      {allProccessQueueIsLoading && <Loader />}
+      {/* {allProccessQueueIsLoading && <Loader />} */}
 
       {hasQueueDialog && (
         <QueueDialog
