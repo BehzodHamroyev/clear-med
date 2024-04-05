@@ -69,11 +69,11 @@ export const allQueueProccessSlice = buildSlice({
             };
           }
 
-          console.log(action.payload);
-
           state.data.videoUrl = action.payload.monitor?.videos;
 
           state.data.addvertising = action.payload.monitor.addvertising;
+
+          state.data.proccessQueues = [];
 
           action?.payload?.monitor?.rooms?.forEach((item) => {
             if (item.proceed?.length > 0) {

@@ -20,10 +20,10 @@ import {
   getAllQueueProccessError,
   getAllQueueProccessIsLoading,
 } from '../model/selector/allQueueProccessSelector';
-import { Loader } from '@/widgets/Loader';
+// import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
-import { Queue } from '@/pages/QueuesControlDoctor';
+// import { Queue } from '@/pages/QueuesControlDoctor';
 // import { socket } from '@/shared/lib/utils/socket';
 
 const QueuesPage = () => {

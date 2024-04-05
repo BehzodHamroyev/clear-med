@@ -1,42 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 import ReactPlayer from 'react-player';
 
-import { useFullScreenHandle } from 'react-full-screen';
 import { useTranslation } from 'react-i18next';
 
 import { IoClose } from 'react-icons/io5';
 import cls from './QueuesPageFullScreen.module.scss';
-// import { QueuesList2 } from '@/entities/QueuesChilds2';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-import medLogo from '../../../../public/assets/medLogo.png';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/pages/QueuesPage/ui/queueDialog/QueueDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import {
-  getAllQueueProccessData,
-  getAllQueueProccessIsLoading,
-} from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-// import Loader from '@/widgets/Loader/ui/Loader';
-// import { socket } from '@/shared/lib/utils/socket';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
-// import { Queue } from '@/pages/QueuesControlDoctor';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAllQueueProccessData } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
+
+import medLogo from '../../../../public/assets/medLogo.png';
+import { baseUrl } from '../../../../baseurl';
 
 const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
 
-  const handle = useFullScreenHandle();
-
-  const dispatch = useAppDispatch();
-
-  const [hasRolik, setHasRolik] = useState(true);
   const [hasQueueDialog, setHasQueueDialog] = useState(false);
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -46,15 +31,7 @@ const QueuesPageFullScreen = () => {
 
   const videoUrl: string[] = [];
 
-  const {
-    recallQueue,
-    addProccessQueue,
-    clearProccessQueue,
-    removeProccessQueue,
-  } = useAllQueueProccessActions();
-
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
 
   const handleExitFullScreenClick = () => {
     document.exitFullscreen();
@@ -66,56 +43,48 @@ const QueuesPageFullScreen = () => {
     });
   }
 
-  // socket.on('getProccessQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     addProccessQueue(data);
-
-  //     setQueueDialogData({
-  //       roomNumber: String(data.room_id.name),
-  //       biletNumber: String(data.queues_name),
-  //       step: data.step,
-  //     });
-
-  //     setHasQueueDialog(true);
-  //   }
-  // });
-
-  // socket.on('getRecallQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     recallQueue(data);
-
-  //     setQueueDialogData({
-  //       roomNumber: String(data.room_id.name),
-  //       biletNumber: String(data.queues_name),
-  //       step: data.step,
-  //     });
-
-  //     setHasQueueDialog(true);
-  //   }
-  // });
-
-  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'accept');
-  //     removeProccessQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRejectQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'reject');
-  //     removeProccessQueue(data);
-  //   }
-  // });
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(fetchAllQueueProccess({}));
-    }, 5000);
+    const token = Cookies.get('token');
+    let found = false;
 
-    return () => clearInterval(interval);
+    if (!hasQueueDialog) {
+      allProccessQueue?.proccessQueues.forEach((item) => {
+        if (!item.view && !found) {
+          setQueueDialogData({
+            roomNumber: String(item.room_id.name),
+            biletNumber: String(item.queues_name),
+            step: item.step,
+          });
+
+          try {
+            axios.post(
+              `${baseUrl}/monitor/update/view`,
+              { id: item._id, view: true },
+              {
+                maxBodyLength: Infinity,
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: `Bearer ${token}`,
+                },
+              },
+            );
+          } catch (error) {
+            console.log(error);
+          }
+
+          setHasQueueDialog(true);
+
+          found = true;
+        }
+
+        if (found) {
+          // eslint-disable-next-line no-useless-return
+          return;
+        }
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [allProccessQueue?.proccessQueues]);
 
   useEffect(() => {
     if (hasQueueDialog) {
@@ -171,34 +140,36 @@ const QueuesPageFullScreen = () => {
                 <div className={classNames(cls.queuesTable__items)}>
                   {allProccessQueue?.proccessQueues &&
                     allProccessQueue?.proccessQueues.length > 0 &&
-                    allProccessQueue?.proccessQueues.map((item) => (
-                      <div
-                        key={item._id}
-                        className={classNames(cls.queuesTable__item)}
-                      >
+                    allProccessQueue?.proccessQueues.map((item) =>
+                      item.view ? (
                         <div
-                          className={classNames(
-                            cls.queuesTable__itemDepartmentName,
-                          )}
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
                         >
-                          <p>{item.department_id?.name}</p>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
                         </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
-                          <p>{item.room_id.name}</p>
-                        </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemBiletNumber,
-                          )}
-                        >
-                          <p>{item.queues_name}</p>
-                        </div>
-                      </div>
-                    ))}
+                      ) : null,
+                    )}
                 </div>
               </div>
             </div>
@@ -250,30 +221,37 @@ const QueuesPageFullScreen = () => {
 
                 {allProccessQueue?.proccessQueues &&
                   allProccessQueue?.proccessQueues.length > 0 &&
-                  allProccessQueue?.proccessQueues.map((item) => (
-                    <div
-                      key={item._id}
-                      className={classNames(cls.queuesTable__item)}
-                    >
+                  allProccessQueue?.proccessQueues.map((item) =>
+                    item.view ? (
                       <div
-                        className={classNames(
-                          cls.queuesTable__itemDepartmentName,
-                        )}
+                        key={item._id}
+                        className={classNames(cls.queuesTable__item)}
                       >
-                        <p>{item.department_id?.name}</p>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>{item.department_id?.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>{item.room_id.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>{item.queues_name}</p>
+                          <p>{item.view}</p>
+                        </div>
                       </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemRoomNumber)}
-                      >
-                        <p>{item.room_id.name}</p>
-                      </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemBiletNumber)}
-                      >
-                        <p>{item.queues_name}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ) : null,
+                  )}
               </div>
             </div>
           </div>

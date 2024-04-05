@@ -45,6 +45,7 @@ export interface Queue {
   completed_date?: string;
   __v: number;
   id: string;
+  view: boolean;
 }
 
 export interface QueueApiResponseControlDoctorTypes {
