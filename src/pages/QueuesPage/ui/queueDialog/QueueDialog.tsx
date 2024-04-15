@@ -38,7 +38,7 @@ const QueueDialog = ({
     };
   }, []);
 
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -68,7 +68,6 @@ const QueueDialog = ({
     setCurrentTrackIndex(index);
 
     if (currentTrackIndex === Mp3Array.length - 1) {
-      console.log('Audio Ended');
       setOnEndedQueueAudio(false);
     }
   };
@@ -111,23 +110,23 @@ const QueueDialog = ({
           </div>
         </div>
       </div>
-      {/* <ReactAudioPlayer
-        src="/assets/callRingtone.mp3"
+      <ReactAudioPlayer
+        src="https://medapi.magicsoft.uz/uploads/callRingtone.mp3"
         autoPlay
         controls
         onEnded={() => setHasCallRingtone(true)}
         style={{ opacity: '0' }}
-      /> */}
+      />
 
       {/* {hasCallRingtone && ( */}
       <ReactAudioPlayer
         src={`${baseUrlUpload}${Mp3Array[currentTrackIndex]}`}
-        autoPlay
+        autoPlay={hasCallRingtone}
         controls
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}
         style={{ opacity: '0' }}
       />
-      {/* )} */}
+      {/* // )} */}
     </div>
   );
 };
