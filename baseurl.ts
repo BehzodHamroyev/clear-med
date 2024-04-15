@@ -1,3 +1,7 @@
-export const baseUrl = 'http://medapi.magicsoft.uz/api/v1';
+// export const baseUrl = 'http://socketmed.magicsoft.uz/api/v1';
 
-export const baseUrlUpload = 'http://medapi.magicsoft.uz';
+// export const baseUrlUpload = 'http://socketmed.magicsoft.uz';
+
+export const baseUrl = 'http://socketmed.magicsoft.uz/api/v1';
+
+export const baseUrlUpload = 'http://socketmed.magicsoft.uz';

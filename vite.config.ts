@@ -11,7 +11,7 @@ export default defineConfig({
     __IS_DEV__: JSON.stringify(true),
 
     // ----------  Server ----------
-    __API__: JSON.stringify('http://medapi.magicsoft.uz/api/v1/'),
+    __API__: JSON.stringify('http://socketmed.magicsoft.uz'),
     __PROJECT__: JSON.stringify('frontend'),
   },
 });

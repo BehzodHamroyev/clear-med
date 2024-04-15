@@ -346,7 +346,7 @@ const EditReceptionFormDialog = ({
                   src={
                     selectedFile
                       ? URL.createObjectURL(selectedFile)
-                      : `http://medapi.magicsoft.uz/${receptionCurrentData.data.photo}`
+                      : `http://socketmed.magicsoft.uz/${receptionCurrentData.data.photo}`
                   }
                   alt="doctor"
                 />

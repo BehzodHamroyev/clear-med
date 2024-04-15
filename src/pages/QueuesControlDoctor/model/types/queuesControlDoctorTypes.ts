@@ -46,6 +46,7 @@ export interface Queue {
   __v: number;
   id: string;
   view: boolean;
+  mp3Arr: string[];
 }
 
 export interface QueueApiResponseControlDoctorTypes {

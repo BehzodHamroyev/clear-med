@@ -27,6 +27,7 @@ const QueuesPageFullScreen = () => {
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
     step: 1,
+    mp3Arr: [''],
   });
 
   const videoUrl: string[] = [];
@@ -54,6 +55,7 @@ const QueuesPageFullScreen = () => {
             roomNumber: String(item.room_id.name),
             biletNumber: String(item.queues_name),
             step: item.step,
+            mp3Arr: item.mp3Arr,
           });
 
           try {
@@ -90,7 +92,7 @@ const QueuesPageFullScreen = () => {
     if (hasQueueDialog) {
       setTimeout(() => {
         setHasQueueDialog(false);
-      }, 5500);
+      }, 10500);
     }
   }, [hasQueueDialog]);
 
@@ -265,6 +267,7 @@ const QueuesPageFullScreen = () => {
           roomNumber={queueDialogData.roomNumber}
           biletNumber={queueDialogData.biletNumber}
           step={queueDialogData.step}
+          Mp3Array={queueDialogData.mp3Arr}
         />
       )}
     </>
