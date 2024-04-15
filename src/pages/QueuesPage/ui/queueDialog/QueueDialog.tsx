@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ReactAudioPlayer from 'react-audio-player';
@@ -7,6 +7,7 @@ import cls from './QueueDialog.module.scss';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { baseUrlUpload } from '../../../../../baseurl';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueDialogProps {
   className?: string;
@@ -26,6 +27,8 @@ const QueueDialog = ({
   const { t } = useTranslation();
 
   const [hasCallRingtone, setHasCallRingtone] = useState(false);
+  const { onEndedQueueAudio, setOnEndedQueueAudio } =
+    useContext(ButtonsContext);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -63,6 +66,11 @@ const QueueDialog = ({
 
   const handleTrackChange = (index: React.SetStateAction<number>) => {
     setCurrentTrackIndex(index);
+
+    if (currentTrackIndex === Mp3Array.length - 1) {
+      console.log('Audio Ended');
+      setOnEndedQueueAudio(false);
+    }
   };
 
   return (

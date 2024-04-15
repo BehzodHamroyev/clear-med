@@ -2,6 +2,9 @@ import { createContext } from 'react';
 import { CurrentQueueDataType } from '@/pages/QueuingTV';
 
 export interface ButtonsClickedProps {
+  onEndedQueueAudio: boolean;
+  setOnEndedQueueAudio: (prop: boolean) => void;
+
   isLoginForHasToast: boolean;
   setIsLoginForHasToast: (prop: boolean) => void;
 
@@ -237,6 +240,9 @@ export interface ButtonsClickedProps {
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  onEndedQueueAudio: false,
+  setOnEndedQueueAudio: () => {},
+
   isLoginForHasToast: false,
   setIsLoginForHasToast: () => {},
 

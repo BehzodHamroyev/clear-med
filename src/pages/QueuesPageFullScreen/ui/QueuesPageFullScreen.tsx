@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -18,6 +18,7 @@ import { getAllQueueProccessData } from '@/pages/QueuesPage/model/selector/allQu
 
 import medLogo from '../../../../public/assets/medLogo.png';
 import { baseUrl } from '../../../../baseurl';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
@@ -34,6 +35,9 @@ const QueuesPageFullScreen = () => {
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
+  const { onEndedQueueAudio, setOnEndedQueueAudio } =
+    useContext(ButtonsContext);
+
   const handleExitFullScreenClick = () => {
     document.exitFullscreen();
   };
@@ -48,7 +52,7 @@ const QueuesPageFullScreen = () => {
     const token = Cookies.get('token');
     let found = false;
 
-    if (!hasQueueDialog) {
+    if (!onEndedQueueAudio) {
       allProccessQueue?.proccessQueues.forEach((item) => {
         if (!item.view && !found) {
           setQueueDialogData({
@@ -75,6 +79,7 @@ const QueuesPageFullScreen = () => {
           }
 
           setHasQueueDialog(true);
+          setOnEndedQueueAudio(true);
 
           found = true;
         }
@@ -88,13 +93,13 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue?.proccessQueues]);
 
-  useEffect(() => {
-    if (hasQueueDialog) {
-      setTimeout(() => {
-        setHasQueueDialog(false);
-      }, 10500);
-    }
-  }, [hasQueueDialog]);
+  // useEffect(() => {
+  //   if (hasQueueDialog) {
+  //     setTimeout(() => {
+  //       setHasQueueDialog(false);
+  //     }, 10500);
+  //   }
+  // }, [hasQueueDialog]);
 
   return (
     <>
@@ -262,7 +267,7 @@ const QueuesPageFullScreen = () => {
 
       {/* {allProccessQueueIsLoading && <Loader />} */}
 
-      {hasQueueDialog && (
+      {onEndedQueueAudio && (
         <QueueDialog
           roomNumber={queueDialogData.roomNumber}
           biletNumber={queueDialogData.biletNumber}
