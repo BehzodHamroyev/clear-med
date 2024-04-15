@@ -56,7 +56,7 @@ const QueuingTvCard = ({
       </div>
       <div className={cls.CardRight}>
         {icon && icon?.length > 0 && (
-          <img src={`http://socketmed.magicsoft.uz${icon}`} alt="icon" />
+          <img src={`https://medapi.magicsoft.uz${icon}`} alt="icon" />
         )}
       </div>
     </div>

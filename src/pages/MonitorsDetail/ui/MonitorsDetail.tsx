@@ -31,7 +31,7 @@ const MonitorsDetail = () => {
 
   const infoProject = useSelector(getInfoProject);
 
-  const imgLink: string = `http://socketmed.magicsoft.uz/${infoProject?.[0]?.logo}`;
+  const imgLink: string = `https://medapi.magicsoft.uz/${infoProject?.[0]?.logo}`;
 
   const videoUrl: string[] = [];
 

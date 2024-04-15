@@ -113,7 +113,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `http://socketmed.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `https://medapi.magicsoft.uz/${item.photo}`;
 
               return (
                 <tr

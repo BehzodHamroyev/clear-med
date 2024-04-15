@@ -63,7 +63,7 @@ const TableTitleReports = (props: TableInfo) => {
                 <td className={cls.td}>
                   <img
                     className={cls.Img}
-                    src={`http://socketmed.magicsoft.uz/${item.photo}`}
+                    src={`https://medapi.magicsoft.uz/${item.photo}`}
                     alt="#"
                   />
                 </td>
