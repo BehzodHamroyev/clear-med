@@ -13,7 +13,7 @@ const NavbarLogo = () => {
 
   const infoProject = useSelector(getInfoProject);
 
-  const imgLink: string = `https://medapi.magicsoft.uz/${infoProject?.[0]?.logo}`;
+  const imgLink: string = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
 
   return (
     <Link to="/" className={cls.NavbarLogoWrapper}>
