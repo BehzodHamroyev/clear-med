@@ -40,6 +40,8 @@ const QueuingTvCard = ({
     setIsOpenQueuingTvCardPopapSecond(true);
   };
 
+  console.log('CardLeftRoomNumber', CardLeftRoomNumber);
+
   return (
     <div
       onClick={(e) => hendleClickQuingTvCard(e)}

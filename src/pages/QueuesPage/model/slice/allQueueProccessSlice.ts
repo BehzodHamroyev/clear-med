@@ -71,7 +71,7 @@ export const allQueueProccessSlice = buildSlice({
 
           state.data.videoUrl = action.payload.monitor?.videos;
 
-          state.data.addvertising = action.payload.monitor.addvertising;
+          state.data.addvertising = action.payload.monitor?.addvertising;
 
           state.data.proccessQueues = [];
 
