@@ -110,8 +110,10 @@ const QueueDialog = ({
           </div>
         </div>
       </div>
+
       <ReactAudioPlayer
-        src="http://socketmed.magicsoft.uz//uploads/callRingtone.mp3"
+        // src="http://socketmed.magicsoft.uz//uploads/callRingtone.mp3"
+        src="https://medapi.magicsoft.uz/uploads/callRingtone.mp3"
         autoPlay
         controls
         onEnded={() => setHasCallRingtone(true)}
