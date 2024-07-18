@@ -90,6 +90,7 @@ const QueueDialog = ({
             <div className={classNames(cls.QueueDialogContainer__headLeft)}>
               <p>{t('Xona raqami')}</p>
             </div>
+
             <div className={classNames(cls.QueueDialogContainer__headRight)}>
               <p>{t('Bilet raqami')}</p>
             </div>
@@ -99,11 +100,13 @@ const QueueDialog = ({
             <div className={classNames(cls.QueueDialogBox__roomNumber)}>
               <p>{roomNumber}</p>
             </div>
+
             <div className={classNames(cls.QueueDialogBox__lineRow)}>
               <div
                 className={classNames(cls.QueueDialogBox__lineRowClipPath)}
               />
             </div>
+
             <div className={classNames(cls.QueueDialogBox__biletNumber)}>
               <p>{biletNumber}</p>
             </div>

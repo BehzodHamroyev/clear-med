@@ -1,4 +1,3 @@
-
 {
   "": "",
   " ": "",
@@ -74,7 +73,7 @@
   "Berilgan vaqt": "",
   "Bilet": "",
   "Bilet berilgan vaqti": "",
-  "Bilet raqami": "",
+  "Bilet raqami": "Ticket number",
   "Biriktirilgan bo'lim": "",
   "Biriktirilgan shifokor": "",
   "Biriktirilgan shifokorlar": "",
@@ -501,4 +500,3 @@
   "Создать статью": "",
   "У вас нет доступа к этой странице": ""
 }
-
