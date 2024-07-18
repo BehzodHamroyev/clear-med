@@ -116,7 +116,7 @@ const AddReceptionPage = () => {
         {allReceptionsData && allReceptionsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allReceptionsData.map((item) => {
-              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
 
               return (
                 <tr

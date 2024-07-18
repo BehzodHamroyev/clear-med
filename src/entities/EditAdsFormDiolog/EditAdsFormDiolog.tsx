@@ -265,7 +265,7 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
                   src={
                     selectedFile
                       ? URL.createObjectURL(selectedFile)
-                      : `http://medapi.magicsoft.uz/${adsCurrentData?.data.photo}`
+                      : `http://socketmed.magicsoft.uz//${adsCurrentData?.data.photo}`
                   }
                   alt="#"
                 />

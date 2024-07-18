@@ -46,6 +46,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       sizdan_oldingi_bemorlar_soni: 1,
     });
 
+  const [onEndedQueueAudio, setOnEndedQueueAudio] = useState(false);
+
   const [isLoginForHasToast, setIsLoginForHasToast] = useState<boolean>(false);
 
   const [clickedDoctorId, setClickedDoctorId] = useState('');
@@ -212,6 +214,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const defaultProps = useMemo(
     () => ({
+      onEndedQueueAudio,
+      setOnEndedQueueAudio,
+
       isLoginForHasToast,
       setIsLoginForHasToast,
 
@@ -335,6 +340,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenUploadLogo,
     }),
     [
+      onEndedQueueAudio,
+      setOnEndedQueueAudio,
+
       isLoginForHasToast,
       setIsLoginForHasToast,
 

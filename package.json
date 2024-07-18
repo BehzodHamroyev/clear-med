@@ -7,7 +7,7 @@
     "start": "webpack serve --env port=3000",
     "start:vite": "vite",
     "build:prod": "webpack  --env mode=production",
-    "build:dev": "webpack  --env mode=development apiUrl=http://medapi.magicsoft.uz/api/v1",
+    "build:dev": "webpack  --env mode=development apiUrl=http://socketmed.magicsoft.uz//api/v1",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
@@ -160,6 +160,7 @@
     "react-router-dom": "^6.21.2",
     "react-thermal-printer": "^0.18.1",
     "react-to-print": "^2.14.15",
+    "serve": "^14.2.1",
     "socket.io-client": "^4.7.3",
     "styled-components": "^6.1.8",
     "valid-url": "^1.0.9"

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ReactAudioPlayer from 'react-audio-player';
@@ -6,12 +6,15 @@ import ReactAudioPlayer from 'react-audio-player';
 import cls from './QueueDialog.module.scss';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { baseUrlUpload } from '../../../../../baseurl';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueDialogProps {
   className?: string;
   roomNumber: string;
   biletNumber: string;
   step: number;
+  Mp3Array: string[];
 }
 
 const QueueDialog = ({
@@ -19,8 +22,13 @@ const QueueDialog = ({
   roomNumber,
   biletNumber,
   step,
+  Mp3Array,
 }: QueueDialogProps) => {
   const { t } = useTranslation();
+
+  const [hasCallRingtone, setHasCallRingtone] = useState(false);
+  const { onEndedQueueAudio, setOnEndedQueueAudio } =
+    useContext(ButtonsContext);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -29,6 +37,40 @@ const QueueDialog = ({
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const audioPlayer = document.getElementsByTagName('audio')[0];
+
+    const handleAudioLoaded = () => {
+      setIsLoading(false);
+    };
+
+    const handleAudioEnd = () => {
+      if (currentTrackIndex < Mp3Array.length - 1) {
+        setCurrentTrackIndex(currentTrackIndex + 1);
+      }
+    };
+
+    audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
+    audioPlayer.addEventListener('ended', handleAudioEnd);
+
+    return () => {
+      audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
+      audioPlayer.removeEventListener('ended', handleAudioEnd);
+    };
+  }, [currentTrackIndex, Mp3Array]);
+
+  const handleTrackChange = (index: React.SetStateAction<number>) => {
+    setCurrentTrackIndex(index);
+
+    if (currentTrackIndex === Mp3Array.length - 1) {
+      setOnEndedQueueAudio(false);
+    }
+  };
 
   return (
     <div>
@@ -69,11 +111,22 @@ const QueueDialog = ({
         </div>
       </div>
       <ReactAudioPlayer
-        src="/assets/callRingtone.mp3"
+        src="http://socketmed.magicsoft.uz//uploads/callRingtone.mp3"
         autoPlay
         controls
+        onEnded={() => setHasCallRingtone(true)}
         style={{ opacity: '0' }}
       />
+
+      {/* {hasCallRingtone && ( */}
+      <ReactAudioPlayer
+        src={`${baseUrlUpload}${Mp3Array[currentTrackIndex]}`}
+        autoPlay={hasCallRingtone}
+        controls
+        onEnded={() => handleTrackChange(currentTrackIndex + 1)}
+        style={{ opacity: '0' }}
+      />
+      {/* // )} */}
     </div>
   );
 };

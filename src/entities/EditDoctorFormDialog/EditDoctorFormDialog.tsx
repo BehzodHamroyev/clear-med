@@ -333,7 +333,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     src={
                       selectedFile
                         ? URL.createObjectURL(selectedFile)
-                        : `http://medapi.magicsoft.uz/${doctorCurrentData.data.photo}`
+                        : `http://socketmed.magicsoft.uz//${doctorCurrentData.data.photo}`
                     }
                     alt="doctor"
                   />
