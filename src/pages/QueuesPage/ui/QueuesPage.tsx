@@ -33,6 +33,7 @@ const QueuesPage = () => {
   const videoUrl: string[] = [];
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
+
   const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
 
@@ -146,7 +147,7 @@ const QueuesPage = () => {
                         {t('Bilet')}
                       </p>
                     </div>
-
+                    {/* this place */}
                     <div className={classNames(cls.queuesTable__items)}>
                       {allProccessQueue?.proccessQueues &&
                         allProccessQueue?.proccessQueues.length > 0 &&
@@ -179,6 +180,7 @@ const QueuesPage = () => {
                           </div>
                         ))}
                     </div>
+                    {/* this place */}
                   </div>
                 </div>
 
@@ -267,8 +269,6 @@ const QueuesPage = () => {
             )}
           </div>
         )}
-
-        {/* {allProccessQueueIsLoading && <Loader />} */}
 
         {allProccessQueueIsError && <ErrorDialog isErrorProps={!false} />}
       </FullScreen>

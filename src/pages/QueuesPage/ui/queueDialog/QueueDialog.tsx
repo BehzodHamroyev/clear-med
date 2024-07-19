@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import ReactAudioPlayer from 'react-audio-player';
 
 import cls from './QueueDialog.module.scss';
-
-import { classNames } from '@/shared/lib/classNames/classNames';
 import { baseUrlUpload } from '../../../../../baseurl';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueDialogProps {
@@ -18,17 +16,16 @@ interface QueueDialogProps {
 }
 
 const QueueDialog = ({
+  step,
+  Mp3Array,
   className,
   roomNumber,
   biletNumber,
-  step,
-  Mp3Array,
 }: QueueDialogProps) => {
   const { t } = useTranslation();
 
   const [hasCallRingtone, setHasCallRingtone] = useState(false);
-  const { onEndedQueueAudio, setOnEndedQueueAudio } =
-    useContext(ButtonsContext);
+  const { setOnEndedQueueAudio } = useContext(ButtonsContext);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -123,7 +120,6 @@ const QueueDialog = ({
         style={{ opacity: '0' }}
       />
 
-      {/* {hasCallRingtone && ( */}
       <ReactAudioPlayer
         src={`${baseUrlUpload}${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
@@ -131,7 +127,6 @@ const QueueDialog = ({
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}
         style={{ opacity: '0' }}
       />
-      {/* // )} */}
     </div>
   );
 };

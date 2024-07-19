@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 import ReactPlayer from 'react-player';
-
+import { useSelector } from 'react-redux';
+import { IoClose } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
 
-import { IoClose } from 'react-icons/io5';
+import { baseUrl } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
+import medLogo from '../../../../public/assets/medLogo.png';
 import { classNames } from '@/shared/lib/classNames/classNames';
-
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/pages/QueuesPage/ui/queueDialog/QueueDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAllQueueProccessData } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
-
-import medLogo from '../../../../public/assets/medLogo.png';
-import { baseUrl } from '../../../../baseurl';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
@@ -93,14 +89,6 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue?.proccessQueues]);
 
-  // useEffect(() => {
-  //   if (hasQueueDialog) {
-  //     setTimeout(() => {
-  //       setHasQueueDialog(false);
-  //     }, 10500);
-  //   }
-  // }, [hasQueueDialog]);
-
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -113,7 +101,7 @@ const QueuesPageFullScreen = () => {
               <IoClose style={{ fontSize: '36px', color: '#27374d' }} />
             </div>
 
-            <p>Med Navbat Clinic Centr</p>
+            <p>Med Navbat Clinic Center</p>
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
@@ -264,8 +252,6 @@ const QueuesPageFullScreen = () => {
           </div>
         )}
       </div>
-
-      {/* {allProccessQueueIsLoading && <Loader />} */}
 
       {onEndedQueueAudio && (
         <QueueDialog

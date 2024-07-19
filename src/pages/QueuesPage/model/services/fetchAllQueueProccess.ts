@@ -14,6 +14,7 @@ export const fetchAllQueueProccess = createAsyncThunk<
   const { rejectWithValue } = thunkApi;
 
   const getTokenCookie = Cookies.get('token');
+
   if (monitorId) {
     try {
       const response = await axios.get(
