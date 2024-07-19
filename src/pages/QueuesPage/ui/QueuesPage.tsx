@@ -97,11 +97,6 @@ const QueuesPage = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  console.log(
-    allProccessQueue?.proccessQueues,
-    'allProccessQueue?.proccessQueues',
-  );
-
   return (
     <>
       <button
