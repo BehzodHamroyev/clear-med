@@ -134,17 +134,21 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainer)}>
             <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
               <div className={classNames(cls.queuesTable)}>
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
+                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
 
                 <div className={classNames(cls.queuesTable__items)}>
                   {allProccessQueue.room1?.proceed.map((item, index) => {
@@ -180,17 +184,23 @@ const QueuesPageFullScreen = () => {
                     }
                   })}
                 </div>
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
+
+                {allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
+
                 <div className={classNames(cls.queuesTable__items)}>
                   {allProccessQueue.room2?.proceed.map((item, index) => {
                     if (index < 3)
