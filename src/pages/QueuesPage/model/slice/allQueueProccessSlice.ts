@@ -48,6 +48,7 @@ export const allQueueProccessSlice = buildSlice({
       });
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllQueueProccess.pending, (state) => {
@@ -58,7 +59,6 @@ export const allQueueProccessSlice = buildSlice({
         fetchAllQueueProccess.fulfilled,
         (state, action: PayloadAction<AllQueueProccessApiResponse>) => {
           state.isLoading = false;
-          console.log(action.payload.monitor, 'sdfghjkl');
 
           let hasProceed = false;
 
@@ -77,8 +77,6 @@ export const allQueueProccessSlice = buildSlice({
           state.data.proccessQueues = [];
 
           action?.payload?.monitor?.rooms?.forEach((item) => {
-            console.log(item, 'fghjk');
-
             if (item.proceed?.length > 0) {
               hasProceed = true;
             }
