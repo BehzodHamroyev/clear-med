@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { buildSlice } from '@/shared/lib/store';
@@ -98,6 +99,13 @@ export const allQueueProccessSlice = buildSlice({
               state.data.proccessQueues = [];
             }
           });
+
+          const rooms = action?.payload?.monitor?.rooms;
+
+          // @ts-ignore
+          state.data.room1 = rooms.length > 0 ? rooms?.[0] : [];
+          // @ts-ignore
+          state.data.room2 = rooms.length > 0 ? rooms?.[1] : [];
         },
       )
       .addCase(fetchAllQueueProccess.rejected, (state, action) => {
