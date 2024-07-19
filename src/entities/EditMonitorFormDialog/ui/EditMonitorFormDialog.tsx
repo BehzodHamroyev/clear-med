@@ -121,7 +121,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
             name: responceData.name,
             login: `+998 ${responceData.login}`,
             password: '',
-            addvertising: responceData!?.monitors!?.[0].addvertising,
+            addvertising: responceData!?.monitors!?.[0]?.addvertising,
           },
         });
       }
