@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -132,23 +134,26 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainer)}>
             <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
               <div className={classNames(cls.queuesTable)}>
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
+                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
 
                 <div className={classNames(cls.queuesTable__items)}>
-                  {allProccessQueue?.proccessQueues &&
-                    allProccessQueue?.proccessQueues.length > 0 &&
-                    allProccessQueue?.proccessQueues.map((item) =>
-                      item.view ? (
+                  {allProccessQueue.room1?.proceed.map((item, index) => {
+                    if (index < 3) {
+                      return (
                         <div
                           key={item._id}
                           className={classNames(cls.queuesTable__item)}
@@ -175,8 +180,59 @@ const QueuesPageFullScreen = () => {
                             <p>{item.queues_name}</p>
                           </div>
                         </div>
-                      ) : null,
-                    )}
+                      );
+                    }
+                  })}
+                </div>
+
+                {allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
+
+                <div className={classNames(cls.queuesTable__items)}>
+                  {allProccessQueue.room2?.proceed.map((item, index) => {
+                    if (index < 3)
+                      return (
+                        <div
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
+                        >
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
+                        </div>
+                      );
+                  })}
                 </div>
               </div>
             </div>
@@ -228,37 +284,30 @@ const QueuesPageFullScreen = () => {
 
                 {allProccessQueue?.proccessQueues &&
                   allProccessQueue?.proccessQueues.length > 0 &&
-                  allProccessQueue?.proccessQueues.map((item) =>
-                    item.view ? (
+                  allProccessQueue?.proccessQueues.map((item) => (
+                    <div
+                      key={item._id}
+                      className={classNames(cls.queuesTable__item)}
+                    >
                       <div
-                        key={item._id}
-                        className={classNames(cls.queuesTable__item)}
+                        className={classNames(
+                          cls.queuesTable__itemDepartmentName,
+                        )}
                       >
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemDepartmentName,
-                          )}
-                        >
-                          <p>{item.department_id?.name}</p>
-                        </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
-                          <p>{item.room_id.name}</p>
-                        </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemBiletNumber,
-                          )}
-                        >
-                          <p>{item.queues_name}</p>
-                          <p>{item.view}</p>
-                        </div>
+                        <p>{item.department_id?.name}</p>
                       </div>
-                    ) : null,
-                  )}
+                      <div
+                        className={classNames(cls.queuesTable__itemRoomNumber)}
+                      >
+                        <p>{item.room_id.name}</p>
+                      </div>
+                      <div
+                        className={classNames(cls.queuesTable__itemBiletNumber)}
+                      >
+                        <p>{item.queues_name}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
