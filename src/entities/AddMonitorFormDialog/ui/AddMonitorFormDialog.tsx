@@ -81,8 +81,6 @@ const AddMonitorFormDialog = () => {
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    console.log(isAllFormData, String(isAllFormData.login).length);
-
     if (
       isAllFormData.name &&
       isAllFormData.login &&

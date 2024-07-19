@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -95,6 +97,11 @@ const QueuesPage = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  console.log(
+    allProccessQueue?.proccessQueues,
+    'allProccessQueue?.proccessQueues',
+  );
+
   return (
     <>
       <button
@@ -112,7 +119,7 @@ const QueuesPage = () => {
           <div className={cls.QueuesPage}>
             <div className={classNames(cls.QueuesPage__header, {}, [])}>
               <div className={classNames(cls.QueuesPage__headerLeft)}>
-                <p>Med Navbat Clinic Centr</p>
+                <p>Med Navbat Clinic Center</p>
               </div>
               <div className={classNames(cls.QueuesPage__headerRight)}>
                 <div
@@ -150,34 +157,37 @@ const QueuesPage = () => {
                     <div className={classNames(cls.queuesTable__items)}>
                       {allProccessQueue?.proccessQueues &&
                         allProccessQueue?.proccessQueues.length > 0 &&
-                        allProccessQueue?.proccessQueues.map((item) => (
-                          <div
-                            key={item._id}
-                            className={classNames(cls.queuesTable__item)}
-                          >
-                            <div
-                              className={classNames(
-                                cls.queuesTable__itemDepartmentName,
-                              )}
-                            >
-                              <p>{item.department_id?.name}</p>
-                            </div>
-                            <div
-                              className={classNames(
-                                cls.queuesTable__itemRoomNumber,
-                              )}
-                            >
-                              <p>{item.room_id.name}</p>
-                            </div>
-                            <div
-                              className={classNames(
-                                cls.queuesTable__itemBiletNumber,
-                              )}
-                            >
-                              <p>{item.queues_name}</p>
-                            </div>
-                          </div>
-                        ))}
+                        allProccessQueue?.proccessQueues.map((item, index) => {
+                          if (index < 3)
+                            return (
+                              <div
+                                key={item._id}
+                                className={classNames(cls.queuesTable__item)}
+                              >
+                                <div
+                                  className={classNames(
+                                    cls.queuesTable__itemDepartmentName,
+                                  )}
+                                >
+                                  <p>{item.department_id?.name}</p>
+                                </div>
+                                <div
+                                  className={classNames(
+                                    cls.queuesTable__itemRoomNumber,
+                                  )}
+                                >
+                                  <p>{item.room_id.name}</p>
+                                </div>
+                                <div
+                                  className={classNames(
+                                    cls.queuesTable__itemBiletNumber,
+                                  )}
+                                >
+                                  <p>{item.queues_name}</p>
+                                </div>
+                              </div>
+                            );
+                        })}
                     </div>
                   </div>
                 </div>

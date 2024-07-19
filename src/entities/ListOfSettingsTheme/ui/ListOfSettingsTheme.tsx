@@ -15,7 +15,6 @@ const ListOfSettingsTheme = () => {
   const themeActive = localStorage.getItem('themeIsActive');
 
   const { toggleTheme, theme } = useTheme();
-  console.log(theme);
 
   const autoTheme = () => {
     localStorage.setItem('themeIsActive', '1');

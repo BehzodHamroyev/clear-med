@@ -19,7 +19,7 @@ import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQu
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 // import { socket } from '@/shared/lib/utils/socket';
-import { Queue } from '@/pages/QueuesControlDoctor';
+// import { Queue } from '@/pages/QueuesControlDoctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { getInfoProject } from '@/entities/FileUploader';
