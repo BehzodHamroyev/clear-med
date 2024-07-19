@@ -113,7 +113,6 @@ const QueuingTvCardPopapSecond = ({
       //     'create_queue',
       //     { queue_data: response.data },
       //     (responce: { status: string }) => {
-      //       console.log(responce);
       //     },
       //   );
       // }

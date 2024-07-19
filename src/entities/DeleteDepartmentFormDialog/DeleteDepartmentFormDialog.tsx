@@ -86,8 +86,6 @@ const DeleteDepartmentFormDialog = ({
     } catch (error) {
       setDeleteDepartmentFormDialogSubmitIsLoading(false);
 
-      console.log(error);
-
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

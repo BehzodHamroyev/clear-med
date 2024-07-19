@@ -59,8 +59,6 @@ const AddRoomForMonitorPage = () => {
   const getLoading = useSelector(getIsLoading);
   const getData = useSelector(GetAllRoomForMonitorData);
 
-  console.log(getData, 'getData');
-
   const connectionId = getData?.monitor.id;
 
   const {

@@ -33,7 +33,6 @@ export const fetchDoctorAdd = createAsyncThunk<
 
     return response.data;
   } catch (e) {
-    console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

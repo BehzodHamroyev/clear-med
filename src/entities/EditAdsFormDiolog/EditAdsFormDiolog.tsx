@@ -92,8 +92,6 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
           photo: '',
         },
       });
-
-      console.log(error);
     }
   };
 

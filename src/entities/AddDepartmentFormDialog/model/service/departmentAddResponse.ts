@@ -34,7 +34,6 @@ export const fetchDepartmentAdd = createAsyncThunk<
 
     return response.data;
   } catch (e: any) {
-    // console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

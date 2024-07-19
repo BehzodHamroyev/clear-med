@@ -58,7 +58,6 @@ export const allQueueProccessSlice = buildSlice({
         fetchAllQueueProccess.fulfilled,
         (state, action: PayloadAction<AllQueueProccessApiResponse>) => {
           state.isLoading = false;
-          console.log(action.payload.monitor, 'sdfghjkl');
 
           let hasProceed = false;
 
@@ -77,8 +76,6 @@ export const allQueueProccessSlice = buildSlice({
           state.data.proccessQueues = [];
 
           action?.payload?.monitor?.rooms?.forEach((item) => {
-            console.log(item, 'fghjk');
-
             if (item.proceed?.length > 0) {
               hasProceed = true;
             }
@@ -91,7 +88,10 @@ export const allQueueProccessSlice = buildSlice({
               )
             ) {
               // @ts-ignore
-              state.data.proccessQueues = item.proceed;
+              state.data.proccessQueues = [
+                ...state.data!.proccessQueues,
+                ...item.proceed,
+              ];
             }
 
             if (!hasProceed && state.data) {
