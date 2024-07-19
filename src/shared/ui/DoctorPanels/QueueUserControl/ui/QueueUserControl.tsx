@@ -1,5 +1,4 @@
-/* eslint-disable no-alert */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -12,9 +11,12 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/services/fetchQueuesProccess';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-// import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { QueueUserControlTimer } from '@/entities/QueueUserControlTimer';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
 
 interface QueueUserControlProps {
   proccessedStep: number;
@@ -24,23 +26,33 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { hasOpenToast, setHasOpenToast } = useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    setHasOpenToast,
+    isOpenQueueUserTimer,
+    setIsOpenQueueUserTimer,
+  } = useContext(ButtonsContext);
 
   const proccessedList = useSelector(getControlPanelDocktorData);
+
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
 
   const handleClickProccessRecall = () => {
     if (proccessedStep < 3) {
+      // setIsOpenQueueUserTimer(true);
       dispatch(
         fetchQueuesProccess({
           method: 'post',
           status: 'recall',
           path: '',
-          isReCall: true,
         }),
       );
     }
+
+    // setTimeout(() => {
+    //   setIsOpenQueueUserTimer(false);
+    // }, 10000);
   };
 
   const handleClickProccessCansel = () => {
@@ -59,26 +71,40 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (proccessCansel) {
-  //     dispatch(
-  //       fetchDoneQueuesControlDoctor({
-  //         limit: 100,
-  //       }),
-  //     );
-  //     setProccessCansel(false);
-  //   }
+  useEffect(() => {
+    if (proccessCansel) {
+      dispatch(
+        fetchDoneQueuesControlDoctor({
+          limit: 1000,
+        }),
+      );
 
-  //   if (proccessConfirm) {
-  //     dispatch(
-  //       fetchDoneQueuesControlDoctor({
-  //         limit: 100,
-  //       }),
-  //     );
-  //     setProccessConfirm(false);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [proccessedList]);
+      dispatch(
+        fetchQueuesControlDoctor({
+          status: 'pending',
+        }),
+      );
+
+      setProccessCansel(false);
+    }
+
+    if (proccessConfirm) {
+      dispatch(
+        fetchDoneQueuesControlDoctor({
+          limit: 1000,
+        }),
+      );
+
+      dispatch(
+        fetchQueuesControlDoctor({
+          status: 'pending',
+        }),
+      );
+
+      setProccessConfirm(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proccessedList]);
 
   const handleClickProccessConfirm = () => {
     if (proccessedStep) {
@@ -166,6 +192,8 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           message={t("Bemor ko'rilganlar ro'yhatiga qo'shildi")}
         />
       )}
+
+      {isOpenQueueUserTimer && <QueueUserControlTimer />}
     </>
   );
 };

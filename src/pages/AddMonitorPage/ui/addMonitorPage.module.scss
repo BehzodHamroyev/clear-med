@@ -1,6 +1,62 @@
 .AddMonitorPageWrapper {
   width: 100%;
 
+  &__Title {
+    max-width: 1300px;
+    width: 100%;
+    max-height: 60px;
+    font-family: sans-serif;
+    border-radius: 5.273px;
+    background: var(--bg-table);
+    border: 1px solid var(--border-table);
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    padding: 20px;
+    text-align: center;
+
+    &--text {
+      color: var(--text-color);
+      font-family: sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0.036px;
+      user-select: none;
+    }
+
+    &--span {
+      color: #828282;
+    }
+
+    &--IconDiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    &--Icon {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      display: flex;
+      padding: 7px;
+      color: var(--icon-color);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      border: 1.1px solid #e0e0e0;
+      border-radius: 5.2px;
+    }
+
+    &--IconDiv:active {
+      transform: scale(0.97);
+    }
+  }
+
   .MonitorsList {
     width: 100%;
     display: grid;

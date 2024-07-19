@@ -3,10 +3,10 @@
   user-select: none;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
 
   h3 {
-    color: #000;
+    color: var(--text-color);
     font-family: sans-serif;
     font-size: 16.875px;
     font-style: normal;

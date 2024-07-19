@@ -40,6 +40,8 @@ const QueuingTvCard = ({
     setIsOpenQueuingTvCardPopapSecond(true);
   };
 
+  console.log('CardLeftRoomNumber', CardLeftRoomNumber);
+
   return (
     <div
       onClick={(e) => hendleClickQuingTvCard(e)}
@@ -55,8 +57,8 @@ const QueuingTvCard = ({
         </p>
       </div>
       <div className={cls.CardRight}>
-        {icon.length > 0 && (
-          <img src={`http://medapi.magicsoft.uz${icon}`} alt="icon" />
+        {icon && icon?.length > 0 && (
+          <img src={`http://socketmed.magicsoft.uz/${icon}`} alt="icon" />
         )}
       </div>
     </div>

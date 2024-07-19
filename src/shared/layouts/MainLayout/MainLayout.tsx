@@ -12,7 +12,7 @@ import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import Toast from '@/shared/ui/Toast/Toast';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 
@@ -29,41 +29,58 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const { t } = useTranslation();
 
+  const location = useLocation();
+
   const authUserData = useSelector(getAuthUserData);
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
-  const { setHasOpenToast, isOpenLanugagePopup, setisOpenLanugagePopup } =
-    useContext(ButtonsContext);
+  const {
+    hasOpenToast,
+    isOpenLanugagePopup,
+    isLoginForHasToast,
+    setIsLoginForHasToast,
+  } = useContext(ButtonsContext);
 
-  const [hasToaster, setHasToaster] = useState(false);
+  // const [isConnected, setIsConnected] = useState(socket.connected);
 
-  const location = useLocation();
+  // useEffect(() => {
+  //   function onConnect() {
+  //     setIsConnected(true);
+  //   }
 
+  //   function onDisconnect() {
+  //     setIsConnected(false);
+  //   }
+
+  //   if (authUserData) {
+  //     socket.on('connect', onConnect);
+  //     socket.on('disconnect', onDisconnect);
+  //   }
+
+  //   if (!isConnected && authUserData) {
+  //     socket.connect();
+  //   }
+
+  //   return () => {
+  //     socket.off('connect', onConnect);
+  //     socket.off('disconnect', onDisconnect);
+  //   };
+  // }, [authUserData, isConnected]);
+
+  // useEffect(() => {
+  //   if (authUserData) {
+  //     socket.emit('addUser', authUserData.id);
+  //   }
+  // }, [authUserData]);
+
+  // After logging in to the system, to display the message "You have successfully entered the system" only once and not to display it in other cases
   useEffect(() => {
-    if (authUserData) {
-      setHasOpenToast(true);
-
-      setHasToaster(true);
+    if (isLoginForHasToast) {
+      setTimeout(() => {
+        setIsLoginForHasToast(false);
+      }, 5000);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUserData]);
-
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (hasToaster) {
-      const timeoutId = setTimeout(() => {
-        setHasToaster(false);
-      }, 3000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [hasToaster]);
-
-  useEffect(() => {
-    if (authUserData) {
-      socket.emit('addUser', authUserData.id);
-    }
-  }, [authUserData]);
+  }, [isLoginForHasToast, setIsLoginForHasToast]);
 
   return (
     <div>
@@ -84,7 +101,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
-          {hasToaster && (
+          {hasOpenToast && isLoginForHasToast && (
             <Toast
               severity="success"
               message={t('Timizga muvaffaqqiyatli kirdingiz')}

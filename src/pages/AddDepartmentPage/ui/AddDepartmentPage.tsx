@@ -23,40 +23,51 @@ import Toast from '@/shared/ui/Toast/Toast';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { Loader } from '@/widgets/Loader';
+import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
+  const [editDepartmentId, setEditDepartmentId] = useState<string>();
+
+  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
+
   const {
     hasOpenToast,
     toastDataForAddRoomForm,
     isOpenDepartmentAddCard,
+    isOpenDepartmentEditCard,
     setIsOpenDepartmentAddCard,
     isOpenDepartmentDeleteCard,
+    setIsOpenDepartmentEditCard,
     setIsOpenDepartmentDeleteCard,
+    setIsOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
 
-  const [deleteDepartmentId, setDeleteDepartmentId] = useState<string>();
-
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
+    setIsOpenDepartmentAddCardIconIndex(undefined);
   };
-
-  useEffect(() => {
-    dispatch(fetchAllDepartments({}));
-  }, [dispatch]);
 
   const handleClickDeleteDepartment = (id: string) => {
     setDeleteDepartmentId(id);
 
     setIsOpenDepartmentDeleteCard(true);
   };
+
+  const handeClickEditRoom = (id: string) => {
+    setEditDepartmentId(id);
+  };
+
+  useEffect(() => {
+    dispatch(fetchAllDepartments({}));
+  }, [dispatch]);
 
   return (
     <div className={cls.AddDepartmentPageWrp}>
@@ -102,7 +113,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
 
               return (
                 <tr
@@ -122,16 +133,38 @@ const AddDepartmentPage = () => {
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                    {item?.rooms_id?.length ? (
+                      item?.rooms_id?.length
+                    ) : (
+                      <p
+                        className={cls['AddDepartmentPageWrp__Table--invalid']}
+                      >
+                        {t("Shifokor yo'q")}
+                      </p>
+                    )}
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    {item.rooms_id.length ? item?.rooms_id?.length : '-'}
+                    {item?.rooms_id?.length ? (
+                      item?.rooms_id?.length
+                    ) : (
+                      <p
+                        className={cls['AddDepartmentPageWrp__Table--invalid']}
+                      >
+                        {t("Xona yo'q")}
+                      </p>
+                    )}
                   </td>
 
-                  <td className={cls['AddDepartmentPageWrp__Table--lastChild']}>
+                  <td
+                    onClick={() => {
+                      setIsOpenDepartmentEditCard(true);
+                    }}
+                    className={cls['AddDepartmentPageWrp__Table--lastChild']}
+                  >
                     {}
                     <PenTools
+                      onClick={() => handeClickEditRoom(item?.id)}
                       className={cls['AddDepartmentPageWrp__Table--edit']}
                     />
                   </td>
@@ -168,6 +201,12 @@ const AddDepartmentPage = () => {
       )}
 
       {isOpenDepartmentAddCard ? <AddDepartmentFormDialog /> : ''}
+
+      {editDepartmentId && isOpenDepartmentEditCard ? (
+        <EditDepartmentFormDiolog editDepartmentId={editDepartmentId} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

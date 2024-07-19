@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -10,7 +10,7 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
-// import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
+import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
 import { getQueuesControlDoctorData } from '@/pages/QueuesControlDoctor/model/selectors/queuesControlDoctorSelector';
 
@@ -20,7 +20,7 @@ const QueueUserNext = () => {
 
   const proccessedList = useSelector(getControlPanelDocktorData);
   const queuesList = useSelector(getQueuesControlDoctorData);
-  // const [updateQueueList, setUpdateQueueList] = useState(false);
+  const [updateQueueList, setUpdateQueueList] = useState(false);
 
   const handleClicknextQueue = () => {
     dispatch(
@@ -31,25 +31,25 @@ const QueueUserNext = () => {
       }),
     );
 
-    // setUpdateQueueList(true);
+    setUpdateQueueList(true);
   };
 
-  // useEffect(() => {
-  //   if (
-  //     updateQueueList &&
-  //     proccessedList?.result &&
-  //     proccessedList?.result > 0
-  //   ) {
-  //     dispatch(
-  //       fetchQueuesControlDoctor({
-  //         status: 'pending',
-  //       }),
-  //     );
-  //   }
+  useEffect(() => {
+    if (
+      updateQueueList &&
+      proccessedList?.result &&
+      proccessedList?.result > 0
+    ) {
+      dispatch(
+        fetchQueuesControlDoctor({
+          status: 'pending',
+        }),
+      );
+    }
 
-  //   setUpdateQueueList(false);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [proccessedList]);
+    setUpdateQueueList(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proccessedList]);
 
   return (
     <div className={cls.QueueUserNextWrapper}>

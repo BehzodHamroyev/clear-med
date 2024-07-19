@@ -43,9 +43,8 @@ import {
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-import PaginationComponent from '@/shared/ui/Pagination/Pagination';
 import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -93,61 +92,73 @@ const QueuesControlDoctor = () => {
     );
   }, [dispatch]);
 
-  socket.on('getNewQueue', (data) => {
-    if (data) {
-      addQueue(data);
-    }
-  });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(
+        fetchQueuesControlDoctor({
+          status: 'pending',
+        }),
+      );
+    }, 5000);
 
-  socket.on('getProccessQueue', (data) => {
-    // console.log(data, 'removedQueueList');
-    if (data) {
-      removeQueue(data);
-    }
-  });
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
-  socket.on('getAcceptedQueue', (data) => {
-    // console.log(data, 'addDoneQueue');
+  // socket.on('getNewQueue', (data) => {
+  //   if (data) {
+  //     addQueue(data);
+  //   }
+  // });
 
-    if (data) {
-      addDoneQueue(data);
-    }
-  });
+  // socket.on('getProccessQueue', (data) => {
+  //   // console.log(data, 'removedQueueList');
+  //   if (data) {
+  //     removeQueue(data);
+  //   }
+  // });
 
-  socket.on('getRejectedQueue', (data) => {
-    // console.log(data, 'addDoneQueue');
+  // socket.on('getAcceptedQueue', (data) => {
+  //   // console.log(data, 'addDoneQueue');
 
-    if (data) {
-      addDoneQueue(data);
-    }
-  });
+  //   if (data) {
+  //     addDoneQueue(data);
+  //   }
+  // });
 
-  socket.on('realTimeQueueGet', (data) => {
-    if (data?.status === 'proccessed') {
-      equalProccedQueue(data);
-    }
+  // socket.on('getRejectedQueue', (data) => {
+  //   // console.log(data, 'addDoneQueue');
 
-    if (data?.status === 'rejected') {
-      addDoneQueue(data);
+  //   if (data) {
+  //     addDoneQueue(data);
+  //   }
+  // });
 
-      clearProccedQueue();
-    }
+  // socket.on('realTimeQueueGet', (data) => {
+  //   if (data?.status === 'proccessed') {
+  //     equalProccedQueue(data);
+  //   }
 
-    if (data?.status === 'completed') {
-      addDoneQueue(data);
+  //   if (data?.status === 'rejected') {
+  //     addDoneQueue(data);
 
-      clearProccedQueue();
-    }
+  //     clearProccedQueue();
+  //   }
 
-    console.log(data.status, 'realTimeQueueGet');
-  });
+  //   if (data?.status === 'completed') {
+  //     addDoneQueue(data);
+
+  //     clearProccedQueue();
+  //   }
+
+  //   // console.log(data.status, 'realTimeQueueGet');
+  // });
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <ButtonNavbar
           dontCreate
-          TableTitle="Amaldagi navbat"
+          TableTitle={t('Amaldagi navbat')}
           // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
           roomNumber={proccessData?.data[0]?.room_id?.name}
           departmentName={proccessData?.data[0]?.department_id?.name}
@@ -165,11 +176,9 @@ const QueuesControlDoctor = () => {
                   ItemsLength={queuesList?.length}
                 />
                 <TableTitleDoctorProfile
-                  Tablethead={['Id', 'Bilet berilgan vaqti']}
+                  Tablethead={['Id', t('Bilet berilgan vaqti')]}
                   Tabletbody={queuesList}
                 />
-
-                <PaginationComponent count={100} />
               </>
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
@@ -183,16 +192,16 @@ const QueuesControlDoctor = () => {
               <>
                 <ButtonNavbar
                   dontCreate
-                  TableTitle="Bugun ko'rilgan va bekor qilingan bemorlar"
+                  TableTitle={t("Bugun ko'rilgan va bekor qilingan bemorlar")}
                   ItemsLength={doneQueuesList?.length}
                 />
                 <DoneQueueTableTitleDoctorProfile
                   Tablethead={[
                     'Id',
-                    'Qabul kuni',
-                    'Qabul boshlanishi',
-                    'Qabul tugashi',
-                    'Xolati',
+                    t('Qabul kuni'),
+                    t('Qabul boshlanishi'),
+                    t('Qabul tugashi'),
+                    t('Xolati'),
                   ]}
                   Tabletbody={doneQueuesList}
                 />
@@ -207,7 +216,7 @@ const QueuesControlDoctor = () => {
 
         {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
         {(proccessIsLoading ||
-          queuesListIsLoading ||
+          // queuesListIsLoading ||
           doneQueuesListIsLoading) && <Loader />}
 
         {(queuesListError || proccessError || doneQueuesListError) && (

@@ -10,14 +10,15 @@ export enum CommonRoutes {
 export enum AdminRoutes {
   REPORTS = 'reports',
   ROOMPAGE = 'room_page',
-  ADD_ADS_Page = 'add-ads',
+  ADD_ADS_PAGE = 'add_ads',
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
   ALL_DOCTORS = 'all_doctors',
+  ADD_RECEPTION = 'add-reception',
   ADD_MONITOR = 'add_monitor',
   MONITOR_CHILD = 'monitor_child',
   REPORTS_PATIENT = 'reports_patient',
-  ROOM_ATTACHMENT_MONITOR = 'room_attachment_monitor',
+  ADD_ROOM_FOR_MONITOR = 'add_room_for_monitor',
   ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
 
   MONITORS = 'monitors',
@@ -35,6 +36,8 @@ export enum ReceptionRoutes {
   REPORTS = 'reports',
   QUEUING_TV = 'queuing_tv',
   REPORTS_PATIENT = 'reports_patient',
+  MONITORS = 'monitors',
+  MONITORS_DETAIL = 'monitors_details',
 }
 
 export enum MonitorRoutes {
@@ -57,7 +60,7 @@ export const getRouteReportControlDoctor = () => '/';
 
 // ----- Admin -----
 export const getRouteDepartment = () => '/';
-export const getRouteAddAds = () => '/add-ads';
+export const getRouteAddAdsPage = () => '/add_ads';
 export const getRouteQueuesPage = () => '/queues';
 export const getRouteReportsPage = () => '/reports';
 export const getRouteAddMonitor = () => '/add_monitor';
@@ -65,10 +68,13 @@ export const getRouteAddRoomPageFIX = () => '/add-room';
 export const getRouteAddRoomPage = () => '/add_room_age';
 export const getRouteReportsPageId = () => '/reports/:id';
 export const getRouteAddDoctorsPage = () => '/add-doctors';
+export const getRouteAddReceptionsPage = () => '/add-reception';
 
 export const getRouteMonitorChild = () => '/add_monitor/:id';
-export const getRouteRoomAttachmentMonitor = () =>
-  '/add_monitor/:id/room_attachment_monitor';
+
+export const getRouteAddRoomForMonitor = () =>
+  '/add_monitor/:id/add_room_for_monitor';
+
 export const getRouteAdvertisementAttachmentMonitor = () =>
   '/add_monitor/:id/advertisement_attachment_monitor';
 
@@ -89,14 +95,15 @@ export const AppRouteByPathPattern: Record<
   [getRouteForbidden()]: CommonRoutes.FORBIDDEN,
   [getRouteSettingsPage()]: CommonRoutes.SETTINGSPAGE,
 
-  [getRouteAddAds()]: AdminRoutes.ADD_ADS_Page,
+  [getRouteAddAdsPage()]: AdminRoutes.ADD_ADS_PAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
   [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
+  [getRouteAddReceptionsPage()]: AdminRoutes.ADD_RECEPTION,
   [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,
   [getRouteAddRoomPageFIX()]: AdminRoutes.ADD_ROOM_PAGE,
-  [getRouteRoomAttachmentMonitor()]: AdminRoutes.ROOM_ATTACHMENT_MONITOR,
+  [getRouteAddRoomForMonitor()]: AdminRoutes.ADD_ROOM_FOR_MONITOR,
   [getRouteAdvertisementAttachmentMonitor()]:
     AdminRoutes.ADVERTISEMENT_ATTACHMENT_MONITOR,
 

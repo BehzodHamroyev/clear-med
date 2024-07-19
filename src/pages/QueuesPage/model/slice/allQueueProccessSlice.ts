@@ -58,24 +58,44 @@ export const allQueueProccessSlice = buildSlice({
         fetchAllQueueProccess.fulfilled,
         (state, action: PayloadAction<AllQueueProccessApiResponse>) => {
           state.isLoading = false;
+          console.log(action.payload.monitor, 'sdfghjkl');
+
+          let hasProceed = false;
 
           if (!state.data) {
             state.data = {
               videoUrl: [],
               proccessQueues: [],
+              addvertising: false,
             };
           }
 
           state.data.videoUrl = action.payload.monitor?.videos;
 
+          state.data.addvertising = action.payload.monitor?.addvertising;
+
+          state.data.proccessQueues = [];
+
           action?.payload?.monitor?.rooms?.forEach((item) => {
+            console.log(item, 'fghjk');
+
+            if (item.proceed?.length > 0) {
+              hasProceed = true;
+            }
+
             if (
+              hasProceed &&
               item.proceed?.length > 0 &&
               !state.data?.proccessQueues?.some(
                 (itemState) => itemState._id === item?.proceed[0]?._id,
               )
             ) {
-              state.data?.proccessQueues.push(item?.proceed[0]);
+              // @ts-ignore
+              state.data.proccessQueues = item.proceed;
+            }
+
+            if (!hasProceed && state.data) {
+              state.data.proccessQueues = [];
             }
           });
         },

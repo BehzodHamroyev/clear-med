@@ -6,11 +6,19 @@ import { ListOfPages } from '@/shared/ui/SidebarChilds/ListOfPages';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const Sidebar = () => {
-  const { isOpenBurgerNavbar, setIsOpenBurgerNavbar } =
-    React.useContext(ButtonsContext);
+  const {
+    isOpenBurgerNavbar,
+    setIsOpenBurgerNavbar,
+    isOpenSidebar,
+    setIsOpenSidebar,
+  } = React.useContext(ButtonsContext);
 
   return isOpenBurgerNavbar ? (
-    <div className={cls.SidebarWrapper}>
+    <div
+      className={`${cls.SidebarWrapper} ${
+        isOpenSidebar ? cls.isOpenSidebar : cls.isClieSidebar
+      }`}
+    >
       <SidebarTitle />
 
       <ListOfPages />

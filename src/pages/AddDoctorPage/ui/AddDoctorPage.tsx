@@ -23,6 +23,8 @@ import {
 
 import DeleteDoctorFormDialog from '../../../entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
 import { Loader } from '@/widgets/Loader';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import EditDoctorFormDialog from '@/entities/EditDoctorFormDialog/EditDoctorFormDialog';
 
 const AddDoctorPage = () => {
   const { t } = useTranslation();
@@ -36,6 +38,8 @@ const AddDoctorPage = () => {
     setIsOpenDoctorAddCard,
     toastDataForAddRoomForm,
     setIsOpenDoctorDeleteCard,
+    isOpenDoctorEditCard,
+    setIsOpenDoctorEditCard,
   } = useContext(ButtonsContext);
 
   const allDoctorsData = useSelector(getAllDoctorsData);
@@ -43,6 +47,7 @@ const AddDoctorPage = () => {
   const allDoctorsIsLoading = useSelector(getAllDoctorsIsLoading);
 
   const [deleteDoctorId, setDeleteDoctorId] = useState<string>();
+  const [editDoctorId, setEditDoctorId] = useState<string>();
 
   const handleCardAddCard = () => {
     setIsOpenDoctorAddCard(true);
@@ -56,6 +61,12 @@ const AddDoctorPage = () => {
     setIsOpenDoctorDeleteCard(true);
 
     setDeleteDoctorId(id);
+  };
+
+  const handleClickEditDoctor = (id: string) => {
+    setIsOpenDoctorEditCard(true);
+
+    setEditDoctorId(id);
   };
 
   return (
@@ -88,7 +99,7 @@ const AddDoctorPage = () => {
             <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Xona')}</th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
-              {t('Bo’lim')}
+              {t("Bo'lim")}
             </th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
@@ -107,7 +118,7 @@ const AddDoctorPage = () => {
         {allDoctorsData && allDoctorsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allDoctorsData.map((item) => {
-              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
 
               return (
                 <tr
@@ -151,10 +162,22 @@ const AddDoctorPage = () => {
                   </td>
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    {item?.login ? item?.login : '-'}
+                    {item?.login ? (
+                      <span>
+                        ({item?.login.toString().substring(0, 2)}){' '}
+                        {item?.login.toString().substring(2, 5)}{' '}
+                        {item?.login.toString().substring(5, 7)}{' '}
+                        {item?.login.toString().substring(7, 9)}
+                      </span>
+                    ) : (
+                      '-'
+                    )}
                   </td>
 
-                  <td className={cls['AddDoctorPageWrp__Table--lastChild']}>
+                  <td
+                    className={cls['AddDoctorPageWrp__Table--lastChild']}
+                    onClick={() => handleClickEditDoctor(item?.id)}
+                  >
                     {}
                     <PenTools
                       className={cls['AddDoctorPageWrp__Table--edit']}
@@ -177,8 +200,13 @@ const AddDoctorPage = () => {
         )}
 
         {allDoctorsIsLoading && <Loader />}
+
         {allDoctorsError && <ErrorDialog isErrorProps={!false} />}
       </table>
+
+      {editDoctorId && isOpenDoctorEditCard && (
+        <EditDoctorFormDialog doctorId={editDoctorId} />
+      )}
 
       {deleteDoctorId && isOpenDoctorDeleteCard && (
         <DeleteDoctorFormDialog doctorId={deleteDoctorId} />

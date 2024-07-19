@@ -1,4 +1,3 @@
-import { CombinedState } from 'redux';
 import { AxiosInstance } from 'axios';
 
 import {
@@ -27,14 +26,24 @@ import { AllMonitorsTypeSchema } from '@/pages/Monitors';
 import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
 import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
 import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
-import { MonitorRoomListSchema } from '@/entities/RoomAttachmentMonitor';
+import { MonitorRoomListSchema } from '@/pages/AddRoomForMonitorPage';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
+import { AllReceptionsTypeSchema } from '@/pages/AddReceptionPage';
 
 import {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from '@/pages/QueuingTV';
+import {
+  AddsVideosDataRedux,
+  MonitorAdsInRedux,
+} from '@/entities/AdvertisementAttachmentMonitor';
+import { InfoProjectRedux } from '@/entities/FileUploader';
+
+type CombinedState<S> = {
+  [K in keyof S]: S[K];
+};
 
 export interface StateSchema {
   authUser: AuthReduxType;
@@ -48,6 +57,7 @@ export interface StateSchema {
   allMonitors: AllMonitorsTypeSchema;
   departmentPage: DepartmentListSchema;
   getDoctorPageReducer: DoctorListSchema;
+  allReceptions: AllReceptionsTypeSchema;
   GetAllMonitorPage: AllMonitorListSchema;
   allDepartments: AllDepartmentTypeSchema;
   reportControlDoctor: ReportDoctorSchema;
@@ -59,11 +69,12 @@ export interface StateSchema {
   doneQueuesControlDoctor: QueuesControlDoctorSchema;
   GetAllRoomAtachmentMonitorSlice: MonitorRoomListSchema;
   controlPanelDoctorProccess: ProccessControlPanelDoctorSchema;
+  allAdsVideo: AddsVideosDataRedux;
+  allAdsForOneMonitor: MonitorAdsInRedux;
+  infoProject: InfoProjectRedux;
+  queuesControlDoctor: QueuesControlDoctorSchema;
 
   [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
-
-  // Asynchronous reducers
-  queuesControlDoctor?: QueuesControlDoctorSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

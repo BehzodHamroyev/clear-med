@@ -1,28 +1,25 @@
-@import "reset";
-@import "variables/global";
-@import "themes/normal";
-@import "themes/dark";
-@import "themes/orange";
+@import 'reset';
+@import 'variables/global';
+@import 'themes/normal';
+@import 'themes/dark';
+@import 'themes/orange';
 
 @font-face {
-  font-family: "Inter Bold";
-  src:
-    url("../../shared/assets/fonts/Inter/static/Inter-Bold.ttf")
-    format("truetype");
+  font-family: 'Inter Bold';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Bold.ttf')
+    format('truetype');
 }
 
 @font-face {
-  font-family: "Inter Regular";
-  src:
-    url("../../shared/assets/fonts/Inter/static/Inter-Regular.ttf")
-    format("truetype");
+  font-family: 'Inter Regular';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Regular.ttf')
+    format('truetype');
 }
 
 @font-face {
-  font-family: "Inter Medium";
-  src:
-    url("../../shared/assets/fonts/Inter/static/Inter-Medium.ttf")
-    format("truetype");
+  font-family: 'Inter Medium';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Medium.ttf')
+    format('truetype');
 }
 
 .app {
@@ -72,4 +69,17 @@
   background-color: var(--inverted-primary-color);
   border-radius: 20px;
   border: 2px solid var(--primary-color);
+}
+
+.MuiPopper-root.MuiPickersPopper-root.css-1anqmj6-MuiPopper-root-MuiPickersPopper-root {
+  .MuiDateRangeCalendar-root.css-e47596-MuiDateRangeCalendar-root:first-child
+    > div:first-child {
+    display: none;
+  }
+}
+
+.MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-wb57ya-MuiFormControl-root-MuiTextField-root {
+  .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    // background-color: white;
+  }
 }

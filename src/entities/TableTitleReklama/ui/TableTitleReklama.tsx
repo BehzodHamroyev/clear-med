@@ -1,24 +1,37 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/destructuring-assignment */
+import React, { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { TableInfo } from '../model/types/TableInfo';
-import { PenTools } from '@/shared/assets/entities/TableTitle';
+// import { PenTools } from '@/shared/assets/entities/TableTitle';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './TableTitleReklama.module.scss';
+import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
+import { DeleteTools } from '@/shared/assets/entities/TableTitle';
+import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
+import DeleteAdsFormDialogForMonitor from '../../../entities/DeleteAdsFormDialogForMonitor/DeleteAdsFormDialogForMonitor';
+
+interface TableInfo {
+  cursor?: boolean;
+  Tablethead: string[];
+  Tabletbody: Videos[];
+}
 
 const TableTitleReklama = (props: TableInfo) => {
-  /* props */
-  const { Tablethead, Tabletbody, cursor } = props;
+  const { t } = useTranslation();
 
-  /* useParams */
+  const { Tablethead, Tabletbody, cursor } = props;
+  const [idAds, setIdAds] = useState('');
+  const connectionId = useSelector(connectionIdOfAds);
+
   const { id } = useParams();
   const url = `/add_monitor/${id}/advertisement_attachment_monitor`;
 
-  /* useLocation */
   const location = useLocation();
 
-  /* useContext */
   const {
     setDepartmentGetId,
     setIsOpenRoomEditCard,
@@ -26,6 +39,8 @@ const TableTitleReklama = (props: TableInfo) => {
     setIsOpenDepartmentEditCard,
     setIsOpenAdvertisementEditCard,
     setIsOpenAttachmentRoomMonitorChildEdit,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
+    isOpenAdvertisementDeleteAdsForMonitor,
   } = React.useContext(ButtonsContext);
 
   /* haler functions */
@@ -53,56 +68,72 @@ const TableTitleReklama = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string, index) => (
             <th key={index + 1} className={cls.th}>
-              {title}
+              {t(title)}
             </th>
           ))}
         </tr>
       </thead>
 
+      {isOpenAdvertisementDeleteAdsForMonitor && (
+        <DeleteAdsFormDialogForMonitor
+          adsId={idAds}
+          connectionId={connectionId}
+          id={id}
+        />
+      )}
+
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => {
+        {Tabletbody?.map((item) => {
+          const date = new Date(item.createdAt);
+          // Extract day, month, and year
+          const day = date.getDate();
+          const month = date.getMonth() + 1; // Month is zero-based, so add 1
+          const year = date.getFullYear();
+
           return (
             <tr
               key={item?.id}
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
-              {item?.img ? (
+              {item?.photo ? (
                 <td className={cls.td}>
-                  <img className={cls.Img} src={item.img} alt="#" />
+                  <img className={cls.Img} src={item.photo} alt="#" />
                 </td>
               ) : (
                 ''
               )}
 
-              {item?.item1 ? <td className={cls.td}>{item.item1}</td> : ''}
-              {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''}
-              {item?.item3 ? (
+              {item?.name ? <td className={cls.td}>{item.name}</td> : ''}
+              {/* {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''} */}
+              {item?.link ? (
                 <td className={cls.td}>
                   <a
                     target="_blank"
                     className={cls.btnLink}
-                    href={`${item.url}`}
+                    href={`${item.link}`}
                     rel="noreferrer"
                   >
-                    {item.item3}
+                    Open link
                   </a>
                 </td>
               ) : (
                 ''
               )}
-              {item?.item4 ? <td className={cls.td}>{item.item4}</td> : ''}
-              {item?.item5 ? <td className={cls.td}>{item.item5}</td> : ''}
-              {item?.item6 ? <td className={cls.td}>{item.item6}</td> : ''}
-              {item?.item7 ? <td className={cls.td}>{item.item7}</td> : ''}
-              {item?.item8 ? <td className={cls.td}>{item.item8}</td> : ''}
-              {item?.lastChild ? (
-                <td className={`${cls.lastChild}`}>
-                  <pre>{item?.lastChild}</pre>{' '}
-                  <PenTools onClick={() => handleCardAddCard(`${item.id}`)} />
-                </td>
+              {item?.createdAt ? (
+                <td className={cls.td}>{`${day}/${month}/${year}`}</td>
               ) : (
                 ''
               )}
+              <td
+                className={`${cls.lastChild}`}
+                onClick={() => {
+                  setIdAds(item.id);
+                  setIsOpenAdvertisementDeleteAdsForMonitor(true);
+                }}
+              >
+                {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
+                <DeleteTools />
+              </td>
             </tr>
           );
         })}

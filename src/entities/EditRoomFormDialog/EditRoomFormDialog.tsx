@@ -62,6 +62,11 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   const [doctorList, setDoctorList] = useState<any[]>([]);
 
+  const [
+    editRoomFormDialogSubmitIsLoading,
+    setEditRoomFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const allDepartmentsData = useSelector(getAllDepartmentsData);
   const allDepartmentsIsLoading = useSelector(getAllDepartmentsIsLoading);
   const allDepartmentsError = useSelector(getAllDepartmentsError);
@@ -99,7 +104,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
       if (response?.data?.message) {
         const responceData: ApiResponse = response?.data;
 
-        setDoctorList((prev) => [...prev, response.data.message.doctor_id]);
+        if (
+          !doctorList?.some(
+            (item) => item._id === response?.data?.message?.doctor_id?._id,
+          )
+        ) {
+          // doctorList?.push(response.data.message.doctor_id);
+          setDoctorList((prev) => [
+            ...prev,
+            response?.data?.message?.doctor_id,
+          ]);
+        }
 
         setRoomCurrentData({
           isLoading: false,
@@ -135,8 +150,17 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   useEffect(() => {
     if (allFreeDoctorsData) {
-      setDoctorList((prev) => [...prev, ...allFreeDoctorsData]);
+      if (doctorList.length > 0) {
+        allFreeDoctorsData.forEach((freeDoctor) => {
+          if (!doctorList?.some((doctor) => doctor.id === freeDoctor.id)) {
+            setDoctorList((prev) => [...prev, freeDoctor]);
+          }
+        });
+      } else {
+        setDoctorList([...allFreeDoctorsData]);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFreeDoctorsData]);
 
   const handleClose = () => {
@@ -181,6 +205,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    setEditRoomFormDialogSubmitIsLoading(true);
+
     if (
       roomCurrentData?.data?.departmentId &&
       roomCurrentData?.data?.doctorId &&
@@ -203,6 +229,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
         );
 
         if (response.data) {
+          setEditRoomFormDialogSubmitIsLoading(false);
+
           setIsOpenRoomEditCard(false);
 
           setHasOpenToast(true);
@@ -218,6 +246,8 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
         }
       } catch (error) {
         setDoctorList([]);
+
+        setEditRoomFormDialogSubmitIsLoading(false);
 
         if (axios.isAxiosError(error)) {
           if (error?.response?.status === 403) {
@@ -262,9 +292,10 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   return (
     <>
-      {roomCurrentData?.data?.roomNumber &&
+      {roomCurrentData?.data &&
         allDepartmentsData &&
-        allFreeDoctorsData && (
+        allFreeDoctorsData &&
+        allFreeDoctorsData.length >= 0 && (
           <BootstrapDialog
             className={classNames(cls.AddRoomFormDialog__Container, {})}
             onClose={handleClose}
@@ -361,13 +392,15 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
           </BootstrapDialog>
         )}
 
-      {roomCurrentData?.isLoading &&
-        allDepartmentsIsLoading &&
-        allFreeDoctorsIsLoading && <Loader />}
+      {(roomCurrentData?.isLoading ||
+        allDepartmentsIsLoading ||
+        allFreeDoctorsIsLoading ||
+        editRoomFormDialogSubmitIsLoading ||
+        roomCurrentData?.isLoading) && <Loader />}
 
-      {roomCurrentData?.isError &&
-        allDepartmentsError &&
-        allFreeDoctorsError && <ErrorDialog isErrorProps={!false} />}
+      {(roomCurrentData?.isError ||
+        allDepartmentsError ||
+        allFreeDoctorsError) && <ErrorDialog isErrorProps={!false} />}
     </>
   );
 };

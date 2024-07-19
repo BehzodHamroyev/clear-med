@@ -1,41 +1,53 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { PenTools } from '@/shared/assets/entities/TableTitle';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useTranslation } from 'react-i18next';
 
 import cls from './monitors.module.scss';
 
-interface MonitorsProp {
-  number: number;
-  name: string;
-  id: string;
-}
+import { MonitorsProp } from '../model/types/monitorTypes';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 
 const Monitors = (props: MonitorsProp) => {
   const { number, name, id } = props;
 
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const {
+    setMonitorGetId,
+    setMonitorNumber,
     setDepartmentGetId,
     setIsOpenMonitorEditCard,
     setMonitorEditFormOldValue,
+    setIsOpenMonitorDeleteCard,
   } = React.useContext(ButtonsContext);
 
   const handleClickPen = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    setDepartmentGetId(id);
+    setMonitorGetId(id);
     setIsOpenMonitorEditCard(true);
     setMonitorEditFormOldValue(name);
   };
 
+  const handleClickDel = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setMonitorGetId(id);
+    setIsOpenMonitorDeleteCard(true);
+  };
+
   const handleNavigate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
+    setMonitorGetId(id);
     setDepartmentGetId(id);
-    // navigate(`/add_monitor/${number}`);
+    if (number) {
+      setMonitorNumber(number);
+    }
     navigate(`/add_monitor/${id}`);
   };
 
@@ -43,18 +55,31 @@ const Monitors = (props: MonitorsProp) => {
     <div onClick={(e) => handleNavigate(e)}>
       <div className={cls.MonitorsWrapper}>
         <div>
-          <h3>{number}-Monitor</h3>
+          <h3>
+            {number}-{t('Monitor')}
+          </h3>
           <p>{name}</p>
         </div>
 
-        <button
-          type="button"
-          className={cls.IconWrap}
-          onClick={(e) => handleClickPen(e)}
-        >
-          {' '}
-          <PenTools className={cls.icon} />
-        </button>
+        <div className={cls.flexBtn}>
+          <button
+            type="button"
+            className={cls.IconWrap}
+            onClick={(e) => handleClickPen(e)}
+          >
+            {' '}
+            <PenTools className={cls.icon} />
+          </button>
+
+          <button
+            type="button"
+            className={cls.IconWrap2}
+            onClick={(e) => handleClickDel(e)}
+          >
+            {' '}
+            <DeleteTools className={cls.icon} />
+          </button>
+        </div>
       </div>
     </div>
   );

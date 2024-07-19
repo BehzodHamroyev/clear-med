@@ -21,14 +21,23 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      background-color: #fff;
+      color: var(--text-color);
+      background-color: var(--bg-table);
+      border: 1px solid var(--border-table);
       padding: 20px;
       margin: 3px auto;
+      border-radius: 4px;
+    }
+
+    tr:hover {
+      background-color: var(--hover-bg-table);
     }
   }
 
   .Tabletbody {
     display: flex;
+    gap: 10px;
+    margin-top: 10px;
     flex-direction: column;
   }
 }
@@ -77,6 +86,10 @@
   transition: all 0.2s ease-in-out;
 }
 
-.clicked:hover {
-  transform: scale(1.01);
+.td_invalid {
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #ff505080;
+  padding: 5px 10px;
+  border-radius: 3px;
 }

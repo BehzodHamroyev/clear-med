@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { fetchAllDoctors } from '../../pages/AddDoctorPage/model/service/fetchAllDoctors';
+import { Loader } from '@/widgets/Loader';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -33,6 +34,11 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
 
   const dispatch = useAppDispatch();
 
+  const [
+    deleteDoctorFormDialogSubmitIsLoading,
+    setDeleteDoctorFormDialogSubmitIsLoading,
+  ] = useState(false);
+
   const {
     isOpenDoctorDeleteCard,
     setIsOpenDoctorDeleteCard,
@@ -45,6 +51,8 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
   };
 
   const handleSubmit = async () => {
+    setDeleteDoctorFormDialogSubmitIsLoading(true);
+
     const token = Cookies.get('token');
 
     try {
@@ -60,6 +68,8 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
       );
 
       if (response.data) {
+        setDeleteDoctorFormDialogSubmitIsLoading(false);
+
         setIsOpenDoctorDeleteCard(false);
 
         setHasOpenToast(true);
@@ -72,6 +82,8 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
         dispatch(fetchAllDoctors({}));
       }
     } catch (error) {
+      setDeleteDoctorFormDialogSubmitIsLoading(false);
+
       console.log(error);
 
       setHasOpenToast(true);
@@ -86,39 +98,43 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
   };
 
   return (
-    <BootstrapDialog
-      className={classNames(cls.DeleteDoctorFormDialog__Container, {})}
-      onClose={handleClose}
-      aria-labelledby="customized-dialog-title"
-      open={isOpenDoctorDeleteCard}
-    >
-      <div className={classNames(cls.DeleteDoctorFormDialog)}>
-        <div className={classNames(cls.DeleteDoctorFormDialog__head)}>
-          <p> {t("Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
-        </div>
-        <div className={classNames(cls.DeleteDoctorFormDialog__buttons)}>
-          <button
-            type="button"
-            className={classNames(
-              cls['DeleteDoctorFormDialog__buttons--cansel'],
-            )}
-            onClick={handleClose}
-          >
-            {t('Bekor qilish')}
-          </button>
+    <>
+      <BootstrapDialog
+        className={classNames(cls.DeleteDoctorFormDialog__Container, {})}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={isOpenDoctorDeleteCard}
+      >
+        <div className={classNames(cls.DeleteDoctorFormDialog)}>
+          <div className={classNames(cls.DeleteDoctorFormDialog__head)}>
+            <p> {t("Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?")}</p>
+          </div>
+          <div className={classNames(cls.DeleteDoctorFormDialog__buttons)}>
+            <button
+              type="button"
+              className={classNames(
+                cls['DeleteDoctorFormDialog__buttons--cansel'],
+              )}
+              onClick={handleClose}
+            >
+              {t('Bekor qilish')}
+            </button>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className={classNames(
-              cls['DeleteDoctorFormDialog__buttons--submit'],
-            )}
-          >
-            {t("O'chirish")}
-          </button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className={classNames(
+                cls['DeleteDoctorFormDialog__buttons--submit'],
+              )}
+            >
+              {t("O'chirish")}
+            </button>
+          </div>
         </div>
-      </div>
-    </BootstrapDialog>
+      </BootstrapDialog>
+
+      {deleteDoctorFormDialogSubmitIsLoading && <Loader />}
+    </>
   );
 };
 

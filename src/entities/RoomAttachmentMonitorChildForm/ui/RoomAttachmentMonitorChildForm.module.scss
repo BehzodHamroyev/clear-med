@@ -32,11 +32,6 @@
       letter-spacing: 0.036px;
     }
 
-    .CardBody {
-      width: 100%;
-      padding: 20px;
-    }
-
     .roomNumber {
       font-weight: 300;
       margin-bottom: 10px;
@@ -60,34 +55,31 @@
     }
 
     .BtnParnet {
+      gap: 10px;
+      width: 100%;
+      padding: 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
     }
 
     .Btn {
       width: 100%;
       padding: 10px;
-      font-family: sans-serif;
-      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s linear;
-    }
-
-    .Btn:active {
-      transform: scale(0.98);
-    }
-
-    .Btn2 {
-      background-color: #0000ac;
-      color: #fff;
-      border: none;
+      border-radius: 8px;
+      font-family: sans-serif;
     }
 
     .Btn1 {
-      background-color: transparent;
       color: #828282;
       border: 1px solid #828282;
+      background-color: transparent;
+    }
+
+    .Btn2 {
+      border: none;
+      color: #fff;
+      background-color: #0000ac;
     }
   }
 }

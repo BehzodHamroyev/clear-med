@@ -27,11 +27,9 @@ export const fetchDoctorEdit = createAsyncThunk<
         },
       },
     );
-    console.log(response);
 
     return response.data;
   } catch (e) {
-    console.log(e, 'doctor edit');
     return rejectWithValue('error');
   }
 });

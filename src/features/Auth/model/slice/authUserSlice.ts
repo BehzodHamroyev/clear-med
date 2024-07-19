@@ -24,15 +24,10 @@ export const AuthUserSlice = createSlice({
         (state, action: PayloadAction<AuthLogin>) => {
           state.isLoading = false;
           state.data = action.payload?.user;
-
-          // console.log(action.payload);
         },
       )
       .addCase(fetchAuthUser.rejected, (state, action) => {
         state.isLoading = false;
-
-        // console.log(action.error);
-
         state.error = action.payload;
       });
   },
