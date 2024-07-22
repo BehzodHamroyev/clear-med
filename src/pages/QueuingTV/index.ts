@@ -1,6 +1,6 @@
 export { getLastQueueData } from './model/selectors/lastQueueSelector';
 
-export { default as QueuingTv } from './ui/QueuingTv';
+export { QueuingTv } from './ui/QueuingTv';
 
 export {
   lastQueueReducer,
@@ -14,4 +14,5 @@ export type {
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
 } from './model/types/departmentListSchema';
+
 export type { CurrentQueueDataType } from './model/types/departmentListTypes';
