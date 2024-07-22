@@ -5,21 +5,16 @@ import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// import { socket } from '@/shared/lib/utils/socket';
-
 import cls2 from './PrintQueuePage.module.scss';
 import cls from './QueuingTvCardPopapSecond.module.scss';
 
 import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
+import { getLastQueueData, useLasQueueActions } from '@/pages/QueuingTV';
 
 import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
   error,
@@ -59,8 +54,7 @@ const QueuingTvCardPopapSecond = ({
   const infoProject = useSelector(getInfoProject);
   const infoProjectIsLoader = useSelector(isLoading);
 
-  const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
-    useContext(ButtonsContext);
+  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
   const printCom = useReactToPrint({
     content: () => printableDivRef?.current,
@@ -104,18 +98,6 @@ const QueuingTvCardPopapSecond = ({
           clearLastQueue();
         }, 1);
       }
-
-      // if (
-      //   response?.data?.navbat?.created_date &&
-      //   response?.data?.navbat?.created_date?.length > 0
-      // ) {
-      //   socket.emit(
-      //     'create_queue',
-      //     { queue_data: response.data },
-      //     (responce: { status: string }) => {
-      //     },
-      //   );
-      // }
     } catch (error) {
       setCreateQueueIsLoading(false);
 
@@ -138,7 +120,6 @@ const QueuingTvCardPopapSecond = ({
   useEffect(() => {
     dispatch(getAllDataProject({}));
   }, [dispatch]);
-
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
       {!createQueueIsLoading && infoProject && (
@@ -213,7 +194,7 @@ const QueuingTvCardPopapSecond = ({
               {t('Bekor qilish')}
             </button>
             <button
-              onClick={(e) => handlePrint(e)}
+              onClick={(e: any) => handlePrint(e)}
               type="button"
               className={`${cls.Btn} ${cls.Btn2}`}
             >

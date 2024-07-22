@@ -15,3 +15,4 @@ export type {
   DepartmentListSchemaForReception,
 } from './model/types/departmentListSchema';
 export type { CurrentQueueDataType } from './model/types/departmentListTypes';
+export { default as QueuingTvCard } from './ui/QueuingTv';
