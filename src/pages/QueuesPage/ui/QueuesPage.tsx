@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -113,7 +115,7 @@ const QueuesPage = () => {
           <div className={cls.QueuesPage}>
             <div className={classNames(cls.QueuesPage__header, {}, [])}>
               <div className={classNames(cls.QueuesPage__headerLeft)}>
-                <p>Med Navbat Clinic Centr</p>
+                <p>Med Navbat Clinic Center</p>
               </div>
               <div className={classNames(cls.QueuesPage__headerRight)}>
                 <div
@@ -149,36 +151,82 @@ const QueuesPage = () => {
                     </div>
                     {/* this place */}
                     <div className={classNames(cls.queuesTable__items)}>
-                      {allProccessQueue?.proccessQueues &&
-                        allProccessQueue?.proccessQueues.length > 0 &&
-                        allProccessQueue?.proccessQueues.map((item) => (
-                          <div
-                            key={item._id}
-                            className={classNames(cls.queuesTable__item)}
-                          >
+                      {allProccessQueue.room1?.proceed.map((item, index) => {
+                        if (index < 3) {
+                          return (
                             <div
-                              className={classNames(
-                                cls.queuesTable__itemDepartmentName,
-                              )}
+                              key={item._id}
+                              className={classNames(cls.queuesTable__item)}
                             >
-                              <p>{item.department_id?.name}</p>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemDepartmentName,
+                                )}
+                              >
+                                <p>{item.department_id?.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemRoomNumber,
+                                )}
+                              >
+                                <p>{item.room_id.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemBiletNumber,
+                                )}
+                              >
+                                <p>{item.queues_name}</p>
+                              </div>
                             </div>
+                          );
+                        }
+                      })}
+                    </div>
+                    <div className={classNames(cls.queuesTable__head)}>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t("Bo'lim")}
+                      </p>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t('Xona')}
+                      </p>
+                      <p className={classNames(cls.queuesTable__headItem)}>
+                        {t('Bilet')}
+                      </p>
+                    </div>
+                    <div className={classNames(cls.queuesTable__items)}>
+                      {allProccessQueue.room2?.proceed.map((item, index) => {
+                        if (index < 3)
+                          return (
                             <div
-                              className={classNames(
-                                cls.queuesTable__itemRoomNumber,
-                              )}
+                              key={item._id}
+                              className={classNames(cls.queuesTable__item)}
                             >
-                              <p>{item.room_id.name}</p>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemDepartmentName,
+                                )}
+                              >
+                                <p>{item.department_id?.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemRoomNumber,
+                                )}
+                              >
+                                <p>{item.room_id.name}</p>
+                              </div>
+                              <div
+                                className={classNames(
+                                  cls.queuesTable__itemBiletNumber,
+                                )}
+                              >
+                                <p>{item.queues_name}</p>
+                              </div>
                             </div>
-                            <div
-                              className={classNames(
-                                cls.queuesTable__itemBiletNumber,
-                              )}
-                            >
-                              <p>{item.queues_name}</p>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                      })}
                     </div>
                     {/* this place */}
                   </div>
