@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
 
 import cls from './QueueDialog.module.scss';
-import { baseUrlUpload } from '../../../../../baseurl';
+import { baseUrlUpload } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 interface QueueDialogProps {
+  step: number;
+  Mp3Array: string[];
   className?: string;
   roomNumber: string;
   biletNumber: string;
-  step: number;
-  Mp3Array: string[];
 }
 
 const QueueDialog = ({
@@ -24,19 +24,19 @@ const QueueDialog = ({
 }: QueueDialogProps) => {
   const { t } = useTranslation();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [hasCallRingtone, setHasCallRingtone] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
+
   const { setOnEndedQueueAudio } = useContext(ButtonsContext);
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
+  const handleTrackChange = (index: React.SetStateAction<number>) => {
+    setCurrentTrackIndex(index);
 
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
-
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
-  const [isLoading, setIsLoading] = useState(true);
+    if (currentTrackIndex === Mp3Array.length - 1) {
+      setOnEndedQueueAudio(false);
+    }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,13 +61,13 @@ const QueueDialog = ({
     };
   }, [currentTrackIndex, Mp3Array]);
 
-  const handleTrackChange = (index: React.SetStateAction<number>) => {
-    setCurrentTrackIndex(index);
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
 
-    if (currentTrackIndex === Mp3Array.length - 1) {
-      setOnEndedQueueAudio(false);
-    }
-  };
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   return (
     <div>

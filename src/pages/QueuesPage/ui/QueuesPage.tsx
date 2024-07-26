@@ -18,10 +18,10 @@ import {
 } from '../model/selector/allQueueProccessSelector';
 
 const QueuesPage = () => {
+  const videoUrl: string[] = [];
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
-  const videoUrl: string[] = [];
+  const handle = useFullScreenHandle();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
@@ -31,8 +31,6 @@ const QueuesPage = () => {
       videoUrl.push(item.link);
     });
   }
-
-  const handle = useFullScreenHandle();
 
   const handleClickedFullScreen = () => {
     handle.enter();
