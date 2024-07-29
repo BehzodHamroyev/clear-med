@@ -46,6 +46,10 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       sizdan_oldingi_bemorlar_soni: 1,
     });
 
+  const [onEndedQueueAudio, setOnEndedQueueAudio] = useState(false);
+
+  const [isLoginForHasToast, setIsLoginForHasToast] = useState<boolean>(false);
+
   const [clickedDoctorId, setClickedDoctorId] = useState('');
 
   const [isOpenSettingsChangePassword, setIsOpenSettingsChangePassword] =
@@ -53,7 +57,11 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [calendarBeginValue, setCalendarBeginValue] = useState('');
 
+  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
+
   const [calendarEndValue, setCalendarEndValue] = useState('');
+
+  const [isOpenQueueUserTimer, setIsOpenQueueUserTimer] = useState(false);
 
   const [isProfileWho, setIsProfileWho] = useState('');
 
@@ -87,6 +95,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [isOpenDepartmentEditCard, setIsOpenDepartmentEditCard] =
     useState(false);
+
+  const [monitorNumber, setMonitorNumber] = useState<number | null>(null);
 
   const [isOpenRoomAddCard, setIsOpenRoomAddCard] = useState(false);
 
@@ -180,12 +190,13 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
   const [settingsFormData, setSettingsFormData] = useState({
     password: '',
     newPassword: '',
+    reNewPassword: '',
   });
 
   const [
     isOpenDepartmentAddCardIconIndex,
     setIsOpenDepartmentAddCardIconIndex,
-  ] = useState(1);
+  ] = useState<undefined | number>(undefined);
 
   const [hasOpenToast, setHasOpenToast] = useState(false);
 
@@ -194,17 +205,37 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     toastMessageForAddRoomForm: '',
   });
 
+  const [
+    isOpenAdvertisementDeleteAdsForMonitor,
+    setIsOpenAdvertisementDeleteAdsForMonitor,
+  ] = useState(false);
+
+  const [isOpenUploadLogo, setIsOpenUploadLogo] = useState(false);
+
   const defaultProps = useMemo(
     () => ({
+      onEndedQueueAudio,
+      setOnEndedQueueAudio,
+
+      isLoginForHasToast,
+      setIsLoginForHasToast,
+
+      isOpenQueueUserTimer,
+      setIsOpenQueueUserTimer,
+
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
+
+      isOpenAdvertisementDeleteAdsForMonitor,
+      setIsOpenAdvertisementDeleteAdsForMonitor,
 
       isOpenEditReceptionCard,
       setIsOpenEditReceptionCard,
 
       isOpenDeleteReceptionCard,
       setIsOpenDeleteReceptionCard,
-
+      monitorNumber,
+      setMonitorNumber,
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
@@ -249,6 +280,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenAdvertisementEditCard,
       isOpenAdvertisementDeleteCard,
       setIsOpenAdvertisementDeleteCard,
+      isOpenSidebar,
+      setIsOpenSidebar,
       isOpenDoctorEditCard,
       setIsOpenDoctorEditCard,
       isOpenQueuingCardClicked,
@@ -303,10 +336,24 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildFormEdit,
       isMonitorAddSelectionFormAdvertisement,
       setIsMonitorAddSelectionFormAdvertisement,
+      setIsOpenUploadLogo,
+      isOpenUploadLogo,
     }),
     [
+      onEndedQueueAudio,
+      setOnEndedQueueAudio,
+
+      isLoginForHasToast,
+      setIsLoginForHasToast,
+
+      isOpenQueueUserTimer,
+      setIsOpenQueueUserTimer,
+
       isOpenAddReceptionCard,
       setIsOpenAddReceptionCard,
+
+      monitorNumber,
+      setMonitorNumber,
 
       isOpenEditReceptionCard,
       setIsOpenEditReceptionCard,
@@ -314,12 +361,17 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       isOpenDeleteReceptionCard,
       setIsOpenDeleteReceptionCard,
 
+      isOpenAdvertisementDeleteAdsForMonitor,
+      setIsOpenAdvertisementDeleteAdsForMonitor,
+
       currentQueueData,
       setCurrentQueueData,
       isOpenSettingsChangePassword,
       setIsOpenSettingsChangePassword,
       formData,
       setFormData,
+      isOpenSidebar,
+      setIsOpenSidebar,
       settingsFormData,
       setSettingsFormData,
       isProfileWho,
@@ -412,6 +464,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       setIsOpenRoomAttachmentMonitorChildFormEdit,
       isMonitorAddSelectionFormAdvertisement,
       setIsMonitorAddSelectionFormAdvertisement,
+      isOpenUploadLogo,
     ],
   );
 

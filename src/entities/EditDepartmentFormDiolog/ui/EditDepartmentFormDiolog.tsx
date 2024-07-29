@@ -16,22 +16,11 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { fetchAllDepartments } from '../../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
-interface Department {
-  name?: string;
-  duration?: number;
-  image?: string | number;
-  photo?: string;
-  renderPhoto?: any;
-}
-interface EditDepartmentTypeSchema {
-  isLoading?: boolean;
-  error?: boolean;
-  data?: Department;
-}
-
-export interface EditDepartmentFormDiologTypes {
-  editDepartmentId: string;
-}
+import {
+  Department,
+  EditDepartmentTypeSchema,
+  EditDepartmentFormDiologTypes,
+} from '../model/types/editDepartmentFormDiologTypes';
 
 const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
   const { editDepartmentId } = prop;
@@ -40,19 +29,19 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
 
   const dispatch = useAppDispatch();
 
+  const token = Cookies.get('token');
+
   const [
     editRoomFormDialogSubmitIsLoading,
     setEditDepartmentFormDialogSubmitIsLoading,
   ] = useState(false);
 
-  // const [resultImg, setResultImg] = useState({ icon: '', isOpen: false });
+  const [resultIcon, setResultIcon] = useState<React.ReactNode | undefined>(
+    undefined,
+  );
 
   const [roomCurrentData, setRoomCurrentData] =
     useState<EditDepartmentTypeSchema>();
-
-  // const ResultIconUrl = `${baseUrlUpload}${roomCurrentData!.data!.photo}`;
-
-  const token = Cookies.get('token');
 
   const {
     setHasOpenToast,
@@ -64,17 +53,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
-  // useEffect(() => {
-  //   if (isOpenDepartmentAddCardIconIndex) {
-  //     setResultImg({ icon: `${ResultIconArr}`, isOpen: true });
-  //   } else {
-  //     setResultImg({ icon: `${ResultIconUrl}`, isOpen: false });
-  //   }
-  // }, [ResultIconArr, ResultIconUrl, isOpenDepartmentAddCardIconIndex]);
-
-  const handleClose = () => {
-    setIsOpenDepartmentEditCard(false);
-  };
+  const ResultIconArr = isOpenDepartmentAddCardIconIndex
+    ? iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon
+    : undefined;
 
   const fetchRoomData = async () => {
     setRoomCurrentData({
@@ -97,8 +78,11 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
       if (response.data.department) {
         const responceData: Department = response?.data.department;
 
-        const ResultIconArr =
-          iconsCardDepartments[Number(responceData.image)].icon;
+        const ResultIconArr = isOpenDepartmentAddCardIconIndex
+          ? iconsCardDepartments[Number(responceData.image)].icon
+          : undefined;
+
+        setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
 
         setRoomCurrentData({
           error: false,
@@ -108,7 +92,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
             duration: responceData.duration,
             photo: responceData.photo,
             image: responceData?.image,
-            renderPhoto: <ResultIconArr />,
+            renderPhoto: ResultIconArr ? <ResultIconArr /> : null,
           },
         });
       }
@@ -121,13 +105,6 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (editDepartmentId) {
-      fetchRoomData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editDepartmentId]);
 
   const handleSectionInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -153,24 +130,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     }));
   };
 
-  useEffect(() => {
-    const ResultIconArr =
-      iconsCardDepartments[Number(isOpenDepartmentAddCardIconIndex)].icon;
-
-    setRoomCurrentData((prevData) => ({
-      ...prevData,
-      data: {
-        name: roomCurrentData?.data?.name,
-        duration: roomCurrentData?.data?.duration,
-        image: `${isOpenDepartmentAddCardIconIndex}`,
-        renderPhoto: <ResultIconArr />,
-      },
-    }));
-  }, [
-    isOpenDepartmentAddCardIconIndex,
-    roomCurrentData?.data?.duration,
-    roomCurrentData?.data?.name,
-  ]);
+  const handleGetIconDepartment = async () => {
+    setIsOpenDepartmentAddCardIcon(true);
+  };
 
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -256,6 +218,42 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
     }
   };
 
+  const handleClose = () => {
+    setIsOpenDepartmentEditCard(false);
+  };
+
+  useEffect(() => {
+    if (ResultIconArr) {
+      setRoomCurrentData((prevData) => ({
+        ...prevData,
+        data: {
+          name: roomCurrentData?.data?.name,
+          duration: roomCurrentData?.data?.duration,
+          image: isOpenDepartmentAddCardIconIndex
+            ? `${isOpenDepartmentAddCardIconIndex}`
+            : '',
+          renderPhoto: ResultIconArr ? <ResultIconArr /> : undefined,
+        },
+      }));
+    }
+  }, [
+    ResultIconArr,
+    isOpenDepartmentAddCardIconIndex,
+    roomCurrentData?.data?.duration,
+    roomCurrentData?.data?.name,
+  ]);
+
+  useEffect(() => {
+    setResultIcon(ResultIconArr ? <ResultIconArr /> : null);
+  }, [ResultIconArr]);
+
+  useEffect(() => {
+    if (editDepartmentId) {
+      fetchRoomData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editDepartmentId]);
+
   return (
     <div>
       {roomCurrentData?.data && (
@@ -272,19 +270,12 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
                 {t('Bo‘limni tahrirlash')}
               </h3>
 
-              {/* {ResultIcon ? <ResultIcon /> : ''} */}
-
-              {/* {resultImg?.isOpen ? (
-                <ResultIconArr />
-              ) : (
-                <img src={resultImg.icon} alt="#" />
-              )} */}
-
-              {roomCurrentData?.data?.renderPhoto}
+              <div className={cls['DepartmentFormWrp__Card--iconRender']}>
+                {resultIcon || ''}
+              </div>
             </div>
 
             <form
-              action="#"
               onSubmit={handleFormSubmit}
               className={cls['DepartmentFormWrp__Card--body']}
             >
@@ -312,7 +303,6 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
                 variant="outlined"
                 id="outlined-basic"
                 inputProps={{ min: 1 }}
-                // label={t("Bemorni ko'rish vaqti")}
                 onChange={handleDurationInputChange}
                 value={roomCurrentData?.data.duration}
                 className={cls['DepartmentFormWrp__Card--Input']}
@@ -322,9 +312,7 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
                 type="button"
                 variant="contained"
                 className={cls['DepartmentFormWrp__Card--BtnCard']}
-                onClick={() => {
-                  setIsOpenDepartmentAddCardIcon(true);
-                }}
+                onClick={handleGetIconDepartment}
               >
                 {t("Bo'limga rasm qo'shish")}
               </Button>
@@ -354,10 +342,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         </Dialog>
       )}
 
-      {roomCurrentData?.isLoading ||
-        (editRoomFormDialogSubmitIsLoading && <Loader />)}
-
-      {editRoomFormDialogSubmitIsLoading && <Loader />}
+      {(roomCurrentData?.isLoading || editRoomFormDialogSubmitIsLoading) && (
+        <Loader />
+      )}
 
       {roomCurrentData?.error && <ErrorDialog isErrorProps={!false} />}
     </div>

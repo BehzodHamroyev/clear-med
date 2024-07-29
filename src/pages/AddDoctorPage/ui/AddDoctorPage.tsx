@@ -99,7 +99,7 @@ const AddDoctorPage = () => {
             <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Xona')}</th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
-              {t('Bo’lim')}
+              {t("Bo'lim")}
             </th>
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
@@ -118,7 +118,7 @@ const AddDoctorPage = () => {
         {allDoctorsData && allDoctorsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allDoctorsData.map((item) => {
-              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
 
               return (
                 <tr

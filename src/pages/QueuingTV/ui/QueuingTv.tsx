@@ -25,8 +25,6 @@ import {
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
-import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
-
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
 
@@ -34,8 +32,9 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
+import QueuingTvCardPopapSecond from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond/ui/QueuingTvCardPopapSecond';
 
-const QueuingTv = () => {
+export const QueuingTv = () => {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
@@ -68,17 +67,26 @@ const QueuingTv = () => {
 
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
-          deparmentList.map((item) => (
-            <QueuingTvCard
-              key={item?.id}
-              DoctorId={item?.doctor_id?.id}
-              CardLeftTitle={item?.department_id?.name}
-              CardLeftRoomNumber={item?.name}
-              CardLeftDoctorName={item?.doctor_id?.name}
-              // @ts-ignore
-              icon={item?.department_id?.photo}
-            />
-          ))}
+          deparmentList
+            .filter(
+              (item) =>
+                item.name &&
+                item.department_id &&
+                item.department_id._id &&
+                item.doctor_id &&
+                item.doctor_id._id,
+            )
+            .map((item) => (
+              <QueuingTvCard
+                key={item.id}
+                DoctorId={item.doctor_id.id}
+                CardLeftTitle={item.department_id.name}
+                CardLeftRoomNumber={item.name}
+                CardLeftDoctorName={item.doctor_id.name}
+                // @ts-ignore
+                icon={item.department_id.photo}
+              />
+            ))}
       </div>
 
       {isOpenQueuingTvCardPopapSecond &&
@@ -86,7 +94,7 @@ const QueuingTv = () => {
         !lastQueueError &&
         lastQueue?.pagination && (
           <QueuingTvCardPopapSecond
-            roomNumber={lastQueue?.pagination?.split('-')?.slice()[0]?.at(-1)}
+            roomNumber={String(lastQueue?.room?.name)}
             ticketNumber={lastQueue?.pagination}
           />
         )}
@@ -100,4 +108,3 @@ const QueuingTv = () => {
   );
 };
 
-export default QueuingTv;

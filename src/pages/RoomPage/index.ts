@@ -9,3 +9,7 @@ export type { RoomListSchema } from './model/types/RoomTypes';
 export { fetchRoomGetAll } from './model/service/getAllRoomRequest';
 
 export { getListOfRoom } from './model/selectors/RoomList';
+
+export { getIsLoading } from './model/selectors/RoomList';
+
+export { getError } from './model/selectors/RoomList';

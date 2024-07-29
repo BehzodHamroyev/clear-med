@@ -26,6 +26,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+
 interface DeleteadsFormDialogProps {
   adsId: string;
 }
@@ -84,9 +85,6 @@ const DeleteAdsFormDialog = ({ adsId }: DeleteadsFormDialogProps) => {
       }
     } catch (error) {
       setDeleteAdsFormDialogSubmitIsLoading(false);
-
-      console.log(error);
-
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

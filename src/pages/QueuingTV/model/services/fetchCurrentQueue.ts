@@ -5,7 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { CurrentQueueDataApiRespoceType } from '../types/departmentListTypes';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 export const fetchCurrentQueue = createAsyncThunk<
   CurrentQueueDataApiRespoceType,
@@ -31,18 +31,18 @@ export const fetchCurrentQueue = createAsyncThunk<
       },
     );
 
-    if (
-      response?.data?.navbat?.created_date &&
-      response?.data?.navbat?.created_date?.length > 0
-    ) {
-      socket.emit(
-        'create_queue',
-        { queue_data: response.data },
-        (responce: { status: string }) => {
-          console.log(responce);
-        },
-      );
-    }
+    // if (
+    //   response?.data?.navbat?.created_date &&
+    //   response?.data?.navbat?.created_date?.length > 0
+    // ) {
+    //   socket.emit(
+    //     'create_queue',
+    //     { queue_data: response.data },
+    //     (responce: { status: string }) => {
+    //       console.log(responce);
+    //     },
+    //   );
+    // }
 
     if (!response.data) {
       throw new Error();

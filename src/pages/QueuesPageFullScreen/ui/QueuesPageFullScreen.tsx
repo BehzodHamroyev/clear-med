@@ -1,55 +1,44 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 import ReactPlayer from 'react-player';
 
-import { useFullScreenHandle } from 'react-full-screen';
 import { useTranslation } from 'react-i18next';
 
 import { IoClose } from 'react-icons/io5';
 import cls from './QueuesPageFullScreen.module.scss';
-// import { QueuesList2 } from '@/entities/QueuesChilds2';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-import medLogo from '../../../../public/assets/medLogo.png';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/pages/QueuesPage/ui/queueDialog/QueueDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import {
-  getAllQueueProccessData,
-  getAllQueueProccessIsLoading,
-} from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import Loader from '@/widgets/Loader/ui/Loader';
-import { socket } from '@/shared/lib/utils/socket';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
-import { Queue } from '@/pages/QueuesControlDoctor';
+import { getAllQueueProccessData } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
+
+import medLogo from '../../../../public/assets/medLogo.png';
+import { baseUrl } from '../../../../baseurl';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
 
-  const handle = useFullScreenHandle();
-
-  const [hasRolik, setHasRolik] = useState(true);
   const [hasQueueDialog, setHasQueueDialog] = useState(false);
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
     step: 1,
+    mp3Arr: [''],
   });
 
   const videoUrl: string[] = [];
 
-  const {
-    recallQueue,
-    addProccessQueue,
-    clearProccessQueue,
-    removeProccessQueue,
-  } = useAllQueueProccessActions();
-
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
+
+  const { onEndedQueueAudio, setOnEndedQueueAudio } =
+    useContext(ButtonsContext);
 
   const handleExitFullScreenClick = () => {
     document.exitFullscreen();
@@ -61,56 +50,58 @@ const QueuesPageFullScreen = () => {
     });
   }
 
-  socket.on('getProccessQueueToTV', (data: Queue) => {
-    if (data) {
-      addProccessQueue(data);
-
-      setQueueDialogData({
-        roomNumber: String(data.room_id.name),
-        biletNumber: String(data.queues_name),
-        step: data.step,
-      });
-
-      setHasQueueDialog(true);
-    }
-  });
-
-  socket.on('getRecallQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'recall');
-      recallQueue(data);
-
-      setQueueDialogData({
-        roomNumber: String(data.room_id.name),
-        biletNumber: String(data.queues_name),
-        step: data.step,
-      });
-
-      setHasQueueDialog(true);
-    }
-  });
-
-  socket.on('getAcceptedQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'accept');
-      removeProccessQueue(data);
-    }
-  });
-
-  socket.on('getRejectQueueToTV', (data: Queue) => {
-    if (data) {
-      // console.log(data, 'reject');
-      removeProccessQueue(data);
-    }
-  });
-
   useEffect(() => {
-    if (hasQueueDialog) {
-      setTimeout(() => {
-        setHasQueueDialog(false);
-      }, 3500);
+    const token = Cookies.get('token');
+    let found = false;
+
+    if (!onEndedQueueAudio) {
+      allProccessQueue?.proccessQueues.forEach((item) => {
+        if (!item.view && !found) {
+          setQueueDialogData({
+            roomNumber: String(item.room_id.name),
+            biletNumber: String(item.queues_name),
+            step: item.step,
+            mp3Arr: item.mp3Arr,
+          });
+
+          try {
+            axios.post(
+              `${baseUrl}/monitor/update/view`,
+              { id: item._id, view: true },
+              {
+                maxBodyLength: Infinity,
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: `Bearer ${token}`,
+                },
+              },
+            );
+          } catch (error) {
+            console.log(error);
+          }
+
+          setHasQueueDialog(true);
+          setOnEndedQueueAudio(true);
+
+          found = true;
+        }
+
+        if (found) {
+          // eslint-disable-next-line no-useless-return
+          return;
+        }
+      });
     }
-  }, [hasQueueDialog]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allProccessQueue?.proccessQueues]);
+
+  // useEffect(() => {
+  //   if (hasQueueDialog) {
+  //     setTimeout(() => {
+  //       setHasQueueDialog(false);
+  //     }, 10500);
+  //   }
+  // }, [hasQueueDialog]);
 
   return (
     <>
@@ -143,49 +134,105 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainer)}>
             <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
               <div className={classNames(cls.queuesTable)}>
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
+                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
 
                 <div className={classNames(cls.queuesTable__items)}>
-                  {allProccessQueue?.proccessQueues &&
-                    allProccessQueue?.proccessQueues.length > 0 &&
-                    allProccessQueue?.proccessQueues.map((item) => (
-                      <div
-                        key={item._id}
-                        className={classNames(cls.queuesTable__item)}
-                      >
+                  {allProccessQueue.room1?.proceed.map((item, index) => {
+                    if (index < 3) {
+                      return (
                         <div
-                          className={classNames(
-                            cls.queuesTable__itemDepartmentName,
-                          )}
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
                         >
-                          <p>{item.department_id?.name}</p>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
                         </div>
+                      );
+                    }
+                  })}
+                </div>
+
+                {allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : (
+                  ''
+                )}
+
+                <div className={classNames(cls.queuesTable__items)}>
+                  {allProccessQueue.room2?.proceed.map((item, index) => {
+                    if (index < 3)
+                      return (
                         <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
                         >
-                          <p>{item.room_id.name}</p>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
                         </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemBiletNumber,
-                          )}
-                        >
-                          <p>{item.queues_name}</p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                  })}
                 </div>
               </div>
             </div>
@@ -267,13 +314,14 @@ const QueuesPageFullScreen = () => {
         )}
       </div>
 
-      {allProccessQueueIsLoading && <Loader />}
+      {/* {allProccessQueueIsLoading && <Loader />} */}
 
-      {hasQueueDialog && (
+      {onEndedQueueAudio && (
         <QueueDialog
           roomNumber={queueDialogData.roomNumber}
           biletNumber={queueDialogData.biletNumber}
           step={queueDialogData.step}
+          Mp3Array={queueDialogData.mp3Arr}
         />
       )}
     </>

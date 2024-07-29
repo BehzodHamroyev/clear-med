@@ -87,8 +87,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
     <div className={classNames(cls.addRoomPage, {}, [className])}>
       <div className={classNames(cls.addRoomPage__header)}>
         <div className={classNames(cls['addRoomPage__header--left'])}>
-          <p>{t('Xonalar')}:</p>
-          <span>{allRoomsData?.length}</span>
+          <p>{t('Xonalar')}</p>
+          <span>({allRoomsData?.length})</span>
         </div>
 
         <div
@@ -115,8 +115,24 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
               {allRoomsData.map((item: Room) => (
                 <tr key={item?.id}>
                   <td>{item?.name}</td>
-                  <td>{item?.department_id?.name}</td>
-                  <td>{item?.doctor_id?.name}</td>
+                  <td>
+                    {item?.department_id?.name ? (
+                      item?.department_id?.name
+                    ) : (
+                      <span className={classNames(cls.tdAmpty)}>
+                        {t("Bo'lim yo'q")}
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    {item?.doctor_id?.name ? (
+                      item?.doctor_id?.name
+                    ) : (
+                      <span className={classNames(cls.tdAmpty)}>
+                        {t("Shifokor yo'q")}
+                      </span>
+                    )}
+                  </td>
                   <td
                     className={classNames(cls.tablePenRow)}
                     onClick={() => handeClickEditRoom(item?.id)}

@@ -292,7 +292,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
   return (
     <>
-      {roomCurrentData?.data?.roomNumber &&
+      {roomCurrentData?.data &&
         allDepartmentsData &&
         allFreeDoctorsData &&
         allFreeDoctorsData.length >= 0 && (

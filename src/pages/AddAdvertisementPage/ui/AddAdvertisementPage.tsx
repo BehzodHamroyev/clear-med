@@ -2,6 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
 import { AdvertisementEdit } from '@/entities/AdvertisementEdit';
@@ -34,6 +35,8 @@ const AddAdvertisementPage = () => {
   const [tableBody, setTableBody] = React.useState<any>([]);
 
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   const {
     getResponseData,
@@ -87,7 +90,7 @@ const AddAdvertisementPage = () => {
           <div>
             <ButtonNavbar
               CreateCarbonAdd
-              TableTitle="Reklamalar"
+              TableTitle={t('Reklamalar')}
               ItemsLength={tableBody.length}
             />
 

@@ -17,13 +17,19 @@ const TableTitleReports = (props: TableInfo) => {
         <tr className={cls.tr}>
           {Tablethead.map((title: string) => (
             <th key={title} className={cls.th}>
-              {title}
+              {t(title)}
+              {}
             </th>
           ))}
         </tr>
       </thead>
       <tbody className={cls.Tabletbody}>
-        {Tabletbody.map((item) => (
+        {Tabletbody.filter(
+          (item) =>
+            item?.name &&
+            item?.rooms.length > 0 &&
+            item?.rooms[0]?.department_id,
+        ).map((item) => (
           <Link
             key={item._id}
             style={{ listStyle: 'none', textDecoration: 'none', color: '#000' }}
@@ -34,7 +40,9 @@ const TableTitleReports = (props: TableInfo) => {
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
               {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
-                <td className={cls.td}>{item.rooms[0]?.department_id?.name}</td>
+                <td className={cls.td}>
+                  {t(item.rooms[0]?.department_id?.name)}
+                </td>
               ) : (
                 <td className={cls.td}>
                   <span className={cls.td_invalid}>{t("Bo'lim yo'q")}</span>
@@ -55,7 +63,7 @@ const TableTitleReports = (props: TableInfo) => {
                 <td className={cls.td}>
                   <img
                     className={cls.Img}
-                    src={`http://medapi.magicsoft.uz/${item.photo}`}
+                    src={`http://socketmed.magicsoft.uz//${item.photo}`}
                     alt="#"
                   />
                 </td>

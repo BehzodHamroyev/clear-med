@@ -1,8 +1,9 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { Tooltip } from '@mui/material';
 import {
   Xona,
   Settings,
@@ -18,12 +19,13 @@ import cls from './ListOfPages.module.scss';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 1,
     path: '/',
-    title: 'Bo‘lim qo‘shish',
+    title: "Bo'lim qo'shish",
     icon: <Bolimlar />,
   },
   {
@@ -41,7 +43,7 @@ const listOfPageAdmin: ListOfPageTypes[] = [
   {
     id: 4,
     path: '/add-reception',
-    title: 'Reception qo‘shish',
+    title: 'Qabul qo‘shish',
     icon: <Shifokor />,
   },
   {
@@ -136,6 +138,8 @@ export const ListOfPages = memo(() => {
 
   const [profileValue, setProfileValue] = useState<string>('');
 
+  const { isOpenSidebar } = useContext(ButtonsContext);
+
   useEffect(() => {
     if (authUserData) {
       setProfileValue(authUserData?.role);
@@ -164,7 +168,7 @@ export const ListOfPages = memo(() => {
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '428px';
       }
-    } else if (profileValue === 'doktor') {
+    } else if (profileValue === 'doctor') {
       if (divRef.current && location.pathname === '/') {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
@@ -177,7 +181,7 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '63px';
-      } else if (divRef.current && location.pathname === '/queues') {
+      } else if (divRef.current && location.pathname === '/monitors') {
         divRef.current.style.top = '106px';
       } else if (divRef.current && location.pathname === '/settings') {
         divRef.current.style.top = '216px';
@@ -208,28 +212,35 @@ export const ListOfPages = memo(() => {
       location.pathname === item.path ? cls.liActive : cls.li;
 
     return (
-      <Link
-        className={`${classNamesOne} `}
-        key={item.title}
-        to={item.path}
-        onClick={() => setLinkIndex(index + 1)}
+      <Tooltip
+        className={cls.tooltipColor}
+        placement="right"
+        title={!isOpenSidebar ? item.title : null}
       >
-        {item.icon}
-        {t(item.title)}
-      </Link>
+        <Link
+          className={`${classNamesOne} `}
+          key={item.title}
+          to={item.path}
+          onClick={() => setLinkIndex(index + 1)}
+        >
+          {item.icon}
+          {isOpenSidebar ? t(item.title) : ''}
+        </Link>
+      </Tooltip>
     );
   });
 
   return (
     <div className={cls.listOfPageWrapper}>
-      <div className={cls.selectionMenu} ref={divRef} />
+      {/* don't remove this commit */}
+      {/* <div className={cls.selectionMenu} ref={divRef} /> */}
 
       <div className={cls.listOfPage}>
         <div className={cls.wrapper}>{itemListOfPage}</div>
 
         <hr className={cls.hr} />
 
-        <p className={cls.SidebarTitle}>{t('Umumiy')}</p>
+        {isOpenSidebar ? <p className={cls.SidebarTitle}>{t('Umumiy')}</p> : ''}
 
         <Link
           className={location.pathname === '/settings' ? cls.liActive : cls.li}
@@ -237,7 +248,7 @@ export const ListOfPages = memo(() => {
           onClick={() => setLinkIndex(10)}
         >
           <Settings />
-          {t('Sozlamalar')}
+          {isOpenSidebar ? t('Sozlamalar') : ''}
         </Link>
       </div>
     </div>

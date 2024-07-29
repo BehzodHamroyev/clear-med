@@ -84,8 +84,6 @@ const DeleteDoctorFormDialog = ({ doctorId }: DeleteDoctorFormDialogProps) => {
     } catch (error) {
       setDeleteDoctorFormDialogSubmitIsLoading(false);
 
-      console.log(error);
-
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

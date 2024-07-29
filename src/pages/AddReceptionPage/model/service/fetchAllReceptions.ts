@@ -6,14 +6,14 @@ import { baseUrl } from '../../../../../baseurl';
 import { AllReceptionsApiResponse } from '../types/receptoinsListTypes';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
-const token = Cookies.get('token');
-
 export const fetchAllReceptions = createAsyncThunk<
   AllReceptionsApiResponse,
   {},
   ThunkConfig<string>
 >('fetch All Receptions', async (prop, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
+
+  const token = Cookies.get('token');
 
   try {
     const response = await axios.get<AllReceptionsApiResponse>(

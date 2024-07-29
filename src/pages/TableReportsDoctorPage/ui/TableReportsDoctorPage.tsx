@@ -16,14 +16,6 @@ import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-const tableTitle = [
-  'ID',
-  'Qabul kuni',
-  'Qabul boshlanishi',
-  'Qabul tugashi',
-  'Xolati',
-];
-
 interface reportListTtype {
   _id: string;
   department_id: string;
@@ -49,6 +41,14 @@ interface TableInfo {
 const TableReportsDoctorPage = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const tableTitle = [
+    'ID',
+    t('Qabul kuni'),
+    t('Qabul boshlanishi'),
+    t('Qabul tugashi'),
+    t('Xolati'),
+  ];
 
   const [reportList, setReportList] = useState<reportListTtype[]>();
   const [reportInfo, setReportInfo] = useState<TableInfo>({
@@ -127,7 +127,7 @@ const TableReportsDoctorPage = () => {
   return (
     <>
       <table className={cls.TableTitleWrapper}>
-        <ButtonNavbar TableTitle="Hisobot" Calendar />
+        <ButtonNavbar TableTitle={t('Hisobot')} Calendar />
 
         {reportList && reportList.length > 0 ? (
           <>

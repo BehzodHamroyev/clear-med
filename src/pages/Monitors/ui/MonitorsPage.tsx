@@ -40,12 +40,10 @@ const MonitorsPage = () => {
     <div className={classNames(cls.Monitors)}>
       <div className={classNames(cls.Monitors__header)}>
         <div className={classNames(cls['Monitors__header--left'])}>
-          <p>{t('Monitorlar')}:</p>
-          <span>{allMonitorsData?.length}</span>
+          <p>{t('Monitorlar')}</p> <span>({allMonitorsData?.length})</span>
           <div />
         </div>
       </div>
-
       {allMonitorsData && allMonitorsData.length > 0 ? (
         <div className={classNames(cls.Monitors__monitorsBox)}>
           {allMonitorsData.map((item) => (
@@ -55,7 +53,6 @@ const MonitorsPage = () => {
               className={classNames(cls['Monitors__monitorsBox--monitorCard'])}
             >
               <h2>{item?.name}</h2>
-              {/* <p>Monitor nomi</p> */}
             </Link>
           ))}
         </div>
@@ -64,9 +61,7 @@ const MonitorsPage = () => {
       ) : (
         ''
       )}
-
       {allMonitorsIsLoading && <Loader />}
-
       {allMonitorsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );

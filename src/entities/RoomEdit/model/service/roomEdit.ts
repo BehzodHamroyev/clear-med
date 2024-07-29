@@ -40,7 +40,6 @@ export const fetchRoomEdit = createAsyncThunk<
 
     return response.data;
   } catch (e) {
-    console.log(e, 'Room');
     return rejectWithValue('error');
   }
 });

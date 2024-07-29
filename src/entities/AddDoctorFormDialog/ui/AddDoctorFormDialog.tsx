@@ -21,6 +21,7 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  Dialog,
 } from '@mui/material';
 
 import cls from './AddDoctorFormDialog.module.scss';
@@ -63,6 +64,7 @@ const AddDoctorFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenDoctorAddCard,
     setIsOpenDoctorAddCard,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
@@ -129,7 +131,7 @@ const AddDoctorFormDialog = () => {
       dataForm.append('password', `${Password}`);
     }
 
-    if (ImgProfile && FullName && Experience && PhoneNumber && Password) {
+    if (FullName && Experience && PhoneNumber) {
       try {
         const response = await axios.post(`${baseUrl}/users`, dataForm, {
           maxBodyLength: Infinity,
@@ -204,19 +206,14 @@ const AddDoctorFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenDoctorAddCard(false);
-        }}
-        className={cls.DepartmentAddWrapper}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenDoctorAddCard}
+        className={cls.DoctorAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          className={cls.DepartmentAddCard}
-        >
+        <div className={cls.DoctorAddCard}>
           <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
@@ -228,7 +225,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <button
-                type="submit"
+                type="button"
                 onClick={handleClick}
                 className={cls.AddCardImgValuebtn}
               >
@@ -270,7 +267,7 @@ const AddDoctorFormDialog = () => {
               />
 
               <label>
-                Telfon raqami
+                {t('Telefon raqami')}
                 <Input
                   required
                   autoFocus
@@ -291,7 +288,7 @@ const AddDoctorFormDialog = () => {
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Parolni kiriting
+                  {t('Parolni kiriting')}
                 </InputLabel>
                 <OutlinedInput
                   required
@@ -311,7 +308,7 @@ const AddDoctorFormDialog = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Parolni kiriting"
+                  label={t('Parolni kiriting')}
                 />
               </FormControl>
               {/* get Value Pasword Input finished */}
@@ -337,7 +334,7 @@ const AddDoctorFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addDoctorFormDialogIsLoading && <Loader />}
     </>

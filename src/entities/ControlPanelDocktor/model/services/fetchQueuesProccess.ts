@@ -5,93 +5,88 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
-import { socket } from '@/shared/lib/utils/socket';
+// import { socket } from '@/shared/lib/utils/socket';
 
 export const fetchQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
-  { method: string; path: string; status: string; isReCall?: boolean },
+  { method: string; path: string; status: string },
   ThunkConfig<string>
->(
-  'fetchQueuesProccess',
-  async ({ method, path, status, isReCall = false }, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+>('fetchQueuesProccess', async ({ method, path, status }, thunkApi) => {
+  const { rejectWithValue } = thunkApi;
 
-    const getTokenCookie = Cookies.get('token');
+  const getTokenCookie = Cookies.get('token');
 
-    if (!status) {
-      throw new Error('');
+  if (!status) {
+    throw new Error('');
+  }
+
+  try {
+    let response;
+
+    if (method === 'get') {
+      response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
+        `${baseUrl}/doctor/${path}${status}`,
+
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
+    } else if (method === 'post') {
+      response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
+        `${baseUrl}/doctor/${path}${status}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${getTokenCookie}`,
+          },
+        },
+      );
     }
 
-    try {
-      let response;
+    // if (response?.data && response?.data.data.length > 0) {
+    //   socket.emit('realTimeQueue', response.data);
+    // }
 
-      if (method === 'get') {
-        response = await axios.get<ProccesApiResponseControlPanelDoctorTypes>(
-          `${baseUrl}/doctor/${path}${status}`,
+    // if (
+    //   response?.data &&
+    //   response?.data.data.length > 0 &&
+    //   status === 'proccessed'
+    // ) {
+    //   socket.emit('proccessQueue', response.data);
+    // }
 
-          {
-            headers: {
-              authorization: `Bearer ${getTokenCookie}`,
-            },
-          },
-        );
-      } else if (method === 'post') {
-        response = await axios.post<ProccesApiResponseControlPanelDoctorTypes>(
-          `${baseUrl}/doctor/${path}${status}`,
-          {},
-          {
-            headers: {
-              authorization: `Bearer ${getTokenCookie}`,
-            },
-          },
-        );
-      }
+    // if (
+    //   response?.data &&
+    //   response?.data.data.length > 0 &&
+    //   status === 'recall'
+    // ) {
+    //   socket.emit('recallQueue', response.data);
+    // }
 
-      if (response?.data && response?.data.data.length > 0) {
-        socket.emit('realTimeQueue', response.data);
-      }
+    // if (
+    //   response?.data &&
+    //   response?.data.data.length > 0 &&
+    //   status === 'rejected'
+    // ) {
+    //   socket.emit('rejectQueue', response.data);
+    // }
 
-      if (
-        response?.data &&
-        response?.data.data.length > 0 &&
-        status === 'proccessed' &&
-        !isReCall
-      ) {
-        socket.emit('proccessQueue', response.data);
-      }
+    // if (
+    //   response?.data &&
+    //   response?.data.data.length > 0 &&
+    //   status === 'completed'
+    // ) {
+    //   socket.emit('acceptedQueue', response.data);
+    // }
 
-      if (
-        response?.data &&
-        response?.data.data.length > 0 &&
-        status === 'proccessed' &&
-        isReCall
-      ) {
-        socket.emit('recallQueue', response.data);
-      }
-
-      if (
-        response?.data &&
-        response?.data.data.length > 0 &&
-        status === 'rejected'
-      ) {
-        socket.emit('rejectQueue', response.data);
-      }
-
-      if (
-        response?.data &&
-        response?.data.data.length > 0 &&
-        status === 'completed'
-      ) {
-        socket.emit('acceptedQueue', response.data);
-      }
-
-      if (!response) {
-        throw new Error();
-      }
-
-      return response.data;
-    } catch (e) {
-      return rejectWithValue('error');
+    if (!response) {
+      throw new Error();
     }
-  },
-);
+
+    return response.data;
+  } catch (e) {
+    return rejectWithValue('error');
+  }
+});

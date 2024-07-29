@@ -4,10 +4,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
-import { TextField } from '@mui/material';
+import { Dialog, TextField } from '@mui/material';
 
 import cls from './AddDepartmentFormDialog.module.scss';
 
+import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../baseurl';
 import { DepartmentType } from '../model/types/departmentType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -15,7 +16,6 @@ import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 import { fetchAllDepartments } from '../../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
-import { Loader } from '@/widgets/Loader';
 
 const AddDepartmentFormDialog = () => {
   const { t } = useTranslation();
@@ -33,6 +33,7 @@ const AddDepartmentFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenDepartmentAddCard,
     setIsOpenDepartmentAddCard,
     setToastDataForAddRoomForm,
     isOpenDepartmentAddCardIcon,
@@ -40,8 +41,9 @@ const AddDepartmentFormDialog = () => {
     isOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
-  const ResultIconSrc =
-    iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon;
+  const ResultIconSrc = isOpenDepartmentAddCardIconIndex
+    ? iconsCardDepartments[isOpenDepartmentAddCardIconIndex].icon
+    : undefined;
 
   const handleClose = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -141,12 +143,12 @@ const AddDepartmentFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenDepartmentAddCard(false);
-        }}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenDepartmentAddCard}
         className={cls.DepartmentAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <div
           onClick={(e) => {
@@ -155,9 +157,9 @@ const AddDepartmentFormDialog = () => {
           className={cls.DepartmentAddCard}
         >
           <div className={cls.TitleFlex}>
-            <h3 className={cls.CardTitle}>{t('Bo‘lim qo‘shish')}</h3>
+            <h3 className={cls.CardTitle}>{t("Bo'lim qo'shish")}</h3>
 
-            <ResultIconSrc />
+            {ResultIconSrc ? <ResultIconSrc /> : ''}
           </div>
 
           <form action="#" className={cls.CardBody} onSubmit={handleFormSubmit}>
@@ -167,7 +169,7 @@ const AddDepartmentFormDialog = () => {
               inputRef={inputRef}
               id="outlined-basic"
               variant="outlined"
-              label={t('Bo‘lim nomi')}
+              label={t("Bo'lim nomi")}
               className={cls.InputBulim}
               inputProps={{ maxLength: 20, minLength: 3 }}
             />
@@ -210,7 +212,7 @@ const AddDepartmentFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addDepartmentFormDialogIsLoading && <Loader />}
     </>

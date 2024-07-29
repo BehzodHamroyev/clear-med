@@ -10,7 +10,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 
-import { styled } from '@mui/material/styles';
 import {
   Dialog,
   TextField,
@@ -27,7 +26,6 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import cls from './EditDoctorFormDialog.module.scss';
 
-import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import { GetImage } from '@/shared/assets/Pages/Doctor';
@@ -42,15 +40,7 @@ import {
 } from './editDoctorFormDialogTypes';
 import { fetchAllDoctors } from '../../pages/AddDoctorPage/model/service/fetchAllDoctors';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
+import { classNames } from '@/shared/lib/classNames/classNames';
 
 interface EditDoctorFormDialogProps {
   doctorId: string;
@@ -325,15 +315,16 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
   return (
     <>
       {doctorCurrentData?.data && (
-        <BootstrapDialog
-          className={classNames(cls.AddRoomFormDialog__Container)}
+        <Dialog
           onClose={handleClose}
-          aria-labelledby="customized-dialog-title"
           open={isOpenDoctorEditCard}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          className={classNames(cls.DoctorEditWrapper)}
         >
-          <div className={cls.DepartmentAddWrapper}>
-            <div className={cls.DepartmentAddCard}>
-              <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+          <div className={cls.DoctorEditWrapperCard}>
+            <div className={cls.EditDoctorCard}>
+              <h3 className={cls.CardTitle}>{t('Shifokorni tahrirlash')}</h3>
 
               <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
                 <div className={cls.AddCardImg}>
@@ -342,7 +333,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     src={
                       selectedFile
                         ? URL.createObjectURL(selectedFile)
-                        : `http://medapi.magicsoft.uz/${doctorCurrentData.data.photo}`
+                        : `http://socketmed.magicsoft.uz//${doctorCurrentData.data.photo}`
                     }
                     alt="doctor"
                   />
@@ -389,7 +380,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     value={doctorCurrentData?.data?.exprience}
                     onChange={handleChangeExprience}
                   />
-                  Telfon raqami
+                  {t('Telefon raqami')}
                   <Input
                     required
                     autoFocus
@@ -407,7 +398,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                     variant="outlined"
                   >
                     <InputLabel htmlFor="outlined-adornment-password">
-                      Parolni kiriting
+                      {t('Parolni kiriting')}
                     </InputLabel>
 
                     <OutlinedInput
@@ -428,7 +419,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      label="Parolni kiriting"
+                      label={t('Parolni kiriting')}
                     />
                   </FormControl>
                   <div className={cls.BtnParnet}>
@@ -453,7 +444,7 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
               </form>
             </div>
           </div>
-        </BootstrapDialog>
+        </Dialog>
       )}
 
       {(doctorCurrentData?.isLoading || editDoctorFormDialogIsLoading) && (

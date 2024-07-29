@@ -21,6 +21,7 @@ import {
   FormControl,
   OutlinedInput,
   InputAdornment,
+  Dialog,
 } from '@mui/material';
 
 import cls from './AddReceptionFormDialog.module.scss';
@@ -63,6 +64,7 @@ const AddReceptionFormDialog = () => {
 
   const {
     setHasOpenToast,
+    isOpenAddReceptionCard,
     setIsOpenAddReceptionCard,
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
@@ -214,12 +216,12 @@ const AddReceptionFormDialog = () => {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpenAddReceptionCard(false);
-        }}
+      <Dialog
+        onClose={handleClose}
+        open={isOpenAddReceptionCard}
         className={cls.DepartmentAddWrapper}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
         <div
           onClick={(e) => {
@@ -227,7 +229,7 @@ const AddReceptionFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t('Reception qo‘shish')}</h3>
+          <h3 className={cls.CardTitle}>{t('Qabul qo‘shish')}</h3>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
@@ -280,7 +282,7 @@ const AddReceptionFormDialog = () => {
               />
 
               <label>
-                Telfon raqami
+                {t('Telefon raqami')}
                 <Input
                   required
                   autoFocus
@@ -301,7 +303,7 @@ const AddReceptionFormDialog = () => {
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Parolni kiriting
+                  {t('Parolni kiriting')}
                 </InputLabel>
                 <OutlinedInput
                   required
@@ -321,7 +323,7 @@ const AddReceptionFormDialog = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Parolni kiriting"
+                  label={t('Parolni kiriting')}
                 />
               </FormControl>
               {/* get Value Pasword Input finished */}
@@ -347,7 +349,7 @@ const AddReceptionFormDialog = () => {
             </div>
           </form>
         </div>
-      </div>
+      </Dialog>
 
       {addReceptionFormDialogIsLoading && <Loader />}
     </>

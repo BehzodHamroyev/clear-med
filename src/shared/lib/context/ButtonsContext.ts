@@ -2,8 +2,23 @@ import { createContext } from 'react';
 import { CurrentQueueDataType } from '@/pages/QueuingTV';
 
 export interface ButtonsClickedProps {
+  onEndedQueueAudio: boolean;
+  setOnEndedQueueAudio: (prop: boolean) => void;
+
+  isLoginForHasToast: boolean;
+  setIsLoginForHasToast: (prop: boolean) => void;
+
+  isOpenQueueUserTimer: boolean;
+  setIsOpenQueueUserTimer: (prop: boolean) => void;
+
   clickedDoctorId: string;
   setClickedDoctorId: (prop: string) => void;
+
+  monitorNumber: number | null;
+  setMonitorNumber: (prop: number) => void;
+
+  isOpenSidebar: boolean;
+  setIsOpenSidebar: (prop: boolean) => void;
 
   isOpenSettingsChangePassword: boolean;
   setIsOpenSettingsChangePassword: (prop: boolean) => void;
@@ -184,8 +199,8 @@ export interface ButtonsClickedProps {
   isOpenDepartmentAddCardIcon: boolean;
   setIsOpenDepartmentAddCardIcon: (prop: boolean) => void;
 
-  isOpenDepartmentAddCardIconIndex: number;
-  setIsOpenDepartmentAddCardIconIndex: (prop: number) => void;
+  isOpenDepartmentAddCardIconIndex: number | undefined;
+  setIsOpenDepartmentAddCardIconIndex: (prop: number | undefined) => void;
 
   isOpenBurgerNavbar: boolean;
   setIsOpenBurgerNavbar: (prop: boolean) => void;
@@ -193,10 +208,15 @@ export interface ButtonsClickedProps {
   formData: { PhoneNumber: string; UserPassword: string };
   setFormData: (prop: { PhoneNumber: string; UserPassword: string }) => void;
 
-  settingsFormData: { password: string; newPassword: string };
+  settingsFormData: {
+    password: string;
+    newPassword: string;
+    reNewPassword: string;
+  };
   setSettingsFormData: (prop: {
     password: string;
     newPassword: string;
+    reNewPassword: string;
   }) => void;
 
   hasOpenToast: boolean;
@@ -211,9 +231,27 @@ export interface ButtonsClickedProps {
     toastSeverityForAddRoomForm: string;
     toastMessageForAddRoomForm: string;
   }) => void;
+
+  isOpenAdvertisementDeleteAdsForMonitor: boolean;
+  setIsOpenAdvertisementDeleteAdsForMonitor: (prop: boolean) => void;
+
+  isOpenUploadLogo: boolean;
+  setIsOpenUploadLogo: (prop: boolean) => void;
 }
 
 export const ButtonsContext = createContext<ButtonsClickedProps>({
+  onEndedQueueAudio: false,
+  setOnEndedQueueAudio: () => {},
+
+  isLoginForHasToast: false,
+  setIsLoginForHasToast: () => {},
+
+  isOpenQueueUserTimer: false,
+  setIsOpenQueueUserTimer: () => {},
+
+  isOpenSidebar: false,
+  setIsOpenSidebar: () => {},
+
   clickedDoctorId: '',
   setClickedDoctorId: () => {},
 
@@ -223,8 +261,14 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenAdvertisementDeleteCard: false,
   setIsOpenAdvertisementDeleteCard: () => {},
 
+  isOpenAdvertisementDeleteAdsForMonitor: false,
+  setIsOpenAdvertisementDeleteAdsForMonitor: () => {},
+
   monitorEditFormOldValue: '',
   setMonitorEditFormOldValue: () => {},
+
+  monitorNumber: null,
+  setMonitorNumber: () => {},
 
   isOpenAttachmentRoomMonitorChildEdit: false,
   setIsOpenAttachmentRoomMonitorChildEdit: () => {},
@@ -350,7 +394,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isOpenDepartmentAddCardIcon: false,
   setIsOpenDepartmentAddCardIcon: () => {},
 
-  isOpenDepartmentAddCardIconIndex: 1,
+  isOpenDepartmentAddCardIconIndex: undefined,
   setIsOpenDepartmentAddCardIconIndex: () => {},
 
   isOpenBurgerNavbar: true,
@@ -362,7 +406,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
   isDataFormAddRoom: { RoomNumber: '', SectionName: '', DoctorName: '' },
   setIsDataFormAddRoom: () => {},
 
-  settingsFormData: { password: '', newPassword: '' },
+  settingsFormData: { password: '', newPassword: '', reNewPassword: '' },
   setSettingsFormData: () => {},
 
   currentQueueData: {
@@ -409,4 +453,7 @@ export const ButtonsContext = createContext<ButtonsClickedProps>({
 
   isOpenDeleteReceptionCard: false,
   setIsOpenDeleteReceptionCard: () => {},
+
+  isOpenUploadLogo: false,
+  setIsOpenUploadLogo: () => {},
 });

@@ -43,6 +43,7 @@ const AddDepartmentPage = () => {
     isOpenDepartmentDeleteCard,
     setIsOpenDepartmentEditCard,
     setIsOpenDepartmentDeleteCard,
+    setIsOpenDepartmentAddCardIconIndex,
   } = useContext(ButtonsContext);
 
   const allDepartmentsData = useSelector(getAllDepartmentsData);
@@ -51,6 +52,7 @@ const AddDepartmentPage = () => {
 
   const handleCardAddCard = () => {
     setIsOpenDepartmentAddCard(true);
+    setIsOpenDepartmentAddCardIconIndex(undefined);
   };
 
   const handleClickDeleteDepartment = (id: string) => {
@@ -111,7 +113,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `http://medapi.magicsoft.uz/${item.photo}`;
+              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
 
               return (
                 <tr

@@ -1,23 +1,25 @@
 /* stylelint-disable no-descending-specificity */
 .AddDoctorPageWrp {
-  width: 1300px;
+  width: 100%;
   font-family: sans-serif;
+  background-color: transparent;
 
   &__Title {
-    max-width: 1300px;
     width: 100%;
     max-height: 60px;
     font-family: sans-serif;
     border-radius: 5.273px;
-    background: #fff;
+    background: var();
     display: flex;
     justify-content: space-between;
     align-self: center;
     padding: 20px;
     text-align: center;
+    background-color: var(--bg-table);
+    border: 1px solid var(--border-table);
 
     &--text {
-      color: #1d1d1d;
+      color: var(--text-color);
       font-family: sans-serif;
       font-size: 18px;
       font-style: normal;
@@ -48,6 +50,7 @@
       justify-content: center;
       cursor: pointer;
       user-select: none;
+      color: var(--text-color);
       border: 1.1px solid #e0e0e0;
       border-radius: 5.2px;
     }
@@ -82,7 +85,7 @@
 
     &--edit,
     &--delete {
-      width: 120px;
+      width: 230px;
     }
 
     &--tr {
@@ -91,19 +94,21 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      background-color: #fff;
+      color: var(--text-color);
+      background-color: var(--bg-table);
+      border: 1px solid var(--border-table);
       padding: 20px;
       margin: 3px auto;
       transition: all 0.3s linear;
     }
 
     &--tr:hover {
-      background-color: #ececec;
+      background-color: var(--hover-bg-table);
     }
 
     &--th,
     &--td {
-      min-width: 180px;
+      // min-width: 180px;
       width: 100%;
     }
 
