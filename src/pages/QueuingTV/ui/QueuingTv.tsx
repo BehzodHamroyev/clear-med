@@ -25,8 +25,6 @@ import {
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
-import { QueuingTvCardPopapSecond } from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond';
-
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
 
@@ -34,8 +32,9 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
+import QueuingTvCardPopapSecond from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond/ui/QueuingTvCardPopapSecond';
 
-const QueuingTv = () => {
+export const QueuingTv = () => {
   const dispatch = useAppDispatch();
 
   const { t } = useTranslation();
@@ -109,4 +108,3 @@ const QueuingTv = () => {
   );
 };
 
-export default QueuingTv;

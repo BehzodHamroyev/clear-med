@@ -71,4 +71,6 @@ export interface QueueProccessInRedux {
   videoUrl: videoUrl[];
   proccessQueues: Queue[];
   addvertising?: boolean;
+  room1?: Room;
+  room2?: Room;
 }

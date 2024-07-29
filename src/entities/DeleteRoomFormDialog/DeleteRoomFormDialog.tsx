@@ -84,8 +84,6 @@ const DeleteRoomFormDialog = ({ roomId }: DeleteRoomFormDialogProps) => {
     } catch (error) {
       setDeleteRoomFormDialogSubmitIsLoading(false);
 
-      console.log(error);
-
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

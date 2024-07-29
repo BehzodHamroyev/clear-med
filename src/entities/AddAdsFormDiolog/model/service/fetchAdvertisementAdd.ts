@@ -27,7 +27,6 @@ export const fetchAdvertisementAdd = createAsyncThunk<
 
     return response.data;
   } catch (e) {
-    console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

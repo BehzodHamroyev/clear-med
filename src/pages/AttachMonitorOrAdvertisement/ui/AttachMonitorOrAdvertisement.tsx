@@ -55,7 +55,7 @@ const AttachMonitorOrAdvertisement = () => {
     if (id && getAllMonitorData) {
       getAllMonitorData.filter((monitorData) => {
         if (monitorData.id === id) {
-          setAdvertisement(monitorData.monitors[0].addvertising);
+          setAdvertisement(monitorData.monitors[0]?.addvertising);
         }
         return null;
       });

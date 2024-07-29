@@ -87,8 +87,6 @@ const DeleteReceptionFormDialog = ({
     } catch (error) {
       setDeleteReceptionFormDialogSubmitIsLoading(false);
 
-      console.log(error);
-
       setHasOpenToast(true);
 
       setToastDataForAddRoomForm({

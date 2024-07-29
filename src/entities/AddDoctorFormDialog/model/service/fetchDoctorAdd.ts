@@ -42,10 +42,8 @@ export const fetchDoctorAdd = createAsyncThunk<
     setResponseAddDoctorStatusCode(response.status);
     setIsOpenDoctorAddCard(false);
 
-
     return response.data;
   } catch (e) {
-    console.log(e, 'department');
     return rejectWithValue('error');
   }
 });

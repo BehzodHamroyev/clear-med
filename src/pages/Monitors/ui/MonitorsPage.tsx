@@ -44,7 +44,6 @@ const MonitorsPage = () => {
           <div />
         </div>
       </div>
-
       {allMonitorsData && allMonitorsData.length > 0 ? (
         <div className={classNames(cls.Monitors__monitorsBox)}>
           {allMonitorsData.map((item) => (
@@ -62,9 +61,7 @@ const MonitorsPage = () => {
       ) : (
         ''
       )}
-
       {allMonitorsIsLoading && <Loader />}
-
       {allMonitorsError && <ErrorDialog isErrorProps={!false} />}
     </div>
   );
