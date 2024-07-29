@@ -1,8 +1,16 @@
+
 {
   "": "",
   " ": "",
   "  ": "",
   " Ortga qaytish": "",
+  " kuting": {
+    "": {
+      "": {
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   " ta": "",
   "+998 ": "",
   "+998 97 777 65 5": "",
@@ -15,6 +23,7 @@
   "A": "",
   "Abbos G'ulomov": "",
   "Alisher Qodirov Qudratovich": "",
+  "Amaldagi navbat": "",
   "Amaldagi navbat ": "",
   "Avto": "",
   "B": "",
@@ -64,7 +73,8 @@
   "Bemorni qabul qilishga ketadigan vaqtfvtcdreswa A2SW3DE4GT6QA2SW3T6HY7J8": "",
   "Berilgan vaqt": "",
   "Bilet": "",
-  "Bilet raqami": "",
+  "Bilet berilgan vaqti": "",
+  "Bilet raqami": "Ticket number",
   "Biriktirilgan bo'lim": "",
   "Biriktirilgan shifokor": "",
   "Biriktirilgan shifokorlar": "",
@@ -77,9 +87,13 @@
   "Bo'lim o'chirilmadi": {
     " Tizimda xatolik sodir bo'ldi": ""
   },
+  "Bo'lim qo'shish": "",
   "Bo'lim rasmi": "",
   "Bo'lim turl": "",
   "Bo'lim turlari": "",
+  "Bo'lim turlari qo'shilmagan": "",
+  "Bo'lim turlari qo'shilmagan1": "",
+  "Bo'lim turlari yo'q": "",
   "Bo'lim yo'q": "",
   "Bo'limga rasm ": "",
   "Bo'limga rasm q": "",
@@ -117,6 +131,8 @@
   "Bo‘limni o‘zgartirish": "",
   "Bo‘limni tahrirlash": "",
   "Bo’lim": "",
+  "Bo’lim nomi": "",
+  "Bo’lim qo’shish": "",
   "Bu Login boshqa Monitorga biriktirilgan": {
     " Loginni o'zgartiring": ""
   },
@@ -126,6 +142,7 @@
   "Bu muddatdagi bemorlar hisoboti bo'sh": {
     " Muddatni o'zgartirib ko'ring!": ""
   },
+  "Bugun ko'rilgan va bekor qilingan bemorlar": "",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "",
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "",
   "Chiqarish": "",
@@ -142,8 +159,10 @@
   "Doktor ma'lumotlari muvaffaqiyatli": "",
   "Doktor ma'lumotlari yangilandi": "",
   "Doktor muvaffaqiyatli qo'shildi": "",
+  "Doktor yo'q": "",
   "English": "",
   "Eski arolni kiriting": "",
+  "Eski parol xato": "",
   "Eski parolni kiriting": "",
   "F": {
     "I": {
@@ -151,11 +170,23 @@
     }
   },
   "Fullscreen": "",
+  "Hisobot": "",
   "Hisobotlar": "",
+  "Hospital address": "",
+  "Hospital email": "",
+  "Hospital name": "",
+  "Hospital phone number": "",
   "I can be a React component, multiple React components, or just some text": {
     "": ""
   },
   "IRISH": "",
+  "Iltimos kuting": {
+    "": {
+      "": {
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   "Jami Ko'rilgan Bemorlar": "",
   "Jami Ko'rilgan Bemorlar ": "",
   "KIRISH": "",
@@ -166,8 +197,17 @@
   "Ko'rilgan bemorlar": "",
   "Kutayotgan be'morlar": "",
   "Kutayotgan bemorlar": "",
+  "Kuting": {
+    "": {
+      "": {
+        "": "",
+        " Balkim Bemor og'ir axvoldadir!": ""
+      }
+    }
+  },
   "Login": "",
   "Login (+998 90 123 45 67)": "",
+  "Login 111(+998 90 123 45 67)": "",
   "Login yoki parol xato": "",
   "LoginTitle": "",
   "MENU": "",
@@ -178,10 +218,12 @@
   "Ma'lumotlarni qo'shilmadi": "",
   "Manzili": "",
   "Mavzuni o‘zgartirish": "",
+  "Maydonlarni qayta to'ldiring": "",
   "Mir": "",
   "Mironshoh": "",
   "Mironshoh As": "",
   "Mironshoh Asadov": "",
+  "Monitor": "",
   "Monitor ma'lumotlari yangilandi": "",
   "Monitor muvaffaqiyatli qo'shildi": "",
   "Monitor o'chirildi": "",
@@ -190,6 +232,7 @@
   },
   "Monitor qo'shish": "",
   "Monitor qo'shish1": "",
+  "Monitorga biriktirilgan reklamalar": "",
   "Monitorga biriktirilgan xonalar": "",
   "Monitorlar": "",
   "Monitorlar mavjud emas": "",
@@ -248,9 +291,17 @@
   "Parolni kiriting": "",
   "Parolni o'zgartirish": "",
   "Parolni o‘zgartirish": "",
+  "Parolni yangilash": "",
   "Pass": "",
   "Password": "",
   "Phone Number": "",
+  "Project ma'lumotlari yangilandi": "",
+  "Qabul boshlanishi": "",
+  "Qabul kuni": "",
+  "Qabul qo‘shish": "",
+  "Qabul tugashi": "",
+  "Qabul xona xodimini qo'shish": "",
+  "Qabulni tahrirlash": "",
   "Qandaydir xatolik yuzaga keldi": {
     " Qayta urinib ko'ring!": ""
   },
@@ -267,6 +318,7 @@
   "Re": "",
   "Re Tahrirlash": "",
   "Re nomi": "",
+  "Reception": "",
   "Reception ma'lumotlari yangilandi": "",
   "Reception muvaffaqiyatli qo'shildi": "",
   "Reception o'chirildi": "",
@@ -294,6 +346,7 @@
   "Reklama qo’shish": "",
   "Reklama tahrirlash": "",
   "Reklama turi": "",
+  "Reklamalar": "",
   "Reklamali": "",
   "Reklamani Tahrirlash": "",
   "Reklamani tahrirlash": "",
@@ -304,6 +357,7 @@
   "Sana / vaqt": "",
   "Saqlash": "",
   "Saqlash ": "",
+  "Save": "",
   "Shifokor": "",
   "Shifokor o'chirildi": "",
   "Shifokor o'chirilmadi": {
@@ -311,10 +365,14 @@
   },
   "Shifokor qo‘shish": "",
   "Shifokor ro'yihati": "",
+  "Shifokor tahrirlash": "",
   "Shifokor yo'q": "",
   "Shifokorlar": "",
+  "Shifokorlar qo'shilmagan": "",
   "Shifokorlar ro'yhati": "",
+  "Shifokorlar ro'yhati qo'shilmagan": "",
   "Shifokorlar soni": "",
+  "Shifokorni tahrirlash": "",
   "Sozlamalar": "",
   "Surat": "",
   "T": "",
@@ -366,15 +424,25 @@
   },
   "Ulbi TV App": "",
   "Umumiy": "",
+  "Update center information": "",
+  "Upload Logo": "",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan": "",
+  "Ushbu Monitorga reklama biriktirish o'chirilgan!": "",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu Reklamani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
+  "Ushbu Telefon raqami avval ishlatilgan": {
+    " Boshqa telefon raqami kiriting!": ""
+  },
   "Ushbu Url takrorlangan , urlni o'zgartiring": "",
+  "Ushbu Xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu bo'limni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu receptionni xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Ushbu shifokor xaqiyqatdan ham o'chirmoqchimisiz ?": "",
+  "Ushbu xona  avval kiritilgan": "",
   "Ushbu xonani xaqiyqatdan ham o'chirmoqchimisiz ?": "",
   "Xatolik sodir bo'ldi": "",
   "Xatolik yuz berdi!": "",
+  "Xolati": "",
   "Xona": "",
   "Xona Raqami": "",
   "Xona biriktirish": "",
@@ -388,14 +456,20 @@
   "Xona qo'shish": "",
   "Xona qo‘shish": "",
   "Xona raqami": "",
+  "Xona raqami yo'q": "",
   "Xona yo'q": "",
   "Xonalar": "",
   "Xonalar mavjud emas": "",
+  "Xonalar muvaffaqiyatli biriktirildi": "",
   "Xonalar raqami": "",
   "Xonalar soni": "",
   "Xonani tahrirlash": "",
+  "Xonani tanlang": "",
+  "Yangi parol bir xil emas": "",
   "Yangi parol eskisi bilan bir xil bo'lmasligi kerak": "",
+  "Yangi parolingiz ": "",
   "Yangi parolni kiriting": "",
+  "Yangi parolni tasdiqlash uchun qayta kiriting": "",
   "Yorqin": "",
   "dan": "",
   "gacha": "",
@@ -427,3 +501,4 @@
   "Создать статью": "",
   "У вас нет доступа к этой странице": ""
 }
+

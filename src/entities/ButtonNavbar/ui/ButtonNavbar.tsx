@@ -8,7 +8,7 @@ import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
+// import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
 const ButtonNavbar = memo((props: ButtonNavbarProps) => {
   const {
@@ -58,9 +58,7 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
 
       {/* {Calendar ? <CalendarSection /> : ''} */}
       {Calendar ? (
-        <div style={{ marginTop: '-23px' }}>
-          <BestCalendar />
-        </div>
+        <div style={{ marginTop: '-23px' }}>{/* <BestCalendar /> */}</div>
       ) : (
         ''
       )}
