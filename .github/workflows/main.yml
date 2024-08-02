@@ -1,38 +1,22 @@
-name: linting, testing, building
+name: Deploy react-app
+
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main # Replace with your branch name
+
 jobs:
-  pipeline:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [17.x]
+  deploy:
+    runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Staring Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: install modules
-        run: npm ci --force
-      - name: build production project
-        run: npm run build:prod
-        if: always()
-      - name: linting typescript
-        run: npm run lint:ts
-        if: always()
-      - name: linting css
-        run: npm run lint:scss
-      - name: unit testing
-        if: always()
-        run: npm run test:unit
-      - name: build storybook
-        run: npm run storybook:build
-        if: always()
-      - name: screenshot testing
-        run: npm run test:ui:ci
-        if: always()
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
+        run: |
+          npm install
+          npm run build:prod
+          Remove-Item -Recurse -Force C:/med
+          mkdir C:/med
+          copy -r ./build/* C:/med
