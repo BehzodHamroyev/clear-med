@@ -18,8 +18,9 @@ const QueueUserDoctor = ({
     <div className={cls.QueueUserDoctorWrapper}>
       <div className={cls.QueuesListTitle}>
         <p className={cls.QueuesListTitleChild1}>{t('Bilet raqami')}</p>
-        <p className={cls.QueuesListTitleChild2}>{t('Xona raqami')}</p>
+        <p className={cls.QueuesListTitleChild1}>{t('Xona raqami')}</p>
       </div>
+
       <div className={cls.QueuesNumber}>
         <p className={cls.ticketNumber}>{ticketNumber}</p>
 

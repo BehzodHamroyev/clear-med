@@ -1,12 +1,16 @@
 .PrintQueuePage {
   width: 273px;
-  height: 350px;
-  margin: 20px auto;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: sans-serif;
+
+  &__img {
+    width: 100%;
+    margin-top: 10px;
+  }
 
   &__medName {
     font-size: 26px;
@@ -15,6 +19,7 @@
   }
 
   &__queueBox {
+    width: 100%;
     margin: 10px auto;
   }
 
@@ -28,6 +33,7 @@
     p {
       font-weight: 700;
     }
+
     .medicNameFullName {
       text-align: right;
       font-weight: 700;

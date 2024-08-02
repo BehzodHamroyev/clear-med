@@ -5,13 +5,10 @@ import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-// import { socket } from '@/shared/lib/utils/socket';
-
 import cls2 from './PrintQueuePage.module.scss';
 import cls from './QueuingTvCardPopapSecond.module.scss';
-
-import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
 
@@ -47,8 +44,8 @@ const QueuingTvCardPopapSecond = ({
 
   const { clearLastQueue } = useLasQueueActions();
 
-  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
+  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
 
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: roomNumber,
@@ -127,6 +124,8 @@ const QueuingTvCardPopapSecond = ({
     dispatch(getAllDataProject({}));
   }, [dispatch]);
 
+  const imgLink: string = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
+
   return (
     <div className={cls.QueuingTvCardPopapSecondWrapper}>
       {!createQueueIsLoading && infoProject && (
@@ -136,10 +135,12 @@ const QueuingTvCardPopapSecond = ({
           </h3>
 
           <div ref={printableDivRef} className={cls.QueuingTvPrintCard}>
-            <div className={cls2.PrintQueuePage}>
-              <p className={cls2.PrintQueuePage__medName}>
-                {infoProject?.[0]?.name}
-              </p>
+            <div className={cls2.PrintQueuePage} ref={printableDivRef}>
+              <img
+                src={imgLink}
+                alt="imgLink"
+                className={cls.PrintQueuePage__img}
+              />
 
               <div className={cls2.PrintQueuePage__queueBox}>
                 <QueueUserDoctor
