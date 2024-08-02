@@ -1,3 +1,4 @@
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
 import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -7,11 +8,12 @@ import { baseUrl } from '../../../../baseurl';
 import { RoomEditType } from '../model/types/roomEdit';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { RoomEditNumberInput } from '@/entities/RoomEditNumberInput';
-import { RoomEditDoctorInput } from '@/entities/RoomEditDoctorInput ';
+
 import { RoomEditSectionInput } from '@/entities/RoomEditSectionInput';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './RoomEdit.module.scss';
+import RoomEditDoctorInput from '@/entities/RoomEditDoctorInput /ui/RoomEditDoctorInput';
 
 const RoomEdit = (prop: RoomEditType) => {
   /* props */
