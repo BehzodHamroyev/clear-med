@@ -13,7 +13,7 @@ import { RoomEditSectionInput } from '@/entities/RoomEditSectionInput';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './RoomEdit.module.scss';
-import { RoomEditDoctorInput } from '@/entities/RoomEditDoctorInput /ui/RoomEditDoctorInput';
+import { RoomEditDoctorInput } from '@/entities/RoomEditDoctorInput/ui/RoomEditDoctorInput';
 
 const RoomEdit = (prop: RoomEditType) => {
   /* props */
