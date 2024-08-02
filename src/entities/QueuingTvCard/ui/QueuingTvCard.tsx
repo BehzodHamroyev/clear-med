@@ -9,6 +9,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
+import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 
 const QueuingTvCard = ({
   icon,
@@ -40,8 +41,6 @@ const QueuingTvCard = ({
     setIsOpenQueuingTvCardPopapSecond(true);
   };
 
-  console.log('CardLeftRoomNumber', CardLeftRoomNumber);
-
   return (
     <div
       onClick={(e) => hendleClickQuingTvCard(e)}
@@ -49,17 +48,26 @@ const QueuingTvCard = ({
     >
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
+
         <p className={cls.CardLeftRoomNumber}>
-          {t('Xona raqami')}: {CardLeftRoomNumber}
+          {CardLeftRoomNumber}-{t('Xona raqami')}
         </p>
+
+        <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
+
         <p className={cls.CardLeftDoctorName}>
-          {t('Shifokor')}: {CardLeftDoctorName}
+          {t('The_doctor_changes')} : <CountdownTimer />
         </p>
       </div>
-      <div className={cls.CardRight}>
-        {icon && icon?.length > 0 && (
-          <img src={`http://socketmed.magicsoft.uz/${icon}`} alt="icon" />
-        )}
+
+      <div className={cls.QueuingTvCardWrapper__cardRightParent}>
+        <p className={cls.CardLeftDoctorName}>Жорий навбатлар: 12</p>
+
+        <div className={cls.CardRight}>
+          {icon && icon?.length > 0 && (
+            <img src={`http://socketmed.magicsoft.uz/${icon}`} alt="icon" />
+          )}
+        </div>
       </div>
     </div>
   );
