@@ -1,41 +1,29 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
-
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
-import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
-
 import cls from './QueuesPage.module.scss';
-import { classNames } from '@/shared/lib/classNames/classNames';
-
 import medLogo from '../../../../public/assets/medLogo.png';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
 import {
   getAllQueueProccessData,
   getAllQueueProccessError,
-  getAllQueueProccessIsLoading,
 } from '../model/selector/allQueueProccessSelector';
-// import { Loader } from '@/widgets/Loader';
-import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { useAllQueueProccessActions } from '../model/slice/allQueueProccessSlice';
-// import { Queue } from '@/pages/QueuesControlDoctor';
-// import { socket } from '@/shared/lib/utils/socket';
 
 const QueuesPage = () => {
-  const dispatch = useAppDispatch();
-
-  const [hasRolik, setHasRolik] = useState(true);
   const videoUrl: string[] = [];
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const handle = useFullScreenHandle();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  const allProccessQueueIsLoading = useSelector(getAllQueueProccessIsLoading);
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
 
   if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl.length > 0) {
@@ -44,50 +32,14 @@ const QueuesPage = () => {
     });
   }
 
-  const {
-    recallQueue,
-    addProccessQueue,
-    clearProccessQueue,
-    removeProccessQueue,
-  } = useAllQueueProccessActions();
-
-  useEffect(() => {
-    dispatch(fetchAllQueueProccess({}));
-  }, []);
-
-  const handle = useFullScreenHandle();
-
-  const { t } = useTranslation();
-
-  const handleClicked = () => {
+  const handleClickedFullScreen = () => {
     handle.enter();
   };
 
-  // socket.on('getProccessQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     addProccessQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRecallQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     recallQueue(data);
-  //   }
-  // });
-
-  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'accept');
-  //     removeProccessQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRejectQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'reject');
-  //     removeProccessQueue(data);
-  //   }
-  // });
+  useEffect(() => {
+    dispatch(fetchAllQueueProccess({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,9 +52,9 @@ const QueuesPage = () => {
   return (
     <>
       <button
-        className={cls.FullScreenBtn}
         type="button"
-        onClick={handleClicked}
+        className={cls.FullScreenBtn}
+        onClick={handleClickedFullScreen}
       >
         {t('Fullscreen')}
       </button>
@@ -181,6 +133,8 @@ const QueuesPage = () => {
                             </div>
                           );
                         }
+
+                        return <>...</>;
                       })}
                     </div>
                     <div className={classNames(cls.queuesTable__head)}>
@@ -196,7 +150,7 @@ const QueuesPage = () => {
                     </div>
                     <div className={classNames(cls.queuesTable__items)}>
                       {allProccessQueue.room2?.proceed.map((item, index) => {
-                        if (index < 3)
+                        if (index < 3) {
                           return (
                             <div
                               key={item._id}
@@ -225,6 +179,8 @@ const QueuesPage = () => {
                               </div>
                             </div>
                           );
+                        }
+                        return <>...</>;
                       })}
                     </div>
                   </div>
@@ -235,11 +191,11 @@ const QueuesPage = () => {
                 >
                   <div className={classNames(cls.rolik)}>
                     <ReactPlayer
-                      url={videoUrl}
                       loop
                       playing
                       controls
                       width="100%"
+                      url={videoUrl}
                       config={{
                         youtube: {
                           playerVars: { showinfo: 0 },
@@ -315,8 +271,6 @@ const QueuesPage = () => {
             )}
           </div>
         )}
-
-        {/* {allProccessQueueIsLoading && <Loader />} */}
 
         {allProccessQueueIsError && <ErrorDialog isErrorProps={!false} />}
       </FullScreen>

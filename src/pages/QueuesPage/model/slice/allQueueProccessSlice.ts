@@ -49,6 +49,7 @@ export const allQueueProccessSlice = buildSlice({
       });
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllQueueProccess.pending, (state) => {

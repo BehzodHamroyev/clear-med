@@ -30,7 +30,7 @@ import {
 
 import { RoomPage } from '@/pages/RoomPage';
 import { QueuingTv } from '@/pages/QueuingTV';
-import { QueuesPage } from '@/pages/QueuesPage';
+// import { QueuesPage } from '@/pages/QueuesPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -52,6 +52,8 @@ import { MonitorsDetail } from '@/pages/MonitorsDetail';
 import { AddAdsPage } from '@/pages/AddAdsPage';
 import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
 import { AddReceptionPage } from '@/pages/AddReceptionPage';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import QueuesPage from '@/pages/QueuesPage/ui/QueuesPage';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,

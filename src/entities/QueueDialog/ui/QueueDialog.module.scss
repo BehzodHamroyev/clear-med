@@ -1,10 +1,11 @@
+/* stylelint-disable at-rule-no-vendor-prefix */
 .QueueDialog {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00000080;
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -16,11 +17,13 @@
     width: 800px;
     height: 300px;
 
-    -webkit-animation-name: zoomIn;
-    animation-name: zoomIn;
-    -webkit-animation-duration: 0.7s;
+    // -webkit-animation-name: zoomIn;
+    animation-name: zoom-in;
+
+    // -webkit-animation-duration: 0.7s;
     animation-duration: 0.7s;
-    -webkit-animation-fill-mode: both;
+
+    // -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 
     &__head {
@@ -75,6 +78,7 @@
           height: 97px;
           background-color: white;
           opacity: 0.8;
+          /* stylelint-disable-next-line declaration-colon-newline-after */
           clip-path: polygon(
             0 30%,
             50% 30%,
@@ -102,23 +106,12 @@
   }
 }
 
-@-webkit-keyframes zoomIn {
+@keyframes zoom-in {
   0% {
     opacity: 0;
-    -webkit-transform: scale3d(0.3, 0.3, 0.3);
     transform: scale3d(0.3, 0.3, 0.3);
   }
-  50% {
-    opacity: 1;
-  }
-}
 
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.3, 0.3, 0.3);
-    transform: scale3d(0.3, 0.3, 0.3);
-  }
   50% {
     opacity: 1;
   }
