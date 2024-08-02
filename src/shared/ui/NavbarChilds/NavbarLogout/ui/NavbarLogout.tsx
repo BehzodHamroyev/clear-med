@@ -1,16 +1,20 @@
 import React from 'react';
 
 import { Language } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import { LogoutChild } from '../../LogoutChild';
 import { NavbarProfile } from '../../NavbarProfile';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { RuIcon, UzIcon, EngIcon } from '@/shared/assets/Pages/Settings';
 
 import cls from './NavbarLogout.module.scss';
+import { getAuthUserData } from '@/features/Auth';
 
 const NavbarLogout = () => {
   const { isOpenLanugagePopup, setisOpenLanugagePopup } =
     React.useContext(ButtonsContext);
+
+  const loginData = useSelector(getAuthUserData);
 
   const LangValue = localStorage.getItem('i18nextLng');
 
@@ -49,7 +53,7 @@ const NavbarLogout = () => {
 
       {/* <NavbarCalendar /> */}
 
-      <LogoutChild />
+      {loginData?.role !== 'reception' && <LogoutChild />}
     </div>
   );
 };

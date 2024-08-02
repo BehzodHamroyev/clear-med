@@ -8,11 +8,10 @@
   cursor: pointer;
 
   .NavbarLogo {
-    width: 35px;
-    height: 35px;
+    width: fit-content;
+    height: 45px;
     stroke-width: 1.5px;
     font-size: 100px;
-    border-radius: 50%;
     user-select: none;
 
     // color: #280559;

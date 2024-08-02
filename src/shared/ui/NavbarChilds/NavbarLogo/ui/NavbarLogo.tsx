@@ -6,10 +6,13 @@ import cls from './NabarLogo.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // import { Logo } from '@/shared/assets/Logo';
 import { getInfoProject } from '@/entities/FileUploader';
+import { getAuthUserData } from '@/features/Auth';
 
 const NavbarLogo = () => {
   const { isOpenBurgerNavbar, setIsOpenBurgerNavbar } =
     useContext(ButtonsContext);
+
+  const loginData = useSelector(getAuthUserData);
 
   const infoProject = useSelector(getInfoProject);
 
@@ -26,7 +29,9 @@ const NavbarLogo = () => {
 
       <img src={imgLink} alt="imgLink" className={cls.NavbarLogo} />
 
-      <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
+      {loginData?.role !== 'reception' && (
+        <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
+      )}
     </Link>
   );
 };

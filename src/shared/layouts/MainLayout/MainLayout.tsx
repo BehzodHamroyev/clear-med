@@ -1,4 +1,4 @@
-import { memo, ReactElement, useContext, useEffect, useState } from 'react';
+import { memo, ReactElement, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const location = useLocation();
 
-  const authUserData = useSelector(getAuthUserData);
+  const loginData = useSelector(getAuthUserData);
+
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
 
   const {
@@ -88,9 +89,11 @@ export const MainLayout = memo((props: MainLayoutProps) => {
         <Login />
       ) : (
         <div className={classNames(cls.MainLayout, {}, [className])}>
-          <div className={cls.sidebar}>
-            <Sidebar />
-          </div>
+          {loginData?.role !== 'reception' && (
+            <div className={cls.sidebar}>
+              <Sidebar />
+            </div>
+          )}
 
           <div className={cls.content}>{content}</div>
 
