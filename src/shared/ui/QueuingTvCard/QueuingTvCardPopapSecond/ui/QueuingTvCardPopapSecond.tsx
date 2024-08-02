@@ -40,8 +40,6 @@ const QueuingTvCardPopapSecond = ({
 
   const printableDivRef = useRef<HTMLDivElement>(null);
 
-  const lastQueue = useSelector(getLastQueueData);
-
   const { clearLastQueue } = useLasQueueActions();
 
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
@@ -53,11 +51,11 @@ const QueuingTvCardPopapSecond = ({
   });
 
   const infoProjectError = useSelector(error);
+  const lastQueue = useSelector(getLastQueueData);
   const infoProject = useSelector(getInfoProject);
   const infoProjectIsLoader = useSelector(isLoading);
 
-  const { setIsOpenQueuingTvCardPopapSecond, clickedDoctorId } =
-    useContext(ButtonsContext);
+  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
   const printCom = useReactToPrint({
     content: () => printableDivRef?.current,
@@ -134,7 +132,7 @@ const QueuingTvCardPopapSecond = ({
             {t('Navbatni tasdiqlang')}
           </h3>
 
-          <div ref={printableDivRef} className={cls.QueuingTvPrintCard}>
+          <div className={cls.QueuingTvPrintCard}>
             <div className={cls2.PrintQueuePage} ref={printableDivRef}>
               <img
                 src={imgLink}
@@ -201,6 +199,7 @@ const QueuingTvCardPopapSecond = ({
             >
               {t('Bekor qilish')}
             </button>
+
             <button
               onClick={(e) => handlePrint(e)}
               type="button"
