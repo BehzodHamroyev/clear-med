@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
-import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
+import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
-import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 
 const QueuingTvCard = ({
   icon,
@@ -61,7 +59,7 @@ const QueuingTvCard = ({
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>
-        <p className={cls.CardLeftDoctorName}>Жорий навбатлар: 12</p>
+        <p className={cls.CardLeftDoctorName}>{t('current_queues')}: 12</p>
 
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
