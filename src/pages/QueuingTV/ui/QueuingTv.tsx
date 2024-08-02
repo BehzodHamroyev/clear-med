@@ -23,11 +23,13 @@ import {
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
+import { EditLanguageModal } from '@/entities/EditLanguageModal';
 
 export const QueuingTv = () => {
   const dispatch = useAppDispatch();
 
-  const { isOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
+  const { isVisableLanguageModal, isOpenQueuingTvCardPopapSecond } =
+    useContext(ButtonsContext);
 
   const lastQueue = useSelector(getLastQueueData);
   const lastQueueError = useSelector(getLastQueueError);
@@ -77,6 +79,8 @@ export const QueuingTv = () => {
             ticketNumber={lastQueue?.pagination}
           />
         )}
+
+      {isVisableLanguageModal && <EditLanguageModal />}
 
       {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
 

@@ -48,7 +48,7 @@
   "Fullscreen": "Тўлиқ экран",
 
   "Bilet raqami": "Билет рақами",
-  "Xona raqami": "Хона рақами",
+  "Xona raqami": "xона",
 
   "January": "Январь",
   "February": "Февраль",
@@ -162,5 +162,6 @@
   "Xona yo'q": "Хона йўқ",
   "Shifokor yo'q": "Шифокор йўқ",
   "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ушбу Мониторга реклама бириктириш ўчирилган!",
-  "Timizga muvaffaqqiyatli kirdingiz": "Тимизга муваффаққиятли кирдингиз"
+  "Timizga muvaffaqqiyatli kirdingiz": "Тимизга муваффаққиятли кирдингиз",
+  "The_doctor_changes": "Шифокор алмашади"
 }
