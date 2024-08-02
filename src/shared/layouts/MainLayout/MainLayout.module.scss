@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-areas: 'sidebar content rightbar';
-  grid-template-columns: min-content 1fr 20px;
+  grid-template-columns: min-content 1fr 0;
   background-color: var(--bg-color);
 }
 
@@ -16,11 +16,11 @@
 .content {
   grid-area: content;
   justify-self: center;
-  padding: 0 20px;
+  padding: 0;
   padding-top: 30px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .rightbar {

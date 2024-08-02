@@ -5,6 +5,9 @@ export interface ButtonsClickedProps {
   onEndedQueueAudio: boolean;
   setOnEndedQueueAudio: (prop: boolean) => void;
 
+  isVisableLanguageModal: boolean;
+  setIsvisableLanguageModal: (prop: boolean) => void;
+
   isLoginForHasToast: boolean;
   setIsLoginForHasToast: (prop: boolean) => void;
 
@@ -242,6 +245,9 @@ export interface ButtonsClickedProps {
 export const ButtonsContext = createContext<ButtonsClickedProps>({
   onEndedQueueAudio: false,
   setOnEndedQueueAudio: () => {},
+
+  isVisableLanguageModal: true,
+  setIsvisableLanguageModal: () => {},
 
   isLoginForHasToast: false,
   setIsLoginForHasToast: () => {},

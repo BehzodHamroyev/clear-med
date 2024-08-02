@@ -1,5 +1,6 @@
 .QueuingTvWrapper {
   width: 100%;
+  margin: 0 auto;
 
   .RenderSectionCard {
     width: 100%;
@@ -8,16 +9,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    gap: 25px;
-    margin: 20px auto;
-    padding: 20px 0;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 10px 5px;
     flex-wrap: wrap;
 
     @media only screen and (max-width: 1447px) {
       grid-template-columns: 1fr 1fr;
     }
 
-    @media only screen and (max-width: 1050px) {
+    @media only screen and (max-width: 980px) {
       grid-template-columns: 1fr;
     }
   }

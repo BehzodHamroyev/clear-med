@@ -48,6 +48,8 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [onEndedQueueAudio, setOnEndedQueueAudio] = useState(false);
 
+  const [isVisableLanguageModal, setIsvisableLanguageModal] = useState(true);
+
   const [isLoginForHasToast, setIsLoginForHasToast] = useState<boolean>(false);
 
   const [clickedDoctorId, setClickedDoctorId] = useState('');
@@ -217,6 +219,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
       onEndedQueueAudio,
       setOnEndedQueueAudio,
 
+      isVisableLanguageModal,
+      setIsvisableLanguageModal,
+
       isLoginForHasToast,
       setIsLoginForHasToast,
 
@@ -342,6 +347,9 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
     [
       onEndedQueueAudio,
       setOnEndedQueueAudio,
+
+      isVisableLanguageModal,
+      setIsvisableLanguageModal,
 
       isLoginForHasToast,
       setIsLoginForHasToast,

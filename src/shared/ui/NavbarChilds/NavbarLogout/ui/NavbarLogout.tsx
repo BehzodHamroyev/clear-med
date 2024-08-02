@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Language } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
+import { Language } from '@mui/icons-material';
 import { LogoutChild } from '../../LogoutChild';
 import { NavbarProfile } from '../../NavbarProfile';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -11,8 +11,11 @@ import cls from './NavbarLogout.module.scss';
 import { getAuthUserData } from '@/features/Auth';
 
 const NavbarLogout = () => {
-  const { isOpenLanugagePopup, setisOpenLanugagePopup } =
-    React.useContext(ButtonsContext);
+  const {
+    isOpenLanugagePopup,
+    setisOpenLanugagePopup,
+    setIsvisableLanguageModal,
+  } = React.useContext(ButtonsContext);
 
   const loginData = useSelector(getAuthUserData);
 
@@ -24,7 +27,13 @@ const NavbarLogout = () => {
 
       <div
         className={cls.NavbarLogoutWrapper__language}
-        onClick={() => setisOpenLanugagePopup(!isOpenLanugagePopup)}
+        onClick={() => {
+          if (loginData?.role !== 'reception') {
+            setisOpenLanugagePopup(!isOpenLanugagePopup);
+          } else if (loginData?.role === 'reception') {
+            setIsvisableLanguageModal(true);
+          }
+        }}
       >
         {!LangValue ? (
           <Language className={cls['NavbarLogoutWrapper__language--icon']} />
