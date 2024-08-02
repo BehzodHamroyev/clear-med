@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
-import cls from './AdvertisementAttachmentMonitor.module.scss';
+import cls from './AdsAttachment.module.scss';
+
 import { TableTitleReklama } from '@/entities/TableTitleReklama';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';

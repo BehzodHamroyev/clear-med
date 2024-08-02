@@ -9,17 +9,25 @@ interface QueueUserDoctorProps {
 }
 
 const QueueUserDoctor = ({
-  ticketNumber,
   roomNumber,
+  ticketNumber,
 }: QueueUserDoctorProps) => {
   const { t } = useTranslation();
+
+  const styleP = {
+    borderRight: '1px solid #000',
+  };
 
   return (
     <div className={cls.QueueUserDoctorWrapper}>
       <div className={cls.QueuesListTitle}>
-        <p className={cls.QueuesListTitleChild1}>{t('Bilet raqami')}</p>
-        <p className={cls.QueuesListTitleChild2}>{t('Xona raqami')}</p>
+        <p className={cls.QueuesListTitleChild1} style={styleP}>
+          {t('Bilet raqami')}
+        </p>
+
+        <p className={cls.QueuesListTitleChild1}>{t('Xona raqami')}</p>
       </div>
+
       <div className={cls.QueuesNumber}>
         <p className={cls.ticketNumber}>{ticketNumber}</p>
 
