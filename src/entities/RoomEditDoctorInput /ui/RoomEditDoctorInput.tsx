@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -10,12 +11,11 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchDoctorGetAll, getListOfDoctor } from '@/pages/DoctorsListPage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-const RoomEditDoctorInput = () => {
+export const RoomEditDoctorInput = () => {
   /* useTranslation */
   const { t } = useTranslation();
 
@@ -76,5 +76,3 @@ const RoomEditDoctorInput = () => {
     </div>
   );
 };
-
-export default RoomEditDoctorInput;
