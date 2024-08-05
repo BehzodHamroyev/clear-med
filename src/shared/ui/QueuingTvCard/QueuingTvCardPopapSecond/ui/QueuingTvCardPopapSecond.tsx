@@ -57,7 +57,7 @@ const QueuingTvCardPopapSecond = ({
 
   const printCom = useReactToPrint({
     documentTitle: 'queue-data',
-    content: () => printableDivRef?.current,
+    content: () => printableDivRef.current,
     onAfterPrint: () => {
       setIsOpenQueuingTvCardPopapSecond(false);
     },
@@ -95,7 +95,7 @@ const QueuingTvCardPopapSecond = ({
         setTimeout(() => {
           printCom();
           clearLastQueue();
-        }, 1);
+        }, 100); // Bu yerda 1 millisekund o'rniga 100 millisekund qilib qo'ydik
       }
     } catch (error) {
       setCreateQueueIsLoading(false);
@@ -109,7 +109,7 @@ const QueuingTvCardPopapSecond = ({
     if (
       lastQueue &&
       (lastQueue.data.department_id || lastQueue.room.department_id) &&
-      printableDivRef?.current
+      printableDivRef.current
     ) {
       createQueueFunc();
     }
