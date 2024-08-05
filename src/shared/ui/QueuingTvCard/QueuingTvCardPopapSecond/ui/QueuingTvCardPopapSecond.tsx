@@ -1,20 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-
-import cls from './QueuingTvCard.module.scss';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
-import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
 
 import { Loader } from '@/widgets/Loader';
+import cls from './QueuingTvCard.module.scss';
 import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
+import { QueuingTvCardPopapType } from './QueuingPopupType';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
+
 import {
   error,
   isLoading,
@@ -22,15 +23,10 @@ import {
   getAllDataProject,
 } from '@/entities/FileUploader';
 
-interface QueuingTvCardPopapSecondProps {
-  roomNumber: string;
-  ticketNumber: string;
-}
-
 const QueuingTvCardPopapSecond = ({
   roomNumber,
   ticketNumber,
-}: QueuingTvCardPopapSecondProps) => {
+}: QueuingTvCardPopapType) => {
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [printRoomInfo, setPrintRoomInfo] = useState({
