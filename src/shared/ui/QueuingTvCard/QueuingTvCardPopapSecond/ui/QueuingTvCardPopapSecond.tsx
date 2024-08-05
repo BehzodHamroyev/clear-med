@@ -5,8 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import cls2 from './PrintQueuePage.module.scss';
-import cls from './QueuingTvCardPopapSecond.module.scss';
+import cls from './QueuingTvCard.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
@@ -32,26 +31,24 @@ const QueuingTvCardPopapSecond = ({
   roomNumber,
   ticketNumber,
 }: QueuingTvCardPopapSecondProps) => {
-  const { t } = useTranslation();
-
-  const dispatch = useAppDispatch();
-
-  const printableDivRef = useRef<HTMLDivElement>(null);
-
-  const { clearLastQueue } = useLasQueueActions();
-
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
-
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: roomNumber,
     createTicketNumber: ticketNumber,
   });
 
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { clearLastQueue } = useLasQueueActions();
+  const printableDivRef = useRef<HTMLDivElement>(null);
+
   const infoProjectError = useSelector(error);
   const lastQueue = useSelector(getLastQueueData);
   const infoProject = useSelector(getInfoProject);
   const infoProjectIsLoader = useSelector(isLoading);
+
+  const imgLink = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
 
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
@@ -119,52 +116,100 @@ const QueuingTvCardPopapSecond = ({
     dispatch(getAllDataProject({}));
   }, [dispatch]);
 
-  const imgLink: string = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
-
   return (
-    <div className={cls.QueuingTvCardPopapSecondWrapper}>
+    <div className={cls.QueuingTvCardPopapSecondWrp}>
       {!createQueueIsLoading && infoProject && (
-        <div className={cls.QueuingTvCardPopapSecond}>
-          <h3 className={cls.QueuingTvCardPopapSecondTitle}>
+        <div className={cls.QueuingTvCardPopapSecondWrp__queuingPopap}>
+          <h3
+            className={
+              cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTitle']
+            }
+          >
             {t('Navbatni tasdiqlang')}
           </h3>
 
-          <div ref={printableDivRef} className={cls.QueuingTvPrintCard}>
-            <div className={cls2.PrintQueuePage}>
+          <div
+            ref={printableDivRef}
+            className={
+              cls[
+                'QueuingTvCardPopapSecondWrp__queuingPopap--queuingTvPrintCard'
+              ]
+            }
+          >
+            <div
+              className={
+                cls['QueuingTvCardPopapSecondWrp__queuingPopap--PrintQueuePage']
+              }
+            >
               <img
                 src={imgLink}
                 alt="imgLink"
-                className={cls.PrintQueuePage__img}
+                className={
+                  cls[
+                    'QueuingTvCardPopapSecondWrp__queuingPopap--rintQueuePageImg'
+                  ]
+                }
               />
 
-              <div className={cls2.PrintQueuePage__queueBox}>
+              <div
+                className={
+                  cls['QueuingTvCardPopapSecondWrp__queuingPopap--queueBox']
+                }
+              >
                 <QueueUserDoctor
-                  ticketNumber={printRoomInfo.createTicketNumber}
                   roomNumber={printRoomInfo.createRoomNumber}
+                  ticketNumber={printRoomInfo.createTicketNumber}
                 />
               </div>
 
-              <div className={cls2.PrintQueuePage__medicName}>
+              <div
+                className={
+                  cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+                }
+              >
                 <p>Бўлим:</p>
-                <p className={cls2.medicNameDeparment}>
+
+                <p>
                   {lastQueue?.data?.department_id
                     ? lastQueue?.data?.department_id?.name
                     : lastQueue?.room?.department_id?.name}
                 </p>
               </div>
 
-              <div className={cls2.PrintQueuePage__medicName}>
+              <div
+                className={
+                  cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+                }
+              >
                 <p>Шифокор:</p>
-                <p className={cls2.medicNameFullName}>
+
+                <p
+                  className={
+                    cls[
+                      'QueuingTvCardPopapSecondWrp__queuingPopap--medicNameFullName'
+                    ]
+                  }
+                >
                   {lastQueue?.data?.doctor_id
                     ? lastQueue?.data?.doctor_id?.name
                     : lastQueue?.room?.doctor_id?.name}
                 </p>
               </div>
 
-              <div className={cls2.PrintQueuePage__medicName}>
+              <div
+                className={
+                  cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+                }
+              >
                 <p>Берилган вақт:</p>
-                <p className={cls2.PrintQueuePage__dateGetQueue}>
+
+                <p
+                  className={
+                    cls[
+                      'QueuingTvCardPopapSecondWrp__queuingPopap--dateGetQueue'
+                    ]
+                  }
+                >
                   {new Date().getDate()}/
                   {new Date().getMonth() < 10
                     ? `0${new Date().getMonth() + 1}`
@@ -180,19 +225,27 @@ const QueuingTvCardPopapSecond = ({
                 </p>
               </div>
 
-              <p className={cls2.PrintQueuePage__message}>
+              <p
+                className={
+                  cls['QueuingTvCardPopapSecondWrp__queuingPopap--message']
+                }
+              >
                 Ташрифингиз учун раҳмат!
               </p>
             </div>
           </div>
 
-          <div className={cls.BtnParnet}>
+          <div
+            className={
+              cls['QueuingTvCardPopapSecondWrp__queuingPopap--btnParnet']
+            }
+          >
             <button
+              type="button"
+              className={`${cls.btn} ${cls.btn1}`}
               onClick={() => {
                 setIsOpenQueuingTvCardPopapSecond(false);
               }}
-              type="button"
-              className={`${cls.Btn} ${cls.Btn1}`}
             >
               {t('Bekor qilish')}
             </button>
@@ -200,7 +253,7 @@ const QueuingTvCardPopapSecond = ({
             <button
               onClick={(e) => handlePrint(e)}
               type="button"
-              className={`${cls.Btn} ${cls.Btn2}`}
+              className={`${cls.btn} ${cls.btn2}`}
             >
               {t('Chiqarish')}
             </button>
