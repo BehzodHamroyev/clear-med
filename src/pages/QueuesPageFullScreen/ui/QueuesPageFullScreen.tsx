@@ -165,7 +165,7 @@ const QueuesPageFullScreen = () => {
               ) : null}
 
               <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue!!.room1?.proceed.map((item, index) => {
+                {allProccessQueue!.room1?.proceed.map((item, index) => {
                   if (item.status === 'proccessed')
                     return (
                       <div

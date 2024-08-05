@@ -16,7 +16,7 @@ import {
   getAllQueueProccessData,
   getAllQueueProccessError,
 } from '../model/selector/allQueueProccessSelector';
-import { Logo } from '@/shared/assets/Logo';
+// import { Logo } from '@/shared/assets/Logo';
 
 const QueuesPage = () => {
   const videoUrl: string[] = [];
