@@ -1,20 +1,23 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ReactPlayer from 'react-player';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
-import { IoClose } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
 
 import { baseUrl } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
-import medLogo from '../../../../public/assets/medLogo.png';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
+import { ETC } from '@/shared/assets/icons';
+import { Logo } from '@/shared/assets/Logo';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
@@ -36,8 +39,8 @@ const QueuesPageFullScreen = () => {
     document.exitFullscreen();
   };
 
-  if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl.length > 0) {
-    allProccessQueue?.videoUrl.forEach((item) => {
+  if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl.length > 0) {
+    allProccessQueue!?.videoUrl.forEach((item) => {
       videoUrl.push(item.link);
     });
   }
@@ -47,7 +50,7 @@ const QueuesPageFullScreen = () => {
     let found = false;
 
     if (!onEndedQueueAudio) {
-      allProccessQueue?.proccessQueues.forEach((item) => {
+      allProccessQueue!?.proccessQueues.forEach((item) => {
         if (!item.view && !found) {
           setQueueDialogData({
             roomNumber: String(item.room_id.name),
@@ -85,7 +88,7 @@ const QueuesPageFullScreen = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allProccessQueue?.proccessQueues]);
+  }, [allProccessQueue!?.proccessQueues]);
 
   const MariqueParagraphStyle = {
     width: '100%',
@@ -100,21 +103,11 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <div
-              onClick={handleExitFullScreenClick}
-              className={classNames(cls.closeIcon)}
-            >
-              <IoClose style={{ fontSize: '36px', color: '#27374d' }} />
-            </div>
-
-            <p>Med Navbat Clinic Center</p>
+            {/* <img src={Logo} className={cls.logo} alt="" /> */}
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ishonch raqami:')} +998 71 225 25 25</p>
-            </div>
-            <div className={classNames(cls.QueuesPage__headerRightLogo)}>
-              <img src={medLogo} alt="logo" />
+              <p>{t('Ishonch raqami:')} +998 71 202 02 12</p>
             </div>
           </div>
         </div>
@@ -133,198 +126,177 @@ const QueuesPageFullScreen = () => {
           </p>
         </Marquee>
 
-        {allProccessQueue?.addvertising &&
-        allProccessQueue?.videoUrl &&
-        videoUrl.length > 0 &&
-        allProccessQueue?.videoUrl.length > 0 ? (
-          <div className={classNames(cls.QueuesPage__queuesContainer)}>
-            <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
-              <div className={classNames(cls.rolik)}>
-                <ReactPlayer
-                  url={videoUrl}
-                  loop
-                  playing
-                  controls
-                  width="100%"
-                  height="80%"
-                  playsinline
-                  config={{
-                    youtube: {
-                      playerVars: { showinfo: 0 },
-                    },
-                  }}
-                />
-              </div>
+        <div className={classNames(cls.QueuesPage__queuesContainer)}>
+          <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
+            <div className={classNames(cls.rolik)}>
+              <ReactPlayer
+                url={videoUrl}
+                loop
+                playing
+                controls
+                width="100%"
+                height="80%"
+                playsinline
+                config={{
+                  youtube: {
+                    playerVars: { showinfo: 0 },
+                  },
+                }}
+              />
             </div>
+          </div>
 
-            <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
-              <div className={classNames(cls.queuesTable)}>
-                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
-                  <div className={classNames(cls.queuesTable__head)}>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
+          <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
+            <div className={classNames(cls.queuesTable)}>
+              {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                <div className={classNames(cls.queuesTable__head)}>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t("Bo'lim")}
+                  </p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Xona')}
+                  </p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p>
-                  </div>
-                ) : null}
-
-                <div className={classNames(cls.queuesTable__items)}>
-                  {allProccessQueue.room1?.proceed.map((item, index) => {
-                    if (index < 3) {
-                      return (
-                        <div
-                          key={item._id}
-                          className={classNames(cls.queuesTable__item)}
-                        >
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemDepartmentName,
-                            )}
-                          >
-                            <p>{item.department_id?.name}</p>
-                          </div>
-
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemRoomNumber,
-                            )}
-                          >
-                            <p>{item.room_id.name}</p>
-                          </div>
-
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemBiletNumber,
-                            )}
-                          >
-                            <p>{item.queues_name}</p>
-                          </div>
-                        </div>
-                      );
-                    }
-                    return <>...</>;
-                  })}
+                  <p className={classNames(cls.queuesTable__headItem)}>
+                    {t('Bilet')}
+                  </p>
                 </div>
+              ) : null}
 
-                {allProccessQueue!?.room2?.proceed!?.length > 0 ? (
-                  <div className={classNames(cls.queuesTable__head)}>
-                    {/* <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p> */}
-                  </div>
+              <div className={classNames(cls.queuesTable__items)}>
+                {allProccessQueue!!.room1?.proceed.map((item, index) => {
+                  if (item.status === 'proccessed')
+                    return (
+                      <div
+                        key={item.id}
+                        className={classNames(cls.queuesTable__item)}
+                      >
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>{item.department_id?.name}</p>
+                        </div>
+
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>{item.room_id.name}</p>
+                        </div>
+
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>{item.queues_name}</p>
+                        </div>
+                      </div>
+                    );
+                })}
+              </div>
+
+              <div className={cls.wrapperOrder}>
+                {allProccessQueue!.room1?.proceed.map((item, index) => {
+                  if (index < 11 && item.status === 'pending')
+                    return (
+                      <div className={classNames(cls.orderNumber)}>
+                        <p>{item.queues_name}</p>
+                      </div>
+                    );
+                })}
+
+                {allProccessQueue!.room1!?.proceed.length > 10 ? (
+                  <>
+                    <div className={classNames(cls.orderNumber)}>
+                      <ETC />
+                    </div>
+                    <div className={classNames(cls.orderNumber)}>
+                      <p>
+                        {
+                          allProccessQueue!!.room1?.proceed[
+                            allProccessQueue!!.room1?.proceed.length - 1
+                          ].queues_name
+                        }
+                      </p>
+                    </div>
+                  </>
                 ) : (
                   ''
                 )}
+              </div>
 
-                <div className={classNames(cls.queuesTable__items)}>
-                  {allProccessQueue.room2?.proceed.map((item, index) => {
-                    if (index < 3) {
-                      return (
+              <div className={classNames(cls.queuesTable__items)}>
+                {allProccessQueue!.room2?.proceed.map((item, index) => {
+                  if (item.status === 'proccessed')
+                    return (
+                      <div
+                        key={item.id}
+                        className={classNames(cls.queuesTable__item)}
+                      >
                         <div
-                          key={item._id}
-                          className={classNames(cls.queuesTable__item)}
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
                         >
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemDepartmentName,
-                            )}
-                          >
-                            <p>{item.department_id?.name}</p>
-                          </div>
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemRoomNumber,
-                            )}
-                          >
-                            <p>{item.room_id.name}</p>
-                          </div>
-                          <div
-                            className={classNames(
-                              cls.queuesTable__itemBiletNumber,
-                            )}
-                          >
-                            <p>{item.queues_name}</p>
-                          </div>
+                          <p>{item.department_id?.name}</p>
+                        </div>
+
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>{item.room_id.name}</p>
+                        </div>
+
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>{item.queues_name}</p>
+                        </div>
+                      </div>
+                    );
+                })}
+                <div className={cls.wrapperOrder}>
+                  {allProccessQueue!.room2?.proceed.map((item, index) => {
+                    if (index < 11 && item.status === 'pending')
+                      return (
+                        <div className={classNames(cls.orderNumber)}>
+                          <p>{item.queues_name}</p>
                         </div>
                       );
-                    }
-                    return <>...</>;
                   })}
+
+                  {allProccessQueue!!.room2!?.proceed.length > 10 ? (
+                    <>
+                      <div className={classNames(cls.orderNumber)}>
+                        <ETC />
+                      </div>
+                      <div className={classNames(cls.orderNumber)}>
+                        <p>
+                          {
+                            allProccessQueue!.room2?.proceed[
+                              allProccessQueue!.room2?.proceed.length - 1
+                            ].queues_name
+                          }
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             </div>
           </div>
-        ) : (
-          <div className={classNames(cls.QueuesPage__queuesContainerFullQueue)}>
-            <div className={classNames(cls.queuesTable)}>
-              <div className={classNames(cls.queuesTable__itemsFullQueue)}>
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
-
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
-
-                {allProccessQueue?.proccessQueues &&
-                  allProccessQueue?.proccessQueues.length > 0 &&
-                  allProccessQueue?.proccessQueues.map((item) => (
-                    <div
-                      key={item._id}
-                      className={classNames(cls.queuesTable__item)}
-                    >
-                      <div
-                        className={classNames(
-                          cls.queuesTable__itemDepartmentName,
-                        )}
-                      >
-                        <p>{item.department_id?.name}</p>
-                      </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemRoomNumber)}
-                      >
-                        <p>{item.room_id.name}</p>
-                      </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemBiletNumber)}
-                      >
-                        <p>{item.queues_name}</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
       {onEndedQueueAudio && (
