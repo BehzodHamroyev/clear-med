@@ -26,7 +26,7 @@ export interface Room {
   _id: string;
   name: number;
   department_id: Department;
-  doctor_id: Doctor | null;
+  doctor_id: Doctor[] | null;
   disabled: boolean;
   __v: number;
   id: string;

@@ -18,8 +18,6 @@ const QueuingTvCard = ({
 }: QueuingTvCardProps) => {
   const { t } = useTranslation();
 
-  console.log(DoctorId, 'DoctorId');
-
   const dispatch = useAppDispatch();
 
   const { setIsOpenQueuingTvCardPopapSecond, setClickedDoctorId } =

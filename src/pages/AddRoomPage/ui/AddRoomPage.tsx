@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -125,8 +126,14 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                     )}
                   </td>
                   <td>
-                    {item?.doctor_id?.name ? (
-                      item?.doctor_id?.name
+                    {item?.doctor_id!.length > 0 ? (
+                      item?.doctor_id?.map((doctor) => {
+                        return (
+                          <p style={{ margin: '5px', textAlign: 'start' }}>
+                            Shifokor: {doctor.name}
+                          </p>
+                        );
+                      })
                     ) : (
                       <span className={classNames(cls.tdAmpty)}>
                         {t("Shifokor yo'q")}

@@ -13,8 +13,14 @@ import {
   InputLabel,
   FormControl,
   MenuItem,
+  Autocomplete,
+  Checkbox,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
 } from '@mui/material';
 
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import cls from './AddRoomFormDialog.module.scss';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -47,6 +53,11 @@ interface AddRoomFormDialogProps {
   className?: string;
 }
 
+interface Roomtype {
+  name: string;
+  id: string;
+}
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -58,15 +69,18 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
   const { t } = useTranslation();
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 
   const roomNumberRef = useRef<HTMLInputElement>(null);
   const departmentSelectRef = useRef<HTMLSelectElement>(null);
-  const doctorSelectRef = useRef<HTMLSelectElement>(null);
 
   const dispatch = useAppDispatch();
 
   const [addRoomFormDialogIsLoading, setAddRoomFormDialogIsLoading] =
     useState(false);
+
+  const [doctors, setDoctors] = useState<string[]>([]);
 
   const {
     isOpenRoomAddCard,
@@ -97,15 +111,14 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
     // Access values using refs
     const roomNumber = roomNumberRef.current?.value;
     const selectedDepartment = departmentSelectRef.current?.value;
-    const selectedDoctor = doctorSelectRef.current?.value;
 
-    if (roomNumber && selectedDepartment && selectedDoctor) {
+    if (roomNumber && selectedDepartment && doctors) {
       try {
         const response = await axios.post(
           `${baseUrl}/room/create`,
           {
             department_id: selectedDepartment,
-            doctor_id: selectedDoctor,
+            doctor_id: doctors,
             name: Number(roomNumber),
           },
           {
@@ -175,6 +188,15 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
     }
   };
 
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: any[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined,
+  ) => {
+    setDoctors(value.map((item) => item.id));
+  };
+
   useEffect(() => {
     if (isOpenRoomAddCard) {
       dispatch(fetchAllDepartments({}));
@@ -239,29 +261,42 @@ const AddRoomFormDialog = ({ className }: AddRoomFormDialogProps) => {
               </FormControl>
 
               <FormControl>
-                <InputLabel id="demo-simple-select-label2">
-                  {t("Shifokorlar ro'yhati")}
-                </InputLabel>
-
-                <Select
-                  required
-                  inputRef={doctorSelectRef}
-                  id="demo-simple-select2"
-                  labelId="demo-simple-select-label2"
-                  label={t("Shifokorlar ro'yhati")}
-                >
-                  {allFreeDoctorsData.length > 0 ? (
-                    allFreeDoctorsData?.map((element) => (
-                      <MenuItem key={element.id} value={`${element.id}`}>
-                        {element.name}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem disabled key="1" value="1">
-                      {t("Shifokorlar qo'shilmagan")}
-                    </MenuItem>
+                <Autocomplete
+                  multiple
+                  options={allFreeDoctorsData}
+                  disableCloseOnSelect
+                  onChange={handleChange}
+                  id="checkboxes-tags-demo"
+                  getOptionLabel={(option) => option.name}
+                  className={cls.AddRoomForMonitorOPtionsWrp}
+                  renderOption={(
+                    props,
+                    option: { name: string },
+                    { selected },
+                  ) => (
+                    <li {...props}>
+                      <Checkbox
+                        icon={icon}
+                        checked={selected}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                      />
+                      {option.name}
+                    </li>
                   )}
-                </Select>
+                  style={{
+                    width: '100%',
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t(`Shifokorlar ro'yxati`)}
+                      style={{ cursor: 'pointer' }}
+                      placeholder={`${t('Xonani tanlang')}...`}
+                      // required={!(personId.length > 0)}
+                    />
+                  )}
+                />
               </FormControl>
 
               <div className={classNames(cls.AddRoomFormDialog__buttons)}>

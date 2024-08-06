@@ -58,7 +58,6 @@ export const QueuingTv = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   return (
     <div className={cls.QueuingTvWrapper}>
       <ButtonNavbar
