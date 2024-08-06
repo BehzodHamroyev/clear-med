@@ -58,6 +58,8 @@ export const QueuingTv = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(deparmentList, 'deparmentList');
+
   return (
     <div className={cls.QueuingTvWrapper}>
       <ButtonNavbar
@@ -67,26 +69,17 @@ export const QueuingTv = () => {
 
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
-          deparmentList
-            .filter(
-              (item) =>
-                item.name &&
-                item.department_id &&
-                item.department_id._id &&
-                item.doctor_id &&
-                item.doctor_id._id,
-            )
-            .map((item) => (
-              <QueuingTvCard
-                key={item.id}
-                DoctorId={item.doctor_id.id}
-                CardLeftTitle={item.department_id.name}
-                CardLeftRoomNumber={item.name}
-                CardLeftDoctorName={item.doctor_id.name}
-                // @ts-ignore
-                icon={item.department_id.photo}
-              />
-            ))}
+          deparmentList.map((item: any) => (
+            <QueuingTvCard
+              key={item.id}
+              DoctorId={item.doctor_id.id}
+              CardLeftTitle={item.department_id.name}
+              CardLeftRoomNumber={item.name}
+              CardLeftDoctorName={item.doctor_id.name}
+              // @ts-ignore
+              icon={item.department_id.photo}
+            />
+          ))}
       </div>
 
       {isOpenQueuingTvCardPopapSecond &&
@@ -107,4 +100,3 @@ export const QueuingTv = () => {
     </div>
   );
 };
-

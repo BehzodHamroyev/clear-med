@@ -73,6 +73,8 @@ const AddReceptionPage = () => {
     setEditReceptionId(id);
   };
 
+  
+
   return (
     <div className={cls.AddDoctorPageWrp}>
       <div className={cls.AddDoctorPageWrp__Title}>
