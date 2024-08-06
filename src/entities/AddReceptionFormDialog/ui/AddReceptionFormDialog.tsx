@@ -22,6 +22,12 @@ import {
   OutlinedInput,
   InputAdornment,
   Dialog,
+  MenuItem,
+  Select,
+  Autocomplete,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+  Checkbox,
 } from '@mui/material';
 
 import cls from './AddReceptionFormDialog.module.scss';
@@ -32,9 +38,23 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllReceptions } from '../../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { Loader } from '@/widgets/Loader';
+import { fetchAllRooms } from '@/pages/AddRoomPage';
+import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+import { useSelector } from 'react-redux';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import instance from '@/shared/lib/axios/api';
+
+interface Roomtype {
+  name: string;
+  id: string;
+}
 
 const AddReceptionFormDialog = () => {
   const { t } = useTranslation();
+
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 
   const [addReceptionFormDialogIsLoading, setAddReceptionFormDialogIsLoading] =
     useState(false);
@@ -52,6 +72,7 @@ const AddReceptionFormDialog = () => {
   /* phone Number Doctor input value */
   const phoneInput = useRef<HTMLInputElement | null>(null);
   const [value, setValue] = useState('+998');
+  const [personId, setPersonId] = React.useState<string[]>([]);
 
   function handleInputChange(event: any, name: string) {
     setValue(event);
@@ -59,6 +80,7 @@ const AddReceptionFormDialog = () => {
 
   /* Password input value */
   const inputPasswordRef = useRef<HTMLInputElement>(null);
+  const departmentSelectRef = useRef<HTMLSelectElement>(null);
 
   const dispatch = useAppDispatch();
 
@@ -69,8 +91,18 @@ const AddReceptionFormDialog = () => {
     setToastDataForAddRoomForm,
   } = useContext(ButtonsContext);
 
+  const allRoomsData = useSelector(getAllRoomsData);
+
+  useEffect(() => {
+    dispatch(fetchAllRooms({}));
+  }, [dispatch]);
+
   /* MUI halper */
   const [showPassword, setShowPassword] = useState(false);
+  const [asosiyArr, setAsosiyArr] = useState<Roomtype[]>([
+    { name: '', id: '' },
+  ]);
+  const [rooms, setRooms] = useState<string[]>([]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -98,11 +130,30 @@ const AddReceptionFormDialog = () => {
     setSelectedFile(file);
   };
 
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: any[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined,
+  ) => {
+    console.log(value);
+
+    const newValue = value?.map((option) => option.name);
+
+    setRooms(value.map((item) => item.id));
+
+    if (!personId.includes(String(newValue[newValue.length - 1]))) {
+      setPersonId(newValue);
+    }
+  };
+
   // eslint-disable-next-line consistent-return
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     setAddReceptionFormDialogIsLoading(true);
+
+    console.log('dfghjk');
 
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
@@ -110,8 +161,6 @@ const AddReceptionFormDialog = () => {
     const PhoneNumber = value;
 
     const Password = inputPasswordRef?.current?.value;
-
-    const token = Cookies.get('token');
 
     const dataForm = new FormData();
 
@@ -133,17 +182,16 @@ const AddReceptionFormDialog = () => {
         `${PhoneNumber.split('+998')[1].replace(/\s/g, '')}`,
       );
       dataForm.append('password', `${Password}`);
+
+      // @ts-ignore
+      dataForm.append('rooms', rooms);
     }
 
     if (FullName && Experience && PhoneNumber && Password) {
+      console.log(dataForm);
+
       try {
-        const response = await axios.post(`${baseUrl}/users`, dataForm, {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await instance.post(`${baseUrl}/users`, dataForm);
 
         if (response.data) {
           setAddReceptionFormDialogIsLoading(false);
@@ -214,6 +262,16 @@ const AddReceptionFormDialog = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (allRoomsData) {
+      const optionsArray = allRoomsData!.map((item: any) => ({
+        name: item.name,
+        id: item.id,
+      }));
+      setAsosiyArr(optionsArray);
+    }
+  }, [allRoomsData]);
+
   return (
     <>
       <Dialog
@@ -230,7 +288,6 @@ const AddReceptionFormDialog = () => {
           className={cls.DepartmentAddCard}
         >
           <h3 className={cls.CardTitle}>{t('Qabul qo‘shish')}</h3>
-
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
               <img
@@ -268,6 +325,44 @@ const AddReceptionFormDialog = () => {
                 className={cls.InputBulim}
                 inputRef={FullNameInputRef}
                 inputProps={{ min: 1, maxLength: 30 }}
+              />
+
+              <Autocomplete
+                multiple
+                options={asosiyArr}
+                disableCloseOnSelect
+                onChange={handleChange}
+                id="checkboxes-tags-demo"
+                getOptionLabel={(option) => option.name}
+                className={cls.AddRoomForMonitorOPtionsWrp}
+                renderOption={(
+                  props,
+                  option: { name: string },
+                  { selected },
+                ) => (
+                  <li {...props}>
+                    <Checkbox
+                      icon={icon}
+                      checked={selected}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                    />
+                    {option.name} - xona
+                  </li>
+                )}
+                style={{
+                  width: '100%',
+                  marginBottom: '20px',
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t('Xonalar')}
+                    style={{ cursor: 'pointer' }}
+                    placeholder={`${t('Xonani tanlang')}...`}
+                    required={!(personId.length > 0)}
+                  />
+                )}
               />
 
               <TextField

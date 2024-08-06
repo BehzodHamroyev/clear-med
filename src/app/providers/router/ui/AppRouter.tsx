@@ -42,7 +42,7 @@ const AppRouter = () => {
           : currentRole === 'monitor'
           ? routeConfigForMonitor
           : '',
-      ).map(renderWithWrapper)}
+      )?.map(renderWithWrapper)}
 
       {/* {Object.values(routeConfigForDoctor).map(renderWithWrapper)} */}
     </Routes>

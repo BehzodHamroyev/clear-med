@@ -29,7 +29,7 @@ const GetIconForDepartment = () => {
           onClick={(e) => e.stopPropagation()}
           className={cls.CardIconsSelector}
         >
-          {iconsCardDepartments.map((item, index) => (
+          {iconsCardDepartments?.map((item, index) => (
             <item.icon
               onClick={() => {
                 setIsOpenDepartmentAddCardIconIndex(index);
