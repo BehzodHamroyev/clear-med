@@ -58,7 +58,6 @@ export const QueuingTv = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(deparmentList, 'deparmentList');
 
   return (
     <div className={cls.QueuingTvWrapper}>
@@ -76,7 +75,6 @@ export const QueuingTv = () => {
               CardLeftTitle={item.department_id.name}
               CardLeftRoomNumber={item.name}
               CardLeftDoctorName={item.doctor_id[0].name}
-              // @ts-ignore
               icon={item.department_id.photo}
             />
           ))}
