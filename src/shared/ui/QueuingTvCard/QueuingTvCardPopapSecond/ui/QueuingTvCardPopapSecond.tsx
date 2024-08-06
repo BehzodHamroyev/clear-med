@@ -265,7 +265,6 @@ const QueuingTvCardPopapSecond = ({
               }}
               pageStyle="print"
               onAfterPrint={() => {
-                console.log('document printed');
                 setIsOpenQueuingTvCardPopapSecond(false);
               }}
             />

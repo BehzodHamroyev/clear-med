@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import {
   ControlPanelDocktor,
@@ -52,6 +53,7 @@ const reducers: ReducersList = {
 
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
+  const [age, setAge] = React.useState('');
 
   const { t } = useTranslation();
 
@@ -104,65 +106,35 @@ const QueuesControlDoctor = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  // socket.on('getNewQueue', (data) => {
-  //   if (data) {
-  //     addQueue(data);
-  //   }
-  // });
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
 
-  // socket.on('getProccessQueue', (data) => {
-  //   // console.log(data, 'removedQueueList');
-  //   if (data) {
-  //     removeQueue(data);
-  //   }
-  // });
-
-  // socket.on('getAcceptedQueue', (data) => {
-  //   // console.log(data, 'addDoneQueue');
-
-  //   if (data) {
-  //     addDoneQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRejectedQueue', (data) => {
-  //   // console.log(data, 'addDoneQueue');
-
-  //   if (data) {
-  //     addDoneQueue(data);
-  //   }
-  // });
-
-  // socket.on('realTimeQueueGet', (data) => {
-  //   if (data?.status === 'proccessed') {
-  //     equalProccedQueue(data);
-  //   }
-
-  //   if (data?.status === 'rejected') {
-  //     addDoneQueue(data);
-
-  //     clearProccedQueue();
-  //   }
-
-  //   if (data?.status === 'completed') {
-  //     addDoneQueue(data);
-
-  //     clearProccedQueue();
-  //   }
-
-  //   // console.log(data.status, 'realTimeQueueGet');
-  // });
+  console.log(queuesList, 'queuesList');
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
-        <ButtonNavbar
-          dontCreate
-          TableTitle={t('Amaldagi navbat')}
-          // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
-          roomNumber={proccessData?.data[0]?.room_id?.name}
-          departmentName={proccessData?.data[0]?.department_id?.name}
-        />
+        <div className={cls.wraperListDoctor}>
+          <ButtonNavbar
+            dontCreate
+            TableTitle={t('Amaldagi navbat')}
+            // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
+            roomNumber={proccessData?.data[0]?.room_id?.name}
+            departmentName={proccessData?.data[0]?.department_id?.name}
+          />
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            label="Age"
+            onChange={handleChange}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </div>
 
         <ControlPanelDocktor />
 
