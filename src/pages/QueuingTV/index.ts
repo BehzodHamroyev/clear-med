@@ -8,7 +8,7 @@ export {
 } from './model/slice/lastQueueSlice';
 export { departmentListReducer } from './model/slice/departmentListSlice';
 export { currentQueueuReducer } from './model/slice/currentQueueListSlice';
-
+export { fetchLastQueue } from './model/services/fetchLastQueue';
 export type {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,

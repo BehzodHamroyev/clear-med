@@ -18,6 +18,8 @@ const QueuingTvCard = ({
 }: QueuingTvCardProps) => {
   const { t } = useTranslation();
 
+  console.log(DoctorId, 'DoctorId');
+
   const dispatch = useAppDispatch();
 
   const { setIsOpenQueuingTvCardPopapSecond, setClickedDoctorId } =
@@ -27,6 +29,8 @@ const QueuingTvCard = ({
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+
+    // @ts-ignore
     if (DoctorId) setClickedDoctorId(DoctorId);
 
     if (DoctorId) {

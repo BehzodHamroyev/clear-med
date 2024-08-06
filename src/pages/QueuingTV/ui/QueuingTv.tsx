@@ -72,10 +72,10 @@ export const QueuingTv = () => {
           deparmentList.map((item: any) => (
             <QueuingTvCard
               key={item.id}
-              DoctorId={item.doctor_id.id}
+              DoctorId={item.doctor_id[0].id}
               CardLeftTitle={item.department_id.name}
               CardLeftRoomNumber={item.name}
-              CardLeftDoctorName={item.doctor_id.name}
+              CardLeftDoctorName={item.doctor_id[0].name}
               // @ts-ignore
               icon={item.department_id.photo}
             />
