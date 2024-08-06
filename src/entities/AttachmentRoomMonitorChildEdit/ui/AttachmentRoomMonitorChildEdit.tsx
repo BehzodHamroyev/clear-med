@@ -138,7 +138,7 @@ const AttachmentRoomMonitorChild = () => {
             renderValue={(selected) => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            {names.map((name) => (
+            {names?.map((name) => (
               <MenuItem key={name} value={name}>
                 <Checkbox checked={personName.indexOf(name) > -1} />
                 <ListItemText primary={name} />

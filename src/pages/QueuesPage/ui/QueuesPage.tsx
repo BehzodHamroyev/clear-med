@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import cls from './QueuesPage.module.scss';
-import medLogo from '../../../../public/assets/medLogo.png';
+// import medLogo from '../../../../public/assets/medLogo.png';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
@@ -16,6 +16,7 @@ import {
   getAllQueueProccessData,
   getAllQueueProccessError,
 } from '../model/selector/allQueueProccessSelector';
+// import { Logo } from '@/shared/assets/Logo';
 
 const QueuesPage = () => {
   const videoUrl: string[] = [];
@@ -66,17 +67,17 @@ const QueuesPage = () => {
           <div className={cls.QueuesPage}>
             <div className={classNames(cls.QueuesPage__header, {}, [])}>
               <div className={classNames(cls.QueuesPage__headerLeft)}>
-                <p>Med Navbat Clinic Center</p>
+                {/* <img className={cls.logo} alt="logo" src={Logo} /> */}
               </div>
               <div className={classNames(cls.QueuesPage__headerRight)}>
                 <div
                   className={classNames(cls.QueuesPage__headerRightPhoneBox)}
                 >
-                  <p>{t('Ishonch raqami:')} +998 71 225 25 25</p>
+                  <p>{t('Ishonch raqami:')} +998 71 202 02 12</p>
                 </div>
-                <div className={classNames(cls.QueuesPage__headerRightLogo)}>
+                {/* <div className={classNames(cls.QueuesPage__headerRightLogo)}>
                   <img src={medLogo} alt="logo" />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -102,7 +103,7 @@ const QueuesPage = () => {
                     </div>
 
                     <div className={classNames(cls.queuesTable__items)}>
-                      {allProccessQueue.room1?.proceed.map((item, index) => {
+                      {allProccessQueue.room1?.proceed?.map((item, index) => {
                         if (index < 3) {
                           return (
                             <div
@@ -149,7 +150,7 @@ const QueuesPage = () => {
                       </p>
                     </div>
                     <div className={classNames(cls.queuesTable__items)}>
-                      {allProccessQueue.room2?.proceed.map((item, index) => {
+                      {allProccessQueue.room2?.proceed?.map((item, index) => {
                         if (index < 3) {
                           return (
                             <div
@@ -237,7 +238,7 @@ const QueuesPage = () => {
 
                     {allProccessQueue?.proccessQueues &&
                       allProccessQueue?.proccessQueues.length > 0 &&
-                      allProccessQueue?.proccessQueues.map((item) => (
+                      allProccessQueue?.proccessQueues?.map((item) => (
                         <div
                           key={item._id}
                           className={classNames(cls.queuesTable__item)}

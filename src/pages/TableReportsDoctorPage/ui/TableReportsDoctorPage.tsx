@@ -155,7 +155,7 @@ const TableReportsDoctorPage = () => {
             </div>
             <thead className={cls.Tablethead}>
               <tr className={cls.tr}>
-                {tableTitle.map((title: string) => (
+                {tableTitle?.map((title: string) => (
                   <th key={title} className={cls.th}>
                     {title}
                   </th>
@@ -166,7 +166,7 @@ const TableReportsDoctorPage = () => {
             <tbody className={cls.Tabletbody}>
               {reportList &&
                 reportList.length > 0 &&
-                reportList.map((item, index) => (
+                reportList?.map((item, index) => (
                   <tr key={item.id} className={cls.tr}>
                     <td className={cls.td}>{item.queues_name}</td>
                     <td className={cls.td}>
