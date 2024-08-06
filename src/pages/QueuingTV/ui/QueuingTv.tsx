@@ -74,7 +74,6 @@ export const QueuingTv = () => {
               CardLeftTitle={item.department_id.name}
               CardLeftRoomNumber={item.name}
               CardLeftDoctorName={item.doctor_id[0].name}
-              // @ts-ignore
               icon={item.department_id.photo}
             />
           ))}

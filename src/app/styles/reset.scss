@@ -4,6 +4,26 @@
   box-sizing: border-box;
 }
 
+@media print {
+  @page {
+    size: auto;
+    margin: 0; /* Print sahifasining chekkalarini olib tashlaydi */
+  }
+
+  body::before {
+    content: none !important; /* Chop etish sahifasining yuqori qismidagi URL va vaqtni olib tashlaydi */
+  }
+
+  .react-to-print-content {
+    display: block;
+    margin: 0 auto; /* Chop etiladigan kontentning chekkalarini olib tashlaydi va markazga joylaydi */
+  }
+
+  body {
+    margin: 0; /* Sahifaning barcha chekkalarini olib tashlaydi */
+  }
+}
+
 body {
   // background-color: #f9f9f9;
   background-color: var(--bg-color);
