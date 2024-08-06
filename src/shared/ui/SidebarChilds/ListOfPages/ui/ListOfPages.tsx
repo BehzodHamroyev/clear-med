@@ -207,7 +207,7 @@ export const ListOfPages = memo(() => {
     }
   }, [profileValue]);
 
-  const itemListOfPage = listToUse.map((item, index) => {
+  const itemListOfPage = listToUse?.map((item, index) => {
     const classNamesOne =
       location.pathname === item.path ? cls.liActive : cls.li;
 

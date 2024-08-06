@@ -103,7 +103,7 @@ const QueuesPage = () => {
                     </div>
 
                     <div className={classNames(cls.queuesTable__items)}>
-                      {allProccessQueue.room1?.proceed.map((item, index) => {
+                      {allProccessQueue.room1?.proceed?.map((item, index) => {
                         if (index < 3) {
                           return (
                             <div
@@ -150,7 +150,7 @@ const QueuesPage = () => {
                       </p>
                     </div>
                     <div className={classNames(cls.queuesTable__items)}>
-                      {allProccessQueue.room2?.proceed.map((item, index) => {
+                      {allProccessQueue.room2?.proceed?.map((item, index) => {
                         if (index < 3) {
                           return (
                             <div
@@ -238,7 +238,7 @@ const QueuesPage = () => {
 
                     {allProccessQueue?.proccessQueues &&
                       allProccessQueue?.proccessQueues.length > 0 &&
-                      allProccessQueue?.proccessQueues.map((item) => (
+                      allProccessQueue?.proccessQueues?.map((item) => (
                         <div
                           key={item._id}
                           className={classNames(cls.queuesTable__item)}

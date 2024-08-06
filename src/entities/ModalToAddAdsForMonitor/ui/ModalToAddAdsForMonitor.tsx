@@ -101,7 +101,7 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
   /* useState */
 
   useEffect(() => {
-    personName.map((name) => {
+    personName?.map((name) => {
       const id = data?.filter((oneAd) => oneAd.name === name)?.[0]?.id;
       // @ts-ignore
       setListIdAds((pre) => [id, ...pre]);

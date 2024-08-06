@@ -152,7 +152,7 @@ const RoomAttachmentMonitorChildForm = ({
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<any> | undefined,
   ) => {
-    const newValue = value.map((option) => option.name);
+    const newValue = value?.map((option) => option.name);
 
     if (!personId.includes(String(newValue[newValue.length - 1]))) {
       setPersonId(newValue);
