@@ -53,9 +53,9 @@ const QueuingTvCard = ({
 
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
 
-        <p className={cls.CardLeftDoctorName}>
+        <div className={cls.CardLeftDoctorName}>
           {t('The_doctor_changes')} : <CountdownTimer />
-        </p>
+        </div>
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>

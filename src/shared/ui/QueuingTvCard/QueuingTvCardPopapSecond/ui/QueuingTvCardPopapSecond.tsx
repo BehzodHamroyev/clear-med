@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useReactToPrint } from 'react-to-print';
+import ReactToPrint from 'react-to-print';
 
 import { Loader } from '@/widgets/Loader';
 import cls from './QueuingTvCard.module.scss';
@@ -48,13 +50,13 @@ const QueuingTvCardPopapSecond = ({
 
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
-  const printCom = useReactToPrint({
-    documentTitle: 'queue-data',
-    content: () => printableDivRef.current,
-    onAfterPrint: () => {
-      setIsOpenQueuingTvCardPopapSecond(false);
-    },
-  });
+  // const printCom = useReactToPrint({
+  //   documentTitle: 'queue-data',
+  //   content: () => printableDivRef.current,
+  //   onAfterPrint: () => {
+  //     setIsOpenQueuingTvCardPopapSecond(false);
+  //   },
+  // });
 
   const createQueueFunc = async () => {
     setCreateQueueIsLoading(true);
@@ -86,7 +88,7 @@ const QueuingTvCardPopapSecond = ({
         });
 
         setTimeout(() => {
-          printCom();
+          // printCom();
           clearLastQueue();
         }, 100); // Bu yerda 1 millisekund o'rniga 100 millisekund qilib qo'ydik
       }
@@ -246,13 +248,27 @@ const QueuingTvCardPopapSecond = ({
               {t('Bekor qilish')}
             </button>
 
-            <button
-              onClick={(e) => handlePrint(e)}
-              type="button"
-              className={`${cls.btn} ${cls.btn2}`}
-            >
-              {t('Chiqarish')}
-            </button>
+            <ReactToPrint
+              trigger={() => {
+                return (
+                  <button
+                    onClick={(e) => handlePrint(e)}
+                    type="button"
+                    className={`${cls.btn} ${cls.btn2}`}
+                  >
+                    {t('Chiqarish')}
+                  </button>
+                );
+              }}
+              content={() => {
+                return printableDivRef.current;
+              }}
+              pageStyle="print"
+              onAfterPrint={() => {
+                console.log('document printed');
+                setIsOpenQueuingTvCardPopapSecond(false);
+              }}
+            />
           </div>
         </div>
       )}
