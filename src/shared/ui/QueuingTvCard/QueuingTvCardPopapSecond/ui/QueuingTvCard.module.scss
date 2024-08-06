@@ -12,7 +12,7 @@
   justify-content: center;
 
   &__queuingPopap {
-    width: 450px;
+    width: 400px;
     text-align: center;
     font-family: sans-serif;
     background-color: #fff;
@@ -25,32 +25,24 @@
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      margin: 20px auto;
-      padding-bottom: 20px;
+      margin: 10px auto;
+      padding-bottom: 10px;
       border-bottom: 1px solid #e0e0e0;
     }
 
     &--queuingTvPrintCard {
+      width: 300px;
+      margin: 0 auto;
       display: flex;
       font-family: sans-serif;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-    }
-
-    &--printQueuePage {
-      width: 273px;
-      margin: 10px auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: sans-serif;
     }
 
     &--printQueuePageImg {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 0;
     }
 
     &--queueBox {
@@ -88,7 +80,7 @@
     }
 
     &--btnParnet {
-      width: 80%;
+      width: 90%;
       display: flex;
       align-items: center;
       gap: 10px;

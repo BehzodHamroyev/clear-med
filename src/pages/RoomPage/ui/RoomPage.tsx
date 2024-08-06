@@ -52,7 +52,7 @@ const RoomPage = () => {
   /* useEffect */
   useEffect(() => {
     if (getListOfRooms) {
-      const tableBodys = getListOfRooms.room.map((item: any) => {
+      const tableBodys = getListOfRooms.room?.map((item: any) => {
         return {
           id: item?.id,
           item1: item?.name,

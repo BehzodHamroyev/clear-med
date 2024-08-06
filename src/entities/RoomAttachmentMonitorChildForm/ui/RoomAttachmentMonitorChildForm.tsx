@@ -4,8 +4,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Checkbox from '@mui/material/Checkbox';
 import { useTranslation } from 'react-i18next';
+import Checkbox from '@mui/material/Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Button, Dialog, TextField } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -152,7 +152,7 @@ const RoomAttachmentMonitorChildForm = ({
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<any> | undefined,
   ) => {
-    const newValue = value.map((option) => option.name);
+    const newValue = value?.map((option) => option.name);
 
     if (!personId.includes(String(newValue[newValue.length - 1]))) {
       setPersonId(newValue);
