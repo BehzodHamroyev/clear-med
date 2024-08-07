@@ -1,6 +1,6 @@
 export { getLastQueueData } from './model/selectors/lastQueueSelector';
 
-export { QueuingTv } from './ui/QueuingTv';
+export { default as QueuingTv } from './ui/QueuingTv';
 
 export {
   lastQueueReducer,

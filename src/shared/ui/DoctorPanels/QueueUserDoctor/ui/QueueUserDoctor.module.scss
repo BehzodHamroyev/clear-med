@@ -19,8 +19,6 @@
     grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid black;
 
-    
-
     p {
       color: #000;
       font-size: 18px;
@@ -42,6 +40,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    text-align: center;
 
     .ticketNumber {
       border-right: 1px solid #000;
@@ -61,6 +60,7 @@
       line-height: normal;
       letter-spacing: 0.085px;
       font-family: sans-serif;
+      text-align: center;
     }
 
     img {

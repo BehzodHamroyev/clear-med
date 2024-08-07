@@ -1,43 +1,40 @@
-import React, { useContext, useEffect } from 'react';
+/* eslint-disable react/button-has-type */
+import React, { useContext, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-
 import { useTranslation } from 'react-i18next';
+import { useReactToPrint } from 'react-to-print';
 import cls from './QueuingTv.module.scss';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-
 import {
   getDeparmentListData,
   getDeparmentListError,
   getDeparmentListIsLoading,
 } from '../model/selectors/departmentListSelector';
-
 import {
   getCurrentQueueData,
   getCurrentQueueError,
   getCurrentQueueIsLoading,
 } from '../model/selectors/currentQueueSelector';
-
 import {
   getLastQueueData,
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
-
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
-
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 import QueuingTvCardPopapSecond from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond/ui/QueuingTvCardPopapSecond';
+import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
 
-export const QueuingTv = () => {
+const QueuingTv = () => {
   const dispatch = useAppDispatch();
-
   const { t } = useTranslation();
+
+  const componentRef = useRef<HTMLDivElement | null>(null);
 
   const { isOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
@@ -53,10 +50,21 @@ export const QueuingTv = () => {
   const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
   const lastQueueError = useSelector(getLastQueueError);
 
+  /* start ////////////////////////// */
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  const print = () => {
+    handlePrint();
+  };
+
+  /* finish ////////////////////////// */
+
   useEffect(() => {
     dispatch(fetchDepartmentList({ limit: 'all' }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={cls.QueuingTvWrapper}>
@@ -65,6 +73,19 @@ export const QueuingTv = () => {
         ItemsLength={deparmentList?.length}
       />
 
+      {/* start ////////////////////////// */}
+
+      <button
+        onClick={() => {
+          print();
+        }}
+      >
+        chiqarish
+      </button>
+
+      <QueuingPrintCard ref={componentRef} />
+
+      {/* finish ////////////////////////// */}
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
           deparmentList.map((item: any) => (
@@ -78,7 +99,6 @@ export const QueuingTv = () => {
             />
           ))}
       </div>
-
       {isOpenQueuingTvCardPopapSecond &&
         !lastQueueIsLoading &&
         !lastQueueError &&
@@ -88,12 +108,12 @@ export const QueuingTv = () => {
             ticketNumber={lastQueue?.pagination}
           />
         )}
-
       {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
-
       {(deparmentListError || currentQueueError || lastQueueError) && (
         <ErrorDialog isErrorProps={!false} />
       )}
     </div>
   );
 };
+
+export default QueuingTv;
