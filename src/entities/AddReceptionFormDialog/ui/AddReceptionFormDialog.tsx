@@ -44,7 +44,6 @@ import instance from '@/shared/lib/axios/api';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
 
-
 interface Roomtype {
   name: string;
   id: string;
@@ -136,7 +135,6 @@ const AddReceptionFormDialog = () => {
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<any> | undefined,
   ) => {
-
     const newValue = value?.map((option) => option.name);
 
     setRooms(value.map((item) => item.id));
@@ -151,7 +149,6 @@ const AddReceptionFormDialog = () => {
     e.preventDefault();
 
     setAddReceptionFormDialogIsLoading(true);
-
 
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
@@ -186,7 +183,6 @@ const AddReceptionFormDialog = () => {
     }
 
     if (FullName && Experience && PhoneNumber && Password) {
-
       try {
         const response = await instance.post(`${baseUrl}/users`, dataForm);
 
