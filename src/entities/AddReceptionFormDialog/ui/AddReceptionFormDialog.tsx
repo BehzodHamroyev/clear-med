@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
@@ -22,14 +21,15 @@ import {
   OutlinedInput,
   InputAdornment,
   Dialog,
-  MenuItem,
-  Select,
   Autocomplete,
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
   Checkbox,
 } from '@mui/material';
 
+import { useSelector } from 'react-redux';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import cls from './AddReceptionFormDialog.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
@@ -39,11 +39,11 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { fetchAllReceptions } from '../../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { Loader } from '@/widgets/Loader';
 import { fetchAllRooms } from '@/pages/AddRoomPage';
-import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
-import { useSelector } from 'react-redux';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import instance from '@/shared/lib/axios/api';
+
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+
 
 interface Roomtype {
   name: string;
@@ -136,7 +136,6 @@ const AddReceptionFormDialog = () => {
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<any> | undefined,
   ) => {
-    console.log(value);
 
     const newValue = value?.map((option) => option.name);
 
@@ -153,7 +152,6 @@ const AddReceptionFormDialog = () => {
 
     setAddReceptionFormDialogIsLoading(true);
 
-    console.log('dfghjk');
 
     const ImgProfile = selectedFile;
     const FullName = FullNameInputRef?.current?.value;
@@ -188,7 +186,6 @@ const AddReceptionFormDialog = () => {
     }
 
     if (FullName && Experience && PhoneNumber && Password) {
-      console.log(dataForm);
 
       try {
         const response = await instance.post(`${baseUrl}/users`, dataForm);
