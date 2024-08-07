@@ -47,9 +47,9 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement>((props, ref) => {
             : new Date().getMinutes()}
         </p>
       </div>
-      <p className={cls['QueuingPrintCardWrp__queuingPopap--message']}>
+      {/* <p className={cls['QueuingPrintCardWrp__queuingPopap--message']}>
         Ташрифингиз учун раҳмат!
-      </p>
+      </p> */}
     </div>
   );
 });
