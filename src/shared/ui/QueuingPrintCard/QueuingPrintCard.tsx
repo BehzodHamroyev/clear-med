@@ -13,13 +13,16 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement>((props, ref) => {
         alt="imgLink"
         className={cls['QueuingPrintCardWrp__queuingPopap--printQueuePageImg']}
       />
+
       <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
         <QueueUserDoctor roomNumber="4" ticketNumber="C4-403" />
       </div>
+
       <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
         <p>Бўлим:</p>
         <p>salom</p>
       </div>
+
       <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
         <p>Шифокор:</p>
         <p
@@ -30,6 +33,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement>((props, ref) => {
           salom
         </p>
       </div>
+
       <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
         <p>Берилган вақт:</p>
         <p className={cls['QueuingPrintCardWrp__queuingPopap--dateGetQueue']}>
