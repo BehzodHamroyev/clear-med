@@ -23,7 +23,6 @@ export const AuthUserSlice = createSlice({
         fetchAuthUser.fulfilled,
         (state, action: PayloadAction<AuthLogin>) => {
           state.isLoading = false;
-          console.log(action.payload);
 
           state.data = action.payload?.user;
         },

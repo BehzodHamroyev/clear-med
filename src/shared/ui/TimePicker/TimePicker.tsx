@@ -16,17 +16,13 @@ const TimePickerValue: React.FC<TimePickerValueProps> = ({
 }) => {
   const handleTimeChange = (newValue: Dayjs | null) => {
     onChange(newValue);
-    if (newValue) {
-      const formattedTime = newValue.toISOString();
-      console.log({ tillTime: formattedTime });
-    }
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['TimePicker', 'TimePicker']}>
         <TimePicker
-          label="Controlled picker"
+          label="Ishlash vaqti"
           value={value}
           onChange={handleTimeChange}
           ampm={false}

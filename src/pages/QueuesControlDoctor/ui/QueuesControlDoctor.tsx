@@ -28,6 +28,7 @@ import {
   getQueuesControlDoctorError,
   getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import {
   getControlPanelDocktorError,
   getControlPanelDocktorIsLoading,
@@ -46,28 +47,18 @@ import { getAuthUserData } from '@/features/Auth';
 import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
-import Toast from '@/shared/ui/Toast/Toast';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
 };
 
-const QueuesControlDoctor: React.FC = () => {
+const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
   const [doctors, setDoctors] = useState<DoctorId[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
-  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(
-    dayjs('2022-04-17T15:30'),
-  );
-
-  const {
-    setToastDataForAddRoomForm,
-    hasOpenToast,
-    setHasOpenToast,
-    toastDataForAddRoomForm,
-  } = useContext(ButtonsContext);
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
 
   const { t } = useTranslation();
 
@@ -79,11 +70,15 @@ const QueuesControlDoctor: React.FC = () => {
   const doneQueuesListIsLoading = useSelector(
     getDoneQueuesControlDoctorIsLoading,
   );
+
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
 
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
   const authUserData = useSelector(getAuthUserData);
+
+  const { setHasOpenToast, setToastDataForAddRoomForm } =
+    useContext(ButtonsContext);
 
   const handleDoctor = async () => {
     if (selectedDoctor && selectedTime) {
@@ -117,12 +112,6 @@ const QueuesControlDoctor: React.FC = () => {
         return console.log('error');
       }
     }
-    console.log('Selected Doctor:', selectedDoctor);
-    console.log(
-      'Selected Time:',
-      selectedTime ? selectedTime.toISOString() : null,
-    );
-    // Add your logic to handle the selected doctor and time here
   };
 
   useEffect(() => {
@@ -137,6 +126,8 @@ const QueuesControlDoctor: React.FC = () => {
     if (authUserData) {
       setDoctors(authUserData?.rooms?.[0].doctor_id);
       setSelectedDoctor(authUserData?.id || '');
+      const parsedDate = dayjs(authUserData.time.tillTime);
+      setSelectedTime(parsedDate);
     }
   }, [authUserData]);
 
@@ -160,7 +151,7 @@ const QueuesControlDoctor: React.FC = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  const handleDoctorChange = (event: SelectChangeEvent<string>) => {
+  const handleChange = (event: SelectChangeEvent) => {
     setSelectedDoctor(event.target.value);
   };
 
@@ -172,7 +163,7 @@ const QueuesControlDoctor: React.FC = () => {
           <FormControl>
             <Select
               value={selectedDoctor}
-              onChange={handleDoctorChange}
+              onChange={handleChange}
               displayEmpty
               sx={{ minWidth: '250px' }}
               defaultValue=""
@@ -185,8 +176,11 @@ const QueuesControlDoctor: React.FC = () => {
             </Select>
           </FormControl>
           <p>Ketish vaqtini tanlang</p>
-          <TimePickerValue value={selectedTime} onChange={setSelectedTime} />
-          <Button variant="contained" onClick={handleDoctor}>
+          <TimePickerValue
+            value={selectedTime}
+            onChange={(newValue) => setSelectedTime(newValue)}
+          />
+          <Button variant="contained" onClick={() => handleDoctor()}>
             Saqlash
           </Button>
         </div>
@@ -245,13 +239,6 @@ const QueuesControlDoctor: React.FC = () => {
 
         {(queuesListError || proccessError || doneQueuesListError) && (
           <ErrorDialog isErrorProps={!false} />
-        )}
-
-        {hasOpenToast && (
-          <Toast
-            message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
-            severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
-          />
         )}
       </div>
     </DynamicModuleLoader>

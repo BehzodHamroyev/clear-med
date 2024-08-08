@@ -17,7 +17,6 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ETC } from '@/shared/assets/icons';
-import { Logo } from '@/shared/assets/Logo';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
@@ -165,7 +164,7 @@ const QueuesPageFullScreen = () => {
               ) : null}
 
               <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue!.room1?.proceed.map((item, index) => {
+                {allProccessQueue!.room1?.proceed?.map((item, index) => {
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -201,7 +200,7 @@ const QueuesPageFullScreen = () => {
               </div>
 
               <div className={cls.wrapperOrder}>
-                {allProccessQueue!.room1?.proceed.map((item, index) => {
+                {allProccessQueue!.room1?.proceed?.map((item, index) => {
                   if (index < 11 && item.status === 'pending')
                     return (
                       <div className={classNames(cls.orderNumber)}>
@@ -218,8 +217,8 @@ const QueuesPageFullScreen = () => {
                     <div className={classNames(cls.orderNumber)}>
                       <p>
                         {
-                          allProccessQueue!!.room1?.proceed[
-                            allProccessQueue!!.room1?.proceed.length - 1
+                          allProccessQueue!.room1?.proceed[
+                            allProccessQueue!.room1?.proceed.length - 1
                           ].queues_name
                         }
                       </p>
@@ -231,7 +230,7 @@ const QueuesPageFullScreen = () => {
               </div>
 
               <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue!.room2?.proceed.map((item, index) => {
+                {allProccessQueue!.room2?.proceed?.map((item, index) => {
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -265,7 +264,7 @@ const QueuesPageFullScreen = () => {
                     );
                 })}
                 <div className={cls.wrapperOrder}>
-                  {allProccessQueue!.room2?.proceed.map((item, index) => {
+                  {allProccessQueue!.room2?.proceed?.map((item, index) => {
                     if (index < 11 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>

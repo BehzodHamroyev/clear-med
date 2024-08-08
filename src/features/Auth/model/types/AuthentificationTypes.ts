@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface DoctorId {
   exprience: number;
   id: string;
@@ -31,6 +33,16 @@ export interface DataUser {
   __v: number;
   _id: string;
   rooms: Room[];
+  time: {
+    _id: string;
+    user: string;
+    room: string;
+    tillTime: Dayjs;
+    createdAt: string;
+    updatedAt: string;
+    __v: 0;
+    id: string;
+  };
 }
 
 export interface AuthLogin {
