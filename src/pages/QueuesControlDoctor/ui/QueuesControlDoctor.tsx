@@ -136,7 +136,7 @@ const QueuesControlDoctor: React.FC = () => {
   useEffect(() => {
     if (authUserData) {
       setDoctors(authUserData?.rooms?.[0].doctor_id);
-      setSelectedDoctor(authUserData?.rooms?.[0].doctor_id[0]?.id || '');
+      setSelectedDoctor(authUserData?.id || '');
     }
   }, [authUserData]);
 
