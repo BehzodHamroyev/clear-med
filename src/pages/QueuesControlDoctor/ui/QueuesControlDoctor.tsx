@@ -81,6 +81,7 @@ const QueuesControlDoctor = () => {
     useContext(ButtonsContext);
 
   const handleDoctor = async () => {
+    
     if (selectedDoctor && selectedTime) {
       try {
         const response = await instance.post<ChangeDoctorBackend>(
