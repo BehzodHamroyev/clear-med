@@ -31,7 +31,7 @@
 
     &--printQueuePageImg {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     &--queueBox {
@@ -59,7 +59,7 @@
       font-size: 19.51px;
       line-height: 22.86px;
       letter-spacing: 0.25%;
-      color: #828282;
+      color: #000;
     }
 
     &--medicNameFullName,
@@ -82,31 +82,6 @@
       align-items: center;
       gap: 10px;
       margin: 20px auto;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 10px;
-      font-family: sans-serif;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn2 {
-      background-color: #0000ac;
-      color: #fff;
-      border: none;
-    }
-
-    .btn1 {
-      background-color: transparent;
-      color: #828282;
-      border: 1px solid #828282;
-    }
-
-    .btn1:hover {
-      color: red;
-      border-color: red;
     }
   }
 }
