@@ -18,6 +18,7 @@ const Login: FC = () => {
 
   const authUserData = useSelector(getAuthUserData);
   const authUserIsLoading = useSelector(getAuthUserIsLoading);
+  console.log(authUserData, 'authUserData');
 
   useEffect(() => {
     if (authUserData?.role && Cookies.get('token')) {

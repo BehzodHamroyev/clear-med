@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import {
-  ControlPanelDocktor,
-  useQueuesControlPanelDoctorActions,
-} from '@/entities/ControlPanelDocktor';
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 
 import cls from './QueuesControlDoctor.module.scss';
@@ -15,10 +18,7 @@ import {
   DynamicModuleLoader,
   ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import {
-  queuesControlDoctorReducer,
-  useQueuesControlDoctorActions,
-} from '../model/slice/queuesControlDoctorSlice';
+import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
@@ -28,9 +28,7 @@ import {
 } from '../model/selectors/queuesControlDoctorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import {
-  getControlPanelDocktorData,
   getControlPanelDocktorError,
-  // eslint-disable-next-line unused-imports/no-unused-imports
   getControlPanelDocktorIsLoading,
 } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { Loader } from '@/widgets/Loader';
@@ -44,8 +42,10 @@ import {
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
-// import { socket } from '@/shared/lib/utils/socket';
+import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
+import { getAuthUserData } from '@/features/Auth';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -53,7 +53,8 @@ const reducers: ReducersList = {
 
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
-  const [age, setAge] = React.useState('');
+  const [doctors, setDoctors] = useState<DoctorId[]>([]);
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
 
   const { t } = useTranslation();
 
@@ -65,18 +66,12 @@ const QueuesControlDoctor = () => {
   const doneQueuesListIsLoading = useSelector(
     getDoneQueuesControlDoctorIsLoading,
   );
+
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
 
-  const proccessData = useSelector(getControlPanelDocktorData);
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
-
-  const { addQueue, removeQueue } = useQueuesControlDoctorActions();
-
-  const { equalProccedQueue, clearProccedQueue } =
-    useQueuesControlPanelDoctorActions();
-
-  const { addDoneQueue } = useDoneQueuesControlDoctorActons();
+  const authUserData = useSelector(getAuthUserData);
 
   useEffect(() => {
     dispatch(
@@ -85,6 +80,13 @@ const QueuesControlDoctor = () => {
       }),
     );
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authUserData) {
+      setDoctors(authUserData?.rooms?.[0].doctor_id);
+      setSelectedDoctor(authUserData?.rooms?.[0].doctor_id[0]?.id || '');
+    }
+  }, [authUserData]);
 
   useEffect(() => {
     dispatch(
@@ -107,33 +109,32 @@ const QueuesControlDoctor = () => {
   }, [dispatch]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSelectedDoctor(event.target.value);
   };
-
-  console.log(queuesList, 'queuesList');
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <div className={cls.wraperListDoctor}>
-          <ButtonNavbar
-            dontCreate
-            TableTitle={t('Amaldagi navbat')}
-            // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
-            roomNumber={proccessData?.data[0]?.room_id?.name}
-            departmentName={proccessData?.data[0]?.department_id?.name}
-          />
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+          <h3>Shifokorni tanlang</h3>
+          <FormControl>
+            <Select
+              value={selectedDoctor}
+              onChange={handleChange}
+              displayEmpty
+              sx={{ minWidth: '250px' }}
+              defaultValue=""
+            >
+              {doctors?.map((doctor) => (
+                <MenuItem key={doctor.id} value={doctor.id}>
+                  {doctor?.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <p>Ketish vaqtini tanlang</p>
+          <TimePickerValue />
+          <Button variant="contained">Saqlash</Button>
         </div>
 
         <ControlPanelDocktor />
@@ -186,10 +187,7 @@ const QueuesControlDoctor = () => {
           </div>
         </div>
 
-        {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-        {(proccessIsLoading ||
-          // queuesListIsLoading ||
-          doneQueuesListIsLoading) && <Loader />}
+        {(proccessIsLoading || doneQueuesListIsLoading) && <Loader />}
 
         {(queuesListError || proccessError || doneQueuesListError) && (
           <ErrorDialog isErrorProps={!false} />
