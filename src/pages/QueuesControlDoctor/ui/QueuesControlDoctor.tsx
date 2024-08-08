@@ -43,7 +43,7 @@ import {
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
-import { getAuthUserData } from '@/features/Auth';
+import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
@@ -72,24 +72,32 @@ const QueuesControlDoctor = () => {
   );
 
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
+  const buttonsContext = useContext(ButtonsContext);
 
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
   const authUserData = useSelector(getAuthUserData);
-
   const { setHasOpenToast, setToastDataForAddRoomForm } =
     useContext(ButtonsContext);
 
   const handleDoctor = async () => {
-    
     if (selectedDoctor && selectedTime) {
       try {
         const response = await instance.post<ChangeDoctorBackend>(
           `${baseUrl}/users/change`,
-          { userId: selectedDoctor, tillTime: selectedTime },
+          {
+            userId: selectedDoctor,
+            tillTime: selectedTime,
+          },
         );
 
         if (response.data) {
+          dispatch(
+            fetchAuthUser({
+              refresh: true,
+              buttonsContext,
+            }),
+          );
           Cookies.set('token', response.data.data.tokens);
           setHasOpenToast(true);
 
