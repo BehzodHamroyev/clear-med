@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable ulbi-tv-plugin/public-api-imports */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
@@ -11,6 +11,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
+import Cookies from 'js-cookie';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
@@ -45,7 +46,9 @@ import { getAuthUserData } from '@/features/Auth';
 import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
-import { QueueApiResponseControlDoctorTypes } from '../model/types/queuesControlDoctorTypes';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
+import Toast from '@/shared/ui/Toast/Toast';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -58,6 +61,13 @@ const QueuesControlDoctor: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(
     dayjs('2022-04-17T15:30'),
   );
+
+  const {
+    setToastDataForAddRoomForm,
+    hasOpenToast,
+    setHasOpenToast,
+    toastDataForAddRoomForm,
+  } = useContext(ButtonsContext);
 
   const { t } = useTranslation();
 
@@ -78,18 +88,32 @@ const QueuesControlDoctor: React.FC = () => {
   const handleDoctor = async () => {
     if (selectedDoctor && selectedTime) {
       try {
-        const response =
-          await instance.post<QueueApiResponseControlDoctorTypes>(
-            `${baseUrl}/users/change`,
-            { userId: selectedDoctor, tillTime: selectedTime },
-          );
+        const response = await instance.post<ChangeDoctorBackend>(
+          `${baseUrl}/users/change`,
+          { userId: selectedDoctor, tillTime: selectedTime },
+        );
 
+        if (response.data) {
+          Cookies.set('token', response.data.data.tokens);
+          setHasOpenToast(true);
+
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Shifokor O'zgartirildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+        }
         if (!response.data) {
           throw new Error();
         }
 
         return response.data;
       } catch (e) {
+        setToastDataForAddRoomForm({
+          toastMessageForAddRoomForm: t(
+            "Shifokorni o'zgartirishda xatolik sodir bo'ldi",
+          ),
+          toastSeverityForAddRoomForm: 'error',
+        });
         return console.log('error');
       }
     }
@@ -221,6 +245,13 @@ const QueuesControlDoctor: React.FC = () => {
 
         {(queuesListError || proccessError || doneQueuesListError) && (
           <ErrorDialog isErrorProps={!false} />
+        )}
+
+        {hasOpenToast && (
+          <Toast
+            message={toastDataForAddRoomForm?.toastMessageForAddRoomForm}
+            severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
+          />
         )}
       </div>
     </DynamicModuleLoader>
