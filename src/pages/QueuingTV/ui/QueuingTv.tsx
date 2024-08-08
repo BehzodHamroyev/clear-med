@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import cls from './QueuingTv.module.scss';
 import { Loader } from '@/widgets/Loader';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
@@ -56,11 +55,6 @@ const QueuingTv = () => {
 
   return (
     <div className={cls.QueuingTvWrapper}>
-      <ButtonNavbar
-        TableTitle={t('Xonalar')}
-        ItemsLength={deparmentList?.length}
-      />
-
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
           deparmentList.map((item: any) => (

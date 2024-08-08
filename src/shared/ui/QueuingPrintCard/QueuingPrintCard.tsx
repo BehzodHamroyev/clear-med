@@ -40,9 +40,10 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
           </p>
 
           <p>
-            {lastQueue?.data?.department_id
+            {/* {lastQueue?.data?.department_id
               ? lastQueue?.data?.department_id?.name
-              : lastQueue?.room?.department_id?.name}
+              : lastQueue?.room?.department_id?.name} */}
+            Процедурный
           </p>
         </div>
 
@@ -56,15 +57,16 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
               cls['QueuingPrintCardWrp__queuingPopap--medicNameFullName']
             }
           >
-            {lastQueue?.data?.doctor_id
+            {/* {lastQueue?.data?.doctor_id
               ? lastQueue?.data?.doctor_id?.name
-              : lastQueue?.room?.doctor_id?.name}
+              : lastQueue?.room?.doctor_id?.name} */}
+            Ёқубова А
           </p>
         </div>
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            Берилган вақт:
+            Вақт:
           </p>
 
           <p className={cls['QueuingPrintCardWrp__queuingPopap--dateGetQueue']}>
