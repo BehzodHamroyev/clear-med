@@ -27,7 +27,7 @@ const QueuesPage = () => {
   const allProccessQueue = useSelector(getAllQueueProccessData);
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
 
-  if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl.length > 0) {
+  if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl?.length > 0) {
     allProccessQueue?.videoUrl.forEach((item) => {
       videoUrl.push(item.link);
     });
@@ -83,8 +83,8 @@ const QueuesPage = () => {
 
             {allProccessQueue?.addvertising &&
             allProccessQueue?.videoUrl &&
-            videoUrl.length > 0 &&
-            allProccessQueue?.videoUrl.length > 0 ? (
+            videoUrl?.length > 0 &&
+            allProccessQueue?.videoUrl?.length > 0 ? (
               <div className={classNames(cls.QueuesPage__queuesContainer)}>
                 <div
                   className={classNames(cls.QueuesPage__queuesContainerLeft)}
@@ -237,7 +237,7 @@ const QueuesPage = () => {
                     </div>
 
                     {allProccessQueue?.proccessQueues &&
-                      allProccessQueue?.proccessQueues.length > 0 &&
+                      allProccessQueue?.proccessQueues?.length > 0 &&
                       allProccessQueue?.proccessQueues?.map((item) => (
                         <div
                           key={item._id}

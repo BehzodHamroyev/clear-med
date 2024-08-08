@@ -38,7 +38,7 @@ const QueuesPageFullScreen = () => {
     document.exitFullscreen();
   };
 
-  if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl.length > 0) {
+  if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl?.length > 0) {
     allProccessQueue!?.videoUrl.forEach((item) => {
       videoUrl.push(item.link);
     });
