@@ -1,17 +1,21 @@
 import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
-export default function TimePickerValue() {
-  const [value, setValue] = React.useState<Dayjs | null>(
-    dayjs('2022-04-17T15:30'),
-  );
+interface TimePickerValueProps {
+  value: Dayjs | null;
+  onChange: (newValue: Dayjs | null) => void;
+}
 
+const TimePickerValue: React.FC<TimePickerValueProps> = ({
+  value,
+  onChange,
+}) => {
   const handleTimeChange = (newValue: Dayjs | null) => {
-    setValue(newValue);
+    onChange(newValue);
     if (newValue) {
       const formattedTime = newValue.toISOString();
       console.log({ tillTime: formattedTime });
@@ -30,4 +34,6 @@ export default function TimePickerValue() {
       </DemoContainer>
     </LocalizationProvider>
   );
-}
+};
+
+export default TimePickerValue;

@@ -1,7 +1,8 @@
+/* eslint-disable consistent-return */
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import {
   Button,
   FormControl,
@@ -9,10 +10,10 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
-
 import cls from './QueuesControlDoctor.module.scss';
 import {
   DynamicModuleLoader,
@@ -26,14 +27,12 @@ import {
   getQueuesControlDoctorError,
   getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import {
   getControlPanelDocktorError,
   getControlPanelDocktorIsLoading,
 } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { Loader } from '@/widgets/Loader';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
-
 import {
   getDoneQueuesControlDoctorData,
   getDoneQueuesControlDoctorIsLoading,
@@ -41,20 +40,24 @@ import {
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-
 import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { getAuthUserData } from '@/features/Auth';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
+import instance from '@/shared/lib/axios/api';
+import { baseUrl } from '../../../../baseurl';
+import { QueueApiResponseControlDoctorTypes } from '../model/types/queuesControlDoctorTypes';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
 };
 
-const QueuesControlDoctor = () => {
+const QueuesControlDoctor: React.FC = () => {
   const dispatch = useAppDispatch();
   const [doctors, setDoctors] = useState<DoctorId[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(
+    dayjs('2022-04-17T15:30'),
+  );
 
   const { t } = useTranslation();
 
@@ -66,12 +69,37 @@ const QueuesControlDoctor = () => {
   const doneQueuesListIsLoading = useSelector(
     getDoneQueuesControlDoctorIsLoading,
   );
-
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
 
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
   const authUserData = useSelector(getAuthUserData);
+
+  const handleDoctor = async () => {
+    if (selectedDoctor && selectedTime) {
+      try {
+        const response =
+          await instance.post<QueueApiResponseControlDoctorTypes>(
+            `${baseUrl}/users/change`,
+            { userId: selectedDoctor, tillTime: selectedTime },
+          );
+
+        if (!response.data) {
+          throw new Error();
+        }
+
+        return response.data;
+      } catch (e) {
+        return console.log('error');
+      }
+    }
+    console.log('Selected Doctor:', selectedDoctor);
+    console.log(
+      'Selected Time:',
+      selectedTime ? selectedTime.toISOString() : null,
+    );
+    // Add your logic to handle the selected doctor and time here
+  };
 
   useEffect(() => {
     dispatch(
@@ -108,7 +136,7 @@ const QueuesControlDoctor = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleDoctorChange = (event: SelectChangeEvent<string>) => {
     setSelectedDoctor(event.target.value);
   };
 
@@ -120,7 +148,7 @@ const QueuesControlDoctor = () => {
           <FormControl>
             <Select
               value={selectedDoctor}
-              onChange={handleChange}
+              onChange={handleDoctorChange}
               displayEmpty
               sx={{ minWidth: '250px' }}
               defaultValue=""
@@ -133,8 +161,10 @@ const QueuesControlDoctor = () => {
             </Select>
           </FormControl>
           <p>Ketish vaqtini tanlang</p>
-          <TimePickerValue />
-          <Button variant="contained">Saqlash</Button>
+          <TimePickerValue value={selectedTime} onChange={setSelectedTime} />
+          <Button variant="contained" onClick={handleDoctor}>
+            Saqlash
+          </Button>
         </div>
 
         <ControlPanelDocktor />
