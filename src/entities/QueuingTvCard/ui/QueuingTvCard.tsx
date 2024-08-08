@@ -122,6 +122,8 @@ const QueuingTvCard = ({
     }
   };
 
+  console.log(lastQueue, 'lastQueue');
+
   return (
     <div
       onClick={(e) => {

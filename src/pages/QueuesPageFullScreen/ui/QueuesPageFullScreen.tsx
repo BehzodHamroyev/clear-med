@@ -165,6 +165,8 @@ const QueuesPageFullScreen = () => {
 
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!.room1?.proceed?.map((item, index) => {
+                  console.log(item);
+
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -176,7 +178,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemDepartmentName,
                           )}
                         >
-                          <p>{item.department_id?.name}</p>
+                          <p>{allProccessQueue!.room1!.department_id?.name}</p>
                         </div>
 
                         <div
@@ -184,7 +186,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemRoomNumber,
                           )}
                         >
-                          <p>{item.room_id.name}</p>
+                          <p>{allProccessQueue!.room1!.name}</p>
                         </div>
 
                         <div
@@ -242,7 +244,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemDepartmentName,
                           )}
                         >
-                          <p>{item.department_id?.name}</p>
+                          <p>{allProccessQueue!.room2!?.department_id.name}</p>
                         </div>
 
                         <div
@@ -250,7 +252,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemRoomNumber,
                           )}
                         >
-                          <p>{item.room_id.name}</p>
+                          <p>{allProccessQueue!?.room1!?.name}</p>
                         </div>
 
                         <div

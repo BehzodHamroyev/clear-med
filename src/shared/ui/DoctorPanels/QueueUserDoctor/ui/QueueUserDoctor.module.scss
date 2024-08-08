@@ -6,9 +6,34 @@
   flex-direction: column;
   gap: 5px;
   background-color: #fff;
+  border: 1px solid black;
+  margin-right: 12px;
 
   &__queuesListTitle {
     width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid black;
+
+    p {
+      color: #000;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 20px 4px;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.06px;
+      font-family: sans-serif;
+    }
+
+    .QueuesListTitleChild1 {
+      text-align: center;
+      border: 0 solid #000;
+    }
+  }
+
+  .QueuesNumber {
     display: flex;
     text-align: center;
     align-items: center;
