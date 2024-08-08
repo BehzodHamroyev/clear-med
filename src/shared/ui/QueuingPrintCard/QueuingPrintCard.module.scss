@@ -16,6 +16,8 @@
 
     &--queuingTvPrintCard {
       width: 300px;
+      max-width: 267px;
+      background-color: #fff;
       margin: 0 auto;
       display: flex;
       font-family: sans-serif;
@@ -29,7 +31,7 @@
 
     &--printQueuePageImg {
       width: 100%;
-      margin-top: 0;
+      margin-top: 20px;
     }
 
     &--queueBox {
@@ -50,6 +52,14 @@
       margin: 11px auto;
       justify-content: space-between;
       font-weight: 700;
+    }
+
+    &--titleTicket {
+      font-weight: 500;
+      font-size: 19.51px;
+      line-height: 22.86px;
+      letter-spacing: 0.25%;
+      color: #828282;
     }
 
     &--medicNameFullName,

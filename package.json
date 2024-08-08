@@ -5,8 +5,8 @@
   "main": "./public/main.js",
   "homepage": "./",
   "scripts": {
-    "start": "webpack serve --env port=3000",
-    "start:vite": "vite --host 0.0.0.0",
+    "start": "vite --host 0.0.0.0",
+    "start:webpack": "webpack serve --env port=3000",
     "start:chrome": "npm run start && sleep 5 && chrome --kiosk --kiosk-printing http://localhost:3000",
     "start:mac": "npm run start && open -a 'Google Chrome' --args --kiosk --kiosk-printing http://localhost:3000",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm run electron:start\"",

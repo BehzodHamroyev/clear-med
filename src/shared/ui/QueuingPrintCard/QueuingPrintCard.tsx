@@ -1,61 +1,98 @@
-import React from 'react';
-import { QueueUserDoctor } from '../DoctorPanels/QueueUserDoctor';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import cls from './QueuingPrintCard.module.scss';
+import { getLastQueueData } from '@/pages/QueuingTV';
+import { getAllDataProject } from '@/entities/FileUploader';
+import { QueueUserDoctor } from '../DoctorPanels/QueueUserDoctor';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-const QueuingPrintCard = React.forwardRef<HTMLDivElement>((props, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cls['QueuingPrintCardWrp__queuingPopap--queuingTvPrintCard']}
-    >
-      <img
-        src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
-        alt="imgLink"
-        className={cls['QueuingPrintCardWrp__queuingPopap--printQueuePageImg']}
-      />
+interface QueuingPrintCardProp {
+  roomNumber: number | string;
+  ticketNumber: number | string;
+}
 
-      <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
-        <QueueUserDoctor roomNumber="4" ticketNumber="C4-403" />
-      </div>
+const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
+  ({ roomNumber, ticketNumber }, ref) => {
+    const dispatch = useAppDispatch();
 
-      <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
-        <p>Бўлим:</p>
-        <p>salom</p>
-      </div>
+    const lastQueue = useSelector(getLastQueueData);
 
-      <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
-        <p>Шифокор:</p>
-        <p
+    useEffect(() => {
+      dispatch(getAllDataProject({}));
+    }, [dispatch]);
+
+    return (
+      <div
+        ref={ref}
+        className={cls['QueuingPrintCardWrp__queuingPopap--queuingTvPrintCard']}
+      >
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
+          <QueueUserDoctor
+            roomNumber={roomNumber}
+            ticketNumber={`${ticketNumber}`}
+          />
+        </div>
+
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
+            Бўлим:
+          </p>
+
+          <p>
+            {lastQueue?.data?.department_id
+              ? lastQueue?.data?.department_id?.name
+              : lastQueue?.room?.department_id?.name}
+          </p>
+        </div>
+
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
+            Шифокор:
+          </p>
+
+          <p
+            className={
+              cls['QueuingPrintCardWrp__queuingPopap--medicNameFullName']
+            }
+          >
+            {lastQueue?.data?.doctor_id
+              ? lastQueue?.data?.doctor_id?.name
+              : lastQueue?.room?.doctor_id?.name}
+          </p>
+        </div>
+
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
+            Берилган вақт:
+          </p>
+
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--dateGetQueue']}>
+            {new Date().getDate()}/
+            {new Date().getMonth() < 10
+              ? `0${new Date().getMonth() + 1}`
+              : new Date().getMonth() + 1}
+            /{new Date().getFullYear()} |{' '}
+            {new Date().getHours() < 10
+              ? `0${new Date().getHours()}`
+              : new Date().getHours()}
+            :
+            {new Date().getMinutes() < 10
+              ? `0${new Date().getMinutes()}`
+              : new Date().getMinutes()}
+          </p>
+        </div>
+
+        <img
+          src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
+          alt="imgLink"
           className={
-            cls['QueuingPrintCardWrp__queuingPopap--medicNameFullName']
+            cls['QueuingPrintCardWrp__queuingPopap--printQueuePageImg']
           }
-        >
-          salom
-        </p>
+        />
       </div>
-
-      <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
-        <p>Берилган вақт:</p>
-        <p className={cls['QueuingPrintCardWrp__queuingPopap--dateGetQueue']}>
-          {new Date().getDate()}/
-          {new Date().getMonth() < 10
-            ? `0${new Date().getMonth() + 1}`
-            : new Date().getMonth() + 1}
-          /{new Date().getFullYear()} |{' '}
-          {new Date().getHours() < 10
-            ? `0${new Date().getHours()}`
-            : new Date().getHours()}
-          :
-          {new Date().getMinutes() < 10
-            ? `0${new Date().getMinutes()}`
-            : new Date().getMinutes()}
-        </p>
-      </div>
-      {/* <p className={cls['QueuingPrintCardWrp__queuingPopap--message']}>
-        Ташрифингиз учун раҳмат!
-      </p> */}
-    </div>
-  );
-});
+    );
+  },
+);
 
 export default QueuingPrintCard;
