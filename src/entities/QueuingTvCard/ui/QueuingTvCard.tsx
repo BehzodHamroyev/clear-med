@@ -37,6 +37,8 @@ const QueuingTvCard = ({
 
   const { clearLastQueue } = useLasQueueActions();
 
+  const { setIsvisableLanguageModal } = useContext(ButtonsContext);
+
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [printRoomInfo, setPrintRoomInfo] = useState({
@@ -112,6 +114,8 @@ const QueuingTvCard = ({
 
   const print = () => {
     handlePrint();
+
+    setIsvisableLanguageModal(true);
 
     if (
       lastQueue &&

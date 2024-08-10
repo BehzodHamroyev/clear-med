@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import cls from './QueuingPrintCard.module.scss';
-import { getLastQueueData } from '@/pages/QueuingTV';
 import { getAllDataProject } from '@/entities/FileUploader';
-import { QueueUserDoctor } from '../DoctorPanels/QueueUserDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 interface QueuingPrintCardProp {
@@ -16,8 +13,6 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
   ({ roomNumber, ticketNumber }, ref) => {
     const dispatch = useAppDispatch();
 
-    const lastQueue = useSelector(getLastQueueData);
-
     useEffect(() => {
       dispatch(getAllDataProject({}));
     }, [dispatch]);
@@ -27,11 +22,27 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
         ref={ref}
         className={cls['QueuingPrintCardWrp__queuingPopap--queuingTvPrintCard']}
       >
-        <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
+        {/* <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
           <QueueUserDoctor
             roomNumber={roomNumber}
             ticketNumber={`${ticketNumber}`}
           />
+        </div> */}
+
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
+            Билет:
+          </p>
+
+          <p>{ticketNumber || ''}</p>
+        </div>
+
+        <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
+          <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
+            Хона:
+          </p>
+
+          <p>{roomNumber !== undefined ? roomNumber : ''}</p>
         </div>
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>

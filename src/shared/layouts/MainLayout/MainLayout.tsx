@@ -15,6 +15,7 @@ import { LanguageModal } from '@/shared/ui/LanguageModal';
 // import { socket } from '@/shared/lib/utils/socket';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
+import { EditLanguageModal } from '@/entities/EditLanguageModal';
 
 interface MainLayoutProps {
   className?: string;
@@ -40,6 +41,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     isOpenLanugagePopup,
     isLoginForHasToast,
     setIsLoginForHasToast,
+    isVisableLanguageModal,
   } = useContext(ButtonsContext);
 
   // const [isConnected, setIsConnected] = useState(socket.connected);
@@ -103,6 +105,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
           </div>
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
+
+          {isVisableLanguageModal && <EditLanguageModal />}
 
           {hasOpenToast && isLoginForHasToast && (
             <Toast
