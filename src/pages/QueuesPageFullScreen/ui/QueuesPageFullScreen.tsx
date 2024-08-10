@@ -44,6 +44,8 @@ const QueuesPageFullScreen = () => {
     });
   }
 
+  console.log(allProccessQueue);
+
   useEffect(() => {
     const token = Cookies.get('token');
     let found = false;
@@ -51,8 +53,11 @@ const QueuesPageFullScreen = () => {
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues.forEach((item) => {
         if (!item.view && !found) {
+          console.log(item, 'lslslls');
           setQueueDialogData({
-            roomNumber: String(item.room_id.name),
+            roomNumber: String(
+              String(item.mp3Arr?.[1]).match(/(\d+)(?=.mp3)/)?.[0],
+            ),
             biletNumber: String(item.queues_name),
             step: item.step,
             mp3Arr: item.mp3Arr,
@@ -165,8 +170,6 @@ const QueuesPageFullScreen = () => {
 
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!.room1?.proceed?.map((item, index) => {
-                  console.log(item);
-
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -252,7 +255,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemRoomNumber,
                           )}
                         >
-                          <p>{allProccessQueue!?.room1!?.name}</p>
+                          <p>{allProccessQueue!?.room2!?.name}</p>
                         </div>
 
                         <div

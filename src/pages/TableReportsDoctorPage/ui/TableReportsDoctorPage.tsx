@@ -149,7 +149,7 @@ const TableReportsDoctorPage = () => {
                 style={{ color: '#ff0000f4' }}
               >
                 {t('Bekor qilingan bemorlar : ')}
-                {reportInfo.counCompleted}
+                {reportInfo.countReject}
                 {t(' ta')}
               </h3>
             </div>
