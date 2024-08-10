@@ -106,7 +106,9 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
           {isOpenLanugagePopup ? <LanguageModal /> : ''}
 
-          {isVisableLanguageModal && <EditLanguageModal />}
+          {isVisableLanguageModal && loginData?.role === 'reception' && (
+            <EditLanguageModal />
+          )}
 
           {hasOpenToast && isLoginForHasToast && (
             <Toast
