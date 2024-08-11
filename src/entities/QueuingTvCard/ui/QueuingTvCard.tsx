@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable ulbi-tv-plugin/public-api-imports */
 /* eslint-disable max-len */
 import React, { useContext, useRef, useState } from 'react';
@@ -22,6 +23,11 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { isLoading, error } from '@/entities/FileUploader';
+
+interface CreateOrder {
+  department_id: string;
+  room_id: string;
+}
 
 const QueuingTvCard = ({
   icon,
@@ -51,29 +57,12 @@ const QueuingTvCard = ({
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
-  const hendleClickQuingTvCard = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
-    e.stopPropagation();
-
-    // @ts-ignore
-    if (DoctorId) setClickedDoctorId(DoctorId);
-
-    if (DoctorId) {
-      dispatch(
-        fetchLastQueue({
-          doctorId: DoctorId,
-        }),
-      );
-    }
-    // setIsOpenQueuingTvCardPopapSecond(true);
-  };
-
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
-  const createQueueFunc = async () => {
+  const createQueueFunc = async (prop: CreateOrder) => {
+    const { room_id, department_id } = prop;
     setCreateQueueIsLoading(true);
 
     const getTokenCookie = Cookies.get('token');
@@ -82,8 +71,8 @@ const QueuingTvCard = ({
       const response = await axios.post(
         `${baseUrl}/queue/create`,
         {
-          department_id: lastQueue?.room.department_id,
-          room_id: lastQueue?.room._id,
+          department_id,
+          room_id,
         },
         {
           headers: {
@@ -94,6 +83,7 @@ const QueuingTvCard = ({
       );
 
       if (response.data) {
+        handlePrint();
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
 
@@ -110,29 +100,41 @@ const QueuingTvCard = ({
       setCreateQueueIsLoading(false);
       setCreateQueueIsError(true);
     }
+    setIsvisableLanguageModal(true);
   };
 
-  const print = () => {
-    handlePrint();
+  const hendleClickQuingTvCard = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
 
-    setIsvisableLanguageModal(true);
+    if (DoctorId) setClickedDoctorId(DoctorId);
 
-    if (
-      lastQueue &&
-      (lastQueue.data.department_id || lastQueue.room.department_id) &&
-      componentRef.current
-    ) {
-      createQueueFunc();
+    if (DoctorId) {
+      dispatch(
+        fetchLastQueue({
+          doctorId: DoctorId,
+        }),
+      ).then((res) => {
+        console.log('====================================');
+        console.log(res.payload); // Make sure this contains the expected data
+        console.log('====================================');
+
+        // If res.payload contains the expected data, pass it to createQueueFunc
+        createQueueFunc({
+          // @ts-ignore
+          department_id: res.payload.room.department_id,
+          // @ts-ignore
+          room_id: res.payload.room._id,
+        });
+      });
     }
   };
-
-  console.log(lastQueue, 'lastQueue');
 
   return (
     <div
       onClick={(e) => {
         hendleClickQuingTvCard(e);
-        print();
       }}
       className={cls.QueuingTvCardWrapper}
     >
@@ -165,6 +167,8 @@ const QueuingTvCard = ({
           ref={componentRef}
           roomNumber={String(lastQueue?.room?.name)}
           ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
+          doctor_name={lastQueue?.room.doctor_id[0].name!}
+          deparment_name={lastQueue?.room.department_id.name}
         />
       </div>
 

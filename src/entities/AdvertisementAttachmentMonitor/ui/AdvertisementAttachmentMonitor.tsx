@@ -56,6 +56,7 @@ const AdvertisementAttachmentMonitor = () => {
   const getAllMonitorData = useSelector(GetAllMonitorPageData);
   const getAllForOneMonitor = useSelector(getAdsDataForMonitor);
   const isLoading = useSelector(isLoadingForMonitor);
+
   const {
     isOpenAttachmentRoomMonitorChild,
     setIsOpenAttachmentRoomMonitorChild,
@@ -100,8 +101,7 @@ const AdvertisementAttachmentMonitor = () => {
 
         <TableTitleReklama
           Tablethead={tableTitle}
-          // @ts-ignore
-          Tabletbody={getAllForOneMonitor.data}
+          Tabletbody={getAllForOneMonitor.data ? getAllForOneMonitor.data : []}
         />
       </div>
 

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 import { Loader } from '@/widgets/Loader';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
+import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
 
 const AddAdsPage = () => {
   const { t } = useTranslation();
@@ -117,11 +119,14 @@ const AddAdsPage = () => {
                     className={cls['AddAdsPageWrp__Table--tr']}
                   >
                     <td className={cls['AddAdsPageWrp__Table--td']}>
-                      <img
-                        src={item.photo}
-                        className={cls['AddAdsPageWrp__Table--img']}
-                        alt="?"
-                      />
+                      {item.photo && (
+                        <img
+                          src={item.photo || DoctorDefault}
+                          className={cls['AddAdsPageWrp__Table--img']}
+                          alt=" "
+                        />
+                      )}
+                      
                     </td>
 
                     <td className={cls['AddAdsPageWrp__Table--td']}>

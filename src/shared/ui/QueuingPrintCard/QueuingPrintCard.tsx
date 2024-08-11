@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 
 import cls from './QueuingPrintCard.module.scss';
@@ -7,10 +8,13 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 interface QueuingPrintCardProp {
   roomNumber: number | string;
   ticketNumber: number | string;
+  // eslint-disable-next-line react/no-unused-prop-types
+  doctor_name: string;
+  deparment_name?: string;
 }
 
 const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
-  ({ roomNumber, ticketNumber }, ref) => {
+  ({ roomNumber, ticketNumber, doctor_name, deparment_name }, ref) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -34,7 +38,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
             Билет:
           </p>
 
-          <p>{ticketNumber || ''}</p>
+          <p>{ticketNumber}</p>
         </div>
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
@@ -42,7 +46,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
             Хона:
           </p>
 
-          <p>{roomNumber !== undefined ? roomNumber : ''}</p>
+          <p>{roomNumber}</p>
         </div>
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
@@ -50,12 +54,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
             Бўлим:
           </p>
 
-          <p>
-            {/* {lastQueue?.data?.department_id
-              ? lastQueue?.data?.department_id?.name
-              : lastQueue?.room?.department_id?.name} */}
-            Процедурный
-          </p>
+          <p>{deparment_name}</p>
         </div>
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
@@ -68,10 +67,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
               cls['QueuingPrintCardWrp__queuingPopap--medicNameFullName']
             }
           >
-            {/* {lastQueue?.data?.doctor_id
-              ? lastQueue?.data?.doctor_id?.name
-              : lastQueue?.room?.doctor_id?.name} */}
-            Ёқубова А
+            {doctor_name}
           </p>
         </div>
 
