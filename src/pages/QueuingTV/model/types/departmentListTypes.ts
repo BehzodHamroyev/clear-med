@@ -141,17 +141,7 @@ export interface LastQueueRoom {
     __v: number;
     id: string;
   };
-  doctor_id: {
-    _id: string;
-    name: string;
-    login: number;
-    role: string;
-    passwordChangedDate: null;
-    __v: number;
-    exprience: number;
-    photo: string;
-    id: string;
-  };
+  doctor_id: Doctor[];
 }
 
 export interface LastQueueDataApiResponce {
