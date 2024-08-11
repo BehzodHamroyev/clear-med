@@ -3,7 +3,7 @@ import { memo, ReactElement, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import { useFullScreenHandle } from 'react-full-screen';
 
 import cls from './MainLayout.module.scss';
 import { Sidebar } from '@/widgets/Sidebar';
@@ -14,7 +14,6 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { EditLanguageModal } from '@/entities/EditLanguageModal';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
-import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 
@@ -64,10 +63,6 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     <div>
       {location.pathname === '/login' ? (
         <Login />
-      ) : loginData?.role === 'monitor' ? (
-        <FullScreen className={cls.MyComponentScreen} handle={handle}>
-          <QueuesPageFullScreen />
-        </FullScreen>
       ) : (
         <div className={classNames(cls.MainLayout, {}, [className])}>
           {loginData?.role !== 'reception' && (

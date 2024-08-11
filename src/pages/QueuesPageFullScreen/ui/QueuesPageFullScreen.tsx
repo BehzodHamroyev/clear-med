@@ -8,6 +8,7 @@ import ReactPlayer from 'react-player';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import { ETC } from '@/shared/assets/icons';
 import { baseUrl, baseUrlUpload } from '../../../../baseurl';
@@ -23,6 +24,12 @@ const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const infoProject = useSelector(getInfoProject);
+
+  const handle = useFullScreenHandle();
+
+  const handleClickedFullScreen = () => {
+    handle.enter();
+  };
 
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -104,8 +111,10 @@ const QueuesPageFullScreen = () => {
     margin: '30px 50px',
   };
 
+  console.log(videoUrl, 'videoUrl');
+
   return (
-    <>
+    <FullScreen className={cls.MyComponentScreen} handle={handle}>
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
@@ -313,7 +322,7 @@ const QueuesPageFullScreen = () => {
           biletNumber={queueDialogData.biletNumber}
         />
       )}
-    </>
+    </FullScreen>
   );
 };
 
