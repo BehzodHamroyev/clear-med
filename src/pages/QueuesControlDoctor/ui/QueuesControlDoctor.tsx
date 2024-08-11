@@ -133,9 +133,9 @@ const QueuesControlDoctor = () => {
 
   useEffect(() => {
     if (authUserData) {
-      setDoctors(authUserData?.rooms?.[0].doctor_id);
+      setDoctors(authUserData?.rooms?.[0]?.doctor_id);
       setSelectedDoctor(authUserData?.id || '');
-      const parsedDate = dayjs(authUserData.time.tillTime);
+      const parsedDate = dayjs(authUserData?.time?.tillTime);
       setSelectedTime(parsedDate);
     }
   }, [authUserData]);

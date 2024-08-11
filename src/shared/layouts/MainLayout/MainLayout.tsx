@@ -70,7 +70,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
         </FullScreen>
       ) : (
         <div className={classNames(cls.MainLayout, {}, [className])}>
-          {loginData?.role !== 'reception' || 'monitor' ? (
+          {loginData?.role !== 'reception' ? (
             <div className={cls.sidebar}>
               <Sidebar />
             </div>
