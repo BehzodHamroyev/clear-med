@@ -20,15 +20,27 @@ interface Department {
   id: string;
 }
 
+interface Actives {
+  createdAt: string;
+  id: string;
+  room: string;
+  tillTime: string;
+  updatedAt: string;
+  user: string;
+  __v: 0;
+  _id: string;
+}
+
 export interface Room {
   _id: string;
   name: number;
   department_id: Department;
-  doctor_id: Doctor;
+  doctor_id: Doctor[];
   disabled: boolean;
   photo: string;
   __v: number;
   id: string;
+  actives?: Actives[];
 }
 
 interface navbat {

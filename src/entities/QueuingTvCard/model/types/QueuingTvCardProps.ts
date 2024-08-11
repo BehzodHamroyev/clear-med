@@ -4,4 +4,5 @@ export interface QueuingTvCardProps {
   CardLeftRoomNumber?: number | string;
   CardLeftDoctorName?: string;
   icon?: any;
+  time?: string;
 }

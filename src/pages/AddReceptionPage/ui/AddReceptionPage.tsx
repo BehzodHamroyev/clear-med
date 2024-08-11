@@ -97,7 +97,7 @@ const AddReceptionPage = () => {
       <table className={cls.AddDoctorPageWrp__Table}>
         <thead className={cls['AddDoctorPageWrp__Table--Tablethead']}>
           <tr className={cls['AddDoctorPageWrp__Table--tr']}>
-            <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Surat')}</th>
+            {/* <th className={cls['AddDoctorPageWrp__Table--th']}>{t('Surat')}</th> */}
 
             <th className={cls['AddDoctorPageWrp__Table--th']}>
               {t('F.I.Sh')}
@@ -126,13 +126,13 @@ const AddReceptionPage = () => {
                   key={item.id}
                   className={cls['AddDoctorPageWrp__Table--tr']}
                 >
-                  <td className={cls['AddDoctorPageWrp__Table--td']}>
+                  {/* <td className={cls['AddDoctorPageWrp__Table--td']}>
                     <img
                       src={ImgSvg}
                       className={cls['AddDoctorPageWrp__Table--img']}
                       alt=""
                     />
-                  </td>
+                  </td> */}
 
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
                     {item?.name ? item?.name : "Ism yo'q"}
