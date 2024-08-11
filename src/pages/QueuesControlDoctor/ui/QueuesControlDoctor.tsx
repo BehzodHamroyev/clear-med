@@ -168,7 +168,7 @@ const QueuesControlDoctor = () => {
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <div className={cls.wraperListDoctor}>
-          <h3>Shifokorni tanlang</h3>
+          <h3>{t('select_doctor')}</h3>
           <FormControl>
             <Select
               value={selectedDoctor}
@@ -184,13 +184,13 @@ const QueuesControlDoctor = () => {
               ))}
             </Select>
           </FormControl>
-          <p>Ketish vaqtini tanlang</p>
+          <p>{t('end_work')}</p>
           <TimePickerValue
             value={selectedTime}
             onChange={(newValue) => setSelectedTime(newValue)}
           />
           <Button variant="contained" onClick={() => handleDoctor()}>
-            Saqlash
+            {t('Save')}
           </Button>
         </div>
 

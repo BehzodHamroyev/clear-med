@@ -17,6 +17,8 @@ const Login: FC = () => {
   const navigate = useNavigate();
 
   const authUserData = useSelector(getAuthUserData);
+
+  // getAuthUserData
   const authUserIsLoading = useSelector(getAuthUserIsLoading);
 
   useEffect(() => {

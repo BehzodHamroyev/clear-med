@@ -9,18 +9,20 @@ import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { baseUrl } from '../../../../baseurl';
+import { ETC } from '@/shared/assets/icons';
+import { baseUrl, baseUrlUpload } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
-import { ETC } from '@/shared/assets/icons';
+import { getInfoProject } from '@/entities/FileUploader';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
+  const infoProject = useSelector(getInfoProject);
 
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -34,24 +36,24 @@ const QueuesPageFullScreen = () => {
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
 
-  const handleExitFullScreenClick = () => {
-    document.exitFullscreen();
-  };
+  // const handleExitFullScreenClick = () => {
+  //   document.exitFullscreen();
+  // };
 
   if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl?.length > 0) {
     allProccessQueue!?.videoUrl.forEach((item) => {
-      videoUrl.push(item.link);
+      videoUrl?.push(item.link);
     });
   }
 
-  console.log(allProccessQueue);
+  const imgLink: string = `${baseUrlUpload}/${infoProject?.[0]?.logo}`;
 
   useEffect(() => {
     const token = Cookies.get('token');
     let found = false;
 
     if (!onEndedQueueAudio) {
-      allProccessQueue!?.proccessQueues.forEach((item) => {
+      allProccessQueue!?.proccessQueues?.forEach((item) => {
         if (!item.view && !found) {
           console.log(item, 'lslslls');
           setQueueDialogData({
@@ -107,11 +109,11 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            {/* <img src={Logo} className={cls.logo} alt="" /> */}
+            <img src={imgLink} className={cls.logo} alt="#" />
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ishonch raqami:')} +998 71 202 02 12</p>
+              <p>{t('Ishonch raqami:')} +998 71 207 00 17</p>
             </div>
           </div>
         </div>
@@ -169,7 +171,7 @@ const QueuesPageFullScreen = () => {
               ) : null}
 
               <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue!.room1?.proceed?.map((item, index) => {
+                {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -205,7 +207,7 @@ const QueuesPageFullScreen = () => {
               </div>
 
               <div className={cls.wrapperOrder}>
-                {allProccessQueue!.room1?.proceed?.map((item, index) => {
+                {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   if (index < 11 && item.status === 'pending')
                     return (
                       <div className={classNames(cls.orderNumber)}>
@@ -214,7 +216,7 @@ const QueuesPageFullScreen = () => {
                     );
                 })}
 
-                {allProccessQueue!.room1!?.proceed.length > 10 ? (
+                {allProccessQueue!?.room1!?.proceed.length > 10 ? (
                   <>
                     <div className={classNames(cls.orderNumber)}>
                       <ETC />
@@ -235,7 +237,7 @@ const QueuesPageFullScreen = () => {
               </div>
 
               <div className={classNames(cls.queuesTable__items)}>
-                {allProccessQueue!.room2?.proceed?.map((item, index) => {
+                {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -269,7 +271,7 @@ const QueuesPageFullScreen = () => {
                     );
                 })}
                 <div className={cls.wrapperOrder}>
-                  {allProccessQueue!.room2?.proceed?.map((item, index) => {
+                  {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                     if (index < 11 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>
@@ -278,7 +280,7 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!!.room2!?.proceed.length > 10 ? (
+                  {allProccessQueue!!?.room2!?.proceed.length > 10 ? (
                     <>
                       <div className={classNames(cls.orderNumber)}>
                         <ETC />
