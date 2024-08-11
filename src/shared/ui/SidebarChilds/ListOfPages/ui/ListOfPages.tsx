@@ -215,6 +215,7 @@ export const ListOfPages = memo(() => {
       <Tooltip
         className={cls.tooltipColor}
         placement="right"
+        key={index + item.id}
         title={!isOpenSidebar ? item.title : null}
       >
         <Link

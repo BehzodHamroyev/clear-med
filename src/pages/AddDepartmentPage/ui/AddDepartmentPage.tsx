@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -24,6 +25,7 @@ import Toast from '@/shared/ui/Toast/Toast';
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { Loader } from '@/widgets/Loader';
 import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
+import { baseUrl } from '../../../../baseurl';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -113,7 +115,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
+              const ImgSvg = `${baseUrl}/${item.photo}`;
 
               return (
                 <tr
@@ -121,11 +123,15 @@ const AddDepartmentPage = () => {
                   className={cls['AddDepartmentPageWrp__Table--tr']}
                 >
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
-                    <img
-                      src={ImgSvg}
-                      className={cls['AddDepartmentPageWrp__Table--img']}
-                      alt="?"
-                    />
+                    {ImgSvg ? (
+                      <img
+                        src={ImgSvg}
+                        className={cls['AddDepartmentPageWrp__Table--img']}
+                        alt="??"
+                      />
+                    ) : (
+                      ''
+                    )}
                   </td>
 
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
