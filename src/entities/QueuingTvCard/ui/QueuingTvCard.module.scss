@@ -6,10 +6,6 @@
   padding: 10px 15px;
   margin: 0 auto;
 
-  @media only screen and (max-width: 1023px) {
-    max-width: 100%;
-  }
-
   // Style
   border-radius: 12px;
   background: #fff;
@@ -24,6 +20,14 @@
   // Typography
   color: #000000bf;
   font-family: sans-serif;
+
+  @media only screen and (max-width: 1023px) {
+    max-width: 100%;
+  }
+
+  &__printDisable {
+    display: none;
+  }
 
   .CardLeft {
     display: flex;

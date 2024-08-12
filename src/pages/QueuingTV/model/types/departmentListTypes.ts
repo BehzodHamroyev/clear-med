@@ -20,15 +20,27 @@ interface Department {
   id: string;
 }
 
+interface Actives {
+  createdAt: string;
+  id: string;
+  room: string;
+  tillTime: string;
+  updatedAt: string;
+  user: string;
+  __v: 0;
+  _id: string;
+}
+
 export interface Room {
   _id: string;
   name: number;
   department_id: Department;
-  doctor_id: Doctor;
+  doctor_id: Doctor[];
   disabled: boolean;
   photo: string;
   __v: number;
   id: string;
+  actives?: Actives[];
 }
 
 interface navbat {
@@ -129,17 +141,7 @@ export interface LastQueueRoom {
     __v: number;
     id: string;
   };
-  doctor_id: {
-    _id: string;
-    name: string;
-    login: number;
-    role: string;
-    passwordChangedDate: null;
-    __v: number;
-    exprience: number;
-    photo: string;
-    id: string;
-  };
+  doctor_id: Doctor[];
 }
 
 export interface LastQueueDataApiResponce {

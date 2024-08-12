@@ -13,7 +13,7 @@ import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 import { QueuingTvCardPopapType } from './QueuingPopupType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
+// import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
@@ -24,6 +24,7 @@ import {
   getInfoProject,
   getAllDataProject,
 } from '@/entities/FileUploader';
+import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 
 const QueuingTvCardPopapSecond = ({
   roomNumber,

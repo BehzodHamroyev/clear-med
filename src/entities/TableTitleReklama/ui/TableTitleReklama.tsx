@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
@@ -97,12 +98,15 @@ const TableTitleReklama = (props: TableInfo) => {
             >
               {item?.photo ? (
                 <td className={cls.td}>
-                  <img className={cls.Img} src={item.photo} alt="#" />
+                  {item.photo ? (
+                    <img className={cls.Img} src={item.photo} alt=" " />
+                  ) : (
+                    <p> </p>
+                  )}
                 </td>
               ) : (
                 ''
               )}
-
               {item?.name ? <td className={cls.td}>{item.name}</td> : ''}
               {/* {item?.item2 ? <td className={cls.td}>{item.item2}</td> : ''} */}
               {item?.link ? (
@@ -124,6 +128,7 @@ const TableTitleReklama = (props: TableInfo) => {
               ) : (
                 ''
               )}
+              salom
               <td
                 className={`${cls.lastChild}`}
                 onClick={() => {
@@ -132,7 +137,7 @@ const TableTitleReklama = (props: TableInfo) => {
                 }}
               >
                 {/* <pre>{item?.lastInDeleteChild}</pre>{' '} */}
-                <DeleteTools />
+                <DeleteTools style={{ maxWidth: '25px' }} />
               </td>
             </tr>
           );

@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+/* eslint-disable consistent-return */
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import {
-  ControlPanelDocktor,
-  useQueuesControlPanelDoctorActions,
-} from '@/entities/ControlPanelDocktor';
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import Cookies from 'js-cookie';
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
-
 import cls from './QueuesControlDoctor.module.scss';
 import {
   DynamicModuleLoader,
   ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import {
-  queuesControlDoctorReducer,
-  useQueuesControlDoctorActions,
-} from '../model/slice/queuesControlDoctorSlice';
+import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
@@ -28,14 +30,11 @@ import {
 } from '../model/selectors/queuesControlDoctorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import {
-  getControlPanelDocktorData,
   getControlPanelDocktorError,
-  // eslint-disable-next-line unused-imports/no-unused-imports
   getControlPanelDocktorIsLoading,
 } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { Loader } from '@/widgets/Loader';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
-
 import {
   getDoneQueuesControlDoctorData,
   getDoneQueuesControlDoctorIsLoading,
@@ -43,9 +42,13 @@ import {
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-
-import { useDoneQueuesControlDoctorActons } from '../model/slice/doneQueuesControlDoctorSlice';
-// import { socket } from '@/shared/lib/utils/socket';
+import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
+import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
+import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
+import instance from '@/shared/lib/axios/api';
+import { baseUrl } from '../../../../baseurl';
+import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -53,7 +56,9 @@ const reducers: ReducersList = {
 
 const QueuesControlDoctor = () => {
   const dispatch = useAppDispatch();
-  const [age, setAge] = React.useState('');
+  const [doctors, setDoctors] = useState<DoctorId[]>([]);
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
 
   const { t } = useTranslation();
 
@@ -65,18 +70,58 @@ const QueuesControlDoctor = () => {
   const doneQueuesListIsLoading = useSelector(
     getDoneQueuesControlDoctorIsLoading,
   );
-  const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
 
-  const proccessData = useSelector(getControlPanelDocktorData);
+  const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
+  const buttonsContext = useContext(ButtonsContext);
+
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
+  const authUserData = useSelector(getAuthUserData);
+  const { setHasOpenToast, setToastDataForAddRoomForm } =
+    useContext(ButtonsContext);
 
-  const { addQueue, removeQueue } = useQueuesControlDoctorActions();
+  const handleDoctor = async () => {
+    if (selectedDoctor && selectedTime) {
+      try {
+        const response = await instance.post<ChangeDoctorBackend>(
+          `${baseUrl}/users/change`,
+          {
+            userId: selectedDoctor,
+            tillTime: selectedTime,
+          },
+        );
 
-  const { equalProccedQueue, clearProccedQueue } =
-    useQueuesControlPanelDoctorActions();
+        if (response.data) {
+          dispatch(
+            fetchAuthUser({
+              refresh: true,
+              buttonsContext,
+            }),
+          );
+          Cookies.set('token', response.data.data.tokens);
+          setHasOpenToast(true);
 
-  const { addDoneQueue } = useDoneQueuesControlDoctorActons();
+          setToastDataForAddRoomForm({
+            toastMessageForAddRoomForm: t("Shifokor O'zgartirildi"),
+            toastSeverityForAddRoomForm: 'success',
+          });
+        }
+        if (!response.data) {
+          throw new Error();
+        }
+
+        return response.data;
+      } catch (e) {
+        setToastDataForAddRoomForm({
+          toastMessageForAddRoomForm: t(
+            "Shifokorni o'zgartirishda xatolik sodir bo'ldi",
+          ),
+          toastSeverityForAddRoomForm: 'error',
+        });
+        return console.log('error');
+      }
+    }
+  };
 
   useEffect(() => {
     dispatch(
@@ -85,6 +130,15 @@ const QueuesControlDoctor = () => {
       }),
     );
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authUserData) {
+      setDoctors(authUserData?.rooms?.[0]?.doctor_id);
+      setSelectedDoctor(authUserData?.id || '');
+      const parsedDate = dayjs(authUserData?.time?.tillTime);
+      setSelectedTime(parsedDate);
+    }
+  }, [authUserData]);
 
   useEffect(() => {
     dispatch(
@@ -107,33 +161,37 @@ const QueuesControlDoctor = () => {
   }, [dispatch]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSelectedDoctor(event.target.value);
   };
-
-  console.log(queuesList, 'queuesList');
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctorWrapper}>
         <div className={cls.wraperListDoctor}>
-          <ButtonNavbar
-            dontCreate
-            TableTitle={t('Amaldagi navbat')}
-            // ItemsLength={Number(proccessData?.data[0]?.queues_name.split('-')[1])}
-            roomNumber={proccessData?.data[0]?.room_id?.name}
-            departmentName={proccessData?.data[0]?.department_id?.name}
+          <h3>{t('select_doctor')}</h3>
+          <FormControl>
+            <Select
+              value={selectedDoctor}
+              onChange={handleChange}
+              displayEmpty
+              sx={{ minWidth: '250px' }}
+              defaultValue=""
+            >
+              {doctors?.map((doctor) => (
+                <MenuItem key={doctor.id} value={doctor.id}>
+                  {doctor?.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <p>{t('end_work')}</p>
+          <TimePickerValue
+            value={selectedTime}
+            onChange={(newValue) => setSelectedTime(newValue)}
           />
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+          <Button variant="contained" onClick={() => handleDoctor()}>
+            {t('Save')}
+          </Button>
         </div>
 
         <ControlPanelDocktor />
@@ -186,10 +244,7 @@ const QueuesControlDoctor = () => {
           </div>
         </div>
 
-        {/* <h3 className={cls.TableTitle}>{t('Amaldagi navbat ')}</h3> */}
-        {(proccessIsLoading ||
-          // queuesListIsLoading ||
-          doneQueuesListIsLoading) && <Loader />}
+        {(proccessIsLoading || doneQueuesListIsLoading) && <Loader />}
 
         {(queuesListError || proccessError || doneQueuesListError) && (
           <ErrorDialog isErrorProps={!false} />

@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { useTranslation } from 'react-i18next';
+
 import cls from './QueueUserDoctor.module.scss';
 
 interface QueueUserDoctorProps {
@@ -14,24 +14,26 @@ const QueueUserDoctor = ({
 }: QueueUserDoctorProps) => {
   const { t } = useTranslation();
 
-  const styleP = {
-    borderRight: '1px solid #000',
-  };
-
   return (
-    <div className={cls.QueueUserDoctorWrapper}>
-      <div className={cls.QueuesListTitle}>
-        <p className={cls.QueuesListTitleChild1} style={styleP}>
+    <div className={cls.QueueUserDoctorWrp}>
+      <div className={cls.QueueUserDoctorWrp__queuesListTitle}>
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--paragraph']}>
           {t('Bilet raqami')}
         </p>
 
-        <p className={cls.QueuesListTitleChild1}>{t('Xona raqami')}</p>
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
+          {ticketNumber}
+        </p>
       </div>
 
-      <div className={cls.QueuesNumber}>
-        <p className={cls.ticketNumber}>{ticketNumber}</p>
+      <div className={cls.QueueUserDoctorWrp__queuesListTitle}>
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--paragraph']}>
+          {t('Xona raqami')}
+        </p>
 
-        <p className={cls.roomNumber}>{roomNumber}</p>
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
+          {roomNumber}
+        </p>
       </div>
     </div>
   );

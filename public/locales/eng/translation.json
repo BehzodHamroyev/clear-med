@@ -47,7 +47,7 @@
   "Fullscreen": "Fullscreen",
 
   "Bilet raqami": "Ticket number",
-  "Xona raqami": "Room",
+  "Xona raqami": "Room number",
 
   "January": "January",
   "February": "February",
@@ -168,5 +168,7 @@
   "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ads attachment is disabled on this Monitor!",
   "Timizga muvaffaqqiyatli kirdingiz": "You have successfully entered our system",
   "The_doctor_changes": "The doctor changes",
-  "current_queues": "Current queues"
+  "current_queues": "Current queues",
+  "select_doctor": "Select doctor",
+  "end_work": "Choose a departure time"
 }

@@ -41,7 +41,7 @@
   "Fullscreen": "To‘liq ekran",
   "Receptions": "Qabullar",
   "Bilet raqami": "Bilet raqami",
-  "Xona raqami": "xona",
+  "Xona raqami": "Xona raqami",
   "January": "Yanvar",
   "February": "Fevral",
   "March": "Mart",
@@ -150,5 +150,7 @@
   "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ushbu Monitorga reklama biriktirish o'chirilgan!",
   "Timizga muvaffaqqiyatli kirdingiz": "Timizga muvaffaqqiyatli kirdingiz",
   "The_doctor_changes": "Shifokor almashadi",
-  "current_queues": "Joriy navbatlar"
+  "current_queues": "Joriy navbatlar",
+  "select_doctor": "Shifokorni tanlang",
+  "end_work": "Ketish vaqtini tanlang"
 }

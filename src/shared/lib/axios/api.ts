@@ -1,5 +1,4 @@
-// api.js
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { baseUrl } from '../../../../baseurl';
 

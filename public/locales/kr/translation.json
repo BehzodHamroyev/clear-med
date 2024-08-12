@@ -48,7 +48,7 @@
   "Fullscreen": "Тўлиқ экран",
 
   "Bilet raqami": "Билет рақами",
-  "Xona raqami": "xона",
+  "Xona raqami": "Xона рақами",
 
   "January": "Январь",
   "February": "Февраль",
@@ -164,5 +164,8 @@
   "Ushbu Monitorga reklama biriktirish o'chirilgan!": "Ушбу Мониторга реклама бириктириш ўчирилган!",
   "Timizga muvaffaqqiyatli kirdingiz": "Тимизга муваффаққиятли кирдингиз",
   "The_doctor_changes": "Шифокор алмашади",
-  "current_queues": "Жорий навбатлар"
+  "current_queues": "Жорий навбатлар",
+
+  "select_doctor": "Шифокорни танланг",
+  "end_work": "Кетиш вақтини танланг"
 }

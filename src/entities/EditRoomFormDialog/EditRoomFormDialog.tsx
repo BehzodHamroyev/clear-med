@@ -13,8 +13,14 @@ import {
   FormControl,
   MenuItem,
   SelectChangeEvent,
+  Autocomplete,
+  Checkbox,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
 } from '@mui/material';
 
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import cls from './EditRoomFormDialog.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
@@ -58,6 +64,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   const { t } = useTranslation();
 
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const dispatch = useAppDispatch();
 
   const [doctorList, setDoctorList] = useState<any[]>([]);
@@ -74,6 +82,7 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
   const allFreeDoctorsData = useSelector(getAllFreeDoctorsData);
   const allFreeDoctorsIsLoading = useSelector(getAllFreeDoctorsIsLoading);
   const allFreeDoctorsError = useSelector(getAllFreeDoctorsError);
+  const [doctors, setDoctors] = useState<string[]>([]);
 
   const [roomCurrentData, setRoomCurrentData] = useState<RoomEditDataSchema>();
 
@@ -209,14 +218,14 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
 
     if (
       roomCurrentData?.data?.departmentId &&
-      roomCurrentData?.data?.doctorId &&
+      doctors &&
       roomCurrentData?.data?.roomNumber
     ) {
       try {
         const response = await axios.patch(
           `${baseUrl}/room/${roomId}`,
           {
-            doctor_id: roomCurrentData?.data?.doctorId,
+            doctor_id: doctors,
             name: Number(roomCurrentData?.data?.roomNumber),
             department_id: roomCurrentData?.data?.departmentId,
           },
@@ -290,6 +299,15 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
     }
   };
 
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: any[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined,
+  ) => {
+    setDoctors(value.map((item) => item.id));
+  };
+
   return (
     <>
       {roomCurrentData?.data &&
@@ -345,28 +363,43 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
                 </FormControl>
 
                 <FormControl>
-                  <InputLabel id="demo-simple-select-label2">
-                    {t("Shifokorlar ro'yhati")}
-                  </InputLabel>
-
-                  <Select
-                    required
-                    id="demo-simple-select"
-                    labelId="demo-simple-select-label2"
-                    label={t("Shifokorlar ro'yhati")}
-                    onChange={handleChangeDoctorName}
-                    value={roomCurrentData?.data?.doctorId}
-                  >
-                    {doctorList?.map((element) => {
-                      return (
-                        <MenuItem key={element?.id} value={`${element?.id}`}>
-                          {element?.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
+                  <Autocomplete
+                    multiple
+                    options={allFreeDoctorsData}
+                    disableCloseOnSelect
+                    onChange={handleChange}
+                    id="checkboxes-tags-demo"
+                    getOptionLabel={(option) => option.name}
+                    className={cls.AddRoomForMonitorOPtionsWrp}
+                    renderOption={(
+                      props,
+                      option: { name: string },
+                      { selected },
+                    ) => (
+                      <li {...props}>
+                        <Checkbox
+                          icon={icon}
+                          checked={selected}
+                          checkedIcon={checkedIcon}
+                          style={{ marginRight: 8 }}
+                        />
+                        {option.name}
+                      </li>
+                    )}
+                    style={{
+                      width: '100%',
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t(`Shifokorlar ro'yxati`)}
+                        style={{ cursor: 'pointer' }}
+                        placeholder={`${t('Xonani tanlang')}...`}
+                        // required={!(personId.length > 0)}
+                      />
+                    )}
+                  />
                 </FormControl>
-
                 <div className={classNames(cls.AddRoomFormDialog__buttons)}>
                   <button
                     type="button"

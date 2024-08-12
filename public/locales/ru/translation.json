@@ -32,7 +32,7 @@
   "Qorong‘i": "Темный",
   "Fullscreen": "Полноэкранный",
   "Bilet raqami": "Номер билета",
-  "Xona raqami": "комнаты",
+  "Xona raqami": "Номер комнаты ",
   "January": "Январь",
   "February": "Февраль",
   "March": "Март",
@@ -150,5 +150,7 @@
   "Ushbu Monitorga reklama biriktirish o'chirilgan!": "На этом мониторе отключено вложение рекламы!",
   "Timizga muvaffaqqiyatli kirdingiz": "Вы успешно вошли в нашу систему",
   "The_doctor_changes": "Врач меняется",
-  "current_queues": "Текущие очереди"
+  "current_queues": "Текущие очереди",
+  "select_doctor": "Выбрать врача",
+  "end_work": "Выберите время отправления"
 }

@@ -1,25 +1,20 @@
-.QueueUserDoctorWrapper {
-  // max-width: 273px;
+.QueueUserDoctorWrp {
   width: 100%;
   height: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-direction: column;
   background-color: #fff;
-  display: inline-block;
-  border: 2px solid black;
+  border: 1px solid black;
+  margin-right: 12px;
 
-  .QueuesLine {
-    font-size: 40px;
-    font-weight: 700;
-    font-family: sans-serif;
-  }
-
-  .QueuesListTitle {
+  &__queuesListTitle {
     width: 100%;
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid black;
-
-    
 
     p {
       color: #000;
@@ -40,34 +35,29 @@
 
   .QueuesNumber {
     display: flex;
+    text-align: center;
     align-items: center;
-    justify-content: space-around;
+    letter-spacing: 0.25%;
+    flex-direction: column;
+    gap: 5px;
 
-    .ticketNumber {
-      border-right: 1px solid #000;
-    }
-
-    .roomNumber {
+    &--paragraph {
+      width: 100%;
+      color: #000;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 20px;
       text-align: center;
     }
 
-    p {
-      padding: 25px 3px;
+    &--ticket {
       width: 100%;
       color: #000;
-      font-size: 24px;
+      font-size: 32px;
       font-weight: 700;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: 0.085px;
+      line-height: 37px;
+      margin-bottom: 5px;
       font-family: sans-serif;
-    }
-
-    img {
-      width: 34px;
-      height: 34px;
-      display: block;
-      flex-shrink: 0;
     }
   }
 }

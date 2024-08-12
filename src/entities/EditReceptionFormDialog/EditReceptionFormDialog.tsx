@@ -1,3 +1,4 @@
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
 import React, {
   ChangeEvent,
   useContext,
@@ -20,11 +21,18 @@ import {
   IconButton,
   OutlinedInput,
   InputAdornment,
+  Autocomplete,
+  Checkbox,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
 } from '@mui/material';
 
 import Input from 'react-phone-number-input/input';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { useSelector } from 'react-redux';
 import cls from './EditReceptionFormDialog.module.scss';
 
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -36,12 +44,15 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
 import { baseUrl } from '../../../baseurl';
+
 import {
   ApiResponseDoctorDataType,
   DoctorEditDataSchema,
 } from './editReceptionFormDialogTypes';
 import { fetchAllReceptions } from '../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import instance from '@/shared/lib/axios/api';
+import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -56,10 +67,20 @@ interface EditReceptionFormDialogProps {
   receptionId: string;
 }
 
+interface Roomtype {
+  name: string;
+  id: string;
+}
+
 const EditReceptionFormDialog = ({
   receptionId,
 }: EditReceptionFormDialogProps) => {
   const { t } = useTranslation();
+
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+
+  const allRoomsData = useSelector(getAllRoomsData);
 
   const dispatch = useAppDispatch();
 
@@ -77,6 +98,11 @@ const EditReceptionFormDialog = ({
     editReceptionFormDialogIsLoading,
     setEditReceptionFormDialogIsLoading,
   ] = useState(false);
+
+  const [asosiyArr, setAsosiyArr] = useState<Roomtype[]>([
+    { name: '', id: '' },
+  ]);
+  const [rooms, setRooms] = useState<string[]>([]);
 
   /* img input value */
   const inputProfileImgRef = useRef<HTMLInputElement>(null);
@@ -144,6 +170,16 @@ const EditReceptionFormDialog = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (allRoomsData) {
+      const optionsArray = allRoomsData!.map((item: any) => ({
+        name: item.name,
+        id: item.id,
+      }));
+      setAsosiyArr(optionsArray);
+    }
+  }, [allRoomsData]);
+
   /* ImgProfileFile */
   const handleImgProfileFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -210,6 +246,17 @@ const EditReceptionFormDialog = ({
     }));
   };
 
+  const handleChange = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: any[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<any> | undefined,
+  ) => {
+    const newValue = value?.map((option) => option.name);
+
+    setRooms(value.map((item) => item.id));
+  };
+
   // eslint-disable-next-line consistent-return
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -240,7 +287,8 @@ const EditReceptionFormDialog = ({
         'login',
         `${PhoneNumber.split('+998')[1].replace(/\s/g, '')}`,
       );
-
+      // @ts-ignore
+      dataForm.append('rooms', rooms);
       if (Password) {
         dataForm.append('password', `${Password}`);
       }
@@ -248,16 +296,9 @@ const EditReceptionFormDialog = ({
 
     if (FullName && Experience && PhoneNumber) {
       try {
-        const response = await axios.patch(
+        const response = await instance.patch(
           `${baseUrl}/users/${receptionId}`,
           dataForm,
-          {
-            maxBodyLength: Infinity,
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: `Bearer ${token}`,
-            },
-          },
         );
 
         if (response.data) {
@@ -381,6 +422,44 @@ const EditReceptionFormDialog = ({
                   inputProps={{ min: 1, maxLength: 30 }}
                   value={receptionCurrentData?.data?.name}
                   onChange={handleChangeName}
+                />
+
+                <Autocomplete
+                  multiple
+                  options={asosiyArr}
+                  disableCloseOnSelect
+                  onChange={handleChange}
+                  id="checkboxes-tags-demo"
+                  getOptionLabel={(option) => option.name}
+                  className={cls.AddRoomForMonitorOPtionsWrp}
+                  renderOption={(
+                    props,
+                    option: { name: string },
+                    { selected },
+                  ) => (
+                    <li {...props}>
+                      <Checkbox
+                        icon={icon}
+                        checked={selected}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                      />
+                      {option.name} - xona
+                    </li>
+                  )}
+                  style={{
+                    width: '100%',
+                    marginBottom: '20px',
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('Xonalar')}
+                      style={{ cursor: 'pointer' }}
+                      placeholder={`${t('Xonani tanlang')}...`}
+                      // required={!(personId.length > 0)}
+                    />
+                  )}
                 />
                 <TextField
                   required

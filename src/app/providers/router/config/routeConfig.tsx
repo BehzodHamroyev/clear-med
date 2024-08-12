@@ -133,6 +133,7 @@ export const routeConfigForAdmin: Record<
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
     element: <QueuesPage />,
+    // element: <QueuesPageFullScreen />,
   },
 
   // setting
@@ -264,6 +265,7 @@ export const routeConfigForMonitor: Record<
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
     element: <QueuesPage />,
+    // element: <QueuesPageFullScreen />,
   },
 
   // setting
