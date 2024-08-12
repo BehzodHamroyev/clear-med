@@ -7,20 +7,22 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './QueuingTvCard.module.scss';
 import { baseUrl } from '../../../../baseurl';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
-import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
-import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
+
+import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
-import { useLasQueueActions } from '@/pages/QueuingTV';
-import { Loader } from '@/widgets/Loader';
+import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
+
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
+import { Loader } from '@/widgets/Loader';
+
+import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import { isLoading, error } from '@/entities/FileUploader';
 
@@ -29,7 +31,7 @@ interface CreateOrder {
   room_id: string;
 }
 
-const QueuingTvCard = ({
+export const QueuingTvCard = ({
   icon,
   DoctorId,
   CardLeftTitle,
@@ -116,10 +118,6 @@ const QueuingTvCard = ({
           doctorId: DoctorId,
         }),
       ).then((res) => {
-        console.log('====================================');
-        console.log(res.payload); // Make sure this contains the expected data
-        console.log('====================================');
-
         // If res.payload contains the expected data, pass it to createQueueFunc
         createQueueFunc({
           // @ts-ignore
@@ -180,5 +178,3 @@ const QueuingTvCard = ({
     </div>
   );
 };
-
-export default QueuingTvCard;

@@ -1,1 +1,1 @@
-export { default as QueuingTvCard } from './ui/QueuingTvCard';
+export { QueuingTvCard } from './ui/QueuingTvCard';
