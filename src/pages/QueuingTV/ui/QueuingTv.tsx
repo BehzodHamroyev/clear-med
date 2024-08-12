@@ -8,10 +8,8 @@ import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import QueuingTvCard from '@/entities/QueuingTvCard/ui/QueuingTvCard';
 import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import QueuingTvCardPopapSecond from '@/shared/ui/QueuingTvCard/QueuingTvCardPopapSecond/ui/QueuingTvCardPopapSecond';
 
 import {
   getDeparmentListData,
@@ -30,8 +28,10 @@ import {
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
+import { QueuingTvCard } from '@/entities/QueuingTvCard';
+// import { QueuingTvCard } from '@/entities/QueuingTvCard';
 
-const QueuingTv = () => {
+export const QueuingTv = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -69,16 +69,6 @@ const QueuingTv = () => {
           ))}
       </div>
 
-      {isOpenQueuingTvCardPopapSecond &&
-        !lastQueueIsLoading &&
-        !lastQueueError &&
-        lastQueue?.pagination && (
-          <QueuingTvCardPopapSecond
-            roomNumber={String(lastQueue?.room?.name)}
-            ticketNumber={lastQueue?.pagination}
-          />
-        )}
-
       {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
       {(deparmentListError || currentQueueError || lastQueueError) && (
         <ErrorDialog isErrorProps={!false} />
@@ -86,5 +76,3 @@ const QueuingTv = () => {
     </div>
   );
 };
-
-export default QueuingTv;
