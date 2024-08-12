@@ -23,6 +23,7 @@ import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAl
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { getInfoProject } from '@/entities/FileUploader';
+import { baseUrlImgLogo } from '../../../../baseurl';
 
 const MonitorsDetail = () => {
   const paramIdUrl: { id?: string } = useParams();
@@ -30,8 +31,6 @@ const MonitorsDetail = () => {
   const dispatch = useAppDispatch();
 
   const infoProject = useSelector(getInfoProject);
-
-  const imgLink: string = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
 
   const videoUrl: string[] = [];
 
@@ -107,7 +106,11 @@ const MonitorsDetail = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img src={imgLink} alt="imgLink" className={cls.NavbarLogo} />
+            <img
+              src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
+              alt="imgLink"
+              className={cls.NavbarLogo}
+            />
 
             <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
           </div>

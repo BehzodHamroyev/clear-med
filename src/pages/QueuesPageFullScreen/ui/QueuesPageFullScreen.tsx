@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUrl, baseUrlUpload } from '../../../../baseurl';
+import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -52,8 +52,6 @@ const QueuesPageFullScreen = () => {
       videoUrl?.push(item.link);
     });
   }
-
-  const imgLink: string = `${baseUrlUpload}/${infoProject?.[0]?.logo}`;
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -118,7 +116,11 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img src={imgLink} className={cls.logo} alt="#" />
+            <img
+              src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
+              className={cls.logo}
+              alt="#"
+            />
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>

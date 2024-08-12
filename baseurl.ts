@@ -6,4 +6,6 @@ export const baseUrl = 'https://socketmed.magicsoft.uz//api/v1';
 
 // export const baseUrl = 'http://socketmed.magicsoft.uz//api/v1';
 
+export const baseUrlImgLogo = 'http://socketmed.magicsoft.uz/';
+
 export const baseUrlUpload = 'https://socketmed.magicsoft.uz/';

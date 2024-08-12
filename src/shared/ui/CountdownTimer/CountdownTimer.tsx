@@ -1,35 +1,50 @@
 import React, { useState, useEffect } from 'react';
-
 import cls from './CountdownTimer.module.scss';
 
-const CountdownTimer = () => {
-  // Boshlang'ich vaqtni soniyalar sifatida belgilash (59 minut va 59 soniya = 3599 soniya)
-  const [timeLeft, setTimeLeft] = useState(3599);
+const CountdownTimer = ({ actives, onTimeUp }: any) => {
+  const tillTimeUTC = new Date(actives[0].tillTime);
+  const tillTimeUzbekistan = new Date(
+    tillTimeUTC.getTime() + 1 * 60 * 60 * 1000, // O'zbekiston UTC+5
+  );
+
+  const oneHourBefore = new Date(tillTimeUzbekistan.getTime() - 60 * 60 * 1000);
+  const now = new Date();
+
+  const timeDifferenceInSeconds = Math.max(
+    Math.floor((oneHourBefore.getTime() - now.getTime()) / 1000),
+    0,
+  );
+
+  const [timeLeft, setTimeLeft] = useState(timeDifferenceInSeconds);
 
   useEffect(() => {
-    // Vaqtni yangilash uchun interval funksiyasi
+    if (timeLeft <= 0) {
+      onTimeUp();
+      return;
+    }
+
     const intervalId = setInterval(() => {
       setTimeLeft((prevTime) => {
-        // Vaqt nolga yetganda to'xtatish
-        if (prevTime <= 1) {
+        const newTime = prevTime - 1;
+        if (newTime <= 0) {
           clearInterval(intervalId);
+          onTimeUp();
           return 0;
         }
-        return prevTime - 1;
+        return newTime;
       });
     }, 1000);
 
-    // Intervalni tozalash
+    // eslint-disable-next-line consistent-return
     return () => clearInterval(intervalId);
-  }, []);
+  }, [timeLeft, onTimeUp]);
 
-  // Qolgan vaqtni minut va sekundlarga ajratish
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const seconds = String(timeLeft % 60).padStart(2, '0');
 
   return (
     <p className={cls.CountdownTimer}>
-      -{minutes}:{seconds}
+      {minutes}:{seconds}
     </p>
   );
 };
