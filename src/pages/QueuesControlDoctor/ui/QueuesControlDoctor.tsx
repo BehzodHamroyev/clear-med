@@ -26,7 +26,6 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import {
   getQueuesControlDoctorData,
   getQueuesControlDoctorError,
-  getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import {
@@ -59,11 +58,12 @@ const QueuesControlDoctor = () => {
   const [doctors, setDoctors] = useState<DoctorId[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
+  const [timeCheckInterval, setTimeCheckInterval] =
+    useState<NodeJS.Timeout | null>(null);
 
   const { t } = useTranslation();
 
   const queuesList = useSelector(getQueuesControlDoctorData);
-  const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
   const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
@@ -73,6 +73,7 @@ const QueuesControlDoctor = () => {
 
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
   const buttonsContext = useContext(ButtonsContext);
+  const [delayActive, setDelayActive] = useState(false);
 
   const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
   const proccessError = useSelector(getControlPanelDocktorError);
@@ -123,12 +124,34 @@ const QueuesControlDoctor = () => {
     }
   };
 
+  const handleChange = (event: SelectChangeEvent) => {
+    setSelectedDoctor(event.target.value);
+  };
+
+  const checkTimeMatch = () => {
+    if (delayActive) return; // Skip check if delay is active
+
+    const now = dayjs();
+
+    const selectedTimeFormatted = selectedTime?.format('YYYY-MM-DD HH:mm:ss');
+    const nowFormatted = now.format('YYYY-MM-DD HH:mm:ss');
+
+    if (
+      selectedTimeFormatted === nowFormatted ||
+      selectedTimeFormatted! < nowFormatted
+    ) {
+      alert('Ishlash vaqtingizni kiriting');
+    }
+  };
+
   useEffect(() => {
     dispatch(
       fetchQueuesControlDoctor({
         status: 'pending',
       }),
     );
+    checkTimeMatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
@@ -160,9 +183,19 @@ const QueuesControlDoctor = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedDoctor(event.target.value);
-  };
+  useEffect(() => {
+    // Set up a time check every 5 minutes (300,000 ms)
+    const intervalId = setInterval(checkTimeMatch, 60000); // 300000 ms = 5 minutes
+    setTimeCheckInterval(intervalId);
+
+    // Clean up interval on component unmount
+    return () => {
+      if (timeCheckInterval) {
+        clearInterval(timeCheckInterval);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delayActive]);
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
