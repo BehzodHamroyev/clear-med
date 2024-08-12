@@ -54,7 +54,6 @@ import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
 import { AddReceptionPage } from '@/pages/AddReceptionPage';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueuesPage from '@/pages/QueuesPage/ui/QueuesPage';
-import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -265,8 +264,8 @@ export const routeConfigForMonitor: Record<
 
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
-    // element: <QueuesPage />,
-    element: <QueuesPageFullScreen />,
+    element: <QueuesPage />,
+    // element: <QueuesPageFullScreen />,
   },
 
   // setting

@@ -1,6 +1,8 @@
 export { getLastQueueData } from './model/selectors/lastQueueSelector';
 
-export { default as QueuingTv } from './ui/QueuingTv';
+export { QueuingTv } from './ui/QueuingTv';
+
+export { fetchDepartmentList } from './model/services/fetchDepartmentList';
 
 export {
   lastQueueReducer,

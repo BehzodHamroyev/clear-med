@@ -7,20 +7,22 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './QueuingTvCard.module.scss';
 import { baseUrl } from '../../../../baseurl';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
-import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
-import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
+
+import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
-import { useLasQueueActions } from '@/pages/QueuingTV';
-import { Loader } from '@/widgets/Loader';
+import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
+
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
+import { Loader } from '@/widgets/Loader';
+
+import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import { isLoading, error } from '@/entities/FileUploader';
 
@@ -29,9 +31,11 @@ interface CreateOrder {
   room_id: string;
 }
 
-const QueuingTvCard = ({
+export const QueuingTvCard = ({
   icon,
+  actives,
   DoctorId,
+  proceedCount,
   CardLeftTitle,
   CardLeftRoomNumber,
   CardLeftDoctorName,
@@ -45,8 +49,9 @@ const QueuingTvCard = ({
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
 
-  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+  const [showTimer, setShowTimer] = useState(true);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
+  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: lastQueue?.room?.name,
     createTicketNumber: lastQueue?.pagination,
@@ -116,7 +121,6 @@ const QueuingTvCard = ({
           doctorId: DoctorId,
         }),
       ).then((res) => {
-        // If res.payload contains the expected data, pass it to createQueueFunc
         createQueueFunc({
           // @ts-ignore
           department_id: res.payload.room.department_id,
@@ -126,14 +130,12 @@ const QueuingTvCard = ({
       });
     }
   };
+  const handleTimeUp = () => {
+    setShowTimer(false);
+  };
 
   return (
-    <div
-      onClick={(e) => {
-        hendleClickQuingTvCard(e);
-      }}
-      className={cls.QueuingTvCardWrapper}
-    >
+    <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
 
@@ -143,13 +145,18 @@ const QueuingTvCard = ({
 
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
 
-        <div className={cls.CardLeftDoctorName}>
-          {t('The_doctor_changes')} : <CountdownTimer />
-        </div>
+        {actives.length > 0 && showTimer && (
+          <div className={cls.CardLeftDoctorName}>
+            {t('The_doctor_changes')} :{' '}
+            <CountdownTimer actives={actives} onTimeUp={handleTimeUp} />
+          </div>
+        )}
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>
-        <p className={cls.CardLeftDoctorName}>{t('current_queues')}: 12</p>
+        <p className={cls.CardLeftDoctorName}>
+          {t('current_queues')}: {proceedCount || 0}
+        </p>
 
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
@@ -162,9 +169,9 @@ const QueuingTvCard = ({
         <QueuingPrintCard
           ref={componentRef}
           roomNumber={String(lastQueue?.room?.name)}
-          ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
           doctor_name={lastQueue?.room.doctor_id[0].name!}
           deparment_name={lastQueue?.room.department_id.name}
+          ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
         />
       </div>
 
@@ -176,5 +183,3 @@ const QueuingTvCard = ({
     </div>
   );
 };
-
-export default QueuingTvCard;

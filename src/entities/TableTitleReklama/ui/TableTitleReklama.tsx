@@ -28,8 +28,6 @@ const TableTitleReklama = (props: TableInfo) => {
   const [idAds, setIdAds] = useState('');
   const connectionId = useSelector(connectionIdOfAds);
 
-  console.log(Tabletbody, 'salom yigitcha');
-
   const { id } = useParams();
   const url = `/add_monitor/${id}/advertisement_attachment_monitor`;
 

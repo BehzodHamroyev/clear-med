@@ -3,12 +3,17 @@ import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { baseUrlImgLogo } from '../../../../baseurl';
 import cls from './EditLanguageModal.module.scss';
+
 import { getInfoProject } from '@/entities/FileUploader';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { EngIcon, RuIcon, UzIcon } from '@/shared/assets/Pages/Settings';
+import { fetchDepartmentList } from '@/pages/QueuingTV';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const EditLanguageModal = () => {
+  const dispatch = useAppDispatch();
   const infoProject = useSelector(getInfoProject);
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
@@ -19,12 +24,14 @@ const EditLanguageModal = () => {
     i18n.changeLanguage(lang);
   };
 
-  const imgLink: string = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
+  const handleClick = () => {
+    dispatch(fetchDepartmentList({ limit: 'all' }));
+  };
 
   return (
     <div className={cls.EditLanguageModalWrp}>
       <img
-        src={imgLink}
+        src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
         alt="imgLink"
         className={cls.EditLanguageModalWrp__logo}
       />
@@ -35,6 +42,7 @@ const EditLanguageModal = () => {
           onClick={() => {
             toggle('uz');
             setIsvisableLanguageModal(false);
+            handleClick();
           }}
         >
           <img
@@ -50,6 +58,7 @@ const EditLanguageModal = () => {
           onClick={() => {
             toggle('ru');
             setIsvisableLanguageModal(false);
+            handleClick();
           }}
         >
           <img
@@ -65,6 +74,7 @@ const EditLanguageModal = () => {
           onClick={() => {
             toggle('eng');
             setIsvisableLanguageModal(false);
+            handleClick();
           }}
         >
           <img

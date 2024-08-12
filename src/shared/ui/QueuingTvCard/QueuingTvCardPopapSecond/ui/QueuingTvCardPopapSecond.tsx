@@ -11,7 +11,7 @@ import { Loader } from '@/widgets/Loader';
 import cls from './QueuingTvCard.module.scss';
 import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
-import { QueuingTvCardPopapType } from './QueuingPopupType';
+
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
@@ -26,10 +26,7 @@ import {
 } from '@/entities/FileUploader';
 // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 
-const QueuingTvCardPopapSecond = ({
-  roomNumber,
-  ticketNumber,
-}: QueuingTvCardPopapType) => {
+const QueuingTvCardPopapSecond = ({ roomNumber, ticketNumber }: any) => {
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [printRoomInfo, setPrintRoomInfo] = useState({
@@ -46,8 +43,6 @@ const QueuingTvCardPopapSecond = ({
   const lastQueue = useSelector(getLastQueueData);
   const infoProject = useSelector(getInfoProject);
   const infoProjectIsLoader = useSelector(isLoading);
-
-  const imgLink = `http://socketmed.magicsoft.uz//${infoProject?.[0]?.logo}`;
 
   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
