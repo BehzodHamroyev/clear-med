@@ -171,7 +171,7 @@ const QueuingTvCardPopapSecond = ({
           >
             {lastQueue?.data?.doctor_id
               ? lastQueue?.data?.doctor_id?.name
-              : lastQueue?.room?.doctor_id?.name}
+              : lastQueue?.room?.doctor_id[0].name}
           </p>
         </div>
 
