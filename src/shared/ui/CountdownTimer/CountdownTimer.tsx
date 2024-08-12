@@ -24,12 +24,12 @@ const CountdownTimer = () => {
   }, []);
 
   // Qolgan vaqtni minut va sekundlarga ajratish
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const seconds = String(timeLeft % 60).padStart(2, '0');
 
   return (
     <p className={cls.CountdownTimer}>
-      -{minutes}:{seconds}
+      {minutes}:{seconds}{' '}
     </p>
   );
 };

@@ -24,7 +24,7 @@ import {
   getInfoProject,
   getAllDataProject,
 } from '@/entities/FileUploader';
-import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
+// import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 
 const QueuingTvCardPopapSecond = ({
   roomNumber,
@@ -116,100 +116,100 @@ const QueuingTvCardPopapSecond = ({
     dispatch(getAllDataProject({}));
   }, [dispatch]);
 
-  const PrintRef = () => {
-    return (
-      <div
-        ref={printableDivRef}
-        className={
-          cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTvPrintCard']
-        }
-      >
-        <img
-          src={imgLink}
-          alt="imgLink"
-          className={
-            cls['QueuingTvCardPopapSecondWrp__queuingPopap--printQueuePageImg']
-          }
-        />
+  // const PrintRef = () => {
+  //   return (
+  //     <div
+  //       ref={printableDivRef}
+  //       className={
+  //         cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTvPrintCard']
+  //       }
+  //     >
+  //       <img
+  //         src={imgLink}
+  //         alt="imgLink"
+  //         className={
+  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--printQueuePageImg']
+  //         }
+  //       />
 
-        <div
-          className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--queueBox']}
-        >
-          <QueueUserDoctor
-            roomNumber={printRoomInfo.createRoomNumber}
-            ticketNumber={printRoomInfo.createTicketNumber}
-          />
-        </div>
+  //       <div
+  //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--queueBox']}
+  //       >
+  //         <QueueUserDoctor
+  //           roomNumber={printRoomInfo.createRoomNumber}
+  //           ticketNumber={printRoomInfo.createTicketNumber}
+  //         />
+  //       </div>
 
-        <div
-          className={
-            cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-          }
-        >
-          <p>Бўлим:</p>
+  //       <div
+  //         className={
+  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+  //         }
+  //       >
+  //         <p>Бўлим:</p>
 
-          <p>
-            {lastQueue?.data?.department_id
-              ? lastQueue?.data?.department_id?.name
-              : lastQueue?.room?.department_id?.name}
-          </p>
-        </div>
+  //         <p>
+  //           {lastQueue?.data?.department_id
+  //             ? lastQueue?.data?.department_id?.name
+  //             : lastQueue?.room?.department_id?.name}
+  //         </p>
+  //       </div>
 
-        <div
-          className={
-            cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-          }
-        >
-          <p>Шифокор:</p>
+  //       <div
+  //         className={
+  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+  //         }
+  //       >
+  //         <p>Шифокор:</p>
 
-          <p
-            className={
-              cls[
-                'QueuingTvCardPopapSecondWrp__queuingPopap--medicNameFullName'
-              ]
-            }
-          >
-            {lastQueue?.data?.doctor_id
-              ? lastQueue?.data?.doctor_id?.name
-              : lastQueue?.room?.doctor_id?.name}
-          </p>
-        </div>
+  //         <p
+  //           className={
+  //             cls[
+  //               'QueuingTvCardPopapSecondWrp__queuingPopap--medicNameFullName'
+  //             ]
+  //           }
+  //         >
+  //           {lastQueue?.data?.doctor_id
+  //             ? lastQueue?.data?.doctor_id?.name
+  //             : lastQueue?.room?.doctor_id?.name}
+  //         </p>
+  //       </div>
 
-        <div
-          className={
-            cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-          }
-        >
-          <p>Берилган вақт:</p>
+  //       <div
+  //         className={
+  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+  //         }
+  //       >
+  //         <p>Берилган вақт:</p>
 
-          <p
-            className={
-              cls['QueuingTvCardPopapSecondWrp__queuingPopap--dateGetQueue']
-            }
-          >
-            {new Date().getDate()}/
-            {new Date().getMonth() < 10
-              ? `0${new Date().getMonth() + 1}`
-              : new Date().getMonth() + 1}
-            /{new Date().getFullYear()} |{' '}
-            {new Date().getHours() < 10
-              ? `0${new Date().getHours()}`
-              : new Date().getHours()}
-            :
-            {new Date().getMinutes() < 10
-              ? `0${new Date().getMinutes()}`
-              : new Date().getMinutes()}
-          </p>
-        </div>
+  //         <p
+  //           className={
+  //             cls['QueuingTvCardPopapSecondWrp__queuingPopap--dateGetQueue']
+  //           }
+  //         >
+  //           {new Date().getDate()}/
+  //           {new Date().getMonth() < 10
+  //             ? `0${new Date().getMonth() + 1}`
+  //             : new Date().getMonth() + 1}
+  //           /{new Date().getFullYear()} |{' '}
+  //           {new Date().getHours() < 10
+  //             ? `0${new Date().getHours()}`
+  //             : new Date().getHours()}
+  //           :
+  //           {new Date().getMinutes() < 10
+  //             ? `0${new Date().getMinutes()}`
+  //             : new Date().getMinutes()}
+  //         </p>
+  //       </div>
 
-        <p
-          className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--message']}
-        >
-          Ташрифингиз учун раҳмат!
-        </p>
-      </div>
-    );
-  };
+  //       <p
+  //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--message']}
+  //       >
+  //         Ташрифингиз учун раҳмат!
+  //       </p>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className={cls.QueuingTvCardPopapSecondWrp}>
@@ -223,7 +223,7 @@ const QueuingTvCardPopapSecond = ({
             {t('Navbatni tasdiqlang')}
           </h3>
 
-          <PrintRef />
+          {/* <PrintRef /> */}
 
           <div
             className={

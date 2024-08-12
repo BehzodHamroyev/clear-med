@@ -86,6 +86,7 @@ const QueuingTvCard = ({
         handlePrint();
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
+        setIsvisableLanguageModal(true);
 
         setPrintRoomInfo({
           createRoomNumber: response.data?.room?.name,
@@ -100,7 +101,6 @@ const QueuingTvCard = ({
       setCreateQueueIsLoading(false);
       setCreateQueueIsError(true);
     }
-    setIsvisableLanguageModal(true);
   };
 
   const hendleClickQuingTvCard = (
@@ -116,10 +116,6 @@ const QueuingTvCard = ({
           doctorId: DoctorId,
         }),
       ).then((res) => {
-        console.log('====================================');
-        console.log(res.payload); // Make sure this contains the expected data
-        console.log('====================================');
-
         // If res.payload contains the expected data, pass it to createQueueFunc
         createQueueFunc({
           // @ts-ignore
