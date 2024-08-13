@@ -33,7 +33,9 @@ interface CreateOrder {
 
 export const QueuingTvCard = ({
   icon,
+  actives,
   DoctorId,
+  proceedCount,
   CardLeftTitle,
   CardLeftRoomNumber,
   CardLeftDoctorName,
@@ -47,8 +49,9 @@ export const QueuingTvCard = ({
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
 
-  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+  const [showTimer, setShowTimer] = useState(true);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
+  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: lastQueue?.room?.name,
     createTicketNumber: lastQueue?.pagination,
@@ -88,6 +91,7 @@ export const QueuingTvCard = ({
         handlePrint();
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
+        setIsvisableLanguageModal(true);
 
         setPrintRoomInfo({
           createRoomNumber: response.data?.room?.name,
@@ -102,7 +106,6 @@ export const QueuingTvCard = ({
       setCreateQueueIsLoading(false);
       setCreateQueueIsError(true);
     }
-    setIsvisableLanguageModal(true);
   };
 
   const hendleClickQuingTvCard = (
@@ -118,7 +121,6 @@ export const QueuingTvCard = ({
           doctorId: DoctorId,
         }),
       ).then((res) => {
-        // If res.payload contains the expected data, pass it to createQueueFunc
         createQueueFunc({
           // @ts-ignore
           department_id: res.payload.room.department_id,
@@ -128,14 +130,12 @@ export const QueuingTvCard = ({
       });
     }
   };
+  const handleTimeUp = () => {
+    setShowTimer(false);
+  };
 
   return (
-    <div
-      onClick={(e) => {
-        hendleClickQuingTvCard(e);
-      }}
-      className={cls.QueuingTvCardWrapper}
-    >
+    <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
 
@@ -145,13 +145,18 @@ export const QueuingTvCard = ({
 
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
 
-        <div className={cls.CardLeftDoctorName}>
-          {t('The_doctor_changes')} : <CountdownTimer />
-        </div>
+        {actives.length > 0 && showTimer && (
+          <div className={cls.CardLeftDoctorName}>
+            {t('The_doctor_changes')} :{' '}
+            <CountdownTimer actives={actives} onTimeUp={handleTimeUp} />
+          </div>
+        )}
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>
-        <p className={cls.CardLeftDoctorName}>{t('current_queues')}: 12</p>
+        <p className={cls.CardLeftDoctorName}>
+          {t('current_queues')}: {proceedCount || 0}
+        </p>
 
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
@@ -164,9 +169,9 @@ export const QueuingTvCard = ({
         <QueuingPrintCard
           ref={componentRef}
           roomNumber={String(lastQueue?.room?.name)}
-          ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
           doctor_name={lastQueue?.room.doctor_id[0].name!}
           deparment_name={lastQueue?.room.department_id.name}
+          ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
         />
       </div>
 

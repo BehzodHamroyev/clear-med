@@ -1,8 +1,11 @@
+/* eslint-disable import/no-duplicates */
+/* eslint-disable max-len */
 /* eslint-disable consistent-return */
 /* eslint-disable ulbi-tv-plugin/public-api-imports */
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
 import {
   Button,
   FormControl,
@@ -13,7 +16,7 @@ import {
 import dayjs, { Dayjs } from 'dayjs';
 import Cookies from 'js-cookie';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
-import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
+
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 import cls from './QueuesControlDoctor.module.scss';
 import {
@@ -26,13 +29,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import {
   getQueuesControlDoctorData,
   getQueuesControlDoctorError,
-  getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import {
-  getControlPanelDocktorError,
-  getControlPanelDocktorIsLoading,
-} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { Loader } from '@/widgets/Loader';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
 import {
@@ -44,11 +41,16 @@ import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitle
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
-import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
 import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
+import {
+  getControlPanelDocktorError,
+  getControlPanelDocktorIsLoading,
+} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
+import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -59,11 +61,11 @@ const QueuesControlDoctor = () => {
   const [doctors, setDoctors] = useState<DoctorId[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
+  const [delayActive, setDelayActive] = useState(false);
 
   const { t } = useTranslation();
 
   const queuesList = useSelector(getQueuesControlDoctorData);
-  const queuesListIsLoading = useSelector(getQueuesControlDoctorIsLoading);
   const queuesListError = useSelector(getQueuesControlDoctorError);
 
   const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
@@ -123,12 +125,33 @@ const QueuesControlDoctor = () => {
     }
   };
 
+  const handleChange = (event: SelectChangeEvent) => {
+    setSelectedDoctor(event.target.value);
+  };
+
+  const checkTimeMatch = () => {
+    if (delayActive) return; // Skip check if delay is active
+
+    const now = dayjs();
+    const selectedTimeMoment = selectedTime || dayjs(); // Handle case where selectedTime might be null
+
+    if (now.isSame(selectedTimeMoment) || now.isAfter(selectedTimeMoment)) {
+      alert('Ishlash vaqtingizni kiriting');
+      setDelayActive(true); // Activate delay after alert
+
+      setTimeout(() => {
+        setDelayActive(false); // Re-enable the check after 1 minute
+      }, 60000); // 60000 ms = 1 minute
+    }
+  };
+
   useEffect(() => {
     dispatch(
       fetchQueuesControlDoctor({
         status: 'pending',
       }),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
@@ -160,9 +183,12 @@ const QueuesControlDoctor = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedDoctor(event.target.value);
-  };
+  useEffect(() => {
+    const intervalId = setInterval(checkTimeMatch, 60000); // Check every 1 minute
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [delayActive, selectedTime]); // Add dependencies to restart interval if `delayActive` or `selectedTime` changes
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

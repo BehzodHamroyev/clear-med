@@ -5,4 +5,6 @@ export interface QueuingTvCardProps {
   CardLeftDoctorName?: string;
   icon?: any;
   time?: string;
+  proceedCount?: number;
+  actives: [];
 }
