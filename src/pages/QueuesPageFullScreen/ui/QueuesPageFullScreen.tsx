@@ -109,8 +109,6 @@ const QueuesPageFullScreen = () => {
     margin: '30px 50px',
   };
 
-  console.log(videoUrl, 'videoUrl');
-
   return (
     <FullScreen className={cls.MyComponentScreen} handle={handle}>
       <div className={cls.QueuesPage}>
