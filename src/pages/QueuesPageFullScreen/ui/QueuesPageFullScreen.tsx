@@ -64,8 +64,6 @@ const QueuesPageFullScreen = () => {
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
         if (!item.view && !found) {
-          console.log(item, 'item.mp3Arr?.[1]');
-
           setQueueDialogData({
             roomNumber: String(item.queues_name).match(/([A-Z])(\d+)-/)![2],
             biletNumber: String(item.queues_name),
