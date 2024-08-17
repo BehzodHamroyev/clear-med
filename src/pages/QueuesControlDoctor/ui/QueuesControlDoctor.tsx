@@ -35,7 +35,7 @@ import {
   getDoneQueuesControlDoctorError,
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
-import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+// import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import instance from '@/shared/lib/axios/api';
@@ -256,7 +256,7 @@ const QueuesControlDoctor = () => {
           </div>
         </div>
 
-        {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />}
+        {/* {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />} */}
       </div>
     </DynamicModuleLoader>
   );
