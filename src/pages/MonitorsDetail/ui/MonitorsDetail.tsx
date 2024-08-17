@@ -107,7 +107,7 @@ const MonitorsDetail = () => {
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
             <img
-              src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
+              src={baseUrlImgLogo}
               alt="imgLink"
               className={cls.NavbarLogo}
             />
