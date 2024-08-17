@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
@@ -55,6 +56,8 @@ const QueueDialog = ({
     audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
     audioPlayer.addEventListener('ended', handleAudioEnd);
 
+    console.log(`${baseUrlUpload}${Mp3Array[1]}`, 'Mp3Array');
+
     return () => {
       audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
       audioPlayer.removeEventListener('ended', handleAudioEnd);
@@ -68,6 +71,8 @@ const QueueDialog = ({
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  console.log(roomNumber, 'roomNumber');
 
   return (
     <div>
@@ -112,7 +117,6 @@ const QueueDialog = ({
       </div>
 
       <ReactAudioPlayer
-        // src="http://socketmed.magicsoft.uz//uploads/callRingtone.mp3"
         src="https://medapi.magicsoft.uz/uploads/callRingtone.mp3"
         autoPlay
         controls
