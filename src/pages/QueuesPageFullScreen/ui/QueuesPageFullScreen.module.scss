@@ -134,6 +134,9 @@
       color: #dde6ed;
       background: #27374d;
     }
+    &__itemBiletNumber {
+      width: 150px !important;
+    }
   }
 }
 
@@ -376,7 +379,7 @@
         margin-bottom: 5px;
 
         p {
-          font-size: 22px;
+          font-size: 24px;
         }
       }
 
@@ -387,7 +390,7 @@
       &__item {
         height: fit-content;
         gap: 10px;
-        font-size: 28px;
+        font-size: 24px;
       }
 
       &__itemDepartmentName {
@@ -452,7 +455,7 @@
       &__item {
         height: 80px;
         gap: 10px;
-        font-size: 32px;
+        font-size: 24px;
       }
 
       &__itemDepartmentName {
@@ -481,7 +484,7 @@
   text-align: center;
   color: #dde6ed;
   background: #27374d;
-  font-size: 32px;
+  font-size: 24px;
   padding: 12px 0;
 }
 
