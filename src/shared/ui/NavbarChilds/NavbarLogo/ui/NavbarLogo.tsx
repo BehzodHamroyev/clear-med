@@ -16,8 +16,9 @@ const NavbarLogo = () => {
   return (
     <Link to="/" className={cls.NavbarLogoWrapper}>
       <img
-        src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
+        // src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
         alt="imgLink"
+        src={baseUrlImgLogo}
         className={cls.NavbarLogo}
       />
 

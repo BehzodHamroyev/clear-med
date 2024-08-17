@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-// import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import ReactPlayer from 'react-player';
+import { Button } from '@mui/material';
 import cls from './QueuesPage.module.scss';
-// import medLogo from '../../../../public/assets/medLogo.png';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-// import { classNames } from '@/shared/lib/classNames/classNames';
 import { QueuesPageFullScreen } from '@/pages/QueuesPageFullScreen';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -20,7 +18,7 @@ import {
 import { classNames } from '@/shared/lib/classNames/classNames';
 // import { Logo } from '@/shared/assets/Logo';
 
-const QueuesPage = () => {
+const QueuesPage: React.FC = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -54,13 +52,15 @@ const QueuesPage = () => {
 
   return (
     <>
-      <button
+      <Button
         type="button"
+        variant="contained"
         className={cls.FullScreenBtn}
-        onClick={handleClickedFullScreen}
+        onClick={() => handleClickedFullScreen()}
+        style={{ display: 'block', margin: '10px auto' }}
       >
         {t('Fullscreen')}
-      </button>
+      </Button>
 
       <FullScreen className={cls.MyComponentScreen} handle={handle}>
         {handle.active ? (

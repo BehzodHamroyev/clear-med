@@ -31,7 +31,7 @@ const EditLanguageModal = () => {
   return (
     <div className={cls.EditLanguageModalWrp}>
       <img
-        src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
+        src={baseUrlImgLogo}
         alt="imgLink"
         className={cls.EditLanguageModalWrp__logo}
       />

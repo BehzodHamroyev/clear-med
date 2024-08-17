@@ -132,11 +132,7 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img
-              src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
-              className={cls.logo}
-              alt="#"
-            />
+            <img src={baseUrlImgLogo} className={cls.logo} alt="#" />
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
