@@ -3,7 +3,6 @@ import { memo, ReactElement, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useFullScreenHandle } from 'react-full-screen';
 
 import cls from './MainLayout.module.scss';
 import { Sidebar } from '@/widgets/Sidebar';
@@ -16,6 +15,8 @@ import { EditLanguageModal } from '@/entities/EditLanguageModal';
 import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import QueuesPageFullScreen from '@/pages/QueuesPageFullScreen/ui/QueuesPageFullScreen';
 
 interface MainLayoutProps {
   className?: string;
@@ -30,17 +31,11 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
   const { t } = useTranslation();
 
-  const handle = useFullScreenHandle();
-
   const location = useLocation();
 
   const loginData = useSelector(getAuthUserData);
 
   const authUserDataIsLoading = useSelector(getAuthUserIsLoading);
-
-  if (loginData?.role === 'monitor') {
-    handle.enter();
-  }
 
   const {
     hasOpenToast,
@@ -58,6 +53,10 @@ export const MainLayout = memo((props: MainLayoutProps) => {
       }, 5000);
     }
   }, [isLoginForHasToast, setIsLoginForHasToast]);
+
+  if (loginData?.role === 'monitor') {
+    return <QueuesPageFullScreen />;
+  }
 
   return (
     <div>
@@ -97,35 +96,3 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     </div>
   );
 });
-
-// const [isConnected, setIsConnected] = useState(socket.connected);
-
-// useEffect(() => {
-//   function onConnect() {
-//     setIsConnected(true);
-//   }
-
-//   function onDisconnect() {
-//     setIsConnected(false);
-//   }
-
-//   if (authUserData) {
-//     socket.on('connect', onConnect);
-//     socket.on('disconnect', onDisconnect);
-//   }
-
-//   if (!isConnected && authUserData) {
-//     socket.connect();
-//   }
-
-//   return () => {
-//     socket.off('connect', onConnect);
-//     socket.off('disconnect', onDisconnect);
-//   };
-// }, [authUserData, isConnected]);
-
-// useEffect(() => {
-//   if (authUserData) {
-//     socket.emit('addUser', authUserData.id);
-//   }
-// }, [authUserData]);
