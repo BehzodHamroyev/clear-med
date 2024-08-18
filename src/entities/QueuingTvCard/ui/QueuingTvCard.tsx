@@ -6,7 +6,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useReactToPrint } from 'react-to-print';
+// import { useReactToPrint } from 'react-to-print';
+
+import { ipcRenderer } from 'electron';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './QueuingTvCard.module.scss';
@@ -62,9 +64,15 @@ export const QueuingTvCard = ({
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
+
+  const handlePrint = () => {
+    if (componentRef.current) {
+      ipcRenderer.send('print', componentRef.current.innerHTML);
+    }
+  };
 
   const createQueueFunc = async (prop: CreateOrder) => {
     const { room_id, department_id } = prop;
