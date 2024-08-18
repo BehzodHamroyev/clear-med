@@ -10,6 +10,10 @@ declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
 declare module 'js-cookie';
+declare module '*.mov' {
+  const src: string;
+  export default src;
+}
 declare module '*.svg' {
   import React from 'react';
 

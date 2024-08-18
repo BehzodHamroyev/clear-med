@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: [{ find: '@', replacement: '/src' }],
   },
+  assetsInclude: ['**/*.mov'],
   define: {
     __IS_DEV__: JSON.stringify(true),
 
