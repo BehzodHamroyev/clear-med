@@ -1,11 +1,11 @@
-/* eslint-disable import/no-duplicates */
-/* eslint-disable max-len */
 /* eslint-disable consistent-return */
-/* eslint-disable ulbi-tv-plugin/public-api-imports */
+/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
+import dayjs, { Dayjs } from 'dayjs';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 import {
   Button,
   FormControl,
@@ -13,10 +13,8 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
-import Cookies from 'js-cookie';
-import { ButtonNavbar } from '@/entities/ButtonNavbar';
 
+import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
 import cls from './QueuesControlDoctor.module.scss';
 import {
@@ -30,7 +28,6 @@ import {
   getQueuesControlDoctorData,
   getQueuesControlDoctorError,
 } from '../model/selectors/queuesControlDoctorSelector';
-import { Loader } from '@/widgets/Loader';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
 import {
   getDoneQueuesControlDoctorData,
@@ -38,19 +35,16 @@ import {
   getDoneQueuesControlDoctorError,
 } from '../model/selectors/doneQueuesControlDoctorSelector';
 import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
-import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+// import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
 import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
-import {
-  getControlPanelDocktorError,
-  getControlPanelDocktorIsLoading,
-} from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -61,59 +55,46 @@ const QueuesControlDoctor = () => {
   const [doctors, setDoctors] = useState<DoctorId[]>([]);
   const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>('');
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
-  const [delayActive, setDelayActive] = useState(false);
-
   const { t } = useTranslation();
 
+  // Selectors for accessing Redux store state
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListError = useSelector(getQueuesControlDoctorError);
-
   const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
   const doneQueuesListIsLoading = useSelector(
     getDoneQueuesControlDoctorIsLoading,
   );
-
   const doneQueuesListError = useSelector(getDoneQueuesControlDoctorError);
   const buttonsContext = useContext(ButtonsContext);
-
-  const proccessIsLoading = useSelector(getControlPanelDocktorIsLoading);
-  const proccessError = useSelector(getControlPanelDocktorError);
   const authUserData = useSelector(getAuthUserData);
   const { setHasOpenToast, setToastDataForAddRoomForm } =
     useContext(ButtonsContext);
 
+  // Function to handle doctor changes
   const handleDoctor = async () => {
     if (selectedDoctor && selectedTime) {
       try {
+        // Make API call to change the doctor
         const response = await instance.post<ChangeDoctorBackend>(
           `${baseUrl}/users/change`,
-          {
-            userId: selectedDoctor,
-            tillTime: selectedTime,
-          },
+          { userId: selectedDoctor, tillTime: selectedTime },
         );
 
         if (response.data) {
-          dispatch(
-            fetchAuthUser({
-              refresh: true,
-              buttonsContext,
-            }),
-          );
+          // Update auth user and token
+          dispatch(fetchAuthUser({ refresh: true, buttonsContext }));
           Cookies.set('token', response.data.data.tokens);
           setHasOpenToast(true);
-
           setToastDataForAddRoomForm({
             toastMessageForAddRoomForm: t("Shifokor O'zgartirildi"),
             toastSeverityForAddRoomForm: 'success',
           });
-        }
-        if (!response.data) {
+        } else {
           throw new Error();
         }
-
         return response.data;
       } catch (e) {
+        // Handle errors and show appropriate toast message
         setToastDataForAddRoomForm({
           toastMessageForAddRoomForm: t(
             "Shifokorni o'zgartirishda xatolik sodir bo'ldi",
@@ -125,35 +106,37 @@ const QueuesControlDoctor = () => {
     }
   };
 
+  // Function to handle changes in selected doctor
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedDoctor(event.target.value);
   };
 
+  // Function to check if the current time matches or exceeds the selected time
   const checkTimeMatch = () => {
-    if (delayActive) return; // Skip check if delay is active
+    const selectedTimeMoment = selectedTime || dayjs();
+    const givenDate = new Date(selectedTimeMoment.toDate());
+    const givenSeconds =
+      givenDate.getHours() * 3600 +
+      givenDate.getMinutes() * 60 +
+      givenDate.getSeconds();
 
-    const now = dayjs();
-    const selectedTimeMoment = selectedTime || dayjs(); // Handle case where selectedTime might be null
+    const now = new Date();
+    const currentSeconds =
+      now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
 
-    if (now.isSame(selectedTimeMoment) || now.isAfter(selectedTimeMoment)) {
-      alert('Ishlash vaqtingizni kiriting');
-      setDelayActive(true); // Activate delay after alert
-
-      setTimeout(() => {
-        setDelayActive(false); // Re-enable the check after 1 minute
-      }, 60000); // 60000 ms = 1 minute
+    if (currentSeconds >= givenSeconds && !selectedTime) {
+      toast.warn('Ishlash vaqtingizni kiriting');
+      console.log(selectedTimeMoment.format(), 'Time has matched.');
     }
   };
 
+  // useEffect to fetch queue data on mount
   useEffect(() => {
-    dispatch(
-      fetchQueuesControlDoctor({
-        status: 'pending',
-      }),
-    );
+    dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
+  // useEffect to set doctors and selected time when authUserData changes
   useEffect(() => {
     if (authUserData) {
       setDoctors(authUserData?.rooms?.[0]?.doctor_id);
@@ -163,32 +146,35 @@ const QueuesControlDoctor = () => {
     }
   }, [authUserData]);
 
+  // useEffect to fetch done queue data on mount
   useEffect(() => {
-    dispatch(
-      fetchDoneQueuesControlDoctor({
-        limit: 1000,
-      }),
-    );
+    dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
   }, [dispatch]);
 
+  // useEffect to set up interval for fetching queue data every second
   useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(
-        fetchQueuesControlDoctor({
-          status: 'pending',
-        }),
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
-
-  useEffect(() => {
-    const intervalId = setInterval(checkTimeMatch, 60000); // Check every 1 minute
+    const fetchInterval = setInterval(() => {
+      dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
+    }, 1000);
 
     // Clean up interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [delayActive, selectedTime]); // Add dependencies to restart interval if `delayActive` or `selectedTime` changes
+    return () => clearInterval(fetchInterval);
+  }, [dispatch]);
+
+  // useEffect to set up interval for checking time match every minute after 1 minute delay
+  useEffect(() => {
+    const firstCheckTimeout = setTimeout(() => {
+      checkTimeMatch(); // Initial check after 1 minute
+      const checkIntervalId = setInterval(checkTimeMatch, 60000); // Run every 60,000 milliseconds (1 minute)
+
+      // Clean up interval on component unmount
+      return () => clearInterval(checkIntervalId);
+    }, 60000); // Initial delay of 60,000 milliseconds (1 minute)
+
+    // Clean up the timeout on component unmount
+    return () => clearTimeout(firstCheckTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTime]);
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -264,17 +250,13 @@ const QueuesControlDoctor = () => {
               </>
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
-                {t("Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!")}
+                {t("Bugun ko'rilgan yoki bekor qilingan bemorlar mavjud emas!")}
               </h2>
             )}
           </div>
         </div>
 
-        {(proccessIsLoading || doneQueuesListIsLoading) && <Loader />}
-
-        {(queuesListError || proccessError || doneQueuesListError) && (
-          <ErrorDialog isErrorProps={!false} />
-        )}
+        {/* {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />} */}
       </div>
     </DynamicModuleLoader>
   );

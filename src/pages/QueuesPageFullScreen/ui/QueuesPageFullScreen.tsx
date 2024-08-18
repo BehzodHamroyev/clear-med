@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable ulbi-tv-plugin/public-api-imports */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
@@ -8,7 +10,6 @@ import ReactPlayer from 'react-player';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 import { ETC } from '@/shared/assets/icons';
 import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
@@ -19,17 +20,15 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { getInfoProject } from '@/entities/FileUploader';
+import { getAllQueueProccessError } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
+import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const infoProject = useSelector(getInfoProject);
-
-  const handle = useFullScreenHandle();
-
-  const handleClickedFullScreen = () => {
-    handle.enter();
-  };
 
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -38,14 +37,20 @@ const QueuesPageFullScreen = () => {
     mp3Arr: [''],
   });
 
+  const dispatch = useAppDispatch();
+
+  const allProccessQueueIsError = useSelector(getAllQueueProccessError);
+
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
 
-  // const handleExitFullScreenClick = () => {
-  //   document.exitFullscreen();
-  // };
+  if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl?.length > 0) {
+    allProccessQueue?.videoUrl.forEach((item) => {
+      videoUrl.push(item.link);
+    });
+  }
 
   if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl?.length > 0) {
     allProccessQueue!?.videoUrl.forEach((item) => {
@@ -60,11 +65,8 @@ const QueuesPageFullScreen = () => {
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
         if (!item.view && !found) {
-          console.log(item, 'lslslls');
           setQueueDialogData({
-            roomNumber: String(
-              String(item.mp3Arr?.[1]).match(/(\d+)(?=.mp3)/)?.[0],
-            ),
+            roomNumber: String(item.queues_name).match(/([A-Z])(\d+)-/)![2],
             biletNumber: String(item.queues_name),
             step: item.step,
             mp3Arr: item.mp3Arr,
@@ -104,15 +106,27 @@ const QueuesPageFullScreen = () => {
   const MariqueParagraphStyle = {
     width: '100%',
     color: 'red',
-    fontFamily: 'sans-serif',
-    fontSize: '38px',
-    margin: '30px 50px',
+    fontSize: '28px',
+    margin: '20px 50px',
   };
 
-  console.log(videoUrl, 'videoUrl');
+  useEffect(() => {
+    dispatch(fetchAllQueueProccess({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch(fetchAllQueueProccess({}));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
+  console.log(queueDialogData, 'queueDialogData');
 
   return (
-    <FullScreen className={cls.MyComponentScreen} handle={handle}>
+    <>
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
@@ -143,7 +157,7 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={videoUrl}
+                url={video4k}
                 loop
                 playing
                 controls
@@ -161,21 +175,24 @@ const QueuesPageFullScreen = () => {
 
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
-              {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
-                <div className={classNames(cls.queuesTable__head)}>
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t("Bo'lim")}
-                  </p>
+              <div>
+                {' '}
+                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                  <div className={classNames(cls.queuesTable__head)}>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
 
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Xona')}
-                  </p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
 
-                  <p className={classNames(cls.queuesTable__headItem)}>
-                    {t('Bilet')}
-                  </p>
-                </div>
-              ) : null}
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
 
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
@@ -211,36 +228,35 @@ const QueuesPageFullScreen = () => {
                       </div>
                     );
                 })}
-              </div>
+                <div className={cls.wrapperOrder}>
+                  {allProccessQueue!?.room1?.proceed?.map((item, index) => {
+                    if (index < 4 && item.status === 'pending')
+                      return (
+                        <div className={classNames(cls.orderNumber)}>
+                          <p>{item.queues_name}</p>
+                        </div>
+                      );
+                  })}
 
-              <div className={cls.wrapperOrder}>
-                {allProccessQueue!?.room1?.proceed?.map((item, index) => {
-                  if (index < 11 && item.status === 'pending')
-                    return (
-                      <div className={classNames(cls.orderNumber)}>
-                        <p>{item.queues_name}</p>
+                  {allProccessQueue!?.room1!?.proceed.length > 10 ? (
+                    <>
+                      <div className={classNames(cls.icon)}>
+                        <ETC fill="#fff" color="#fff" />
                       </div>
-                    );
-                })}
-
-                {allProccessQueue!?.room1!?.proceed.length > 10 ? (
-                  <>
-                    <div className={classNames(cls.orderNumber)}>
-                      <ETC />
-                    </div>
-                    <div className={classNames(cls.orderNumber)}>
-                      <p>
-                        {
-                          allProccessQueue!.room1?.proceed[
-                            allProccessQueue!.room1?.proceed.length - 1
-                          ].queues_name
-                        }
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  ''
-                )}
+                      <div className={classNames(cls.orderNumber)}>
+                        <p>
+                          {
+                            allProccessQueue!.room1?.proceed[
+                              allProccessQueue!.room1?.proceed.length - 1
+                            ].queues_name
+                          }
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
 
               <div className={classNames(cls.queuesTable__items)}>
@@ -279,7 +295,7 @@ const QueuesPageFullScreen = () => {
                 })}
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
-                    if (index < 11 && item.status === 'pending')
+                    if (index < 4 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>
                           <p>{item.queues_name}</p>
@@ -289,7 +305,7 @@ const QueuesPageFullScreen = () => {
 
                   {allProccessQueue!!?.room2!?.proceed.length > 10 ? (
                     <>
-                      <div className={classNames(cls.orderNumber)}>
+                      <div className={classNames(cls.icon)}>
                         <ETC />
                       </div>
                       <div className={classNames(cls.orderNumber)}>
@@ -320,7 +336,7 @@ const QueuesPageFullScreen = () => {
           biletNumber={queueDialogData.biletNumber}
         />
       )}
-    </FullScreen>
+    </>
   );
 };
 

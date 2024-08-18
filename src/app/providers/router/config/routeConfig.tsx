@@ -53,7 +53,9 @@ import { AddAdsPage } from '@/pages/AddAdsPage';
 import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
 import { AddReceptionPage } from '@/pages/AddReceptionPage';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import QueuesPage from '@/pages/QueuesPage/ui/QueuesPage';
+// import QueuesPage from '@/pages/QueuesPage/ui/QueuesPage';
+// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
+import QueuesPageFullScreen from '@/pages/QueuesPageFullScreen/ui/QueuesPageFullScreen';
 
 export const routeConfigForAdmin: Record<
   AdminRoutes | CommonRoutes,
@@ -132,8 +134,7 @@ export const routeConfigForAdmin: Record<
 
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
-    element: <QueuesPage />,
-    // element: <QueuesPageFullScreen />,
+    element: <QueuesPageFullScreen />,
   },
 
   // setting
@@ -177,7 +178,7 @@ export const routeConfigForDoctor: Record<
   },
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
-    element: <QueuesPage />,
+    element: <QueuesPageFullScreen />,
   },
 
   // Doctors
@@ -264,8 +265,8 @@ export const routeConfigForMonitor: Record<
 
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
-    element: <QueuesPage />,
-    // element: <QueuesPageFullScreen />,
+    // element: <QueuesPage />,
+    element: <QueuesPageFullScreen />,
   },
 
   // setting

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Cookies from 'js-cookie';
 
+import { ToastContainer } from 'react-toastify';
 import { Navbar } from '@/widgets/Nabar';
 import { Loader } from '@/widgets/Loader';
 import { AppRouter } from './providers/router';
@@ -13,6 +14,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 
 import 'react-calendar/dist/Calendar.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
@@ -89,6 +91,7 @@ const App = () => {
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
       <Suspense fallback={<Loader />}>
         <MainLayout header={<Navbar />} content={<AppRouter />} />
+        <ToastContainer />
       </Suspense>
     </div>
   );
