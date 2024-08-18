@@ -124,7 +124,7 @@ const QueuesControlDoctor = () => {
     const currentSeconds =
       now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
 
-    if (currentSeconds >= givenSeconds) {
+    if (currentSeconds >= givenSeconds && !selectedTime) {
       toast.warn('Ishlash vaqtingizni kiriting');
       console.log(selectedTimeMoment.format(), 'Time has matched.');
     }
