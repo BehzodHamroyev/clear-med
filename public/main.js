@@ -14,7 +14,7 @@ function createWindow() {
   });
 
   // Load your application
-  win.loadURL('http://localhost:5173'); // React ilovangiz `vite` orqali serve qilinmoqda
+  win.loadURL('http://localhost:3000'); // React ilovangiz `vite` orqali serve qilinmoqda
 }
 
 app.on('ready', createWindow);
