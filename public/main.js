@@ -5,15 +5,16 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1300,
     height: 1000,
+    kiosk: true, // Kiosk modini yoqish
     webPreferences: {
-      enableRemoteModules: true, // This is deprecated, use `contextIsolation` and `nodeIntegration` instead
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: true, // Bu Electron ichida Node.js modullarini ishlatishga imkon beradi
+      contextIsolation: false, // Ushbu parametrni `true` qilish tavsiya etiladi, xavfsizlik uchun
+      // enableRemoteModules: true  // Bu eski parametr, ishlatish tavsiya etilmaydi
     },
   });
 
   // Load your application
-  win.loadURL('http://localhost:3000');
+  win.loadURL('http://localhost:5173'); // React ilovangiz `vite` orqali serve qilinmoqda
 }
 
 app.on('ready', createWindow);
