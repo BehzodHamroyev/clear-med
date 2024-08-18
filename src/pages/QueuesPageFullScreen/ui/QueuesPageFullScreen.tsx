@@ -105,9 +105,8 @@ const QueuesPageFullScreen = () => {
   const MariqueParagraphStyle = {
     width: '100%',
     color: 'red',
-    fontFamily: 'sans-serif',
-    fontSize: '38px',
-    margin: '30px 50px',
+    fontSize: '28px',
+    margin: '20px 50px',
   };
 
   useEffect(() => {
@@ -229,7 +228,7 @@ const QueuesPageFullScreen = () => {
 
               <div className={cls.wrapperOrder}>
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
-                  if (index < 11 && item.status === 'pending')
+                  if (index < 7 && item.status === 'pending')
                     return (
                       <div className={classNames(cls.orderNumber)}>
                         <p>{item.queues_name}</p>
@@ -239,8 +238,8 @@ const QueuesPageFullScreen = () => {
 
                 {allProccessQueue!?.room1!?.proceed.length > 10 ? (
                   <>
-                    <div className={classNames(cls.orderNumber)}>
-                      <ETC />
+                    <div className={classNames(cls.icon)}>
+                      <ETC fill="#fff" color="#fff" />
                     </div>
                     <div className={classNames(cls.orderNumber)}>
                       <p>
@@ -293,7 +292,7 @@ const QueuesPageFullScreen = () => {
                 })}
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
-                    if (index < 11 && item.status === 'pending')
+                    if (index < 7 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>
                           <p>{item.queues_name}</p>
@@ -303,7 +302,7 @@ const QueuesPageFullScreen = () => {
 
                   {allProccessQueue!!?.room2!?.proceed.length > 10 ? (
                     <>
-                      <div className={classNames(cls.orderNumber)}>
+                      <div className={classNames(cls.icon)}>
                         <ETC />
                       </div>
                       <div className={classNames(cls.orderNumber)}>
