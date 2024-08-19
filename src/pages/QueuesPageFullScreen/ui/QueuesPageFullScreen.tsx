@@ -106,7 +106,7 @@ const QueuesPageFullScreen = () => {
     width: '100%',
     color: 'red',
     fontSize: '28px',
-    margin: '20px 50px',
+    marginTop: '10px',
   };
 
   useEffect(() => {
