@@ -156,7 +156,7 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={`${baseUrl}/uploads//video4k.mov`}
+                url="https://socketmed.magicsoft.uz/uploads//video4k.mov"
                 loop
                 playing
                 controls
