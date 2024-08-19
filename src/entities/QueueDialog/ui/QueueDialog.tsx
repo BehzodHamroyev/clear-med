@@ -72,7 +72,7 @@ const QueueDialog = ({
     };
   }, []);
 
-  console.log(roomNumber, 'roomNumber');
+  console.log(Mp3Array);
 
   return (
     <div>
