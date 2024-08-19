@@ -5,7 +5,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1300,
     height: 1000,
-    kiosk: true, // Kiosk modini yoqish
+    // kiosk: true, // Kiosk modini yoqish
     webPreferences: {
       nodeIntegration: true, // Bu Electron ichida Node.js modullarini ishlatishga imkon beradi
       contextIsolation: false, // Ushbu parametrni `true` qilish tavsiya etiladi, xavfsizlik uchun
