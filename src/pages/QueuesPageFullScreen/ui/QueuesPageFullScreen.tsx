@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
+import { baseUrl, baseUrlFullScreenVideo, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -23,7 +23,7 @@ import { getInfoProject } from '@/entities/FileUploader';
 import { getAllQueueProccessError } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { video4k } from '@/shared/assets';
+// import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
@@ -157,7 +157,8 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={video4k}
+                url={baseUrlFullScreenVideo}
+                // url={video4k}
                 loop
                 playing
                 controls
