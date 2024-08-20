@@ -23,7 +23,7 @@ import { getInfoProject } from '@/entities/FileUploader';
 import { getAllQueueProccessError } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-// import { video4k } from '@/shared/assets';
+import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
@@ -107,7 +107,7 @@ const QueuesPageFullScreen = () => {
     width: '100%',
     color: 'red',
     fontSize: '28px',
-    margin: '20px 50px',
+    marginTop: '10px',
   };
 
   useEffect(() => {
@@ -157,8 +157,7 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={`${baseUrl}/uploads//video4k.mov`}
-                // url={video4k}
+                url={video4k}
                 loop
                 playing
                 controls
