@@ -63,6 +63,8 @@ export const QueuingTvCard = ({
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
+  console.log(componentRef.current || 'no', 'componentRef');
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
@@ -88,7 +90,7 @@ export const QueuingTvCard = ({
         },
       );
 
-      if (response.data) {
+      if (response.data && componentRef.current) {
         handlePrint();
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
