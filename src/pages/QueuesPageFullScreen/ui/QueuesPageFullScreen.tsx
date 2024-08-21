@@ -195,6 +195,17 @@ const QueuesPageFullScreen = () => {
 
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
+                  // @ts-ignore
+                  const prefix = item.queues_name.charAt(0);
+
+                  // Extract the last two digits after the hyphen
+                  const lastTwoDigits = item.queues_name
+                    // @ts-ignore
+                    .split('-')[1]
+                    .slice(-2);
+
+                  // Combine them
+                  const outputString = `${prefix}-${lastTwoDigits}`;
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -222,17 +233,29 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemBiletNumber,
                           )}
                         >
-                          <p>{item.queues_name}</p>
+                          <p>{outputString}</p>
                         </div>
                       </div>
                     );
                 })}
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room1?.proceed?.map((item, index) => {
+                    // Extract the first character (which can be any letter)
+                    // @ts-ignore
+                    const prefix = item.queues_name.charAt(0);
+
+                    // Extract the last two digits after the hyphen
+                    const lastTwoDigits = item.queues_name
+                      // @ts-ignore
+                      .split('-')[1]
+                      .slice(-2);
+
+                    // Combine them
+                    const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>
-                          <p>{item.queues_name}</p>
+                          <p>{outputString}</p>
                         </div>
                       );
                   })}
@@ -260,6 +283,18 @@ const QueuesPageFullScreen = () => {
 
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room2?.proceed?.map((item, index) => {
+                  // @ts-ignore
+                  const prefix = item.queues_name.charAt(0);
+
+                  // Extract the last two digits after the hyphen
+                  const lastTwoDigits = item.queues_name
+                    // @ts-ignore
+                    .split('-')[1]
+                    .slice(-2);
+
+                  // Combine them
+                  const outputString = `${prefix}-${lastTwoDigits}`;
+
                   if (item.status === 'proccessed')
                     return (
                       <div
@@ -287,17 +322,28 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemBiletNumber,
                           )}
                         >
-                          <p>{item.queues_name}</p>
+                          <p>{outputString}</p>
                         </div>
                       </div>
                     );
                 })}
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
+                    // @ts-ignore
+                    const prefix = item.queues_name.charAt(0);
+
+                    // Extract the last two digits after the hyphen
+                    const lastTwoDigits = item.queues_name
+                      // @ts-ignore
+                      .split('-')[1]
+                      .slice(-2);
+
+                    // Combine them
+                    const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
                         <div className={classNames(cls.orderNumber)}>
-                          <p>{item.queues_name}</p>
+                          <p>{outputString}</p>
                         </div>
                       );
                   })}
