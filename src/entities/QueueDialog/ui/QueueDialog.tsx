@@ -31,6 +31,15 @@ const QueueDialog = ({
 
   const { setOnEndedQueueAudio } = useContext(ButtonsContext);
 
+  // Extract the first character (which can be any letter)
+  const prefix = biletNumber.charAt(0);
+
+  // Extract the last number part after the hyphen and remove leading zeros
+  const numberPart = parseInt(biletNumber.split('-')[1], 10);
+
+  // Combine them
+  const outputString = `${prefix}-${numberPart}`;
+
   const handleTrackChange = (index: React.SetStateAction<number>) => {
     setCurrentTrackIndex(index);
 
@@ -110,7 +119,7 @@ const QueueDialog = ({
             </div>
 
             <div className={classNames(cls.QueueDialogBox__biletNumber)}>
-              <p>{biletNumber}</p>
+              <p>{outputString}</p>
             </div>
           </div>
         </div>

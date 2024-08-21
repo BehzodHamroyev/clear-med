@@ -175,7 +175,6 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
               <div>
-                {' '}
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
                     <p className={classNames(cls.queuesTable__headItem)}>

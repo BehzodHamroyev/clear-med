@@ -63,8 +63,6 @@ export const QueuingTvCard = ({
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
-  console.log(componentRef.current || 'no', 'componentRef');
-
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
@@ -95,6 +93,7 @@ export const QueuingTvCard = ({
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
         setIsvisableLanguageModal(true);
+        console.log(componentRef.current || 'no', 'componentRef');
 
         setPrintRoomInfo({
           createRoomNumber: response.data?.room?.name,
