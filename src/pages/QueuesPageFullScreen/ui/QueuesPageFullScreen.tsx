@@ -20,7 +20,6 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { getInfoProject } from '@/entities/FileUploader';
-import { getAllQueueProccessError } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // import { video4k } from '@/shared/assets';
@@ -38,8 +37,6 @@ const QueuesPageFullScreen = () => {
   });
 
   const dispatch = useAppDispatch();
-
-  const allProccessQueueIsError = useSelector(getAllQueueProccessError);
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
@@ -123,8 +120,6 @@ const QueuesPageFullScreen = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  console.log(queueDialogData, 'queueDialogData');
-
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -176,7 +171,8 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
               <div>
-                {allProccessQueue!?.room1?.proceed!?.length > 0 ? (
+                {allProccessQueue!?.room1?.proceed!?.length > 0 ||
+                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
                     <p className={classNames(cls.queuesTable__headItem)}>
                       {t("Bo'lim")}
@@ -196,17 +192,18 @@ const QueuesPageFullScreen = () => {
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   // @ts-ignore
-                  const prefix = item.queues_name.charAt(0);
+                  const prefix = item?.queues_name.charAt(0);
 
                   // Extract the last two digits after the hyphen
-                  const lastTwoDigits = item.queues_name
+                  const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     .split('-')[1]
                     .slice(-2);
 
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
-                  if (item.status === 'proccessed')
+                
+                  if (index === 0)
                     return (
                       <div
                         key={item.id}
@@ -238,6 +235,7 @@ const QueuesPageFullScreen = () => {
                       </div>
                     );
                 })}
+
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                     // Extract the first character (which can be any letter)
@@ -295,7 +293,7 @@ const QueuesPageFullScreen = () => {
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
-                  if (item.status === 'proccessed')
+                  if (index === 0) {
                     return (
                       <div
                         key={item.id}
@@ -322,10 +320,13 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemBiletNumber,
                           )}
                         >
-                          <p>{outputString}</p>
+                          <p>
+                            {item.status === 'proccessed' ? outputString : ''}
+                          </p>
                         </div>
                       </div>
                     );
+                  }
                 })}
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
