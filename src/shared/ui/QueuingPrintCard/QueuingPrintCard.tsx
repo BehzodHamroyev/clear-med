@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import cls from './QueuingPrintCard.module.scss';
 import { getAllDataProject } from '@/entities/FileUploader';
@@ -17,11 +17,17 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
   ({ roomNumber, ticketNumber, doctor_name, deparment_name }, ref) => {
     const dispatch = useAppDispatch();
 
-    const [queun, setQueu] = useState('');
-
     useEffect(() => {
       dispatch(getAllDataProject({}));
     }, [dispatch]);
+
+    console.log(
+      roomNumber,
+      ticketNumber,
+      doctor_name,
+      deparment_name,
+      ' roomNumber, ticketNumber, doctor_name, deparment_name',
+    );
 
     return (
       <div
