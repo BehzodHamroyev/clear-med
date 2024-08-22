@@ -1,15 +1,10 @@
 /* eslint-disable react/button-has-type */
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 
 import cls from './QueuingTv.module.scss';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-// import { fetchDepartmentList } from '../model/services/fetchDepartmentList';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
   getDeparmentListData,
@@ -17,41 +12,23 @@ import {
   getDeparmentListIsLoading,
 } from '../model/selectors/departmentListSelector';
 
-import {
-  getCurrentQueueData,
-  getCurrentQueueError,
-  getCurrentQueueIsLoading,
-} from '../model/selectors/currentQueueSelector';
+import { getCurrentQueueError } from '../model/selectors/currentQueueSelector';
 
 import {
-  getLastQueueData,
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
 import { QueuingTvCard } from '@/entities/QueuingTvCard';
-// import { QueuingTvCard } from '@/entities/QueuingTvCard';
 
 export const QueuingTv = () => {
-  const dispatch = useAppDispatch();
-  const { t } = useTranslation();
-
-  const { isOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
-
   const deparmentList = useSelector(getDeparmentListData);
   const deparmentListIsLoading = useSelector(getDeparmentListIsLoading);
   const deparmentListError = useSelector(getDeparmentListError);
 
-  const currentQueue = useSelector(getCurrentQueueData);
-  const currentQueueIsLoading = useSelector(getCurrentQueueIsLoading);
   const currentQueueError = useSelector(getCurrentQueueError);
 
-  const lastQueue = useSelector(getLastQueueData);
   const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
   const lastQueueError = useSelector(getLastQueueError);
-
-  // useEffect(() => {
-  //   dispatch(fetchDepartmentList({ limit: 'all' }));
-  // }, [dispatch]);
 
   return (
     <div className={cls.QueuingTvWrapper}>
