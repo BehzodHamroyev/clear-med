@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import cls from './QueuingPrintCard.module.scss';
 import { getAllDataProject } from '@/entities/FileUploader';
@@ -7,7 +7,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 
 interface QueuingPrintCardProp {
   roomNumber: number | string;
-  ticketNumber: number | string;
+  ticketNumber: string;
   // eslint-disable-next-line react/no-unused-prop-types
   doctor_name: string;
   deparment_name?: string;
@@ -16,6 +16,8 @@ interface QueuingPrintCardProp {
 const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
   ({ roomNumber, ticketNumber, doctor_name, deparment_name }, ref) => {
     const dispatch = useAppDispatch();
+
+    const [queun, setQueu] = useState('');
 
     useEffect(() => {
       dispatch(getAllDataProject({}));
@@ -26,13 +28,6 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
         ref={ref}
         className={cls['QueuingPrintCardWrp__queuingPopap--queuingTvPrintCard']}
       >
-        {/* <div className={cls['QueuingPrintCardWrp__queuingPopap--queueBox']}>
-          <QueueUserDoctor
-            roomNumber={roomNumber}
-            ticketNumber={`${ticketNumber}`}
-          />
-        </div> */}
-
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
             Билет:

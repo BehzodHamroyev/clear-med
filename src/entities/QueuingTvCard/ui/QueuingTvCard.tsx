@@ -93,7 +93,6 @@ export const QueuingTvCard = ({
         setCreateQueueIsLoading(false);
         setCreateQueueIsError(false);
         setIsvisableLanguageModal(true);
-        console.log(componentRef.current || 'no', 'componentRef');
 
         setPrintRoomInfo({
           createRoomNumber: response.data?.room?.name,
