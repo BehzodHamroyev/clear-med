@@ -155,7 +155,7 @@ const QueuesPageFullScreen = () => {
                 playing
                 controls
                 width="100%"
-                height="100%"
+                height="80%"
                 playsinline
                 config={{
                   youtube: {
