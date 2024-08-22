@@ -27,24 +27,38 @@ const DoneQueueTableTitleDoctorProfile = memo((props: TableInfo) => {
       </thead>
 
       <tbody className={cls.Tabletbody}>
-        {Tabletbody?.map((queue) => (
-          <tr key={queue?.id} className={cls.tr}>
-            <td className={cls.td}>{queue?.queues_name}</td>
-            <td className={cls.td}>{queue?.completed_date?.split('T')[0]}</td>
-            <td className={cls.td}>
-              {queue?.accepted_date?.split('T')[1].split('.')[0]}
-            </td>
-            <td className={cls.td}>
-              {queue?.completed_date?.split('T')[1].split('.')[0]}
-            </td>
-            <td className={cls.td}>
-              <img
-                src={queue.status === 'completed' ? CheckedIcon : ErrorIcon}
-                alt="rejected"
-              />
-            </td>
-          </tr>
-        ))}
+        {Tabletbody?.map((queue) => {
+          // @ts-ignore
+          const prefix = queue?.queues_name.charAt(0);
+
+          // Extract the last two digits after the hyphen
+          const lastTwoDigits = queue?.queues_name
+            // @ts-ignore
+            .split('-')[1]
+            .slice(-2);
+
+          // Combine them
+          const outputString = `${prefix}-${lastTwoDigits}`;
+
+          return (
+            <tr key={queue?.id} className={cls.tr}>
+              <td className={cls.td}>{outputString}</td>
+              <td className={cls.td}>{queue?.completed_date?.split('T')[0]}</td>
+              <td className={cls.td}>
+                {queue?.accepted_date?.split('T')[1].split('.')[0]}
+              </td>
+              <td className={cls.td}>
+                {queue?.completed_date?.split('T')[1].split('.')[0]}
+              </td>
+              <td className={cls.td}>
+                <img
+                  src={queue.status === 'completed' ? CheckedIcon : ErrorIcon}
+                  alt="rejected"
+                />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

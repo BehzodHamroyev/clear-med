@@ -81,8 +81,6 @@ const QueueDialog = ({
     };
   }, []);
 
-  console.log(Mp3Array);
-
   return (
     <div>
       <div className={classNames(cls.QueueDialog, {}, [className])}>
