@@ -21,6 +21,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { log } from 'console';
 // import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
@@ -37,7 +38,6 @@ const QueuesPageFullScreen = () => {
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  console.log(allProccessQueue?.videoUrl[0].link,'allProccessQueue;');
   
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
@@ -120,6 +120,9 @@ const QueuesPageFullScreen = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  console.log(`${baseUploadUrl}/${allProccessQueue?.videoUrl?.[0]?.link}`);
+  
+
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -152,6 +155,7 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
+              // url={''}
                 url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
