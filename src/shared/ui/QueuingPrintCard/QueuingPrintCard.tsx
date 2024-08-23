@@ -21,14 +21,6 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
       dispatch(getAllDataProject({}));
     }, [dispatch]);
 
-    console.log(
-      roomNumber,
-      ticketNumber,
-      doctor_name,
-      deparment_name,
-      ' roomNumber, ticketNumber, doctor_name, deparment_name',
-    );
-
     return (
       <div
         ref={ref}

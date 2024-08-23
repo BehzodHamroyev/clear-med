@@ -15,18 +15,17 @@ const QueueUserDoctor = ({
   const { t } = useTranslation();
   const [queus, setQueus] = useState('');
 
-  if (ticketNumber) {
-    // @ts-ignore
-    const prefix = ticketNumber?.charAt(0);
+  // if (ticketNumber) {
+  //   // @ts-ignore
+  //   const prefix = ticketNumber?.charAt(0);
 
-    // Extract the last two digits after the hyphen
-    const lastTwoDigits = ticketNumber!.split('-')[1].slice(-2);
+  //   // Extract the last two digits after the hyphen
+  //   const lastTwoDigits = ticketNumber!.split('-')[1].slice(-2);
 
-    // Combine them
-    const outputString = `${prefix}-${lastTwoDigits}`;
-    setQueus(outputString);
-  }
-
+  //   // Combine them
+  //   const outputString = `${prefix}-${lastTwoDigits}`;
+  //   setQueus(outputString);
+  // }
   return (
     <div className={cls.QueueUserDoctorWrp}>
       <div className={cls.QueueUserDoctorWrp__queuesListTitle}>
@@ -35,7 +34,7 @@ const QueueUserDoctor = ({
         </p>
 
         <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
-          {queus}
+          {ticketNumber}
         </p>
       </div>
 
