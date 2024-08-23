@@ -94,7 +94,6 @@ const QueuesControlDoctor = () => {
         }
         return response.data;
       } catch (e) {
-        // Handle errors and show appropriate toast message
         setToastDataForAddRoomForm({
           toastMessageForAddRoomForm: t(
             "Shifokorni o'zgartirishda xatolik sodir bo'ldi",

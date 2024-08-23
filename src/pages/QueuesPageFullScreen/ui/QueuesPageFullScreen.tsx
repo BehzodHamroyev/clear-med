@@ -136,15 +136,15 @@ const QueuesPageFullScreen = () => {
 
         <Marquee speed={80} gradientColor="248 251 253">
           <p style={MariqueParagraphStyle}>
-            Hurmatli bemorlar iltimos tartib va tinchlikni saqlang !
+               Hurmatli bemorlar iltimos tartib va tinchlikni saqlang !
           </p>
 
           <p style={MariqueParagraphStyle}>
-            Уважаемые пациенты, пожалуйста, соблюдайте порядок и мир!
+              Уважаемые пациенты, пожалуйста, соблюдайте порядок и мир!
           </p>
 
           <p style={MariqueParagraphStyle}>
-            Dear patients, please maintain order and peace!
+              Dear patients, please maintain order and peace! 
           </p>
         </Marquee>
 
