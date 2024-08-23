@@ -82,8 +82,8 @@ const QueuesControlDoctor = () => {
 
         if (response.data) {
           // Update auth user and token
-          dispatch(fetchAuthUser({ refresh: true, buttonsContext }));
           Cookies.set('token', response.data.data.tokens);
+          dispatch(fetchAuthUser({ refresh: true, buttonsContext }));
           setHasOpenToast(true);
           setToastDataForAddRoomForm({
             toastMessageForAddRoomForm: t("Shifokor O'zgartirildi"),
