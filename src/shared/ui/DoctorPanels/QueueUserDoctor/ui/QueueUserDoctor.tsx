@@ -26,7 +26,6 @@ const QueueUserDoctor = ({
   //   const outputString = `${prefix}-${lastTwoDigits}`;
   //   setQueus(outputString);
   // }
-
   return (
     <div className={cls.QueueUserDoctorWrp}>
       <div className={cls.QueueUserDoctorWrp__queuesListTitle}>

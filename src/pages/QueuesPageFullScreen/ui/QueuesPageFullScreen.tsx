@@ -19,7 +19,6 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
-import { getInfoProject } from '@/entities/FileUploader';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // import { video4k } from '@/shared/assets';
@@ -27,7 +26,6 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const infoProject = useSelector(getInfoProject);
 
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -204,7 +202,7 @@ const QueuesPageFullScreen = () => {
 
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
-                
+
                   if (index === 0)
                     return (
                       <div

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable ulbi-tv-plugin/public-api-imports */
 /* eslint-disable max-len */
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
@@ -53,6 +53,8 @@ export const QueuingTvCard = ({
   const [showTimer, setShowTimer] = useState(true);
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+  const [doctorName, setDoctorName] = useState('');
+  const [lastQueueName, setLastQueueName] = useState('');
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: lastQueue?.room?.name,
     createTicketNumber: lastQueue?.pagination,
@@ -135,6 +137,42 @@ export const QueuingTvCard = ({
     setShowTimer(false);
   };
 
+  useEffect(() => {
+    if (lastQueue) {
+      const inputString = lastQueue?.room.doctor_id[0].name!; // Example input string
+
+      // Split the string into an array of words
+      const words = inputString.split(' ');
+
+      // Extract the first word
+      const firstWord = words[0];
+
+      // Extract the first letters of the remaining words and join them with a dot
+      const initials = words
+        .slice(1)
+        .map((word) => word.charAt(0))
+        .join('.');
+
+      // Combine them
+      const outputStringDoctorName = `${firstWord} ${initials}`;
+      setDoctorName(outputStringDoctorName);
+
+      // @ts-ignore
+      const prefix = lastQueue?.pagination.charAt(0);
+
+      // Extract the last two digits after the hyphen
+      const lastTwoDigits = lastQueue?.pagination
+        // @ts-ignore
+        .split('-')[1]
+        .slice(-2);
+
+      // Combine them
+      const outputStringQueueNUmber = `${prefix}-${lastTwoDigits}`;
+
+      setLastQueueName(outputStringQueueNUmber || '');
+    }
+  }, [lastQueue]);
+
   return (
     <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
       <div className={cls.CardLeft}>
@@ -170,9 +208,9 @@ export const QueuingTvCard = ({
         <QueuingPrintCard
           ref={componentRef}
           roomNumber={String(lastQueue?.room?.name)}
-          doctor_name={lastQueue?.room.doctor_id[0].name!}
+          doctor_name={doctorName}
           deparment_name={lastQueue?.room.department_id.name}
-          ticketNumber={lastQueue?.pagination ? lastQueue?.pagination : ''}
+          ticketNumber={lastQueueName}
         />
       </div>
 
