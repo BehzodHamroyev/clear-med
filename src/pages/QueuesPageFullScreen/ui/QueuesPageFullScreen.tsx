@@ -258,7 +258,7 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!?.room1!?.proceed.length > 10 ? (
+                  {allProccessQueue!?.room1!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC fill="#fff" color="#fff" />
@@ -349,7 +349,7 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!!?.room2!?.proceed.length > 10 ? (
+                  {allProccessQueue!!?.room2!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC />

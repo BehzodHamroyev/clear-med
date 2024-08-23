@@ -115,7 +115,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `${baseUrlUpload}/${item.photo}`;
+              const ImgSvg = `${baseUrlUpload}${item.photo}`;
               console.log(ImgSvg, 'ImgSvg');
 
               return (
