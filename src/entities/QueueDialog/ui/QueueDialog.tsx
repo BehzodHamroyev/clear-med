@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
 
 import cls from './QueueDialog.module.scss';
-import { baseUrlUpload } from '../../../../baseurl';
+import { baseUploadUrl } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { callRingtone } from '@/shared/assets/Pages';
 
 interface QueueDialogProps {
   step: number;
@@ -65,7 +66,7 @@ const QueueDialog = ({
     audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
     audioPlayer.addEventListener('ended', handleAudioEnd);
 
-    console.log(`${baseUrlUpload}${Mp3Array[1]}`, 'Mp3Array');
+    console.log(`${baseUploadUrl}${Mp3Array[1]}`, 'Mp3Array');
 
     return () => {
       audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
@@ -124,7 +125,8 @@ const QueueDialog = ({
       </div>
 
       <ReactAudioPlayer
-        src="https://medapi.magicsoft.uz/uploads/callRingtone.mp3"
+        src={`https://medapi.magicsoft.uz/uploads/callRingtone.mp3`}
+        // src={`https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3`}
         autoPlay
         controls
         onEnded={() => setHasCallRingtone(true)}
@@ -132,7 +134,7 @@ const QueueDialog = ({
       />
 
       <ReactAudioPlayer
-        src={`${baseUrlUpload}${Mp3Array[currentTrackIndex]}`}
+        src={`${baseUploadUrl}/${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
         controls
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}

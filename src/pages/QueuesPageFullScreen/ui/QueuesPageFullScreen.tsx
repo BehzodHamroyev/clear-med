@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUrl,  baseUrlImgLogo } from '../../../../baseurl';
+import { baseUploadUrl, baseUrl,  baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -39,6 +39,8 @@ const QueuesPageFullScreen = () => {
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
+  console.log(allProccessQueue?.videoUrl[0].link,'allProccessQueue;');
+  
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -152,7 +154,7 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={`${baseUrl}/uploads//video4k.mov`}
+                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
                 controls
