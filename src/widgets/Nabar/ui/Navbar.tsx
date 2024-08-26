@@ -15,8 +15,6 @@ export const Navbar = memo((prop: NavbarProp) => {
     <div className={classNames(cls.NabarWrapper)}>
       <NavbarLogo />
 
-      <div />
-
       <NavbarLogout />
     </div>
   );
