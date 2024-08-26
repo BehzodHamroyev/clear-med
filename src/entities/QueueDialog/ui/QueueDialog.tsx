@@ -125,7 +125,7 @@ const QueueDialog = ({
       </div>
 
       <ReactAudioPlayer
-        src={`https://medapi.magicsoft.uz/uploads/callRingtone.mp3`}
+        src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
         // src={`https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3`}
         autoPlay
         controls

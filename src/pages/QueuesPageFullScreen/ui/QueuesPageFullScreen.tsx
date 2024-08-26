@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUploadUrl, baseUrl,  baseUrlImgLogo } from '../../../../baseurl';
+import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -21,7 +21,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { log } from 'console';
+
 // import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
@@ -38,7 +38,7 @@ const QueuesPageFullScreen = () => {
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  
+
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -121,7 +121,7 @@ const QueuesPageFullScreen = () => {
   }, [dispatch]);
 
   console.log(`${baseUploadUrl}/${allProccessQueue?.videoUrl?.[0]?.link}`);
-  
+
 
   return (
     <>
@@ -154,21 +154,25 @@ const QueuesPageFullScreen = () => {
         <div className={classNames(cls.QueuesPage__queuesContainer)}>
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
-              <ReactPlayer
-              // url={''}
-                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
-                loop
-                playing
-                controls
-                width="100%"
-                height="80%"
-                playsinline
-                config={{
-                  youtube: {
-                    playerVars: { showinfo: 0 },
-                  },
-                }}
-              />
+              {
+
+                allProccessQueue?.videoUrl?.[0]?.link !== undefined ? <ReactPlayer
+                  // url={''}
+                  url={allProccessQueue!.videoUrl[0].link ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}` : ''}
+                  loop
+                  playing
+                  controls
+                  width="100%"
+                  height="80%"
+                  playsinline
+                  config={{
+                    youtube: {
+                      playerVars: { showinfo: 0 },
+                    },
+                  }}
+                /> : ""
+              }
+
             </div>
           </div>
 
@@ -176,7 +180,7 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
                     <p className={classNames(cls.queuesTable__headItem)}>
                       {t("Bo'lim")}
