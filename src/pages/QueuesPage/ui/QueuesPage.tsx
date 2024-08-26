@@ -75,7 +75,7 @@ const QueuesPage: React.FC = () => {
                 <div
                   className={classNames(cls.QueuesPage__headerRightPhoneBox)}
                 >
-                  <p>{t('Ishonch raqami:')} +998 71 202 02 12</p>
+                  <p>{t('Ишонч рақами:')} +998 71 202 02 12</p>
                 </div>
               </div>
             </div>

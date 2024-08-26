@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import cls from './QueueUserDoctor.module.scss';
@@ -13,18 +13,14 @@ const QueueUserDoctor = ({
   ticketNumber,
 }: QueueUserDoctorProps) => {
   const { t } = useTranslation();
-  const [queus, setQueus] = useState('');
+  // eslint-disable-next-line no-var
+  var outputString = '';
 
-  if (ticketNumber) {
+  if (ticketNumber !== undefined) {
     // @ts-ignore
     const prefix = ticketNumber?.charAt(0);
-
-    // Extract the last two digits after the hyphen
     const lastTwoDigits = ticketNumber!.split('-')[1].slice(-2);
-
-    // Combine them
-    const outputString = `${prefix}-${lastTwoDigits}`;
-    setQueus(outputString);
+    outputString = `${prefix}-${lastTwoDigits}`;
   }
 
   return (
@@ -35,7 +31,7 @@ const QueueUserDoctor = ({
         </p>
 
         <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
-          {queus}
+          {outputString}
         </p>
       </div>
 

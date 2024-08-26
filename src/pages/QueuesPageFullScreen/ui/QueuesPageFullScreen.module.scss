@@ -19,7 +19,7 @@
   &__headerLeft {
     display: flex;
     align-items: center;
-    gap: 20px;
+    padding: 20px 25px;
 
     p {
       color: #27374d;
@@ -37,6 +37,7 @@
       color: #27374d;
       // color: red;
       text-align: right;
+      padding-right: 25px;
     }
   }
 
@@ -490,6 +491,9 @@
   background: #27374d;
   font-size: 28px;
   padding: 12px 0;
+  p {
+    font-family: sans-serif;
+  }
 }
 
 .logo {

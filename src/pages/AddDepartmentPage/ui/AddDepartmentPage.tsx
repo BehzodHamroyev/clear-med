@@ -25,7 +25,7 @@ import Toast from '@/shared/ui/Toast/Toast';
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { Loader } from '@/widgets/Loader';
 import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
-import { baseUrlUpload } from '../../../../baseurl';
+import { baseUploadUrl } from '../../../../baseurl';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -115,8 +115,7 @@ const AddDepartmentPage = () => {
         {allDepartmentsData && allDepartmentsData.length > 0 && (
           <tbody className={cls['AddDepartmentPageWrp__Table--Tabletbody']}>
             {allDepartmentsData.map((item) => {
-              const ImgSvg = `${baseUrlUpload}/${item.photo}`;
-              console.log(ImgSvg, 'ImgSvg');
+              const ImgSvg = `${baseUploadUrl}${item.photo}`;
 
               return (
                 <tr

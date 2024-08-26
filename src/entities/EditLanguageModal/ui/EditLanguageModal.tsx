@@ -40,7 +40,7 @@ const EditLanguageModal = () => {
         <Button
           type="button"
           onClick={() => {
-            toggle('uz');
+            toggle('kr');
             setIsvisableLanguageModal(false);
             handleClick();
           }}
