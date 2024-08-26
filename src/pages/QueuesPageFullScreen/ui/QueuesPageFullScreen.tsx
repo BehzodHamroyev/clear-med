@@ -12,22 +12,21 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
+import {  baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-
+import { log } from 'console';
 // import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-
+  const [lastQueue, setLastQueue] = useState('');
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -38,7 +37,7 @@ const QueuesPageFullScreen = () => {
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-
+  
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -105,6 +104,7 @@ const QueuesPageFullScreen = () => {
     color: 'red',
     fontSize: '28px',
     marginTop: '10px',
+    marginRight: '20px',
   };
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const QueuesPageFullScreen = () => {
   }, [dispatch]);
 
   console.log(`${baseUploadUrl}/${allProccessQueue?.videoUrl?.[0]?.link}`);
-
+  
 
   return (
     <>
@@ -132,14 +132,14 @@ const QueuesPageFullScreen = () => {
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ishonch raqami:')} +998 71 207 00 17</p>
+              <p>{t('Ишонч рақами:')} +998 71 207 00 17</p>
             </div>
           </div>
         </div>
 
         <Marquee speed={80} gradientColor="248 251 253">
           <p style={MariqueParagraphStyle}>
-            Hurmatli bemorlar iltimos tartib va tinchlikni saqlang !
+            Ҳурматли беморлар илтимос тартиб ва тинчликни сақланг !{' '}
           </p>
 
           <p style={MariqueParagraphStyle}>
@@ -154,25 +154,21 @@ const QueuesPageFullScreen = () => {
         <div className={classNames(cls.QueuesPage__queuesContainer)}>
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
-              {
-
-                allProccessQueue?.videoUrl?.[0]?.link !== undefined ? <ReactPlayer
-                  // url={''}
-                  url={allProccessQueue!.videoUrl[0].link ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}` : ''}
-                  loop
-                  playing
-                  controls
-                  width="100%"
-                  height="80%"
-                  playsinline
-                  config={{
-                    youtube: {
-                      playerVars: { showinfo: 0 },
-                    },
-                  }}
-                /> : ""
-              }
-
+              <ReactPlayer
+              // url={''}
+                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
+                loop
+                playing
+                controls
+                width="100%"
+                height="80%"
+                playsinline
+                config={{
+                  youtube: {
+                    playerVars: { showinfo: 0 },
+                  },
+                }}
+              />
             </div>
           </div>
 
@@ -266,18 +262,24 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!?.room1!?.proceed.length > 10 ? (
+                  {allProccessQueue!?.room1!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC fill="#fff" color="#fff" />
                       </div>
                       <div className={classNames(cls.orderNumber)}>
                         <p>
-                          {
-                            allProccessQueue!.room1?.proceed[
-                              allProccessQueue!.room1?.proceed.length - 1
-                            ].queues_name
-                          }
+                          {`${allProccessQueue!.room1?.proceed[
+                            allProccessQueue!.room1?.proceed.length - 1
+                            // @ts-ignore
+                          ].queues_name.charAt(
+                            0,
+                          )}-${allProccessQueue!.room1?.proceed[
+                            allProccessQueue!.room1?.proceed.length - 1
+                          ].queues_name
+                            // @ts-ignore
+                            .split('-')[1]
+                            .slice(-2)}`}
                         </p>
                       </div>
                     </>
@@ -357,18 +359,24 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!!?.room2!?.proceed.length > 10 ? (
+                  {allProccessQueue!!?.room2!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC />
                       </div>
                       <div className={classNames(cls.orderNumber)}>
                         <p>
-                          {
-                            allProccessQueue!.room2?.proceed[
-                              allProccessQueue!.room2?.proceed.length - 1
-                            ].queues_name
-                          }
+                          {`${allProccessQueue!.room2?.proceed[
+                            allProccessQueue!.room2?.proceed.length - 1
+                            // @ts-ignore
+                          ].queues_name.charAt(
+                            0,
+                          )}-${allProccessQueue!.room2?.proceed[
+                            allProccessQueue!.room2?.proceed.length - 1
+                          ].queues_name
+                            // @ts-ignore
+                            .split('-')[1]
+                            .slice(-2)}`}
                         </p>
                       </div>
                     </>

@@ -82,8 +82,8 @@ const QueuesControlDoctor = () => {
 
         if (response.data) {
           // Update auth user and token
-          dispatch(fetchAuthUser({ refresh: true, buttonsContext }));
           Cookies.set('token', response.data.data.tokens);
+          dispatch(fetchAuthUser({ refresh: true, buttonsContext }));
           setHasOpenToast(true);
           setToastDataForAddRoomForm({
             toastMessageForAddRoomForm: t("Shifokor O'zgartirildi"),
@@ -94,7 +94,6 @@ const QueuesControlDoctor = () => {
         }
         return response.data;
       } catch (e) {
-        // Handle errors and show appropriate toast message
         setToastDataForAddRoomForm({
           toastMessageForAddRoomForm: t(
             "Shifokorni o'zgartirishda xatolik sodir bo'ldi",

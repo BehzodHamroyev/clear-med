@@ -117,7 +117,7 @@ const MonitorsDetail = () => {
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
               <p>
-                {t('Ishonch raqami:')} {formattedPhoneNumber}
+                {t('Ишонч рақами:')} {formattedPhoneNumber}
               </p>
             </div>
             {/* <div className={classNames(cls.QueuesPage__headerRightLogo)}>
