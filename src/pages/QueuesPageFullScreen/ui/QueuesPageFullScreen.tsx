@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUploadUrl, baseUrl,  baseUrlImgLogo } from '../../../../baseurl';
+import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -26,7 +26,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-
+  const [lastQueue, setLastQueue] = useState('');
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -37,8 +37,6 @@ const QueuesPageFullScreen = () => {
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-  console.log(allProccessQueue?.videoUrl[0].link,'allProccessQueue;');
-  
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -105,6 +103,7 @@ const QueuesPageFullScreen = () => {
     color: 'red',
     fontSize: '28px',
     marginTop: '10px',
+    marginRight: '20px',
   };
 
   useEffect(() => {
@@ -129,22 +128,22 @@ const QueuesPageFullScreen = () => {
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ishonch raqami:')} +998 71 207 00 17</p>
+              <p>{t('Ишонч рақами:')} +998 71 207 00 17</p>
             </div>
           </div>
         </div>
 
         <Marquee speed={80} gradientColor="248 251 253">
           <p style={MariqueParagraphStyle}>
-               Hurmatli bemorlar iltimos tartib va tinchlikni saqlang !
+            Ҳурматли беморлар илтимос тартиб ва тинчликни сақланг !{' '}
           </p>
 
           <p style={MariqueParagraphStyle}>
-              Уважаемые пациенты, пожалуйста, соблюдайте порядок и мир!
+            Уважаемые пациенты, пожалуйста, соблюдайте порядок и мир!
           </p>
 
           <p style={MariqueParagraphStyle}>
-              Dear patients, please maintain order and peace! 
+            Dear patients, please maintain order and peace!
           </p>
         </Marquee>
 
@@ -152,7 +151,8 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
+                url="https://www.youtube.com/watch?v=KLuTLF3x9sA"
+                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
                 controls
@@ -265,11 +265,17 @@ const QueuesPageFullScreen = () => {
                       </div>
                       <div className={classNames(cls.orderNumber)}>
                         <p>
-                          {
-                            allProccessQueue!.room1?.proceed[
-                              allProccessQueue!.room1?.proceed.length - 1
-                            ].queues_name
-                          }
+                          {`${allProccessQueue!.room1?.proceed[
+                            allProccessQueue!.room1?.proceed.length - 1
+                            // @ts-ignore
+                          ].queues_name.charAt(
+                            0,
+                          )}-${allProccessQueue!.room1?.proceed[
+                            allProccessQueue!.room1?.proceed.length - 1
+                          ].queues_name
+                            // @ts-ignore
+                            .split('-')[1]
+                            .slice(-2)}`}
                         </p>
                       </div>
                     </>
@@ -356,11 +362,17 @@ const QueuesPageFullScreen = () => {
                       </div>
                       <div className={classNames(cls.orderNumber)}>
                         <p>
-                          {
-                            allProccessQueue!.room2?.proceed[
-                              allProccessQueue!.room2?.proceed.length - 1
-                            ].queues_name
-                          }
+                          {`${allProccessQueue!.room2?.proceed[
+                            allProccessQueue!.room2?.proceed.length - 1
+                            // @ts-ignore
+                          ].queues_name.charAt(
+                            0,
+                          )}-${allProccessQueue!.room2?.proceed[
+                            allProccessQueue!.room2?.proceed.length - 1
+                          ].queues_name
+                            // @ts-ignore
+                            .split('-')[1]
+                            .slice(-2)}`}
                         </p>
                       </div>
                     </>

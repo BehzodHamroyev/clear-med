@@ -11,7 +11,7 @@ import { useReactToPrint } from 'react-to-print';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import cls from './QueuingTvCard.module.scss';
-import { baseUrl } from '../../../../baseurl';
+import { baseUploadUrl, baseUrl } from '../../../../baseurl';
 
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
@@ -199,7 +199,7 @@ export const QueuingTvCard = ({
 
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
-            <img src={`http://socketmed.magicsoft.uz/${icon}`} alt="icon" />
+            <img src={`${baseUploadUrl}${icon}`} alt="icon" />
           )}
         </div>
       </div>
