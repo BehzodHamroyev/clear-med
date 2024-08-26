@@ -132,7 +132,7 @@ const QueueDialog = ({
       />
 
       <ReactAudioPlayer
-        src={`${baseUploadUrl}/${Mp3Array[currentTrackIndex]}`}
+        src={`${baseUploadUrl}${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
         controls
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}

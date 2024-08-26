@@ -12,16 +12,14 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
+import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-// import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
@@ -119,6 +117,8 @@ const QueuesPageFullScreen = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  console.log(`${baseUploadUrl}/${allProccessQueue?.videoUrl?.[0]?.link}`);
+
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -151,8 +151,8 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-                url="https://www.youtube.com/watch?v=KLuTLF3x9sA"
-                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
+                // url={''}
+                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
                 controls
