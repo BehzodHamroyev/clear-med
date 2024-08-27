@@ -180,5 +180,10 @@
   "The_doctor_changes": "Врач изменяет",
   "current_queues": "Текущие очереди",
   "select_doctor": "Выберите врача",
-  "end_work": "Выберите время ухода"
+  "end_work": "Выберите время ухода",
+  "yourOrder": "Ваша очередь",
+  "department": "Отделение",
+  "room": "Комната",
+  "doctor": "Доктор",
+  "time": "Время"
 }

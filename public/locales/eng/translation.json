@@ -150,5 +150,10 @@
   "The_doctor_changes": "The doctor changes",
   "current_queues": "Current queues",
   "select_doctor": "Select doctor",
-  "end_work": "Choose a departure time"
+  "end_work": "Choose a departure time",
+  "yourOrder": "Your turn",
+  "department": "Department",
+  "room": "Room",
+  "doctor": "Doctor",
+  "time": "Time"
 }
