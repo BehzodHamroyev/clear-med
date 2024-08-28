@@ -3,13 +3,35 @@
 .QueueUserControlWrapper {
   width: 100%;
   max-width: 350px;
-  min-width: 340px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
+  flex-direction: column;
 
   .Buttons {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+
+    .QueueUserNextBtn {
+      width: 100%;
+      display: flex;
+      color: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 6px;
+      padding: 10px 30px;
+      font-family: sans-serif;
+      align-items: flex-start;
+      background-color: #2da9e8 !important;
+    }
+
     .ButtonsTitle {
       color: #828282;
       font-size: 14px;
@@ -22,24 +44,23 @@
     }
 
     .BtnClient {
-      width: 50px;
-      height: 50px;
-      flex-shrink: 0;
-      cursor: pointer;
-      border-radius: 4px;
-      border: 0.709px solid #e0e0e0;
-      margin: 0 auto;
-      margin-top: 10px;
-      position: relative;
+      width: 100%;
+      gap: 10px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: transparent;
+      color: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 6px;
+      padding: 10px 30px;
       font-family: sans-serif;
+      align-items: flex-start;
+      background-color: #f87017 !important;
     }
 
     .colorRed {
-      color: red;
+      color: black !important;
     }
 
     .BtnClient:active {
