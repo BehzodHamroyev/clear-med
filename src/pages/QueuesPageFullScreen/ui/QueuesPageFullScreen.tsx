@@ -120,7 +120,6 @@ const QueuesPageFullScreen = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  console.log(`${baseUploadUrl}/${allProccessQueue?.videoUrl?.[0]?.link}`);
   
 
   return (
@@ -155,8 +154,8 @@ const QueuesPageFullScreen = () => {
           <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
-              // url={''}
-                url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
+              url={'https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D'}
+                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
                 controls
