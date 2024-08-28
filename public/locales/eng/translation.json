@@ -19,16 +19,13 @@
   "Chiqarish": "Release",
   "Qabul xona xodimini qo'shish": "Add a receptionist",
   "Kuting": "Please wait",
-
   "MENU": "MENU",
   "Receptions": "Receptions",
-
   "Bo'lim qo'shish": "Add section",
   "Reklama qo'shish": "Reklama qo'shish",
   "Xona qo‘shish": "Add room",
   "Shifokor qo‘shish": "Add doctor",
   "Shifokorni tahrirlash": "Edit doctor",
-
   "Hisobotlar": "Reports",
   "Navbatlar": "Queues",
   "Navbat berish": "Queuing",
@@ -36,19 +33,14 @@
   "Umumiy": "General",
   "Reklama qo’shish": "Add advertisement",
   "Monitor qo’shish": "Add monitor",
-
   "Tilni o‘zgartirish": "Change language",
   "Mavzuni o‘zgartirish": "Change theme",
-
   "Avto": "Auto",
   "Yorqin": "Light",
   "Qorong‘i": "Dark",
-
   "Fullscreen": "Fullscreen",
-
   "Bilet raqami": "Ticket number",
   "Xona raqami": "Room number",
-
   "January": "January",
   "February": "February",
   "March": "March",
@@ -61,9 +53,7 @@
   "October": "October",
   "November": "November",
   "December": "December",
-
   "Xonalar": "Rooms",
-
   "Shifokorlar": "Physicians",
   "Ortga": "Back",
   "Monitorga biriktirilgan xonalar": "Rooms attached to the monitor",
@@ -76,7 +66,6 @@
   "Yangi parolni kiriting": "Enter new password",
   "Yangi parolni kiriting...": "Enter new password...",
   "O'zgartirish": "Change",
-
   "Ortga qaytish": "Back",
   "Jami ko'rilgan bemorlar : ": "Total patients seen: ",
   "Tasdiqlangan bemorlar : ": "Approved Patients: ",
@@ -86,16 +75,12 @@
   "Ko'rilgan bemorlar": "Patients Seen",
   "dan": "from",
   "gacha": "until",
-
   "Bo‘lim nomi": "Department name",
-
   "Bemorni ko'rishga ketadigan taxminiy vaqt": "Estimated time to see the patient",
   "Bo'limga rasm qo'shish": "Add image to section",
   "Bekor qilish": "Cancel",
-
   "Qayta chaqirish": "Recall",
   "Tasdiqlash": "Confirmation",
-
   "Bugun navbatga yozilgan bemorlar mavjud emas!": "There are currently no patients on the waiting list!",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "There are no patients on the waiting list today!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Patients seen and canceled today",
@@ -109,17 +94,14 @@
   "Qabul tugashi": "End of admission",
   "Hisobot": "Report",
   "Saqlash": "Save",
-
   "admin": "Admin",
   "KIRISH": "Sign in",
-
   "Bo‘limlar": "Departments",
   "Bo'lim rasmi": "Department picture",
   "Bo'lim nomi": "Department name",
   "Shifokorlar soni": "Number of doctors",
   "Xonalar soni": "Number of rooms",
   "Bemorni ko'rish vaqti": "Time to see the patient",
-
   "Biriktirilgan bo'lim": "Attached section",
   "Biriktirilgan shifokorlar": "Affiliated Doctors",
   "Xona qo'shish": "Add room",
@@ -140,7 +122,6 @@
   "Qabul qo‘shish": "Add reception",
   "Qabulni tahrirlash": "Edit reception",
   "Ushbu receptionni xaqiyqatdan ham o'chirmoqchimisiz ?": "Do you really want to delete this reception?",
-
   "Bilet": "Ticket",
   "Ишонч рақами:": "Trust number:",
   "Reklamalar": "Advertisements",
@@ -161,7 +142,6 @@
   "Parolni yangilash": "Password update",
   "Ushbu Monitorni xaqiyqatdan ham o'chirmoqchimisiz ?": "Do you really want to turn off this monitor?",
   "Tizimga kirish uchun maʼlumotlaringizni kiriting.": "Enter your information to login.",
-
   "Bo'lim yo'q": "No department",
   "Xona yo'q": "No room",
   "Shifokor yo'q": "No Doctor",
@@ -170,5 +150,10 @@
   "The_doctor_changes": "The doctor changes",
   "current_queues": "Current queues",
   "select_doctor": "Select doctor",
-  "end_work": "Choose a departure time"
+  "end_work": "Choose a departure time",
+  "yourOrder": "Your turn",
+  "department": "Department",
+  "room": "Room",
+  "doctor": "Doctor",
+  "time": "Time"
 }

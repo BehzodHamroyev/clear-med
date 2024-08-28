@@ -30,6 +30,10 @@ export const QueuingTv = () => {
   const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
   const lastQueueError = useSelector(getLastQueueError);
 
+  const language = localStorage.getItem('i18nextLng');
+
+  // console.log(item?.department_id);
+
   return (
     <div className={cls.QueuingTvWrapper}>
       <div className={cls.RenderSectionCard}>
@@ -42,7 +46,11 @@ export const QueuingTv = () => {
               proceedCount={item.proceedCount}
               DoctorId={item?.doctor_id[0].id}
               icon={item?.department_id.photo}
-              CardLeftTitle={item?.department_id.name}
+              CardLeftTitle={
+                language === 'kr' || language === 'ru'
+                  ? item?.department_id.nameRu
+                  : item?.department_id.nameEn
+              }
               CardLeftDoctorName={item?.doctor_id[0].name}
             />
           ))}

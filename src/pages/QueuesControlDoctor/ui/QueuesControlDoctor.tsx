@@ -70,7 +70,6 @@ const QueuesControlDoctor = () => {
   const { setHasOpenToast, setToastDataForAddRoomForm } =
     useContext(ButtonsContext);
 
-  // Function to handle doctor changes
   const handleDoctor = async () => {
     if (selectedDoctor && selectedTime) {
       try {
