@@ -25,6 +25,8 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
     const { t } = useTranslation();
 
+    const language = localStorage.getItem('i18nextLng');
+
     return (
       <div
         ref={ref}
@@ -32,7 +34,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
       >
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
-            {t('yourOrder')}:
+            {language === 'kr' ? 'Навбатингиз' : 'Ваша очередь'}
           </p>
 
           <p>{ticketNumber}</p>
@@ -40,7 +42,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
-            {t('room')}:
+            {language === 'kr' ? 'Хона' : 'Комната'}:
           </p>
 
           <p>{roomNumber}</p>
@@ -48,7 +50,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {t('department')}:
+            {language === 'kr' ? 'Бўлим' : 'Отделение'}:
           </p>
 
           <p>{deparment_name}</p>
@@ -56,7 +58,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {t('doctor')}:
+            {language === 'kr' ? 'Шифокор' : 'Доктор'}:
           </p>
 
           <p
@@ -70,7 +72,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {t('time')}:
+            {language === 'kr' ? 'Вақт' : 'Время'}:
           </p>
 
           <p className={cls['QueuingPrintCardWrp__queuingPopap--dateGetQueue']}>

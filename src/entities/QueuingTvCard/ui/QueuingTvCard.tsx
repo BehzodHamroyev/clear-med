@@ -26,6 +26,7 @@ import { Loader } from '@/widgets/Loader';
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 
 import { isLoading, error } from '@/entities/FileUploader';
+import { getDeparmentListData } from '@/pages/QueuingTV/model/selectors/departmentListSelector';
 
 interface CreateOrder {
   department_id: string;
@@ -62,6 +63,8 @@ export const QueuingTvCard = ({
   const dispatch = useAppDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
+
+  const dataOfDepartment = useSelector(getDeparmentListData);
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
@@ -139,6 +142,8 @@ export const QueuingTvCard = ({
 
   useEffect(() => {
     if (lastQueue) {
+      // this code for queue name
+
       const inputString = lastQueue?.room.doctor_id[0].name!; // Example input string
 
       // Split the string into an array of words
@@ -157,6 +162,7 @@ export const QueuingTvCard = ({
       const outputStringDoctorName = `${firstWord} ${initials}`;
       setDoctorName(outputStringDoctorName);
 
+      // this code for queue name
       // @ts-ignore
       const prefix = lastQueue?.pagination.charAt(0);
 
@@ -172,6 +178,8 @@ export const QueuingTvCard = ({
       setLastQueueName(outputStringQueueNUmber || '');
     }
   }, [lastQueue]);
+
+  console.log(lastQueueName);
 
   return (
     <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
