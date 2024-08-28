@@ -124,7 +124,7 @@ const QueueDialog = ({
       </div>
 
       <ReactAudioPlayer
-        src={`${baseUploadUrl}uploads/callRingtone.mp3`}
+        src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
         autoPlay
         controls
         onEnded={() => setHasCallRingtone(true)}

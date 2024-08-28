@@ -12,6 +12,7 @@
     "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm run electron:start\"",
     "electron:build": "",
     "electron:start": "wait-on tcp:3000 && electron .",
+    "build:vite":"vite build",
     "build:prod": "webpack  --env mode=production",
     "build:dev": "webpack  --env mode=development apiUrl=http://socketmed.magicsoft.uz//api/v1",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",

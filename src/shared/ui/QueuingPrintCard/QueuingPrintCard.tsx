@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
-
 import { useTranslation } from 'react-i18next';
+
 import cls from './QueuingPrintCard.module.scss';
+import { baseUrlImgLogo } from '../../../../baseurl';
 import { getAllDataProject } from '@/entities/FileUploader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -91,8 +92,9 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
         </div>
 
         <img
-          src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
+          // src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
           alt="imgLink"
+          src={`${baseUrlImgLogo}`}
           className={
             cls['QueuingPrintCardWrp__queuingPopap--printQueuePageImg']
           }
