@@ -1,12 +1,19 @@
 .ControlPanelDocktorWrapper {
   width: 100%;
   height: 100%;
+  max-width: 350px;
   display: flex;
+  margin: 0 auto;
+  padding: 20px;
   margin-top: 25px;
   text-align: center;
   align-items: center;
+  gap: 10px;
+  border-radius: 12px;
   background-color: #fff;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 5px 10px 2px #223c5033;
 
   @media only screen and (max-width: 1395px) {
     flex-direction: column;

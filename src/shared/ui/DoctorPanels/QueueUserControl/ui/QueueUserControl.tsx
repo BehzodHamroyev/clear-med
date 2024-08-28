@@ -5,7 +5,11 @@ import { useTranslation } from 'react-i18next';
 import cls from './QueueUserControl.module.scss';
 
 import Toast from '../../../Toast/Toast';
-import { CheckedIcon, ErrorIcon, Refresh } from '@/shared/assets/Pages/Doctor';
+import {
+  CheckedIcon,
+  //  ErrorIcon,
+  Refresh,
+} from '@/shared/assets/Pages/Doctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/services/fetchQueuesProccess';
@@ -144,7 +148,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           </button>
         </div>
 
-        <div className={cls.Buttons}>
+        {/* <div className={cls.Buttons}>
           <p className={cls.ButtonsTitle}>{t('Bekor qilish')}</p>
           <button
             onClick={handleClickProccessCansel}
@@ -164,7 +168,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
               alt="#"
             />
           </button>
-        </div>
+        </div> */}
 
         <div className={cls.Buttons}>
           <p className={cls.ButtonsTitle}>{t('Tasdiqlash')}</p>

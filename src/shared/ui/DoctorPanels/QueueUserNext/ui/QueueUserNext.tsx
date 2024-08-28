@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
+import { Button } from '@mui/material';
 import cls from './QueueUserNext.module.scss';
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -54,13 +55,21 @@ const QueueUserNext = () => {
   return (
     <div className={cls.QueueUserNextWrapper}>
       {!proccessedList?.data[0] && queuesList && queuesList?.length > 0 && (
-        <button
-          className={cls.QueueUserNextBtn}
+        // <button
+        //   className={cls.QueueUserNextBtn}
+        //   type="button"
+        //   onClick={handleClicknextQueue}
+        // >
+        //   {t('Keyingisi')}
+        // </button>
+
+        <Button
           type="button"
           onClick={handleClicknextQueue}
+          className={cls.QueueUserNextBtn}
         >
           {t('Keyingisi')}
-        </button>
+        </Button>
       )}
     </div>
   );

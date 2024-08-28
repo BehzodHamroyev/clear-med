@@ -59,7 +59,7 @@ const ButtonsProvider = (props: ButtonsProviderProps) => {
 
   const [calendarBeginValue, setCalendarBeginValue] = useState('');
 
-  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   const [calendarEndValue, setCalendarEndValue] = useState('');
 

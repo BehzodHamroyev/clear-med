@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import {
-  Button,
+  // Button,
   FormControl,
   MenuItem,
   Select,
@@ -34,9 +34,9 @@ import {
   getDoneQueuesControlDoctorIsLoading,
   getDoneQueuesControlDoctorError,
 } from '../model/selectors/doneQueuesControlDoctorSelector';
-import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
+// import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
 // import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
+// import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
@@ -176,35 +176,43 @@ const QueuesControlDoctor = () => {
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-      <div className={cls.QueuesControlDoctorWrapper}>
-        <div className={cls.wraperListDoctor}>
-          <h3>{t('select_doctor')}</h3>
-          <FormControl>
-            <Select
-              value={selectedDoctor}
-              onChange={handleChange}
-              displayEmpty
-              sx={{ minWidth: '250px' }}
-              defaultValue=""
-            >
-              {doctors?.map((doctor) => (
-                <MenuItem key={doctor.id} value={doctor.id}>
-                  {doctor?.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <p>{t('end_work')}</p>
-          <TimePickerValue
+      <div className={cls.bigClass}>
+        <div className={cls.QueuesControlDoctorWrapper}>
+          <div className={cls.wraperListDoctor}>
+            <h3>{t('select_doctor')}</h3>
+
+            <FormControl>
+              <Select
+                value={selectedDoctor}
+                onChange={handleChange}
+                displayEmpty
+                sx={{ minWidth: '250px' }}
+                defaultValue=""
+              >
+                {doctors?.map((doctor) => (
+                  <MenuItem key={doctor.id} value={doctor.id}>
+                    {doctor?.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* <p>{t('end_work')}</p> */}
+            {/* <TimePickerValue
             value={selectedTime}
             onChange={(newValue) => setSelectedTime(newValue)}
           />
           <Button variant="contained" onClick={() => handleDoctor()}>
             {t('Save')}
-          </Button>
+          </Button> */}
+          </div>
+
+          <ControlPanelDocktor />
+
+          {/* {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />} */}
         </div>
 
-        <ControlPanelDocktor />
+        {/* right bar */}
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
@@ -215,19 +223,20 @@ const QueuesControlDoctor = () => {
                   TableTitle={t('Kutayotgan bemorlar')}
                   ItemsLength={queuesList?.length}
                 />
+
                 <TableTitleDoctorProfile
-                  Tablethead={['Id', t('Bilet berilgan vaqti')]}
                   Tabletbody={queuesList}
+                  Tablethead={['Id', t('Bilet berilgan vaqti')]}
                 />
               </>
             ) : (
               <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
-                {t('Bugun navbatga yozilgan bemorlar mavjud emas!')}
+                {t('patients_queues')}
               </h2>
             )}
           </div>
 
-          <div className={cls.TableDoctorChild}>
+          {/* <div className={cls.TableDoctorChild}>
             {doneQueuesList && doneQueuesList.length > 0 ? (
               <>
                 <ButtonNavbar
@@ -251,10 +260,8 @@ const QueuesControlDoctor = () => {
                 {t("Bugun ko'rilgan yoki bekor qilingan bemorlar mavjud emas!")}
               </h2>
             )}
-          </div>
+          </div> */}
         </div>
-
-        {/* {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />} */}
       </div>
     </DynamicModuleLoader>
   );

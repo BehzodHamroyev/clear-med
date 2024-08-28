@@ -81,7 +81,7 @@
   "Bekor qilish": "Cancel",
   "Qayta chaqirish": "Recall",
   "Tasdiqlash": "Confirmation",
-  "Bugun navbatga yozilgan bemorlar mavjud emas!": "There are currently no patients on the waiting list!",
+  "patients_queues": "There are no patients",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "There are no patients on the waiting list today!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Patients seen and canceled today",
   "Amaldagi navbat": "Current queue",
