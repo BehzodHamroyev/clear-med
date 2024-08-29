@@ -55,7 +55,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {deparment_name === 'UZI'
+            {deparment_name !== 'UZI'
               ? language === 'kr'
                 ? 'Шифокор'
                 : 'Доктор'
