@@ -25,6 +25,9 @@ const QueueDialog = ({
 }: QueueDialogProps) => {
   const { t } = useTranslation();
 
+  const audioSpeedRef = React.useRef<ReactAudioPlayer | null>(null);
+  const audioSpeedRef2 = React.useRef<ReactAudioPlayer | null>(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const [hasCallRingtone, setHasCallRingtone] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
@@ -81,6 +84,18 @@ const QueueDialog = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (audioSpeedRef.current && audioSpeedRef.current.audioEl.current) {
+      audioSpeedRef.current.audioEl.current.playbackRate = 1.3;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (audioSpeedRef2.current && audioSpeedRef2.current.audioEl.current) {
+      audioSpeedRef2.current.audioEl.current.playbackRate = 1.5;
+    }
+  }, []);
+
   return (
     <div>
       <div className={classNames(cls.QueueDialog, {}, [className])}>
@@ -124,6 +139,7 @@ const QueueDialog = ({
       </div>
 
       <ReactAudioPlayer
+        ref={audioSpeedRef}
         src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
         autoPlay
         controls
@@ -132,6 +148,7 @@ const QueueDialog = ({
       />
 
       <ReactAudioPlayer
+        ref={audioSpeedRef2}
         src={`${baseUploadUrl}${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
         controls

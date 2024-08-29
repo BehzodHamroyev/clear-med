@@ -1,13 +1,13 @@
+.bigClass {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
 .QueuesControlDoctorWrapper {
   width: 100%;
-
-  .TableDoctor {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-    gap: 10px;
-  }
 
   .TableTitle {
     text-align: center;
@@ -18,10 +18,11 @@
   &__noQueueTitle {
     text-align: center;
     font-family: sans-serif;
-    margin: 50px auto;
+    margin: 0;
     color: #970407;
-    padding: 10px;
-    border: 1px solid #970407;
+    padding: 15px;
+    font-weight: 500;
+    user-select: none;
   }
 }
 
@@ -31,6 +32,15 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  padding: 12px;
-  gap: 12px;
+  padding: 2px;
+  gap: 15px;
+}
+
+.TableDoctor {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 0;
 }

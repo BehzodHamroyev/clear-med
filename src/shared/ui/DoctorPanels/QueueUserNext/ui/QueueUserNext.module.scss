@@ -4,10 +4,9 @@
   max-width: 350px;
   align-items: center;
   justify-content: center;
-  padding-right: 10px;
 
   .QueueUserNextBtn {
-    gap: 10px;
+    width: 100%;
     display: flex;
     color: #fff;
     border: none;
@@ -18,7 +17,7 @@
     padding: 10px 30px;
     font-family: sans-serif;
     align-items: flex-start;
-    background-color: #0000ac;
+    background-color: #2da9e8 !important;
   }
 
   button:hover {
