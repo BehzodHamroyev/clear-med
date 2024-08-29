@@ -1,16 +1,15 @@
 /* eslint-disable consistent-return */
 /* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import dayjs, { Dayjs } from 'dayjs';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import dayjs, { Dayjs } from 'dayjs';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
 import {
-  // Button,
-  FormControl,
-  MenuItem,
   Select,
+  MenuItem,
+  FormControl,
   SelectChangeEvent,
 } from '@mui/material';
 
@@ -183,11 +182,11 @@ const QueuesControlDoctor = () => {
 
             <FormControl>
               <Select
+                displayEmpty
+                defaultValue=""
                 value={selectedDoctor}
                 onChange={handleChange}
-                displayEmpty
                 sx={{ minWidth: '250px' }}
-                defaultValue=""
               >
                 {doctors?.map((doctor) => (
                   <MenuItem key={doctor.id} value={doctor.id}>

@@ -35,18 +35,15 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const proccessedList = useSelector(getControlPanelDocktorData);
 
   const handleClickProccessConfirm = () => {
-    if (proccessedStep) {
-      dispatch(
-        fetchQueuesProccess({
-          method: 'post',
-          status: 'completed',
-          path: '',
-        }),
-      );
-      setHasOpenToast(true);
+    console.log('handleClickProccessConfirm');
 
-      setProccessConfirm(true);
-
+    dispatch(
+      fetchQueuesProccess({
+        method: 'post',
+        status: 'completed',
+        path: '',
+      }),
+    ).then((res) => {
       dispatch(
         fetchQueuesProccess({
           method: 'post',
@@ -54,9 +51,12 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           path: '',
         }),
       );
+    });
+    setHasOpenToast(true);
 
-      setUpdateQueueList(true);
-    }
+    setProccessConfirm(true);
+
+    setUpdateQueueList(true);
   };
 
   useEffect(() => {
@@ -131,7 +131,6 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           message={t("Bemor ko'rilganlar ro'yhatiga qo'shildi")}
         />
       )}
-
       {isOpenQueueUserTimer && <QueueUserControlTimer />}
     </>
   );

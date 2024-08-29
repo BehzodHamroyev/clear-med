@@ -6,31 +6,26 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
 import { useReactToPrint } from 'react-to-print';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
+import { Loader } from '@/widgets/Loader';
 import cls from './QueuingTvCard.module.scss';
+import { isLoading, error } from '@/entities/FileUploader';
 import { baseUploadUrl, baseUrl } from '../../../../baseurl';
-
-import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
-import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
-import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
-
+import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
-import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
-import { Loader } from '@/widgets/Loader';
-
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
-
-import { isLoading, error } from '@/entities/FileUploader';
+import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
+import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
+import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
 import { getDeparmentListData } from '@/pages/QueuingTV/model/selectors/departmentListSelector';
 
 interface CreateOrder {
-  department_id: string;
   room_id: string;
+  department_id: string;
 }
 
 export const QueuingTvCard = ({
@@ -46,30 +41,38 @@ export const QueuingTvCard = ({
   const infoProjectError = useSelector(error);
   const lastQueue = useSelector(getLastQueueData);
   const infoProjectIsLoader = useSelector(isLoading);
-
-  const { clearLastQueue } = useLasQueueActions();
+  const dataOfDepartment = useSelector(getDeparmentListData);
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
 
+  const [isPrinting, setIsPrinting] = useState(false);
+  const [doctorName, setDoctorName] = useState('');
   const [showTimer, setShowTimer] = useState(true);
+  const [lastQueueName, setLastQueueName] = useState('');
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
-  const [doctorName, setDoctorName] = useState('');
-  const [lastQueueName, setLastQueueName] = useState('');
+
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: lastQueue?.room?.name,
     createTicketNumber: lastQueue?.pagination,
   });
+  const { clearLastQueue } = useLasQueueActions();
+
   const dispatch = useAppDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
-
-  const dataOfDepartment = useSelector(getDeparmentListData);
 
   const { setClickedDoctorId } = useContext(ButtonsContext);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+
+    onBeforeGetContent: () => {
+      setIsPrinting(true); // Chop etishdan oldin isPrinting ni true ga o'rnatish
+    },
+    onAfterPrint: () => {
+      setIsPrinting(false); // Chop etishdan keyin isPrinting ni false ga o'rnatish
+    },
   });
 
   const createQueueFunc = async (prop: CreateOrder) => {
@@ -136,6 +139,7 @@ export const QueuingTvCard = ({
       });
     }
   };
+
   const handleTimeUp = () => {
     setShowTimer(false);
   };
@@ -179,8 +183,6 @@ export const QueuingTvCard = ({
     }
   }, [lastQueue]);
 
-  console.log(lastQueueName);
-
   return (
     <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
       <div className={cls.CardLeft}>
@@ -215,14 +217,16 @@ export const QueuingTvCard = ({
       <div className={cls.QueuingTvCardWrapper__printDisable}>
         <QueuingPrintCard
           ref={componentRef}
-          roomNumber={String(lastQueue?.room?.name)}
           doctor_name={doctorName}
-          deparment_name={lastQueue?.room.department_id.name}
           ticketNumber={lastQueueName}
+          roomNumber={String(lastQueue?.room?.name)}
+          deparment_name={lastQueue?.room.department_id.name}
         />
       </div>
 
       {createQueueIsLoading && infoProjectIsLoader && <Loader />}
+
+      {isPrinting && <Loader />}
 
       {createQueueIsError && infoProjectError && (
         <ErrorDialog isErrorProps={!false} />
