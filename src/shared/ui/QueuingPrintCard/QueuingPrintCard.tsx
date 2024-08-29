@@ -17,6 +17,7 @@ interface QueuingPrintCardProp {
 const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
   ({ roomNumber, ticketNumber, doctor_name, deparment_name }, ref) => {
     const dispatch = useAppDispatch();
+    console.log(deparment_name, 'deparment_name');
 
     useEffect(() => {
       dispatch(getAllDataProject({}));
@@ -55,7 +56,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {deparment_name !== 'UZI'
+            {deparment_name === 'UZI' || deparment_name === 'УЗИ'
               ? language === 'kr'
                 ? 'Шифокор'
                 : 'Доктор'
