@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import cls from './QueuingPrintCard.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
@@ -23,8 +22,6 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
       dispatch(getAllDataProject({}));
     }, [dispatch]);
 
-    const { t } = useTranslation();
-
     const language = localStorage.getItem('i18nextLng');
 
     return (
@@ -42,7 +39,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--ticketNumber']}>
-            {language === 'kr' ? 'Хона' : 'Комната'}:
+            {language === 'kr' ? 'Хона' : 'кабинет'}:
           </p>
 
           <p>{roomNumber}</p>
@@ -58,7 +55,13 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
 
         <div className={cls['QueuingPrintCardWrp__queuingPopap--medicName']}>
           <p className={cls['QueuingPrintCardWrp__queuingPopap--titleTicket']}>
-            {language === 'kr' ? 'Шифокор' : 'Доктор'}:
+            {deparment_name === 'UZI'
+              ? language === 'kr'
+                ? 'Шифокор'
+                : 'Доктор'
+              : language === 'kr'
+              ? 'Ҳамшира'
+              : 'Медсестра'}
           </p>
 
           <p
