@@ -30,14 +30,14 @@ const QueueUserDoctor = ({
           {t('Bilet raqami')}
         </p>
 
-        <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
-          {outputString}
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--paragraph']}>
+          {t('Xona raqami')}
         </p>
       </div>
 
       <div className={cls.QueueUserDoctorWrp__queuesListTitle}>
-        <p className={cls['QueueUserDoctorWrp__queuesListTitle--paragraph']}>
-          {t('Xona raqami')}
+        <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>
+          {outputString}
         </p>
 
         <p className={cls['QueueUserDoctorWrp__queuesListTitle--ticket']}>

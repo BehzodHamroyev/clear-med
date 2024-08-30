@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import cls from './ControlPanelDocktor.module.scss';
 import { QueueUserDoctor } from '@/shared/ui/DoctorPanels/QueueUserDoctor';
 import { QueueUserControl } from '@/shared/ui/DoctorPanels/QueueUserControl';
-import { QueueUserNext } from '@/shared/ui/DoctorPanels/QueueUserNext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchQueuesProccess } from '../model/services/fetchQueuesProccess';
 import {
@@ -41,7 +40,7 @@ const ControlPanelDocktor = memo(() => {
           <QueueUserControl proccessedStep={proccessedList?.data[0]?.step} />
         </>
       )}
-      <QueueUserNext />
+      {/* <QueueUserNext /> */}
     </div>
   );
 });

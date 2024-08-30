@@ -96,7 +96,7 @@
   "Qayta chaqirish": "Перезвонить",
   "Tasdiqlash": "Подтверждение",
 
-  "Bugun navbatga yozilgan bemorlar mavjud emas!": "Сегодня нет пациентов в очереди!",
+  "patients_queues": "Нет пациентов",
   "Bugun ko'rilgan va bekor qilingan bemorlar mavjud emas!": "Сегодня нет осмотренных или отмененных пациентов!",
   "Bugun ko'rilgan va bekor qilingan bemorlar": "Осмотренные и отмененные пациенты сегодня",
   "Amaldagi navbat": "Текущая очередь",
