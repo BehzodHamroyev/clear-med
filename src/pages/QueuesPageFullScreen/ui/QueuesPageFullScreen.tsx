@@ -151,9 +151,9 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
                 url="https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D"
+                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
-                volume={0.1}
                 controls
                 width="100%"
                 height="80%"
