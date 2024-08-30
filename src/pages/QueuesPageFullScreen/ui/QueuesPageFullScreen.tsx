@@ -222,7 +222,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemRoomNumber,
                           )}
                         >
-                          <p>{allProccessQueue!.room1!.name}</p>
+                          <p>{allProccessQueue!.room1!?.name}</p>
                         </div>
 
                         <div
@@ -310,7 +310,7 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemDepartmentName,
                           )}
                         >
-                          <p>{allProccessQueue!.room2!?.department_id.name}</p>
+                          <p>{allProccessQueue!.room2!?.department_id?.name}</p>
                         </div>
 
                         <div
