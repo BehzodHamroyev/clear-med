@@ -127,7 +127,7 @@ const QueuesPageFullScreen = () => {
           </div>
           <div className={classNames(cls.QueuesPage__headerRight)}>
             <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ишонч рақами:')} +998 71 207 00 17</p>
+              <p>{t('Ишонч рақами:')} 1183</p>
             </div>
           </div>
         </div>
@@ -151,11 +151,10 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.rolik)}>
               <ReactPlayer
                 url="https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D"
-                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
-                controls
                 volume={0.1}
+                controls
                 width="100%"
                 height="80%"
                 playsinline

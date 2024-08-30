@@ -143,18 +143,17 @@ const QueueDialog = ({
         src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
         autoPlay
         controls
-        onEnded={() => setHasCallRingtone(true)}
+        onEnded={() => setOnEndedQueueAudio(false)}
         style={{ opacity: '0' }}
       />
 
-      <ReactAudioPlayer
-        ref={audioSpeedRef2}
+      {/* <ReactAudioPlayer
         src={`${baseUploadUrl}${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
         controls
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}
         style={{ opacity: '0' }}
-      />
+      /> */}
     </div>
   );
 };
