@@ -194,12 +194,12 @@ export const QueuingTvCard = ({
 
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
 
-        {actives.length > 0 && showTimer && (
+        {/* {actives.length > 0 && showTimer && (
           <div className={cls.CardLeftDoctorName}>
             {t('The_doctor_changes')} :{' '}
             <CountdownTimer actives={actives} onTimeUp={handleTimeUp} />
           </div>
-        )}
+        )} */}
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>
