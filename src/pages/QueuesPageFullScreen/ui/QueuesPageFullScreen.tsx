@@ -58,18 +58,22 @@ const QueuesPageFullScreen = () => {
 
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
+        console.log(item, 'item');
+
         if (!item.view && !found) {
+          console.log(item, 'item');
+
           setQueueDialogData({
-            roomNumber: String(item.queues_name).match(/([A-Z])(\d+)-/)![2],
-            biletNumber: String(item.queues_name),
-            step: item.step,
-            mp3Arr: item.mp3Arr,
+            roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
+            biletNumber: String(item?.queues_name),
+            step: item?.step,
+            mp3Arr: item?.mp3Arr,
           });
 
           try {
             axios.post(
               `${baseUrl}/monitor/update/view`,
-              { id: item._id, view: true },
+              { id: item?._id, view: true },
               {
                 maxBodyLength: Infinity,
                 headers: {
@@ -82,7 +86,6 @@ const QueuesPageFullScreen = () => {
             console.log(error);
           }
 
-          // setHasQueueDialog(true);
           setOnEndedQueueAudio(true);
 
           found = true;
@@ -192,7 +195,7 @@ const QueuesPageFullScreen = () => {
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   // @ts-ignore
-                  const prefix = item?.queues_name.charAt(0);
+                  const prefix = item?.queues_name?.charAt(0);
 
                   // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
@@ -239,6 +242,22 @@ const QueuesPageFullScreen = () => {
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                     // Extract the first character (which can be any letter)
+                    console.log(
+                      `${allProccessQueue!.room1?.proceed[
+                        allProccessQueue!.room1?.proceed.length - 1
+                        // @ts-ignore
+                      ].queues_name.charAt(
+                        0,
+                      )}-${allProccessQueue!?.room1?.proceed[
+                        allProccessQueue!?.room1?.proceed.length - 1
+                      ]?.queues_name
+                        // @ts-ignore
+                        .split('-')[1]
+                        .slice(-2)}`,
+                      allProccessQueue!.room1!.proceed!.length,
+                      allProccessQueue
+                    );
+
                     // @ts-ignore
                     const prefix = item.queues_name.charAt(0);
 
@@ -270,9 +289,9 @@ const QueuesPageFullScreen = () => {
                             // @ts-ignore
                           ].queues_name.charAt(
                             0,
-                          )}-${allProccessQueue!.room1?.proceed[
-                            allProccessQueue!.room1?.proceed.length - 1
-                          ].queues_name
+                          )}-${allProccessQueue!?.room1?.proceed[
+                            allProccessQueue!?.room1?.proceed.length - 1
+                          ]?.queues_name
                             // @ts-ignore
                             .split('-')[1]
                             .slice(-2)}`}
@@ -288,10 +307,10 @@ const QueuesPageFullScreen = () => {
               <div className={classNames(cls.queuesTable__items)}>
                 {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                   // @ts-ignore
-                  const prefix = item.queues_name.charAt(0);
+                  const prefix = item?.queues_name?.charAt(0);
 
                   // Extract the last two digits after the hyphen
-                  const lastTwoDigits = item.queues_name
+                  const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     .split('-')[1]
                     .slice(-2);
@@ -310,7 +329,9 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemDepartmentName,
                           )}
                         >
-                          <p>{allProccessQueue!.room2!?.department_id?.name}</p>
+                          <p>
+                            {allProccessQueue!?.room2!?.department_id?.name}
+                          </p>
                         </div>
 
                         <div
@@ -362,8 +383,8 @@ const QueuesPageFullScreen = () => {
                       </div>
                       <div className={classNames(cls.orderNumber)}>
                         <p>
-                          {`${allProccessQueue!.room2?.proceed[
-                            allProccessQueue!.room2?.proceed.length - 1
+                          {`${allProccessQueue!?.room2?.proceed[
+                            allProccessQueue!?.room2?.proceed.length - 1
                             // @ts-ignore
                           ].queues_name.charAt(
                             0,
