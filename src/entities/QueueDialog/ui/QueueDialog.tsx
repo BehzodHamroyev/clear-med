@@ -86,7 +86,7 @@ const QueueDialog = ({
 
   useEffect(() => {
     if (audioSpeedRef.current && audioSpeedRef.current.audioEl.current) {
-      audioSpeedRef.current.audioEl.current.playbackRate = 1.3;
+      audioSpeedRef.current.audioEl.current.playbackRate = 1.1;
     }
   }, []);
 
