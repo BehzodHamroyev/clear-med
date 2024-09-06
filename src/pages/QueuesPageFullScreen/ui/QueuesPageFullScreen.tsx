@@ -206,10 +206,7 @@ const QueuesPageFullScreen = () => {
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
-                  if (
-                    index === allProccessQueue!?.room1?.proceed.length! - 1 &&
-                    item.status === 'proccessed'
-                  )
+                  if (index === allProccessQueue!?.room1?.proceed.length! - 1)
                     return (
                       <div
                         key={item.id}
@@ -236,7 +233,13 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemBiletNumber,
                           )}
                         >
-                          <p>{outputString}</p>
+                          {index ===
+                            allProccessQueue!?.room1?.proceed.length! - 1 &&
+                          item.status === 'proccessed' ? (
+                            <p>{outputString}</p>
+                          ) : (
+                            <p>-</p>
+                          )}
                         </div>
                       </div>
                     );
@@ -321,10 +324,7 @@ const QueuesPageFullScreen = () => {
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
-                  if (
-                    index === allProccessQueue!?.room2?.proceed.length! - 1 &&
-                    item.status === 'proccessed'
-                  ) {
+                  if (index === allProccessQueue!?.room2?.proceed.length! - 1) {
                     return (
                       <div
                         key={item.id}
@@ -353,9 +353,13 @@ const QueuesPageFullScreen = () => {
                             cls.queuesTable__itemBiletNumber,
                           )}
                         >
-                          <p>
-                            {item.status === 'proccessed' ? outputString : ''}
-                          </p>
+                          {index ===
+                            allProccessQueue!?.room2?.proceed.length! - 1 &&
+                          item.status === 'proccessed' ? (
+                            <p>{outputString}</p>
+                          ) : (
+                            <p>-</p>
+                          )}
                         </div>
                       </div>
                     );
