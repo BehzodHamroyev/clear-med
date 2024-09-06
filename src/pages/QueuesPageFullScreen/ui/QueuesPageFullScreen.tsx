@@ -206,7 +206,10 @@ const QueuesPageFullScreen = () => {
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
-                  if (index === 0)
+                  if (
+                    index === allProccessQueue!?.room1?.proceed.length! - 1 &&
+                    item.status === 'proccessed'
+                  )
                     return (
                       <div
                         key={item.id}
@@ -255,7 +258,7 @@ const QueuesPageFullScreen = () => {
                         .split('-')[1]
                         .slice(-2)}`,
                       allProccessQueue!.room1!.proceed!.length,
-                      allProccessQueue
+                      allProccessQueue,
                     );
 
                     // @ts-ignore
@@ -318,7 +321,10 @@ const QueuesPageFullScreen = () => {
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
-                  if (index === 0) {
+                  if (
+                    index === allProccessQueue!?.room2?.proceed.length! - 1 &&
+                    item.status === 'proccessed'
+                  ) {
                     return (
                       <div
                         key={item.id}
