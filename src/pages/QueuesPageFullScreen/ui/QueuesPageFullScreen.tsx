@@ -157,8 +157,8 @@ const QueuesPageFullScreen = () => {
                 // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
                 loop
                 playing
-                controls
                 volume={0.1}
+                controls
                 width="100%"
                 height="80%"
                 playsinline
