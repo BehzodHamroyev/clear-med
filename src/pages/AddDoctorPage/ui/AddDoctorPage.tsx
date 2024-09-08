@@ -119,7 +119,7 @@ const AddDoctorPage = () => {
         {allDoctorsData && allDoctorsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allDoctorsData.map((item) => {
-              const ImgSvg = `http://socketmed.magicsoft.uz//${item.photo}`;
+              const ImgSvg = `http://192.168.0.130:3009${item.photo}`;
 
               return (
                 <tr

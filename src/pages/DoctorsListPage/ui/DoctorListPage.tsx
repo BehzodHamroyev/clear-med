@@ -103,8 +103,8 @@ const DoctorListPage = () => {
           lastChild: `+998 ${item?.login}`,
           img:
             item.photo !== '/uploads/default.png'
-              ? `http://socketmed.magicsoft.uz//${item.photo}`
-              : `http://socketmed.magicsoft.uz//uploads/default.png`,
+              ? `http://192.168.0.130:3009/${item.photo}`
+              : `http://192.168.0.130:3009/uploads/default.png`,
         };
       });
       setTableBody(() => [...tableBodys]);

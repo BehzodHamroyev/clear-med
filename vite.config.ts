@@ -13,7 +13,7 @@ export default defineConfig({
     __IS_DEV__: JSON.stringify(true),
 
     // ----------  Server ----------
-    __API__: JSON.stringify('http://socketmed.magicsoft.uz/'),
+    __API__: JSON.stringify('http://192.168.0.130:3009/'),
     __PROJECT__: JSON.stringify('frontend'),
   },
 });
