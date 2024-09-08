@@ -178,7 +178,7 @@ const QueuesControlDoctor = () => {
       <div className={cls.bigClass}>
         <div className={cls.QueuesControlDoctorWrapper}>
           <div className={cls.wraperListDoctor}>
-            <h3>{t('select_doctor')}</h3>
+            {/* <h3>{t('select_doctor')}</h3>
 
             <FormControl>
               <Select
@@ -194,7 +194,7 @@ const QueuesControlDoctor = () => {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
             {/* <p>{t('end_work')}</p> */}
             {/* <TimePickerValue
