@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import cls from './QueuingPrintCard.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
@@ -17,11 +17,32 @@ interface QueuingPrintCardProp {
 const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
   ({ roomNumber, ticketNumber, doctor_name, deparment_name }, ref) => {
     const dispatch = useAppDispatch();
-    console.log(deparment_name, 'deparment_name');
+    const [doctorName, setDoctorName] = useState('');
 
     useEffect(() => {
       dispatch(getAllDataProject({}));
     }, [dispatch]);
+
+    useEffect(() => {
+      // this code for queue name
+      if (doctor_name) {
+        // Split the string into an array of words
+        const words = doctor_name.split(' ');
+
+        // Extract the first word
+        const firstWord = words[0];
+
+        // Extract the first letters of the remaining words and join them with a dot
+        const initials = words
+          .slice(1)
+          .map((word) => word.charAt(0))
+          .join('.');
+
+        // Combine them
+        const outputStringDoctorName = `${firstWord} ${initials}`;
+        setDoctorName(outputStringDoctorName);
+      }
+    }, [doctor_name]);
 
     const language = localStorage.getItem('i18nextLng');
 
@@ -70,7 +91,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
               cls['QueuingPrintCardWrp__queuingPopap--medicNameFullName']
             }
           >
-            {doctor_name}
+            {doctorName}
           </p>
         </div>
 

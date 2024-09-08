@@ -1,6 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable ulbi-tv-plugin/public-api-imports */
-/* eslint-disable max-len */
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -14,14 +11,12 @@ import { isLoading, error } from '@/entities/FileUploader';
 import { baseUploadUrl, baseUrl } from '../../../../baseurl';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import CountdownTimer from '@/shared/ui/CountdownTimer/CountdownTimer';
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
 import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
 import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
-import { getDeparmentListData } from '@/pages/QueuingTV/model/selectors/departmentListSelector';
 
 interface CreateOrder {
   room_id: string;
@@ -41,16 +36,15 @@ export const QueuingTvCard = ({
   const infoProjectError = useSelector(error);
   const lastQueue = useSelector(getLastQueueData);
   const infoProjectIsLoader = useSelector(isLoading);
-  const dataOfDepartment = useSelector(getDeparmentListData);
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
 
   const [isPrinting, setIsPrinting] = useState(false);
-  const [doctorName, setDoctorName] = useState('');
-  const [showTimer, setShowTimer] = useState(true);
   const [lastQueueName, setLastQueueName] = useState('');
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+
+  const [doctorName, setDoctorName] = useState('');
 
   const [printRoomInfo, setPrintRoomInfo] = useState({
     createRoomNumber: lastQueue?.room?.name,
@@ -121,27 +115,24 @@ export const QueuingTvCard = ({
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+    if (actives.length > 0) {
+      if (DoctorId) setClickedDoctorId(DoctorId);
 
-    if (DoctorId) setClickedDoctorId(DoctorId);
-
-    if (DoctorId) {
-      dispatch(
-        fetchLastQueue({
-          doctorId: DoctorId,
-        }),
-      ).then((res) => {
-        createQueueFunc({
-          // @ts-ignore
-          department_id: res.payload.room.department_id,
-          // @ts-ignore
-          room_id: res.payload.room._id,
+      if (DoctorId) {
+        dispatch(
+          fetchLastQueue({
+            doctorId: DoctorId,
+          }),
+        ).then((res) => {
+          createQueueFunc({
+            // @ts-ignore
+            department_id: res.payload.room.department_id,
+            // @ts-ignore
+            room_id: res.payload.room._id,
+          });
         });
-      });
+      }
     }
-  };
-
-  const handleTimeUp = () => {
-    setShowTimer(false);
   };
 
   useEffect(() => {
@@ -183,8 +174,22 @@ export const QueuingTvCard = ({
     }
   }, [lastQueue]);
 
+  useEffect(() => {
+    const showLanguageModal = () => {
+      setIsvisableLanguageModal(true);
+    };
+
+    const interval = setInterval(showLanguageModal, 60000); // 1 minutes
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div onClick={hendleClickQuingTvCard} className={cls.QueuingTvCardWrapper}>
+    <div
+      onClick={hendleClickQuingTvCard}
+      style={{ opacity: actives.length > 0 ? 1 : 0.5 }}
+      className={cls.QueuingTvCardWrapper}
+    >
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
 
@@ -209,7 +214,10 @@ export const QueuingTvCard = ({
 
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
-            <img src={`${baseUploadUrl}${icon}`} alt="icon" />
+            <img
+              src={`${baseUploadUrl}${actives[0]?.user.photo || icon}`}
+              alt="icon"
+            />
           )}
         </div>
       </div>
@@ -217,7 +225,7 @@ export const QueuingTvCard = ({
       <div className={cls.QueuingTvCardWrapper__printDisable}>
         <QueuingPrintCard
           ref={componentRef}
-          doctor_name={doctorName}
+          doctor_name={actives[0]?.user.name}
           ticketNumber={lastQueueName}
           roomNumber={String(lastQueue?.room?.name)}
           deparment_name={lastQueue?.room.department_id.name}

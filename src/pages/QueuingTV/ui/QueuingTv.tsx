@@ -32,28 +32,30 @@ export const QueuingTv = () => {
 
   const language = localStorage.getItem('i18nextLng');
 
-  // console.log(item?.department_id);
-
   return (
     <div className={cls.QueuingTvWrapper}>
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
-          deparmentList.map((item: any) => (
-            <QueuingTvCard
-              key={item?.id}
-              actives={item.actives}
-              CardLeftRoomNumber={item?.name}
-              proceedCount={item.proceedCount}
-              DoctorId={item?.doctor_id[0].id}
-              icon={item?.department_id.photo}
-              CardLeftTitle={
-                language === 'kr' || language === 'ru'
-                  ? item?.department_id.nameRu
-                  : item?.department_id.nameEn
-              }
-              CardLeftDoctorName={item?.doctor_id[0].name}
-            />
-          ))}
+          deparmentList.map((item: any) => {
+            console.log(item?.actives[0]?.user.name, 'deparmentList');
+
+            return (
+              <QueuingTvCard
+                key={item?.id}
+                actives={item.actives}
+                CardLeftRoomNumber={item?.name}
+                proceedCount={item.proceedCount}
+                DoctorId={item?.doctor_id[0].id}
+                icon={item?.department_id.photo}
+                CardLeftTitle={
+                  language === 'kr' || language === 'ru'
+                    ? item?.department_id.nameRu
+                    : item?.department_id.nameEn
+                }
+                CardLeftDoctorName={item?.doctor_id[0].name}
+              />
+            );
+          })}
       </div>
 
       {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}

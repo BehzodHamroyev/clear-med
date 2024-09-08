@@ -1,8 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
-/* eslint-disable ulbi-tv-plugin/public-api-imports */
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -20,7 +15,6 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-// import { video4k } from '@/shared/assets';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
