@@ -241,23 +241,6 @@ const QueuesPageFullScreen = () => {
 
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room1?.proceed?.map((item, index) => {
-                    // Extract the first character (which can be any letter)
-                    console.log(
-                      `${allProccessQueue!.room1?.proceed[
-                        allProccessQueue!.room1?.proceed.length - 1
-                        // @ts-ignore
-                      ].queues_name.charAt(
-                        0,
-                      )}-${allProccessQueue!?.room1?.proceed[
-                        allProccessQueue!?.room1?.proceed.length - 1
-                      ]?.queues_name
-                        // @ts-ignore
-                        .split('-')[1]
-                        .slice(-2)}`,
-                      allProccessQueue!.room1!.proceed!.length,
-                      allProccessQueue,
-                    );
-
                     // @ts-ignore
                     const prefix = item.queues_name.charAt(0);
 
@@ -285,12 +268,12 @@ const QueuesPageFullScreen = () => {
                       <div className={classNames(cls.orderNumber)}>
                         <p>
                           {`${allProccessQueue!.room1?.proceed[
-                            allProccessQueue!.room1?.proceed.length - 1
+                            allProccessQueue!.room1?.proceed.length - 2
                             // @ts-ignore
                           ].queues_name.charAt(
                             0,
                           )}-${allProccessQueue!?.room1?.proceed[
-                            allProccessQueue!?.room1?.proceed.length - 1
+                            allProccessQueue!?.room1?.proceed.length - 2
                           ]?.queues_name
                             // @ts-ignore
                             .split('-')[1]
@@ -388,12 +371,12 @@ const QueuesPageFullScreen = () => {
                       <div className={classNames(cls.orderNumber)}>
                         <p>
                           {`${allProccessQueue!?.room2?.proceed[
-                            allProccessQueue!?.room2?.proceed.length - 1
+                            allProccessQueue!?.room2?.proceed.length - 2
                             // @ts-ignore
                           ].queues_name.charAt(
                             0,
                           )}-${allProccessQueue!.room2?.proceed[
-                            allProccessQueue!.room2?.proceed.length - 1
+                            allProccessQueue!.room2?.proceed.length - 2
                           ].queues_name
                             // @ts-ignore
                             .split('-')[1]
