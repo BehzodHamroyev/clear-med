@@ -162,11 +162,11 @@ const QueuesControlDoctor = () => {
   useEffect(() => {
     const firstCheckTimeout = setTimeout(() => {
       checkTimeMatch(); // Initial check after 1 minute
-      const checkIntervalId = setInterval(checkTimeMatch, 60000); // Run every 60,000 milliseconds (1 minute)
+      const checkIntervalId = setInterval(checkTimeMatch, 20000); // Run every 60,000 milliseconds (1 minute)
 
       // Clean up interval on component unmount
       return () => clearInterval(checkIntervalId);
-    }, 60000); // Initial delay of 60,000 milliseconds (1 minute)
+    }, 20000); // Initial delay of 60,000 milliseconds (1 minute)
 
     // Clean up the timeout on component unmount
     return () => clearTimeout(firstCheckTimeout);
