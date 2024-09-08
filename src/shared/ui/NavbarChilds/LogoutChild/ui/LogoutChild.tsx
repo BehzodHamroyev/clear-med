@@ -9,12 +9,12 @@ import { baseUrl } from '../../../../../../baseurl';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutChild = () => {
-  const handleLogOut = async () => {
-    const getTokenCookie = Cookies.get('token');
-    const navigate = useNavigate();
+  const getTokenCookie = Cookies.get('token');
+  const navigate = useNavigate();
 
+  const handleLogOut = async () => {
     try {
-      const response = await axios.post<any>(
+      await axios.post<any>(
         `${baseUrl}/users/logout`,
         { data: getTokenCookie },
         {
@@ -28,8 +28,6 @@ const LogoutChild = () => {
 
       Cookies.remove('token');
       navigate('/login');
-
-      return response.data;
     } catch (e) {
       return console.log('error');
     }
