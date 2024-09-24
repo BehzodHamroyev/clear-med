@@ -33,23 +33,30 @@
 //   }
 // });
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
+
+let mainWindow;
 
 function createWindow() {
-  // Create the browser window
-  const win = new BrowserWindow({
-    width: 1300,
-    height: 1000,
-    kiosk: true,
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
     webPreferences: {
-      // enableRemoteModules: true, // This is deprecated, use contextIsolation and nodeIntegration instead
       nodeIntegration: true,
-      contextIsolation: false,
     },
+    kiosk: true, // This makes the app full screen like kiosk mode
   });
 
-  // Load your application
-  win.loadURL('http://localhost:3000');
+  mainWindow.loadURL('http://localhost:5173'); // Or the file path
+
+  // Add a shortcut to quit the application
+  globalShortcut.register('CommandOrControl+Q', () => {
+    app.quit();
+  });
+
+  mainWindow.on('closed', function () {
+    mainWindow = null;
+  });
 }
 
 app.on('ready', createWindow);
@@ -60,6 +67,13 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
+
 
 // Re-create a window if the app is activated and no windows are open.
 app.on('activate', () => {

@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
-import { ThemeProvider } from '@/app/providers/ThemeProvider';
 import { StoreProvider } from '@/app/providers/StoreProvider';
 import App from './app/App';
 import '@/app/styles/index.scss';
@@ -26,9 +25,7 @@ root.render(
       <StoreProvider>
         <ErrorBoundary>
           <ForceUpdateProvider>
-            <ThemeProvider>
-              <App />
-            </ThemeProvider>
+            <App />
           </ForceUpdateProvider>
         </ErrorBoundary>
       </StoreProvider>

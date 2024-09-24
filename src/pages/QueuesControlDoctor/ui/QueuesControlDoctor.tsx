@@ -6,12 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  SelectChangeEvent,
-} from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
@@ -33,16 +28,12 @@ import {
   getDoneQueuesControlDoctorIsLoading,
   getDoneQueuesControlDoctorError,
 } from '../model/selectors/doneQueuesControlDoctorSelector';
-// import { DoneQueueTableTitleDoctorProfile } from '@/entities/DoneQueueTableTitleDoctorProfile';
-// import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-// import TimePickerValue from '@/shared/ui/TimePicker/TimePicker';
 import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
 import instance from '@/shared/lib/axios/api';
 import { baseUrl } from '../../../../baseurl';
 import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
 
 const reducers: ReducersList = {
@@ -56,7 +47,6 @@ const QueuesControlDoctor = () => {
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
   const { t } = useTranslation();
 
-  // Selectors for accessing Redux store state
   const queuesList = useSelector(getQueuesControlDoctorData);
   const queuesListError = useSelector(getQueuesControlDoctorError);
   const doneQueuesList = useSelector(getDoneQueuesControlDoctorData);
@@ -127,13 +117,10 @@ const QueuesControlDoctor = () => {
     }
   };
 
-  // useEffect to fetch queue data on mount
   useEffect(() => {
     dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  // useEffect to set doctors and selected time when authUserData changes
   useEffect(() => {
     if (authUserData) {
       setDoctors(authUserData?.rooms?.[0]?.doctor_id);
@@ -143,7 +130,6 @@ const QueuesControlDoctor = () => {
     }
   }, [authUserData]);
 
-  // useEffect to fetch done queue data on mount
   useEffect(() => {
     dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
   }, [dispatch]);
@@ -178,40 +164,10 @@ const QueuesControlDoctor = () => {
       <div className={cls.bigClass}>
         <div className={cls.QueuesControlDoctorWrapper}>
           <div className={cls.wraperListDoctor}>
-            {/* <h3>{t('select_doctor')}</h3>
-
-            <FormControl>
-              <Select
-                displayEmpty
-                defaultValue=""
-                value={selectedDoctor}
-                onChange={handleChange}
-                sx={{ minWidth: '250px' }}
-              >
-                {doctors?.map((doctor) => (
-                  <MenuItem key={doctor.id} value={doctor.id}>
-                    {doctor?.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
-
-            {/* <p>{t('end_work')}</p> */}
-            {/* <TimePickerValue
-            value={selectedTime}
-            onChange={(newValue) => setSelectedTime(newValue)}
-          />
-          <Button variant="contained" onClick={() => handleDoctor()}>
-            {t('Save')}
-          </Button> */}
           </div>
-
           <ControlPanelDocktor />
-
-          {/* {doneQueuesListError && <ErrorDialog error={doneQueuesListError} />} */}
         </div>
 
-        {/* right bar */}
 
         <div className={cls.TableDoctor}>
           <div className={cls.TableDoctorChild}>
@@ -234,32 +190,6 @@ const QueuesControlDoctor = () => {
               </h2>
             )}
           </div>
-
-          {/* <div className={cls.TableDoctorChild}>
-            {doneQueuesList && doneQueuesList.length > 0 ? (
-              <>
-                <ButtonNavbar
-                  dontCreate
-                  TableTitle={t("Bugun ko'rilgan va bekor qilingan bemorlar")}
-                  ItemsLength={doneQueuesList?.length}
-                />
-                <DoneQueueTableTitleDoctorProfile
-                  Tablethead={[
-                    'Id',
-                    t('Qabul kuni'),
-                    t('Qabul boshlanishi'),
-                    t('Qabul tugashi'),
-                    t('Xolati'),
-                  ]}
-                  Tabletbody={doneQueuesList}
-                />
-              </>
-            ) : (
-              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
-                {t("Bugun ko'rilgan yoki bekor qilingan bemorlar mavjud emas!")}
-              </h2>
-            )}
-          </div> */}
         </div>
       </div>
     </DynamicModuleLoader>

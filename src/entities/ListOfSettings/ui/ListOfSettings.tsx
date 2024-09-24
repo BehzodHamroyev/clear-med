@@ -40,26 +40,6 @@ const ListOfSettings = () => {
         </div>
         <RightIcon className={cls.span} />
       </div> */}
-
-      <div
-        onClick={() => {
-          setIsOpenThemeOrLanguage(false);
-          setIsOpenSettingsChangePassword(false);
-          setIsOpenUploadLogo(false);
-        }}
-        className={`${cls.Theme} ${
-          !isOpenThemeOrLanguage && !isOpenSettingsChangePassword
-            ? cls.IsOpen
-            : ''
-        }`}
-      >
-        <div className={cls.ThemeLeft}>
-          <ThemeIcon />
-          <p>{t('Mavzuni o‘zgartirish')}</p>
-        </div>
-        <RightIcon className={cls.span} />
-      </div>
-
       <div
         onClick={() => {
           setIsOpenThemeOrLanguage(false);
@@ -67,9 +47,8 @@ const ListOfSettings = () => {
 
           setIsOpenSettingsChangePassword(true);
         }}
-        className={`${cls.Theme} ${
-          isOpenSettingsChangePassword ? cls.IsOpen : ''
-        }`}
+        className={`${cls.Theme} ${isOpenSettingsChangePassword ? cls.IsOpen : ''
+          }`}
       >
         <div className={cls.ThemeLeft}>
           <PassWordIcon />
@@ -77,6 +56,27 @@ const ListOfSettings = () => {
         </div>
         <RightIcon className={cls.span} />
       </div>
+
+
+      {/* <div
+        onClick={() => {
+          setIsOpenThemeOrLanguage(false);
+          setIsOpenSettingsChangePassword(false);
+          setIsOpenUploadLogo(false);
+        }}
+        className={`${cls.Theme} ${!isOpenThemeOrLanguage && !isOpenSettingsChangePassword
+          ? cls.IsOpen
+          : ''
+          }`}
+      >
+        <div className={cls.ThemeLeft}>
+          <ThemeIcon />
+          <p>{t('Mavzuni o‘zgartirish')}</p>
+        </div>
+        <RightIcon className={cls.span} />
+      </div> */}
+
+
 
       {authUserData?.role === 'admin' && (
         <div
