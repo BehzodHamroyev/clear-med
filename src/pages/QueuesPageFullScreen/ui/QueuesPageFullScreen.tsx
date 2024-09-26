@@ -7,19 +7,18 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
+import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const [lastQueue, setLastQueue] = useState('');
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -94,14 +93,6 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
-  const MariqueParagraphStyle = {
-    width: '100%',
-    color: 'red',
-    fontSize: '28px',
-    marginTop: '10px',
-    marginRight: '20px',
-  };
-
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,50 +111,56 @@ const QueuesPageFullScreen = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img src={baseUrlImgLogo} className={cls.logo} alt="#" />
+            {baseUrlImgLogo ? (
+              <img
+                src={baseUrlImgLogo}
+                className={cls['QueuesPage__headerLeft__logo']}
+                alt=""
+              />
+            ) : (
+              ''
+            )}
           </div>
+
           <div className={classNames(cls.QueuesPage__headerRight)}>
-            <div className={classNames(cls.QueuesPage__headerRightPhoneBox)}>
-              <p>{t('Ишонч рақами:')} 1183</p>
-            </div>
+            <p>{t('Ишонч рақами:')} 1183</p>
           </div>
         </div>
 
         <Marquee speed={80} gradientColor="248 251 253">
-          <p style={MariqueParagraphStyle}>
+          <p className={cls.QueuesPage__paragraph}>
             Ҳурматли беморлар илтимос тартиб ва тинчликни сақланг !{' '}
           </p>
 
-          <p style={MariqueParagraphStyle}>
+          <p className={cls.QueuesPage__paragraph}>
             Уважаемые пациенты, пожалуйста, соблюдайте порядок и мир!
           </p>
 
-          <p style={MariqueParagraphStyle}>
+          <p className={cls.QueuesPage__paragraph}>
             Dear patients, please maintain order and peace!
           </p>
         </Marquee>
 
-        <div className={classNames(cls.QueuesPage__queuesContainer)}>
-          <div className={classNames(cls.QueuesPage__queuesContainerRigth)}>
-            <div className={classNames(cls.rolik)}>
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D"
-                // url={`${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`}
-                loop
-                playing
-                volume={0.1}
-                controls
-                width="100%"
-                height="80%"
-                playsinline
-                config={{
-                  youtube: {
-                    playerVars: { showinfo: 0 },
-                  },
-                }}
-              />
-            </div>
-          </div>
+        <div className={cls.QueuesPage__queuesContainer}>
+          <ReactPlayer
+            url={
+              allProccessQueue
+                ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`
+                : 'https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D'
+            }
+            loop
+            autoPlay
+            playing
+            volume={0.1}
+            controls
+            playsinline
+            className={cls['QueuesPage__queuesContainer--video']}
+            config={{
+              youtube: {
+                playerVars: { showinfo: 0 },
+              },
+            }}
+          />
 
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>

@@ -1,30 +1,41 @@
 .QueuesPage {
   width: 100%;
-  max-height: 100vh;
   background-color: #f9f9f9;
 
-  .closeIcon {
-    cursor: pointer;
+  &__paragraph {
+    width: 100%;
+    color: red;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-right: 20px;
+    letter-spacing: 2px;
+    font-family: sans-serif;
   }
 
   &__header {
     display: flex;
+    padding: 7px 60px;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px 60px;
-    font-family: sans-serif;
     background-color: #dde6ed;
+    justify-content: space-between;
+
+    font-family: sans-serif;
   }
 
   &__headerLeft {
     display: flex;
     align-items: center;
-    padding: 20px 25px;
+    padding: 10px 25px;
+
+    &__logo {
+      width: fit-content;
+      max-height: 40px;
+    }
 
     p {
       color: #27374d;
-      font-family: sans-serif;
       font-size: 36px;
+      font-family: sans-serif;
     }
   }
 
@@ -46,7 +57,11 @@
     display: flex;
     align-items: start;
     justify-content: space-between;
-    height: 100vh;
+
+    &--video {
+      min-height: 87vh !important;
+      margin: 10px;
+    }
   }
 
   &__queuesContainerFullQueue {
@@ -56,29 +71,8 @@
   &__queuesContainerLeft {
     width: 38%;
     display: flex;
-    flex-direction: column;
+    padding-right: 20px;
     justify-content: start;
-    padding: 5px 20px;
-  }
-
-  &__queuesContainerRigth {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-
-    .rolik {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      color: #27374d;
-      align-items: start;
-      justify-content: center;
-
-      p {
-        font-size: 40px;
-        font-family: sans-serif;
-      }
-    }
   }
 
   .queuesTable {
@@ -173,16 +167,6 @@
       padding: 10px 15px;
     }
 
-    &__queuesContainerRigth {
-      padding: 10px 15px;
-
-      .rolik {
-        p {
-          font-size: 40px;
-        }
-      }
-    }
-
     .queuesTable {
       &__head {
         gap: 15px;
@@ -236,16 +220,6 @@
 
     &__queuesContainerLeft {
       padding: 10px 15px;
-    }
-
-    &__queuesContainerRigth {
-      padding: 10px 15px;
-
-      .rolik {
-        p {
-          font-size: 40px;
-        }
-      }
     }
 
     .queuesTable {
@@ -303,16 +277,6 @@
       padding: 10px 15px;
     }
 
-    &__queuesContainerRigth {
-      padding: 10px 15px;
-
-      .rolik {
-        p {
-          font-size: 36px;
-        }
-      }
-    }
-
     .queuesTable {
       &__head {
         gap: 10px;
@@ -366,16 +330,6 @@
 
     &__queuesContainerLeft {
       padding: 10px 15px;
-    }
-
-    &__queuesContainerRigth {
-      padding: 10px 15px;
-
-      .rolik {
-        p {
-          font-size: 36px;
-        }
-      }
     }
 
     .queuesTable {
@@ -433,16 +387,6 @@
       padding: 10px 15px;
     }
 
-    &__queuesContainerRigth {
-      padding: 10px 15px;
-
-      .rolik {
-        p {
-          font-size: 36px;
-        }
-      }
-    }
-
     .queuesTable {
       &__head {
         gap: 10px;
@@ -468,44 +412,4 @@
       }
     }
   }
-}
-
-.wrapperOrder {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
-  width: 100%;
-  height: 100% !important;
-}
-
-.orderNumber {
-  width: 32%;
-  height: 60% !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #dde6ed !important;
-  background: #27374d;
-  font-size: 28px;
-  padding: 12px 0;
-  p {
-    font-family: sans-serif;
-  }
-}
-
-.logo {
-  width: 25%;
-}
-
-.icon {
-  width: 32%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #ffffff !important;
 }
