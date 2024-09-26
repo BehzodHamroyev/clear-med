@@ -15,11 +15,25 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useSocket } from '@/shared/hook/useSocket';
+import { getAuthUserData } from '@/features/Auth';
+
+const MariqueParagraphStyle = {
+  width: '100%',
+  color: 'red',
+  fontSize: '28px',
+  marginTop: '10px',
+  marginRight: '20px',
+};
 
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const [lastQueue, setLastQueue] = useState('');
+  const socket = useSocket()
+  const authUserData = useSelector(getAuthUserData);
+
+  const [roomId, setRoomId] = useState('')
+
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -52,11 +66,7 @@ const QueuesPageFullScreen = () => {
 
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
-        console.log(item, 'item');
-
         if (!item.view && !found) {
-          console.log(item, 'item');
-
           setQueueDialogData({
             roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
             biletNumber: String(item?.queues_name),
@@ -94,13 +104,10 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
-  const MariqueParagraphStyle = {
-    width: '100%',
-    color: 'red',
-    fontSize: '28px',
-    marginTop: '10px',
-    marginRight: '20px',
-  };
+  useEffect(() => {
+    console.log('allProccessQueue', allProccessQueue)
+
+  }, [allProccessQueue])
 
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
@@ -114,6 +121,20 @@ const QueuesPageFullScreen = () => {
 
     return () => clearInterval(interval);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('queueCreated', (data) => {
+
+        console.log(data.room, 'New queue created');
+      });
+    }
+
+    // Clean up socket connection on component unmount
+    return () => {
+      socket?.disconnect();
+    };
+  }, [socket]);
 
   return (
     <>
@@ -169,7 +190,7 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
                     <p className={classNames(cls.queuesTable__headItem)}>
                       {t("Bo'lim")}
@@ -229,7 +250,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -332,7 +353,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>

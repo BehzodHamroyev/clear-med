@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable rule-empty-line-before */
 .QueuesPage {
   width: 100%;
   max-height: 100vh;
@@ -35,7 +37,6 @@
       width: 600px;
       font-size: 32px;
       color: #27374d;
-      // color: red;
       text-align: right;
       padding-right: 25px;
     }
@@ -507,5 +508,5 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #ffffff !important;
+  color: #ffff !important;
 }

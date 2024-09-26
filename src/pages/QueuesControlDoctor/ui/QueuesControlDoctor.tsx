@@ -31,7 +31,6 @@ const QueuesControlDoctor = () => {
 
   const [roomId, setRoomId] = useState('')
 
-  console.log(authUserData?.rooms[0]._id, 'authUserData');
 
 
   useEffect(() => {
@@ -55,9 +54,7 @@ const QueuesControlDoctor = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('message', (data) => {
-        console.log('Message from server:', data);
-      });
+
 
       socket.on('queueCreated', (data) => {
         if (data.room === roomId) {

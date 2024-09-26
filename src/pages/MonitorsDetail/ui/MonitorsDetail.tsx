@@ -8,18 +8,13 @@ import cls from './MonitorsDetail.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-// eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
 import {
   getAllQueueProccessData,
   getAllQueueProccessError,
   getAllQueueProccessIsLoading,
 } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { useAllQueueProccessActions } from '@/pages/QueuesPage/model/slice/allQueueProccessSlice';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
-// import { socket } from '@/shared/lib/utils/socket';
-// import { Queue } from '@/pages/QueuesControlDoctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { getInfoProject } from '@/entities/FileUploader';
@@ -127,9 +122,9 @@ const MonitorsDetail = () => {
         </div>
 
         {allProccessQueue?.addvertising &&
-        allProccessQueue?.videoUrl &&
-        videoUrl.length > 0 &&
-        allProccessQueue?.videoUrl.length > 0 ? (
+          allProccessQueue?.videoUrl &&
+          videoUrl.length > 0 &&
+          allProccessQueue?.videoUrl.length > 0 ? (
           <div className={classNames(cls.QueuesPage__queuesContainer)}>
             <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
               <div className={classNames(cls.queuesTable)}>
