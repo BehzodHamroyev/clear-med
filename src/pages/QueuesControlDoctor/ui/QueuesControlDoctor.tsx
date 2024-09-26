@@ -54,8 +54,6 @@ const QueuesControlDoctor = () => {
 
   useEffect(() => {
     if (socket) {
-
-
       socket.on('queueCreated', (data) => {
         if (data.room === roomId) {
           dispatch(fetchQueuesControlDoctor({ status: 'pending' }));

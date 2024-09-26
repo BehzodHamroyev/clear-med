@@ -140,7 +140,7 @@ const QueueDialog = ({
 
       <ReactAudioPlayer
         ref={audioSpeedRef}
-        src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
+        src={`${baseUploadUrl}uploads/callRingtone.mp3`}
         autoPlay
         controls
         onEnded={() => setOnEndedQueueAudio(false)}

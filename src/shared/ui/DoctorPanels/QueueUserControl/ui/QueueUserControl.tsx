@@ -35,7 +35,6 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const proccessedList = useSelector(getControlPanelDocktorData);
 
   const handleClickProccessConfirm = () => {
-    console.log('handleClickProccessConfirm');
 
     dispatch(
       fetchQueuesProccess({

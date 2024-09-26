@@ -104,32 +104,32 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
-  useEffect(() => {
-    console.log('allProccessQueue', allProccessQueue)
 
-  }, [allProccessQueue])
 
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(fetchAllQueueProccess({}));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
 
   useEffect(() => {
     if (socket) {
       socket.on('queueCreated', (data) => {
-
-        console.log(data.room, 'New queue created');
+        dispatch(fetchAllQueueProccess({}));
       });
     }
 
+    return () => {
+      socket?.disconnect();
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('processQueue', (data) => {
+        dispatch(fetchAllQueueProccess({}));
+      });
+    }
     // Clean up socket connection on component unmount
     return () => {
       socket?.disconnect();
