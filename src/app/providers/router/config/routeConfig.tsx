@@ -29,7 +29,7 @@ import {
 } from '@/shared/const/router';
 
 import { RoomPage } from '@/pages/RoomPage';
-import { QueuingTv } from '@/pages/QueuingTV';
+import { QueuingTv } from '@/pages/Reception';
 // import { QueuesPage } from '@/pages/QueuesPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';

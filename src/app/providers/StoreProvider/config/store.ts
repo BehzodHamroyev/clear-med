@@ -29,7 +29,7 @@ import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
-} from '@/pages/QueuingTV';
+} from '@/pages/Reception';
 import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
 import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allMonitorsReducer } from '@/pages/Monitors';

@@ -13,10 +13,11 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
-import { fetchLastQueue } from '@/pages/QueuingTV/model/services/fetchLastQueue';
-import { useLasQueueActions } from '@/pages/QueuingTV/model/slice/lastQueueSlice';
+import { fetchLastQueue } from '@/pages/Reception/model/services/fetchLastQueue';
+import { useLasQueueActions } from '@/pages/Reception/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLastQueueData } from '@/pages/QueuingTV/model/selectors/lastQueueSelector';
+import { getLastQueueData } from '@/pages/Reception/model/selectors/lastQueueSelector';
+import { useSocket } from '@/shared/hook/useSocket';
 
 interface CreateOrder {
   room_id: string;
@@ -38,6 +39,7 @@ export const QueuingTvCard = ({
   const infoProjectIsLoader = useSelector(isLoading);
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
+  const socket = useSocket(); // Use the custom hook
 
   const [isPrinting, setIsPrinting] = useState(false);
   const [lastQueueName, setLastQueueName] = useState('');
@@ -124,12 +126,23 @@ export const QueuingTvCard = ({
             doctorId: DoctorId,
           }),
         ).then((res) => {
+          if (res)
+            if (socket) {
+              socket.emit('create queue', {
+                // @ts-ignore
+                department_id: res.payload.room.department_id,
+                // @ts-ignore
+                room_id: res.payload.room._id,
+              });
+            }
+
           createQueueFunc({
             // @ts-ignore
             department_id: res.payload.room.department_id,
             // @ts-ignore
             room_id: res.payload.room._id,
           });
+
         });
       }
     }
@@ -192,19 +205,10 @@ export const QueuingTvCard = ({
     >
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
-
         <p className={cls.CardLeftRoomNumber}>
           {CardLeftRoomNumber}-{t('Xona raqami')}
         </p>
-
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
-
-        {/* {actives.length > 0 && showTimer && (
-          <div className={cls.CardLeftDoctorName}>
-            {t('The_doctor_changes')} :{' '}
-            <CountdownTimer actives={actives} onTimeUp={handleTimeUp} />
-          </div>
-        )} */}
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>

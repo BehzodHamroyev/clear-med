@@ -2,7 +2,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import cls from './QueuingTv.module.scss';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
@@ -19,6 +18,8 @@ import {
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
 import { QueuingTvCard } from '@/entities/QueuingTvCard';
+import cls from './QueuingTv.module.scss';
+
 
 export const QueuingTv = () => {
   const deparmentList = useSelector(getDeparmentListData);

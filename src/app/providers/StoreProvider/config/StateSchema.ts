@@ -34,7 +34,7 @@ import {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
-} from '@/pages/QueuingTV';
+} from '@/pages/Reception';
 import {
   AddsVideosDataRedux,
   MonitorAdsInRedux,
