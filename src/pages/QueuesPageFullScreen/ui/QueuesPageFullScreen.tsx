@@ -106,6 +106,8 @@ const QueuesPageFullScreen = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  console.log(allProccessQueue, 'tek tekirof man');
+
   return (
     <>
       <div className={cls.QueuesPage}>
@@ -143,11 +145,13 @@ const QueuesPageFullScreen = () => {
 
         <div className={cls.QueuesPage__queuesContainer}>
           <ReactPlayer
-            url={
-              allProccessQueue
-                ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`
-                : 'https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D'
-            }
+            // url={
+            //   allProccessQueue
+            //     ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`
+            //     : // : 'https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D'
+            //       'https://youtu.be/TvWcU3aztmo?si=lcTsOtTn-Quoq1JW'
+            // }
+            url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
             autoPlay
             playing
