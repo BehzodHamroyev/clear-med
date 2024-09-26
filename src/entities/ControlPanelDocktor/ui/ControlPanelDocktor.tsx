@@ -8,15 +8,11 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { fetchQueuesProccess } from '../model/services/fetchQueuesProccess';
 import {
   getControlPanelDocktorData,
-  getControlPanelDocktorError,
-  getControlPanelDocktorIsLoading,
 } from '../model/selectors/controlPanelDocktorSelector';
 
 const ControlPanelDocktor = memo(() => {
   const dispatch = useAppDispatch();
   const proccessedList = useSelector(getControlPanelDocktorData);
-  const proccessedIsLoading = useSelector(getControlPanelDocktorIsLoading);
-  const proccessedError = useSelector(getControlPanelDocktorError);
 
   useEffect(() => {
     dispatch(

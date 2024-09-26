@@ -1,16 +1,11 @@
-/* eslint-disable consistent-return */
-/* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import dayjs, { Dayjs } from 'dayjs';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { SelectChangeEvent } from '@mui/material';
-
+import { getAuthUserData } from '@/features/Auth';
+import { useSocket } from '@/shared/hook/useSocket';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
+import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
-import cls from './QueuesControlDoctor.module.scss';
 import {
   DynamicModuleLoader,
   ReducersList,
@@ -18,24 +13,10 @@ import {
 import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import {
-  getQueuesControlDoctorData,
-  getQueuesControlDoctorError,
-} from '../model/selectors/queuesControlDoctorSelector';
+import { getQueuesControlDoctorData } from '../model/selectors/queuesControlDoctorSelector';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
-import {
-  getDoneQueuesControlDoctorData,
-  getDoneQueuesControlDoctorIsLoading,
-  getDoneQueuesControlDoctorError,
-} from '../model/selectors/doneQueuesControlDoctorSelector';
-import { fetchAuthUser, getAuthUserData } from '@/features/Auth';
-import instance from '@/shared/lib/axios/api';
-import { baseUrl } from '../../../../baseurl';
-import { ChangeDoctorBackend } from '../model/types/changeDoctorType';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
-import { DoctorId } from '@/features/Auth/model/types/AuthentificationTypes';
-import { useSocket } from '@/shared/hook/useSocket';
+
+import cls from './QueuesControlDoctor.module.scss';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -46,9 +27,11 @@ const QueuesControlDoctor = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const queuesList = useSelector(getQueuesControlDoctorData);
+  const authUserData = useSelector(getAuthUserData);
 
+  const [roomId, setRoomId] = useState('')
 
-
+  console.log(authUserData?.rooms[0]._id, 'authUserData');
 
 
   useEffect(() => {
@@ -56,34 +39,28 @@ const QueuesControlDoctor = () => {
   }, [dispatch]);
 
 
-
   useEffect(() => {
     dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
   }, [dispatch]);
 
-  // useEffect to set up interval for fetching queue data every second
-  // useEffect(() => {
-  //   const fetchInterval = setInterval(() => {
-  //     dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
-  //   }, 1000);
+  useEffect(() => {
+    if (authUserData) {
+      const id = authUserData?.rooms[0]._id
+      setRoomId(id)
+    }
 
-  //   // Clean up interval on component unmount
-  //   return () => clearInterval(fetchInterval);
-  // }, [dispatch]);
-
-
+  }, [authUserData])
 
 
 
   useEffect(() => {
     if (socket) {
-      // Listen for server messages
       socket.on('message', (data) => {
         console.log('Message from server:', data);
       });
 
       socket.on('queueCreated', (data) => {
-        if (data) {
+        if (data.room === roomId) {
           dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
           dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
         }
