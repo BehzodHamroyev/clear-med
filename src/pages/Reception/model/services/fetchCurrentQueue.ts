@@ -31,18 +31,6 @@ export const fetchCurrentQueue = createAsyncThunk<
       },
     );
 
-    // if (
-    //   response?.data?.navbat?.created_date &&
-    //   response?.data?.navbat?.created_date?.length > 0
-    // ) {
-    //   socket.emit(
-    //     'create_queue',
-    //     { queue_data: response.data },
-    //     (responce: { status: string }) => {
-    //       console.log(responce);
-    //     },
-    //   );
-    // }
 
     if (!response.data) {
       throw new Error();

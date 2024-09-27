@@ -19,7 +19,7 @@ const QueueUserDoctor = ({
   if (ticketNumber !== undefined) {
     // @ts-ignore
     const prefix = ticketNumber?.charAt(0);
-    const lastTwoDigits = ticketNumber!.split('-')[1].slice(-2);
+    const lastTwoDigits = ticketNumber!?.split('-')[1].slice(-2);
     outputString = `${prefix}-${lastTwoDigits}`;
   }
 

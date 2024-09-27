@@ -29,7 +29,7 @@ const DoneQueueTableTitleDoctorProfile = memo((props: TableInfo) => {
       <tbody className={cls.Tabletbody}>
         {Tabletbody?.map((queue) => {
           // @ts-ignore
-          const prefix = queue?.queues_name.charAt(0);
+          const prefix = queue?.queues_name?.charAt(0);
 
           // Extract the last two digits after the hyphen
           const lastTwoDigits = queue?.queues_name

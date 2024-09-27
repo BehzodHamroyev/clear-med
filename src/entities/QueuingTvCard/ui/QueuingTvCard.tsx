@@ -163,7 +163,7 @@ export const QueuingTvCard = ({
       // Extract the first letters of the remaining words and join them with a dot
       const initials = words
         .slice(1)
-        .map((word) => word.charAt(0))
+        .map((word) => word?.charAt(0))
         .join('.');
 
       // Combine them
@@ -172,7 +172,7 @@ export const QueuingTvCard = ({
 
       // this code for queue name
       // @ts-ignore
-      const prefix = lastQueue?.pagination.charAt(0);
+      const prefix = lastQueue?.pagination?.charAt(0);
 
       // Extract the last two digits after the hyphen
       const lastTwoDigits = lastQueue?.pagination

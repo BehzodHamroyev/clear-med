@@ -173,10 +173,10 @@ const TableReportsDoctorPage = () => {
                       {item.completed_date?.split('T')[0]}
                     </td>
                     <td className={cls.td}>
-                      {item.accepted_date?.split('T')[1].split('.')[0]}
+                      {item.accepted_date?.split('T')[1]?.split('.')[0]}
                     </td>
                     <td className={cls.td}>
-                      {item.completed_date?.split('T')[1].split('.')[0]}
+                      {item.completed_date?.split('T')[1]?.split('.')[0]}
                     </td>
                     <td className={cls.td}>
                       <img

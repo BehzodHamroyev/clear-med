@@ -16,26 +16,38 @@ import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model
 import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
+import { useSocket } from '@/shared/hook/useSocket';
+import { getAuthUserData } from '@/features/Auth';
 
 interface QueueUserControlProps {
   proccessedStep: number;
+  ticketName: string
+  roomNumber: number
 }
 
-const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
+const QueueUserControl = ({ proccessedStep, ticketName, roomNumber }: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
+  const socket = useSocket()
   const { hasOpenToast, setHasOpenToast, isOpenQueueUserTimer } =
     useContext(ButtonsContext);
+  const authUserData = useSelector(getAuthUserData);
 
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
   const [updateQueueList, setUpdateQueueList] = useState(false);
 
+  console.log(authUserData?.rooms[0].id, 'authUserData');
+
   const proccessedList = useSelector(getControlPanelDocktorData);
 
   const handleClickProccessConfirm = () => {
+    console.log(ticketName, roomNumber);
 
+
+    if (socket) {
+      socket.emit('doctorProcess', { ticketName: ticketName, roomNumber: roomNumber })
+    }
     dispatch(
       fetchQueuesProccess({
         method: 'post',

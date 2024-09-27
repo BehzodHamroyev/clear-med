@@ -31,6 +31,7 @@ const QueuesPageFullScreen = () => {
   const { t } = useTranslation();
   const socket = useSocket()
   const authUserData = useSelector(getAuthUserData);
+  const [dataModal, setDataModal] = useState({})
 
   const [roomId, setRoomId] = useState('')
 
@@ -41,9 +42,12 @@ const QueuesPageFullScreen = () => {
     mp3Arr: [''],
   });
 
+
+
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
+
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -126,7 +130,11 @@ const QueuesPageFullScreen = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('processQueue', (data) => {
+      // processQueue completedQueue
+      socket.on('monitor', (data) => {
+        console.log(data, 'monitor');
+        setOnEndedQueueAudio(true)
+        setDataModal(data)
         dispatch(fetchAllQueueProccess({}));
       });
     }
@@ -173,12 +181,6 @@ const QueuesPageFullScreen = () => {
 
         <div className={cls.QueuesPage__queuesContainer}>
           <ReactPlayer
-            // url={
-            //   allProccessQueue
-            //     ? `${baseUploadUrl}/${allProccessQueue?.videoUrl[0].link}`
-            //     : // : 'https://www.youtube.com/watch?v=Zv11L-ZfrSg&pp=ygUCOGs%3D'
-            //       'https://youtu.be/TvWcU3aztmo?si=lcTsOtTn-Quoq1JW'
-            // }
             url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
             autoPlay
@@ -223,8 +225,8 @@ const QueuesPageFullScreen = () => {
                   // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
-                    .split('-')[1]
-                    .slice(-2);
+                    ?.split('-')[1]
+                    ?.slice(-2);
 
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
@@ -271,13 +273,13 @@ const QueuesPageFullScreen = () => {
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                     // @ts-ignore
-                    const prefix = item.queues_name.charAt(0);
+                    const prefix = item.queues_name?.charAt(0);
 
                     // Extract the last two digits after the hyphen
                     const lastTwoDigits = item.queues_name
                       // @ts-ignore
-                      .split('-')[1]
-                      .slice(-2);
+                      ?.split('-')[1]
+                      ?.slice(-2);
 
                     // Combine them
                     const outputString = `${prefix}-${lastTwoDigits}`;
@@ -305,8 +307,8 @@ const QueuesPageFullScreen = () => {
                             allProccessQueue!?.room1?.proceed.length - 2
                           ]?.queues_name
                             // @ts-ignore
-                            .split('-')[1]
-                            .slice(-2)}`}
+                            ?.split('-')[1]
+                            ?.slice(-2)}`}
                         </p>
                       </div>
                     </>
@@ -324,8 +326,8 @@ const QueuesPageFullScreen = () => {
                   // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
-                    .split('-')[1]
-                    .slice(-2);
+                    ?.split('-')[1]
+                    ?.slice(-2);
 
                   // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
@@ -374,13 +376,13 @@ const QueuesPageFullScreen = () => {
                 <div className={cls.wrapperOrder}>
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                     // @ts-ignore
-                    const prefix = item.queues_name.charAt(0);
+                    const prefix = item.queues_name?.charAt(0);
 
                     // Extract the last two digits after the hyphen
                     const lastTwoDigits = item.queues_name
                       // @ts-ignore
-                      .split('-')[1]
-                      .slice(-2);
+                      ?.split('-')[1]
+                      ?.slice(-2);
 
                     // Combine them
                     const outputString = `${prefix}-${lastTwoDigits}`;
@@ -402,14 +404,14 @@ const QueuesPageFullScreen = () => {
                           {`${allProccessQueue!?.room2?.proceed[
                             allProccessQueue!?.room2?.proceed.length - 2
                             // @ts-ignore
-                          ].queues_name.charAt(
+                          ].queues_name?.charAt(
                             0,
                           )}-${allProccessQueue!.room2?.proceed[
                             allProccessQueue!.room2?.proceed.length - 2
                           ].queues_name
                             // @ts-ignore
-                            .split('-')[1]
-                            .slice(-2)}`}
+                            ?.split('-')[1]
+                            ?.slice(-2)}`}
                         </p>
                       </div>
                     </>
@@ -423,14 +425,25 @@ const QueuesPageFullScreen = () => {
         </div>
       </div>
 
-      {onEndedQueueAudio && (
+      {/* {onEndedQueueAudio && (
         <QueueDialog
           step={queueDialogData.step}
           Mp3Array={queueDialogData.mp3Arr}
           roomNumber={queueDialogData.roomNumber}
           biletNumber={queueDialogData.biletNumber}
         />
-      )}
+      )} */}
+
+      {
+        onEndedQueueAudio && <QueueDialog
+          step={queueDialogData.step}
+          Mp3Array={queueDialogData.mp3Arr}
+          // @ts-ignore
+          roomNumber={dataModal.roomNumber}
+          // @ts-ignore
+          biletNumber={dataModal.ticketName}
+        />
+      }
     </>
   );
 };

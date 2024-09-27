@@ -38,7 +38,6 @@ export const QueuingTv = () => {
       <div className={cls.RenderSectionCard}>
         {deparmentList &&
           deparmentList.map((item: any) => {
-            console.log(item?.actives[0]?.user.name, 'deparmentList');
 
             return (
               <QueuingTvCard

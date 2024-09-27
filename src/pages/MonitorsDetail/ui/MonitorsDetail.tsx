@@ -58,34 +58,6 @@ const MonitorsDetail = () => {
 
   const { t } = useTranslation();
 
-  // socket.on('getProccessQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data);
-  //     addProccessQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRecallQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'recall');
-  //     recallQueue(data);
-  //   }
-  // });
-
-  // socket.on('getAcceptedQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'accept');
-  //     removeProccessQueue(data);
-  //   }
-  // });
-
-  // socket.on('getRejectQueueToTV', (data: Queue) => {
-  //   if (data) {
-  //     // console.log(data, 'reject');
-  //     removeProccessQueue(data);
-  //   }
-  // });
-
   const phoneNumber = `+998${infoProject?.[0]?.phone}`;
 
   const formattedPhoneNumber = `+998 (${phoneNumber.substring(
@@ -115,9 +87,7 @@ const MonitorsDetail = () => {
                 {t('Ишонч рақами:')} {formattedPhoneNumber}
               </p>
             </div>
-            {/* <div className={classNames(cls.QueuesPage__headerRightLogo)}>
-              <img src={medLogo} alt="logo" />
-            </div> */}
+         
           </div>
         </div>
 
