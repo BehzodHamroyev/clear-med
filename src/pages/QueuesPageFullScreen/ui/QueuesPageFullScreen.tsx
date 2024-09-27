@@ -7,32 +7,26 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
+import { getAuthUserData } from '@/features/Auth';
+import { useSocket } from '@/shared/hook/useSocket';
 import cls from './QueuesPageFullScreen.module.scss';
 import { getAllQueueProccessData } from '@/pages/QueuesPage';
-import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
+import { baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { fetchAllQueueProccess } from '@/pages/QueuesPage/model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useSocket } from '@/shared/hook/useSocket';
-import { getAuthUserData } from '@/features/Auth';
 
-const MariqueParagraphStyle = {
-  width: '100%',
-  color: 'red',
-  fontSize: '28px',
-  marginTop: '10px',
-  marginRight: '20px',
-};
-
-const QueuesPageFullScreen = () => {
+const QueuesPageFullScreen: React.FC = () => {
+  const socket = useSocket();
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const socket = useSocket()
+  const dispatch = useAppDispatch();
   const authUserData = useSelector(getAuthUserData);
+  const allProccessQueue = useSelector(getAllQueueProccessData);
 
-  const [roomId, setRoomId] = useState('')
+  const [roomId, setRoomId] = useState('');
 
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
@@ -40,10 +34,6 @@ const QueuesPageFullScreen = () => {
     step: 1,
     mp3Arr: [''],
   });
-
-  const dispatch = useAppDispatch();
-
-  const allProccessQueue = useSelector(getAllQueueProccessData);
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
@@ -104,13 +94,10 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
-
-
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   useEffect(() => {
     if (socket) {
@@ -198,19 +185,13 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
+                    <p>{t("Bo'lim")}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
+                    <p>{t('Xona')}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p>
+                    <p>{t('Bilet')}</p>
                   </div>
                 ) : null}
               </div>
@@ -243,11 +224,7 @@ const QueuesPageFullScreen = () => {
                           <p>{allProccessQueue!.room1!.department_id?.name}</p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!.room1!?.name}</p>
                         </div>
 
@@ -258,7 +235,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -346,11 +323,7 @@ const QueuesPageFullScreen = () => {
                           </p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!?.room2!?.name}</p>
                         </div>
 
@@ -361,7 +334,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
