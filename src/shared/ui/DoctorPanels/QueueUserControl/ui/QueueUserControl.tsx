@@ -13,9 +13,9 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
+import { fetchDoneQueuesControlDoctor } from '@/pages/doctorPage/model/services/fetchDoneQueuesControlDoctor';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
+import { fetchQueuesControlDoctor } from '@/pages/doctorPage/model/services/fetchQueuesControlDoctor';
 import { useSocket } from '@/shared/hook/useSocket';
 import { getAuthUserData } from '@/features/Auth';
 

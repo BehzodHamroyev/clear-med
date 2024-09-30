@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-use-before-define */
-/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';

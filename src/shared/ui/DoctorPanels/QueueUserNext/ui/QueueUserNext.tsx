@@ -11,9 +11,9 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
-import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
+import { fetchQueuesControlDoctor } from '@/pages/doctorPage/model/services/fetchQueuesControlDoctor';
 // eslint-disable-next-line max-len, ulbi-tv-plugin/public-api-imports
-import { getQueuesControlDoctorData } from '@/pages/QueuesControlDoctor/model/selectors/queuesControlDoctorSelector';
+import { getQueuesControlDoctorData } from '@/pages/doctorPage/model/selectors/queuesControlDoctorSelector';
 
 const QueueUserNext = () => {
   const { t } = useTranslation();

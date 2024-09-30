@@ -9,7 +9,7 @@ import cls from './EditLanguageModal.module.scss';
 import { getInfoProject } from '@/entities/FileUploader';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { EngIcon, RuIcon, UzIcon } from '@/shared/assets/Pages/Settings';
-import { fetchDepartmentList } from '@/pages/Reception';
+import { fetchDepartmentList } from '@/pages/reception';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 const EditLanguageModal = () => {

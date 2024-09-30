@@ -40,7 +40,6 @@ interface TableInfo {
 
 const TableReportsDoctorPage = () => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
 
   const tableTitle = [
     'ID',

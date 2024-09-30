@@ -35,12 +35,6 @@ import {
   RoomEditDataSchema,
 } from './editRoomFormDialogTypes';
 
-import {
-  fetchAllDepartments,
-  getAllDepartmentsData,
-  getAllDepartmentsError,
-  getAllDepartmentsIsLoading,
-} from '@/pages/AddDepartmentPage';
 
 import {
   getAllFreeDoctorsData,
@@ -50,7 +44,8 @@ import {
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllFreeDoctors } from '../AddRoomFormDialog/model/service/fetchAllFreeDoctors';
-import { fetchAllRooms } from '../../pages/AddRoomPage/model/services/fetchAllRooms';
+import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError, fetchAllDepartments } from '@/pages/admin/AddDepartmentPage';
+import { fetchAllRooms } from '@/pages/admin/AddRoomPage';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -118,7 +113,6 @@ const EditRoomFormDialog = ({ roomId }: EditRoomFormDialogProps) => {
             (item) => item._id === response?.data?.message?.doctor_id?._id,
           )
         ) {
-          // doctorList?.push(response.data.message.doctor_id);
           setDoctorList((prev) => [
             ...prev,
             response?.data?.message?.doctor_id,

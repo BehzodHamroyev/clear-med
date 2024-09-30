@@ -16,7 +16,7 @@ import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import QueuesPageFullScreen from '@/pages/QueuesPageFullScreen/ui/QueuesPageFullScreen';
+import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 
 interface MainLayoutProps {
   className?: string;

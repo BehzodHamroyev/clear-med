@@ -49,10 +49,10 @@ import {
   ApiResponseDoctorDataType,
   DoctorEditDataSchema,
 } from './editReceptionFormDialogTypes';
-import { fetchAllReceptions } from '../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import instance from '@/shared/lib/axios/api';
-import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+import { getAllRoomsData } from '@/pages/admin/AddRoomPage/model/selector/allRoomSelector';
+import { fetchAllReceptions } from '@/pages/admin/AddReceptionPage/model/service/fetchAllReceptions';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

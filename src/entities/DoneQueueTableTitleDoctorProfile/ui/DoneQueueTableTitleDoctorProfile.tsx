@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import cls from './DoneQueueTableTitleDoctorProfile.module.scss';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 
-import { Queue } from '@/pages/QueuesControlDoctor';
+import { Queue } from '@/pages/doctorPage';
 
 interface TableInfo {
   cursor?: boolean;

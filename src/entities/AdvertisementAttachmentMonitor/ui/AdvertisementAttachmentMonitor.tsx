@@ -13,10 +13,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getAdsData } from '../model/selector/getAdsVideo';
 import { getAllAdsVideo } from '../model/service/getAllAdsVideo';
-import {
-  fetchGetAllMonitors,
-  GetAllMonitorPageData,
-} from '@/pages/AddMonitorPage';
+
 import { getAllAdsVideoForOneMonitor } from '../model/service/getAllAdsVideoForOneMonitor';
 import {
   getAdsDataForMonitor,
@@ -24,6 +21,8 @@ import {
 } from '../model/selector/getAdsVideoForOneMonitor';
 import { ModalToAddAdsForMonitor } from '@/entities/ModalToAddAdsForMonitor';
 import { Loader } from '@/widgets/Loader';
+import { GetAllMonitorPageData } from '@/pages/admin/AddMonitorPage/model/selector/GetAllMonitorSelectorSlice';
+import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage/model/service/fetchGetAllMonitors';
 
 const Svg = (
   <svg
@@ -41,11 +40,9 @@ const Svg = (
   </svg>
 );
 
-/* halperArr */
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana', 'Delete'];
 
-/* Component */
 const AdvertisementAttachmentMonitor = () => {
   const { t } = useTranslation();
 

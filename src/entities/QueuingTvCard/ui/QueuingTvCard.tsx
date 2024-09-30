@@ -13,10 +13,10 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
-import { fetchLastQueue } from '@/pages/Reception/model/services/fetchLastQueue';
-import { useLasQueueActions } from '@/pages/Reception/model/slice/lastQueueSlice';
+import { fetchLastQueue } from '@/pages/reception/model/services/fetchLastQueue';
+import { useLasQueueActions } from '@/pages/reception/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLastQueueData } from '@/pages/Reception/model/selectors/lastQueueSelector';
+import { getLastQueueData } from '@/pages/reception/model/selectors/lastQueueSelector';
 import { useSocket } from '@/shared/hook/useSocket';
 
 interface CreateOrder {

@@ -15,8 +15,8 @@ import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
 import { Loader } from '@/widgets/Loader';
+import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage';
 
 const AddMonitorFormDialog = () => {
   const { t } = useTranslation();

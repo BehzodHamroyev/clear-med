@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-// import Cookies from 'js-cookie';
-// import axios from 'axios';
 
 import { styled } from '@mui/material/styles';
 import { Dialog } from '@mui/material';
@@ -9,7 +7,6 @@ import { Dialog } from '@mui/material';
 import cls from './DeleteAdsFormDialogForMonitor.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-// import { baseUrl } from '../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -17,9 +14,6 @@ import { Loader } from '@/widgets/Loader';
 import instance from '@/shared/lib/axios/api';
 import { getAllAdsVideoForOneMonitor } from '../AdvertisementAttachmentMonitor/model/service/getAllAdsVideoForOneMonitor';
 
-// import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
-
-// import { deleteMonitorAds } from '../../entities/AdvertisementAttachmentMonitor/model/service/deleteMonitorAds';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

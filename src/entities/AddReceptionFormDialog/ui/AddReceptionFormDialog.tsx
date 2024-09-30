@@ -36,13 +36,13 @@ import { baseUrl } from '../../../../baseurl';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllReceptions } from '../../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { Loader } from '@/widgets/Loader';
-import { fetchAllRooms } from '@/pages/AddRoomPage';
+import { fetchAllRooms } from '@/pages/admin/AddRoomPage';
 import instance from '@/shared/lib/axios/api';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+import { getAllRoomsData } from '@/pages/admin/AddRoomPage/model/selector/allRoomSelector';
+import { fetchAllReceptions } from '@/pages/admin/AddReceptionPage';
 
 interface Roomtype {
   name: string;

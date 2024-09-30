@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';

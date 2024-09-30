@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useState } from 'react';
 import Calendar from 'react-calendar';
 
