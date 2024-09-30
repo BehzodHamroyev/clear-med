@@ -50,6 +50,7 @@ const QueuesPageFullScreen = () => {
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
+  console.log(onEndedQueueAudio);
 
   if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl?.length > 0) {
     allProccessQueue?.videoUrl.forEach((item) => {
@@ -129,15 +130,14 @@ const QueuesPageFullScreen = () => {
 
   useEffect(() => {
     if (socket) {
-      // processQueue completedQueue
       socket.on('monitor', (data) => {
-        console.log(data, 'monitor');
-        setOnEndedQueueAudio(true)
-        setDataModal(data)
-        dispatch(fetchAllQueueProccess({}));
+        if (data?.roomNumber) {
+          setOnEndedQueueAudio(true)
+          setDataModal(data)
+          dispatch(fetchAllQueueProccess({}));
+        }
       });
     }
-    // Clean up socket connection on component unmount
     return () => {
       socket?.disconnect();
     };
@@ -434,7 +434,8 @@ const QueuesPageFullScreen = () => {
       )} */}
 
       {
-        onEndedQueueAudio && <QueueDialog
+        // @ts-ignore
+        onEndedQueueAudio && dataModal.roomNumber && <QueueDialog
           step={queueDialogData.step}
           Mp3Array={queueDialogData.mp3Arr}
           // @ts-ignore

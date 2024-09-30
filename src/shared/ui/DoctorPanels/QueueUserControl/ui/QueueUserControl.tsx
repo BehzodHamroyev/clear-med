@@ -37,15 +37,11 @@ const QueueUserControl = ({ proccessedStep, ticketName, roomNumber }: QueueUserC
   const [proccessConfirm, setProccessConfirm] = useState(false);
   const [updateQueueList, setUpdateQueueList] = useState(false);
 
-  console.log(authUserData?.rooms[0].id, 'authUserData');
 
   const proccessedList = useSelector(getControlPanelDocktorData);
 
   const handleClickProccessConfirm = () => {
-    console.log(ticketName, roomNumber);
-
-
-    if (socket) {
+    if (socket && ticketName) {
       socket.emit('doctorProcess', { ticketName: ticketName, roomNumber: roomNumber })
     }
     dispatch(

@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -10,21 +8,20 @@ import cls from './AddDepartmentPage.module.scss';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
 import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
+import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
+import Toast from '@/shared/ui/Toast/Toast';
+import { Loader } from '@/widgets/Loader';
 
+import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 import {
   getAllDepartmentsData,
   getAllDepartmentsError,
   getAllDepartmentsIsLoading,
 } from '../model/selector/AllDepartmentSelector';
-import Toast from '@/shared/ui/Toast/Toast';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
-import { Loader } from '@/widgets/Loader';
-import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 import { baseUploadUrl } from '../../../../../baseurl';
 
 const AddDepartmentPage = () => {
