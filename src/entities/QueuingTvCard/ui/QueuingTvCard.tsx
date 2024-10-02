@@ -32,6 +32,8 @@ export const QueuingTvCard = ({
   CardLeftTitle,
   CardLeftRoomNumber,
   CardLeftDoctorName,
+  department_id,
+  room_id
 }: QueuingTvCardProps) => {
   const { t } = useTranslation();
   const infoProjectError = useSelector(error);
@@ -39,22 +41,13 @@ export const QueuingTvCard = ({
   const infoProjectIsLoader = useSelector(isLoading);
 
   const { setIsvisableLanguageModal } = useContext(ButtonsContext);
-  const socket = useSocket(); // Use the custom hook
-
+  const socket = useSocket();
   const [isPrinting, setIsPrinting] = useState(false);
   const [lastQueueName, setLastQueueName] = useState('');
   const [createQueueIsError, setCreateQueueIsError] = useState(false);
   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
 
-  const [doctorName, setDoctorName] = useState('');
-
-  const [printRoomInfo, setPrintRoomInfo] = useState({
-    createRoomNumber: lastQueue?.room?.name,
-    createTicketNumber: lastQueue?.pagination,
-  });
   const { clearLastQueue } = useLasQueueActions();
-
-  const dispatch = useAppDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
 
@@ -98,11 +91,6 @@ export const QueuingTvCard = ({
         setCreateQueueIsError(false);
         setIsvisableLanguageModal(true);
 
-        setPrintRoomInfo({
-          createRoomNumber: response.data?.room?.name,
-          createTicketNumber: String(response.data?.navbat?.queues_name),
-        });
-
         setTimeout(() => {
           clearLastQueue();
         }, 100);
@@ -119,61 +107,22 @@ export const QueuingTvCard = ({
     e.stopPropagation();
     if (actives.length > 0) {
       if (DoctorId) setClickedDoctorId(DoctorId);
-
-      if (DoctorId) {
-        dispatch(
-          fetchLastQueue({
-            doctorId: DoctorId,
-          }),
-        ).then((res) => {
-          if (res)
-            if (socket) {
-              socket.emit('create queue', {
-                // @ts-ignore
-                department_id: res.payload.room.department_id,
-                // @ts-ignore
-                room_id: res.payload.room._id,
-              });
-            }
-
-          createQueueFunc({
-            // @ts-ignore
-            department_id: res.payload.room.department_id,
-            // @ts-ignore
-            room_id: res.payload.room._id,
-          });
-
+      if (socket) {
+        socket.emit('create queue', {
+          department_id: department_id,
+          room_id: room_id,
         });
       }
+      createQueueFunc({
+        department_id: department_id!,
+        room_id: room_id!,
+      });
     }
   };
 
   useEffect(() => {
     if (lastQueue) {
-      // this code for queue name
-
-      const inputString = lastQueue?.room.doctor_id[0].name!; // Example input string
-
-      // Split the string into an array of words
-      const words = inputString.split(' ');
-
-      // Extract the first word
-      const firstWord = words[0];
-
-      // Extract the first letters of the remaining words and join them with a dot
-      const initials = words
-        .slice(1)
-        .map((word) => word?.charAt(0))
-        .join('.');
-
-      // Combine them
-      const outputStringDoctorName = `${firstWord} ${initials}`;
-      setDoctorName(outputStringDoctorName);
-
-      // this code for queue name
-      // @ts-ignore
       const prefix = lastQueue?.pagination?.charAt(0);
-
       // Extract the last two digits after the hyphen
       const lastTwoDigits = lastQueue?.pagination
         // @ts-ignore

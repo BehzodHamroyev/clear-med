@@ -65,7 +65,6 @@ const QueueDialog = ({
     audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
     audioPlayer.addEventListener('ended', handleAudioEnd);
 
-    console.log(`${baseUploadUrl}${Mp3Array[1]}`, 'Mp3Array');
 
     return () => {
       audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
@@ -140,7 +139,7 @@ const QueueDialog = ({
         src={`${baseUploadUrl}uploads/callRingtone.mp3`}
         autoPlay
         controls
-        onEnded={() => setOnEndedQueueAudio(false)}
+        onEnded={() => setOnEndedQueueAudio(true)}
         style={{ opacity: '0' }}
       />
 

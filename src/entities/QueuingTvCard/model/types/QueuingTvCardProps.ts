@@ -28,4 +28,6 @@ export interface QueuingTvCardProps {
   time?: string;
   proceedCount?: number;
   actives: Actives[];
+  department_id?: string;
+  room_id?: string;
 }
