@@ -33,7 +33,10 @@ const ControlPanelDocktor = memo(() => {
             roomNumber={proccessedList?.data[0]?.room_id?.name}
           />
 
-          <QueueUserControl proccessedStep={proccessedList?.data[0]?.step} />
+          <QueueUserControl
+            roomNumber={proccessedList?.data[0]?.room_id?.name}
+            ticketName={proccessedList?.data[0]?.queues_name}
+            proccessedStep={proccessedList?.data[0]?.step} />
         </>
       )}
       {/* <QueueUserNext /> */}

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
@@ -29,16 +28,14 @@ const QueueDialog = ({
   const audioSpeedRef2 = React.useRef<ReactAudioPlayer | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [hasCallRingtone, setHasCallRingtone] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
 
   const { setOnEndedQueueAudio } = useContext(ButtonsContext);
 
-  // Extract the first character (which can be any letter)
-  const prefix = biletNumber.charAt(0);
+  const prefix = biletNumber?.charAt(0);
 
   // Extract the last number part after the hyphen and remove leading zeros
-  const numberPart = parseInt(biletNumber.split('-')[1], 10);
+  const numberPart = parseInt(biletNumber?.split('-')[1], 10);
 
   // Combine them
   const outputString = `${prefix}-${numberPart}`;

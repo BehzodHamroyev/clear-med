@@ -11,10 +11,10 @@ import { baseUrl } from '../../../baseurl';
 import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
 import { AdsData, ApiResponseAdsData } from './EditAdsFormDiolog.types';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { fetchAllAds } from '@/pages/admin/AddAdsPage/model/services/fetchAllAds';
 
 interface EditAdsFormDiologProps {
   editAdsId: string;

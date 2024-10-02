@@ -10,7 +10,6 @@ import { AutoIcon, LightIcon, DarkIcon } from '@/shared/assets/Pages/Settings';
 const ListOfSettingsTheme = () => {
   const { t } = useTranslation();
 
-  // const themeLocalstorage = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
 
   const themeActive = localStorage.getItem('themeIsActive');
 

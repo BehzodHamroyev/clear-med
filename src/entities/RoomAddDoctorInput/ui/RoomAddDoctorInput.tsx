@@ -12,8 +12,9 @@ import {
 
 import { useSelector } from 'react-redux';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchDoctorGetAll, getListOfDoctor } from '@/pages/DoctorsListPage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getListOfDoctor } from '@/pages/admin/DoctorsListPage/model/selector/doctorListSelector';
+import { fetchDoctorGetAll } from '@/pages/admin/DoctorsListPage/model/service/fetchDoctorGetAll';
 
 const RoomAddDoctorInput = () => {
   const { t } = useTranslation();

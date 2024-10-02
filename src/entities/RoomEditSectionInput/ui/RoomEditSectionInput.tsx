@@ -11,32 +11,25 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import {
-  getListOfDepartmens,
-  fetchDepartmentGetAll,
-} from '@/pages/DepartmentPage';
+
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getListOfDepartmens } from '@/pages/admin/DepartmentPage/model/selectors/departmentList';
+import { fetchDepartmentGetAll } from '@/pages/admin/DepartmentPage/model/service/getAllDepartmentRequest';
 
 const RoomEditSectionInput = () => {
-  /* useTranslation */
   const { t } = useTranslation();
 
-  /* useAppDispatch */
   const dispatch = useAppDispatch();
 
-  /* useSelector */
   const getListOfDepartments = useSelector(getListOfDepartmens);
 
-  /* useState */
   const [sectionValue, setSectionValue] = React.useState('');
 
-  /* useContext */
   const { isDataFormAddRoom, setIsDataFormAddRoom } =
     React.useContext(ButtonsContext);
 
-  /* halper function */
   const handleChange = (event: SelectChangeEvent) => {
     setSectionValue(event.target.value as string);
     setIsDataFormAddRoom({

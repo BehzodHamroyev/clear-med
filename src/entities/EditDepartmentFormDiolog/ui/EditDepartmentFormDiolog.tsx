@@ -13,7 +13,6 @@ import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllDepartments } from '../../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
 
 import {
@@ -21,6 +20,7 @@ import {
   EditDepartmentTypeSchema,
   EditDepartmentFormDiologTypes,
 } from '../model/types/editDepartmentFormDiologTypes';
+import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 
 const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
   const { editDepartmentId } = prop;

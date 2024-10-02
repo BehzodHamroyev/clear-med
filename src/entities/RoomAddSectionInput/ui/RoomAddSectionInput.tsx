@@ -11,13 +11,12 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import {
-  getListOfDepartmens,
-  fetchDepartmentGetAll,
-} from '@/pages/DepartmentPage';
+
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getListOfDepartmens } from '@/pages/admin/DepartmentPage/model/selectors/departmentList';
+import { fetchDepartmentGetAll } from '@/pages/admin/DepartmentPage/model/service/getAllDepartmentRequest';
 
 const RoomAddSectionInput = () => {
   const { t } = useTranslation();

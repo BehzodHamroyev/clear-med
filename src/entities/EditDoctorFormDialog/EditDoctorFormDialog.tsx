@@ -38,9 +38,9 @@ import {
   ApiResponseDoctorDataType,
   DoctorEditDataSchema,
 } from './editDoctorFormDialogTypes';
-import { fetchAllDoctors } from '../../pages/AddDoctorPage/model/service/fetchAllDoctors';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { fetchAllDoctors } from '@/pages/admin/AddDoctorPage/model/service/fetchAllDoctors';
 
 interface EditDoctorFormDialogProps {
   doctorId: string;

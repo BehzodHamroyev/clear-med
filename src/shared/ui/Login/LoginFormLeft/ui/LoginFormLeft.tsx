@@ -66,7 +66,7 @@ const LoginFormLeft = () => {
             fetchAuthUser({
               password: userPasswordValue,
               login: Number(
-                phoneNumberValue.split('+998')[1].replace(/\s/g, ''),
+                phoneNumberValue?.split('+998')[1].replace(/\s/g, ''),
               ),
               refresh: false,
               buttonsContext,

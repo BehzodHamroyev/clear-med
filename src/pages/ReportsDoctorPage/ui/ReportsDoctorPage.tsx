@@ -15,7 +15,6 @@ import { baseUrl } from '../../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getDoctorListData } from '@/pages/ReportsPage/model/selectors/doctorListSelector';
 
 const tableTitle = [

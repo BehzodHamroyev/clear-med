@@ -13,8 +13,8 @@ import { baseUrl } from '../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-import { fetchAllDepartments } from '../../pages/AddDepartmentPage/model/service/fetchAllDepartments';
 import { Loader } from '@/widgets/Loader';
+import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

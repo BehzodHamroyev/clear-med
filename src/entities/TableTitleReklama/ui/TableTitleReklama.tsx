@@ -1,19 +1,13 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-
-// import { PenTools } from '@/shared/assets/entities/TableTitle';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-
-import cls from './TableTitleReklama.module.scss';
 import { Videos } from '@/entities/AdvertisementAttachmentMonitor';
 import { DeleteTools } from '@/shared/assets/entities/TableTitle';
 import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
 import DeleteAdsFormDialogForMonitor from '../../../entities/DeleteAdsFormDialogForMonitor/DeleteAdsFormDialogForMonitor';
+import cls from './TableTitleReklama.module.scss';
 
 interface TableInfo {
   cursor?: boolean;

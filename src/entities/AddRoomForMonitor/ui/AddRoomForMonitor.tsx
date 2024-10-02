@@ -14,7 +14,7 @@ import { baseUrl } from '../../../../baseurl';
 import { RoomAddTypes } from '../model/types/roomAddTypes';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
-import cls from './AttachmentRoomMonitorChild.module.scss';
+import cls from './AddRoomForMonitor.module.scss';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

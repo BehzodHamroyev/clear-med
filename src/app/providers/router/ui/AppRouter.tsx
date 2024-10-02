@@ -8,7 +8,6 @@ import {
   routeConfigForReception,
 } from '../config/routeConfig';
 import { AppRoutesProps } from '@/shared/types/router';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
 
 const AppRouter = () => {
@@ -36,15 +35,13 @@ const AppRouter = () => {
         currentRole === 'admin'
           ? routeConfigForAdmin
           : currentRole === 'doctor'
-          ? routeConfigForDoctor
-          : currentRole === 'reception'
-          ? routeConfigForReception
-          : currentRole === 'monitor'
-          ? routeConfigForMonitor
-          : '',
+            ? routeConfigForDoctor
+            : currentRole === 'reception'
+              ? routeConfigForReception
+              : currentRole === 'monitor'
+                ? routeConfigForMonitor
+                : '',
       )?.map(renderWithWrapper)}
-
-      {/* {Object.values(routeConfigForDoctor).map(renderWithWrapper)} */}
     </Routes>
   );
 };
