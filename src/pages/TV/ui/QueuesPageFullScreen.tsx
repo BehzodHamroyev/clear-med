@@ -33,8 +33,8 @@ const QueuesPageFullScreen: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const authUserData = useSelector(getAuthUserData);
-  const [dataModal, setDataModal] = useState({});
-
+  const [dataModal, setDataModal] = useState({})
+  const [count, setCounter] = useState(0)
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -42,11 +42,12 @@ const QueuesPageFullScreen: React.FC = () => {
     mp3Arr: [''],
   });
 
+
+
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
-  console.log(onEndedQueueAudio);
 
   if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl?.length > 0) {
     allProccessQueue?.videoUrl.forEach((item) => {
@@ -63,44 +64,50 @@ const QueuesPageFullScreen: React.FC = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     let found = false;
+    while (count > 1) {
+      if (!onEndedQueueAudio) {
+        allProccessQueue!?.proccessQueues?.forEach((item) => {
+          if (!item.view && !found) {
+            setQueueDialogData({
+              roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
+              biletNumber: String(item?.queues_name),
+              step: item?.step,
+              mp3Arr: item?.mp3Arr,
+            });
 
-    if (!onEndedQueueAudio) {
-      allProccessQueue!?.proccessQueues?.forEach((item) => {
-        if (!item.view && !found) {
-          setQueueDialogData({
-            roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
-            biletNumber: String(item?.queues_name),
-            step: item?.step,
-            mp3Arr: item?.mp3Arr,
-          });
-
-          try {
-            axios.post(
-              `${baseUrl}/monitor/update/view`,
-              { id: item?._id, view: true },
-              {
-                maxBodyLength: Infinity,
-                headers: {
-                  'Content-Type': 'application/json',
-                  authorization: `Bearer ${token}`,
+            try {
+              axios.post(
+                `${baseUrl}/monitor/update/view`,
+                { id: item?._id, view: true },
+                {
+                  maxBodyLength: Infinity,
+                  headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
+                  },
                 },
-              },
-            );
-          } catch (error) {
-            console.log(error);
+              ).then((res) => {
+                if (res) {
+                  setCounter(prop => prop - 1)
+                }
+              });
+            } catch (error) {
+              console.log(error);
+            }
+
+            setOnEndedQueueAudio(true);
+
+            found = true;
           }
 
-          setOnEndedQueueAudio(true);
-
-          found = true;
-        }
-
-        if (found) {
-          // eslint-disable-next-line no-useless-return
-          return;
-        }
-      });
+          if (found) {
+            // eslint-disable-next-line no-useless-return
+            return;
+          }
+        });
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
@@ -124,9 +131,10 @@ const QueuesPageFullScreen: React.FC = () => {
   useEffect(() => {
     if (socket) {
       socket.on('monitor', (data) => {
-        if (data?.roomNumber) {
-          setOnEndedQueueAudio(true);
-          setDataModal(data);
+        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
+          setCounter(prop => prop + 1)
+          setOnEndedQueueAudio(true)
+          setDataModal(data)
           dispatch(fetchAllQueueProccess({}));
         }
       });
@@ -135,6 +143,9 @@ const QueuesPageFullScreen: React.FC = () => {
       socket?.disconnect();
     };
   }, [socket]);
+
+  console.log(count, 'skjskjdkjskjdkskdj');
+
 
   return (
     <>

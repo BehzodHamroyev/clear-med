@@ -53,6 +53,8 @@ export const QueuingTv = () => {
                     : item?.department_id.nameEn
                 }
                 CardLeftDoctorName={item?.doctor_id[0].name}
+                department_id={item.department_id._id}
+                room_id={item._id}
               />
             );
           })}
