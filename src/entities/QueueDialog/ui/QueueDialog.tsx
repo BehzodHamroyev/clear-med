@@ -139,7 +139,7 @@ const QueueDialog = ({
         src={`${baseUploadUrl}uploads/callRingtone.mp3`}
         autoPlay
         controls
-        onEnded={() => setOnEndedQueueAudio(true)}
+        onEnded={() => setOnEndedQueueAudio(false)}
         style={{ opacity: '0' }}
       />
 

@@ -412,16 +412,6 @@ const QueuesPageFullScreen = () => {
           </div>
         </div>
       </div>
-
-      {/* {onEndedQueueAudio && (
-        <QueueDialog
-          step={queueDialogData.step}
-          Mp3Array={queueDialogData.mp3Arr}
-          roomNumber={queueDialogData.roomNumber}
-          biletNumber={queueDialogData.biletNumber}
-        />
-      )} */}
-
       {
         // @ts-ignore
         onEndedQueueAudio && dataModal.roomNumber && <QueueDialog
