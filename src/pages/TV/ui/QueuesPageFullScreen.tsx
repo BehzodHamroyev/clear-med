@@ -16,16 +16,8 @@ import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
-
-const MariqueParagraphStyle = {
-  width: '100%',
-  color: 'red',
-  fontSize: '28px',
-  marginTop: '10px',
-  marginRight: '20px',
-};
+import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 
 const QueuesPageFullScreen: React.FC = () => {
   const socket = useSocket();
@@ -116,23 +108,23 @@ const QueuesPageFullScreen: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // if (socket) {
+  //   socket.on('monitor', (data) => {
+  //     if (
+  //       data?.roomNumber &&
+  //       authUserData?.rooms.some((room) => room.id === data.roomId)
+  //     ) {
+  //       setCounter((prop) => prop + 1);
+  //       setOnEndedQueueAudio(true);
+  //       setDataModal(data);
+  //       dispatch(fetchAllQueueProccess({}));
+  //     }
+  //   });
 
-
-  if (socket) {
-    socket.on('monitor', (data) => {
-      if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-        setCounter(prop => prop + 1)
-        setOnEndedQueueAudio(true)
-        setDataModal(data)
-        dispatch(fetchAllQueueProccess({}));
-      }
-    });
-
-    socket.on('queueCreated', (data) => {
-      dispatch(fetchAllQueueProccess({}));
-    });
-  }
-
+  //   socket.on('queueCreated', (data) => {
+  //     dispatch(fetchAllQueueProccess({}));
+  //   });
+  // }
 
   return (
     <>
@@ -367,7 +359,10 @@ const QueuesPageFullScreen: React.FC = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)}>
+                        <div
+                          key={item.id}
+                          className={classNames(cls.orderNumber)}
+                        >
                           <p>{outputString}</p>
                         </div>
                       );
