@@ -6,6 +6,7 @@ import cls from './QueueDialog.module.scss';
 import { baseUploadUrl } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { dingDong } from '@/shared/assets';
 
 interface QueueDialogProps {
   step: number;
@@ -64,7 +65,6 @@ const QueueDialog = ({
 
     audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
     audioPlayer.addEventListener('ended', handleAudioEnd);
-
 
     return () => {
       audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
@@ -136,7 +136,8 @@ const QueueDialog = ({
 
       <ReactAudioPlayer
         ref={audioSpeedRef}
-        src={`${baseUploadUrl}uploads/callRingtone.mp3`}
+        // src={`${baseUploadUrl}uploads/callRingtone.mp3`}
+        src={dingDong}
         autoPlay
         controls
         onEnded={() => setOnEndedQueueAudio(true)}

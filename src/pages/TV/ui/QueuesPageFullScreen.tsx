@@ -33,16 +33,14 @@ const QueuesPageFullScreen: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const authUserData = useSelector(getAuthUserData);
-  const [dataModal, setDataModal] = useState({})
-  const [count, setCounter] = useState(0)
+  const [dataModal, setDataModal] = useState({});
+  const [count, setCounter] = useState(0);
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
     step: 1,
     mp3Arr: [''],
   });
-
-
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
@@ -76,21 +74,23 @@ const QueuesPageFullScreen: React.FC = () => {
             });
 
             try {
-              axios.post(
-                `${baseUrl}/monitor/update/view`,
-                { id: item?._id, view: true },
-                {
-                  maxBodyLength: Infinity,
-                  headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
+              axios
+                .post(
+                  `${baseUrl}/monitor/update/view`,
+                  { id: item?._id, view: true },
+                  {
+                    maxBodyLength: Infinity,
+                    headers: {
+                      'Content-Type': 'application/json',
+                      authorization: `Bearer ${token}`,
+                    },
                   },
-                },
-              ).then((res) => {
-                if (res) {
-                  setCounter(prop => prop - 1)
-                }
-              });
+                )
+                .then((res) => {
+                  if (res) {
+                    setCounter((prop) => prop - 1);
+                  }
+                });
             } catch (error) {
               console.log(error);
             }
@@ -120,6 +120,7 @@ const QueuesPageFullScreen: React.FC = () => {
     if (socket) {
       socket.on('queueCreated', (data) => {
         dispatch(fetchAllQueueProccess({}));
+        console.log(data);
       });
     }
 
@@ -131,10 +132,13 @@ const QueuesPageFullScreen: React.FC = () => {
   useEffect(() => {
     if (socket) {
       socket.on('monitor', (data) => {
-        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setCounter(prop => prop + 1)
-          setOnEndedQueueAudio(true)
-          setDataModal(data)
+        if (
+          data?.roomNumber &&
+          authUserData?.rooms.some((room) => room.id === data.roomId)
+        ) {
+          setCounter((prop) => prop + 1);
+          setOnEndedQueueAudio(true);
+          setDataModal(data);
           dispatch(fetchAllQueueProccess({}));
         }
       });
@@ -143,9 +147,6 @@ const QueuesPageFullScreen: React.FC = () => {
       socket?.disconnect();
     };
   }, [socket]);
-
-  console.log(count, 'skjskjdkjskjdkskdj');
-
 
   return (
     <>
@@ -183,7 +184,7 @@ const QueuesPageFullScreen: React.FC = () => {
         </Marquee>
 
         <div className={cls.QueuesPage__queuesContainer}>
-          <ReactPlayer
+          {/* <ReactPlayer
             url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
             autoPlay
@@ -197,7 +198,7 @@ const QueuesPageFullScreen: React.FC = () => {
                 playerVars: { showinfo: 0 },
               },
             }}
-          />
+          /> */}
 
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
@@ -278,7 +279,10 @@ const QueuesPageFullScreen: React.FC = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)}>
+                        <div
+                          key={index + item._id}
+                          className={classNames(cls.orderNumber)}
+                        >
                           <p>{outputString}</p>
                         </div>
                       );
