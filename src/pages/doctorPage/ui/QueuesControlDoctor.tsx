@@ -23,20 +23,17 @@ const reducers: ReducersList = {
 };
 
 const QueuesControlDoctor = () => {
-  const socket = useSocket()
+  const socket = useSocket();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const queuesList = useSelector(getQueuesControlDoctorData);
   const authUserData = useSelector(getAuthUserData);
 
-  const [roomId, setRoomId] = useState('')
-
-
+  const [roomId, setRoomId] = useState('');
 
   useEffect(() => {
     dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
   }, [dispatch]);
-
 
   useEffect(() => {
     dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
@@ -44,13 +41,10 @@ const QueuesControlDoctor = () => {
 
   useEffect(() => {
     if (authUserData) {
-      const id = authUserData?.rooms[0]._id
-      setRoomId(id)
+      const id = authUserData?.rooms[0]._id;
+      setRoomId(id);
     }
-
-  }, [authUserData])
-
-
+  }, [authUserData]);
 
   useEffect(() => {
     if (socket) {
@@ -69,19 +63,16 @@ const QueuesControlDoctor = () => {
     };
   }, [socket]);
 
-
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.bigClass}>
         <div className={cls.QueuesControlDoctorWrapper}>
-          <div className={cls.wraperListDoctor}>
-          </div>
+          <div className={cls.wraperListDoctor}></div>
           <ControlPanelDocktor />
         </div>
 
-
         <div className={cls.TableDoctor}>
-          <div className={cls.TableDoctorChild}>
+          <div>
             {queuesList && queuesList.length > 0 ? (
               <>
                 <ButtonNavbar

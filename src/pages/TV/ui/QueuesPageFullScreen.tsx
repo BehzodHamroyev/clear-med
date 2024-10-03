@@ -7,40 +7,32 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
+import { getAuthUserData } from '@/features/Auth';
+import { useSocket } from '@/shared/hook/useSocket';
 import cls from './QueuesPageFullScreen.module.scss';
 import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useSocket } from '@/shared/hook/useSocket';
-import { getAuthUserData } from '@/features/Auth';
-import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
+
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
+import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 
-const MariqueParagraphStyle = {
-  width: '100%',
-  color: 'red',
-  fontSize: '28px',
-  marginTop: '10px',
-  marginRight: '20px',
-};
-
-const QueuesPageFullScreen = () => {
+const QueuesPageFullScreen: React.FC = () => {
+  const socket = useSocket();
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const socket = useSocket()
+  const dispatch = useAppDispatch();
   const authUserData = useSelector(getAuthUserData);
-  const [dataModal, setDataModal] = useState({})
-  const [count, setCounter] = useState(0)
+  const [dataModal, setDataModal] = useState({});
+  const [count, setCounter] = useState(0);
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
     step: 1,
     mp3Arr: [''],
   });
-
-  const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
@@ -74,21 +66,23 @@ const QueuesPageFullScreen = () => {
             });
 
             try {
-              axios.post(
-                `${baseUrl}/monitor/update/view`,
-                { id: item?._id, view: true },
-                {
-                  maxBodyLength: Infinity,
-                  headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
+              axios
+                .post(
+                  `${baseUrl}/monitor/update/view`,
+                  { id: item?._id, view: true },
+                  {
+                    maxBodyLength: Infinity,
+                    headers: {
+                      'Content-Type': 'application/json',
+                      authorization: `Bearer ${token}`,
+                    },
                   },
-                },
-              ).then((res) => {
-                if (res) {
-                  setCounter(prop => prop - 1)
-                }
-              });
+                )
+                .then((res) => {
+                  if (res) {
+                    setCounter((prop) => prop - 1);
+                  }
+                });
             } catch (error) {
               console.log(error);
             }
@@ -114,23 +108,23 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // if (socket) {
+  //   socket.on('monitor', (data) => {
+  //     if (
+  //       data?.roomNumber &&
+  //       authUserData?.rooms.some((room) => room.id === data.roomId)
+  //     ) {
+  //       setCounter((prop) => prop + 1);
+  //       setOnEndedQueueAudio(true);
+  //       setDataModal(data);
+  //       dispatch(fetchAllQueueProccess({}));
+  //     }
+  //   });
 
-
-  if (socket) {
-    socket.on('monitor', (data) => {
-      if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-        setCounter(prop => prop + 1)
-        setOnEndedQueueAudio(true)
-        setDataModal(data)
-        dispatch(fetchAllQueueProccess({}));
-      }
-    });
-
-    socket.on('queueCreated', (data) => {
-      dispatch(fetchAllQueueProccess({}));
-    });
-  }
-
+  //   socket.on('queueCreated', (data) => {
+  //     dispatch(fetchAllQueueProccess({}));
+  //   });
+  // }
 
   return (
     <>
@@ -168,7 +162,7 @@ const QueuesPageFullScreen = () => {
         </Marquee>
 
         <div className={cls.QueuesPage__queuesContainer}>
-          <ReactPlayer
+          {/* <ReactPlayer
             url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
             autoPlay
@@ -182,25 +176,19 @@ const QueuesPageFullScreen = () => {
                 playerVars: { showinfo: 0 },
               },
             }}
-          />
+          /> */}
 
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
+                    <p>{t("Bo'lim")}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
+                    <p>{t('Xona')}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p>
+                    <p>{t('Bilet')}</p>
                   </div>
                 ) : null}
               </div>
@@ -233,11 +221,7 @@ const QueuesPageFullScreen = () => {
                           <p>{allProccessQueue!.room1!.department_id?.name}</p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!.room1!?.name}</p>
                         </div>
 
@@ -248,7 +232,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -273,7 +257,10 @@ const QueuesPageFullScreen = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)}>
+                        <div
+                          key={index + item._id}
+                          className={classNames(cls.orderNumber)}
+                        >
                           <p>{outputString}</p>
                         </div>
                       );
@@ -336,11 +323,7 @@ const QueuesPageFullScreen = () => {
                           </p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!?.room2!?.name}</p>
                         </div>
 
@@ -351,7 +334,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -376,7 +359,10 @@ const QueuesPageFullScreen = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)}>
+                        <div
+                          key={item.id}
+                          className={classNames(cls.orderNumber)}
+                        >
                           <p>{outputString}</p>
                         </div>
                       );
@@ -414,14 +400,16 @@ const QueuesPageFullScreen = () => {
       </div>
       {
         // @ts-ignore
-        onEndedQueueAudio && dataModal.roomNumber && <QueueDialog
-          step={queueDialogData.step}
-          Mp3Array={queueDialogData.mp3Arr}
-          // @ts-ignore
-          roomNumber={dataModal.roomNumber}
-          // @ts-ignore
-          biletNumber={dataModal.ticketName}
-        />
+        onEndedQueueAudio && dataModal.roomNumber && (
+          <QueueDialog
+            step={queueDialogData.step}
+            Mp3Array={queueDialogData.mp3Arr}
+            // @ts-ignore
+            roomNumber={dataModal.roomNumber}
+            // @ts-ignore
+            biletNumber={dataModal.ticketName}
+          />
+        )
       }
     </>
   );
