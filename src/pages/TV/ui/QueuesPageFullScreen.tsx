@@ -114,35 +114,22 @@ const QueuesPageFullScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (socket) {
-      socket.on('queueCreated', (data) => {
+
+
+  if (socket) {
+    socket.on('monitor', (data) => {
+      if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
+        setCounter(prop => prop + 1)
+        setOnEndedQueueAudio(true)
+        setDataModal(data)
         dispatch(fetchAllQueueProccess({}));
-      });
-    }
+      }
+    });
 
-    return () => {
-      socket?.disconnect();
-    };
-  }, [socket]);
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('monitor', (data) => {
-        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setCounter(prop => prop + 1)
-          setOnEndedQueueAudio(true)
-          setDataModal(data)
-          dispatch(fetchAllQueueProccess({}));
-        }
-      });
-    }
-    return () => {
-      socket?.disconnect();
-    };
-  }, [socket]);
-
-  console.log(count, 'skjskjdkjskjdkskdj');
+    socket.on('queueCreated', (data) => {
+      dispatch(fetchAllQueueProccess({}));
+    });
+  }
 
 
   return (
