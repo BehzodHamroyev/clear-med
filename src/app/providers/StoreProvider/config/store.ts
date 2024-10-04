@@ -21,7 +21,7 @@ import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
-} from '@/pages/reception';
+} from '@/pages/ReceptionPage';
 import {
   sliceAllAdsVideoForOneMonitorReducer,
   sliceAllAdsVideoReducer,

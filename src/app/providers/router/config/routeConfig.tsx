@@ -1,62 +1,57 @@
 import {
-  CommonRoutes,
   AdminRoutes,
+  CommonRoutes,
   DoctorRoutes,
+  MonitorRoutes,
   ReceptionRoutes,
   getRouteNotFound,
+  getRouteMonitors,
   getRouteForbidden,
   getRouteDepartment,
   getRouteQueuesPage,
-  getRouteAddRoomPage,
+  getRouteAddMonitor,
+  getRouteAddAdsPage,
   getRouteReportsPage,
   getRouteSettingsPage,
   getRouteReportDoctor,
-  getRouteReportsPageId,
-  getRouteReportQueuingTv,
-  getRouteReportControlDoctor,
-  getRouteAddMonitor,
-  MonitorRoutes,
-  getRouteQueuesPageForMonitor,
   getRouteMonitorChild,
-  getRouteAdvertisementAttachmentMonitor,
+  getRouteReportsPageId,
   getRouteAddRoomPageFIX,
-  getRouteMonitors,
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
-  getRouteAddAdsPage,
+  getRouteReportQueuingTv,
   getRouteAddReceptionsPage,
   getRouteAddRoomForMonitor,
+  getRouteReportControlDoctor,
+  getRouteQueuesPageForMonitor,
+  getRouteAdvertisementAttachmentMonitor,
 } from '@/shared/const/router';
 
-import { QueuingTv } from '@/pages/reception';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
-import { ReportsDoctorPage } from '@/pages/reportsDoctorPage';
 import { QueuesControlDoctor } from '@/pages/doctorPage';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachmentMonitor';
 
 // ----- Admin -----
-import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
+import { MonitorsPage } from '@/pages/admin/Monitors';
 import { AddAdsPage } from '@/pages/admin/AddAdsPage';
-import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
+import Reception from '@/pages/ReceptionPage/ui/Reception';
+import { AddRoomPage } from '@/pages/admin/AddRoomPage';
 import { AddDoctorPage } from '@/pages/admin/AddDoctorPage';
 import { AddMonitorPage } from '@/pages/admin/AddMonitorPage';
-import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
-import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
-import { AddRoomPage } from '@/pages/admin/AddRoomPage';
-import { MonitorsPage } from '@/pages/admin/Monitors';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
+import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
+import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
+import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
+import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
 
-
-export const routeConfigForAdmin: Record<
-  AdminRoutes,
-  AppRoutesProps
-> = {
+export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
@@ -190,7 +185,7 @@ export const routeConfigForReception: Record<
   },
   [ReceptionRoutes.QUEUING_TV]: {
     path: getRouteReportQueuingTv(),
-    element: <QueuingTv />,
+    element: <Reception />,
   },
   [CommonRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),

@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import cls from './AddAdsPage.module.scss';
 
 import Toast from '@/shared/ui/Toast/Toast';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { fetchAllAds } from '../model/services/fetchAllAds';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { AddAdsFormDiolog } from '@/entities/AddAdsFormDiolog';
@@ -23,8 +22,8 @@ import {
 } from '../model/selector/allAdsSelector';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 import { Loader } from '@/widgets/Loader';
+import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
 import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
@@ -104,8 +103,8 @@ const AddAdsPage = () => {
 
               <th className={cls['AddAdsPageWrp__Table--th']}>{t('Sana')}</th>
 
-              <th className={cls['AddAdsPageWrp__Table--edit']}>{ }</th>
-              <th className={cls['AddAdsPageWrp__Table--delete']}>{ }</th>
+              <th className={cls['AddAdsPageWrp__Table--edit']}>{}</th>
+              <th className={cls['AddAdsPageWrp__Table--delete']}>{}</th>
             </tr>
           </thead>
 
@@ -126,7 +125,6 @@ const AddAdsPage = () => {
                           alt=" "
                         />
                       )}
-
                     </td>
 
                     <td className={cls['AddAdsPageWrp__Table--td']}>
@@ -154,7 +152,7 @@ const AddAdsPage = () => {
                       className={cls['AddAdsPageWrp__Table--lastChild']}
                       onClick={() => handleClickEditAds(item?.id)}
                     >
-                      { }
+                      {}
                       <PenTools className={cls['AddAdsPageWrp__Table--edit']} />
                     </td>
 
@@ -162,7 +160,7 @@ const AddAdsPage = () => {
                       className={cls['AddAdsPageWrp__Table--lastChild2']}
                       onClick={() => handleClickDeleteAds(item?.id)}
                     >
-                      { }
+                      {}
                       <DeleteTools
                         className={cls['AddAdsPageWrp__Table--delete']}
                       />
@@ -172,7 +170,7 @@ const AddAdsPage = () => {
               })}
             </tbody>
           ) : allAdsIsLoading ? (
-            <LoaderAdmin />
+            <Loader />
           ) : allAdsError ? (
             <ErrorDialog isErrorProps={!false} />
           ) : (

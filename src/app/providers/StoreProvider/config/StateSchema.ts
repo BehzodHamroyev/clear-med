@@ -33,7 +33,7 @@ import {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
-} from '@/pages/reception';
+} from '@/pages/ReceptionPage';
 import {
   AddsVideosDataRedux,
   MonitorAdsInRedux,

@@ -6,7 +6,6 @@ import { RoomAdd } from '@/entities/RoomAdd';
 import { ErrorReload } from '@/widgets/Error';
 import { RoomEdit } from '@/entities/RoomEdit';
 import { TableTitle } from '@/entities/TableTitle';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { RoomListSliceReducer } from '../model/slice/getRoomSlice';
@@ -26,6 +25,7 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import cls from './RoomPage.module.scss';
+import { Loader } from '@/widgets/Loader';
 
 const tableTitle = ['Xona raqami', 'Bo‘limlar', 'Biriktirilgan shifokorlar'];
 
@@ -82,7 +82,7 @@ const RoomPage = () => {
   return (
     <DynamicModuleLoader reducers={reducer}>
       {getRoomLoadings === true ? (
-        <LoaderAdmin />
+        <Loader />
       ) : getRoomError ? (
         <ErrorReload message={getRoomError} />
       ) : (

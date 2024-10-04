@@ -22,8 +22,8 @@ import {
   getIsLoading,
   getListOfAdvertisement,
 } from '../model/selectors/advertisementListSelector';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ErrorReload } from '@/widgets/Error';
+import { Loader } from '@/widgets/Loader';
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
 
@@ -82,7 +82,7 @@ const AddAdvertisementPage = () => {
   return (
     <DynamicModuleLoader reducers={reudcer}>
       {getAdvertisementLoading === true ? (
-        <LoaderAdmin />
+        <Loader />
       ) : getAdvertisementError ? (
         <ErrorReload message={getAdvertisementError} />
       ) : (

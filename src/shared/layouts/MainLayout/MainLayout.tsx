@@ -2,13 +2,14 @@ import { memo, ReactElement, useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import { Loader } from '@/widgets/Loader';
 import cls from './MainLayout.module.scss';
 import { Sidebar } from '@/widgets/Sidebar';
 import Toast from '@/shared/ui/Toast/Toast';
 import { LanguageModal } from '@/shared/ui/LanguageModal';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { EditLanguageModal } from '@/entities/EditLanguageModal';
-import { LoaderBackHidden } from '@/widgets/LoaderBackHidden/inde';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
@@ -67,7 +68,8 @@ export const MainLayout = memo((props: MainLayoutProps) => {
           <div className={cls.content}>{content}</div>
 
           <div className={cls.rightbar}>
-            <div className={cls.header}>{header}</div>
+            <div>{header}</div>
+
             <div className={cls.toolbar}>{toolbar}</div>
           </div>
 
@@ -86,7 +88,7 @@ export const MainLayout = memo((props: MainLayoutProps) => {
         </div>
       )}
 
-      {authUserDataIsLoading && <LoaderBackHidden />}
+      {authUserDataIsLoading && <Loader />}
     </div>
   );
 });
