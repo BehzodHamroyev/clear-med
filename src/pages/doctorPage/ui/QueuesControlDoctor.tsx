@@ -15,7 +15,6 @@ import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDo
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getQueuesControlDoctorData } from '../model/selectors/queuesControlDoctorSelector';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
-
 import cls from './QueuesControlDoctor.module.scss';
 
 const reducers: ReducersList = {
@@ -53,11 +52,9 @@ const QueuesControlDoctor = () => {
           dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
           dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
         }
-        console.log(data, 'New queue created');
       });
     }
 
-    // Clean up socket connection on component unmount
     return () => {
       socket?.disconnect();
     };

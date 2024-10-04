@@ -22,9 +22,9 @@ const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const socket = useSocket()
+  const token = Cookies.get('token');
   const authUserData = useSelector(getAuthUserData);
   const [dataModal, setDataModal] = useState({})
-  const [count, setCounter] = useState(0)
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -52,7 +52,6 @@ const QueuesPageFullScreen = () => {
   }
 
   useEffect(() => {
-    const token = Cookies.get('token');
     let found = false;
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
@@ -75,11 +74,7 @@ const QueuesPageFullScreen = () => {
                   authorization: `Bearer ${token}`,
                 },
               },
-            ).then((res) => {
-              if (res) {
-                setCounter(prop => prop - 1)
-              }
-            });
+            )
           } catch (error) {
             console.log(error);
           }
@@ -103,28 +98,21 @@ const QueuesPageFullScreen = () => {
   }, []);
 
 
-
-
   useEffect(() => {
     if (socket) {
       socket.on('monitor', (data) => {
         if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setCounter(prop => prop + 1)
           setOnEndedQueueAudio(true)
           setDataModal(data)
           dispatch(fetchAllQueueProccess({}));
-          console.log(data);
-
         }
       });
 
       socket.on('queueCreated', (data) => {
-        console.log(data);
         dispatch(fetchAllQueueProccess({}));
       });
     }
   }, [socket])
-
 
   return (
     <>
