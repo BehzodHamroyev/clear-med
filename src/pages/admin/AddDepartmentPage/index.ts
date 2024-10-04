@@ -4,7 +4,6 @@ export {
   getAllDepartmentsIsLoading,
 } from './model/selector/AllDepartmentSelector';
 
-export { fetchAllDepartments } from './model/service/fetchAllDepartments';
 
 export { default as AddDepartmentPage } from './ui/AddDepartmentPage';
 

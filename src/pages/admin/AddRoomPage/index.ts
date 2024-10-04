@@ -1,4 +1,3 @@
-export { fetchAllRooms } from './model/services/fetchAllRooms';
 
 export { allRoomsReducer } from './model/slice/allRoomsSlice';
 

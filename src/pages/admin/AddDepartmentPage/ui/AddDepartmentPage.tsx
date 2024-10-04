@@ -4,19 +4,19 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import cls from './AddDepartmentPage.module.scss';
+import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
-import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import DeleteDepartmentFormDialog from '@/entities/DeleteDepartmentFormDialog/DeleteDepartmentFormDialog';
 import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 import Toast from '@/shared/ui/Toast/Toast';
 import { Loader } from '@/widgets/Loader';
 
-import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
+// import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 import {
   getAllDepartmentsData,
   getAllDepartmentsError,
@@ -64,9 +64,9 @@ const AddDepartmentPage = () => {
     setEditDepartmentId(id);
   };
 
-  useEffect(() => {
-    dispatch(fetchAllDepartments({}));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllDepartments({}));
+  // }, [dispatch]);
 
   return (
     <div className={cls.AddDepartmentPageWrp}>

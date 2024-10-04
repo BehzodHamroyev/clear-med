@@ -16,7 +16,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Loader } from '@/widgets/Loader';
-import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage';
+import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage/model/service/fetchGetAllMonitors';
 
 const AddMonitorFormDialog = () => {
   const { t } = useTranslation();
