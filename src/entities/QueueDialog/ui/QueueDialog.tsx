@@ -6,7 +6,7 @@ import cls from './QueueDialog.module.scss';
 import { baseUploadUrl } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import dingDong from '@/shared/assets/callRingtone.mp3';
+import { dingDong } from '@/shared/assets';
 
 interface QueueDialogProps {
   step: number;

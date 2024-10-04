@@ -18,14 +18,6 @@ import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 
-const MariqueParagraphStyle = {
-  width: '100%',
-  color: 'red',
-  fontSize: '28px',
-  marginTop: '10px',
-  marginRight: '20px',
-};
-
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
@@ -62,51 +54,47 @@ const QueuesPageFullScreen = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     let found = false;
-    while (count > 1) {
-      if (!onEndedQueueAudio) {
-        allProccessQueue!?.proccessQueues?.forEach((item) => {
-          if (!item.view && !found) {
-            setQueueDialogData({
-              roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
-              biletNumber: String(item?.queues_name),
-              step: item?.step,
-              mp3Arr: item?.mp3Arr,
-            });
+    if (!onEndedQueueAudio) {
+      allProccessQueue!?.proccessQueues?.forEach((item) => {
+        if (!item.view && !found) {
+          setQueueDialogData({
+            roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
+            biletNumber: String(item?.queues_name),
+            step: item?.step,
+            mp3Arr: item?.mp3Arr,
+          });
 
-            try {
-              axios.post(
-                `${baseUrl}/monitor/update/view`,
-                { id: item?._id, view: true },
-                {
-                  maxBodyLength: Infinity,
-                  headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
-                  },
+          try {
+            axios.post(
+              `${baseUrl}/monitor/update/view`,
+              { id: item?._id, view: true },
+              {
+                maxBodyLength: Infinity,
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: `Bearer ${token}`,
                 },
-              ).then((res) => {
-                if (res) {
-                  setCounter(prop => prop - 1)
-                }
-              });
-            } catch (error) {
-              console.log(error);
-            }
-
-            setOnEndedQueueAudio(true);
-
-            found = true;
+              },
+            ).then((res) => {
+              if (res) {
+                setCounter(prop => prop - 1)
+              }
+            });
+          } catch (error) {
+            console.log(error);
           }
 
-          if (found) {
-            // eslint-disable-next-line no-useless-return
-            return;
-          }
-        });
-      }
+          setOnEndedQueueAudio(true);
+
+          found = true;
+        }
+
+        if (found) {
+          // eslint-disable-next-line no-useless-return
+          return;
+        }
+      });
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
   useEffect(() => {
@@ -116,22 +104,26 @@ const QueuesPageFullScreen = () => {
 
 
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.on('monitor', (data) => {
-  //       if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-  //         setCounter(prop => prop + 1)
-  //         setOnEndedQueueAudio(true)
-  //         setDataModal(data)
-  //         dispatch(fetchAllQueueProccess({}));
-  //       }
-  //     });
 
-  //     socket.on('queueCreated', (data) => {
-  //       dispatch(fetchAllQueueProccess({}));
-  //     });
-  //   }
-  // }, [socket])
+  useEffect(() => {
+    if (socket) {
+      socket.on('monitor', (data) => {
+        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
+          setCounter(prop => prop + 1)
+          setOnEndedQueueAudio(true)
+          setDataModal(data)
+          dispatch(fetchAllQueueProccess({}));
+          console.log(data);
+
+        }
+      });
+
+      socket.on('queueCreated', (data) => {
+        console.log(data);
+        dispatch(fetchAllQueueProccess({}));
+      });
+    }
+  }, [socket])
 
 
   return (
@@ -211,8 +203,6 @@ const QueuesPageFullScreen = () => {
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   // @ts-ignore
                   const prefix = item?.queues_name?.charAt(0);
-
-                  // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     ?.split('-')[1]
@@ -275,7 +265,7 @@ const QueuesPageFullScreen = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)}>
+                        <div className={classNames(cls.orderNumber)} key={outputString}>
                           <p>{outputString}</p>
                         </div>
                       );
@@ -312,14 +302,11 @@ const QueuesPageFullScreen = () => {
                 {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                   // @ts-ignore
                   const prefix = item?.queues_name?.charAt(0);
-
-                  // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     ?.split('-')[1]
                     ?.slice(-2);
 
-                  // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
                   if (index === allProccessQueue!?.room2?.proceed.length! - 1) {
@@ -367,8 +354,6 @@ const QueuesPageFullScreen = () => {
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                     // @ts-ignore
                     const prefix = item.queues_name?.charAt(0);
-
-                    // Extract the last two digits after the hyphen
                     const lastTwoDigits = item.queues_name
                       // @ts-ignore
                       ?.split('-')[1]
@@ -384,7 +369,7 @@ const QueuesPageFullScreen = () => {
                       );
                   })}
 
-                  {allProccessQueue!!?.room2!?.proceed.length > 4 ? (
+                  {allProccessQueue!?.room2!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC />
