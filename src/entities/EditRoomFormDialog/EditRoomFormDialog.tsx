@@ -44,8 +44,9 @@ import {
 
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllFreeDoctors } from '../AddRoomFormDialog/model/service/fetchAllFreeDoctors';
-import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError, fetchAllDepartments } from '@/pages/admin/AddDepartmentPage';
-import { fetchAllRooms } from '@/pages/admin/AddRoomPage';
+import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError } from '@/pages/admin/AddDepartmentPage';
+import { fetchAllRooms } from '@/pages/admin/AddRoomPage/model/services/fetchAllRooms';
+import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

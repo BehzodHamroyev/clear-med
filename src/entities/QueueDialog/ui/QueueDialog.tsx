@@ -140,7 +140,7 @@ const QueueDialog = ({
         src={dingDong}
         autoPlay
         controls
-        onEnded={() => setOnEndedQueueAudio(true)}
+        onEnded={() => setOnEndedQueueAudio(false)}
         style={{ opacity: '0' }}
       />
 

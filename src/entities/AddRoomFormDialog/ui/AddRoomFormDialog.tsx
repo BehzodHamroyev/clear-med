@@ -36,8 +36,9 @@ import { fetchAllFreeDoctors } from '../model/service/fetchAllFreeDoctors';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { baseUrl } from '../../../../baseurl';
-import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError, fetchAllDepartments } from '@/pages/admin/AddDepartmentPage';
+import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError } from '@/pages/admin/AddDepartmentPage';
 import { fetchAllRooms } from '@/pages/admin/AddRoomPage/model/services/fetchAllRooms';
+import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 
 interface AddRoomFormDialogProps {
   className?: string;

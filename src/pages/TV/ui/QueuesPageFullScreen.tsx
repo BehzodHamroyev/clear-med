@@ -7,32 +7,32 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
-import { getAuthUserData } from '@/features/Auth';
-import { useSocket } from '@/shared/hook/useSocket';
 import cls from './QueuesPageFullScreen.module.scss';
 import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-
-import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
+import { useSocket } from '@/shared/hook/useSocket';
+import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
+import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 
-const QueuesPageFullScreen: React.FC = () => {
-  const socket = useSocket();
+const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
+  const socket = useSocket()
   const authUserData = useSelector(getAuthUserData);
-  const [dataModal, setDataModal] = useState({});
-  const [count, setCounter] = useState(0);
+  const [dataModal, setDataModal] = useState({})
+  const [count, setCounter] = useState(0)
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
     step: 1,
     mp3Arr: [''],
   });
+
+  const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
 
@@ -54,53 +54,47 @@ const QueuesPageFullScreen: React.FC = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     let found = false;
-    while (count > 1) {
-      if (!onEndedQueueAudio) {
-        allProccessQueue!?.proccessQueues?.forEach((item) => {
-          if (!item.view && !found) {
-            setQueueDialogData({
-              roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
-              biletNumber: String(item?.queues_name),
-              step: item?.step,
-              mp3Arr: item?.mp3Arr,
+    if (!onEndedQueueAudio) {
+      allProccessQueue!?.proccessQueues?.forEach((item) => {
+        if (!item.view && !found) {
+          setQueueDialogData({
+            roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
+            biletNumber: String(item?.queues_name),
+            step: item?.step,
+            mp3Arr: item?.mp3Arr,
+          });
+
+          try {
+            axios.post(
+              `${baseUrl}/monitor/update/view`,
+              { id: item?._id, view: true },
+              {
+                maxBodyLength: Infinity,
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: `Bearer ${token}`,
+                },
+              },
+            ).then((res) => {
+              if (res) {
+                setCounter(prop => prop - 1)
+              }
             });
-
-            try {
-              axios
-                .post(
-                  `${baseUrl}/monitor/update/view`,
-                  { id: item?._id, view: true },
-                  {
-                    maxBodyLength: Infinity,
-                    headers: {
-                      'Content-Type': 'application/json',
-                      authorization: `Bearer ${token}`,
-                    },
-                  },
-                )
-                .then((res) => {
-                  if (res) {
-                    setCounter((prop) => prop - 1);
-                  }
-                });
-            } catch (error) {
-              console.log(error);
-            }
-
-            setOnEndedQueueAudio(true);
-
-            found = true;
+          } catch (error) {
+            console.log(error);
           }
 
-          if (found) {
-            // eslint-disable-next-line no-useless-return
-            return;
-          }
-        });
-      }
+          setOnEndedQueueAudio(true);
+
+          found = true;
+        }
+
+        if (found) {
+          // eslint-disable-next-line no-useless-return
+          return;
+        }
+      });
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allProccessQueue!?.proccessQueues]);
 
   useEffect(() => {
@@ -108,23 +102,29 @@ const QueuesPageFullScreen: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // if (socket) {
-  //   socket.on('monitor', (data) => {
-  //     if (
-  //       data?.roomNumber &&
-  //       authUserData?.rooms.some((room) => room.id === data.roomId)
-  //     ) {
-  //       setCounter((prop) => prop + 1);
-  //       setOnEndedQueueAudio(true);
-  //       setDataModal(data);
-  //       dispatch(fetchAllQueueProccess({}));
-  //     }
-  //   });
 
-  //   socket.on('queueCreated', (data) => {
-  //     dispatch(fetchAllQueueProccess({}));
-  //   });
-  // }
+
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('monitor', (data) => {
+        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
+          setCounter(prop => prop + 1)
+          setOnEndedQueueAudio(true)
+          setDataModal(data)
+          dispatch(fetchAllQueueProccess({}));
+          console.log(data);
+
+        }
+      });
+
+      socket.on('queueCreated', (data) => {
+        console.log(data);
+        dispatch(fetchAllQueueProccess({}));
+      });
+    }
+  }, [socket])
+
 
   return (
     <>
@@ -162,7 +162,7 @@ const QueuesPageFullScreen: React.FC = () => {
         </Marquee>
 
         <div className={cls.QueuesPage__queuesContainer}>
-          {/* <ReactPlayer
+          <ReactPlayer
             url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
             autoPlay
@@ -176,19 +176,25 @@ const QueuesPageFullScreen: React.FC = () => {
                 playerVars: { showinfo: 0 },
               },
             }}
-          /> */}
+          />
 
           <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
-                    <p>{t("Bo'lim")}</p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t("Bo'lim")}
+                    </p>
 
-                    <p>{t('Xona')}</p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Xona')}
+                    </p>
 
-                    <p>{t('Bilet')}</p>
+                    <p className={classNames(cls.queuesTable__headItem)}>
+                      {t('Bilet')}
+                    </p>
                   </div>
                 ) : null}
               </div>
@@ -197,8 +203,6 @@ const QueuesPageFullScreen: React.FC = () => {
                 {allProccessQueue!?.room1?.proceed?.map((item, index) => {
                   // @ts-ignore
                   const prefix = item?.queues_name?.charAt(0);
-
-                  // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     ?.split('-')[1]
@@ -221,7 +225,11 @@ const QueuesPageFullScreen: React.FC = () => {
                           <p>{allProccessQueue!.room1!.department_id?.name}</p>
                         </div>
 
-                        <div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
                           <p>{allProccessQueue!.room1!?.name}</p>
                         </div>
 
@@ -232,7 +240,7 @@ const QueuesPageFullScreen: React.FC = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -257,10 +265,7 @@ const QueuesPageFullScreen: React.FC = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div
-                          key={index + item._id}
-                          className={classNames(cls.orderNumber)}
-                        >
+                        <div className={classNames(cls.orderNumber)} key={outputString}>
                           <p>{outputString}</p>
                         </div>
                       );
@@ -297,14 +302,11 @@ const QueuesPageFullScreen: React.FC = () => {
                 {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                   // @ts-ignore
                   const prefix = item?.queues_name?.charAt(0);
-
-                  // Extract the last two digits after the hyphen
                   const lastTwoDigits = item?.queues_name
                     // @ts-ignore
                     ?.split('-')[1]
                     ?.slice(-2);
 
-                  // Combine them
                   const outputString = `${prefix}-${lastTwoDigits}`;
 
                   if (index === allProccessQueue!?.room2?.proceed.length! - 1) {
@@ -323,7 +325,11 @@ const QueuesPageFullScreen: React.FC = () => {
                           </p>
                         </div>
 
-                        <div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
                           <p>{allProccessQueue!?.room2!?.name}</p>
                         </div>
 
@@ -334,7 +340,7 @@ const QueuesPageFullScreen: React.FC = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -348,8 +354,6 @@ const QueuesPageFullScreen: React.FC = () => {
                   {allProccessQueue!?.room2?.proceed?.map((item, index) => {
                     // @ts-ignore
                     const prefix = item.queues_name?.charAt(0);
-
-                    // Extract the last two digits after the hyphen
                     const lastTwoDigits = item.queues_name
                       // @ts-ignore
                       ?.split('-')[1]
@@ -359,16 +363,13 @@ const QueuesPageFullScreen: React.FC = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div
-                          key={item.id}
-                          className={classNames(cls.orderNumber)}
-                        >
+                        <div className={classNames(cls.orderNumber)}>
                           <p>{outputString}</p>
                         </div>
                       );
                   })}
 
-                  {allProccessQueue!!?.room2!?.proceed.length > 4 ? (
+                  {allProccessQueue!?.room2!?.proceed.length > 4 ? (
                     <>
                       <div className={classNames(cls.icon)}>
                         <ETC />
@@ -398,28 +399,16 @@ const QueuesPageFullScreen: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* {onEndedQueueAudio && (
-        <QueueDialog
-          step={queueDialogData.step}
-          Mp3Array={queueDialogData.mp3Arr}
-          roomNumber={queueDialogData.roomNumber}
-          biletNumber={queueDialogData.biletNumber}
-        />
-      )} */}
-
       {
         // @ts-ignore
-        onEndedQueueAudio && dataModal.roomNumber && (
-          <QueueDialog
-            step={queueDialogData.step}
-            Mp3Array={queueDialogData.mp3Arr}
-            // @ts-ignore
-            roomNumber={dataModal.roomNumber}
-            // @ts-ignore
-            biletNumber={dataModal.ticketName}
-          />
-        )
+        onEndedQueueAudio && dataModal.roomNumber && <QueueDialog
+          step={queueDialogData.step}
+          Mp3Array={queueDialogData.mp3Arr}
+          // @ts-ignore
+          roomNumber={dataModal.roomNumber}
+          // @ts-ignore
+          biletNumber={dataModal.ticketName}
+        />
       }
     </>
   );

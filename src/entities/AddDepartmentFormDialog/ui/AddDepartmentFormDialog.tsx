@@ -8,7 +8,7 @@ import { Dialog, TextField } from '@mui/material';
 
 import cls from './AddDepartmentFormDialog.module.scss';
 
-import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage';
+import { fetchAllDepartments } from '../../../pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../baseurl';
 import { DepartmentType } from '../model/types/departmentType';
