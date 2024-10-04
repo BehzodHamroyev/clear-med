@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { ErrorReload } from '@/widgets/Error';
 import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DoctorListSliceReducer } from '../model/slice/getDoctorSlice';
@@ -27,6 +26,7 @@ import {
 import cls from './AddDoctorPage.module.scss';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { AddDoctorFormDialog } from '@/entities/AddDoctorFormDialog';
+import { Loader } from '@/widgets/Loader';
 
 /* halper array */
 const tableTitle = [
@@ -88,7 +88,7 @@ const DoctorListPage = () => {
 
   React.useEffect(() => {
     if (getDoctorData) {
-      const tableBodys = getDoctorData?.map((item:any) => {
+      const tableBodys = getDoctorData?.map((item: any) => {
         return {
           id: item?._id,
           item1: item?.name !== undefined ? item?.name : ' ',
@@ -115,7 +115,7 @@ const DoctorListPage = () => {
   return (
     <DynamicModuleLoader reducers={reducer}>
       {getDoctorLoading === true ? (
-        <LoaderAdmin />
+        <Loader />
       ) : getDoctorError ? (
         <ErrorReload message={getDoctorError} />
       ) : (

@@ -6,47 +6,53 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #fff;
   z-index: 1000;
   overflow: hidden;
+  background-color: #fff;
 
   &__logo {
     width: 100%;
-    max-width: 500px;
     display: block;
+    max-width: 700px;
     margin: 40px auto;
   }
 
   &__lang {
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
+
     gap: 20px;
 
     button {
-      width: 100%;
-      max-width: 700px;
-      background-color: #265caa;
-      color: #fff;
-      padding: 25px 40px;
-      font-weight: 400;
-      font-size: 36px;
-      line-height: 41.4px;
+      width: 90%;
+      padding: 35px 40px;
       border-radius: 15px;
+
+      font-size: 48px;
+      font-weight: 400;
       text-transform: inherit;
+      font-family: sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      color: #fff;
+      background-color: #265caa;
     }
 
     &--iconLanguage {
-      width: 35px;
-      height: 35px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      margin: 0 10px;
     }
 
     button:hover {
-      background-color: #265caa;
+      background-color: #265daaec;
     }
   }
 }

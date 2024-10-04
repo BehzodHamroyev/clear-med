@@ -1,9 +1,11 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import cls from './Reception.module.scss';
 import { Loader } from '@/widgets/Loader';
+import { QueuingTvCard } from '@/entities/QueuingTvCard';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { getCurrentQueueError } from '../model/selectors/currentQueueSelector';
 
 import {
   getDeparmentListData,
@@ -11,59 +13,56 @@ import {
   getDeparmentListIsLoading,
 } from '../model/selectors/departmentListSelector';
 
-import { getCurrentQueueError } from '../model/selectors/currentQueueSelector';
-
 import {
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
-import { QueuingTvCard } from '@/entities/QueuingTvCard';
-import cls from './QueuingTv.module.scss';
 
+const Reception = () => {
+  const language = localStorage.getItem('i18nextLng');
 
-export const QueuingTv = () => {
   const deparmentList = useSelector(getDeparmentListData);
-  const deparmentListIsLoading = useSelector(getDeparmentListIsLoading);
   const deparmentListError = useSelector(getDeparmentListError);
+  const deparmentListIsLoading = useSelector(getDeparmentListIsLoading);
 
   const currentQueueError = useSelector(getCurrentQueueError);
 
-  const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
   const lastQueueError = useSelector(getLastQueueError);
-
-  const language = localStorage.getItem('i18nextLng');
+  const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
 
   return (
-    <div className={cls.QueuingTvWrapper}>
-      <div className={cls.RenderSectionCard}>
+    <>
+      <div className={cls.renderSectionCard}>
         {deparmentList &&
           deparmentList.map((item: any) => {
-
             return (
               <QueuingTvCard
                 key={item?.id}
+                room_id={item._id}
                 actives={item.actives}
                 CardLeftRoomNumber={item?.name}
                 proceedCount={item.proceedCount}
                 DoctorId={item?.doctor_id[0].id}
                 icon={item?.department_id.photo}
+                department_id={item.department_id._id}
+                CardLeftDoctorName={item?.doctor_id[0].name}
                 CardLeftTitle={
                   language === 'kr' || language === 'ru'
                     ? item?.department_id.nameRu
                     : item?.department_id.nameEn
                 }
-                CardLeftDoctorName={item?.doctor_id[0].name}
-                department_id={item.department_id._id}
-                room_id={item._id}
               />
             );
           })}
       </div>
 
       {(deparmentListIsLoading || lastQueueIsLoading) && <Loader />}
+
       {(deparmentListError || currentQueueError || lastQueueError) && (
         <ErrorDialog isErrorProps={!false} />
       )}
-    </div>
+    </>
   );
 };
+
+export default Reception;

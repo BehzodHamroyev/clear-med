@@ -14,9 +14,9 @@ import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
-import { useLasQueueActions } from '@/pages/reception/model/slice/lastQueueSlice';
+import { useLasQueueActions } from '@/pages/ReceptionPage/model/slice/lastQueueSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLastQueueData } from '@/pages/reception/model/selectors/lastQueueSelector';
+import { getLastQueueData } from '@/pages/ReceptionPage/model/selectors/lastQueueSelector';
 
 import {
   error,

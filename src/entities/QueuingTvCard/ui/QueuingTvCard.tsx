@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
@@ -7,51 +7,49 @@ import { useReactToPrint } from 'react-to-print';
 
 import { Loader } from '@/widgets/Loader';
 import cls from './QueuingTvCard.module.scss';
+import { useSocket } from '@/shared/hook/useSocket';
 import { isLoading, error } from '@/entities/FileUploader';
 import { baseUploadUrl, baseUrl } from '../../../../baseurl';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { QueuingTvCardProps } from '../model/types/QueuingTvCardProps';
 import QueuingPrintCard from '@/shared/ui/QueuingPrintCard/QueuingPrintCard';
-import { fetchLastQueue } from '@/pages/reception/model/services/fetchLastQueue';
-import { useLasQueueActions } from '@/pages/reception/model/slice/lastQueueSlice';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLastQueueData } from '@/pages/reception/model/selectors/lastQueueSelector';
-import { useSocket } from '@/shared/hook/useSocket';
+import { getLastQueueData, useLasQueueActions } from '@/pages/ReceptionPage';
 
-interface CreateOrder {
-  room_id: string;
-  department_id: string;
-}
+import {
+  CreateOrder,
+  QueuingTvCardProps,
+} from '../model/types/QueuingTvCardProps';
+import { printingLoad } from '@/shared/assets';
 
-export const QueuingTvCard = ({
-  icon,
-  actives,
-  DoctorId,
-  proceedCount,
-  CardLeftTitle,
-  CardLeftRoomNumber,
-  CardLeftDoctorName,
-  department_id,
-  room_id
-}: QueuingTvCardProps) => {
+export const QueuingTvCard = (prop: QueuingTvCardProps) => {
+  const {
+    icon,
+    room_id,
+    actives,
+    DoctorId,
+    proceedCount,
+    CardLeftTitle,
+    department_id,
+    CardLeftRoomNumber,
+    CardLeftDoctorName,
+  } = prop;
+
+  const socket = useSocket();
   const { t } = useTranslation();
   const infoProjectError = useSelector(error);
   const lastQueue = useSelector(getLastQueueData);
+  const { clearLastQueue } = useLasQueueActions();
   const infoProjectIsLoader = useSelector(isLoading);
 
-  const { setIsvisableLanguageModal } = useContext(ButtonsContext);
-  const socket = useSocket();
-  const [isPrinting, setIsPrinting] = useState(false);
-  const [lastQueueName, setLastQueueName] = useState('');
-  const [createQueueIsError, setCreateQueueIsError] = useState(false);
-  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+  const [isPrinting, setIsPrinting] = React.useState(false);
+  const [lastQueueName, setLastQueueName] = React.useState('');
+  const [createQueueIsError, setCreateQueueIsError] = React.useState(false);
+  const [createQueueIsLoading, setCreateQueueIsLoading] = React.useState(false);
 
-  const { clearLastQueue } = useLasQueueActions();
+  const componentRef = React.useRef<HTMLDivElement | null>(null);
 
-  const componentRef = useRef<HTMLDivElement | null>(null);
-
-  const { setClickedDoctorId } = useContext(ButtonsContext);
+  const { setClickedDoctorId } = React.useContext(ButtonsContext);
+  const { setIsvisableLanguageModal } = React.useContext(ButtonsContext);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -59,8 +57,11 @@ export const QueuingTvCard = ({
     onBeforeGetContent: () => {
       setIsPrinting(true); // Chop etishdan oldin isPrinting ni true ga o'rnatish
     },
+
     onAfterPrint: () => {
-      setIsPrinting(false); // Chop etishdan keyin isPrinting ni false ga o'rnatish
+      setTimeout(() => {
+        setIsPrinting(false); // Chop etishdan keyin isPrinting ni false ga o'rnatish
+      }, 2000);
     },
   });
 
@@ -120,7 +121,7 @@ export const QueuingTvCard = ({
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (lastQueue) {
       const prefix = lastQueue?.pagination?.charAt(0);
       // Extract the last two digits after the hyphen
@@ -136,7 +137,7 @@ export const QueuingTvCard = ({
     }
   }, [lastQueue]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const showLanguageModal = () => {
       setIsvisableLanguageModal(true);
     };
@@ -149,14 +150,16 @@ export const QueuingTvCard = ({
   return (
     <div
       onClick={hendleClickQuingTvCard}
-      style={{ opacity: actives.length > 0 ? 1 : 0.5 }}
       className={cls.QueuingTvCardWrapper}
+      style={{ opacity: actives.length > 0 ? 1 : 0.5 }}
     >
       <div className={cls.CardLeft}>
         <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
+
         <p className={cls.CardLeftRoomNumber}>
           {CardLeftRoomNumber}-{t('Xona raqami')}
         </p>
+
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
       </div>
 
@@ -168,8 +171,8 @@ export const QueuingTvCard = ({
         <div className={cls.CardRight}>
           {icon && icon?.length > 0 && (
             <img
-              src={`${baseUploadUrl}${actives[0]?.user.photo || icon}`}
               alt="icon"
+              src={`${baseUploadUrl}${actives[0]?.user.photo || icon}`}
             />
           )}
         </div>
@@ -178,16 +181,20 @@ export const QueuingTvCard = ({
       <div className={cls.QueuingTvCardWrapper__printDisable}>
         <QueuingPrintCard
           ref={componentRef}
-          doctor_name={actives[0]?.user.name}
           ticketNumber={lastQueueName}
+          doctor_name={actives[0]?.user.name}
           roomNumber={String(lastQueue?.room?.name)}
           deparment_name={lastQueue?.room.department_id.name}
         />
       </div>
 
-      {createQueueIsLoading && infoProjectIsLoader && <Loader />}
+      {isPrinting && (
+        <div className={cls.QueuingTvCardWrapper__printingLoader}>
+          <video autoPlay loop src={printingLoad}></video>
+        </div>
+      )}
 
-      {isPrinting && <Loader />}
+      {createQueueIsLoading && infoProjectIsLoader && <Loader />}
 
       {createQueueIsError && infoProjectError && (
         <ErrorDialog isErrorProps={!false} />

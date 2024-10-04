@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { ErrorReload } from '@/widgets/Error';
 import { TableTitle } from '@/entities/TableTitle';
-import { LoaderAdmin } from '@/widgets/LoaderAdmin';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { AddDepartmentFormDialog } from '@/entities/AddDepartmentFormDialog';
@@ -24,6 +23,7 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import cls from './DepartmentPage.module.scss';
+import { Loader } from '@/widgets/Loader';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
@@ -72,7 +72,7 @@ const DepartmentPage = () => {
     <div className={cls.DepartmentPageWrapper}>
       <DynamicModuleLoader reducers={reducer}>
         {getDepartmentLoading === true ? (
-          <LoaderAdmin />
+          <Loader />
         ) : getDepartmentError ? (
           <ErrorReload message={getDepartmentError} />
         ) : (
