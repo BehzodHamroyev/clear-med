@@ -54,9 +54,9 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
 
-    onBeforeGetContent: () => {
-      setIsPrinting(true); // Chop etishdan oldin isPrinting ni true ga o'rnatish
-    },
+    // onBeforeGetContent: () => {
+    //   setIsPrinting(true); // Chop etishdan oldin isPrinting ni true ga o'rnatish
+    // },
 
     onAfterPrint: () => {
       setTimeout(() => {
@@ -106,14 +106,19 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.stopPropagation();
+
     if (actives.length > 0) {
       if (DoctorId) setClickedDoctorId(DoctorId);
+
+      setIsPrinting(true);
+
       if (socket) {
         socket.emit('create queue', {
           department_id: department_id,
           room_id: room_id,
         });
       }
+
       createQueueFunc({
         department_id: department_id!,
         room_id: room_id!,

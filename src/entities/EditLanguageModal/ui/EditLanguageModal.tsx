@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { Loader } from '@/widgets/Loader';
 import cls from './EditLanguageModal.module.scss';
@@ -30,10 +31,11 @@ const EditLanguageModal = () => {
 
   return (
     <>
-      {baseUrlImgLogo && UzIcon && RuIcon && EngIcon ? (
+      {baseUrlImgLogo ? (
         <div className={cls.EditLanguageModalWrp}>
-          <img
-            alt="imgLink"
+          <LazyLoadImage
+            alt="Logo"
+            effect="blur"
             src={baseUrlImgLogo}
             className={cls.EditLanguageModalWrp__logo}
           />
