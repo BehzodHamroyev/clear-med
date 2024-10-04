@@ -194,7 +194,10 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
       </div>
 
       {isPrinting && (
-        <div className={cls.QueuingTvCardWrapper__printingLoader}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={cls.QueuingTvCardWrapper__printingLoader}
+        >
           <video autoPlay loop src={printingLoad}></video>
         </div>
       )}
