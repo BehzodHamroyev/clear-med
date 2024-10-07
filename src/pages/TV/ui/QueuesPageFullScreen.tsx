@@ -18,8 +18,10 @@ import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 
-interface ListOfQueue{
-  
+interface ListOfQueue {
+  name: string
+  room: number;
+  id: string
 }
 
 const QueuesPageFullScreen = () => {
@@ -30,7 +32,7 @@ const QueuesPageFullScreen = () => {
 
   const authUserData = useSelector(getAuthUserData);
   const [dataModal, setDataModal] = useState({})
-  const [listOfQueue,setListOfQueue]=useState([])
+  const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([])
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -58,7 +60,7 @@ const QueuesPageFullScreen = () => {
 
   useEffect(() => {
     let found = false;
-   
+
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
         if (!item.view && !found) {
@@ -98,7 +100,7 @@ const QueuesPageFullScreen = () => {
     }
   }, [allProccessQueue!?.proccessQueues]);
 
-  useEffect(()=>{},[])
+  useEffect(() => { }, [])
 
 
 
@@ -108,6 +110,8 @@ const QueuesPageFullScreen = () => {
       socket.on('doctorProcessToMonitor', (data) => {
         if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
           setOnEndedQueueAudio(true)
+          console.log(data, 'setListOfQueue');
+
           setDataModal(data)
           dispatch(fetchAllQueueProccess({}));
         }
