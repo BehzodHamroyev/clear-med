@@ -73,7 +73,7 @@ const QueuesControlDoctor = () => {
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <div className={cls.QueuesControlDoctor}>
         <div className={cls.QueuesControlDoctor__tableDoctor}>
-          {queuesList && queuesList.length > 0 && (
+          {queuesList && queuesList.length > 0 ? (
             <>
               <ButtonNavbar
                 dontCreate
@@ -81,21 +81,17 @@ const QueuesControlDoctor = () => {
                 TableTitle={t('Kutayotgan bemorlar')}
               />
 
-              {queuesList && queuesList.length > 0 ? (
-                <TableTitleDoctorProfile
-                  Tabletbody={queuesList}
-                  Tablethead={['Id', t('Bilet berilgan vaqti')]}
-                />
-              ) : (
-                <h2
-                  className={
-                    cls['QueuesControlDoctor__tableDoctor--noQueueTitle']
-                  }
-                >
-                  {t('patients_queues')}
-                </h2>
-              )}
+              <TableTitleDoctorProfile
+                Tabletbody={queuesList}
+                Tablethead={['Id', t('Bilet berilgan vaqti')]}
+              />
             </>
+          ) : (
+            <h2
+              className={cls['QueuesControlDoctor__tableDoctor--noQueueTitle']}
+            >
+              {t('patients_queues')}
+            </h2>
           )}
         </div>
 

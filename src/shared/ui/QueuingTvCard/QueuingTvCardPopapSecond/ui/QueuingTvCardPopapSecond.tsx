@@ -8,7 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
 
 import { Loader } from '@/widgets/Loader';
-import cls from './QueuingTvCard.module.scss';
+
+import cls from '../../QueuingTvCardPopap.module.scss';
+
 import { baseUrl } from '../../../../../../baseurl';
 import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 
@@ -24,6 +26,7 @@ import {
   getInfoProject,
   getAllDataProject,
 } from '@/entities/FileUploader';
+
 // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 
 const QueuingTvCardPopapSecond = ({ roomNumber, ticketNumber }: any) => {
