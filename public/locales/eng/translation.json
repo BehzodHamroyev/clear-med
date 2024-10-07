@@ -155,5 +155,7 @@
   "department": "Department",
   "room": "Room",
   "doctor": "Doctor",
-  "time": "Time"
+  "time": "Time",
+  "Boshlash": "Start",
+  "call_patient": "Call patient"
 }

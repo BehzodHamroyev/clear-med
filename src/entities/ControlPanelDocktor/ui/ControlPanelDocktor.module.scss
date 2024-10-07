@@ -1,32 +1,21 @@
 .ControlPanelDocktorWrapper {
-  width: 100%;
-  height: 100%;
-  max-width: 350px;
-  display: flex;
-  margin: 0 auto;
+  width: 98%;
+
   padding: 20px;
-  margin-top: 25px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+  display: flex;
   text-align: center;
   align-items: center;
-  gap: 10px;
-  border-radius: 12px;
-  background-color: #fff;
-  justify-content: center;
   flex-direction: column;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  border-radius: 12px;
+
+  background-color: #fff;
   box-shadow: 0 5px 10px 2px #223c5033;
-
-  @media only screen and (max-width: 1395px) {
-    flex-direction: column;
-    width: fit-content;
-    gap: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    margin: 20px auto;
-  }
-}
-
-.ControlPanelDocktorWrapper:last-child {
-  @media only screen and (max-width: 1395px) {
-    grid-column: auto / span 2;
-  }
 }
