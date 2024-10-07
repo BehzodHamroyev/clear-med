@@ -1,258 +1,261 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable ulbi-tv-plugin/public-api-imports */
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { useReactToPrint } from 'react-to-print';
+// /* eslint-disable react/no-unstable-nested-components */
+// /* eslint-disable ulbi-tv-plugin/public-api-imports */
+// import React, { useContext, useEffect, useRef, useState } from 'react';
+// import axios from 'axios';
+// import Cookies from 'js-cookie';
+// import { useSelector } from 'react-redux';
+// import { useTranslation } from 'react-i18next';
+// import { useReactToPrint } from 'react-to-print';
 
-import { Loader } from '@/widgets/Loader';
-import cls from './QueuingTvCard.module.scss';
-import { baseUrl } from '../../../../../../baseurl';
-import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
+// import { Loader } from '@/widgets/Loader';
 
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
-import { useLasQueueActions } from '@/pages/ReceptionPage/model/slice/lastQueueSlice';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getLastQueueData } from '@/pages/ReceptionPage/model/selectors/lastQueueSelector';
+// import cls from '../../QueuingTvCardPopap.module.scss';
 
-import {
-  error,
-  isLoading,
-  getInfoProject,
-  getAllDataProject,
-} from '@/entities/FileUploader';
-// import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
+// import { baseUrl } from '../../../../../../baseurl';
+// import ErrorDialog from '../../../ErrorDialog/ErrorDialog';
 
-const QueuingTvCardPopapSecond = ({ roomNumber, ticketNumber }: any) => {
-  const [createQueueIsError, setCreateQueueIsError] = useState(false);
-  const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
-  const [printRoomInfo, setPrintRoomInfo] = useState({
-    createRoomNumber: roomNumber,
-    createTicketNumber: ticketNumber,
-  });
+// import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+// // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
+// import { useLasQueueActions } from '@/pages/ReceptionPage/model/slice/lastQueueSlice';
+// import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+// import { getLastQueueData } from '@/pages/ReceptionPage/model/selectors/lastQueueSelector';
 
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const { clearLastQueue } = useLasQueueActions();
-  const printableDivRef = useRef<HTMLDivElement>(null);
+// import {
+//   error,
+//   isLoading,
+//   getInfoProject,
+//   getAllDataProject,
+// } from '@/entities/FileUploader';
 
-  const infoProjectError = useSelector(error);
-  const lastQueue = useSelector(getLastQueueData);
-  const infoProject = useSelector(getInfoProject);
-  const infoProjectIsLoader = useSelector(isLoading);
+// // import { QueueUserDoctor } from '../../../DoctorPanels/QueueUserDoctor';
 
-  const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
+// const QueuingTvCardPopapSecond = ({ roomNumber, ticketNumber }: any) => {
+//   const [createQueueIsError, setCreateQueueIsError] = useState(false);
+//   const [createQueueIsLoading, setCreateQueueIsLoading] = useState(false);
+//   const [printRoomInfo, setPrintRoomInfo] = useState({
+//     createRoomNumber: roomNumber,
+//     createTicketNumber: ticketNumber,
+//   });
 
-  const printCom = useReactToPrint({
-    documentTitle: 'queue-data',
-    content: () => printableDivRef.current,
-    pageStyle: 'print',
-    onAfterPrint: () => {
-      setIsOpenQueuingTvCardPopapSecond(false);
-    },
-  });
+//   const { t } = useTranslation();
+//   const dispatch = useAppDispatch();
+//   const { clearLastQueue } = useLasQueueActions();
+//   const printableDivRef = useRef<HTMLDivElement>(null);
 
-  const createQueueFunc = async () => {
-    setCreateQueueIsLoading(true);
+//   const infoProjectError = useSelector(error);
+//   const lastQueue = useSelector(getLastQueueData);
+//   const infoProject = useSelector(getInfoProject);
+//   const infoProjectIsLoader = useSelector(isLoading);
 
-    const getTokenCookie = Cookies.get('token');
+//   const { setIsOpenQueuingTvCardPopapSecond } = useContext(ButtonsContext);
 
-    try {
-      const response = await axios.post(
-        `${baseUrl}/queue/create`,
-        {
-          department_id: lastQueue?.room.department_id,
-          room_id: lastQueue?.room._id,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${getTokenCookie}`,
-          },
-        },
-      );
+//   const printCom = useReactToPrint({
+//     documentTitle: 'queue-data',
+//     content: () => printableDivRef.current,
+//     pageStyle: 'print',
+//     onAfterPrint: () => {
+//       setIsOpenQueuingTvCardPopapSecond(false);
+//     },
+//   });
 
-      if (response.data) {
-        setCreateQueueIsLoading(false);
-        setCreateQueueIsError(false);
+//   const createQueueFunc = async () => {
+//     setCreateQueueIsLoading(true);
 
-        setPrintRoomInfo({
-          createRoomNumber: String(response.data?.room?.name),
-          createTicketNumber: String(response.data?.navbat?.queues_name),
-        });
+//     const getTokenCookie = Cookies.get('token');
 
-        setTimeout(() => {
-          printCom();
-          clearLastQueue();
-        }, 100);
-      }
-    } catch (error) {
-      setCreateQueueIsLoading(false);
-      setCreateQueueIsError(true);
-    }
-  };
+//     try {
+//       const response = await axios.post(
+//         `${baseUrl}/queue/create`,
+//         {
+//           department_id: lastQueue?.room.department_id,
+//           room_id: lastQueue?.room._id,
+//         },
+//         {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             authorization: `Bearer ${getTokenCookie}`,
+//           },
+//         },
+//       );
 
-  const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
+//       if (response.data) {
+//         setCreateQueueIsLoading(false);
+//         setCreateQueueIsError(false);
 
-    if (
-      lastQueue &&
-      (lastQueue.data.department_id || lastQueue.room.department_id) &&
-      printableDivRef.current
-    ) {
-      createQueueFunc();
-    }
-  };
+//         setPrintRoomInfo({
+//           createRoomNumber: String(response.data?.room?.name),
+//           createTicketNumber: String(response.data?.navbat?.queues_name),
+//         });
 
-  useEffect(() => {
-    dispatch(getAllDataProject({}));
-  }, [dispatch]);
+//         setTimeout(() => {
+//           printCom();
+//           clearLastQueue();
+//         }, 100);
+//       }
+//     } catch (error) {
+//       setCreateQueueIsLoading(false);
+//       setCreateQueueIsError(true);
+//     }
+//   };
 
-  // const PrintRef = () => {
-  //   return (
-  //     <div
-  //       ref={printableDivRef}
-  //       className={
-  //         cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTvPrintCard']
-  //       }
-  //     >
-  //       <img
-  //         src={imgLink}
-  //         alt="imgLink"
-  //         className={
-  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--printQueuePageImg']
-  //         }
-  //       />
+//   const handlePrint = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+//     e.stopPropagation();
 
-  //       <div
-  //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--queueBox']}
-  //       >
-  //         <QueueUserDoctor
-  //           roomNumber={printRoomInfo.createRoomNumber}
-  //           ticketNumber={printRoomInfo.createTicketNumber}
-  //         />
-  //       </div>
+//     if (
+//       lastQueue &&
+//       (lastQueue.data.department_id || lastQueue.room.department_id) &&
+//       printableDivRef.current
+//     ) {
+//       createQueueFunc();
+//     }
+//   };
 
-  //       <div
-  //         className={
-  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-  //         }
-  //       >
-  //         <p>Бўлим:</p>
+//   useEffect(() => {
+//     dispatch(getAllDataProject({}));
+//   }, [dispatch]);
 
-  //         <p>
-  //           {lastQueue?.data?.department_id
-  //             ? lastQueue?.data?.department_id?.name
-  //             : lastQueue?.room?.department_id?.name}
-  //         </p>
-  //       </div>
+//   // const PrintRef = () => {
+//   //   return (
+//   //     <div
+//   //       ref={printableDivRef}
+//   //       className={
+//   //         cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTvPrintCard']
+//   //       }
+//   //     >
+//   //       <img
+//   //         src={imgLink}
+//   //         alt="imgLink"
+//   //         className={
+//   //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--printQueuePageImg']
+//   //         }
+//   //       />
 
-  //       <div
-  //         className={
-  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-  //         }
-  //       >
-  //         <p>Шифокор:</p>
+//   //       <div
+//   //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--queueBox']}
+//   //       >
+//   //         <QueueUserDoctor
+//   //           roomNumber={printRoomInfo.createRoomNumber}
+//   //           ticketNumber={printRoomInfo.createTicketNumber}
+//   //         />
+//   //       </div>
 
-  //         <p
-  //           className={
-  //             cls[
-  //               'QueuingTvCardPopapSecondWrp__queuingPopap--medicNameFullName'
-  //             ]
-  //           }
-  //         >
-  //           {lastQueue?.data?.doctor_id
-  //             ? lastQueue?.data?.doctor_id?.name
-  //             : lastQueue?.room?.doctor_id?.name}
-  //         </p>
-  //       </div>
+//   //       <div
+//   //         className={
+//   //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+//   //         }
+//   //       >
+//   //         <p>Бўлим:</p>
 
-  //       <div
-  //         className={
-  //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
-  //         }
-  //       >
-  //         <p>Берилган вақт:</p>
+//   //         <p>
+//   //           {lastQueue?.data?.department_id
+//   //             ? lastQueue?.data?.department_id?.name
+//   //             : lastQueue?.room?.department_id?.name}
+//   //         </p>
+//   //       </div>
 
-  //         <p
-  //           className={
-  //             cls['QueuingTvCardPopapSecondWrp__queuingPopap--dateGetQueue']
-  //           }
-  //         >
-  //           {new Date().getDate()}/
-  //           {new Date().getMonth() < 10
-  //             ? `0${new Date().getMonth() + 1}`
-  //             : new Date().getMonth() + 1}
-  //           /{new Date().getFullYear()} |{' '}
-  //           {new Date().getHours() < 10
-  //             ? `0${new Date().getHours()}`
-  //             : new Date().getHours()}
-  //           :
-  //           {new Date().getMinutes() < 10
-  //             ? `0${new Date().getMinutes()}`
-  //             : new Date().getMinutes()}
-  //         </p>
-  //       </div>
+//   //       <div
+//   //         className={
+//   //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+//   //         }
+//   //       >
+//   //         <p>Шифокор:</p>
 
-  //       <p
-  //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--message']}
-  //       >
-  //         Ташрифингиз учун раҳмат!
-  //       </p>
-  //     </div>
-  //   );
-  // };
+//   //         <p
+//   //           className={
+//   //             cls[
+//   //               'QueuingTvCardPopapSecondWrp__queuingPopap--medicNameFullName'
+//   //             ]
+//   //           }
+//   //         >
+//   //           {lastQueue?.data?.doctor_id
+//   //             ? lastQueue?.data?.doctor_id?.name
+//   //             : lastQueue?.room?.doctor_id?.name}
+//   //         </p>
+//   //       </div>
 
-  return (
-    <div className={cls.QueuingTvCardPopapSecondWrp}>
-      {!createQueueIsLoading && infoProject && (
-        <div className={cls.QueuingTvCardPopapSecondWrp__queuingPopap}>
-          <h3
-            className={
-              cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTitle']
-            }
-          >
-            {t('Navbatni tasdiqlang')}
-          </h3>
+//   //       <div
+//   //         className={
+//   //           cls['QueuingTvCardPopapSecondWrp__queuingPopap--medicName']
+//   //         }
+//   //       >
+//   //         <p>Берилган вақт:</p>
 
-          {/* <PrintRef /> */}
+//   //         <p
+//   //           className={
+//   //             cls['QueuingTvCardPopapSecondWrp__queuingPopap--dateGetQueue']
+//   //           }
+//   //         >
+//   //           {new Date().getDate()}/
+//   //           {new Date().getMonth() < 10
+//   //             ? `0${new Date().getMonth() + 1}`
+//   //             : new Date().getMonth() + 1}
+//   //           /{new Date().getFullYear()} |{' '}
+//   //           {new Date().getHours() < 10
+//   //             ? `0${new Date().getHours()}`
+//   //             : new Date().getHours()}
+//   //           :
+//   //           {new Date().getMinutes() < 10
+//   //             ? `0${new Date().getMinutes()}`
+//   //             : new Date().getMinutes()}
+//   //         </p>
+//   //       </div>
 
-          <div
-            className={
-              cls['QueuingTvCardPopapSecondWrp__queuingPopap--btnParnet']
-            }
-          >
-            <button
-              type="button"
-              className={`${cls.btn} ${cls.btn1}`}
-              onClick={() => {
-                setIsOpenQueuingTvCardPopapSecond(false);
-              }}
-            >
-              {t('Bekor qilish')}
-            </button>
+//   //       <p
+//   //         className={cls['QueuingTvCardPopapSecondWrp__queuingPopap--message']}
+//   //       >
+//   //         Ташрифингиз учун раҳмат!
+//   //       </p>
+//   //     </div>
+//   //   );
+//   // };
 
-            <button
-              onClick={(e) => handlePrint(e)}
-              type="button"
-              className={`${cls.btn} ${cls.btn2}`}
-            >
-              {t('Chiqarish')}
-            </button>
-          </div>
-        </div>
-      )}
+//   return (
+//     <div className={cls.QueuingTvCardPopapSecondWrp}>
+//       {!createQueueIsLoading && infoProject && (
+//         <div className={cls.QueuingTvCardPopapSecondWrp__queuingPopap}>
+//           <h3
+//             className={
+//               cls['QueuingTvCardPopapSecondWrp__queuingPopap--queuingTitle']
+//             }
+//           >
+//             {t('Navbatni tasdiqlang')}
+//           </h3>
 
-      {createQueueIsLoading && infoProjectIsLoader && <Loader />}
+//           {/* <PrintRef /> */}
 
-      {createQueueIsError && infoProjectError && (
-        <ErrorDialog isErrorProps={!false} />
-      )}
-    </div>
-  );
-};
+//           <div
+//             className={
+//               cls['QueuingTvCardPopapSecondWrp__queuingPopap--btnParnet']
+//             }
+//           >
+//             <button
+//               type="button"
+//               className={`${cls.btn} ${cls.btn1}`}
+//               onClick={() => {
+//                 setIsOpenQueuingTvCardPopapSecond(false);
+//               }}
+//             >
+//               {t('Bekor qilish')}
+//             </button>
 
-export default QueuingTvCardPopapSecond;
+//             <button
+//               onClick={(e) => handlePrint(e)}
+//               type="button"
+//               className={`${cls.btn} ${cls.btn2}`}
+//             >
+//               {t('Chiqarish')}
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {createQueueIsLoading && infoProjectIsLoader && <Loader />}
+
+//       {createQueueIsError && infoProjectError && (
+//         <ErrorDialog isErrorProps={!false} />
+//       )}
+//     </div>
+//   );
+// };
+
+// export default QueuingTvCardPopapSecond;

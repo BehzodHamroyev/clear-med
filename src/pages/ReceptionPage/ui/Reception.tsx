@@ -43,7 +43,7 @@ const Reception = () => {
                 CardLeftRoomNumber={item?.name}
                 proceedCount={item.proceedCount}
                 DoctorId={item?.doctor_id[0].id}
-                icon={item?.department_id.photo}
+                // icon={item?.department_id.photo}
                 department_id={item.department_id._id}
                 CardLeftDoctorName={item?.doctor_id[0].name}
                 CardLeftTitle={

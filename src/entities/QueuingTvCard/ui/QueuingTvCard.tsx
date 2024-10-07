@@ -20,6 +20,7 @@ import {
   QueuingTvCardProps,
 } from '../model/types/QueuingTvCardProps';
 import { printingLoad } from '@/shared/assets';
+import { log } from 'console';
 
 export const QueuingTvCard = (prop: QueuingTvCardProps) => {
   const {
@@ -152,6 +153,9 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
     return () => clearInterval(interval);
   }, []);
 
+  console.log(`${baseUploadUrl}${actives[0].user.photo}`);
+  // console.log(`${baseUploadUrl}${actives[0]?.user.photo}`);
+
   return (
     <div
       onClick={hendleClickQuingTvCard}
@@ -174,12 +178,12 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
         </p>
 
         <div className={cls.CardRight}>
-          {icon && icon?.length > 0 && (
-            <img
-              alt="icon"
-              src={`${baseUploadUrl}${actives[0]?.user.photo || icon}`}
-            />
-          )}
+          {/* {icon && icon?.length > 0 && ( */}
+          <img
+            alt="icon"
+            src={`${baseUploadUrl}${actives[0]?.user.photo.slice(1) || icon}`}
+          />
+          {/* )} */}
         </div>
       </div>
 
