@@ -158,5 +158,7 @@
   "department": "Бўлим",
   "room": "Хона",
   "doctor": "Шифокор",
-  "time": "Вақт"
+  "time": "Вақт",
+  "Boshlash": "Бошлаш",
+  "call_patient": "Беморни чақириш"
 }

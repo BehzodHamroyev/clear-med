@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+import { Loader } from '@/widgets/Loader';
 import { getAuthUserData } from '@/features/Auth';
 import { useSocket } from '@/shared/hook/useSocket';
+import cls from './QueuesControlDoctor.module.scss';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ControlPanelDocktor } from '@/entities/ControlPanelDocktor';
 import { TableTitleDoctorProfile } from '@/entities/TableTitleDoctorProfile';
-import {
-  DynamicModuleLoader,
-  ReducersList,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSlice';
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getQueuesControlDoctorData } from '../model/selectors/queuesControlDoctorSelector';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
 
-import cls from './QueuesControlDoctor.module.scss';
+import {
+  ReducersList,
+  DynamicModuleLoader,
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+
+import {
+  getQueuesControlDoctorData,
+  getQueuesControlDoctorIsLoading,
+} from '../model/selectors/queuesControlDoctorSelector';
 
 const reducers: ReducersList = {
   queuesControlDoctor: queuesControlDoctorReducer,
@@ -26,10 +32,12 @@ const QueuesControlDoctor = () => {
   const socket = useSocket();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const queuesList = useSelector(getQueuesControlDoctorData);
-  const authUserData = useSelector(getAuthUserData);
 
   const [roomId, setRoomId] = useState('');
+
+  const authUserData = useSelector(getAuthUserData);
+  const queuesList = useSelector(getQueuesControlDoctorData);
+  const queuesListLoading = useSelector(getQueuesControlDoctorIsLoading);
 
   useEffect(() => {
     dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
@@ -65,35 +73,38 @@ const QueuesControlDoctor = () => {
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-      <div className={cls.bigClass}>
-        <div className={cls.QueuesControlDoctorWrapper}>
-          <div className={cls.wraperListDoctor}></div>
-          <ControlPanelDocktor />
-        </div>
+      <div className={cls.QueuesControlDoctor}>
+        <div className={cls.QueuesControlDoctor__tableDoctor}>
+          {queuesList && queuesList.length > 0 && (
+            <>
+              <ButtonNavbar
+                dontCreate
+                ItemsLength={queuesList?.length}
+                TableTitle={t('Kutayotgan bemorlar')}
+              />
 
-        <div className={cls.TableDoctor}>
-          <div>
-            {queuesList && queuesList.length > 0 ? (
-              <>
-                <ButtonNavbar
-                  dontCreate
-                  TableTitle={t('Kutayotgan bemorlar')}
-                  ItemsLength={queuesList?.length}
-                />
-
+              {queuesList && queuesList.length > 0 ? (
                 <TableTitleDoctorProfile
                   Tabletbody={queuesList}
                   Tablethead={['Id', t('Bilet berilgan vaqti')]}
                 />
-              </>
-            ) : (
-              <h2 className={cls.QueuesControlDoctorWrapper__noQueueTitle}>
-                {t('patients_queues')}
-              </h2>
-            )}
-          </div>
+              ) : (
+                <h2
+                  className={
+                    cls['QueuesControlDoctor__tableDoctor--noQueueTitle']
+                  }
+                >
+                  {t('patients_queues')}
+                </h2>
+              )}
+            </>
+          )}
         </div>
+
+        <ControlPanelDocktor />
       </div>
+
+      {queuesListLoading && <Loader />}
     </DynamicModuleLoader>
   );
 };
