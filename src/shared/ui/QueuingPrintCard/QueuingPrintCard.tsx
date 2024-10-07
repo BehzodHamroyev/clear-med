@@ -19,9 +19,9 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
     const dispatch = useAppDispatch();
     const [doctorName, setDoctorName] = useState('');
 
-    useEffect(() => {
-      dispatch(getAllDataProject({}));
-    }, [dispatch]);
+    // useEffect(() => {
+    //   dispatch(getAllDataProject({}));
+    // }, [dispatch]);
 
     useEffect(() => {
       // this code for queue name
@@ -82,8 +82,8 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
                 ? 'Шифокор'
                 : 'Доктор'
               : language === 'kr'
-                ? 'Ҳамшира'
-                : 'Медсестра'}
+              ? 'Ҳамшира'
+              : 'Медсестра'}
           </p>
 
           <p

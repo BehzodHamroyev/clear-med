@@ -56,9 +56,9 @@ const App = () => {
   }, []);
 
   // get data of project which are logo and text
-  useEffect(() => {
-    dispatch(getAllDataProject({}));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllDataProject({}));
+  // }, [dispatch]);
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [theme])}>
