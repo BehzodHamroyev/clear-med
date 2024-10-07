@@ -38,6 +38,7 @@ const ControlPanelDocktor = memo(() => {
             proccessedStep={proccessedList?.data[0]?.step}
             ticketName={proccessedList?.data[0]?.queues_name}
             roomNumber={proccessedList?.data[0]?.room_id?.name}
+            ticketId={proccessedList?.data[0]?._id}
           />
         </>
       )}

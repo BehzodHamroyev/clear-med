@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
 import cls from './QueuesPageFullScreen.module.scss';
-import { baseUploadUrl, baseUrl, baseUrlImgLogo } from '../../../../baseurl';
+import { baseUrlImgLogo } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
@@ -17,11 +17,19 @@ import { useSocket } from '@/shared/hook/useSocket';
 import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
+import { updateView } from '../model/services/updateView';
 
 interface ListOfQueue {
   name: string
   room: number;
   id: string
+}
+
+interface ModalData {
+  roomNumber: string,
+  biletNumber: string,
+  step: number,
+  mp3Arr: string[]
 }
 
 const QueuesPageFullScreen = () => {
@@ -31,15 +39,9 @@ const QueuesPageFullScreen = () => {
   const token = Cookies.get('token');
 
   const authUserData = useSelector(getAuthUserData);
-  const [dataModal, setDataModal] = useState({})
+  // const [dataModal, setDataModal] = useState({})
   const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([])
-  const [queueDialogData, setQueueDialogData] = useState({
-    roomNumber: '90',
-    biletNumber: 'NEV2-1000',
-    step: 1,
-    mp3Arr: [''],
-  });
-
+  const [queueDialogData, setQueueDialogData] = useState<ModalData>();
   const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
@@ -52,67 +54,21 @@ const QueuesPageFullScreen = () => {
       videoUrl.push(item.link);
     });
   }
-
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    let found = false;
-
-    if (!onEndedQueueAudio) {
-      allProccessQueue!?.proccessQueues?.forEach((item) => {
-        if (!item.view && !found) {
-          setQueueDialogData({
-            roomNumber: String(item?.queues_name)?.match(/([A-Z])(\d+)-/)![2],
-            biletNumber: String(item?.queues_name),
-            step: item?.step,
-            mp3Arr: item?.mp3Arr,
-          });
-
-          try {
-            axios.post(
-              `${baseUrl}/monitor/update/view`,
-              { id: item?._id, view: true },
-              {
-                maxBodyLength: Infinity,
-                headers: {
-                  'Content-Type': 'application/json',
-                  authorization: `Bearer ${token}`,
-                },
-              },
-            )
-          } catch (error) {
-            console.log(error);
-          }
-
-          setOnEndedQueueAudio(true);
-
-          found = true;
-        }
-
-        if (found) {
-          // eslint-disable-next-line no-useless-return
-          return;
-        }
-      });
-    }
-  }, [allProccessQueue!?.proccessQueues]);
-
-  useEffect(() => { }, [])
-
-
-
 
   useEffect(() => {
     if (socket) {
       socket.on('doctorProcessToMonitor', (data) => {
-        if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setOnEndedQueueAudio(true)
-          console.log(data, 'setListOfQueue');
-
-          setDataModal(data)
+        if (authUserData?.rooms.some(room => room.id === data.roomId)) {
+          setListOfQueue(
+            [{
+              name: data.name, room: data.room, id: data.id
+            }]
+          )
           dispatch(fetchAllQueueProccess({}));
         }
       });
@@ -122,6 +78,24 @@ const QueuesPageFullScreen = () => {
       });
     }
   }, [socket])
+
+  useEffect(() => {
+    while (listOfQueue?.length >= 1) {
+      console.log(listOfQueue[0], 'ksjkdsjkdsj');
+
+      setQueueDialogData({
+        roomNumber: String(listOfQueue[0]?.room),
+        biletNumber: String(listOfQueue[0]?.name),
+        step: 1,
+        mp3Arr: [`${listOfQueue[0]?.name}`],
+      });
+      setOnEndedQueueAudio(true)
+      if (listOfQueue[0]?.id) {
+        updateView({ id: listOfQueue[0]?.id })
+      }
+      listOfQueue.pop()
+    }
+  }, [listOfQueue, onEndedQueueAudio]);
 
   return (
     <>
@@ -397,14 +371,11 @@ const QueuesPageFullScreen = () => {
         </div>
       </div>
       {
-        // @ts-ignore
-        onEndedQueueAudio && dataModal.roomNumber && <QueueDialog
-          step={queueDialogData.step}
-          Mp3Array={queueDialogData.mp3Arr}
-          // @ts-ignore
-          roomNumber={dataModal.roomNumber}
-          // @ts-ignore
-          biletNumber={dataModal.ticketName}
+        onEndedQueueAudio && <QueueDialog
+          step={1}
+          Mp3Array={queueDialogData?.mp3Arr!}
+          roomNumber={queueDialogData?.roomNumber!}
+          biletNumber={queueDialogData?.biletNumber!}
         />
       }
     </>
