@@ -28,7 +28,6 @@ const QueueDialog = ({
   const audioSpeedRef = React.useRef<ReactAudioPlayer | null>(null);
   const audioSpeedRef2 = React.useRef<ReactAudioPlayer | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
 
   const { setOnEndedQueueAudio } = useContext(ButtonsContext);
@@ -50,11 +49,9 @@ const QueueDialog = ({
   };
 
   useEffect(() => {
-    setIsLoading(true);
     const audioPlayer = document.getElementsByTagName('audio')[0];
 
     const handleAudioLoaded = () => {
-      setIsLoading(false);
     };
 
     const handleAudioEnd = () => {

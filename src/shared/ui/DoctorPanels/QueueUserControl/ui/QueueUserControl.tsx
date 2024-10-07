@@ -24,11 +24,13 @@ interface QueueUserControlProps {
   ticketName: string;
   roomNumber: number;
   proccessedStep: number;
+  ticketId: string
 }
 
 const QueueUserControl = ({
   ticketName,
   roomNumber,
+  ticketId
 }: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -45,7 +47,7 @@ const QueueUserControl = ({
 
   const handleClickProccessConfirm = () => {
     if (socket && ticketName) {
-      socket.emit('doctorProcessToMonitor', { ticketName: ticketName, roomNumber: roomNumber, roomId: authUserData?.rooms[0]?._id })
+      socket.emit('doctorProcess', { name: ticketName, room: roomNumber, roomId: authUserData?.rooms[0]?._id, id: ticketId })
     }
     dispatch(
       fetchQueuesProccess({
