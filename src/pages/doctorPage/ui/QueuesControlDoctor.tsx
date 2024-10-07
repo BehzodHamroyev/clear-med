@@ -46,19 +46,19 @@ const QueuesControlDoctor = () => {
   }, [authUserData]);
 
   useEffect(() => {
-    if (socket) {
+    if (socket && roomId) {
+      // Listen for the 'queueCreated' event from the socket
       socket.on('queueCreated', (data) => {
         if (data.room === roomId) {
+          // When a queue is created, refresh the queue data
           dispatch(fetchQueuesControlDoctor({ status: 'pending' }));
           dispatch(fetchDoneQueuesControlDoctor({ limit: 1000 }));
         }
       });
     }
 
-    return () => {
-      socket?.disconnect();
-    };
-  }, [socket]);
+    // No need for cleanup here, as it's managed by the hook
+  }, [socket, roomId, dispatch]);
 
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
