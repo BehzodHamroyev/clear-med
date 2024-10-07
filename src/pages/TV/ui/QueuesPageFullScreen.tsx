@@ -18,13 +18,19 @@ import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 
+interface ListOfQueue{
+  
+}
+
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const socket = useSocket()
   const token = Cookies.get('token');
+
   const authUserData = useSelector(getAuthUserData);
   const [dataModal, setDataModal] = useState({})
+  const [listOfQueue,setListOfQueue]=useState([])
   const [queueDialogData, setQueueDialogData] = useState({
     roomNumber: '90',
     biletNumber: 'NEV2-1000',
@@ -45,14 +51,14 @@ const QueuesPageFullScreen = () => {
     });
   }
 
-  if (allProccessQueue!?.videoUrl && allProccessQueue!?.videoUrl?.length > 0) {
-    allProccessQueue!?.videoUrl.forEach((item) => {
-      videoUrl?.push(item.link);
-    });
-  }
+  useEffect(() => {
+    dispatch(fetchAllQueueProccess({}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let found = false;
+   
     if (!onEndedQueueAudio) {
       allProccessQueue!?.proccessQueues?.forEach((item) => {
         if (!item.view && !found) {
@@ -92,15 +98,14 @@ const QueuesPageFullScreen = () => {
     }
   }, [allProccessQueue!?.proccessQueues]);
 
-  useEffect(() => {
-    dispatch(fetchAllQueueProccess({}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(()=>{},[])
+
+
 
 
   useEffect(() => {
     if (socket) {
-      socket.on('monitor', (data) => {
+      socket.on('doctorProcessToMonitor', (data) => {
         if (data?.roomNumber && authUserData?.rooms.some(room => room.id === data.roomId)) {
           setOnEndedQueueAudio(true)
           setDataModal(data)

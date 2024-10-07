@@ -42,7 +42,7 @@ const QueueUserControl = ({ proccessedStep, ticketName, roomNumber }: QueueUserC
 
   const handleClickProccessConfirm = () => {
     if (socket && ticketName) {
-      socket.emit('doctorProcess', { ticketName: ticketName, roomNumber: roomNumber, roomId: authUserData?.rooms[0]?._id })
+      socket.emit('doctorProcessToMonitor', { ticketName: ticketName, roomNumber: roomNumber, roomId: authUserData?.rooms[0]?._id })
     }
     dispatch(
       fetchQueuesProccess({
