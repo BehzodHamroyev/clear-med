@@ -41,15 +41,15 @@ const Reception = () => {
                 room_id={item._id}
                 actives={item.actives}
                 CardLeftRoomNumber={item?.name}
-                proceedCount={item.proceedCount}
+                proceedCount={item?.proceedCount}
                 DoctorId={item?.doctor_id[0].id}
                 // icon={item?.department_id.photo}
-                department_id={item.department_id._id}
-                CardLeftDoctorName={item?.doctor_id[0].name}
+                department_id={item?.department_id?._id}
+                CardLeftDoctorName={item?.doctor_id[0]?.name}
                 CardLeftTitle={
                   language === 'kr' || language === 'ru'
-                    ? item?.department_id.nameRu
-                    : item?.department_id.nameEn
+                    ? item?.department_id?.nameRu
+                    : item?.department_id?.nameEn
                 }
               />
             );
