@@ -32,6 +32,7 @@ interface Doctor {
 }
 
 export interface Queue {
+  createdAt: any;
   _id: string;
   department_id: Department;
   room_id: Room;
