@@ -18,6 +18,7 @@ import { getAuthUserData } from '@/features/Auth';
 import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 import { updateView } from '../model/services/updateView';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface ListOfQueue {
   name: string
@@ -103,7 +104,7 @@ const QueuesPageFullScreen = () => {
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
             {baseUrlImgLogo ? (
-              <img
+              <LazyLoadImage
                 src={baseUrlImgLogo}
                 className={cls['QueuesPage__headerLeft__logo']}
                 alt=""

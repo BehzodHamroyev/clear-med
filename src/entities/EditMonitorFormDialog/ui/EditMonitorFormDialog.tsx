@@ -313,7 +313,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
           aria-describedby="alert-dialog-description"
         >
           <div className={cls.DepartmentAddCard}>
-            <h3 className={cls.CardTitle}>{t('Monitorni tahrirlash')}</h3>
+            <p className={cls.CardTitle}>{t('Monitorni tahrirlash')}</p>
 
             <form onSubmit={handleSubmitForm} className={cls.CardBody}>
               <TextField

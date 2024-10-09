@@ -8,6 +8,7 @@ import { DeleteTools } from '@/shared/assets/entities/TableTitle';
 import { connectionIdOfAds } from '../../../entities/AdvertisementAttachmentMonitor/model/selector/getAdsVideoForOneMonitor';
 import DeleteAdsFormDialogForMonitor from '../../../entities/DeleteAdsFormDialogForMonitor/DeleteAdsFormDialogForMonitor';
 import cls from './TableTitleReklama.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface TableInfo {
   cursor?: boolean;
@@ -93,7 +94,7 @@ const TableTitleReklama = (props: TableInfo) => {
               {item?.photo ? (
                 <td className={cls.td}>
                   {item.photo ? (
-                    <img className={cls.Img} src={item.photo} alt=" " />
+                    <LazyLoadImage className={cls.Img} src={item.photo} alt=" " />
                   ) : (
                     <p> </p>
                   )}

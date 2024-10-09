@@ -126,7 +126,7 @@ const RoomEdit = (prop: RoomEditType) => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Xonani tahrirlash')}</h3>
+        <p className={cls.CardTitle}>{t('Xonani tahrirlash')}</p>
 
         <form
           action="#"

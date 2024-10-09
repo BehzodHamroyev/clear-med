@@ -45,7 +45,7 @@ const EditLanguageModal = () => {
               type="button"
               onClick={() => handleLanguageFunc('kr', false)}
             >
-              <img
+              <LazyLoadImage
                 src={UzIcon}
                 alt="#UzIcon"
                 className={cls['EditLanguageModalWrp__lang--iconLanguage']}
@@ -57,7 +57,7 @@ const EditLanguageModal = () => {
               type="button"
               onClick={() => handleLanguageFunc('ru', false)}
             >
-              <img
+              <LazyLoadImage
                 src={RuIcon}
                 alt="#RuIcon"
                 className={cls['EditLanguageModalWrp__lang--iconLanguage']}
@@ -69,7 +69,7 @@ const EditLanguageModal = () => {
               type="button"
               onClick={() => handleLanguageFunc('eng', false)}
             >
-              <img
+              <LazyLoadImage
                 src={EngIcon}
                 alt="#EngIcon"
                 className={cls['EditLanguageModalWrp__lang--iconLanguage']}

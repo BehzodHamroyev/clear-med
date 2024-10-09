@@ -27,6 +27,7 @@ import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
 import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const AddAdsPage = () => {
   const { t } = useTranslation();
@@ -119,7 +120,7 @@ const AddAdsPage = () => {
                   >
                     <td className={cls['AddAdsPageWrp__Table--td']}>
                       {item.photo && (
-                        <img
+                        <LazyLoadImage
                           src={item.photo || DoctorDefault}
                           className={cls['AddAdsPageWrp__Table--img']}
                           alt=" "

@@ -23,6 +23,7 @@ import {
   getAllDepartmentsIsLoading,
 } from '../model/selector/AllDepartmentSelector';
 import { baseUploadUrl } from '../../../../../baseurl';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -121,7 +122,7 @@ const AddDepartmentPage = () => {
                 >
                   <td className={cls['AddDepartmentPageWrp__Table--td']}>
                     {ImgSvg ? (
-                      <img
+                      <LazyLoadImage
                         src={ImgSvg}
                         className={cls['AddDepartmentPageWrp__Table--img']}
                         alt="??"

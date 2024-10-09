@@ -19,6 +19,7 @@ import { getInfoProject } from '@/entities/FileUploader';
 import { baseUrlImgLogo } from '../../../../../baseurl';
 import { getAllQueueProccessData, getAllQueueProccessError, getAllQueueProccessIsLoading } from '@/pages/TV/model/selector/allQueueProccessSelector';
 import { fetchAllQueueProccess } from '@/pages/TV/model/services/fetchAllQueueProccess';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const MonitorsDetail = () => {
   const paramIdUrl: { id?: string } = useParams();
@@ -68,7 +69,7 @@ const MonitorsDetail = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img
+            <LazyLoadImage
               src={baseUrlImgLogo}
               alt="imgLink"
               className={cls.NavbarLogo}

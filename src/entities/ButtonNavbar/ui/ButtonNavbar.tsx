@@ -62,9 +62,9 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
       )}
 
       {dontCreate && roomNumber && departmentName ? (
-        <h3 className={cls.BulimTuri}>
+        <p className={cls.BulimTuri}>
           {roomNumber}-{t('Xona')}, {departmentName}
-        </h3>
+        </p>
       ) : (
         ''
       )}

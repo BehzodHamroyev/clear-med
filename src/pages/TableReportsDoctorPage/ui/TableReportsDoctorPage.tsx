@@ -15,6 +15,7 @@ import { baseUrl } from '../../../../baseurl';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface reportListTtype {
   _id: string;
@@ -131,26 +132,26 @@ const TableReportsDoctorPage = () => {
         {reportList && reportList.length > 0 ? (
           <>
             <div className={cls.TableTitleWrapper__title}>
-              <h3 className={cls.KorilganBemorlar}>
+              <p className={cls.KorilganBemorlar}>
                 {t("Jami ko'rilgan bemorlar : ")}
                 {reportInfo.all}
                 {t(' ta')}
-              </h3>
+              </p>
 
-              <h3 className={cls.KorilganBemorlar} style={{ color: '#0c8541' }}>
+              <p className={cls.KorilganBemorlar} style={{ color: '#0c8541' }}>
                 {t('Tasdiqlangan bemorlar : ')}
                 {reportInfo.counCompleted}
                 {t(' ta')}
-              </h3>
+              </p>
 
-              <h3
+              <p
                 className={cls.KorilganBemorlar}
                 style={{ color: '#ff0000f4' }}
               >
                 {t('Bekor qilingan bemorlar : ')}
                 {reportInfo.countReject}
                 {t(' ta')}
-              </h3>
+              </p>
             </div>
             <thead className={cls.Tablethead}>
               <tr className={cls.tr}>
@@ -178,7 +179,7 @@ const TableReportsDoctorPage = () => {
                       {item.completed_date?.split('T')[1]?.split('.')[0]}
                     </td>
                     <td className={cls.td}>
-                      <img
+                      <LazyLoadImage
                         src={
                           item.status === 'completed' ? CheckedIcon : ErrorIcon
                         }
@@ -201,11 +202,11 @@ const TableReportsDoctorPage = () => {
             </div>
           </>
         ) : (
-          <h3 className={cls.reportEmpty}>
+          <p className={cls.reportEmpty}>
             {t(
               "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
             )}
-          </h3>
+          </p>
         )}
       </table>
 

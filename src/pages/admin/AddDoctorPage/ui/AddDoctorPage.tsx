@@ -26,6 +26,7 @@ import { Loader } from '@/widgets/Loader';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import EditDoctorFormDialog from '@/entities/EditDoctorFormDialog/EditDoctorFormDialog';
 import DeleteDoctorFormDialog from '@/entities/DeleteDoctorFormDialog/DeleteDoctorFormDialog';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const AddDoctorPage = () => {
   const { t } = useTranslation();
@@ -127,7 +128,7 @@ const AddDoctorPage = () => {
                   className={cls['AddDoctorPageWrp__Table--tr']}
                 >
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    <img
+                    <LazyLoadImage
                       src={ImgSvg}
                       className={cls['AddDoctorPageWrp__Table--img']}
                       alt=""

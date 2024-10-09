@@ -73,7 +73,7 @@ const AddReceptionPage = () => {
     setEditReceptionId(id);
   };
 
-  
+
 
   return (
     <div className={cls.AddDoctorPageWrp}>
@@ -118,7 +118,7 @@ const AddReceptionPage = () => {
 
         {allReceptionsData && allReceptionsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
-            {allReceptionsData.map((item:any) => {
+            {allReceptionsData.map((item: any) => {
               const ImgSvg = `http://192.168.0.130:3009/${item.photo}`;
 
               return (
@@ -126,14 +126,6 @@ const AddReceptionPage = () => {
                   key={item.id}
                   className={cls['AddDoctorPageWrp__Table--tr']}
                 >
-                  {/* <td className={cls['AddDoctorPageWrp__Table--td']}>
-                    <img
-                      src={ImgSvg}
-                      className={cls['AddDoctorPageWrp__Table--img']}
-                      alt=""
-                    />
-                  </td> */}
-
                   <td className={cls['AddDoctorPageWrp__Table--td']}>
                     {item?.name ? item?.name : "Ism yo'q"}
                   </td>
@@ -159,7 +151,7 @@ const AddReceptionPage = () => {
                     className={cls['AddDoctorPageWrp__Table--lastChild']}
                     onClick={() => handleClickEditDoctor(item?.id)}
                   >
-                    {}
+                    { }
                     <PenTools
                       className={cls['AddDoctorPageWrp__Table--edit']}
                     />
@@ -169,7 +161,7 @@ const AddReceptionPage = () => {
                     className={cls['AddDoctorPageWrp__Table--lastChild2']}
                     onClick={() => handleClickDeleteDoctor(item?.id)}
                   >
-                    {}
+                    { }
                     <DeleteTools
                       className={cls['AddDoctorPageWrp__Table--delete']}
                     />

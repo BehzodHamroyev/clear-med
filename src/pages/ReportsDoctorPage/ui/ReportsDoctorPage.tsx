@@ -176,11 +176,11 @@ const ReportsDoctorPage = () => {
             {t('Ortga')}
           </div>
 
-          <h3 className={cls.reportEmpty}>
+          <p className={cls.reportEmpty}>
             {t(
               "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
             )}
-          </h3>
+          </p>
         </>
       )}
 

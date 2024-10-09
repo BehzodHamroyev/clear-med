@@ -31,6 +31,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { Loader } from '@/widgets/Loader';
 import { fetchAllDoctors } from '@/pages/admin/AddDoctorPage/model/service/fetchAllDoctors';
 import cls from './AddDoctorFormDialog.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const AddDoctorFormDialog = () => {
   const { t } = useTranslation();
@@ -213,11 +214,11 @@ const AddDoctorFormDialog = () => {
         aria-describedby="alert-dialog-description"
       >
         <div className={cls.DoctorAddCard}>
-          <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+          <p className={cls.CardTitle}>{t('Shifokor qo‘shish')}</p>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
-              <img
+              <LazyLoadImage
                 className={cls.AddCardImgValue}
                 src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
                 alt="#"

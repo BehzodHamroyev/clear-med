@@ -196,7 +196,7 @@ const RoomAttachmentMonitorChildForm = ({
             className={cls.DepartmentAddCard}
             onSubmit={handleSubmitAllFormData}
           >
-            <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
+            <p className={cls.CardTitle}>{t('Xona biriktirish')}</p>
 
             <Autocomplete
               multiple

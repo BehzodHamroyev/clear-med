@@ -195,7 +195,7 @@ const AddMonitorFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
+          <p className={cls.CardTitle}>{t("Monitor qo'shish")}</p>
 
           <form onSubmit={handleSubmitForm} className={cls.CardBody}>
             <input

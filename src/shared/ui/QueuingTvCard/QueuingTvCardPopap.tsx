@@ -27,7 +27,7 @@ const QueuingTvCardPopap = (prop: any) => {
         className={cls.QueuingTvCard}
       >
         <div className={cls.CardLeft}>
-          <h3 className={cls.CardLeftTitle}>{getObjectFind.CardLeftTitle}</h3>
+          <p className={cls.CardLeftTitle}>{getObjectFind.CardLeftTitle}</p>
           <p className={cls.CardLeftRoomNumber}>
             {getObjectFind.CardLeftRoomNumber}
           </p>

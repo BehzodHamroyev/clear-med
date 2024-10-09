@@ -157,7 +157,7 @@ const AddDepartmentFormDialog = () => {
           className={cls.DepartmentAddCard}
         >
           <div className={cls.TitleFlex}>
-            <h3 className={cls.CardTitle}>{t("Bo'lim qo'shish")}</h3>
+            <p className={cls.CardTitle}>{t("Bo'lim qo'shish")}</p>
 
             {ResultIconSrc ? <ResultIconSrc /> : ''}
           </div>

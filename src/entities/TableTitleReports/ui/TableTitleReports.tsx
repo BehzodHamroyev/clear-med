@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { TableInfo } from '../model/types/TableInfo';
 
 import cls from './TableTitle.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const TableTitleReports = (props: TableInfo) => {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ const TableTitleReports = (props: TableInfo) => {
 
               {item.photo.length > 0 ? (
                 <td className={cls.td}>
-                  <img
+                  <LazyLoadImage
                     className={cls.Img}
                     src={`http://192.168.0.130:3009/${item.photo}`}
                     alt="#"
