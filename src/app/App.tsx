@@ -53,10 +53,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // get data of project which are logo and text
-  // useEffect(() => {
-  //   dispatch(getAllDataProject({}));
-  // }, [dispatch]);
+
 
   return (
     <div id="app" className={classNames('app_redesigned', {}, [])}>

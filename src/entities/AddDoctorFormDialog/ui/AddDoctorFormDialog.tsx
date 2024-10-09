@@ -6,8 +6,6 @@ import React, {
   useEffect,
 } from 'react';
 
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
@@ -31,6 +29,8 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { Loader } from '@/widgets/Loader';
 import { fetchAllDoctors } from '@/pages/admin/AddDoctorPage/model/service/fetchAllDoctors';
 import cls from './AddDoctorFormDialog.module.scss';
+import instance from '@/shared/lib/axios/api';
+import axios from 'axios';
 
 const AddDoctorFormDialog = () => {
   const { t } = useTranslation();
@@ -110,8 +110,6 @@ const AddDoctorFormDialog = () => {
 
     const Password = inputPasswordRef?.current?.value;
 
-    const token = Cookies.get('token');
-
     const dataForm = new FormData();
 
     if (
@@ -132,13 +130,9 @@ const AddDoctorFormDialog = () => {
 
     if (FullName && Experience && PhoneNumber) {
       try {
-        const response = await axios.post(`${baseUrl}/users`, dataForm, {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await instance.post(`${baseUrl}/users`, dataForm,
+
+        );
 
         if (response.data) {
           setAddDoctorFormDialogIsLoading(false);
@@ -158,7 +152,6 @@ const AddDoctorFormDialog = () => {
         return response.data;
       } catch (error) {
         setAddDoctorFormDialogIsLoading(false);
-
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
             setToastDataForAddRoomForm({
@@ -229,7 +222,7 @@ const AddDoctorFormDialog = () => {
                 className={cls.AddCardImgValuebtn}
               >
                 <GetImage />
-                {}
+                { }
               </button>
 
               <input

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -21,26 +21,14 @@ import {
   GetAllMonitorPageData,
 } from '../model/selector/GetAllMonitorSelectorSlice';
 
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
 import { AddMonitorFormDialog } from '@/entities/AddMonitorFormDialog';
 import { EditMonitorFormDialog } from '@/entities/EditMonitorFormDialog';
 import { DeleteMonitorFormDialog } from '@/entities/DeleteMonitorFormDialog';
 
 const AddMonitorPage = () => {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
-
-  const reducers: ReducersList = {
-    GetAllMonitorPage: GetAllMonitorPageReducer,
-  };
-
   const getAllMonitorError = useSelector(getError);
-
   const getAllMonitorIsLoading = useSelector(getIsLoading);
 
   const getAllMonitorData = useSelector(GetAllMonitorPageData);
@@ -52,18 +40,18 @@ const AddMonitorPage = () => {
     setIsOpenMonitorAddCard,
     isOpenMonitorDeleteCard,
     toastDataForAddRoomForm,
-  } = React.useContext(ButtonsContext);
+  } = useContext(ButtonsContext);
 
   const handleCardAddCard = () => {
     setIsOpenMonitorAddCard(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchGetAllMonitors({}));
   }, [dispatch]);
 
   return (
-    <DynamicModuleLoader reducers={reducers}>
+    <>
       {getAllMonitorIsLoading && <Loader />}
 
       {getAllMonitorError && <ErrorReload message={getAllMonitorError} />}
@@ -115,7 +103,7 @@ const AddMonitorPage = () => {
           severity={toastDataForAddRoomForm?.toastSeverityForAddRoomForm}
         />
       )}
-    </DynamicModuleLoader>
+    </>
   );
 };
 

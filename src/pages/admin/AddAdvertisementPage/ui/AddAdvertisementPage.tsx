@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useContext, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -10,13 +9,7 @@ import { TableTitleReklama } from '@/entities/TableTitleReklama';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAdvertisementGetAll } from '../model/service/getAllAdvertisementRequest';
-
 import cls from './addAdvertisementPage.module.scss';
-import {
-  DynamicModuleLoader,
-  ReducersList,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { AdvertisementListSliceReducer } from '../model/slice/getDepartmentSlice';
 import {
   getError,
   getIsLoading,
@@ -27,9 +20,7 @@ import { Loader } from '@/widgets/Loader';
 
 const tableTitle: string[] = ['Surat', 'Nomi', 'Manzili', 'Sana'];
 
-const reudcer: ReducersList = {
-  AddAdvertisementPage: AdvertisementListSliceReducer,
-};
+
 
 const AddAdvertisementPage = () => {
   const [tableBody, setTableBody] = React.useState<any>([]);
@@ -73,14 +64,14 @@ const AddAdvertisementPage = () => {
     dispatch(fetchAdvertisementGetAll({}));
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
       dispatch(fetchAdvertisementGetAll({}));
     }, 1000);
   }, [dispatch, getResponseData]);
 
   return (
-    <DynamicModuleLoader reducers={reudcer}>
+    <>
       {getAdvertisementLoading === true ? (
         <Loader />
       ) : getAdvertisementError ? (
@@ -106,7 +97,7 @@ const AddAdvertisementPage = () => {
           </div>
         </div>
       )}
-    </DynamicModuleLoader>
+    </>
   );
 };
 

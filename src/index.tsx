@@ -32,4 +32,3 @@ root.render(
     </BrowserRouter>
   </ButtonsProvider>,
 );
-export { Theme } from '@/shared/const/theme';

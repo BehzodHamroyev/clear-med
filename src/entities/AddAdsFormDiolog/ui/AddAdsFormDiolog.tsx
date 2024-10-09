@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-
 import axios from 'axios';
-import Cookies from 'js-cookie';
+
 import { useTranslation } from 'react-i18next';
 
 import { Dialog } from '@mui/material';
@@ -12,6 +11,7 @@ import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAllAds } from '@/pages/admin/AddAdsPage/model/services/fetchAllAds';
+import instance from '@/shared/lib/axios/api';
 
 const AddAdsFormDiolog = () => {
   const { t } = useTranslation();
@@ -64,7 +64,6 @@ const AddAdsFormDiolog = () => {
   const handleSubmitForm = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const token = Cookies.get('token');
 
     const data = new FormData();
 
@@ -79,13 +78,8 @@ const AddAdsFormDiolog = () => {
       data.append('link', `${isAllFormData!.link}`);
 
       try {
-        const response = await axios.post(`${baseUrl}/videos/create`, data, {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await instance.post(`${baseUrl}/videos/create`, data,
+        );
 
         if (response.data) {
           setIsOpenAdvertisementAddCard(false);
@@ -176,7 +170,7 @@ const AddAdsFormDiolog = () => {
               className={cls.AddCardImgValuebtn}
             >
               <GetImage />
-              {}
+              { }
             </button>
 
             <input
