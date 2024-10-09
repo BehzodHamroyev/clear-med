@@ -1,10 +1,9 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { baseUrl } from '../../../../../baseurl';
 import { DepartmentType } from '../types/departmentType';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
+import instance from '@/shared/lib/axios/api';
 
 export const fetchDepartmentAdd = createAsyncThunk<
   DepartmentType,
@@ -13,22 +12,13 @@ export const fetchDepartmentAdd = createAsyncThunk<
 >('DepartmentAdd', async ({ name, image, duration }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
-  const token = Cookies.get('token');
-
   try {
-    const response = await axios.post<DepartmentType>(
+    const response = await instance.post<DepartmentType>(
       `${baseUrl}/department/create`,
       {
         name,
         image,
         duration,
-      },
-      {
-        maxBodyLength: Infinity,
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
       },
     );
 

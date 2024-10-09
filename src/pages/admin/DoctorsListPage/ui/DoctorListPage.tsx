@@ -13,11 +13,6 @@ import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
-import {
   getError,
   getIsLoading,
   getListOfDoctor,
@@ -38,10 +33,6 @@ const tableTitle = [
   'Telefon raqami',
 ];
 
-/* reducer */
-const reducer: ReducersList = {
-  getDoctorPageReducer: DoctorListSliceReducer,
-};
 
 /* Component BIG */
 const DoctorListPage = () => {
@@ -92,9 +83,8 @@ const DoctorListPage = () => {
         return {
           id: item?._id,
           item1: item?.name !== undefined ? item?.name : ' ',
-          item2: `${
-            item?.rooms?.[0]?.name !== undefined ? item?.rooms?.[0]?.name : ' '
-          }`,
+          item2: `${item?.rooms?.[0]?.name !== undefined ? item?.rooms?.[0]?.name : ' '
+            }`,
           item3:
             item?.rooms !== undefined
               ? `${item?.rooms?.[0]?.department_id?.name}`
@@ -113,7 +103,7 @@ const DoctorListPage = () => {
 
   /* UI */
   return (
-    <DynamicModuleLoader reducers={reducer}>
+    <>
       {getDoctorLoading === true ? (
         <Loader />
       ) : getDoctorError ? (
@@ -136,7 +126,7 @@ const DoctorListPage = () => {
           {isOpenDoctorEditCard ? <DoctorEdit tableBody={tableBody} /> : ''}
         </div>
       )}
-    </DynamicModuleLoader>
+    </>
   );
 };
 

@@ -1,22 +1,10 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { baseUrl } from '../../../../../baseurl';
-const token = Cookies.get('token');
+import instance from '@/shared/lib/axios/api';
 
 export const updateView = (prop: { id: string }) => {
   const { id } = prop;
   try {
-    axios.post(
-      `${baseUrl}/monitor/update/view`,
-      { id: id, view: true },
-      {
-        maxBodyLength: Infinity,
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      },
-    );
+    instance.post(`${baseUrl}/monitor/update/view`, { id: id, view: true });
   } catch (error) {
     console.log(error);
   }

@@ -19,11 +19,6 @@ import {
   getListOfRoom,
 } from '../model/selectors/RoomList';
 
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
 import cls from './RoomPage.module.scss';
 import { Loader } from '@/widgets/Loader';
 
@@ -74,13 +69,10 @@ const RoomPage = () => {
     }, 1000);
   }, [dispatch, departmentListChanged]);
 
-  const reducer: ReducersList = {
-    RoomGetAll: RoomListSliceReducer,
-  };
 
   /* UI */
   return (
-    <DynamicModuleLoader reducers={reducer}>
+    <>
       {getRoomLoadings === true ? (
         <Loader />
       ) : getRoomError ? (
@@ -104,7 +96,7 @@ const RoomPage = () => {
           {isOpenRoomEditCard ? <RoomEdit tableBody={tableBody} /> : ''}
         </div>
       )}
-    </DynamicModuleLoader>
+    </>
   );
 };
 

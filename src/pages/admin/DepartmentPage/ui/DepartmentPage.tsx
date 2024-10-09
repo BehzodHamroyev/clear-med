@@ -17,19 +17,11 @@ import {
   getListOfDepartmens,
 } from '../model/selectors/departmentList';
 
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
 import cls from './DepartmentPage.module.scss';
 import { Loader } from '@/widgets/Loader';
 
 const tableTitle = ['Bo‘lim nomi', 'Shifokorlar soni', 'Xonalar raqami'];
 
-const reducer: ReducersList = {
-  departmentPage: DepartmentListSliceReducer,
-};
 
 const DepartmentPage = () => {
   const [tableBody, setTableBody] = React.useState<any>([]);
@@ -59,7 +51,6 @@ const DepartmentPage = () => {
   }, [getListOfDepartment]);
 
   const {
-    departmentListChanged,
     isOpenDepartmentAddCard,
     isOpenDepartmentEditCard,
   } = useContext(ButtonsContext);
@@ -70,7 +61,7 @@ const DepartmentPage = () => {
 
   return (
     <div className={cls.DepartmentPageWrapper}>
-      <DynamicModuleLoader reducers={reducer}>
+      <>
         {getDepartmentLoading === true ? (
           <Loader />
         ) : getDepartmentError ? (
@@ -97,7 +88,7 @@ const DepartmentPage = () => {
             )}
           </div>
         )}
-      </DynamicModuleLoader>
+      </>
     </div>
   );
 };

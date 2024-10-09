@@ -36,15 +36,13 @@ const TableTitleDoctorProfile = memo((props: TableInfo) => {
             .split('-')[1]
             .slice(-2);
 
-          // Combine them
           const outputString = `${prefix}-${lastTwoDigits}`;
 
           return (
             <tr key={queue?.id} className={cls.tr}>
               <td className={cls.td}>{outputString}</td>
               <td className={cls.td}>
-                {queue?.created_time?.split('T')[1].split('.')[0]}
-                {/* {' | '} {queue.created_time.split('T')[0]} */}
+                {queue?.createdAt?.split('T')[1].split('.')[0]}
               </td>
             </tr>
           );

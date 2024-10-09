@@ -14,19 +14,12 @@ import { queuesControlDoctorReducer } from '../model/slice/queuesControlDoctorSl
 import { fetchQueuesControlDoctor } from '../model/services/fetchQueuesControlDoctor';
 import { fetchDoneQueuesControlDoctor } from '../model/services/fetchDoneQueuesControlDoctor';
 
-import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 import {
   getQueuesControlDoctorData,
   getQueuesControlDoctorIsLoading,
 } from '../model/selectors/queuesControlDoctorSelector';
 
-const reducers: ReducersList = {
-  queuesControlDoctor: queuesControlDoctorReducer,
-};
 
 const QueuesControlDoctor = () => {
   const socket = useSocket();
@@ -66,7 +59,7 @@ const QueuesControlDoctor = () => {
   }, [socket, roomId, dispatch]);
 
   return (
-    <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+    < >
       <div className={cls.QueuesControlDoctor}>
         <div className={cls.QueuesControlDoctor__tableDoctor}>
           {queuesList && queuesList.length > 0 ? (
@@ -95,7 +88,7 @@ const QueuesControlDoctor = () => {
       </div>
 
       {queuesListLoading && <Loader />}
-    </DynamicModuleLoader>
+    </>
   );
 };
 
