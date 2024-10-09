@@ -13,11 +13,6 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { GetAllRoomAtachmentMonitorReducer } from '../model/slice/getAllRoomAtachmentMonitorSlice';
 
 import {
-  ReducersList,
-  DynamicModuleLoader,
-} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-
-import {
   getIsError,
   getIsLoading,
   GetAllRoomForMonitorData,
@@ -44,9 +39,7 @@ const Svg = (
   </svg>
 );
 
-const reudcer: ReducersList = {
-  GetAllRoomAtachmentMonitorSlice: GetAllRoomAtachmentMonitorReducer,
-};
+
 
 const AddRoomForMonitorPage = () => {
   const { id } = useParams();
@@ -63,11 +56,9 @@ const AddRoomForMonitorPage = () => {
 
   const {
     isOpenDepartmentDeleteCard,
-    setIsOpenDepartmentDeleteCard,
     isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
     isOpenRoomAttachmentMonitorChildFormedit,
-    setIsOpenRoomAttachmentMonitorChildFormEdit,
     departmentGetId,
   } = useContext(ButtonsContext);
 
@@ -81,7 +72,7 @@ const AddRoomForMonitorPage = () => {
 
   /* UI */
   return (
-    <DynamicModuleLoader reducers={reudcer}>
+    <>
       {getLoading && <Loader />}
 
       {getError && <ErrorDialog isErrorProps={!false} />}
@@ -136,7 +127,7 @@ const AddRoomForMonitorPage = () => {
             <tbody
               className={cls['AddRoomForMonitorWrapper__Table--Tabletbody']}
             >
-              {getData?.monitor?.rooms.map((item:any) => {
+              {getData?.monitor?.rooms.map((item: any) => {
                 return (
                   <tr className={cls['AddRoomForMonitorWrapper__Table--tr']}>
                     <td className={cls['AddRoomForMonitorWrapper__Table--td']}>
@@ -167,28 +158,10 @@ const AddRoomForMonitorPage = () => {
                         {item?.doctor_id?.name || t("Doktor yo'q")}
                       </p>
                     </td>
-                    {/* <td
-                      className={
-                        cls['AddRoomForMonitorWrapper__Table--lastChild2']
-                      }
-                      // onClick={() => handleClickDeleteDepartment(item?.id)}
-                    >
-                      <DeleteTools
-                        onClick={() => setIsOpenDepartmentDeleteCard(true)}
-                        className={
-                          cls['AddRoomForMonitorWrapper__Table--delete']
-                        }
-                      />
-                    </td> */}
                   </tr>
                 );
               })}
             </tbody>
-            {/* ) : (
-              <p className={cls['AddRoomForMonitorWrapper__Table--txt']}>
-                Biriktirilgan xonalar mavjud emas!
-              </p>
-            )} */}
           </table>
         </div>
 
@@ -210,7 +183,7 @@ const AddRoomForMonitorPage = () => {
           ''
         )}
       </div>
-    </DynamicModuleLoader>
+    </>
   );
 };
 

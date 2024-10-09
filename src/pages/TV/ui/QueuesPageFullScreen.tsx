@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import { useContext, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
@@ -36,17 +34,13 @@ interface ModalData {
 const QueuesPageFullScreen = () => {
   const videoUrl: string[] = [];
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const socket = useSocket()
-  const token = Cookies.get('token');
-
   const authUserData = useSelector(getAuthUserData);
-  // const [dataModal, setDataModal] = useState({})
   const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([])
   const [queueDialogData, setQueueDialogData] = useState<ModalData>();
-  const dispatch = useAppDispatch();
 
   const allProccessQueue = useSelector(getAllQueueProccessData);
-
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
 
@@ -55,9 +49,10 @@ const QueuesPageFullScreen = () => {
       videoUrl.push(item.link);
     });
   }
+
+
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -65,10 +60,9 @@ const QueuesPageFullScreen = () => {
     if (socket) {
       socket.on('doctorProcessToMonitor', (data) => {
         if (authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setListOfQueue(
-            [{
-              name: data.name, room: data.room, id: data.id
-            }]
+          setListOfQueue(pre => [...pre, {
+            name: data.name, room: data.room, id: data.id
+          }]
           )
           dispatch(fetchAllQueueProccess({}));
         }
@@ -81,22 +75,20 @@ const QueuesPageFullScreen = () => {
   }, [socket])
 
   useEffect(() => {
-    while (listOfQueue?.length >= 1) {
-      console.log(listOfQueue[0], 'ksjkdsjkdsj');
-
+    while (listOfQueue?.length >= 1 && !onEndedQueueAudio) {
       setQueueDialogData({
         roomNumber: String(listOfQueue[0]?.room),
         biletNumber: String(listOfQueue[0]?.name),
         step: 1,
         mp3Arr: [`${listOfQueue[0]?.name}`],
       });
-      setOnEndedQueueAudio(true)
       if (listOfQueue[0]?.id) {
         updateView({ id: listOfQueue[0]?.id })
       }
+      setOnEndedQueueAudio(true)
       listOfQueue.pop()
     }
-  }, [listOfQueue, onEndedQueueAudio]);
+  }, [listOfQueue, onEndedQueueAudio, socket]);
 
   return (
     <>

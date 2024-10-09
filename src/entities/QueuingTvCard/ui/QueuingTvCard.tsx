@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
@@ -55,10 +55,6 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-
-    // onBeforeGetContent: () => {
-    //   setIsPrinting(true); // Chop etishdan oldin isPrinting ni true ga o'rnatish
-    // },
 
     onAfterPrint: () => {
       setTimeout(() => {
@@ -128,23 +124,20 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (lastQueue) {
       const prefix = lastQueue?.pagination?.charAt(0);
-      // Extract the last two digits after the hyphen
       const lastTwoDigits = lastQueue?.pagination
-        // @ts-ignore
         .split('-')[1]
         .slice(-2);
 
-      // Combine them
       const outputStringQueueNUmber = `${prefix}-${lastTwoDigits}`;
 
       setLastQueueName(outputStringQueueNUmber || '');
     }
   }, [lastQueue]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const showLanguageModal = () => {
       setIsvisableLanguageModal(true);
     };
@@ -153,9 +146,6 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
 
     return () => clearInterval(interval);
   }, []);
-
-  console.log(`${baseUploadUrl}${actives[0].user.photo}`);
-  // console.log(`${baseUploadUrl}${actives[0]?.user.photo}`);
 
   return (
     <div
@@ -177,14 +167,12 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
         <p className={cls.CardLeftDoctorName}>
           {t('current_queues')}: {proceedCount || 0}
         </p>
-
         <div className={cls.CardRight}>
           {/* {icon && icon?.length > 0 && ( */}
           <LazyLoadImage
             alt="icon"
-            src={`${baseUploadUrl}${actives[0]?.user.photo.slice(1) || icon}`}
+            src={`${baseUploadUrl}${actives[0]?.user?.photo.slice(1) || icon}`}
           />
-          {/* )} */}
         </div>
       </div>
 
@@ -192,7 +180,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
         <QueuingPrintCard
           ref={componentRef}
           ticketNumber={lastQueueName}
-          doctor_name={actives[0]?.user.name}
+          doctor_name={actives[0]?.user?.name}
           roomNumber={String(lastQueue?.room?.name)}
           deparment_name={lastQueue?.room.department_id.name}
         />

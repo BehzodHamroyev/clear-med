@@ -1,10 +1,9 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { AllQueueProccessApiResponse } from '../types/allQueueProccessTypes';
+import instance from '@/shared/lib/axios/api';
 
 export const fetchAllQueueProccess = createAsyncThunk<
   AllQueueProccessApiResponse,
@@ -13,17 +12,10 @@ export const fetchAllQueueProccess = createAsyncThunk<
 >('fetchAllQueueProccess', async ({ monitorId }, thunkApi) => {
   const { rejectWithValue } = thunkApi;
 
-  const getTokenCookie = Cookies.get('token');
-
   if (monitorId) {
     try {
-      const response = await axios.get(
+      const response = await instance.get(
         `${baseUrl}/monitor/proceed/${monitorId}`,
-        {
-          headers: {
-            authorization: `Bearer ${getTokenCookie}`,
-          },
-        },
       );
 
       if (!response.data) {
@@ -36,11 +28,7 @@ export const fetchAllQueueProccess = createAsyncThunk<
     }
   } else {
     try {
-      const response = await axios.get(`${baseUrl}/monitor/proceed`, {
-        headers: {
-          authorization: `Bearer ${getTokenCookie}`,
-        },
-      });
+      const response = await instance.get(`${baseUrl}/monitor/proceed`, {});
 
       if (!response.data) {
         throw new Error();

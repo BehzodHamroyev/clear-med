@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
-
 import axios from 'axios';
-import Cookies from 'js-cookie';
+
 import { useTranslation } from 'react-i18next';
 
 import { Dialog, TextField } from '@mui/material';
@@ -16,6 +15,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { GetIconForDepartment } from '@/shared/ui/GetIconForDepartment';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { iconsCardDepartments } from '@/shared/ui/GetIconForDepartment/model/helper/source';
+import instance from '@/shared/lib/axios/api';
 
 const AddDepartmentFormDialog = () => {
   const { t } = useTranslation();
@@ -54,7 +54,6 @@ const AddDepartmentFormDialog = () => {
   const handleFormSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const token = Cookies.get('token');
 
     // Access values using refs
     const inputValue = inputRef.current?.value;
@@ -76,20 +75,14 @@ const AddDepartmentFormDialog = () => {
       setAddDepartmentFormDialogIsLoading(true);
 
       try {
-        const response = await axios.post<DepartmentType>(
+        const response = await instance.post<DepartmentType>(
           `${baseUrl}/department/create`,
           {
             name: capitalizedText,
             duration: Number(patientViewingTime),
             image: `${isOpenDepartmentAddCardIconIndex}`,
           },
-          {
-            maxBodyLength: Infinity,
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: `Bearer ${token}`,
-            },
-          },
+
         );
 
         if (response.data) {
