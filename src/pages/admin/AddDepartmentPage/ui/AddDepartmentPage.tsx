@@ -16,7 +16,6 @@ import { EditDepartmentFormDiolog } from '@/entities/EditDepartmentFormDiolog';
 import Toast from '@/shared/ui/Toast/Toast';
 import { Loader } from '@/widgets/Loader';
 
-// import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 import {
   getAllDepartmentsData,
   getAllDepartmentsError,
@@ -24,6 +23,7 @@ import {
 } from '../model/selector/AllDepartmentSelector';
 import { baseUploadUrl } from '../../../../../baseurl';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { fetchAllDepartments } from '../model/service/fetchAllDepartments';
 
 const AddDepartmentPage = () => {
   const { t } = useTranslation();
@@ -65,9 +65,9 @@ const AddDepartmentPage = () => {
     setEditDepartmentId(id);
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchAllDepartments({}));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchAllDepartments({}));
+  }, [dispatch]);
 
   return (
     <div className={cls.AddDepartmentPageWrp}>
