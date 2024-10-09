@@ -5,41 +5,31 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { ETC } from '@/shared/assets/icons';
+import { getAuthUserData } from '@/features/Auth';
+import { useSocket } from '@/shared/hook/useSocket';
 import cls from './QueuesPageFullScreen.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
+import { updateView } from '../model/services/updateView';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useSocket } from '@/shared/hook/useSocket';
-import { getAuthUserData } from '@/features/Auth';
-import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
+import { ListOfQueue, ModalData } from '../model/types/allQueueProccessTypes';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
-import { updateView } from '../model/services/updateView';
-
-interface ListOfQueue {
-  name: string
-  room: number;
-  id: string
-}
-
-interface ModalData {
-  roomNumber: string,
-  biletNumber: string,
-  step: number,
-  mp3Arr: string[]
-}
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 
 const QueuesPageFullScreen = () => {
+  const socket = useSocket();
   const videoUrl: string[] = [];
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const socket = useSocket()
+
   const authUserData = useSelector(getAuthUserData);
-  const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([])
+  const allProccessQueue = useSelector(getAllQueueProccessData);
+
+  const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([]);
   const [queueDialogData, setQueueDialogData] = useState<ModalData>();
 
-  const allProccessQueue = useSelector(getAllQueueProccessData);
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
 
@@ -49,20 +39,22 @@ const QueuesPageFullScreen = () => {
     });
   }
 
-
   useEffect(() => {
     dispatch(fetchAllQueueProccess({}));
   }, []);
 
-
   useEffect(() => {
     if (socket) {
       socket.on('doctorProcessToMonitor', (data) => {
-        if (authUserData?.rooms.some(room => room.id === data.roomId)) {
-          setListOfQueue(pre => [...pre, {
-            name: data.name, room: data.room, id: data.id
-          }]
-          )
+        if (authUserData?.rooms.some((room) => room.id === data.roomId)) {
+          setListOfQueue((pre) => [
+            ...pre,
+            {
+              name: data.name,
+              room: data.room,
+              id: data.id,
+            },
+          ]);
           dispatch(fetchAllQueueProccess({}));
         }
       });
@@ -71,7 +63,7 @@ const QueuesPageFullScreen = () => {
         dispatch(fetchAllQueueProccess({}));
       });
     }
-  }, [socket])
+  }, [socket]);
 
   useEffect(() => {
     while (listOfQueue?.length >= 1 && !onEndedQueueAudio) {
@@ -82,23 +74,23 @@ const QueuesPageFullScreen = () => {
         mp3Arr: [`${listOfQueue[0]?.name}`],
       });
       if (listOfQueue[0]?.id) {
-        updateView({ id: listOfQueue[0]?.id })
+        updateView({ id: listOfQueue[0]?.id });
       }
-      setOnEndedQueueAudio(true)
-      listOfQueue.pop()
+      setOnEndedQueueAudio(true);
+      listOfQueue.pop();
     }
   }, [listOfQueue, onEndedQueueAudio, socket]);
 
   return (
     <>
       <div className={cls.QueuesPage}>
-        <div className={classNames(cls.QueuesPage__header, {}, [])}>
-          <div className={classNames(cls.QueuesPage__headerLeft)}>
+        <div className={cls.QueuesPage__header}>
+          <div className={cls.QueuesPage__headerLeft}>
             {baseUrlImgLogo ? (
               <img
+                alt=""
                 src={baseUrlImgLogo}
                 className={cls['QueuesPage__headerLeft__logo']}
-                alt=""
               />
             ) : (
               ''
@@ -126,14 +118,14 @@ const QueuesPageFullScreen = () => {
 
         <div className={cls.QueuesPage__queuesContainer}>
           <ReactPlayer
-            url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             loop
-            autoPlay
             playing
-            volume={0.1}
+            autoPlay
             controls
+            volume={0.1}
             playsinline
             className={cls['QueuesPage__queuesContainer--video']}
+            url={'https://youtube.com/shorts/JoyKXJdWKOE?si=FBtRng-wQjrHO7Up'}
             config={{
               youtube: {
                 playerVars: { showinfo: 0 },
@@ -145,19 +137,13 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t("Bo'lim")}
-                    </p>
+                    <p>{t("Bo'lim")}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Xona')}
-                    </p>
+                    <p>{t('Xona')}</p>
 
-                    <p className={classNames(cls.queuesTable__headItem)}>
-                      {t('Bilet')}
-                    </p>
+                    <p>{t('Bilet')}</p>
                   </div>
                 ) : null}
               </div>
@@ -188,11 +174,7 @@ const QueuesPageFullScreen = () => {
                           <p>{allProccessQueue!.room1!.department_id?.name}</p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!.room1!?.name}</p>
                         </div>
 
@@ -203,7 +185,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -228,7 +210,10 @@ const QueuesPageFullScreen = () => {
                     const outputString = `${prefix}-${lastTwoDigits}`;
                     if (index < 4 && item.status === 'pending')
                       return (
-                        <div className={classNames(cls.orderNumber)} key={outputString}>
+                        <div
+                          className={classNames(cls.orderNumber)}
+                          key={outputString}
+                        >
                           <p>{outputString}</p>
                         </div>
                       );
@@ -288,11 +273,7 @@ const QueuesPageFullScreen = () => {
                           </p>
                         </div>
 
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
+                        <div>
                           <p>{allProccessQueue!?.room2!?.name}</p>
                         </div>
 
@@ -303,7 +284,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                            item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -362,14 +343,15 @@ const QueuesPageFullScreen = () => {
           </div>
         </div>
       </div>
-      {
-        onEndedQueueAudio && <QueueDialog
+
+      {onEndedQueueAudio && (
+        <QueueDialog
           step={1}
           Mp3Array={queueDialogData?.mp3Arr!}
           roomNumber={queueDialogData?.roomNumber!}
           biletNumber={queueDialogData?.biletNumber!}
         />
-      }
+      )}
     </>
   );
 };

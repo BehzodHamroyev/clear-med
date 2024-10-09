@@ -13,6 +13,7 @@ import { EditLanguageModal } from '@/entities/EditLanguageModal';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
+import { TvPage } from '@/pages/TvPage';
 
 interface MainLayoutProps {
   className?: string;
@@ -49,8 +50,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
     }
   }, [isLoginForHasToast, setIsLoginForHasToast]);
 
+  // if (loginData?.role === 'monitor') {
+  //   return <QueuesPageFullScreen />;
+  // }
+
   if (loginData?.role === 'monitor') {
-    return <QueuesPageFullScreen />;
+    return <TvPage />;
   }
 
   return (

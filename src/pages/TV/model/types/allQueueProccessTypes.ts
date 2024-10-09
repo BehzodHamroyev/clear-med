@@ -11,20 +11,6 @@ interface Department {
   id: string;
 }
 
-interface Proced {
-  _id: string;
-  department_id: string;
-  room_id: string;
-  doctor_id: string;
-  queues_name: string;
-  step: string;
-  status: string;
-  created_date: string;
-  created_time: string;
-  __v: number;
-  accepted_date: string;
-  id: string;
-}
 interface Room {
   _id: string;
   name: number;
@@ -73,4 +59,17 @@ export interface QueueProccessInRedux {
   addvertising?: boolean;
   room1?: Room;
   room2?: Room;
+}
+
+export interface ListOfQueue {
+  name: string;
+  room: number;
+  id: string;
+}
+
+export interface ModalData {
+  roomNumber: string;
+  biletNumber: string;
+  step: number;
+  mp3Arr: string[];
 }

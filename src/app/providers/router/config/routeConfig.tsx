@@ -37,19 +37,21 @@ import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
 import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachmentMonitor';
 
 // ----- Admin -----
+
+import { TvPage } from '@/pages/TvPage';
 import { MonitorsPage } from '@/pages/admin/Monitors';
 import { AddAdsPage } from '@/pages/admin/AddAdsPage';
-import Reception from '@/pages/ReceptionPage/ui/Reception';
 import { AddRoomPage } from '@/pages/admin/AddRoomPage';
+import Reception from '@/pages/ReceptionPage/ui/Reception';
 import { AddDoctorPage } from '@/pages/admin/AddDoctorPage';
 import { AddMonitorPage } from '@/pages/admin/AddMonitorPage';
 import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
 import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
-import { ReportsDoctorPage } from '@/pages/reportsDoctorPage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
@@ -140,9 +142,14 @@ export const routeConfigForDoctor: Record<
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
+
+  // [CommonRoutes.QUEUES]: {
+  //   path: getRouteQueuesPage(),
+  //   element: <QueuesPageFullScreen />,
+  // },
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
-    element: <QueuesPageFullScreen />,
+    element: <TvPage />,
   },
 
   // Doctors
@@ -221,9 +228,13 @@ export const routeConfigForMonitor: Record<
     element: <NotFoundPage />,
   },
 
+  // [MonitorRoutes.QUEUES]: {
+  //   path: getRouteQueuesPageForMonitor(),
+  //   element: <QueuesPageFullScreen />,
+  // },
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
-    element: <QueuesPageFullScreen />,
+    element: <TvPage />,
   },
 
   // setting
