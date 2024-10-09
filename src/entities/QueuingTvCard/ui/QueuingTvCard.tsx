@@ -127,9 +127,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
   useEffect(() => {
     if (lastQueue) {
       const prefix = lastQueue?.pagination?.charAt(0);
-      const lastTwoDigits = lastQueue?.pagination
-        .split('-')[1]
-        .slice(-2);
+      const lastTwoDigits = lastQueue?.pagination.split('-')[1].slice(-2);
 
       const outputStringQueueNUmber = `${prefix}-${lastTwoDigits}`;
 
@@ -191,7 +189,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
           onClick={(e) => e.stopPropagation()}
           className={cls.QueuingTvCardWrapper__printingLoader}
         >
-          <video autoPlay loop src={printingLoad}></video>
+          <video autoPlay src={printingLoad}></video>
         </div>
       )}
 

@@ -3,4 +3,22 @@
 @import 'variables/global';
 @import 'themes/normal';
 @import 'themes/dark';
-@import 'themes/orange'
+@import 'themes/orange';
+
+@font-face {
+  font-family: 'InterBold';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Bold.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'InterRegular';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter Medium';
+  src: url('../../shared/assets/fonts/Inter/static/Inter-Medium.ttf')
+    format('truetype');
+}
