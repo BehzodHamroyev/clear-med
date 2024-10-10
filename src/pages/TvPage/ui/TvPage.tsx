@@ -1,13 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GoArrowRight } from 'react-icons/go';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import cls from './TvPage.module.scss';
 import { TvLogoTemprory } from '@/shared/assets/Pages/tv';
 import { updateClock } from '../helperFunctions/updateClock';
+import { getAuthUserData } from '@/features/Auth';
+import { getAllQueueProccessData } from '@/pages/TV/model/selector/allQueueProccessSelector';
+import { fetchAllQueueProccess } from '@/pages/TV/model/services/fetchAllQueueProccess';
+import { updateView } from '@/pages/TV/model/services/updateView';
+import { ListOfQueue, ModalData } from '@/pages/TV/model/types/allQueueProccessTypes';
+import { useSocket } from '@/shared/hook/useSocket';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { QueueDialog } from '@/entities/QueueDialog';
 
 const TvPage: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<string>('');
+
+  const socket = useSocket();
+  const videoUrl: string[] = [];
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const authUserData = useSelector(getAuthUserData);
+  const allProccessQueue = useSelector(getAllQueueProccessData);
+
+  const [listOfQueue, setListOfQueue] = useState<ListOfQueue[]>([]);
+  const [queueDialogData, setQueueDialogData] = useState<ModalData>();
+
+  const { onEndedQueueAudio, setOnEndedQueueAudio } =
+    useContext(ButtonsContext);
+
+  if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl?.length > 0) {
+    allProccessQueue?.videoUrl.forEach((item) => {
+      videoUrl.push(item.link);
+    });
+  }
+
+  useEffect(() => {
+    dispatch(fetchAllQueueProccess({}));
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('doctorProcessToMonitor', (data) => {
+        if (authUserData?.rooms.some((room) => room.id === data.roomId)) {
+          setListOfQueue((pre) => [
+            ...pre,
+            {
+              name: data.name,
+              room: data.room,
+              id: data.id,
+            },
+          ]);
+          dispatch(fetchAllQueueProccess({}));
+        }
+      });
+
+      socket.on('queueCreated', (data) => {
+        dispatch(fetchAllQueueProccess({}));
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    while (listOfQueue?.length >= 1 && !onEndedQueueAudio) {
+      setQueueDialogData({
+        roomNumber: String(listOfQueue[0]?.room),
+        biletNumber: String(listOfQueue[0]?.name),
+        step: 1,
+        mp3Arr: [`${listOfQueue[0]?.name}`],
+      });
+      if (listOfQueue[0]?.id) {
+        updateView({ id: listOfQueue[0]?.id });
+      }
+      setOnEndedQueueAudio(true);
+      listOfQueue.pop();
+    }
+  }, [listOfQueue, onEndedQueueAudio, socket]);
+
+
 
   useEffect(() => {
     const updateTime = () => {
@@ -40,7 +115,7 @@ const TvPage: React.FC = () => {
       </div>
 
       <div className={cls.tvPageWrp__body}>
-        {/* <div className={cls['tvPageWrp__body--video']}></div> */}
+        <div className={cls['tvPageWrp__body--video']}></div>
 
         <table className={cls['tvPageWrp__body--table']}>
           <thead className={cls['tvPageWrp__body--thead']}>
@@ -180,6 +255,14 @@ const TvPage: React.FC = () => {
           </tbody>
         </table>
       </div>
+      {onEndedQueueAudio && (
+        <QueueDialog
+          step={1}
+          Mp3Array={queueDialogData?.mp3Arr!}
+          roomNumber={queueDialogData?.roomNumber!}
+          biletNumber={queueDialogData?.biletNumber!}
+        />
+      )}
     </div>
   );
 };
