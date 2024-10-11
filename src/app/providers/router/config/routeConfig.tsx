@@ -52,6 +52,7 @@ import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
+import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
@@ -147,9 +148,13 @@ export const routeConfigForDoctor: Record<
   //   path: getRouteQueuesPage(),
   //   element: <QueuesPageFullScreen />,
   // },
+  // [CommonRoutes.QUEUES]: {
+  //   path: getRouteQueuesPage(),
+  //   element: <TvPage />,
+  // },
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
-    element: <TvPage />,
+    element: <TvmoreQueuePage />,
   },
 
   // Doctors
@@ -228,13 +233,22 @@ export const routeConfigForMonitor: Record<
     element: <NotFoundPage />,
   },
 
+  // tv old version
   // [MonitorRoutes.QUEUES]: {
   //   path: getRouteQueuesPageForMonitor(),
   //   element: <QueuesPageFullScreen />,
   // },
+
+  // tv new version for one queue and reklama
+  // [MonitorRoutes.QUEUES]: {
+  //   path: getRouteQueuesPageForMonitor(),
+  //   element: <TvPage />,
+  // },
+
+  // tv new version more queue
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
-    element: <TvPage />,
+    element: <TvmoreQueuePage />,
   },
 
   // setting

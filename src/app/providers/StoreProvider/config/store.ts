@@ -39,7 +39,7 @@ import { GetAllRoomAtachmentMonitorReducer } from '@/pages/admin/AddRoomForMonit
 import { allRoomsReducer } from '@/pages/admin/AddRoomPage';
 import { DepartmentListSliceReducer } from '@/pages/admin/DepartmentPage';
 import { DoctorListSliceReducer } from '@/pages/admin/DoctorsListPage';
-import { allQueueProccessReducer } from '@/pages/TV/model/slice/allQueueProccessSlice';
+import { allQueueProccessReducer } from '@/pages/TvPage/model/slice/allQueueProccessSlice';
 
 type CombinedState<S> = {
   [K in keyof S]: S[K];

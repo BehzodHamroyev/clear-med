@@ -14,6 +14,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAuthUserData, getAuthUserIsLoading, Login } from '@/features/Auth';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { TvPage } from '@/pages/TvPage';
+import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
 
 interface MainLayoutProps {
   className?: string;
@@ -54,8 +55,12 @@ export const MainLayout = memo((props: MainLayoutProps) => {
   //   return <QueuesPageFullScreen />;
   // }
 
+  // if (loginData?.role === 'monitor') {
+  //   return <TvPage />;
+  // }
+
   if (loginData?.role === 'monitor') {
-    return <TvPage />;
+    return <TvmoreQueuePage />;
   }
 
   return (
