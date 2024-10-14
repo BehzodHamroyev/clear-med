@@ -1,12 +1,9 @@
-/* eslint-disable no-unsafe-optional-chaining */
-import { PayloadAction } from '@reduxjs/toolkit';
-
-import { buildSlice } from '@/shared/lib/store';
-
-import { fetchAllQueueProccess } from '../services/fetchAllQueueProccess';
-import { AllQueueProccessSchema } from '../types/allQueueProccessSchema';
-import { AllQueueProccessApiResponse } from '../types/allQueueProccessTypes';
-import { Queue } from '@/pages/doctorPage';
+import { Queue } from "@/pages/doctorPage";
+import { buildSlice } from "@/shared/lib/store";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { fetchAllQueueProccess } from "../services/fetchAllQueueProccess";
+import { AllQueueProccessSchema } from "../types/allQueueProccessSchema";
+import { AllQueueProccessApiResponse } from "../types/allQueueProccessTypes";
 
 const initialState: AllQueueProccessSchema = {
   isLoading: false,

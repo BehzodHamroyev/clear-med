@@ -16,7 +16,7 @@ import {
 
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { Loader } from '@/widgets/Loader';
-import { useAllQueueProccessActions } from '@/pages/TV/model/slice/allQueueProccessSlice';
+import { useAllQueueProccessActions } from '@/pages/TvPage/model/slice/allQueueProccessSlice';
 
 const MonitorsPage = () => {
   const { t } = useTranslation();

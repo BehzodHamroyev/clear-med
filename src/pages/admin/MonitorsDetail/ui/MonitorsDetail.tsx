@@ -1,25 +1,24 @@
+import ReactPlayer from 'react-player';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import ReactPlayer from 'react-player';
+import { ReactI18NextChild, useTranslation } from 'react-i18next';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import cls from './MonitorsDetail.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
-// import {
-//   getAllQueueProccessData,
-//   getAllQueueProccessError,
-//   getAllQueueProccessIsLoading,
-// } from '@/pages/QueuesPage/model/selector/allQueueProccessSelector';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { getInfoProject } from '@/entities/FileUploader';
 import { baseUrlImgLogo } from '../../../../../baseurl';
-import { getAllQueueProccessData, getAllQueueProccessError, getAllQueueProccessIsLoading } from '@/pages/TV/model/selector/allQueueProccessSelector';
-import { fetchAllQueueProccess } from '@/pages/TV/model/services/fetchAllQueueProccess';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { fetchAllQueueProccess } from '@/pages/TvPage/model/services/fetchAllQueueProccess';
+import {
+  getAllQueueProccessData,
+  getAllQueueProccessError,
+  getAllQueueProccessIsLoading,
+} from '@/pages/TvPage/model/selector/allQueueProccessSelector';
 
 const MonitorsDetail = () => {
   const paramIdUrl: { id?: string } = useParams();
@@ -35,12 +34,10 @@ const MonitorsDetail = () => {
   const allProccessQueueIsError = useSelector(getAllQueueProccessError);
 
   if (allProccessQueue?.videoUrl && allProccessQueue?.videoUrl.length > 0) {
-    allProccessQueue?.videoUrl.forEach((item) => {
+    allProccessQueue?.videoUrl.forEach((item: { link: string }) => {
       videoUrl.push(item.link);
     });
   }
-
-
 
   useEffect(() => {
     if (paramIdUrl) {
@@ -83,14 +80,13 @@ const MonitorsDetail = () => {
                 {t('Ишонч рақами:')} {formattedPhoneNumber}
               </p>
             </div>
-
           </div>
         </div>
 
         {allProccessQueue?.addvertising &&
-          allProccessQueue?.videoUrl &&
-          videoUrl.length > 0 &&
-          allProccessQueue?.videoUrl.length > 0 ? (
+        allProccessQueue?.videoUrl &&
+        videoUrl.length > 0 &&
+        allProccessQueue?.videoUrl.length > 0 ? (
           <div className={classNames(cls.QueuesPage__queuesContainer)}>
             <div className={classNames(cls.QueuesPage__queuesContainerLeft)}>
               <div className={classNames(cls.queuesTable)}>
@@ -109,34 +105,81 @@ const MonitorsDetail = () => {
                 <div className={classNames(cls.queuesTable__items)}>
                   {allProccessQueue?.proccessQueues &&
                     allProccessQueue?.proccessQueues.length > 0 &&
-                    allProccessQueue?.proccessQueues.map((item) => (
-                      <div
-                        key={item._id}
-                        className={classNames(cls.queuesTable__item)}
-                      >
+                    allProccessQueue?.proccessQueues.map(
+                      (item: {
+                        _id: React.Key | null | undefined;
+                        department_id: {
+                          name:
+                            | string
+                            | number
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Iterable<ReactI18NextChild>
+                            | null
+                            | undefined;
+                        };
+                        room_id: {
+                          name:
+                            | string
+                            | number
+                            | boolean
+                            | React.ReactElement<
+                                any,
+                                string | React.JSXElementConstructor<any>
+                              >
+                            | Iterable<React.ReactNode>
+                            | React.ReactPortal
+                            | Iterable<ReactI18NextChild>
+                            | null
+                            | undefined;
+                        };
+                        queues_name:
+                          | string
+                          | number
+                          | boolean
+                          | React.ReactElement<
+                              any,
+                              string | React.JSXElementConstructor<any>
+                            >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Iterable<ReactI18NextChild>
+                          | null
+                          | undefined;
+                      }) => (
                         <div
-                          className={classNames(
-                            cls.queuesTable__itemDepartmentName,
-                          )}
+                          key={item._id}
+                          className={classNames(cls.queuesTable__item)}
                         >
-                          <p>{item.department_id?.name}</p>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemDepartmentName,
+                            )}
+                          >
+                            <p>{item.department_id?.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemRoomNumber,
+                            )}
+                          >
+                            <p>{item.room_id.name}</p>
+                          </div>
+                          <div
+                            className={classNames(
+                              cls.queuesTable__itemBiletNumber,
+                            )}
+                          >
+                            <p>{item.queues_name}</p>
+                          </div>
                         </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemRoomNumber,
-                          )}
-                        >
-                          <p>{item.room_id.name}</p>
-                        </div>
-                        <div
-                          className={classNames(
-                            cls.queuesTable__itemBiletNumber,
-                          )}
-                        >
-                          <p>{item.queues_name}</p>
-                        </div>
-                      </div>
-                    ))}
+                      ),
+                    )}
                 </div>
               </div>
             </div>
@@ -188,30 +231,81 @@ const MonitorsDetail = () => {
 
                 {allProccessQueue?.proccessQueues &&
                   allProccessQueue?.proccessQueues.length > 0 &&
-                  allProccessQueue?.proccessQueues.map((item) => (
-                    <div
-                      key={item._id}
-                      className={classNames(cls.queuesTable__item)}
-                    >
+                  allProccessQueue?.proccessQueues.map(
+                    (item: {
+                      _id: React.Key | null | undefined;
+                      department_id: {
+                        name:
+                          | string
+                          | number
+                          | boolean
+                          | React.ReactElement<
+                              any,
+                              string | React.JSXElementConstructor<any>
+                            >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Iterable<ReactI18NextChild>
+                          | null
+                          | undefined;
+                      };
+                      room_id: {
+                        name:
+                          | string
+                          | number
+                          | boolean
+                          | React.ReactElement<
+                              any,
+                              string | React.JSXElementConstructor<any>
+                            >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | Iterable<ReactI18NextChild>
+                          | null
+                          | undefined;
+                      };
+                      queues_name:
+                        | string
+                        | number
+                        | boolean
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                        | Iterable<React.ReactNode>
+                        | React.ReactPortal
+                        | Iterable<ReactI18NextChild>
+                        | null
+                        | undefined;
+                    }) => (
                       <div
-                        className={classNames(
-                          cls.queuesTable__itemDepartmentName,
-                        )}
+                        key={item._id}
+                        className={classNames(cls.queuesTable__item)}
                       >
-                        <p>{item.department_id?.name}</p>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemDepartmentName,
+                          )}
+                        >
+                          <p>{item.department_id?.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemRoomNumber,
+                          )}
+                        >
+                          <p>{item.room_id.name}</p>
+                        </div>
+                        <div
+                          className={classNames(
+                            cls.queuesTable__itemBiletNumber,
+                          )}
+                        >
+                          <p>{item.queues_name}</p>
+                        </div>
                       </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemRoomNumber)}
-                      >
-                        <p>{item.room_id.name}</p>
-                      </div>
-                      <div
-                        className={classNames(cls.queuesTable__itemBiletNumber)}
-                      >
-                        <p>{item.queues_name}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ),
+                  )}
               </div>
             </div>
           </div>
