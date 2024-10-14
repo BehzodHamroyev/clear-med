@@ -30,6 +30,7 @@ export interface QueuingTvCardProps {
   actives: Actives[];
   department_id?: string;
   room_id?: string;
+  bottomText?: string;
 }
 
 export interface CreateOrder {

@@ -17,6 +17,7 @@ import {
   getLastQueueError,
   getLastQueueIsLoading,
 } from '../model/selectors/lastQueueSelector';
+import { useTranslation } from 'react-i18next';
 
 const Reception = () => {
   const language = localStorage.getItem('i18nextLng');
@@ -29,6 +30,7 @@ const Reception = () => {
 
   const lastQueueError = useSelector(getLastQueueError);
   const lastQueueIsLoading = useSelector(getLastQueueIsLoading);
+  const { t } = useTranslation()
 
   return (
     <>
@@ -50,6 +52,7 @@ const Reception = () => {
                     language === 'ru' ? item?.department_id?.nameRu :
                       language === 'en' ? item?.department_id?.nameEn : ""
                 }
+                bottomText={item?.department_id.letter === "P" ? t('department_room_1') : item?.department_id.letter === "Y" ? t('department_room_1') : ""}
               />
 
             );
