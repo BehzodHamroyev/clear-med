@@ -39,8 +39,8 @@ import {
   MonitorAdsInRedux,
 } from '@/entities/AdvertisementAttachmentMonitor';
 import { InfoProjectRedux } from '@/entities/FileUploader';
-import { AllQueueProccessSchema } from '@/pages/TV/model/types/allQueueProccessSchema';
 import { RoomListSchema } from '@/pages/admin/RoomPage/model/types/RoomTypes';
+import { AllQueueProccessSchema } from '@/pages/TvPage/model/types/allQueueProccessSchema';
 
 type CombinedState<S> = {
   [K in keyof S]: S[K];

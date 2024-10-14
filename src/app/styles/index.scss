@@ -1,5 +1,21 @@
+/* stylelint-disable string-quotes */
+/* stylelint-disable indentation */
 @import 'reset';
 @import 'themes/dark';
 @import 'themes/normal';
 @import 'themes/orange';
 @import 'variables/global';
+
+@font-face {
+    font-family: 'Inter Variable';
+    src: url('../../shared/assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter Italic';
+    src: url('../../shared/assets/font/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
