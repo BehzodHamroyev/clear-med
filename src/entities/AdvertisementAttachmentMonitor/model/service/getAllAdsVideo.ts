@@ -11,7 +11,7 @@ export const getAllAdsVideo = createAsyncThunk<
   const { extra, rejectWithValue } = thunkApi;
 
   try {
-    const response = await instance.get(`/videos/all?limit=1000`);
+    const response = await instance.get(`/videos/all`);
     return response.data;
   } catch (e) {
     return rejectWithValue('error');

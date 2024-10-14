@@ -1,8 +1,9 @@
+import ReactPlayer from 'react-player';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ReactI18NextChild, useTranslation } from 'react-i18next';
-import ReactPlayer from 'react-player';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import cls from './MonitorsDetail.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -65,7 +66,7 @@ const MonitorsDetail = () => {
       <div className={cls.QueuesPage}>
         <div className={classNames(cls.QueuesPage__header, {}, [])}>
           <div className={classNames(cls.QueuesPage__headerLeft)}>
-            <img
+            <LazyLoadImage
               src={baseUrlImgLogo}
               alt="imgLink"
               className={cls.NavbarLogo}

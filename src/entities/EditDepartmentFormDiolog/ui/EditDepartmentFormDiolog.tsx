@@ -266,9 +266,9 @@ const EditDepartmentFormDiolog = (prop: EditDepartmentFormDiologTypes) => {
         >
           <div className={cls.DepartmentFormWrp__Card}>
             <div className={cls['DepartmentFormWrp__Card--title']}>
-              <h3 className={cls['DepartmentFormWrp__Card--txt']}>
+              <p className={cls['DepartmentFormWrp__Card--txt']}>
                 {t('Bo‘limni tahrirlash')}
-              </h3>
+              </p>
 
               <div className={cls['DepartmentFormWrp__Card--iconRender']}>
                 {resultIcon || ''}

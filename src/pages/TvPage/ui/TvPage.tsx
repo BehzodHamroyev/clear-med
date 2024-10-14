@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import { GoArrowRight } from 'react-icons/go';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -360,7 +359,6 @@ const TvPage: React.FC = () => {
           </div>
         </table>
       </div>
-
       {onEndedQueueAudio && (
         <QueueDialog
           step={1}

@@ -9,6 +9,7 @@ import { RuIcon, UzIcon, EngIcon } from '@/shared/assets/Pages/Settings';
 
 import cls from './NavbarLogout.module.scss';
 import { getAuthUserData } from '@/features/Auth';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const NavbarLogout = () => {
   const {
@@ -39,19 +40,19 @@ const NavbarLogout = () => {
           {!LangValue ? (
             <Language className={cls['NavbarLogoutWrapper__language--icon']} />
           ) : LangValue === 'eng' ? (
-            <img
+            <LazyLoadImage
               src={EngIcon}
               alt="#"
               className={cls['NavbarLogoutWrapper__language--img']}
             />
           ) : LangValue === 'ru' ? (
-            <img
+            <LazyLoadImage
               src={RuIcon}
               alt="#"
               className={cls['NavbarLogoutWrapper__language--img']}
             />
           ) : LangValue === 'kr' || LangValue === 'uz' ? (
-            <img
+            <LazyLoadImage
               src={UzIcon}
               alt="#"
               className={cls['NavbarLogoutWrapper__language--img']}

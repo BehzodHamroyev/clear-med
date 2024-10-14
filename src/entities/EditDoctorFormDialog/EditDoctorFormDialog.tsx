@@ -41,6 +41,7 @@ import {
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { fetchAllDoctors } from '@/pages/admin/AddDoctorPage/model/service/fetchAllDoctors';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface EditDoctorFormDialogProps {
   doctorId: string;
@@ -324,11 +325,11 @@ const EditDoctorFormDialog = ({ doctorId }: EditDoctorFormDialogProps) => {
         >
           <div className={cls.DoctorEditWrapperCard}>
             <div className={cls.EditDoctorCard}>
-              <h3 className={cls.CardTitle}>{t('Shifokorni tahrirlash')}</h3>
+              <p className={cls.CardTitle}>{t('Shifokorni tahrirlash')}</p>
 
               <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
                 <div className={cls.AddCardImg}>
-                  <img
+                  <LazyLoadImage
                     className={cls.AddCardImgValue}
                     src={
                       selectedFile

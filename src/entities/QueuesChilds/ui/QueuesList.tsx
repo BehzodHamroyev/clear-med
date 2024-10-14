@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import cls from './QueuesList.module.scss';
 import { Vektor } from '@/shared/assets/Pages/Queues';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const QueuesList = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const QueuesList = () => {
       </div>
       <div className={cls.QueuesNumber}>
         <p>AA-005</p>
-        <img src={Vektor} alt="#" />
+        <LazyLoadImage src={Vektor} alt="#" />
         <p>35</p>
       </div>
     </div>

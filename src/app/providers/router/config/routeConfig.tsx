@@ -46,13 +46,13 @@ import Reception from '@/pages/ReceptionPage/ui/Reception';
 import { AddDoctorPage } from '@/pages/admin/AddDoctorPage';
 import { AddMonitorPage } from '@/pages/admin/AddMonitorPage';
 import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
-import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
 import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
 import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {

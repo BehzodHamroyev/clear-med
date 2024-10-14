@@ -127,7 +127,7 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Reklama biriktirish')}</h3>
+        <p className={cls.CardTitle}>{t('Reklama biriktirish')}</p>
 
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">

@@ -13,11 +13,9 @@ const NavbarProfile = () => {
 
   return (
     <div className={cls.NavbarProfileWrapper}>
-      {/* {loginData?.role !== 'reception' && <h3>{t(`${loginData?.role}`)}: </h3>} */}
 
-      {loginData?.role === 'doctor' && <h3>{loginData?.name}</h3>}
+      {loginData?.role === 'doctor' && <p>{loginData?.name}</p>}
 
-      {/* {loginData?.role === 'reception' && <h3>: {loginData?.name}</h3>} */}
     </div>
   );
 };

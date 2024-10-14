@@ -5,6 +5,7 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { UzIcon, RuIcon, EngIcon } from '@/shared/assets/Pages/Settings';
 
 import cls from './LanguageModal.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const LanguageModal = () => {
   /* useTranslation */
@@ -43,7 +44,7 @@ const LanguageModal = () => {
               : ''
           }`}
         >
-          <img src={UzIcon} alt="#" />
+          <LazyLoadImage src={UzIcon} alt="#" />
           {t("O'zbek (Lotin)")}
         </div>
 
@@ -57,7 +58,7 @@ const LanguageModal = () => {
               : ''
           }`}
         >
-          <img src={UzIcon} alt="#" />
+          <LazyLoadImage src={UzIcon} alt="#" />
           {t('Ўзбек (Кирил)')}
         </div>
 
@@ -71,7 +72,7 @@ const LanguageModal = () => {
               : ''
           }`}
         >
-          <img src={RuIcon} alt="#" />
+          <LazyLoadImage src={RuIcon} alt="#" />
           {t('Русский')}
         </div>
 
@@ -85,7 +86,7 @@ const LanguageModal = () => {
               : ''
           }`}
         >
-          <img src={EngIcon} alt="#" />
+          <LazyLoadImage src={EngIcon} alt="#" />
           {t('English')}
         </div>
       </div>

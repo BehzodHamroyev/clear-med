@@ -122,7 +122,7 @@ const AttachmentRoomMonitorChild = () => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Reklamani Tahrirlash')}</h3>
+        <p className={cls.CardTitle}>{t('Reklamani Tahrirlash')}</p>
 
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">

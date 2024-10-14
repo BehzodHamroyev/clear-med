@@ -5,6 +5,7 @@ import cls from './QueuingPrintCard.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
 import { getAllDataProject } from '@/entities/FileUploader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface QueuingPrintCardProp {
   roomNumber: number | string;
@@ -116,8 +117,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
           </p>
         </div>
 
-        <img
-          // src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
+        <LazyLoadImage
           alt="imgLink"
           src={`${baseUrlImgLogo}`}
           className={

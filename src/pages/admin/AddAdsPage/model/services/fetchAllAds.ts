@@ -17,7 +17,7 @@ export const fetchAllAds = createAsyncThunk<
 
   try {
     const response = await axios.get<AllAdsApiResponse>(
-      `${baseUrl}/videos/all?limit=1000`,
+      `${baseUrl}/videos/all`,
       {
         headers: {
           'Content-Type': 'application/json',

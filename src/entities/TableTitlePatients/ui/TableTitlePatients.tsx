@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import cls from './TableTitlePatients.module.scss';
 
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface reportDetailListTtype {
   _id: string;
@@ -65,20 +66,20 @@ const TableTitlePatients = (props: TableInfoPatients) => {
             </div>
 
             <div className={cls.TableTitleWrapper__title}>
-              <h3 className={cls.KorilganBemorlar}>
+              <p className={cls.KorilganBemorlar}>
                 {t("Jami ko'rilgan bemorlar : ")}
                 {TableInfo.all}
-              </h3>
+              </p>
 
-              <h3 className={cls.KorilganBemorlar} style={{ color: '#148043' }}>
+              <p className={cls.KorilganBemorlar} style={{ color: '#148043' }}>
                 {t('Tasdiqlangan bemorlar : ')}
                 {TableInfo.counCompleted}
-              </h3>
+              </p>
 
-              <h3 className={cls.KorilganBemorlar} style={{ color: '#FF0000' }}>
+              <p className={cls.KorilganBemorlar} style={{ color: '#FF0000' }}>
                 {t('Bekor qilingan bemorlar : ')}
                 {TableInfo.countReject}
-              </h3>
+              </p>
             </div>
           </div>
 
@@ -108,7 +109,7 @@ const TableTitlePatients = (props: TableInfoPatients) => {
                     {item.completed_date?.split('T')[1].split('.')[0]}
                   </td>
                   <td className={cls.td}>
-                    <img
+                    <LazyLoadImage
                       src={
                         item.status === 'completed' ? CheckedIcon : ErrorIcon
                       }

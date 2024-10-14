@@ -34,9 +34,10 @@ const SettingsPage = () => {
           // <ListOfSettingsLangs />
           ''
         ) : !isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
-          "") : isOpenSettingsChangePassword ? (
-            <ListOfSettingsPassword />
-          ) : (
+          ""
+        ) : isOpenSettingsChangePassword ? (
+          <ListOfSettingsPassword />
+        ) : (
           ''
         )}
 

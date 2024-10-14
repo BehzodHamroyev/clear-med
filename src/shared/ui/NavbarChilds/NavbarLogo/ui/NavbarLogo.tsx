@@ -7,6 +7,7 @@ import { getAuthUserData } from '@/features/Auth';
 
 import { getInfoProject } from '@/entities/FileUploader';
 import { baseUrlImgLogo } from '../../../../../../baseurl';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const NavbarLogo = () => {
   const loginData = useSelector(getAuthUserData);
@@ -15,13 +16,9 @@ const NavbarLogo = () => {
 
   return (
     <Link to="/" className={cls.NavbarLogoWrapper}>
-      <img
-        // src={`${baseUrlImgLogo}/${infoProject?.[0]?.logo}`}
-        alt="imgLink"
+      <LazyLoadImage alt="imgLink"
         src={baseUrlImgLogo}
-        className={cls.NavbarLogo}
-      />
-
+        className={cls.NavbarLogo} />
       {loginData?.role !== 'reception' && (
         <p className={cls.NavbarText}>{infoProject?.[0]?.name}</p>
       )}

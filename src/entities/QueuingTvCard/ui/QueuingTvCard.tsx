@@ -21,6 +21,7 @@ import {
 } from '../model/types/QueuingTvCardProps';
 import { printingLoad } from '@/shared/assets';
 import { log } from 'console';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const QueuingTvCard = (prop: QueuingTvCardProps) => {
   const {
@@ -151,7 +152,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
       style={{ opacity: actives.length > 0 ? 1 : 0.5 }}
     >
       <div className={cls.CardLeft}>
-        <h3 className={cls.CardLeftTitle}>{CardLeftTitle}</h3>
+        <p className={cls.CardLeftTitle}>{CardLeftTitle}</p>
 
         <p className={cls.CardLeftRoomNumber}>
           {CardLeftRoomNumber}-{t('Xona raqami')}
@@ -165,7 +166,8 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
           {t('current_queues')}: {proceedCount || 0}
         </p>
         <div className={cls.CardRight}>
-          <img
+          {/* {icon && icon?.length > 0 && ( */}
+          <LazyLoadImage
             alt="icon"
             src={`${baseUploadUrl}${actives[0]?.user?.photo.slice(1) || icon}`}
           />

@@ -17,7 +17,7 @@ export const fetchAllDoctors = createAsyncThunk<
 
   try {
     const response = await axios.get<AllDoctorsApiResponse>(
-      `${baseUrl}/users?role=doctor&limit=1000`,
+      `${baseUrl}/users?role=doctor`,
       {
         headers: {
           authorization: `Bearer ${token}`,

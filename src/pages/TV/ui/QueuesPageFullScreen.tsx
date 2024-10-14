@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import Marquee from 'react-fast-marquee';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { ETC } from '@/shared/assets/icons';
 import { getAuthUserData } from '@/features/Auth';
@@ -87,8 +88,8 @@ const QueuesPageFullScreen = () => {
         <div className={cls.QueuesPage__header}>
           <div className={cls.QueuesPage__headerLeft}>
             {baseUrlImgLogo ? (
-              <img
-                alt=""
+              <LazyLoadImage
+                alt="#"
                 src={baseUrlImgLogo}
                 className={cls['QueuesPage__headerLeft__logo']}
               />
@@ -137,7 +138,7 @@ const QueuesPageFullScreen = () => {
             <div className={classNames(cls.queuesTable)}>
               <div>
                 {allProccessQueue!?.room1?.proceed!?.length > 0 ||
-                allProccessQueue!?.room2?.proceed!?.length > 0 ? (
+                  allProccessQueue!?.room2?.proceed!?.length > 0 ? (
                   <div className={classNames(cls.queuesTable__head)}>
                     <p>{t("Bo'lim")}</p>
 
@@ -185,7 +186,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room1?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>
@@ -284,7 +285,7 @@ const QueuesPageFullScreen = () => {
                         >
                           {index ===
                             allProccessQueue!?.room2?.proceed.length! - 1 &&
-                          item.status === 'proccessed' ? (
+                            item.status === 'proccessed' ? (
                             <p>{outputString}</p>
                           ) : (
                             <p>-</p>

@@ -43,6 +43,7 @@ import instance from '@/shared/lib/axios/api';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getAllRoomsData } from '@/pages/admin/AddRoomPage/model/selector/allRoomSelector';
 import { fetchAllReceptions } from '@/pages/admin/AddReceptionPage/model/service/fetchAllReceptions';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface Roomtype {
   name: string;
@@ -280,10 +281,10 @@ const AddReceptionFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t('Qabul qo‘shish')}</h3>
+          <p className={cls.CardTitle}>{t('Qabul qo‘shish')}</p>
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
-              <img
+              <LazyLoadImage
                 className={cls.AddCardImgValue}
                 src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
                 alt="#"

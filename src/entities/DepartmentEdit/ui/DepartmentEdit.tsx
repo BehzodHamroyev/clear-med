@@ -148,7 +148,7 @@ const DepartmentEdit = (prop: DepartmentEditOrDelete) => {
         className={cls.DepartmentAddCard}
       >
         <div className={cls.TitleFlex}>
-          <h3 className={cls.CardTitle}>{t('Bo‘limni tahrirlash')}</h3>
+          <p className={cls.CardTitle}>{t('Bo‘limni tahrirlash')}</p>
 
           {inputValue.iconName ? inputValue.iconName : <div />}
         </div>
