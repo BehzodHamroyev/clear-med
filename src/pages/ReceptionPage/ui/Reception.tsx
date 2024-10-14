@@ -38,20 +38,20 @@ const Reception = () => {
             return (
               <QueuingTvCard
                 key={item?.id}
-                room_id={item._id}
-                actives={item.actives}
+                room_id={item?._id}
+                actives={item?.actives}
                 CardLeftRoomNumber={item?.name}
                 proceedCount={item?.proceedCount}
-                DoctorId={item?.doctor_id[0].id}
-                // icon={item?.department_id.photo}
+                DoctorId={item?.doctor_id?.[0]?.id}
                 department_id={item?.department_id?._id}
-                CardLeftDoctorName={item?.doctor_id[0]?.name}
+                CardLeftDoctorName={item?.doctor_id?.[0]?.name}
                 CardLeftTitle={
-                  language === 'kr' || language === 'ru'
-                    ? item?.department_id?.nameRu
-                    : item?.department_id?.nameEn
+                  language === 'kr' ? item?.department_id?.name :
+                    language === 'ru' ? item?.department_id?.nameRu :
+                      language === 'en' ? item?.department_id?.nameEn : ""
                 }
               />
+
             );
           })}
       </div>
