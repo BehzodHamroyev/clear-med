@@ -52,7 +52,7 @@ import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
 import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
-import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
+import { ReportsDoctorPage } from '@/pages/reportsDoctorPage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {

@@ -10,14 +10,14 @@ import { getAuthUserData } from '@/features/Auth';
 import { useSocket } from '@/shared/hook/useSocket';
 import cls from './QueuesPageFullScreen.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
-import { updateView } from '../model/services/updateView';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import QueueDialog from '@/entities/QueueDialog/ui/QueueDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { ListOfQueue, ModalData } from '../model/types/allQueueProccessTypes';
-import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
+import { fetchAllQueueProccess } from '@/pages/TvPage/model/services/fetchAllQueueProccess';
+import { getAllQueueProccessData } from '@/pages/TvPage/model/selector/allQueueProccessSelector';
+import { ListOfQueue, ModalData } from '@/pages/TvPage/model/types/allQueueProccessTypes';
+import { updateView } from '@/pages/TvPage/model/services/updateView';
 
 const QueuesPageFullScreen = () => {
   const socket = useSocket();

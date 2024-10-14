@@ -175,12 +175,8 @@ const TvPage: React.FC = () => {
           <div>
             {allProccessQueue!?.room1?.proceed?.map(
               (
-                item: {
-                  queues_name: string;
-                  id: React.Key | null | undefined;
-                  status: string;
-                },
-                index: number,
+                item,
+                index,
               ) => {
                 // @ts-ignore
                 const prefix = item?.queues_name?.charAt(0);
@@ -206,7 +202,7 @@ const TvPage: React.FC = () => {
                       <div>
                         {index ===
                           allProccessQueue!?.room1?.proceed.length! - 1 &&
-                        item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                           <p>{outputString}</p>
                         ) : (
                           <p>-</p>
@@ -220,8 +216,8 @@ const TvPage: React.FC = () => {
             <div>
               {allProccessQueue!?.room1?.proceed?.map(
                 (
-                  item: { queues_name: string; status: string },
-                  index: number,
+                  item,
+                  index
                 ) => {
                   // @ts-ignore
                   const prefix = item.queues_name?.charAt(0);
@@ -296,7 +292,7 @@ const TvPage: React.FC = () => {
                       <div>
                         {index ===
                           allProccessQueue!?.room2?.proceed.length! - 1 &&
-                        item.status === 'proccessed' ? (
+                          item.status === 'proccessed' ? (
                           <p>{outputString}</p>
                         ) : (
                           <p>-</p>
