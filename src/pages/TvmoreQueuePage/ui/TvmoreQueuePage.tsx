@@ -42,6 +42,18 @@ const TvmoreQueuePage: React.FC = () => {
       </div>
 
       <div className={cls.TvmoreQueuePageWrp__body}>
+        <div className={cls['TvmoreQueuePageWrp__body--sections']}>
+          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
+            Пастки ётоқ
+          </h2>
+          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
+            Юқори ётоқ
+          </h2>
+          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
+            Шифокор қабули
+          </h2>
+        </div>
+
         <table className={cls['TvmoreQueuePageWrp__body--table']}>
           <thead className={cls['TvmoreQueuePageWrp__body--thead']}>
             <tr>

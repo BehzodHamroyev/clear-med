@@ -5,14 +5,12 @@
 
   &__top {
     width: 100%;
-    padding: 20px 100px;
+    padding: 15px 100px;
     margin: 0 auto;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    border-bottom: 4px solid #e8e8e8;
 
     &--left {
       width: fit-content;
@@ -21,27 +19,27 @@
       align-items: center;
       justify-content: center;
 
-      gap: 35px;
+      gap: 20px;
     }
 
     &--leftLogo {
       width: fit-content;
-      height: 100px;
+      height: 60px;
     }
 
     &--leftTitle {
+      font-size: 40px;
       font-weight: 700;
-      font-size: 82px;
-      line-height: 135px;
+      line-height: 48px;
       font-family: 'InterRegular', sans-serif;
 
       color: #ee7a4d;
     }
 
     &--rightClock {
+      font-size: 42px;
       font-weight: 600;
-      font-size: 118px;
-      line-height: 142px;
+      line-height: 50px;
       font-family: 'InterRegular', sans-serif;
 
       color: #000;
@@ -49,20 +47,29 @@
   }
 
   &__body {
-    max-width: 100%;
     width: 100%;
-    margin: 100px auto;
-    padding: 0 30px;
-    padding-bottom: 30px;
 
-    display: flex;
+    &--sections {
+      display: flex;
+      align-items: start;
+      justify-content: space-around;
 
-    &--video {
-      width: 1500px;
-      min-width: 1500px;
-      height: 1400px;
-      border-radius: 30px;
-      background-color: greenyellow;
+      gap: 0;
+    }
+
+    &--section {
+      width: 100%;
+
+      padding: 20px;
+      text-align: center;
+
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 45px;
+      font-family: 'InterBold', sans-serif;
+
+      color: #000;
+      border: 2px solid #e8e8e8;
     }
 
     &--table {
