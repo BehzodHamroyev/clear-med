@@ -4,19 +4,18 @@ import { GoArrowRight } from 'react-icons/go';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import cls from './TvPage.module.scss';
-
+import { ETC } from '@/shared/assets/icons';
+import { getAuthUserData } from '@/features/Auth';
+import { useSocket } from '@/shared/hook/useSocket';
+import { QueueDialog } from '@/entities/QueueDialog';
+import { TvLogoTemprory } from '@/shared/assets/Pages/tv';
+import { updateView } from '../model/services/updateView';
+import { updateClock } from '../helperFunctions/updateClock';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { ListOfQueue, ModalData } from '../model/types/allQueueProccessTypes';
 import { fetchAllQueueProccess } from '../model/services/fetchAllQueueProccess';
-import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
-import { QueueDialog } from '@/entities/QueueDialog';
-import { getAuthUserData } from '@/features/Auth';
-import { ETC } from '@/shared/assets/icons';
-import { TvLogoTemprory } from '@/shared/assets/Pages/tv';
-import { useSocket } from '@/shared/hook/useSocket';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { updateClock } from '../helperFunctions/updateClock';
-import { updateView } from '../model/services/updateView';
+import { getAllQueueProccessData } from '../model/selector/allQueueProccessSelector';
 
 const TvPage: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<string>('');
