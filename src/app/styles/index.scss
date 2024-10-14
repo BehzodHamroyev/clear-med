@@ -1,25 +1,5 @@
-/* stylelint-disable declaration-colon-newline-after */
-/* stylelint-disable string-quotes */
 @import 'reset';
-@import 'variables/global';
-@import 'themes/normal';
 @import 'themes/dark';
+@import 'themes/normal';
 @import 'themes/orange';
-
-@font-face {
-  font-family: 'Inter Bold';
-  src: url('../../shared/assets/fonts/Inter/static/Inter-Bold.ttf')
-    format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter Regular';
-  src: url('../../shared/assets/fonts/Inter/static/Inter-Regular.ttf')
-    format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter Medium';
-  src: url('../../shared/assets/fonts/Inter/static/Inter-Medium.ttf')
-    format('truetype');
-}
+@import 'variables/global';

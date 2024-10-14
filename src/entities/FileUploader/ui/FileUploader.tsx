@@ -14,6 +14,7 @@ import { getInfoProject } from '../model/selector/getInfoProject';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { getAllDataProject } from '../model/service/getAllDataProject';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const FileUploader = () => {
   const { t } = useTranslation();
@@ -102,7 +103,7 @@ export const FileUploader = () => {
         <div className={cls.wrapperFileUploader}>
           <div className={cls.logoWrapper}>
             {file ? (
-              <img
+              <LazyLoadImage
                 className={cls.img}
                 src={URL.createObjectURL(file!)}
                 alt=""

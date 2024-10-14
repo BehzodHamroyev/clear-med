@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { CurrentQueueDataType } from '@/pages/Reception';
+import { CurrentQueueDataType } from '@/pages/ReceptionPage';
 
 export interface ButtonsClickedProps {
   onEndedQueueAudio: boolean;

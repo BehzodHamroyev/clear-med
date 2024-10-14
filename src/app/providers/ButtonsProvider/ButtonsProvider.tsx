@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo, useState } from 'react';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { CurrentQueueDataType } from '@/pages/Reception';
+import { CurrentQueueDataType } from '@/pages/ReceptionPage';
 
 interface ButtonsProviderProps {
   initialButton?: string;

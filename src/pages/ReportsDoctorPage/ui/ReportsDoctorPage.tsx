@@ -15,7 +15,6 @@ import { baseUrl } from '../../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getDoctorListData } from '@/pages/ReportsPage/model/selectors/doctorListSelector';
 
 const tableTitle = [
@@ -177,11 +176,11 @@ const ReportsDoctorPage = () => {
             {t('Ortga')}
           </div>
 
-          <h3 className={cls.reportEmpty}>
+          <p className={cls.reportEmpty}>
             {t(
               "Bu muddatdagi bemorlar hisoboti bo'sh. Muddatni o'zgartirib ko'ring!",
             )}
-          </h3>
+          </p>
         </>
       )}
 

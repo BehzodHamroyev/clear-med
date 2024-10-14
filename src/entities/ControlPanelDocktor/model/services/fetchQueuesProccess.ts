@@ -5,7 +5,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { ProccesApiResponseControlPanelDoctorTypes } from '../types/controlPanelDocktorTypes';
-// import { socket } from '@/shared/lib/utils/socket';
 
 export const fetchQueuesProccess = createAsyncThunk<
   ProccesApiResponseControlPanelDoctorTypes,
@@ -44,42 +43,6 @@ export const fetchQueuesProccess = createAsyncThunk<
         },
       );
     }
-
-    // if (response?.data && response?.data.data.length > 0) {
-    //   socket.emit('realTimeQueue', response.data);
-    // }
-
-    // if (
-    //   response?.data &&
-    //   response?.data.data.length > 0 &&
-    //   status === 'proccessed'
-    // ) {
-    //   socket.emit('proccessQueue', response.data);
-    // }
-
-    // if (
-    //   response?.data &&
-    //   response?.data.data.length > 0 &&
-    //   status === 'recall'
-    // ) {
-    //   socket.emit('recallQueue', response.data);
-    // }
-
-    // if (
-    //   response?.data &&
-    //   response?.data.data.length > 0 &&
-    //   status === 'rejected'
-    // ) {
-    //   socket.emit('rejectQueue', response.data);
-    // }
-
-    // if (
-    //   response?.data &&
-    //   response?.data.data.length > 0 &&
-    //   status === 'completed'
-    // ) {
-    //   socket.emit('acceptedQueue', response.data);
-    // }
 
     if (!response) {
       throw new Error();

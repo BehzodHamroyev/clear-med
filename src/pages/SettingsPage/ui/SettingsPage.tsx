@@ -9,7 +9,6 @@ import { getAuthUserData } from '@/features/Auth';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { FileUploader } from '@/entities/FileUploader';
 import { ListOfSettings } from '@/entities/ListOfSettings';
-import { ListOfSettingsTheme } from '@/entities/ListOfSettingsTheme';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { ListOfSettingsPassword } from '@/entities/ListOfSettingsPassword';
 
@@ -35,7 +34,7 @@ const SettingsPage = () => {
           // <ListOfSettingsLangs />
           ''
         ) : !isOpenThemeOrLanguage && !isOpenSettingsChangePassword ? (
-          <ListOfSettingsTheme />
+          ""
         ) : isOpenSettingsChangePassword ? (
           <ListOfSettingsPassword />
         ) : (

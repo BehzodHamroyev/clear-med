@@ -11,10 +11,11 @@ import { baseUrl } from '../../../baseurl';
 import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
 import { AdsData, ApiResponseAdsData } from './EditAdsFormDiolog.types';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { fetchAllAds } from '@/pages/admin/AddAdsPage/model/services/fetchAllAds';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface EditAdsFormDiologProps {
   editAdsId: string;
@@ -254,11 +255,11 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
             }}
             className={cls.DepartmentAddCard}
           >
-            <h3 className={cls.CardTitle}>{t('Reklama qo’shish')}</h3>
+            <p className={cls.CardTitle}>{t('Reklama qo’shish')}</p>
 
             <form onSubmit={handleSubmitForm} className={cls.AddDoctorCard}>
               <div className={cls.AddCardImg}>
-                <img
+                <LazyLoadImage
                   className={cls.AddCardImgValue}
                   src={
                     selectedFile

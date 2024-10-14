@@ -121,7 +121,7 @@ const RoomAttachmentMonitorChildFormEdit = () => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Xona biriktirishni tahrirlash')}</h3>
+        <p className={cls.CardTitle}>{t('Xona biriktirishni tahrirlash')}</p>
 
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">Xonalar</InputLabel>

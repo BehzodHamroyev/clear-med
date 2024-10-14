@@ -8,7 +8,6 @@ import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 
 import cls from './ButtonNavbar.module.scss';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-// import BestCalendar from '@/shared/ui/BestCalendar/BestCalendar';
 
 const ButtonNavbar = memo((props: ButtonNavbarProps) => {
   const {
@@ -21,11 +20,10 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
     departmentName,
     doctorName,
   } = props;
+  
   const location = useLocation();
-  const [searchOpen, setSearchOpen] = useState(false);
   const { t } = useTranslation();
 
-  // isOpenDoctorAddCard
   const {
     setIsOpenRoomAddCard,
     setIsOpenDoctorAddCard,
@@ -64,34 +62,16 @@ const ButtonNavbar = memo((props: ButtonNavbarProps) => {
       )}
 
       {dontCreate && roomNumber && departmentName ? (
-        <h3 className={cls.BulimTuri}>
+        <p className={cls.BulimTuri}>
           {roomNumber}-{t('Xona')}, {departmentName}
-        </h3>
+        </p>
       ) : (
         ''
       )}
 
       {location.pathname !== '/settings' ? (
         <div className={cls.ButtonNavbarIcons}>
-          {/* <div
-            className={`${cls.ButtonNavParent} ${
-              searchOpen === true ? cls.OpenWidth : ''
-            }`}
-          >
-            <input
-              maxLength={30}
-              type="text"
-              className={`${cls.ButtonNavbarInputSearch} ${
-                searchOpen === false ? cls.CloseInput : ''
-              }`}
-            />
-          </div>
-
-            <Search
-              onClick={() => setSearchOpen(!searchOpen)}
-              className={cls.ButtonNavbarIconsChild}
-            />
-          </div> */}
+         
 
           {CreateCarbonAdd === true ? (
             <CarbonAdd

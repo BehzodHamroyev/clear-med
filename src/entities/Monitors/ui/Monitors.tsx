@@ -55,9 +55,9 @@ const Monitors = (props: MonitorsProp) => {
     <div onClick={(e) => handleNavigate(e)}>
       <div className={cls.MonitorsWrapper}>
         <div>
-          <h3>
+          <p>
             {number}-{t('Monitor')}
-          </h3>
+          </p>
           <p>{name}</p>
         </div>
 

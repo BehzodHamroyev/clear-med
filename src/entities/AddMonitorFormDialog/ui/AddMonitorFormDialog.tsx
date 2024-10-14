@@ -15,8 +15,8 @@ import { EyeIcon, HideIcon } from '@/shared/assets/Pages/LoginPage';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { MonitorAddSelection } from '@/entities/MonitorAddSelection';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
 import { Loader } from '@/widgets/Loader';
+import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage/model/service/fetchGetAllMonitors';
 
 const AddMonitorFormDialog = () => {
   const { t } = useTranslation();
@@ -195,7 +195,7 @@ const AddMonitorFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t("Monitor qo'shish")}</h3>
+          <p className={cls.CardTitle}>{t("Monitor qo'shish")}</p>
 
           <form onSubmit={handleSubmitForm} className={cls.CardBody}>
             <input

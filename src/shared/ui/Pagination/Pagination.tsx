@@ -15,7 +15,7 @@ const PaginationComponent = ({ count }: PaginationComponentProps) => {
     event: React.ChangeEvent<unknown>,
     pageNumber: number,
   ) => {
-    console.log(pageNumber);
+    console.log('');
   };
 
   return (

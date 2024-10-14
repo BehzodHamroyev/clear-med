@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-use-before-define */
-/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';
@@ -130,7 +127,7 @@ const ModalToAddAdsForMonitor = (prop: AttachmentRoomMonitorChildProp) => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Reklama biriktirish')}</h3>
+        <p className={cls.CardTitle}>{t('Reklama biriktirish')}</p>
 
         <FormControl sx={{ width: '90%', margin: '10px 20px' }}>
           <InputLabel id="demo-multiple-checkbox-label">

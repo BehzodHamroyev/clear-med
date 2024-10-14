@@ -5,6 +5,7 @@ import cls from './QueuingPrintCard.module.scss';
 import { baseUrlImgLogo } from '../../../../baseurl';
 import { getAllDataProject } from '@/entities/FileUploader';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface QueuingPrintCardProp {
   roomNumber: number | string;
@@ -19,15 +20,15 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
     const dispatch = useAppDispatch();
     const [doctorName, setDoctorName] = useState('');
 
-    useEffect(() => {
-      dispatch(getAllDataProject({}));
-    }, [dispatch]);
+    // useEffect(() => {
+    //   dispatch(getAllDataProject({}));
+    // }, [dispatch]);
 
     useEffect(() => {
       // this code for queue name
       if (doctor_name) {
         // Split the string into an array of words
-        const words = doctor_name.split(' ');
+        const words = doctor_name?.split(' ');
 
         // Extract the first word
         const firstWord = words[0];
@@ -35,7 +36,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
         // Extract the first letters of the remaining words and join them with a dot
         const initials = words
           .slice(1)
-          .map((word) => word.charAt(0))
+          .map((word) => word?.charAt(0))
           .join('.');
 
         // Combine them
@@ -116,8 +117,7 @@ const QueuingPrintCard = React.forwardRef<HTMLDivElement, QueuingPrintCardProp>(
           </p>
         </div>
 
-        <img
-          // src="https://static.tildacdn.one/tild6634-3737-4039-a662-633534316465/Group_187.svg"
+        <LazyLoadImage
           alt="imgLink"
           src={`${baseUrlImgLogo}`}
           className={

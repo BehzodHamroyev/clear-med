@@ -14,8 +14,8 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import { Loader } from '@/widgets/Loader';
+import { fetchAllAds } from '@/pages/admin/AddAdsPage/model/services/fetchAllAds';
 
-import { fetchAllAds } from '../../pages/AddAdsPage/model/services/fetchAllAds';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

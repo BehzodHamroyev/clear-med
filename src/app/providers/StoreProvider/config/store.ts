@@ -4,42 +4,42 @@ import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { $api } from '@/shared/api/api';
 import { rtkApi } from '@/shared/api/rtkApi';
 
-import { allRoomsReducer } from '@/pages/AddRoomPage';
 import { AuthUserSliceReducer } from '@/features/Auth';
 import { createReducerManager } from './reducerManager';
 import { doctorListReducer } from '@/pages/ReportsPage';
-import { RoomListSliceReducer } from '@/pages/RoomPage';
+import { RoomListSliceReducer } from '@/pages/admin/RoomPage';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
-import { allQueueProccessReducer } from '@/pages/QueuesPage';
-import { DoctorListSliceReducer } from '@/pages/DoctorsListPage';
-import { GetAllMonitorPageReducer } from '@/pages/AddMonitorPage';
-import { DepartmentListSliceReducer } from '@/pages/DepartmentPage';
-import { allDepartmentsSliceReducer } from '@/pages/AddDepartmentPage';
 import { departmentAddSliceSliceReducer } from '@/entities/AddDepartmentFormDialog';
 import { controlPanelDoctorReducer } from '@/entities/ControlPanelDocktor';
 import { reportControlDoctorReducer } from '@/pages/TableReportsDoctorPage';
 import {
   doneQueuesControlDoctorReducer,
   queuesControlDoctorReducer,
-} from '@/pages/QueuesControlDoctor';
-import { AdvertisementListSliceReducer } from '@/pages/AddAdvertisementPage';
-import { GetAllRoomAtachmentMonitorReducer } from '@/pages/AddRoomForMonitorPage';
+} from '@/pages/doctorPage';
 
 import {
   lastQueueReducer,
   currentQueueuReducer,
   departmentListReducer,
-} from '@/pages/Reception';
-import { allDoctorsSliceReducer } from '@/pages/AddDoctorPage';
-import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
-import { allMonitorsReducer } from '@/pages/Monitors';
-import { allAdsReducer } from '@/pages/AddAdsPage';
-import { allReceptionsReducer } from '@/pages/AddReceptionPage';
+} from '@/pages/ReceptionPage';
 import {
   sliceAllAdsVideoForOneMonitorReducer,
   sliceAllAdsVideoReducer,
 } from '@/entities/AdvertisementAttachmentMonitor';
 import { infoProjectSliceReducer } from '@/entities/FileUploader';
+import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
+import { allAdsReducer } from '@/pages/admin/AddAdsPage';
+import { allDoctorsSliceReducer } from '@/pages/admin/AddDoctorPage';
+import { allReceptionsReducer } from '@/pages/admin/AddReceptionPage';
+import { allMonitorsReducer } from '@/pages/admin/Monitors';
+import { AdvertisementListSliceReducer } from '@/pages/admin/AddAdvertisementPage';
+import { allDepartmentsSliceReducer } from '@/pages/admin/AddDepartmentPage';
+import { GetAllMonitorPageReducer } from '@/pages/admin/AddMonitorPage';
+import { GetAllRoomAtachmentMonitorReducer } from '@/pages/admin/AddRoomForMonitorPage';
+import { allRoomsReducer } from '@/pages/admin/AddRoomPage';
+import { DepartmentListSliceReducer } from '@/pages/admin/DepartmentPage';
+import { DoctorListSliceReducer } from '@/pages/admin/DoctorsListPage';
+import { allQueueProccessReducer } from '@/pages/TvPage/model/slice/allQueueProccessSlice';
 
 type CombinedState<S> = {
   [K in keyof S]: S[K];

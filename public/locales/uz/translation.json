@@ -152,5 +152,6 @@
   "The_doctor_changes": "Shifokor almashadi",
   "current_queues": "Joriy navbatlar",
   "select_doctor": "Shifokorni tanlang",
-  "end_work": "Ketish vaqtini tanlang"
+  "end_work": "Ketish vaqtini tanlang",
+  "call_patient": "Bemorni chaqirish"
 }

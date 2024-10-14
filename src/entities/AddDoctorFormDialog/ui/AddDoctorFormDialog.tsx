@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, {
   useRef,
   useState,
@@ -7,8 +6,6 @@ import React, {
   useEffect,
 } from 'react';
 
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import Input from 'react-phone-number-input/input';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
@@ -24,14 +21,17 @@ import {
   Dialog,
 } from '@mui/material';
 
-import cls from './AddDoctorFormDialog.module.scss';
 
 import { baseUrl } from '../../../../baseurl';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllDoctors } from '../../../pages/AddDoctorPage/model/service/fetchAllDoctors';
 import { Loader } from '@/widgets/Loader';
+import { fetchAllDoctors } from '@/pages/admin/AddDoctorPage/model/service/fetchAllDoctors';
+import cls from './AddDoctorFormDialog.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import instance from '@/shared/lib/axios/api';
+import axios from 'axios';
 
 const AddDoctorFormDialog = () => {
   const { t } = useTranslation();
@@ -111,8 +111,6 @@ const AddDoctorFormDialog = () => {
 
     const Password = inputPasswordRef?.current?.value;
 
-    const token = Cookies.get('token');
-
     const dataForm = new FormData();
 
     if (
@@ -133,13 +131,9 @@ const AddDoctorFormDialog = () => {
 
     if (FullName && Experience && PhoneNumber) {
       try {
-        const response = await axios.post(`${baseUrl}/users`, dataForm, {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await instance.post(`${baseUrl}/users`, dataForm,
+
+        );
 
         if (response.data) {
           setAddDoctorFormDialogIsLoading(false);
@@ -159,7 +153,6 @@ const AddDoctorFormDialog = () => {
         return response.data;
       } catch (error) {
         setAddDoctorFormDialogIsLoading(false);
-
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 404) {
             setToastDataForAddRoomForm({
@@ -214,11 +207,11 @@ const AddDoctorFormDialog = () => {
         aria-describedby="alert-dialog-description"
       >
         <div className={cls.DoctorAddCard}>
-          <h3 className={cls.CardTitle}>{t('Shifokor qo‘shish')}</h3>
+          <p className={cls.CardTitle}>{t('Shifokor qo‘shish')}</p>
 
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
-              <img
+              <LazyLoadImage
                 className={cls.AddCardImgValue}
                 src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
                 alt="#"
@@ -230,7 +223,7 @@ const AddDoctorFormDialog = () => {
                 className={cls.AddCardImgValuebtn}
               >
                 <GetImage />
-                {}
+                { }
               </button>
 
               <input

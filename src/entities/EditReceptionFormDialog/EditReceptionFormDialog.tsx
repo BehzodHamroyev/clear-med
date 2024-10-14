@@ -49,10 +49,11 @@ import {
   ApiResponseDoctorDataType,
   DoctorEditDataSchema,
 } from './editReceptionFormDialogTypes';
-import { fetchAllReceptions } from '../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import instance from '@/shared/lib/axios/api';
-import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+import { getAllRoomsData } from '@/pages/admin/AddRoomPage/model/selector/allRoomSelector';
+import { fetchAllReceptions } from '@/pages/admin/AddReceptionPage/model/service/fetchAllReceptions';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -378,11 +379,11 @@ const EditReceptionFormDialog = ({
           className={classNames(cls.DepartmentAddWrapper)}
         >
           <div className={cls.DepartmentAddCard}>
-            <h3 className={cls.CardTitle}>{t('Qabulni tahrirlash')}</h3>
+            <p className={cls.CardTitle}>{t('Qabulni tahrirlash')}</p>
 
             <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
               <div className={cls.AddCardImg}>
-                <img
+                <LazyLoadImage
                   className={cls.AddCardImgValue}
                   src={
                     selectedFile

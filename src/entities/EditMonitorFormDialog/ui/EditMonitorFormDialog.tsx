@@ -28,7 +28,7 @@ import { baseUrl } from '../../../../baseurl';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchGetAllMonitors } from '../../../pages/AddMonitorPage/model/service/fetchGetAllMonitors';
+import { fetchGetAllMonitors } from '@/pages/admin/AddMonitorPage/model/service/fetchGetAllMonitors';
 
 interface EditMonitorFormDialogTypes {}
 
@@ -313,7 +313,7 @@ const EditMonitorFormDialog = (props: EditMonitorFormDialogTypes) => {
           aria-describedby="alert-dialog-description"
         >
           <div className={cls.DepartmentAddCard}>
-            <h3 className={cls.CardTitle}>{t('Monitorni tahrirlash')}</h3>
+            <p className={cls.CardTitle}>{t('Monitorni tahrirlash')}</p>
 
             <form onSubmit={handleSubmitForm} className={cls.CardBody}>
               <TextField

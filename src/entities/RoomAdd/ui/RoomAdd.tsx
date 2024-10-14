@@ -102,7 +102,7 @@ const RoomAdd = () => {
         className={cls.DepartmentAddCard}
       >
         <form onSubmit={handleSubmitAllFormData}>
-          <h3 className={cls.CardTitle}>{t('Xona qo‘shish')}</h3>
+          <p className={cls.CardTitle}>{t('Xona qo‘shish')}</p>
 
           <div className={cls.CardBody}>
             <p className={cls.roomNumber}>{t('Xona Raqami')}</p>

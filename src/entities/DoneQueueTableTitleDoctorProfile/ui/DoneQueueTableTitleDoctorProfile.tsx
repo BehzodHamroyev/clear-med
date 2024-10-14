@@ -3,7 +3,8 @@ import React, { memo } from 'react';
 import cls from './DoneQueueTableTitleDoctorProfile.module.scss';
 import { CheckedIcon, ErrorIcon } from '@/shared/assets/Pages/Doctor';
 
-import { Queue } from '@/pages/QueuesControlDoctor';
+import { Queue } from '@/pages/doctorPage';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface TableInfo {
   cursor?: boolean;
@@ -29,7 +30,7 @@ const DoneQueueTableTitleDoctorProfile = memo((props: TableInfo) => {
       <tbody className={cls.Tabletbody}>
         {Tabletbody?.map((queue) => {
           // @ts-ignore
-          const prefix = queue?.queues_name.charAt(0);
+          const prefix = queue?.queues_name?.charAt(0);
 
           // Extract the last two digits after the hyphen
           const lastTwoDigits = queue?.queues_name
@@ -51,7 +52,7 @@ const DoneQueueTableTitleDoctorProfile = memo((props: TableInfo) => {
                 {queue?.completed_date?.split('T')[1].split('.')[0]}
               </td>
               <td className={cls.td}>
-                <img
+                <LazyLoadImage
                   src={queue.status === 'completed' ? CheckedIcon : ErrorIcon}
                   alt="rejected"
                 />

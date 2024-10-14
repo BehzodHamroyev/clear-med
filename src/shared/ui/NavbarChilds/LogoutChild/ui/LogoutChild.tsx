@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -7,6 +6,7 @@ import cls from './LogoutChild.module.scss';
 import axios from 'axios';
 import { baseUrl } from '../../../../../../baseurl';
 import { useNavigate } from 'react-router-dom';
+import instance from '@/shared/lib/axios/api';
 
 const LogoutChild = () => {
   const getTokenCookie = Cookies.get('token');
@@ -14,16 +14,9 @@ const LogoutChild = () => {
 
   const handleLogOut = async () => {
     try {
-      await axios.post<any>(
+      await instance.post<any>(
         `${baseUrl}/users/logout`,
         { data: getTokenCookie },
-        {
-          maxBodyLength: Infinity,
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${getTokenCookie}`,
-          },
-        },
       );
 
       Cookies.remove('token');

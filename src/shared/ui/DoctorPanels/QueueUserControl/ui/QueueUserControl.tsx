@@ -13,20 +13,31 @@ import { fetchQueuesProccess } from '@/entities/ControlPanelDocktor/model/servic
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
 import { getControlPanelDocktorData } from '@/entities/ControlPanelDocktor/model/selectors/controlPanelDocktorSelector';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchDoneQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchDoneQueuesControlDoctor';
+import { fetchDoneQueuesControlDoctor } from '@/pages/doctorPage/model/services/fetchDoneQueuesControlDoctor';
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchQueuesControlDoctor } from '@/pages/QueuesControlDoctor/model/services/fetchQueuesControlDoctor';
+import { fetchQueuesControlDoctor } from '@/pages/doctorPage/model/services/fetchQueuesControlDoctor';
+import { useSocket } from '@/shared/hook/useSocket';
+import { getAuthUserData } from '@/features/Auth';
+import { Loader } from '@/widgets/Loader';
 
 interface QueueUserControlProps {
+  ticketName: string;
+  roomNumber: number;
   proccessedStep: number;
+  ticketId: string
 }
 
-const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
+const QueueUserControl = ({
+  ticketName,
+  roomNumber,
+  ticketId
+}: QueueUserControlProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
+  const socket = useSocket();
   const { hasOpenToast, setHasOpenToast, isOpenQueueUserTimer } =
     useContext(ButtonsContext);
+  const authUserData = useSelector(getAuthUserData);
 
   const [proccessCansel, setProccessCansel] = useState(false);
   const [proccessConfirm, setProccessConfirm] = useState(false);
@@ -35,8 +46,9 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
   const proccessedList = useSelector(getControlPanelDocktorData);
 
   const handleClickProccessConfirm = () => {
-    console.log('handleClickProccessConfirm');
-
+    if (socket && ticketName) {
+      socket.emit('doctorProcess', { name: ticketName, room: roomNumber, roomId: authUserData?.rooms[0]?._id, id: ticketId })
+    }
     dispatch(
       fetchQueuesProccess({
         method: 'post',
@@ -57,6 +69,34 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
     setProccessConfirm(true);
 
     setUpdateQueueList(true);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      handleClickProccessConfirm();
+    }
+  };
+
+  const btnStyle = {
+    width: '100%',
+    padding: '15px 30px',
+
+    display: 'flex',
+    alignItems: 'flex-start',
+
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    borderRadius: '6px',
+    textDecoration: 'none',
+    userSelect: 'none',
+
+    fontSize: '22px',
+    fontFamily: 'sans-serif',
+
+    color: '#fff',
+    backgroundColor: '#2da9e8',
   };
 
   useEffect(() => {
@@ -113,17 +153,19 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
 
   return (
     <>
-      <div className={cls.QueueUserControlWrapper}>
-        <div className={cls.Buttons}>
-          <Button
-            type="button"
-            onClick={handleClickProccessConfirm}
-            className={cls.QueueUserNextBtn}
-          >
-            {t('Keyingisi')}
-          </Button>
-        </div>
-      </div>
+      {proccessedList ? (
+        <Button
+          type="button"
+          sx={btnStyle}
+          onKeyDown={handleKeyDown}
+          className={cls.queueUserNextBtn}
+          onClick={handleClickProccessConfirm}
+        >
+          {t('call_patient')}
+        </Button>
+      ) : (
+        <Loader />
+      )}
 
       {(proccessCansel || proccessConfirm) && hasOpenToast && (
         <Toast
@@ -131,6 +173,7 @@ const QueueUserControl = ({ proccessedStep }: QueueUserControlProps) => {
           message={t("Bemor ko'rilganlar ro'yhatiga qo'shildi")}
         />
       )}
+
       {isOpenQueueUserTimer && <QueueUserControlTimer />}
     </>
   );

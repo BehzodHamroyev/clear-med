@@ -9,6 +9,7 @@ import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import cls from './DoctorEdit.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 /* Parent Function */
 const DoctorEdit = (prop: DoctorEditType) => {
@@ -154,11 +155,11 @@ const DoctorEdit = (prop: DoctorEditType) => {
         }}
         className={cls.DepartmentAddCard}
       >
-        <h3 className={cls.CardTitle}>{t('Tahrirlash')}</h3>
+        <p className={cls.CardTitle}>{t('Tahrirlash')}</p>
 
         <div className={cls.AddDoctorCard}>
           <div className={cls.AddCardImg}>
-            <img
+            <LazyLoadImage
               className={cls.AddCardImgValue}
               src={img ? URL.createObjectURL(img) : getAllFormData.fileUrl}
               alt="#"

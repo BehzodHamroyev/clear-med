@@ -28,4 +28,11 @@ export interface QueuingTvCardProps {
   time?: string;
   proceedCount?: number;
   actives: Actives[];
+  department_id?: string;
+  room_id?: string;
+}
+
+export interface CreateOrder {
+  room_id: string;
+  department_id: string;
 }

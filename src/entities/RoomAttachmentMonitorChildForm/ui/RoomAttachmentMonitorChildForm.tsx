@@ -21,15 +21,9 @@ import { Loader } from '@/widgets/Loader';
 import { baseUrl } from '../../../../baseurl';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllRoomForMonitor } from '../../../pages/AddRoomForMonitorPage/model/service/fetchAllRoomForMonitor';
-
-import {
-  getError,
-  getIsLoading,
-  getListOfRoom,
-  fetchRoomGetAll,
-} from '@/pages/RoomPage';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
+import { fetchAllRoomForMonitor } from '@/pages/admin/AddRoomForMonitorPage/model/service/fetchAllRoomForMonitor';
+import { fetchRoomGetAll, getError, getIsLoading, getListOfRoom } from '@/pages/admin/RoomPage';
 
 interface RoomAttachmentMonitorChildFormProp {
   connectionId: string;
@@ -59,7 +53,6 @@ const RoomAttachmentMonitorChildForm = ({
   const {
     setHasOpenToast,
     setToastDataForAddRoomForm,
-    setIsOpenDepartmentDeleteCard,
     isOpenRoomAttachmentMonitorChildForm,
     setIsOpenRoomAttachmentMonitorChildForm,
   } = React.useContext(ButtonsContext);
@@ -203,7 +196,7 @@ const RoomAttachmentMonitorChildForm = ({
             className={cls.DepartmentAddCard}
             onSubmit={handleSubmitAllFormData}
           >
-            <h3 className={cls.CardTitle}>{t('Xona biriktirish')}</h3>
+            <p className={cls.CardTitle}>{t('Xona biriktirish')}</p>
 
             <Autocomplete
               multiple

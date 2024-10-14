@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { fetchDoctorGetAll } from '@/pages/DoctorsListPage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchDoctorGetAll } from '@/pages/admin/DoctorsListPage/model/service/fetchDoctorGetAll';
 
 const MonitorAddSelection = () => {
   const { t } = useTranslation();

@@ -12,9 +12,8 @@ interface NavbarProp {
 
 export const Navbar = memo((prop: NavbarProp) => {
   return (
-    <div  className={classNames(cls.NabarWrapper)}>
+    <div className={classNames(cls.NabarWrapper)}>
       <NavbarLogo />
-
       <NavbarLogout />
     </div>
   );

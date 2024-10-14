@@ -36,13 +36,14 @@ import { baseUrl } from '../../../../baseurl';
 import { Doctor, GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchAllReceptions } from '../../../pages/AddReceptionPage/model/service/fetchAllReceptions';
 import { Loader } from '@/widgets/Loader';
-import { fetchAllRooms } from '@/pages/AddRoomPage';
+import { fetchAllRooms } from '@/pages/admin/AddRoomPage/model/services/fetchAllRooms';
 import instance from '@/shared/lib/axios/api';
 
 // eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { getAllRoomsData } from '@/pages/AddRoomPage/model/selector/allRoomSelector';
+import { getAllRoomsData } from '@/pages/admin/AddRoomPage/model/selector/allRoomSelector';
+import { fetchAllReceptions } from '@/pages/admin/AddReceptionPage/model/service/fetchAllReceptions';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface Roomtype {
   name: string;
@@ -280,10 +281,10 @@ const AddReceptionFormDialog = () => {
           }}
           className={cls.DepartmentAddCard}
         >
-          <h3 className={cls.CardTitle}>{t('Qabul qo‘shish')}</h3>
+          <p className={cls.CardTitle}>{t('Qabul qo‘shish')}</p>
           <form onSubmit={handleFormSubmit} className={cls.AddDoctorCard}>
             <div className={cls.AddCardImg}>
-              <img
+              <LazyLoadImage
                 className={cls.AddCardImgValue}
                 src={selectedFile ? URL.createObjectURL(selectedFile) : Doctor}
                 alt="#"

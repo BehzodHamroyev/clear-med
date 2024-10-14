@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
@@ -7,6 +6,7 @@ import cls from './QueueDialog.module.scss';
 import { baseUploadUrl } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { dingDong } from '@/shared/assets';
 
 interface QueueDialogProps {
   step: number;
@@ -28,17 +28,14 @@ const QueueDialog = ({
   const audioSpeedRef = React.useRef<ReactAudioPlayer | null>(null);
   const audioSpeedRef2 = React.useRef<ReactAudioPlayer | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasCallRingtone, setHasCallRingtone] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(-1);
 
   const { setOnEndedQueueAudio } = useContext(ButtonsContext);
 
-  // Extract the first character (which can be any letter)
-  const prefix = biletNumber.charAt(0);
+  const prefix = biletNumber?.charAt(0);
 
   // Extract the last number part after the hyphen and remove leading zeros
-  const numberPart = parseInt(biletNumber.split('-')[1], 10);
+  const numberPart = parseInt(biletNumber?.split('-')[1], 10);
 
   // Combine them
   const outputString = `${prefix}-${numberPart}`;
@@ -52,11 +49,9 @@ const QueueDialog = ({
   };
 
   useEffect(() => {
-    setIsLoading(true);
     const audioPlayer = document.getElementsByTagName('audio')[0];
 
     const handleAudioLoaded = () => {
-      setIsLoading(false);
     };
 
     const handleAudioEnd = () => {
@@ -67,8 +62,6 @@ const QueueDialog = ({
 
     audioPlayer.addEventListener('canplaythrough', handleAudioLoaded);
     audioPlayer.addEventListener('ended', handleAudioEnd);
-
-    console.log(`${baseUploadUrl}${Mp3Array[1]}`, 'Mp3Array');
 
     return () => {
       audioPlayer.removeEventListener('canplaythrough', handleAudioLoaded);
@@ -140,7 +133,8 @@ const QueueDialog = ({
 
       <ReactAudioPlayer
         ref={audioSpeedRef}
-        src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
+        // src={`${baseUploadUrl}uploads/callRingtone.mp3`}
+        src={dingDong}
         autoPlay
         controls
         onEnded={() => setOnEndedQueueAudio(false)}

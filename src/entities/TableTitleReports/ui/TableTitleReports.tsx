@@ -1,10 +1,10 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { TableInfo } from '../model/types/TableInfo';
 
 import cls from './TableTitle.module.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const TableTitleReports = (props: TableInfo) => {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ const TableTitleReports = (props: TableInfo) => {
     <table className={cls.TableTitleWrapper}>
       <thead className={cls.Tablethead}>
         <tr className={cls.tr}>
-          {Tablethead.map((title: string) => (
+          {Tablethead?.map((title: string) => (
             <th key={title} className={cls.th}>
               {t(title)}
               {}
@@ -27,7 +27,7 @@ const TableTitleReports = (props: TableInfo) => {
         {Tabletbody.filter(
           (item) =>
             item?.name &&
-            item?.rooms.length > 0 &&
+            item?.rooms?.length > 0 &&
             item?.rooms[0]?.department_id,
         ).map((item) => (
           <Link
@@ -39,7 +39,7 @@ const TableTitleReports = (props: TableInfo) => {
               key={item.id}
               className={`${cls.tr} ${cursor ? cls.clicked : ''}`}
             >
-              {item.rooms.length > 0 && item.rooms[0]?.department_id?.name ? (
+              {item.rooms?.length > 0 && item.rooms[0]?.department_id?.name ? (
                 <td className={cls.td}>
                   {t(item.rooms[0]?.department_id?.name)}
                 </td>
@@ -49,7 +49,7 @@ const TableTitleReports = (props: TableInfo) => {
                 </td>
               )}
 
-              {item.rooms.length > 0 && item.rooms[0]?.name ? (
+              {item.rooms?.length > 0 && item.rooms[0]?.name ? (
                 <td className={cls.td}>{item.rooms[0]?.name}</td>
               ) : (
                 <td className={cls.td}>
@@ -61,7 +61,7 @@ const TableTitleReports = (props: TableInfo) => {
 
               {item.photo.length > 0 ? (
                 <td className={cls.td}>
-                  <img
+                  <LazyLoadImage
                     className={cls.Img}
                     src={`http://192.168.0.130:3009/${item.photo}`}
                     alt="#"

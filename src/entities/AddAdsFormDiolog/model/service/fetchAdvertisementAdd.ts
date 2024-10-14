@@ -1,9 +1,7 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 import { baseUrl } from '../../../../../baseurl';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
+import instance from '@/shared/lib/axios/api';
 
 export const fetchAdvertisementAdd = createAsyncThunk<
   any,
@@ -14,16 +12,8 @@ export const fetchAdvertisementAdd = createAsyncThunk<
 >('AdvertisementAdd', async ({ data }, thunkApi) => {
   const { extra, rejectWithValue } = thunkApi;
 
-  const token = Cookies.get('token');
-
   try {
-    const response = await axios.post<any>(`${baseUrl}/videos/create`, data, {
-      maxBodyLength: Infinity,
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await instance.post<any>(`${baseUrl}/videos/create`, data);
 
     return response.data;
   } catch (e) {

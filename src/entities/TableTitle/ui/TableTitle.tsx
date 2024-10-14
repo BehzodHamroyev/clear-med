@@ -5,6 +5,7 @@ import cls from './TableTitle.module.scss';
 import { TableInfo } from '../model/types/TableInfo';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const TableTitle = (props: TableInfo) => {
   const { Tablethead, Tabletbody, cursor } = props;
@@ -61,7 +62,7 @@ const TableTitle = (props: TableInfo) => {
             >
               {item?.img ? (
                 <td className={cls.td}>
-                  <img className={cls.Img} src={item.img} alt="#" />
+                  <LazyLoadImage className={cls.Img} src={item.img} alt="#" />
                 </td>
               ) : (
                 ''

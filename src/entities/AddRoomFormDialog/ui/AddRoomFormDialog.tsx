@@ -28,26 +28,17 @@ import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
-  fetchAllDepartments,
-  getAllDepartmentsData,
-  getAllDepartmentsError,
-  getAllDepartmentsIsLoading,
-} from '@/pages/AddDepartmentPage';
-
-import {
   getAllFreeDoctorsData,
   getAllFreeDoctorsError,
   getAllFreeDoctorsIsLoading,
 } from '../model/selector/allFreeDoctorsSelector';
-
 import { fetchAllFreeDoctors } from '../model/service/fetchAllFreeDoctors';
-
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
-
 import { baseUrl } from '../../../../baseurl';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { fetchAllRooms } from '@/pages/AddRoomPage/model/services/fetchAllRooms';
+import { getAllDepartmentsData, getAllDepartmentsIsLoading, getAllDepartmentsError } from '@/pages/admin/AddDepartmentPage';
+import { fetchAllRooms } from '@/pages/admin/AddRoomPage/model/services/fetchAllRooms';
+import { fetchAllDepartments } from '@/pages/admin/AddDepartmentPage/model/service/fetchAllDepartments';
 
 interface AddRoomFormDialogProps {
   className?: string;

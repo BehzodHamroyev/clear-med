@@ -1,106 +1,85 @@
 import {
-  CommonRoutes,
   AdminRoutes,
+  CommonRoutes,
   DoctorRoutes,
+  MonitorRoutes,
   ReceptionRoutes,
   getRouteNotFound,
+  getRouteMonitors,
   getRouteForbidden,
   getRouteDepartment,
   getRouteQueuesPage,
-  getRouteAddRoomPage,
+  getRouteAddMonitor,
+  getRouteAddAdsPage,
   getRouteReportsPage,
   getRouteSettingsPage,
   getRouteReportDoctor,
-  getRouteReportsPageId,
-  getRouteReportQueuingTv,
-  getRouteReportControlDoctor,
-  getRouteAddMonitor,
-  MonitorRoutes,
-  getRouteQueuesPageForMonitor,
   getRouteMonitorChild,
-  getRouteAdvertisementAttachmentMonitor,
+  getRouteReportsPageId,
   getRouteAddRoomPageFIX,
-  getRouteMonitors,
   getRouteMonitorsDetail,
   getRouteAddDoctorsPage,
-  getRouteAddAdsPage,
+  getRouteReportQueuingTv,
   getRouteAddReceptionsPage,
   getRouteAddRoomForMonitor,
+  getRouteReportControlDoctor,
+  getRouteQueuesPageForMonitor,
+  getRouteAdvertisementAttachmentMonitor,
 } from '@/shared/const/router';
 
-import { RoomPage } from '@/pages/RoomPage';
-import { QueuingTv } from '@/pages/Reception';
-// import { QueuesPage } from '@/pages/QueuesPage';
 import { ReportsPage } from '@/pages/ReportsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { AppRoutesProps } from '@/shared/types/router';
-import { AddMonitorPage } from '@/pages/AddMonitorPage';
-import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
-import { QueuesControlDoctor } from '@/pages/QueuesControlDoctor';
+import { QueuesControlDoctor } from '@/pages/doctorPage';
 import { TableReportsDoctorPage } from '@/pages/TableReportsDoctorPage';
-import { AttachMonitorOrAdvertisement } from '@/pages/AttachMonitorOrAdvertisement';
 import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachmentMonitor';
 
 // ----- Admin -----
-import { AddRoomPage } from '@/pages/AddRoomPage';
-import { AddDepartmentPage } from '@/pages/AddDepartmentPage';
-import { AddDoctorPage } from '@/pages/AddDoctorPage';
-import { MonitorsPage } from '@/pages/Monitors';
-import { MonitorsDetail } from '@/pages/MonitorsDetail';
-import { AddAdsPage } from '@/pages/AddAdsPage';
-import { AddRoomForMonitorPage } from '@/pages/AddRoomForMonitorPage';
-import { AddReceptionPage } from '@/pages/AddReceptionPage';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-// import QueuesPage from '@/pages/QueuesPage/ui/QueuesPage';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import QueuesPageFullScreen from '@/pages/QueuesPageFullScreen/ui/QueuesPageFullScreen';
 
-export const routeConfigForAdmin: Record<
-  AdminRoutes | CommonRoutes,
-  AppRoutesProps
-> = {
+import { TvPage } from '@/pages/TvPage';
+import { MonitorsPage } from '@/pages/admin/Monitors';
+import { AddAdsPage } from '@/pages/admin/AddAdsPage';
+import { AddRoomPage } from '@/pages/admin/AddRoomPage';
+import Reception from '@/pages/ReceptionPage/ui/Reception';
+import { AddDoctorPage } from '@/pages/admin/AddDoctorPage';
+import { AddMonitorPage } from '@/pages/admin/AddMonitorPage';
+import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
+import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
+import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
+import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
+import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
+import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
+import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
+
+export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
     path: getRouteForbidden(),
     element: <ForbiddenPage />,
   },
-
   [CommonRoutes.NOT_FOUND]: {
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
-
   [AdminRoutes.DEPARTMENT]: {
     path: getRouteDepartment(),
     element: <AddDepartmentPage />,
-  },
-
-  [AdminRoutes.ROOMPAGE]: {
-    path: getRouteAddRoomPage(),
-    element: <RoomPage />,
   },
 
   [AdminRoutes.ADD_ROOM_PAGE]: {
     path: getRouteAddRoomPageFIX(),
     element: <AddRoomPage />,
   },
-
   [AdminRoutes.ADD_RECEPTION]: {
     path: getRouteAddReceptionsPage(),
     element: <AddReceptionPage />,
   },
-
   [AdminRoutes.ALL_DOCTORS]: {
     path: getRouteAddDoctorsPage(),
     element: <AddDoctorPage />,
   },
-
-  // [AdminRoutes.ADD_DOCTOR]: {
-  //   path: getRouteAddDoctor(),
-  //   element: <DoctorsListPage />,
-  // },
-
   [AdminRoutes.ADD_MONITOR]: {
     path: getRouteAddMonitor(),
     element: <AddMonitorPage />,
@@ -116,12 +95,6 @@ export const routeConfigForAdmin: Record<
     element: <AddAdsPage />,
   },
 
-  // [AdminRoutes.ADD_ADS_Page]: {
-  //   path: getRouteAddAds(),
-  //   element: <AddAdsPage />,
-  //   // element: <AddAdvertisementPage />,
-  // },
-
   [AdminRoutes.ADD_ROOM_FOR_MONITOR]: {
     path: getRouteAddRoomForMonitor(),
     element: <AddRoomForMonitorPage />,
@@ -132,12 +105,6 @@ export const routeConfigForAdmin: Record<
     element: <AdvertisementAttachmentMonitor />,
   },
 
-  [CommonRoutes.QUEUES]: {
-    path: getRouteQueuesPage(),
-    element: <QueuesPageFullScreen />,
-  },
-
-  // setting
   [CommonRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
@@ -176,9 +143,18 @@ export const routeConfigForDoctor: Record<
     path: getRouteNotFound(),
     element: <NotFoundPage />,
   },
+
+  // [CommonRoutes.QUEUES]: {
+  //   path: getRouteQueuesPage(),
+  //   element: <QueuesPageFullScreen />,
+  // },
+  // [CommonRoutes.QUEUES]: {
+  //   path: getRouteQueuesPage(),
+  //   element: <TvPage />,
+  // },
   [CommonRoutes.QUEUES]: {
     path: getRouteQueuesPage(),
-    element: <QueuesPageFullScreen />,
+    element: <TvmoreQueuePage />,
   },
 
   // Doctors
@@ -219,16 +195,10 @@ export const routeConfigForReception: Record<
     path: getRouteReportsPageId(),
     element: <ReportsDoctorPage />,
   },
-  // [CommonRoutes.QUEUES]: {
-  //   path: getRouteQueuesPage(),
-  //   element: <QueuesPage />,
-  // },
-  // QueuingTv
   [ReceptionRoutes.QUEUING_TV]: {
     path: getRouteReportQueuingTv(),
-    element: <QueuingTv />,
+    element: <Reception />,
   },
-  // setting
   [CommonRoutes.SETTINGSPAGE]: {
     path: getRouteSettingsPage(),
     element: <SettingsPage />,
@@ -263,10 +233,22 @@ export const routeConfigForMonitor: Record<
     element: <NotFoundPage />,
   },
 
+  // tv old version
+  // [MonitorRoutes.QUEUES]: {
+  //   path: getRouteQueuesPageForMonitor(),
+  //   element: <QueuesPageFullScreen />,
+  // },
+
+  // tv new version for one queue and reklama
+  // [MonitorRoutes.QUEUES]: {
+  //   path: getRouteQueuesPageForMonitor(),
+  //   element: <TvPage />,
+  // },
+
+  // tv new version more queue
   [MonitorRoutes.QUEUES]: {
     path: getRouteQueuesPageForMonitor(),
-    // element: <QueuesPage />,
-    element: <QueuesPageFullScreen />,
+    element: <TvmoreQueuePage />,
   },
 
   // setting

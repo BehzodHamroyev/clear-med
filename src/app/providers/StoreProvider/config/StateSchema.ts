@@ -9,37 +9,38 @@ import {
 
 import { rtkApi } from '@/shared/api/rtkApi';
 import { AuthReduxType } from '@/features/Auth';
-import { RoomListSchema } from '@/pages/RoomPage';
+// import { RoomListSchema } from '@/pages/admin/RoomPage';
 import { DoctorListScheam } from '@/pages/ReportsPage';
-import { DoctorListSchema } from '@/pages/DoctorsListPage';
+import { DoctorListSchema } from '@/pages/admin/DoctorsListPage';
 import { DepartmentScheme } from '@/entities/AddDepartmentFormDialog';
-import { AllQueueProccessSchema } from '@/pages/QueuesPage';
-import { DepartmentListSchema } from '@/pages/DepartmentPage';
-import { AllMonitorListSchema } from '@/pages/AddMonitorPage';
+import { DepartmentListSchema } from '@/pages/admin/DepartmentPage';
+import { AllMonitorListSchema } from '@/pages/admin/AddMonitorPage';
 import { ReportDoctorSchema } from '@/pages/TableReportsDoctorPage';
-import { AdvertisementListSchema } from '@/pages/AddAdvertisementPage';
-import { QueuesControlDoctorSchema } from '@/pages/QueuesControlDoctor';
+import { AdvertisementListSchema } from '@/pages/admin/AddAdvertisementPage';
+import { QueuesControlDoctorSchema } from '@/pages/doctorPage';
 import { ProccessControlPanelDoctorSchema } from '@/entities/ControlPanelDocktor';
 
-import { AllAdsTypeSchema } from '@/pages/AddAdsPage';
-import { AllMonitorsTypeSchema } from '@/pages/Monitors';
-import { AllRoomsTypeSchema } from '@/pages/AddRoomPage';
-import { AllDoctorsTypeSchema } from '@/pages/AddDoctorPage';
-import { AllDepartmentTypeSchema } from '@/pages/AddDepartmentPage';
-import { MonitorRoomListSchema } from '@/pages/AddRoomForMonitorPage';
+import { AllAdsTypeSchema } from '@/pages/admin/AddAdsPage';
+import { AllMonitorsTypeSchema } from '@/pages/admin/Monitors';
+import { AllRoomsTypeSchema } from '@/pages/admin/AddRoomPage';
+import { AllDoctorsTypeSchema } from '@/pages/admin/AddDoctorPage';
+import { AllDepartmentTypeSchema } from '@/pages/admin/AddDepartmentPage';
+import { MonitorRoomListSchema } from '@/pages/admin/AddRoomForMonitorPage';
 import { AllFreeDoctorsTypeSchema } from '@/entities/AddRoomFormDialog';
-import { AllReceptionsTypeSchema } from '@/pages/AddReceptionPage';
+import { AllReceptionsTypeSchema } from '@/pages/admin/AddReceptionPage';
 
 import {
   LastQueueDataSchema,
   CurrentQueueSchemaForReception,
   DepartmentListSchemaForReception,
-} from '@/pages/Reception';
+} from '@/pages/ReceptionPage';
 import {
   AddsVideosDataRedux,
   MonitorAdsInRedux,
 } from '@/entities/AdvertisementAttachmentMonitor';
 import { InfoProjectRedux } from '@/entities/FileUploader';
+import { AllQueueProccessSchema } from '@/pages/TV/model/types/allQueueProccessSchema';
+import { RoomListSchema } from '@/pages/admin/RoomPage/model/types/RoomTypes';
 
 type CombinedState<S> = {
   [K in keyof S]: S[K];
@@ -85,7 +86,6 @@ export interface ReducerManager {
   reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;
   add: (key: StateSchemaKey, reducer: Reducer) => void;
   remove: (key: StateSchemaKey) => void;
-  // true - вмонтирован, false - демонтирован
   getMountedReducers: () => MountedReducers;
 }
 

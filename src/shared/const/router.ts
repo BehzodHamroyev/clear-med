@@ -9,7 +9,6 @@ export enum CommonRoutes {
 // Admin saytlari uchun
 export enum AdminRoutes {
   REPORTS = 'reports',
-  ROOMPAGE = 'room_page',
   ADD_ADS_PAGE = 'add_ads',
   DEPARTMENT = 'department',
   ADD_ROOM_PAGE = 'add-room',
@@ -20,7 +19,9 @@ export enum AdminRoutes {
   REPORTS_PATIENT = 'reports_patient',
   ADD_ROOM_FOR_MONITOR = 'add_room_for_monitor',
   ADVERTISEMENT_ATTACHMENT_MONITOR = 'advertisement_attachment_monitor',
-
+  FORBIDDEN = 'forbidden',
+  NOT_FOUND = 'not_found',
+  SETTINGSPAGE = 'setting_page',
   MONITORS = 'monitors',
   MONITORS_DETAIL = 'monitors_details',
 }
@@ -98,7 +99,7 @@ export const AppRouteByPathPattern: Record<
   [getRouteAddAdsPage()]: AdminRoutes.ADD_ADS_PAGE,
   [getRouteDepartment()]: AdminRoutes.DEPARTMENT,
   [getRouteAddMonitor()]: AdminRoutes.ADD_MONITOR,
-  [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
+  // [getRouteAddDoctorsPage()]: AdminRoutes.ROOMPAGE,
   [getRouteAddReceptionsPage()]: AdminRoutes.ADD_RECEPTION,
   [getRouteMonitorChild()]: AdminRoutes.MONITOR_CHILD,
   [getRouteReportsPage()]: AdminRoutes.REPORTS_PATIENT,

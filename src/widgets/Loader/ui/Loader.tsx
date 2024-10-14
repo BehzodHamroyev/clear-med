@@ -8,18 +8,16 @@ interface LoaderProps {
 
 const Loader = ({ className }: LoaderProps) => {
   useEffect(() => {
-    // body tegiga overflow: hidden stilini qo'shish
     document.body.style.overflow = 'hidden';
 
-    // useEffect ichidagi funksiya olib tashlanishida body tegiga qo'shilgan stilni olib tashlash
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, []);
 
   return (
-    <div className={classNames(cls.Loader, {}, [className])}>
-      <div className={cls.Loader__box} />
+    <div className={classNames(cls.LoaderWrp, {}, [className])}>
+      <div className={cls.LoaderWrp__box} />
     </div>
   );
 };
