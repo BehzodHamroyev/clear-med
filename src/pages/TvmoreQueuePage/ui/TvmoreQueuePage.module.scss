@@ -1,11 +1,11 @@
 .TvmoreQueuePageWrp {
   width: 100%;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #fff;
 
   &__top {
     width: 100%;
-    padding: 15px 100px;
+    padding: 10px 30px;
     margin: 0 auto;
 
     display: flex;
@@ -57,6 +57,18 @@
       gap: 0;
     }
 
+    &--box {
+      display: flex;
+      align-items: start;
+      justify-content: space-around;
+
+      gap: 0;
+
+      .TvmoreQueuePageWrp__body--table:nth-child(even) {
+        background-color: #ececec;
+      }
+    }
+
     &--section {
       width: 100%;
 
@@ -64,7 +76,7 @@
       text-align: center;
 
       font-size: 38px;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 45px;
       font-family: 'InterBold', sans-serif;
 
@@ -77,17 +89,16 @@
     }
 
     &--thead {
-      width: 96%;
-      font-family: 'InterRegular', sans-serif;
-      font-weight: 300;
-      font-size: 76px;
-      line-height: 91px;
+      font-size: 28px;
+      line-height: 33px;
+      font-family: 'InterBold', sans-serif;
+
       color: #828282;
 
       tr {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        width: 90%;
+        display: flex;
+        margin: 20px auto;
 
         align-items: center;
         justify-content: space-between;
@@ -97,43 +108,35 @@
     &--thead1 {
       width: 100%;
       text-align: start;
-      margin-left: 100px;
+      font-weight: 400 !important;
     }
     &--thead2 {
       width: 100%;
-      text-align: center;
+      text-align: end;
+      font-weight: 400 !important;
     }
 
     &--tbody {
       width: 100%;
+      max-height: calc(100vh - 250px);
 
       display: flex;
       flex-direction: column;
+      gap: 20px;
 
-      gap: 50px;
-      padding: 0 10px;
-
-      margin-top: 100px;
-      max-height: calc(100vh - 700px);
       overflow-y: scroll;
     }
 
     &--tr {
       width: 100%;
-      padding: 60px 80px;
+      padding: 10px 20px;
 
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
       align-items: center;
-      border-bottom: 4px solid #82828238;
-    }
+      justify-content: space-around;
+      grid-template-columns: 1fr 1fr 1fr;
 
-    &--trStart,
-    &--trCenter {
-      font-size: 154px;
-      font-weight: 300;
-      line-height: 186px;
-      font-family: 'InterRegular', sans-serif;
+      border-bottom: 2px solid #d8d8d8;
     }
 
     &--trStart {
@@ -143,15 +146,33 @@
       align-items: center;
       justify-content: space-between;
 
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 50px;
+      font-family: 'InterBold', sans-serif;
+    }
+
+    &--trCenter {
+      width: 100%;
+      margin: 0 auto;
+
       svg {
-        font-size: 120px;
+        display: block;
+        margin: 0 auto;
+        font-size: 45px;
+
         color: #c9c9c9;
       }
     }
 
-    &--trCenter {
+    &--trEnd {
       color: #ee7a4d;
-      text-align: center;
+      text-align: end;
+
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 50px;
+      font-family: 'InterBold', sans-serif;
     }
   }
 }

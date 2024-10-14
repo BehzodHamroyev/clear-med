@@ -20,6 +20,66 @@ const TvmoreQueuePage: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const arr = [
+    {
+      id: 1,
+      RoomName: 'Пастки ётоқ',
+      queues: [
+        'A01',
+        'A02',
+        'A03',
+        'A04',
+        'A05',
+        'A06',
+        'A07',
+        'A08',
+        'A09',
+        'A10',
+        'A11',
+        'A12',
+      ],
+      roomNumber: '01',
+    },
+    {
+      id: 2,
+      RoomName: 'Юқори ётоқ',
+      queues: [
+        'B01',
+        'B02',
+        'B03',
+        'B04',
+        'B05',
+        'B06',
+        'B07',
+        'B08',
+        'B09',
+        'B10',
+        'B11',
+      ],
+      roomNumber: '02',
+    },
+    {
+      id: 3,
+      RoomName: 'Шифокор қабули',
+      queues: [
+        'D01',
+        'D02',
+        'D03',
+        'D04',
+        'D05',
+        'D06',
+        'D07',
+        'D08',
+        'D09',
+        'D10',
+        'D11',
+        'D12',
+        'D13',
+      ],
+      roomNumber: '03',
+    },
+  ];
+
   return (
     <div className={cls.TvmoreQueuePageWrp}>
       <div className={cls.TvmoreQueuePageWrp__top}>
@@ -43,50 +103,50 @@ const TvmoreQueuePage: React.FC = () => {
 
       <div className={cls.TvmoreQueuePageWrp__body}>
         <div className={cls['TvmoreQueuePageWrp__body--sections']}>
-          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
-            Пастки ётоқ
-          </h2>
-          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
-            Юқори ётоқ
-          </h2>
-          <h2 className={cls['TvmoreQueuePageWrp__body--section']}>
-            Шифокор қабули
-          </h2>
+          {arr.map((item) => (
+            <h2
+              key={item.id}
+              className={cls['TvmoreQueuePageWrp__body--section']}
+            >
+              {item.RoomName}
+            </h2>
+          ))}
         </div>
 
-        <table className={cls['TvmoreQueuePageWrp__body--table']}>
-          <thead className={cls['TvmoreQueuePageWrp__body--thead']}>
-            <tr>
-              <th className={cls['TvmoreQueuePageWrp__body--thead1']}>Талон</th>
-              <th className={cls['TvmoreQueuePageWrp__body--thead2']}>
-                Окно №
-              </th>
-            </tr>
-          </thead>
+        <div className={cls['TvmoreQueuePageWrp__body--box']}>
+          {arr.map((item) => (
+            <table className={cls['TvmoreQueuePageWrp__body--table']}>
+              <thead className={cls['TvmoreQueuePageWrp__body--thead']}>
+                <tr>
+                  <th className={cls['TvmoreQueuePageWrp__body--thead1']}>
+                    Талон
+                  </th>
+                  <th className={cls['TvmoreQueuePageWrp__body--thead2']}>
+                    Окно №
+                  </th>
+                </tr>
+              </thead>
 
-          <tbody className={cls['TvmoreQueuePageWrp__body--tbody']}>
-            <tr className={cls['TvmoreQueuePageWrp__body--tr']}>
-              <td className={cls['TvmoreQueuePageWrp__body--trStart']}>
-                A091 <GoArrowRight />
-              </td>
-              <td className={cls['TvmoreQueuePageWrp__body--trCenter']}>01</td>
-            </tr>
+              <tbody className={cls['TvmoreQueuePageWrp__body--tbody']}>
+                {item.queues.map((itemSecond) => (
+                  <tr className={cls['TvmoreQueuePageWrp__body--tr']}>
+                    <td className={cls['TvmoreQueuePageWrp__body--trStart']}>
+                      {itemSecond}
+                    </td>
 
-            <tr className={cls['TvmoreQueuePageWrp__body--tr']}>
-              <td className={cls['TvmoreQueuePageWrp__body--trStart']}>
-                Т045 <GoArrowRight />
-              </td>
-              <td className={cls['TvmoreQueuePageWrp__body--trCenter']}>03</td>
-            </tr>
+                    <td className={cls['TvmoreQueuePageWrp__body--trCenter']}>
+                      <GoArrowRight />
+                    </td>
 
-            <tr className={cls['TvmoreQueuePageWrp__body--tr']}>
-              <td className={cls['TvmoreQueuePageWrp__body--trStart']}>
-                Т056 <GoArrowRight />
-              </td>
-              <td className={cls['TvmoreQueuePageWrp__body--trCenter']}>011</td>
-            </tr>
-          </tbody>
-        </table>
+                    <td className={cls['TvmoreQueuePageWrp__body--trEnd']}>
+                      {item.roomNumber}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ))}
+        </div>
       </div>
     </div>
   );
