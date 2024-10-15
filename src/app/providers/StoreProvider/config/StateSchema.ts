@@ -40,6 +40,7 @@ import {
 } from '@/entities/AdvertisementAttachmentMonitor';
 import { InfoProjectRedux } from '@/entities/FileUploader';
 import { RoomListSchema } from '@/pages/admin/RoomPage/model/types/RoomTypes';
+import { TvDataSchema } from '@/pages/TvmoreQueuePage/model/types/fetchTypeSchema';
 import { AllQueueProccessSchema } from '@/pages/TvPage/model/types/allQueueProccessSchema';
 
 type CombinedState<S> = {
@@ -48,6 +49,7 @@ type CombinedState<S> = {
 
 export interface StateSchema {
   authUser: AuthReduxType;
+  TvData: TvDataSchema;
   allAds: AllAdsTypeSchema;
   RoomGetAll: RoomListSchema;
   allRooms: AllRoomsTypeSchema;

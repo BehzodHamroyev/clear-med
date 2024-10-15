@@ -39,6 +39,7 @@ import { GetAllRoomAtachmentMonitorReducer } from '@/pages/admin/AddRoomForMonit
 import { allRoomsReducer } from '@/pages/admin/AddRoomPage';
 import { DepartmentListSliceReducer } from '@/pages/admin/DepartmentPage';
 import { DoctorListSliceReducer } from '@/pages/admin/DoctorsListPage';
+import { tvDataReducer } from '@/pages/TvmoreQueuePage/model/slice/TvDataSlice';
 import { allQueueProccessReducer } from '@/pages/TvPage/model/slice/allQueueProccessSlice';
 
 type CombinedState<S> = {
@@ -54,6 +55,7 @@ export function createReduxStore(
     // login: AuthSliceReducer,
     queuesControlDoctor: queuesControlDoctorReducer,
     allAds: allAdsReducer,
+    TvData: tvDataReducer,
     allRooms: allRoomsReducer,
     lastQueue: lastQueueReducer,
     doctorList: doctorListReducer,

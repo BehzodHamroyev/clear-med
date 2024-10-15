@@ -31,7 +31,7 @@
       font-size: 40px;
       font-weight: 700;
       line-height: 48px;
-      font-family: 'InterRegular', sans-serif;
+      font-family: 'InterBold', sans-serif;
 
       color: #ee7a4d;
     }
@@ -40,7 +40,7 @@
       font-size: 42px;
       font-weight: 600;
       line-height: 50px;
-      font-family: 'InterRegular', sans-serif;
+      font-family: 'InterBold', sans-serif;
 
       color: #000;
     }
@@ -71,16 +71,15 @@
 
     &--section {
       width: 100%;
-
       padding: 20px;
-      text-align: center;
 
       font-size: 38px;
       font-weight: 500;
       line-height: 45px;
+      text-align: center;
       font-family: 'InterBold', sans-serif;
 
-      color: #000;
+      color: #014361;
       border: 2px solid #e8e8e8;
     }
 
@@ -93,13 +92,14 @@
       line-height: 33px;
       font-family: 'InterBold', sans-serif;
 
-      color: #828282;
+      // color: #828282;
+      color: #014361;
 
       tr {
         width: 90%;
-        display: flex;
         margin: 20px auto;
 
+        display: flex;
         align-items: center;
         justify-content: space-between;
       }
@@ -107,11 +107,14 @@
 
     &--thead1 {
       width: 100%;
+
       text-align: start;
       font-weight: 400 !important;
     }
+
     &--thead2 {
       width: 100%;
+
       text-align: end;
       font-weight: 400 !important;
     }
@@ -140,8 +143,6 @@
     }
 
     &--trStart {
-      color: #000;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -150,6 +151,8 @@
       font-weight: 600;
       line-height: 50px;
       font-family: 'InterBold', sans-serif;
+
+      color: #014361;
     }
 
     &--trCenter {
@@ -159,6 +162,7 @@
       svg {
         display: block;
         margin: 0 auto;
+
         font-size: 45px;
 
         color: #c9c9c9;
@@ -166,13 +170,13 @@
     }
 
     &--trEnd {
-      color: #ee7a4d;
-      text-align: end;
-
       font-size: 42px;
+      text-align: end;
       font-weight: 600;
       line-height: 50px;
       font-family: 'InterBold', sans-serif;
+
+      color: #ee7a4d;
     }
   }
 }
