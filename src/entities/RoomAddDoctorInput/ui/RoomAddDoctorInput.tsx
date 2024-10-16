@@ -58,12 +58,12 @@ const RoomAddDoctorInput = () => {
           >
             {getListOfDoctors
               ? getListOfDoctors?.map((e, index) => {
-                  return (
-                    <MenuItem key={index + 1} value={`${e._id}`}>
-                      {e?.name}
-                    </MenuItem>
-                  );
-                })
+                return (
+                  <MenuItem key={`${e._id}`} value={`${e._id}`}>
+                    {e?.name}
+                  </MenuItem>
+                );
+              })
               : ''}
           </Select>
         </FormControl>

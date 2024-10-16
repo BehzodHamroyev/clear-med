@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Dialog } from '@mui/material';
 import cls from './EditAdsFormDiolog.module.scss';
 
-import { baseUrl } from '../../../baseurl';
+import { baseUploadUrl, baseUrl } from '../../../baseurl';
 import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -264,7 +264,7 @@ const EditAdsFormDiolog = ({ editAdsId }: EditAdsFormDiologProps) => {
                   src={
                     selectedFile
                       ? URL.createObjectURL(selectedFile)
-                      : `http://192.168.0.130:3009/${adsCurrentData?.data.photo}`
+                      : `${baseUploadUrl}${adsCurrentData?.data.photo}`
                   }
                   alt="#"
                 />

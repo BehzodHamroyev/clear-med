@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
@@ -28,6 +27,7 @@ import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
 import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { baseUploadUrl } from '../../../../../baseurl';
 
 const AddAdsPage = () => {
   const { t } = useTranslation();
@@ -104,8 +104,8 @@ const AddAdsPage = () => {
 
               <th className={cls['AddAdsPageWrp__Table--th']}>{t('Sana')}</th>
 
-              <th className={cls['AddAdsPageWrp__Table--edit']}>{}</th>
-              <th className={cls['AddAdsPageWrp__Table--delete']}>{}</th>
+              <th className={cls['AddAdsPageWrp__Table--edit']}>{ }</th>
+              <th className={cls['AddAdsPageWrp__Table--delete']}>{ }</th>
             </tr>
           </thead>
 
@@ -121,7 +121,7 @@ const AddAdsPage = () => {
                     <td className={cls['AddAdsPageWrp__Table--td']}>
                       {item.photo && (
                         <LazyLoadImage
-                          src={item.photo || DoctorDefault}
+                          src={`${baseUploadUrl}${item.photo}` || `${baseUploadUrl}uploads/default.png`}
                           className={cls['AddAdsPageWrp__Table--img']}
                           alt=" "
                         />
@@ -153,7 +153,7 @@ const AddAdsPage = () => {
                       className={cls['AddAdsPageWrp__Table--lastChild']}
                       onClick={() => handleClickEditAds(item?.id)}
                     >
-                      {}
+                      { }
                       <PenTools className={cls['AddAdsPageWrp__Table--edit']} />
                     </td>
 
@@ -161,7 +161,7 @@ const AddAdsPage = () => {
                       className={cls['AddAdsPageWrp__Table--lastChild2']}
                       onClick={() => handleClickDeleteAds(item?.id)}
                     >
-                      {}
+                      { }
                       <DeleteTools
                         className={cls['AddAdsPageWrp__Table--delete']}
                       />

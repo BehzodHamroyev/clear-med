@@ -8,7 +8,6 @@ import { DoctorEdit } from '@/entities/DoctorEdit';
 import { TableTitle } from '@/entities/TableTitle';
 import { ButtonNavbar } from '@/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { DoctorListSliceReducer } from '../model/slice/getDoctorSlice';
 import { fetchDoctorGetAll } from '../model/service/fetchDoctorGetAll';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
@@ -22,6 +21,7 @@ import cls from './AddDoctorPage.module.scss';
 import { ToastHalper } from '@/shared/ui/ToastHalper';
 import { AddDoctorFormDialog } from '@/entities/AddDoctorFormDialog';
 import { Loader } from '@/widgets/Loader';
+import { baseUploadUrl } from '../../../../../baseurl';
 
 /* halper array */
 const tableTitle = [
@@ -92,9 +92,9 @@ const DoctorListPage = () => {
           item4: item?.exprience !== undefined ? item?.exprience : '',
           lastChild: `+998 ${item?.login}`,
           img:
-            item.photo !== '/uploads/default.png'
-              ? `http://192.168.0.130:3009/${item.photo}`
-              : `http://192.168.0.130:3009/uploads/default.png`,
+            item.photo !== `${baseUploadUrl}uploads/default.png`
+              ? `${baseUploadUrl}${item.photo}`
+              : `${baseUploadUrl}uploads/default.png`,
         };
       });
       setTableBody(() => [...tableBodys]);

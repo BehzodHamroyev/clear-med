@@ -39,13 +39,12 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 // ----- Admin -----
 
 import { TvPage } from '@/pages/TvPage';
-import { MonitorsPage } from '@/pages/admin/Monitors';
 import { AddAdsPage } from '@/pages/admin/AddAdsPage';
 import { AddRoomPage } from '@/pages/admin/AddRoomPage';
 import Reception from '@/pages/ReceptionPage/ui/Reception';
 import { AddDoctorPage } from '@/pages/admin/AddDoctorPage';
 import { AddMonitorPage } from '@/pages/admin/AddMonitorPage';
-import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
+// import { MonitorsDetail } from '@/pages/admin/MonitorsDetail';
 import { AddReceptionPage } from '@/pages/admin/AddReceptionPage';
 import { AddDepartmentPage } from '@/pages/admin/AddDepartmentPage';
 import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
@@ -120,15 +119,15 @@ export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
     element: <ReportsPage />,
   },
 
-  [AdminRoutes.MONITORS]: {
-    path: getRouteMonitors(),
-    element: <MonitorsPage />,
-  },
+  // [AdminRoutes.MONITORS]: {
+  //   path: getRouteMonitors(),
+  //   element: <MonitorsPage />,
+  // },
 
-  [AdminRoutes.MONITORS_DETAIL]: {
-    path: getRouteMonitorsDetail(),
-    element: <MonitorsDetail />,
-  },
+  // [AdminRoutes.MONITORS_DETAIL]: {
+  //   path: getRouteMonitorsDetail(),
+  //   element: <MonitorsDetail />,
+  // },
 };
 
 export const routeConfigForDoctor: Record<
@@ -209,15 +208,15 @@ export const routeConfigForReception: Record<
     element: <NotFoundPage />,
   },
 
-  [AdminRoutes.MONITORS]: {
-    path: getRouteMonitors(),
-    element: <MonitorsPage />,
-  },
+  // [AdminRoutes.MONITORS]: {
+  //   path: getRouteMonitors(),
+  //   element: <MonitorsPage />,
+  // },
 
-  [AdminRoutes.MONITORS_DETAIL]: {
-    path: getRouteMonitorsDetail(),
-    element: <MonitorsDetail />,
-  },
+  // [AdminRoutes.MONITORS_DETAIL]: {
+  //   path: getRouteMonitorsDetail(),
+  //   element: <MonitorsDetail />,
+  // },
 };
 
 export const routeConfigForMonitor: Record<

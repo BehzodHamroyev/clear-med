@@ -65,6 +65,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
   const handeClickEditRoom = (id: string) => {
     setEditRoomId('');
 
+    console.log(id, 'sdsdsdsdsd');
+
     if (id) {
       setEditRoomId(id);
     }
@@ -106,8 +108,8 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                 <th>{t('Xona raqami')}</th>
                 <th>{t("Biriktirilgan bo'lim")}</th>
                 <th>{t('Biriktirilgan shifokorlar')}</th>
-                <th>{}</th>
-                <th>{}</th>
+                <th>{ }</th>
+                <th>{ }</th>
               </tr>
             </thead>
             <tbody>
@@ -140,16 +142,16 @@ const AddRoomPage = ({ className }: AddRoomPageProps) => {
                   </td>
                   <td
                     className={classNames(cls.tablePenRow)}
-                    onClick={() => handeClickEditRoom(item?.id)}
+                    onClick={() => handeClickEditRoom(item._id)}
                   >
-                    {}
+                    { }
                     <FaPen className={classNames(cls.tablePen)} />
                   </td>
                   <td
                     className={classNames(cls.tableDeleteRow)}
-                    onClick={() => handleClickDeleteRoom(item?.id)}
+                    onClick={() => handleClickDeleteRoom(item?._id)}
                   >
-                    {}
+                    { }
                     <MdDelete className={classNames(cls.tableDelete)} />
                   </td>
                 </tr>

@@ -5,6 +5,7 @@ import { TableInfo } from '../model/types/TableInfo';
 
 import cls from './TableTitle.module.scss';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { baseUploadUrl } from '../../../../baseurl';
 
 const TableTitleReports = (props: TableInfo) => {
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ const TableTitleReports = (props: TableInfo) => {
                 <td className={cls.td}>
                   <LazyLoadImage
                     className={cls.Img}
-                    src={`http://192.168.0.130:3009/${item.photo}`}
+                    src={`${baseUploadUrl}${item.photo}`}
                     alt="#"
                   />
                 </td>
