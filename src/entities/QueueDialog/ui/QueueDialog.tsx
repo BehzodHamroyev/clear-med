@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
 
 import cls from './QueueDialog.module.scss';
-import { baseUploadUrl } from '../../../../baseurl';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { dingDong } from '@/shared/assets';
@@ -51,8 +50,7 @@ const QueueDialog = ({
   useEffect(() => {
     const audioPlayer = document.getElementsByTagName('audio')[0];
 
-    const handleAudioLoaded = () => {
-    };
+    const handleAudioLoaded = () => {};
 
     const handleAudioEnd = () => {
       if (currentTrackIndex < Mp3Array.length - 1) {
@@ -133,7 +131,7 @@ const QueueDialog = ({
 
       <ReactAudioPlayer
         ref={audioSpeedRef}
-        // src={`${baseUploadUrl}uploads/callRingtone.mp3`}
+        // src={`${baseUploadUrl}/uploads/callRingtone.mp3`}
         src={dingDong}
         autoPlay
         controls
@@ -142,7 +140,7 @@ const QueueDialog = ({
       />
 
       {/* <ReactAudioPlayer
-        src={`${baseUploadUrl}${Mp3Array[currentTrackIndex]}`}
+        src={`${baseUploadUrl}/${Mp3Array[currentTrackIndex]}`}
         autoPlay={hasCallRingtone}
         controls
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}

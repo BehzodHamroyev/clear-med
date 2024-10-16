@@ -22,7 +22,7 @@ export enum AdminRoutes {
   FORBIDDEN = 'forbidden',
   NOT_FOUND = 'not_found',
   SETTINGSPAGE = 'setting_page',
-  MONITORS = 'monitors',
+  // MONITORS = 'monitors',
   MONITORS_DETAIL = 'monitors_details',
 }
 
@@ -37,7 +37,7 @@ export enum ReceptionRoutes {
   REPORTS = 'reports',
   QUEUING_TV = 'queuing_tv',
   REPORTS_PATIENT = 'reports_patient',
-  MONITORS = 'monitors',
+  // MONITORS = 'monitors',
   MONITORS_DETAIL = 'monitors_details',
 }
 
@@ -79,7 +79,7 @@ export const getRouteAddRoomForMonitor = () =>
 export const getRouteAdvertisementAttachmentMonitor = () =>
   '/add_monitor/:id/advertisement_attachment_monitor';
 
-export const getRouteMonitors = () => '/monitors';
+// export const getRouteMonitors = () => '/monitors';
 export const getRouteMonitorsDetail = () => '/monitors/:id';
 
 // ----- Reception -----
@@ -118,6 +118,6 @@ export const AppRouteByPathPattern: Record<
 
   [getRouteQueuesPageForMonitor()]: MonitorRoutes.FORBIDDEN,
 
-  [getRouteMonitors()]: AdminRoutes.MONITORS,
+  // [getRouteMonitors()]: AdminRoutes.MONITORS,
   [getRouteMonitorsDetail()]: AdminRoutes.MONITORS_DETAIL,
 };

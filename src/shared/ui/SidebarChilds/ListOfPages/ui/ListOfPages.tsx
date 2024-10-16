@@ -52,12 +52,12 @@ const listOfPageAdmin: ListOfPageTypes[] = [
     title: 'Hisobotlar',
     icon: <Xisobotlar />,
   },
-  {
-    id: 6,
-    path: '/monitors',
-    title: 'Monitorlar',
-    icon: <Navbatlar />,
-  },
+  // {
+  //   id: 6,
+  //   path: '/monitors',
+  //   title: 'Monitorlar',
+  //   icon: <Navbatlar />,
+  // },
   {
     id: 7,
     path: '/add_ads',
@@ -91,12 +91,12 @@ const listOfPageQabulXona: ListOfPageTypes[] = [
   //   title: 'Navbatlar', icon: <Navbatlar />
   // },
 
-  {
-    id: 3,
-    path: '/monitors',
-    title: 'Monitorlar',
-    icon: <Navbatlar />,
-  },
+  // {
+  //   id: 3,
+  //   path: '/monitors',
+  //   title: 'Monitorlar',
+  //   icon: <Navbatlar />,
+  // },
 ];
 
 const listOfPageDoktor: ListOfPageTypes[] = [
@@ -159,14 +159,14 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '149px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '192px';
-      } else if (divRef.current && location.pathname === '/monitors') {
-        divRef.current.style.top = '235px';
       } else if (divRef.current && location.pathname === '/add_ads') {
-        divRef.current.style.top = '280px';
+        divRef.current.style.top = '235px';
       } else if (divRef.current && location.pathname === '/add_monitor') {
-        divRef.current.style.top = '321px';
+        divRef.current.style.top = '280px';
       } else if (divRef.current && location.pathname === '/settings') {
-        divRef.current.style.top = '428px';
+        divRef.current.style.top = '321px';
+        // } else if (divRef.current && location.pathname === '/monitors') {
+        //   divRef.current.style.top = '428px';
       }
     } else if (profileValue === 'doctor') {
       if (divRef.current && location.pathname === '/') {
@@ -181,10 +181,10 @@ export const ListOfPages = memo(() => {
         divRef.current.style.top = '20px';
       } else if (divRef.current && location.pathname === '/reports') {
         divRef.current.style.top = '63px';
-      } else if (divRef.current && location.pathname === '/monitors') {
-        divRef.current.style.top = '106px';
       } else if (divRef.current && location.pathname === '/settings') {
-        divRef.current.style.top = '216px';
+        divRef.current.style.top = '106px';
+        // } else if (divRef.current && location.pathname === '/monitors') {
+        //   divRef.current.style.top = '216px';
       }
     } else if (profileValue === 'monitor') {
       if (divRef.current && location.pathname === '/') {

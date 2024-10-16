@@ -1,47 +1,41 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useContext, useEffect, useState } from 'react';
-
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import { Loader } from '@/widgets/Loader';
 import cls from './AddAdsPage.module.scss';
-
 import Toast from '@/shared/ui/Toast/Toast';
 import { fetchAllAds } from '../model/services/fetchAllAds';
+import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 import { AddAdsFormDiolog } from '@/entities/AddAdsFormDiolog';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { CarbonAdd } from '@/shared/assets/entities/ButtonNavbar';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 import { DeleteTools, PenTools } from '@/shared/assets/entities/TableTitle';
+import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
 
 import {
   getAllAdsData,
   getAllAdsError,
   getAllAdsIsLoading,
 } from '../model/selector/allAdsSelector';
-
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { Loader } from '@/widgets/Loader';
-import EditAdsFormDiolog from '@/entities/EditAdsFormDiolog/EditAdsFormDiolog';
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import DeleteAdsFormDialog from '@/entities/DeleteAdsFormDialog/DeleteAdsFormDialog';
-import { DoctorDefault } from '@/shared/assets/Pages/Doctor';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { baseUploadUrl } from '../../../../../baseurl';
 
 const AddAdsPage = () => {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
 
   const {
     hasOpenToast,
     toastDataForAddRoomForm,
     isOpenAdvertisementAddCard,
-    setIsOpenAdvertisementAddCard,
     isOpenAdvertisementEditCard,
-    setIsOpenAdvertisementEditCard,
     isOpenAdvertisementDeleteCard,
+    setIsOpenAdvertisementAddCard,
+    setIsOpenAdvertisementEditCard,
     setIsOpenAdvertisementDeleteCard,
   } = useContext(ButtonsContext);
 
@@ -51,10 +45,6 @@ const AddAdsPage = () => {
 
   const [editAdsId, setEditAdsId] = useState<string>();
   const [deleteAdsId, setDeleteAdsId] = useState<string>();
-
-  useEffect(() => {
-    dispatch(fetchAllAds({}));
-  }, [dispatch]);
 
   const handleCardAddCard = () => {
     setIsOpenAdvertisementAddCard(true);
@@ -72,12 +62,16 @@ const AddAdsPage = () => {
     setDeleteAdsId(id);
   };
 
+  useEffect(() => {
+    dispatch(fetchAllAds({}));
+  }, [dispatch]);
+
   return (
     <>
       <div className={cls.AddAdsPageWrp}>
         <div className={cls.AddAdsPageWrp__Title}>
           <p className={cls['AddAdsPageWrp__Title--text']}>
-            {t('Reklamalar')}{' '}
+            {t('Reklamalar')}
             <span className={cls['AddAdsPageWrp__Title--span']}>
               ({allAdsData?.length || 0})
             </span>{' '}
@@ -113,6 +107,7 @@ const AddAdsPage = () => {
             <tbody className={cls['AddAdsPageWrp__Table--Tabletbody']}>
               {allAdsData.map((item: any) => {
                 const DayCut = item.createdAt.slice(0, 10);
+
                 return (
                   <tr
                     key={item?.id}
@@ -121,9 +116,12 @@ const AddAdsPage = () => {
                     <td className={cls['AddAdsPageWrp__Table--td']}>
                       {item.photo && (
                         <LazyLoadImage
-                          src={item.photo || DoctorDefault}
+                          effect="blur"
+                          src={
+                            `${baseUploadUrl}/${item.photo}` || DoctorDefault
+                          }
                           className={cls['AddAdsPageWrp__Table--img']}
-                          alt=" "
+                          alt=""
                         />
                       )}
                     </td>

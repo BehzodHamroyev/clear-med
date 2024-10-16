@@ -53,7 +53,7 @@ const AttachMonitorOrAdvertisement = () => {
 
   useEffect(() => {
     if (id && getAllMonitorData) {
-      getAllMonitorData.filter((monitorData:any) => {
+      getAllMonitorData.filter((monitorData: any) => {
         if (monitorData.id === id) {
           setAdvertisement(monitorData.monitors[0]?.addvertising);
         }
@@ -85,7 +85,6 @@ const AttachMonitorOrAdvertisement = () => {
             </p>
             <p />
           </div>
-
           {/* Body */}
           <div className={cls.AttachMonitorOrAdvertisementWrapper__Body}>
             <Link

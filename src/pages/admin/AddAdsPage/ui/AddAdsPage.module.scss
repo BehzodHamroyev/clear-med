@@ -1,14 +1,12 @@
-/* stylelint-disable no-descending-specificity */
 .AddAdsPageWrp {
-  width: 100%;
-  max-width: 1300px;
+  width: 99%;
+  margin: 0 auto;
 
   &__Title {
-    max-width: 1300px;
     width: 100%;
     max-height: 60px;
     font-family: sans-serif;
-    border-radius: 5.273px;
+    border-radius: 5px;
     background: var(--bg-table);
     border: 1px solid var(--border-table);
     display: flex;
@@ -71,8 +69,12 @@
     overflow-x: scroll;
     width: 100%;
 
-    &--Tablethead,
     &--Tabletbody {
+      width: 100%;
+      text-align: center;
+    }
+
+    &--Tablethead {
       width: 100%;
       text-align: center;
     }
@@ -82,7 +84,10 @@
       flex-direction: column;
     }
 
-    &--edit,
+    &--edit {
+      width: 120px;
+    }
+
     &--delete {
       width: 120px;
     }
@@ -127,7 +132,11 @@
       }
     }
 
-    &--th,
+    &--th {
+      min-width: 180px;
+      width: 100%;
+    }
+
     &--td {
       min-width: 180px;
       width: 100%;

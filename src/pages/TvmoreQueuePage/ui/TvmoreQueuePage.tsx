@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import { GoArrowRight } from 'react-icons/go';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import { Loader } from '@/widgets/Loader';
 import cls from './TvmoreQueuePage.module.scss';
+import { getAuthUserData } from '@/features/Auth';
 import { fetchTv } from '../model/service/fetchTv';
+import { useSocket } from '@/shared/hook/useSocket';
+import { QueueDialog } from '@/entities/QueueDialog';
 import { TvLogoTemprory } from '@/shared/assets/Pages/tv';
 import { updateClock } from '../helperFunctions/updateClock';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+import { updateView } from '@/pages/TvPage/model/services/updateView';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 import {
@@ -16,28 +20,22 @@ import {
   getTvDataError,
   getTvDataIsLoading,
 } from '../model/selector/tvDataSelector';
-import { getAuthUserData } from '@/features/Auth';
-import { useSocket } from '@/shared/hook/useSocket';
-import { QueueDialog } from '@/entities/QueueDialog';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { updateView } from '@/pages/TvPage/model/services/updateView';
 
 const TvmoreQueuePage: React.FC = () => {
   const socket = useSocket();
   const dispatch = useAppDispatch();
 
-  const authUserData = useSelector(getAuthUserData);
-
   const tvData = useSelector(getTvData);
   const tvDataError = useSelector(getTvDataError);
+  const authUserData = useSelector(getAuthUserData);
   const tvDataLoader = useSelector(getTvDataIsLoading);
+
+  const [listOfQueue, setListOfQueue] = useState<any>([]);
+  const [currentTime, setCurrentTime] = useState<string>('');
+  const [queueDialogData, setQueueDialogData] = useState<any>();
 
   const { onEndedQueueAudio, setOnEndedQueueAudio } =
     useContext(ButtonsContext);
-
-  const [currentTime, setCurrentTime] = useState<string>('');
-  const [listOfQueue, setListOfQueue] = useState<any>([]);
-  const [queueDialogData, setQueueDialogData] = useState<any>();
 
   useEffect(() => {
     const updateTime = () => {
@@ -48,10 +46,6 @@ const TvmoreQueuePage: React.FC = () => {
     const intervalId = setInterval(updateTime, 10000);
 
     return () => clearInterval(intervalId);
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchTv({}));
   }, []);
 
   useEffect(() => {
@@ -91,6 +85,10 @@ const TvmoreQueuePage: React.FC = () => {
       listOfQueue.pop();
     }
   }, [listOfQueue, onEndedQueueAudio, socket]);
+
+  useEffect(() => {
+    dispatch(fetchTv({}));
+  }, []);
 
   return (
     <>

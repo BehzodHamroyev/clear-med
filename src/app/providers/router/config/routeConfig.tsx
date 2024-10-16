@@ -5,7 +5,7 @@ import {
   MonitorRoutes,
   ReceptionRoutes,
   getRouteNotFound,
-  getRouteMonitors,
+  // getRouteMonitors,
   getRouteForbidden,
   getRouteDepartment,
   getRouteQueuesPage,
@@ -39,7 +39,7 @@ import { AdvertisementAttachmentMonitor } from '@/entities/AdvertisementAttachme
 // ----- Admin -----
 
 import { TvPage } from '@/pages/TvPage';
-import { MonitorsPage } from '@/pages/admin/Monitors';
+// import { MonitorsPage } from '@/pages/admin/Monitors';
 import { AddAdsPage } from '@/pages/admin/AddAdsPage';
 import { AddRoomPage } from '@/pages/admin/AddRoomPage';
 import Reception from '@/pages/ReceptionPage/ui/Reception';
@@ -52,7 +52,7 @@ import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
 import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
-import { ReportsDoctorPage } from '@/pages/reportsDoctorPage';
+import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
@@ -120,10 +120,10 @@ export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
     element: <ReportsPage />,
   },
 
-  [AdminRoutes.MONITORS]: {
-    path: getRouteMonitors(),
-    element: <MonitorsPage />,
-  },
+  // [AdminRoutes.MONITORS]: {
+  //   path: getRouteMonitors(),
+  //   element: <MonitorsPage />,
+  // },
 
   [AdminRoutes.MONITORS_DETAIL]: {
     path: getRouteMonitorsDetail(),
@@ -209,10 +209,10 @@ export const routeConfigForReception: Record<
     element: <NotFoundPage />,
   },
 
-  [AdminRoutes.MONITORS]: {
-    path: getRouteMonitors(),
-    element: <MonitorsPage />,
-  },
+  // [AdminRoutes.MONITORS]: {
+  //   path: getRouteMonitors(),
+  //   element: <MonitorsPage />,
+  // },
 
   [AdminRoutes.MONITORS_DETAIL]: {
     path: getRouteMonitorsDetail(),

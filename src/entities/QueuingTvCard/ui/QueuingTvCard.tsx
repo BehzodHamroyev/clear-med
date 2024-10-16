@@ -169,7 +169,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
           {/* {icon && icon?.length > 0 && ( */}
           <LazyLoadImage
             alt="icon"
-            src={`${baseUploadUrl}${actives[0]?.user?.photo.slice(1) || icon}`}
+            src={`${baseUploadUrl}/${actives[0]?.user?.photo.slice(1) || icon}`}
           />
         </div>
       </div>
