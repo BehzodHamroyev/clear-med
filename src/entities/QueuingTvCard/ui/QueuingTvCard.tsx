@@ -20,7 +20,6 @@ import {
   QueuingTvCardProps,
 } from '../model/types/QueuingTvCardProps';
 import { printingLoad } from '@/shared/assets';
-import { log } from 'console';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const QueuingTvCard = (prop: QueuingTvCardProps) => {
@@ -34,6 +33,7 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
     department_id,
     CardLeftRoomNumber,
     CardLeftDoctorName,
+    bottomText
   } = prop;
 
   const socket = useSocket();
@@ -153,12 +153,15 @@ export const QueuingTvCard = (prop: QueuingTvCardProps) => {
     >
       <div className={cls.CardLeft}>
         <p className={cls.CardLeftTitle}>{CardLeftTitle}</p>
-
+        {/* 
         <p className={cls.CardLeftRoomNumber}>
           {CardLeftRoomNumber}-{t('Xona raqami')}
-        </p>
+        </p> */}
 
+        {/* <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p> */}
         <p className={cls.CardLeftDoctorName}>{CardLeftDoctorName}</p>
+     
+     
       </div>
 
       <div className={cls.QueuingTvCardWrapper__cardRightParent}>

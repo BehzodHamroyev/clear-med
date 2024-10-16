@@ -31,7 +31,6 @@ import { allFreeDoctorsReducer } from '@/entities/AddRoomFormDialog';
 import { allAdsReducer } from '@/pages/admin/AddAdsPage';
 import { allDoctorsSliceReducer } from '@/pages/admin/AddDoctorPage';
 import { allReceptionsReducer } from '@/pages/admin/AddReceptionPage';
-import { allMonitorsReducer } from '@/pages/admin/Monitors';
 import { AdvertisementListSliceReducer } from '@/pages/admin/AddAdvertisementPage';
 import { allDepartmentsSliceReducer } from '@/pages/admin/AddDepartmentPage';
 import { GetAllMonitorPageReducer } from '@/pages/admin/AddMonitorPage';
@@ -60,7 +59,6 @@ export function createReduxStore(
     lastQueue: lastQueueReducer,
     doctorList: doctorListReducer,
     authUser: AuthUserSliceReducer,
-    allMonitors: allMonitorsReducer,
     RoomGetAll: RoomListSliceReducer,
     AllDoctors: allDoctorsSliceReducer,
     allReceptions: allReceptionsReducer,

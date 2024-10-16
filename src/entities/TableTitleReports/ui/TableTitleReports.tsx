@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { TableInfo } from '../model/types/TableInfo';
 
 import cls from './TableTitle.module.scss';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { baseUrlUpload } from '../../../../baseurl';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const TableTitleReports = (props: TableInfo) => {
   const { t } = useTranslation();

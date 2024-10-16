@@ -28,7 +28,6 @@ const TableTitle = (props: TableInfo) => {
 
   const handleCardAddCard = (id: string) => {
     setDepartmentGetId(id);
-    /* agar ushbu setIsOpenDepartmentAddCard admin page dan boshqa location.pathname === '/' ishlab ketsa ushbu qatorni o'zgartiriladi Murojat uchun: Ja'far */
 
     if (location.pathname === '/') {
       setIsOpenDepartmentEditCard(true);

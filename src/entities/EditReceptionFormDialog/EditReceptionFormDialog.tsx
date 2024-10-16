@@ -43,7 +43,7 @@ import { GetImage } from '@/shared/assets/Pages/Doctor';
 import { Loader } from '@/widgets/Loader';
 import ErrorDialog from '@/shared/ui/ErrorDialog/ErrorDialog';
 
-import { baseUrl } from '../../../baseurl';
+import { baseUploadUrl, baseUrl } from '../../../baseurl';
 
 import {
   ApiResponseDoctorDataType,
@@ -388,7 +388,7 @@ const EditReceptionFormDialog = ({
                   src={
                     selectedFile
                       ? URL.createObjectURL(selectedFile)
-                      : `http://192.168.0.130:3009/${receptionCurrentData.data.photo}`
+                      : `${baseUploadUrl}${receptionCurrentData.data.photo}`
                   }
                   alt="doctor"
                 />

@@ -157,5 +157,7 @@
   "doctor": "Doctor",
   "time": "Time",
   "Boshlash": "Start",
-  "call_patient": "Call patient"
+  "call_patient": "Call patient",
+  "department_room_1": "Lower buildings (1-,2-,3-,4-,5-,6-,7-,8-,9-, 10-,11-, 13-buildings)",
+  "department_room_2": "12/12a buildings (12,12-a buildings)"
 }

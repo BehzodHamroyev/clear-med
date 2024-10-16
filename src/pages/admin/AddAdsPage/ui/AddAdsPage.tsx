@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -22,6 +23,7 @@ import {
   getAllAdsError,
   getAllAdsIsLoading,
 } from '../model/selector/allAdsSelector';
+
 import { baseUploadUrl } from '../../../../../baseurl';
 
 const AddAdsPage = () => {
@@ -118,7 +120,8 @@ const AddAdsPage = () => {
                         <LazyLoadImage
                           effect="blur"
                           src={
-                            `${baseUploadUrl}/${item.photo}` || DoctorDefault
+                            `${baseUploadUrl}${item.photo}` ||
+                            `${baseUploadUrl}uploads/default.png`
                           }
                           className={cls['AddAdsPageWrp__Table--img']}
                           alt=""

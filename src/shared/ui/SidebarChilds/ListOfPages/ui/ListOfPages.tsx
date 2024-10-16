@@ -2,8 +2,8 @@ import React, { memo, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import { Tooltip } from '@mui/material';
+
 import {
   Xona,
   Settings,
@@ -12,14 +12,14 @@ import {
   Navbatlar,
   Xisobotlar,
 } from '@/shared/assets/widgets/Sidebar';
+import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
+import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
 
 import { ListOfPageTypes } from '../model/types/listOfPages';
 
 import cls from './ListOfPages.module.scss';
 
-// eslint-disable-next-line ulbi-tv-plugin/public-api-imports
-import { getAuthUserData } from '@/features/Auth/model/selector/authUserSelector';
-import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
+
 
 const listOfPageAdmin: ListOfPageTypes[] = [
   {
@@ -132,7 +132,6 @@ export const ListOfPages = memo(() => {
 
   const authUserData = useSelector(getAuthUserData);
 
-  const [LinkIndex, setLinkIndex] = useState<number>(1);
 
   const [listToUse, setListToUse] = useState<ListOfPageTypes[]>([]);
 
@@ -144,7 +143,6 @@ export const ListOfPages = memo(() => {
     if (authUserData) {
       setProfileValue(authUserData?.role);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUserData]);
 
   useEffect(() => {
@@ -222,7 +220,7 @@ export const ListOfPages = memo(() => {
           className={`${classNamesOne} `}
           key={item.title}
           to={item.path}
-          onClick={() => setLinkIndex(index + 1)}
+        // onClick={() => setLinkIndex(index + 1)}
         >
           {item.icon}
           {isOpenSidebar ? t(item.title) : ''}
@@ -233,9 +231,6 @@ export const ListOfPages = memo(() => {
 
   return (
     <div className={cls.listOfPageWrapper}>
-      {/* don't remove this commit */}
-      {/* <div className={cls.selectionMenu} ref={divRef} /> */}
-
       <div className={cls.listOfPage}>
         <div className={cls.wrapper}>{itemListOfPage}</div>
 
@@ -246,7 +241,7 @@ export const ListOfPages = memo(() => {
         <Link
           className={location.pathname === '/settings' ? cls.liActive : cls.li}
           to="/settings"
-          onClick={() => setLinkIndex(10)}
+        // onClick={() => setLinkIndex(10)}
         >
           <Settings />
           {isOpenSidebar ? t('Sozlamalar') : ''}

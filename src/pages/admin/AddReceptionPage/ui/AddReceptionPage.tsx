@@ -26,6 +26,7 @@ import { Loader } from '@/widgets/Loader';
 import { AddReceptionFormDialog } from '@/entities/AddReceptionFormDialog';
 import EditReceptionFormDialog from '@/entities/EditReceptionFormDialog/EditReceptionFormDialog';
 import DeleteReceptionFormDialog from '@/entities/DeleteReceptionFormDialog/DeleteReceptionFormDialog';
+import { baseUploadUrl } from '../../../../../baseurl';
 
 const AddReceptionPage = () => {
   const { t } = useTranslation();
@@ -119,7 +120,7 @@ const AddReceptionPage = () => {
         {allReceptionsData && allReceptionsData.length > 0 && (
           <tbody className={cls['AddDoctorPageWrp__Table--Tabletbody']}>
             {allReceptionsData.map((item: any) => {
-              const ImgSvg = `http://192.168.0.130:3009/${item.photo}`;
+              const ImgSvg = `${baseUploadUrl}${item.photo}`;
 
               return (
                 <tr
