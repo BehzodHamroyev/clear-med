@@ -23,7 +23,7 @@ export enum AdminRoutes {
   NOT_FOUND = 'not_found',
   SETTINGSPAGE = 'setting_page',
   // MONITORS = 'monitors',
-  MONITORS_DETAIL = 'monitors_details',
+  // MONITORS_DETAIL = 'monitors_details',
 }
 
 // Doctor saytlari uchun
@@ -38,7 +38,7 @@ export enum ReceptionRoutes {
   QUEUING_TV = 'queuing_tv',
   REPORTS_PATIENT = 'reports_patient',
   // MONITORS = 'monitors',
-  MONITORS_DETAIL = 'monitors_details',
+  // MONITORS_DETAIL = 'monitors_details',
 }
 
 export enum MonitorRoutes {
@@ -119,5 +119,5 @@ export const AppRouteByPathPattern: Record<
   [getRouteQueuesPageForMonitor()]: MonitorRoutes.FORBIDDEN,
 
   // [getRouteMonitors()]: AdminRoutes.MONITORS,
-  [getRouteMonitorsDetail()]: AdminRoutes.MONITORS_DETAIL,
+  // [getRouteMonitorsDetail()]: AdminRoutes.MONITORS_DETAIL,
 };
