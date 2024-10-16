@@ -24,6 +24,7 @@ interface Room {
 }
 
 export interface DataUser {
+  logo?: string;
   id: string;
   login: number | string;
   name: string;
@@ -46,6 +47,9 @@ export interface DataUser {
 }
 
 export interface AuthLogin {
+  about: {
+    logo: string;
+  };
   success: boolean;
   user: DataUser;
   token: string;
