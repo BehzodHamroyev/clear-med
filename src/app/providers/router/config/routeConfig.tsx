@@ -52,7 +52,6 @@ import QueuesPageFullScreen from '@/pages/TV/ui/QueuesPageFullScreen';
 import { AddRoomForMonitorPage } from '@/pages/admin/AddRoomForMonitorPage';
 import { AttachMonitorOrAdvertisement } from '@/pages/admin/AttachMonitorOrAdvertisement';
 import { TvmoreQueuePage } from '@/pages/TvmoreQueuePage';
-import { ReportsDoctorPage } from '@/pages/ReportsDoctorPage';
 
 export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
   [CommonRoutes.FORBIDDEN]: {
@@ -112,7 +111,6 @@ export const routeConfigForAdmin: Record<AdminRoutes, AppRoutesProps> = {
 
   [AdminRoutes.REPORTS_PATIENT]: {
     path: getRouteReportsPageId(),
-    element: <ReportsDoctorPage />,
   },
 
   [ReceptionRoutes.REPORTS]: {
@@ -193,7 +191,6 @@ export const routeConfigForReception: Record<
   },
   [AdminRoutes.REPORTS_PATIENT]: {
     path: getRouteReportsPageId(),
-    element: <ReportsDoctorPage />,
   },
   [ReceptionRoutes.QUEUING_TV]: {
     path: getRouteReportQueuingTv(),

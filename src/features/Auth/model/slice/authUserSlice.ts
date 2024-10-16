@@ -26,7 +26,7 @@ export const AuthUserSlice = createSlice({
 
           state.data = {
             ...action.payload?.user,
-            logo: action.payload.about.logo,
+            logo: action.payload.about?.logo,
           };
         },
       )
