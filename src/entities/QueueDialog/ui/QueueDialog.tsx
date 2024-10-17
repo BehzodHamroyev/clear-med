@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { GoArrowRight } from 'react-icons/go';
 import { useTranslation } from 'react-i18next';
 import ReactAudioPlayer from 'react-audio-player';
 
+import { dingDong } from '@/shared/assets';
 import cls from './QueueDialog.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { ButtonsContext } from '@/shared/lib/context/ButtonsContext';
-import { dingDong } from '@/shared/assets';
+import { Loader } from '@/widgets/Loader';
 
 interface QueueDialogProps {
   step: number;
@@ -88,46 +90,42 @@ const QueueDialog = ({
   }, []);
 
   return (
-    <div>
-      <div className={classNames(cls.QueueDialog, {}, [className])}>
-        <div
-          className={classNames(
-            cls.QueueDialogContainer,
-            {
-              [cls.backColorStep1]: step === 1,
-              [cls.backColorStep2]: step === 2,
-              [cls.backColorStep3]: step === 3,
-            },
-            [],
-          )}
-        >
-          <div className={classNames(cls.QueueDialogContainer__head, {}, [])}>
-            <div className={classNames(cls.QueueDialogContainer__headLeft)}>
-              <p>{t('Xona raqami')}</p>
+    <>
+      {biletNumber && roomNumber ? (
+        <div className={cls.QueueDialog}>
+          <div
+            className={classNames(
+              cls.QueueDialog__container,
+              {
+                [cls.backColorStep1]: step === 1,
+                [cls.backColorStep2]: step === 2,
+                [cls.backColorStep3]: step === 3,
+              },
+              [],
+            )}
+          >
+            <div className={cls['QueueDialog__container--head']}>
+              <div className={cls['QueueDialog__container--headRight']}>
+                <p>{t('Bilet raqami')}</p>
+              </div>
+
+              <div className={cls['QueueDialog__container--headLeft']}>
+                <p>{t('Xona raqami')}</p>
+              </div>
             </div>
 
-            <div className={classNames(cls.QueueDialogContainer__headRight)}>
-              <p>{t('Bilet raqami')}</p>
-            </div>
-          </div>
+            <div className={cls['QueueDialog__container--queueDialogBox']}>
+              <p>{biletNumber && outputString}</p>
 
-          <div className={classNames(cls.QueueDialogBox)}>
-            <div className={classNames(cls.QueueDialogBox__roomNumber)}>
+              <GoArrowRight />
+
               <p>{roomNumber}</p>
-            </div>
-
-            <div className={classNames(cls.QueueDialogBox__lineRow)}>
-              <div
-                className={classNames(cls.QueueDialogBox__lineRowClipPath)}
-              />
-            </div>
-
-            <div className={classNames(cls.QueueDialogBox__biletNumber)}>
-              <p>{outputString}</p>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Loader />
+      )}
 
       <ReactAudioPlayer
         ref={audioSpeedRef}
@@ -146,7 +144,7 @@ const QueueDialog = ({
         onEnded={() => handleTrackChange(currentTrackIndex + 1)}
         style={{ opacity: '0' }}
       /> */}
-    </div>
+    </>
   );
 };
 

@@ -103,7 +103,7 @@ const TvmoreQueuePage: React.FC = () => {
             />
 
             <p className={cls['TvmoreQueuePageWrp__top--leftTitle']}>
-              Med Navbat
+              Мед Навбат
             </p>
           </div>
 
@@ -171,7 +171,7 @@ const TvmoreQueuePage: React.FC = () => {
                       }}
                       severity="info"
                     >
-                      Navbatlar yo'q
+                      Навбатлар йўқ
                     </Alert>
                   )}
                 </tbody>
@@ -180,7 +180,6 @@ const TvmoreQueuePage: React.FC = () => {
           </div>
         </div>
       </div>
-
       {/* {tvDataLoader && <Loader />} */}
 
       {onEndedQueueAudio && (

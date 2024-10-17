@@ -1,97 +1,84 @@
-/* stylelint-disable declaration-colon-space-after */
-/* stylelint-disable no-missing-end-of-source-newline */
-/* stylelint-disable block-opening-brace-space-before */
-/* stylelint-disable at-rule-no-vendor-prefix */
 .QueueDialog {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: #00000080;
-  z-index: 5000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  .QueueDialogContainer {
-    display: flex;
-    flex-direction: column;
+  z-index: 5000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #00000080;
+
+  &__container {
     width: 800px;
     height: 300px;
 
-    // -webkit-animation-name: zoomIn;
+    display: flex;
+    flex-direction: column;
+
     animation-name: zoom-in;
-
-    // -webkit-animation-duration: 0.7s;
     animation-duration: 0.7s;
-
-    // -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 
-    &__head {
+    border-radius: 8px;
+
+    &--head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #bbb;
     }
 
-    &__headLeft {
-      border-right: 1px solid #bbb;
-    }
-
-    &__headLeft,
-    &__headRight {
+    &--headLeft {
       width: 50%;
+      padding: 20px 0;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 0;
 
-      p {
-        color: white;
-        font-size: 40px;
-        font-family: sans-serif;
-      }
+      color: white;
+      font-size: 40px;
+      font-family: sans-serif;
     }
 
-    .QueueDialogBox {
-      height: 100%;
-      display: grid;
-      grid-template-columns: 5fr 1fr 5fr;
+    &--headRight {
+      width: 50%;
+      padding: 20px 0;
+
+      display: flex;
       align-items: center;
       justify-content: center;
 
-      div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+      color: white;
+      font-size: 40px;
+      font-family: sans-serif;
+    }
+
+    &--queueDialogBox {
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
 
       p {
+        width: 40%;
+        text-align: center;
+        margin: 0 auto;
+        color: white;
         font-size: 60px;
         font-weight: 700;
-        color: white;
         font-family: sans-serif;
       }
 
-      &__lineRow {
-        div {
-          width: 97px;
-          height: 97px;
-          background-color: white;
-          opacity: 0.8;
-          /* stylelint-disable-next-line declaration-colon-newline-after */
-          clip-path: polygon(
-            0 30%,
-            50% 30%,
-            50% 1%,
-            100% 50%,
-            50% 100%,
-            50% 70%,
-            0 70%
-          );
-        }
+      svg {
+        color: #fff;
+        font-size: 56px;
+        font-weight: 700;
       }
     }
   }
